@@ -1,6 +1,7 @@
 <script lang="ts">
     import Header from "./components/header.svelte";
     import SummaryTab from "./components/summary-tab.svelte";
+    import SkillsTab from "./components/skills-tab.svelte";
     import TabGroup from "../../sheet/components/tab-group.svelte";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
@@ -21,7 +22,7 @@
         {#if activeTab === "summary"}
             <SummaryTab {ctx} />
         {:else if activeTab === "skills"}
-            <div class="placeholder-tab">Skills tab — coming in Milestone 4</div>
+            <SkillsTab {ctx} />
         {:else if activeTab === "combat"}
             <div class="placeholder-tab">Combat tab — coming in Milestone 5</div>
         {:else if activeTab === "equipment"}
