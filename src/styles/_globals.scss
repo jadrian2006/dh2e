@@ -2,10 +2,12 @@
 .dh2e.sheet {
     background: var(--dh2e-bg-dark);
     color: var(--dh2e-text-primary);
-    font-family: var(--dh2e-font-body);
-    font-size: var(--dh2e-text-md);
 
+    // Apply fonts only to window-content, not the window-header
+    // which needs Font Awesome for control icons
     .window-content {
+        font-family: var(--dh2e-font-body);
+        font-size: var(--dh2e-text-md);
         padding: 0;
         overflow: hidden;
     }
