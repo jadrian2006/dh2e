@@ -1,5 +1,6 @@
 {
     "Actor": {
+        "types": ["acolyte", "npc"],
         "acolyte": {
             "characteristics": {
                 "ws":  { "base": 25, "advances": 0 },
@@ -72,6 +73,7 @@
         }
     },
     "Item": {
+        "types": ["weapon", "armour", "gear", "skill", "talent", "condition"],
         "weapon": {
             "description": "",
             "class": "melee",
