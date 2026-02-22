@@ -1,0 +1,28 @@
+<div class="dh2e chat-card check-card">
+    <header class="card-header {{#if success}}success{{else}}failure{{/if}}">
+        <h3>{{title}}</h3>
+        <span class="result-badge">
+            {{#if success}}
+                {{localize "DH2E.Check.Success"}} — {{format "DH2E.Check.DegreesOfSuccess" count=degrees}}
+            {{else}}
+                {{localize "DH2E.Check.Failure"}} — {{format "DH2E.Check.DegreesOfFailure" count=degrees}}
+            {{/if}}
+        </span>
+    </header>
+    <div class="card-body">
+        <p class="roll-summary">{{format "DH2E.Check.Roll" roll=roll target=target}}</p>
+        {{#if modifiers.length}}
+        <details class="modifier-breakdown">
+            <summary>Modifiers</summary>
+            <ul>
+                {{#each modifiers}}
+                <li>
+                    <span class="mod-label">{{this.label}}</span>
+                    <span class="mod-value">{{signedInteger this.value}}</span>
+                </li>
+                {{/each}}
+            </ul>
+        </details>
+        {{/if}}
+    </div>
+</div>

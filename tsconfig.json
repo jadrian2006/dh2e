@@ -1,0 +1,53 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "lib": ["ES2023", "DOM", "DOM.Iterable"],
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "declaration": false,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "allowImportingTsExtensions": true,
+        "paths": {
+            "@actor": ["./src/actor/index.ts"],
+            "@actor/*": ["./src/actor/*"],
+            "@item": ["./src/item/index.ts"],
+            "@item/*": ["./src/item/*"],
+            "@rules": ["./src/rules/index.ts"],
+            "@rules/*": ["./src/rules/*"],
+            "@check": ["./src/check/index.ts"],
+            "@check/*": ["./src/check/*"],
+            "@combat": ["./src/combat/index.ts"],
+            "@combat/*": ["./src/combat/*"],
+            "@chat": ["./src/chat/index.ts"],
+            "@chat/*": ["./src/chat/*"],
+            "@scripts": ["./src/scripts/index.ts"],
+            "@scripts/*": ["./src/scripts/*"],
+            "@sheet": ["./src/sheet/index.ts"],
+            "@sheet/*": ["./src/sheet/*"],
+            "@ui": ["./src/ui/index.ts"],
+            "@ui/*": ["./src/ui/*"],
+            "@util": ["./src/util/index.ts"],
+            "@util/*": ["./src/util/*"]
+        }
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.svelte",
+        "types/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

@@ -1,0 +1,28 @@
+// Acolyte sheet layout
+.dh2e.sheet.acolyte {
+    .sheet-header {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-md);
+
+        .profile-img {
+            width: 64px;
+            height: 64px;
+            border: 2px solid var(--dh2e-gold);
+            border-radius: var(--dh2e-radius-md);
+            object-fit: cover;
+            cursor: pointer;
+            transition: border-color var(--dh2e-transition-fast);
+
+            &:hover {
+                border-color: var(--dh2e-gold-bright);
+            }
+        }
+
+        .actor-name {
+            font-family: var(--dh2e-font-header);
+            font-size: var(--dh2e-text-xxl);
+            color: var(--dh2e-gold);
+        }
+    }
+}

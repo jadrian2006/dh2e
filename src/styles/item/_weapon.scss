@@ -1,0 +1,28 @@
+// Item sheet styles
+.dh2e.sheet.item {
+    .sheet-header {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-md);
+
+        .item-img {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--dh2e-gold-muted);
+            border-radius: var(--dh2e-radius-sm);
+            object-fit: cover;
+        }
+
+        .item-name {
+            font-family: var(--dh2e-font-header);
+            font-size: var(--dh2e-text-xl);
+            color: var(--dh2e-gold);
+        }
+
+        .item-type {
+            font-size: var(--dh2e-text-sm);
+            color: var(--dh2e-text-secondary);
+            text-transform: capitalize;
+        }
+    }
+}

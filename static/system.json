@@ -1,0 +1,65 @@
+{
+    "id": "dh2e",
+    "title": "Dark Heresy 2nd Edition",
+    "description": "Foundry VTT system for Warhammer 40k Dark Heresy 2nd Edition",
+    "version": "0.1.0",
+    "compatibility": {
+        "minimum": "13.348",
+        "verified": "13.351",
+        "maximum": "13"
+    },
+    "authors": [
+        {
+            "name": "jadrian2006",
+            "url": "https://github.com/jadrian2006"
+        }
+    ],
+    "url": "https://github.com/jadrian2006/dh2e",
+    "manifest": "https://github.com/jadrian2006/dh2e/releases/latest/download/system.json",
+    "download": "https://github.com/jadrian2006/dh2e/releases/latest/download/dh2e.zip",
+    "esmodules": ["vendor.mjs", "dh2e.mjs"],
+    "styles": ["styles/dh2e.css"],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
+    ],
+    "socket": true,
+    "grid": {
+        "distance": 1,
+        "units": "m"
+    },
+    "primaryTokenAttribute": "wounds",
+    "documentTypes": {
+        "Actor": {
+            "acolyte": {
+                "htmlFields": ["details.notes"]
+            },
+            "npc": {
+                "htmlFields": ["details.notes"]
+            }
+        },
+        "Item": {
+            "weapon": {
+                "htmlFields": ["description"]
+            },
+            "armour": {
+                "htmlFields": ["description"]
+            },
+            "gear": {
+                "htmlFields": ["description"]
+            },
+            "skill": {
+                "htmlFields": ["description"]
+            },
+            "talent": {
+                "htmlFields": ["description"]
+            },
+            "condition": {
+                "htmlFields": ["description"]
+            }
+        }
+    }
+}

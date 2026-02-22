@@ -1,0 +1,128 @@
+{
+    "Actor": {
+        "acolyte": {
+            "characteristics": {
+                "ws":  { "base": 25, "advances": 0 },
+                "bs":  { "base": 25, "advances": 0 },
+                "s":   { "base": 25, "advances": 0 },
+                "t":   { "base": 25, "advances": 0 },
+                "ag":  { "base": 25, "advances": 0 },
+                "int": { "base": 25, "advances": 0 },
+                "per": { "base": 25, "advances": 0 },
+                "wp":  { "base": 25, "advances": 0 },
+                "fel": { "base": 25, "advances": 0 }
+            },
+            "wounds": { "value": 10, "max": 10 },
+            "fate":   { "value": 2,  "max": 2 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 25,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "",
+                "divination": "",
+                "notes": ""
+            }
+        },
+        "npc": {
+            "characteristics": {
+                "ws":  { "base": 25, "advances": 0 },
+                "bs":  { "base": 25, "advances": 0 },
+                "s":   { "base": 25, "advances": 0 },
+                "t":   { "base": 25, "advances": 0 },
+                "ag":  { "base": 25, "advances": 0 },
+                "int": { "base": 25, "advances": 0 },
+                "per": { "base": 25, "advances": 0 },
+                "wp":  { "base": 25, "advances": 0 },
+                "fel": { "base": 25, "advances": 0 }
+            },
+            "wounds": { "value": 10, "max": 10 },
+            "fate":   { "value": 0,  "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "",
+                "divination": "",
+                "notes": ""
+            }
+        }
+    },
+    "Item": {
+        "weapon": {
+            "description": "",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 0,
+            "qualities": [],
+            "equipped": false
+        },
+        "armour": {
+            "description": "",
+            "locations": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 0,
+            "equipped": false
+        },
+        "gear": {
+            "description": "",
+            "weight": 0,
+            "quantity": 1
+        },
+        "skill": {
+            "description": "",
+            "linkedCharacteristic": "ws",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": ""
+        },
+        "talent": {
+            "description": "",
+            "tier": 1,
+            "aptitudes": [],
+            "prerequisites": ""
+        },
+        "condition": {
+            "description": "",
+            "slug": "",
+            "duration": "",
+            "stackable": false
+        }
+    }
+}

@@ -1,0 +1,38 @@
+// Scoped CSS reset for DH2E sheets
+.dh2e {
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        font-family: var(--dh2e-font-header);
+        font-weight: 600;
+        line-height: 1.2;
+    }
+
+    p {
+        margin: 0 0 0.5em;
+    }
+
+    ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    button {
+        cursor: pointer;
+        font-family: inherit;
+    }
+
+    input, select, textarea {
+        font-family: inherit;
+        font-size: inherit;
+    }
+}

@@ -1,0 +1,20 @@
+<div class="dh2e chat-card attack-card">
+    <header class="card-header {{#if success}}success{{else}}failure{{/if}}">
+        <h3>{{weaponName}}</h3>
+        <span class="fire-mode">{{fireMode}}</span>
+    </header>
+    <div class="card-body">
+        <p class="roll-summary">{{format "DH2E.Check.Roll" roll=roll target=target}}</p>
+        {{#if success}}
+        <p class="hit-count">{{format "DH2E.Attack.Hits" count=hitCount}}</p>
+        <ul class="hit-locations">
+            {{#each hits}}
+            <li>{{localize "DH2E.Attack.Location"}}: {{this.location}}</li>
+            {{/each}}
+        </ul>
+        <button class="btn roll-damage" data-action="roll-damage">
+            {{localize "DH2E.Attack.RollDamage"}}
+        </button>
+        {{/if}}
+    </div>
+</div>

@@ -1,0 +1,11 @@
+// DH2E Fonts — Gothic serif headers, clean sans body
+// Using system fonts + Google Fonts loaded via @import
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+    --dh2e-font-header: "Cinzel", "Palatino Linotype", "Book Antiqua", serif;
+    --dh2e-font-body: "EB Garamond", "Georgia", serif;
+    --dh2e-font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --dh2e-font-mono: "Fira Code", "Cascadia Code", "Consolas", monospace;
+}

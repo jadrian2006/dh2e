@@ -1,0 +1,35 @@
+// DH2E Design Tokens — spacing, borders, transitions, z-index
+:root {
+    // Spacing scale
+    --dh2e-space-xxs: 2px;
+    --dh2e-space-xs: 4px;
+    --dh2e-space-sm: 8px;
+    --dh2e-space-md: 12px;
+    --dh2e-space-lg: 16px;
+    --dh2e-space-xl: 24px;
+    --dh2e-space-xxl: 32px;
+
+    // Border radius
+    --dh2e-radius-sm: 2px;
+    --dh2e-radius-md: 4px;
+    --dh2e-radius-lg: 8px;
+
+    // Transitions
+    --dh2e-transition-fast: 120ms ease-out;
+    --dh2e-transition-normal: 200ms ease-out;
+    --dh2e-transition-slow: 350ms ease-out;
+
+    // Shadows
+    --dh2e-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --dh2e-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --dh2e-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --dh2e-shadow-inset: inset 0 1px 4px rgba(0, 0, 0, 0.3);
+
+    // Font sizes
+    --dh2e-text-xs: 0.7rem;
+    --dh2e-text-sm: 0.8rem;
+    --dh2e-text-md: 0.95rem;
+    --dh2e-text-lg: 1.15rem;
+    --dh2e-text-xl: 1.4rem;
+    --dh2e-text-xxl: 1.8rem;
+}

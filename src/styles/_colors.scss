@@ -1,0 +1,42 @@
+// DH2E Color Palette — Imperial Gothic Grimdark (lightened for readability)
+:root {
+    // Background tiers
+    --dh2e-bg-darkest: #1a1a1f;       // Window chrome
+    --dh2e-bg-dark: #24242b;           // Sheet background
+    --dh2e-bg-mid: #2e2e37;            // Content panels
+    --dh2e-bg-light: #3a3a45;          // Hover/active states
+
+    // Parchment panels (for content areas)
+    --dh2e-parchment: #e8dcc8;
+    --dh2e-parchment-dark: #d4c5a9;
+    --dh2e-parchment-light: #f0e8d8;
+
+    // Text colors
+    --dh2e-text-primary: #e8e0d4;      // Main text on dark bg
+    --dh2e-text-secondary: #a8a098;    // Muted text on dark bg
+    --dh2e-text-dark: #2a2420;         // Text on parchment
+    --dh2e-text-dark-secondary: #5a5248; // Muted text on parchment
+
+    // Accent: Imperial Gold
+    --dh2e-gold: #c8a84e;
+    --dh2e-gold-bright: #e0c060;
+    --dh2e-gold-dark: #8a6e30;
+    --dh2e-gold-muted: #7a6a3e;
+
+    // Accent: Imperial Red (alerts, damage)
+    --dh2e-red: #a83030;
+    --dh2e-red-bright: #cc4444;
+    --dh2e-red-dark: #6e1a1a;
+    --dh2e-red-muted: #7a3030;
+
+    // Functional
+    --dh2e-success: #4a8a4a;
+    --dh2e-warning: #c8a020;
+    --dh2e-danger: #a83030;
+    --dh2e-info: #4a6a8a;
+
+    // Borders
+    --dh2e-border: #4a4a55;
+    --dh2e-border-gold: #c8a84e;
+    --dh2e-border-light: #5a5a65;
+}

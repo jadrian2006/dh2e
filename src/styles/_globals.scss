@@ -1,0 +1,56 @@
+// DH2E global layout styles
+.dh2e.sheet {
+    background: var(--dh2e-bg-dark);
+    color: var(--dh2e-text-primary);
+    font-family: var(--dh2e-font-body);
+    font-size: var(--dh2e-text-md);
+
+    .window-content {
+        padding: 0;
+        overflow: hidden;
+    }
+
+    // Sheet header with dark bg
+    .sheet-header {
+        background: var(--dh2e-bg-darkest);
+        border-bottom: 2px solid var(--dh2e-border-gold);
+        padding: var(--dh2e-space-md);
+    }
+
+    // Sheet body with parchment panels
+    .sheet-body {
+        background: var(--dh2e-bg-mid);
+        flex: 1;
+        overflow-y: auto;
+        padding: var(--dh2e-space-md);
+    }
+
+    // Parchment panel sections
+    .panel {
+        background: var(--dh2e-parchment);
+        color: var(--dh2e-text-dark);
+        border: 1px solid var(--dh2e-border);
+        border-radius: var(--dh2e-radius-md);
+        padding: var(--dh2e-space-md);
+        box-shadow: var(--dh2e-shadow-sm);
+    }
+
+    // Gold dividers
+    .divider {
+        border: none;
+        border-top: 1px solid var(--dh2e-gold-muted);
+        margin: var(--dh2e-space-md) 0;
+    }
+
+    // Scrollbar styling
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: var(--dh2e-bg-darkest);
+    }
+    ::-webkit-scrollbar-thumb {
+        background: var(--dh2e-gold-dark);
+        border-radius: 3px;
+    }
+}

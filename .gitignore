@@ -1,0 +1,7 @@
+dist/
+node_modules/
+foundryconfig.json
+*.log
+.DS_Store
+.vscode/
+.idea/

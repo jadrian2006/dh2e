@@ -1,0 +1,36 @@
+<div class="dh2e chat-card damage-card">
+    <header class="card-header">
+        <h3>{{weaponName}} — {{localize "DH2E.Damage.WoundsDealt"}}</h3>
+    </header>
+    <div class="card-body">
+        {{#each hits}}
+        <div class="damage-hit">
+            <h4>{{this.location}}</h4>
+            <table class="damage-breakdown">
+                <tr>
+                    <td>{{localize "DH2E.Damage.Raw"}}</td>
+                    <td class="value">{{this.rawDamage}}</td>
+                </tr>
+                <tr>
+                    <td>{{localize "DH2E.Damage.AP"}}</td>
+                    <td class="value">-{{this.effectiveAP}}</td>
+                </tr>
+                {{#if (gt this.penetration 0)}}
+                <tr class="penetration">
+                    <td>{{localize "DH2E.Damage.Penetration"}}</td>
+                    <td class="value">{{this.penetration}}</td>
+                </tr>
+                {{/if}}
+                <tr>
+                    <td>{{localize "DH2E.Damage.TB"}}</td>
+                    <td class="value">-{{this.toughnessBonus}}</td>
+                </tr>
+                <tr class="total">
+                    <td>{{localize "DH2E.Damage.WoundsDealt"}}</td>
+                    <td class="value wounds">{{this.woundsDealt}}</td>
+                </tr>
+            </table>
+        </div>
+        {{/each}}
+    </div>
+</div>
