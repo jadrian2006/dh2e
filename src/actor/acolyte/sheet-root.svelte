@@ -1,15 +1,33 @@
 <script lang="ts">
-    let { state }: { state: Record<string, any> } = $props();
+    import Header from "./components/header.svelte";
+    import SummaryTab from "./components/summary-tab.svelte";
+    import TabGroup from "../../sheet/components/tab-group.svelte";
+
+    let { ctx }: { ctx: Record<string, any> } = $props();
+    let activeTab = $state("summary");
+
+    const tabs = [
+        { id: "summary", label: "Summary" },
+        { id: "skills", label: "Skills" },
+        { id: "combat", label: "Combat" },
+        { id: "equipment", label: "Equipment" },
+    ];
 </script>
 
 <div class="acolyte-sheet">
-    <header class="sheet-header">
-        <img src={state.img} alt={state.name} class="profile-img" />
-        <h1 class="actor-name">{state.name}</h1>
-    </header>
-    <section class="sheet-body">
-        <p class="placeholder">Acolyte sheet — work in progress</p>
-    </section>
+    <Header {ctx} />
+
+    <TabGroup {tabs} bind:activeTab>
+        {#if activeTab === "summary"}
+            <SummaryTab {ctx} />
+        {:else if activeTab === "skills"}
+            <div class="placeholder-tab">Skills tab — coming in Milestone 4</div>
+        {:else if activeTab === "combat"}
+            <div class="placeholder-tab">Combat tab — coming in Milestone 5</div>
+        {:else if activeTab === "equipment"}
+            <div class="placeholder-tab">Equipment tab — coming in Milestone 8</div>
+        {/if}
+    </TabGroup>
 </div>
 
 <style lang="scss">
@@ -17,29 +35,12 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+        background: var(--dh2e-bg-dark);
     }
-    .sheet-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 0.5rem;
-    }
-    .profile-img {
-        width: 64px;
-        height: 64px;
-        border-radius: 4px;
-        object-fit: cover;
-    }
-    .actor-name {
-        margin: 0;
-        font-size: 1.5rem;
-    }
-    .sheet-body {
-        flex: 1;
-        padding: 0.5rem;
-    }
-    .placeholder {
-        color: #666;
+    .placeholder-tab {
+        color: var(--dh2e-text-secondary);
         font-style: italic;
+        padding: var(--dh2e-space-xl);
+        text-align: center;
     }
 </style>

@@ -1,13 +1,13 @@
 <script lang="ts">
-    let { state }: { state: Record<string, any> } = $props();
+    let { ctx }: { ctx: Record<string, any> } = $props();
 </script>
 
 <div class="item-sheet">
     <header class="sheet-header">
-        <img src={state.img} alt={state.name} class="item-img" />
+        <img src={ctx.img} alt={ctx.name} class="item-img" />
         <div class="header-info">
-            <h1 class="item-name">{state.name}</h1>
-            <span class="item-type">{state.type}</span>
+            <h1 class="item-name">{ctx.name}</h1>
+            <span class="item-type">{ctx.type}</span>
         </div>
     </header>
     <section class="sheet-body">

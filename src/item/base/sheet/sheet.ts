@@ -22,7 +22,7 @@ class ItemSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
     ): Promise<SvelteApplicationRenderContext> {
         const item = this.document;
         return {
-            state: {
+            ctx: {
                 item,
                 name: item.name,
                 img: item.img,

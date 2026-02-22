@@ -2,7 +2,7 @@ import * as svelte from "svelte";
 
 /** Context returned by _prepareContext for Svelte sheets */
 interface SvelteApplicationRenderContext {
-    state: Record<string, unknown>;
+    ctx: Record<string, unknown>;
     [key: string]: unknown;
 }
 
@@ -25,8 +25,8 @@ function SvelteApplicationMixin<
         /** The root Svelte component class */
         protected abstract root: svelte.Component<any>;
 
-        /** Reactive state object — plain object, reactivity comes from Svelte's mount props */
-        protected $state: Record<string, unknown> = {};
+        /** Reactive context object — plain object, reactivity comes from Svelte's mount props */
+        protected $ctx: Record<string, unknown> = {};
 
         /** Mounted Svelte component instance */
         #mount: object = {};
@@ -46,11 +46,11 @@ function SvelteApplicationMixin<
             content: HTMLElement,
             options: fa.ApplicationRenderOptions,
         ): void {
-            Object.assign(this.$state, result.state);
+            Object.assign(this.$ctx, result.ctx);
             if (options.isFirstRender) {
                 this.#mount = svelte.mount(this.root, {
                     target: content,
-                    props: { ...result, state: this.$state },
+                    props: { ...result, ctx: this.$ctx },
                 });
             }
         }

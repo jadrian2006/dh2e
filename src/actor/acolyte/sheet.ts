@@ -22,13 +22,23 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
         options: fa.ApplicationRenderOptions,
     ): Promise<SvelteApplicationRenderContext> {
         const actor = this.document as unknown as AcolyteDH2e;
+        const system = actor.system;
+
         return {
-            state: {
+            ctx: {
                 actor,
                 name: actor.name,
                 img: actor.img,
-                system: actor.system,
+                system,
                 editable: this.isEditable,
+                items: {
+                    weapons: actor.items.filter((i: Item) => i.type === "weapon"),
+                    armour: actor.items.filter((i: Item) => i.type === "armour"),
+                    gear: actor.items.filter((i: Item) => i.type === "gear"),
+                    skills: actor.items.filter((i: Item) => i.type === "skill"),
+                    talents: actor.items.filter((i: Item) => i.type === "talent"),
+                    conditions: actor.items.filter((i: Item) => i.type === "condition"),
+                },
             },
         };
     }
