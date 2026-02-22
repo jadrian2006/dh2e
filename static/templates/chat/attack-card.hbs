@@ -9,7 +9,7 @@
         <p class="hit-count">{{format "DH2E.Attack.Hits" count=hitCount}}</p>
         <ul class="hit-locations">
             {{#each hits}}
-            <li>{{localize "DH2E.Attack.Location"}}: {{this.location}}</li>
+            <li>{{this.locationLabel}}</li>
             {{/each}}
         </ul>
         <button class="btn roll-damage" data-action="roll-damage">

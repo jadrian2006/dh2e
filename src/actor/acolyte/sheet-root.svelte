@@ -2,6 +2,7 @@
     import Header from "./components/header.svelte";
     import SummaryTab from "./components/summary-tab.svelte";
     import SkillsTab from "./components/skills-tab.svelte";
+    import CombatTab from "./components/combat-tab.svelte";
     import TabGroup from "../../sheet/components/tab-group.svelte";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
@@ -24,7 +25,7 @@
         {:else if activeTab === "skills"}
             <SkillsTab {ctx} />
         {:else if activeTab === "combat"}
-            <div class="placeholder-tab">Combat tab — coming in Milestone 5</div>
+            <CombatTab {ctx} />
         {:else if activeTab === "equipment"}
             <div class="placeholder-tab">Equipment tab — coming in Milestone 8</div>
         {/if}
