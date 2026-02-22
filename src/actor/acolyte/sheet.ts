@@ -1,4 +1,5 @@
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@sheet/mixin.ts";
+import { CreationWizard } from "../../character-creation/wizard.ts";
 import type { AcolyteDH2e } from "./document.ts";
 import SheetRoot from "./sheet-root.svelte";
 
@@ -39,6 +40,7 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                     talents: actor.items.filter((i: Item) => i.type === "talent"),
                     conditions: actor.items.filter((i: Item) => i.type === "condition"),
                 },
+                openWizard: () => CreationWizard.open(actor),
             },
         };
     }
