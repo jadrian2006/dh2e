@@ -1,5 +1,7 @@
 <script lang="ts">
     import CharGrid from "./char-grid.svelte";
+    import { CheckDH2e } from "../../../check/check.ts";
+    import type { CharacteristicAbbrev } from "../../../actor/types.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
@@ -18,8 +20,17 @@
     };
 
     function onCharClick(key: string) {
-        // Future: trigger CheckDH2e.roll({ actor, characteristic: key })
-        console.log(`Roll ${key} test`);
+        const actor = ctx.actor;
+        if (!actor) return;
+        const char = ctx.system?.characteristics?.[key];
+        const value = char?.value ?? char?.base ?? 0;
+        CheckDH2e.roll({
+            actor,
+            characteristic: key as CharacteristicAbbrev,
+            baseTarget: value,
+            label: `${charLabels[key].label} Test`,
+            domain: `characteristic:${key}`,
+        });
     }
 </script>
 

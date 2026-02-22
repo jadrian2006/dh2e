@@ -173,6 +173,13 @@ declare class ChatMessage extends Document {
         context?: DocumentModificationContext,
     ): Promise<StoredDocument<ChatMessage>>;
 
+    static getSpeaker(options?: {
+        scene?: Scene | null;
+        actor?: Actor | null;
+        token?: TokenDocument | null;
+        alias?: string;
+    }): ChatSpeaker;
+
     readonly speaker: ChatSpeaker;
     readonly content: string;
     readonly rolls: Roll[];

@@ -117,3 +117,13 @@ declare class FormApplication {
     render(force?: boolean): void;
     close(): Promise<void>;
 }
+
+// Global template rendering function
+declare function renderTemplate(
+    path: string,
+    data: Record<string, unknown>,
+): Promise<string>;
+
+// Abstract constructor helper
+type AbstractConstructorOf<T> = abstract new (...args: any[]) => T;
+type DeepPartial<T> = { [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P] };
