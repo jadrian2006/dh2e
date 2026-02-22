@@ -2,7 +2,7 @@
     "id": "dh2e",
     "title": "Dark Heresy 2nd Edition",
     "description": "Foundry VTT system for Warhammer 40k Dark Heresy 2nd Edition",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "compatibility": {
         "minimum": "13.348",
         "verified": "13.351",

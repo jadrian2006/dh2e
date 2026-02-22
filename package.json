@@ -1,6 +1,6 @@
 {
     "name": "dh2e",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Foundry VTT system for Warhammer 40k Dark Heresy 2nd Edition",
     "private": true,
     "type": "module",
