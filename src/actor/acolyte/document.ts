@@ -4,9 +4,7 @@ import type { AcolyteSystemData, AcolyteSystemSource, CharacteristicData } from 
 
 /** The Acolyte (player character) actor */
 class AcolyteDH2e extends ActorDH2e {
-    override get system(): AcolyteSystemData {
-        return super.system as unknown as AcolyteSystemData;
-    }
+    declare system: AcolyteSystemData;
 
     /** Get a characteristic by abbreviation */
     getCharacteristic(key: CharacteristicAbbrev): CharacteristicData {

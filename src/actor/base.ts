@@ -2,11 +2,6 @@ import type { ActorType } from "./types.ts";
 
 /** Base actor class for all DH2E actor types */
 class ActorDH2e extends Actor {
-    /** Typed system data access */
-    override get system(): Record<string, unknown> {
-        return super.system;
-    }
-
     /** Actor type narrowing */
     get actorType(): ActorType {
         return this.type as ActorType;
