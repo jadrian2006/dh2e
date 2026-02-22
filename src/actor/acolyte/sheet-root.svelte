@@ -3,6 +3,7 @@
     import SummaryTab from "./components/summary-tab.svelte";
     import SkillsTab from "./components/skills-tab.svelte";
     import CombatTab from "./components/combat-tab.svelte";
+    import EquipmentTab from "./components/equipment-tab.svelte";
     import TabGroup from "../../sheet/components/tab-group.svelte";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
@@ -27,7 +28,7 @@
         {:else if activeTab === "combat"}
             <CombatTab {ctx} />
         {:else if activeTab === "equipment"}
-            <div class="placeholder-tab">Equipment tab — coming in Milestone 8</div>
+            <EquipmentTab {ctx} />
         {/if}
     </TabGroup>
 </div>
@@ -38,11 +39,5 @@
         flex-direction: column;
         height: 100%;
         background: var(--dh2e-bg-dark);
-    }
-    .placeholder-tab {
-        color: var(--dh2e-text-secondary);
-        font-style: italic;
-        padding: var(--dh2e-space-xl);
-        text-align: center;
     }
 </style>

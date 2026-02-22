@@ -1,2 +1,2 @@
-// UI components — populated in Milestone 6+
-export {};
+export { FateDialog } from "./fate-dialog.ts";
+export { registerAllSettings, getSetting } from "./settings/settings.ts";

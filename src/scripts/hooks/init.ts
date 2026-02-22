@@ -9,6 +9,7 @@ import { ConditionDH2e } from "@item/condition/document.ts";
 import { DH2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { preloadTemplates } from "@scripts/register-templates.ts";
+import { registerAllSettings } from "../../ui/settings/settings.ts";
 
 /** Hooks.once("init") — set config, register settings, preload templates */
 export class Init {
@@ -39,46 +40,7 @@ export class Init {
             preloadTemplates();
 
             // Register game settings
-            this.#registerSettings();
-        });
-    }
-
-    static #registerSettings(): void {
-        game.settings.register(SYSTEM_ID, "modifierCap", {
-            name: "DH2E.Settings.ModifierCap.Name",
-            hint: "DH2E.Settings.ModifierCap.Hint",
-            scope: "world",
-            config: true,
-            type: Number,
-            default: 60,
-            range: { min: 10, max: 100, step: 10 },
-        });
-
-        game.settings.register(SYSTEM_ID, "automateArmour", {
-            name: "DH2E.Settings.AutomateArmour.Name",
-            hint: "DH2E.Settings.AutomateArmour.Hint",
-            scope: "world",
-            config: true,
-            type: Boolean,
-            default: true,
-        });
-
-        game.settings.register(SYSTEM_ID, "automateDamage", {
-            name: "DH2E.Settings.AutomateDamage.Name",
-            hint: "DH2E.Settings.AutomateDamage.Hint",
-            scope: "world",
-            config: true,
-            type: Boolean,
-            default: true,
-        });
-
-        game.settings.register(SYSTEM_ID, "fateRefreshOnSession", {
-            name: "DH2E.Settings.FateRefresh.Name",
-            hint: "DH2E.Settings.FateRefresh.Hint",
-            scope: "world",
-            config: true,
-            type: Boolean,
-            default: false,
+            registerAllSettings();
         });
     }
 }
