@@ -40,8 +40,40 @@ class AcolyteDH2e extends ActorDH2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        // Future: calculate per-location armour totals from equipped items
-        // Future: calculate wound max from TB + homeworld modifier
+        // Calculate per-location armour totals from equipped items
+        const armour: Record<string, number> = { head: 0, rightArm: 0, leftArm: 0, body: 0, rightLeg: 0, leftLeg: 0 };
+        for (const item of this.items) {
+            if (item.type !== "armour") continue;
+            const sys = item.system as any;
+            if (sys.equipped === false) continue;
+            for (const loc of Object.keys(armour)) {
+                armour[loc] += sys.locations?.[loc] ?? 0;
+            }
+        }
+        (this.system as any).armour = armour;
+    }
+
+    /**
+     * Apply damage to this actor, reducing current wounds.
+     * @param wounds Number of wounds to apply
+     * @param location The hit location (for logging/future critical effects)
+     */
+    async applyDamage(wounds: number, _location?: HitLocationKey): Promise<void> {
+        const current = this.system.wounds.value;
+        const newValue = Math.max(0, current - wounds);
+        await this.update({ "system.wounds.value": newValue });
+
+        if (newValue <= 0) {
+            ui.notifications.warn(`${this.name} has reached 0 wounds! Critical damage!`);
+        }
+    }
+
+    /** Heal wounds on this actor */
+    async healDamage(wounds: number): Promise<void> {
+        const current = this.system.wounds.value;
+        const max = this.system.wounds.max;
+        const newValue = Math.min(max, current + wounds);
+        await this.update({ "system.wounds.value": newValue });
     }
 }
 

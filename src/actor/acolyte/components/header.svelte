@@ -1,8 +1,16 @@
 <script lang="ts">
+    import { FateDialog } from "../../../ui/fate-dialog.ts";
+
     let { ctx }: { ctx: Record<string, any> } = $props();
 
-    $effect(() => {
-        // Keep derived values reactive
+    function openFateDialog() {
+        if (ctx.actor) FateDialog.execute(ctx.actor);
+    }
+
+    const woundPercent = $derived(() => {
+        const max = ctx.system?.wounds?.max ?? 1;
+        const val = ctx.system?.wounds?.value ?? 0;
+        return Math.max(0, Math.min(100, (val / max) * 100));
     });
 </script>
 
@@ -25,14 +33,17 @@
     </div>
 
     <div class="vital-stats">
-        <div class="stat wounds" class:critical={ctx.system?.wounds?.value <= 0}>
+        <div class="stat wounds" class:critical={ctx.system?.wounds?.value <= 0} class:wounded={(ctx.system?.wounds?.value ?? 0) < (ctx.system?.wounds?.max ?? 0)}>
             <span class="stat-label">W</span>
             <span class="stat-value">{ctx.system?.wounds?.value ?? 0}/{ctx.system?.wounds?.max ?? 0}</span>
+            <div class="wound-bar">
+                <div class="wound-fill" style="width: {woundPercent()}%"></div>
+            </div>
         </div>
-        <div class="stat fate">
+        <button class="stat fate clickable" onclick={openFateDialog} title="Invoke Fate">
             <span class="stat-label">F</span>
             <span class="stat-value">{ctx.system?.fate?.value ?? 0}/{ctx.system?.fate?.max ?? 0}</span>
-        </div>
+        </button>
         <div class="stat corruption">
             <span class="stat-label">C</span>
             <span class="stat-value">{ctx.system?.corruption ?? 0}</span>
@@ -123,10 +134,39 @@
     .wounds .stat-value {
         color: var(--dh2e-success);
     }
+    .wounds.wounded .stat-value {
+        color: #d4a843;
+    }
     .wounds.critical .stat-value {
         color: var(--dh2e-red-bright);
     }
+    .wound-bar {
+        width: 100%;
+        height: 3px;
+        background: #333;
+        border-radius: 2px;
+        margin-top: 2px;
+    }
+    .wound-fill {
+        height: 100%;
+        border-radius: 2px;
+        background: var(--dh2e-success);
+        transition: width 0.3s ease;
+    }
+    .wounded .wound-fill {
+        background: #d4a843;
+    }
+    .critical .wound-fill {
+        background: var(--dh2e-red-bright);
+    }
     .fate .stat-value {
         color: var(--dh2e-gold-bright);
+    }
+    .clickable {
+        cursor: pointer;
+        &:hover {
+            border-color: var(--dh2e-gold);
+            box-shadow: 0 0 4px var(--dh2e-gold-dark);
+        }
     }
 </style>
