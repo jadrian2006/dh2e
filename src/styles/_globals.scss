@@ -54,3 +54,42 @@
         border-radius: 3px;
     }
 }
+
+// Dialog windows (check dialog, fate dialog, creation wizard)
+.dh2e.dialog {
+    background: var(--dh2e-bg-dark);
+    color: var(--dh2e-text-primary);
+    font-family: var(--dh2e-font-body);
+
+    .window-content {
+        padding: 0;
+        overflow: hidden;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: var(--dh2e-bg-darkest);
+    }
+    ::-webkit-scrollbar-thumb {
+        background: var(--dh2e-gold-dark);
+        border-radius: 3px;
+    }
+}
+
+// Window header styling for all DH2E apps
+.dh2e {
+    .window-header {
+        background: var(--dh2e-bg-darkest);
+        border-bottom: 2px solid var(--dh2e-gold-dark);
+
+        .window-title {
+            font-family: var(--dh2e-font-header);
+            color: var(--dh2e-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+        }
+    }
+}
