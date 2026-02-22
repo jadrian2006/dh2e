@@ -10,50 +10,50 @@ import { ConditionSheetDH2e } from "@item/condition/sheet.ts";
 /** Register all actor and item sheets with Foundry */
 export function registerSheets(): void {
     // Actor sheets
-    Actors.registerSheet(SYSTEM_ID, AcolyteSheetDH2e, {
+    fd.collections.Actors.registerSheet(SYSTEM_ID, AcolyteSheetDH2e, {
         types: ["acolyte"],
         makeDefault: true,
         label: "DH2E.Sheet.Acolyte",
     });
 
-    Actors.registerSheet(SYSTEM_ID, NpcSheetDH2e, {
+    fd.collections.Actors.registerSheet(SYSTEM_ID, NpcSheetDH2e, {
         types: ["npc"],
         makeDefault: true,
         label: "DH2E.Sheet.NPC",
     });
 
     // Item sheets
-    Items.registerSheet(SYSTEM_ID, WeaponSheetDH2e, {
+    fd.collections.Items.registerSheet(SYSTEM_ID, WeaponSheetDH2e, {
         types: ["weapon"],
         makeDefault: true,
         label: "DH2E.Sheet.Weapon",
     });
 
-    Items.registerSheet(SYSTEM_ID, ArmourSheetDH2e, {
+    fd.collections.Items.registerSheet(SYSTEM_ID, ArmourSheetDH2e, {
         types: ["armour"],
         makeDefault: true,
         label: "DH2E.Sheet.Armour",
     });
 
-    Items.registerSheet(SYSTEM_ID, GearSheetDH2e, {
+    fd.collections.Items.registerSheet(SYSTEM_ID, GearSheetDH2e, {
         types: ["gear"],
         makeDefault: true,
         label: "DH2E.Sheet.Gear",
     });
 
-    Items.registerSheet(SYSTEM_ID, SkillSheetDH2e, {
+    fd.collections.Items.registerSheet(SYSTEM_ID, SkillSheetDH2e, {
         types: ["skill"],
         makeDefault: true,
         label: "DH2E.Sheet.Skill",
     });
 
-    Items.registerSheet(SYSTEM_ID, TalentSheetDH2e, {
+    fd.collections.Items.registerSheet(SYSTEM_ID, TalentSheetDH2e, {
         types: ["talent"],
         makeDefault: true,
         label: "DH2E.Sheet.Talent",
     });
 
-    Items.registerSheet(SYSTEM_ID, ConditionSheetDH2e, {
+    fd.collections.Items.registerSheet(SYSTEM_ID, ConditionSheetDH2e, {
         types: ["condition"],
         makeDefault: true,
         label: "DH2E.Sheet.Condition",

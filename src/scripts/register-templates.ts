@@ -5,5 +5,5 @@ export function preloadTemplates(): void {
         `systems/${SYSTEM_ID}/templates/chat/attack-card.hbs`,
         `systems/${SYSTEM_ID}/templates/chat/damage-card.hbs`,
     ];
-    loadTemplates(templatePaths);
+    fa.handlebars.loadTemplates(templatePaths);
 }

@@ -3,7 +3,7 @@
  *
  * Extends Foundry's Roll to handle the d100 roll-under system.
  */
-class CheckRollDH2e extends Roll {
+class CheckRollDH2e extends foundry.dice.Roll {
     constructor(
         formula: string = "1d100",
         data?: Record<string, unknown>,

@@ -105,7 +105,7 @@ class AttackResolver {
         const results: DamageResult[] = [];
 
         for (const hit of attackResult.hits) {
-            const roll = new Roll(formula);
+            const roll = new foundry.dice.Roll(formula);
             await roll.evaluate();
             const rawDamage = roll.total ?? 0;
 
@@ -148,10 +148,10 @@ class AttackResolver {
             actorId: actor.id,
         };
 
-        const content = await renderTemplate(templatePath, templateData);
-        const speaker = ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
+        const content = await fa.handlebars.renderTemplate(templatePath, templateData);
+        const speaker = fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
 
-        await ChatMessage.create({
+        await fd.ChatMessage.create({
             content,
             speaker,
             flags: {
@@ -178,9 +178,9 @@ class AttackResolver {
             totalWounds,
         };
 
-        const content = await renderTemplate(templatePath, templateData);
+        const content = await fa.handlebars.renderTemplate(templatePath, templateData);
 
-        await ChatMessage.create({
+        await fd.ChatMessage.create({
             content,
             flags: {
                 [SYSTEM_ID]: {

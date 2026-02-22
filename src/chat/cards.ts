@@ -25,13 +25,13 @@ class ChatCardDH2e {
             })),
         };
 
-        const content = await renderTemplate(templatePath, templateData);
+        const content = await fa.handlebars.renderTemplate(templatePath, templateData);
 
-        const speaker = ChatMessage.getSpeaker?.({
+        const speaker = fd.ChatMessage.getSpeaker?.({
             actor: result.context.actor,
         }) ?? { alias: result.context.actor.name };
 
-        await ChatMessage.create({
+        await fd.ChatMessage.create({
             content,
             speaker,
             rolls: [roll],

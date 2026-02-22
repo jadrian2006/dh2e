@@ -128,6 +128,18 @@ declare namespace foundry {
         function HandlebarsApplicationMixin<TBase extends AbstractConstructorOf<ApplicationV2>>(
             Base: TBase,
         ): TBase;
+
+        /** Handlebars runtime */
+        const Handlebars: {
+            registerHelper(name: string, fn: (...args: unknown[]) => unknown): void;
+            compile(template: string): (data: Record<string, unknown>) => string;
+        };
+    }
+
+    namespace handlebars {
+        function renderTemplate(path: string, data: Record<string, unknown>): Promise<string>;
+        function loadTemplates(paths: string[]): Promise<void>;
+        function getTemplate(path: string): Promise<(data: Record<string, unknown>) => string>;
     }
 
     namespace appv1 {
@@ -139,6 +151,27 @@ declare namespace foundry {
     }
 
     namespace documents {
+        class ChatMessage extends Document {
+            static create(
+                data: ChatMessageCreateData | ChatMessageCreateData[],
+                context?: DocumentModificationContext,
+            ): Promise<StoredDocument<ChatMessage>>;
+
+            static getSpeaker(options?: {
+                scene?: Scene | null;
+                actor?: Actor | null;
+                token?: TokenDocument | null;
+                alias?: string;
+            }): ChatSpeaker;
+
+            readonly speaker: ChatSpeaker;
+            readonly content: string;
+            readonly rolls: foundry.dice.Roll[];
+            readonly whisper: string[];
+            readonly blind: boolean;
+            readonly user: User;
+        }
+
         namespace collections {
             class Actors {
                 static registerSheet(
@@ -172,6 +205,25 @@ declare namespace foundry {
         types?: string[];
         makeDefault?: boolean;
         label?: string;
+    }
+
+    namespace dice {
+        class Roll {
+            constructor(formula: string, data?: Record<string, unknown>, options?: Record<string, unknown>);
+
+            readonly formula: string;
+            readonly total: number | undefined;
+            readonly result: string;
+            readonly terms: unknown[];
+            readonly _evaluated: boolean;
+
+            evaluate(): Promise<this>;
+            toMessage(messageData?: Record<string, unknown>, options?: Record<string, unknown>): Promise<unknown>;
+            toJSON(): Record<string, unknown>;
+
+            static fromData(data: Record<string, unknown>): Roll;
+            static fromJSON(json: string): Roll;
+        }
     }
 
     namespace helpers {
