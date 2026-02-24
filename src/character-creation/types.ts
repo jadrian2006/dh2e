@@ -55,6 +55,8 @@ interface RoleOption {
     aptitudes: string[];
     /** Talent name granted */
     talent: string;
+    /** Elite advances granted immediately (e.g., Mystic grants "psyker") */
+    eliteAdvances?: string[];
     /** Bonus ability name */
     bonus: string;
     /** Bonus ability description */

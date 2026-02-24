@@ -183,6 +183,12 @@ function hasSkillOrTalent(actor: AcolyteDH2e, name: string): boolean {
  *
  * @returns Object with `met` (all conditions satisfied) and `unmet` (list of failed conditions)
  */
+/** Check if an actor has a specific elite advance */
+export function hasEliteAdvance(actor: AcolyteDH2e, advanceId: string): boolean {
+    const advances: string[] = (actor.system as any).eliteAdvances ?? [];
+    return advances.includes(advanceId);
+}
+
 export function checkPrerequisites(actor: AcolyteDH2e, prereqString: string): PrereqResult {
     if (!prereqString || prereqString.trim().toLowerCase() === "none") {
         return { met: true, unmet: [] };

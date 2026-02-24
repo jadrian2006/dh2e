@@ -1,0 +1,42 @@
+[
+    {
+        "id": "psyker",
+        "name": "Psyker",
+        "cost": 300,
+        "prerequisites": {
+            "characteristics": { "wp": 40 },
+            "notEliteAdvance": "untouchable"
+        },
+        "instant": {
+            "aptitudes": ["Psyker"],
+            "talents": ["Psy Rating"],
+            "unsanctionedCorruption": "1d10+3"
+        },
+        "description": "The character's mind has been opened to the Warp, granting them terrifying psychic abilities. They gain the Psyker aptitude and Psy Rating 1. Unsanctioned psykers (those without Adeptus Astra Telepathica background) gain 1d10+3 Corruption Points."
+    },
+    {
+        "id": "untouchable",
+        "name": "Untouchable",
+        "cost": 300,
+        "prerequisites": {
+            "notEliteAdvance": "psyker"
+        },
+        "instant": {
+            "talents": ["Resistance (Psychic Powers)"]
+        },
+        "description": "The character is a psychic blank — an anathema to the Warp. They are immune to direct psychic effects and gain Resistance (Psychic Powers). Psykers and Warp-entities find their presence deeply unsettling, halving the character's Fellowship when interacting with them."
+    },
+    {
+        "id": "inquisitor",
+        "name": "Inquisitor",
+        "cost": 1000,
+        "prerequisites": {
+            "influence": 75
+        },
+        "instant": {
+            "aptitudes": ["Leadership"],
+            "talents": ["Peer (Inquisition)"]
+        },
+        "description": "The character has been elevated to the rank of Inquisitor — one of the most powerful and feared individuals in the Imperium. They gain the Leadership aptitude and the Peer (Inquisition) talent, along with access to Inquisitor-specific advances."
+    }
+]

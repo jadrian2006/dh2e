@@ -7,6 +7,11 @@
     let affordableOnly = $state(false);
     let searchText = $state("");
 
+    const hasEliteOptions = $derived(() => {
+        const opts: AdvanceOption[] = ctx.options ?? [];
+        return opts.some((o) => o.category === "elite");
+    });
+
     const filtered = $derived(() => {
         const opts: AdvanceOption[] = ctx.options ?? [];
         const term = searchText.toLowerCase().trim();
@@ -21,6 +26,7 @@
     function categoryIcon(cat: AdvanceCategory): string {
         if (cat === "characteristic") return "fa-solid fa-chart-bar";
         if (cat === "skill") return "fa-solid fa-graduation-cap";
+        if (cat === "elite") return "fa-solid fa-crown";
         return "fa-solid fa-star";
     }
 
@@ -64,6 +70,9 @@
             <button class="tab" class:active={filterCategory === "characteristic"} onclick={() => filterCategory = "characteristic"}>Characteristics</button>
             <button class="tab" class:active={filterCategory === "skill"} onclick={() => filterCategory = "skill"}>Skills</button>
             <button class="tab" class:active={filterCategory === "talent"} onclick={() => filterCategory = "talent"}>Talents</button>
+            {#if hasEliteOptions()}
+                <button class="tab elite-tab" class:active={filterCategory === "elite"} onclick={() => filterCategory = "elite"}>Elite</button>
+            {/if}
         </div>
         <div class="filter-controls">
             <label class="affordable-toggle">
@@ -393,6 +402,14 @@
             background: var(--dh2e-bg-mid);
             color: var(--dh2e-text-secondary);
             border-color: var(--dh2e-border);
+        }
+    }
+
+    .elite-tab {
+        &.active {
+            background: rgba(168, 78, 200, 0.3);
+            border-color: rgba(168, 78, 200, 0.6);
+            color: #e8d0f8;
         }
     }
 

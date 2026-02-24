@@ -42,6 +42,7 @@ export interface AcolyteSystemSource {
         spent: number;
     };
     aptitudes: string[];
+    eliteAdvances: string[];
     armour: ArmourByLocation;
     details: {
         homeworld: string;
@@ -58,6 +59,22 @@ export interface AcolyteSystemSource {
     };
 }
 
+/** Encumbrance derived data */
+export interface EncumbranceData {
+    /** Total weight of carried items (kg) */
+    current: number;
+    /** Maximum carry weight without penalty: SB + TB (kg) */
+    carry: number;
+    /** Maximum lift weight (carry × 2) */
+    lift: number;
+    /** Maximum push/drag weight (carry × 4) */
+    push: number;
+    /** true when current > carry */
+    overloaded: boolean;
+    /** true when current > lift (cannot move) */
+    overencumbered: boolean;
+}
+
 /** Acolyte system data (includes computed/derived fields) */
 export interface AcolyteSystemData extends Omit<AcolyteSystemSource, "characteristics"> {
     characteristics: Record<CharacteristicAbbrev, CharacteristicData>;
@@ -67,4 +84,5 @@ export interface AcolyteSystemData extends Omit<AcolyteSystemSource, "characteri
         available: number;
     };
     movement: MovementData;
+    encumbrance: EncumbranceData;
 }

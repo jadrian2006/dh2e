@@ -1,6 +1,6 @@
 {
     "Actor": {
-        "types": ["acolyte", "npc"],
+        "types": ["acolyte", "npc", "horde", "vehicle"],
         "acolyte": {
             "characteristics": {
                 "ws":  { "base": 25, "advances": 0 },
@@ -20,6 +20,7 @@
             "influence": 25,
             "xp": { "total": 0, "spent": 0 },
             "aptitudes": [],
+            "eliteAdvances": [],
             "armour": {
                 "head": 0,
                 "rightArm": 0,
@@ -55,6 +56,7 @@
             "influence": 0,
             "xp": { "total": 0, "spent": 0 },
             "aptitudes": [],
+            "eliteAdvances": [],
             "armour": {
                 "head": 0,
                 "rightArm": 0,
@@ -70,6 +72,35 @@
                 "divination": "",
                 "notes": ""
             }
+        },
+        "horde": {
+            "characteristics": {
+                "ws":  { "base": 25, "advances": 0 },
+                "bs":  { "base": 25, "advances": 0 },
+                "s":   { "base": 25, "advances": 0 },
+                "t":   { "base": 25, "advances": 0 },
+                "ag":  { "base": 25, "advances": 0 },
+                "int": { "base": 25, "advances": 0 },
+                "per": { "base": 25, "advances": 0 },
+                "wp":  { "base": 25, "advances": 0 },
+                "fel": { "base": 25, "advances": 0 }
+            },
+            "magnitude": { "value": 30, "max": 30 },
+            "armour": 0,
+            "details": { "notes": "" }
+        },
+        "vehicle": {
+            "structuralIntegrity": { "value": 20, "max": 20 },
+            "armour": { "front": 15, "side": 12, "rear": 8 },
+            "motiveSystem": "wheeled",
+            "speed": { "tactical": 15, "cruising": 40, "max": 80 },
+            "handling": 0,
+            "mountedWeapons": [],
+            "crewPositions": [
+                { "role": "driver", "label": "Driver", "actorId": "", "actorName": "" }
+            ],
+            "size": "enormous",
+            "details": { "notes": "" }
         }
     },
     "Item": {
@@ -87,7 +118,8 @@
             "qualities": [],
             "equipped": false,
             "loadedAmmoId": "",
-            "rules": []
+            "rules": [],
+            "availability": "Common"
         },
         "armour": {
             "description": "",
@@ -102,12 +134,14 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 0,
-            "equipped": false
+            "equipped": false,
+            "availability": "Common"
         },
         "gear": {
             "description": "",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "availability": "Common"
         },
         "skill": {
             "description": "",
@@ -128,7 +162,8 @@
             "slug": "",
             "duration": "",
             "stackable": false,
-            "rules": []
+            "rules": [],
+            "remainingRounds": 0
         },
         "power": {
             "description": "",
@@ -185,6 +220,7 @@
             "description": "",
             "location": "",
             "type": "replacement",
+            "grade": "common",
             "rules": [],
             "installed": false,
             "weight": 0,

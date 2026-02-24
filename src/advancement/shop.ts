@@ -12,7 +12,7 @@ import {
 } from "./aptitudes.ts";
 import { recordTransaction } from "./xp-ledger.ts";
 import { appendLog } from "@actor/log.ts";
-import { checkPrerequisites } from "./prerequisites.ts";
+import { checkPrerequisites, hasEliteAdvance } from "./prerequisites.ts";
 import type { AdvanceOption, XPCostData, XPTransaction } from "./types.ts";
 import ShopRoot from "./shop-root.svelte";
 
@@ -26,7 +26,28 @@ const CHAR_LABELS: Record<string, string> = {
 const CHAR_ADVANCE_NAMES = ["Simple", "Intermediate", "Trained", "Expert"];
 const SKILL_RANK_NAMES = ["Known", "Trained (+10)", "Experienced (+20)", "Veteran (+30)"];
 
+/** Elite advance definition loaded from dh2e-data */
+interface EliteAdvanceDef {
+    id: string;
+    name: string;
+    cost: number;
+    prerequisites: {
+        characteristics?: Record<string, number>;
+        notEliteAdvance?: string;
+        influence?: number;
+    };
+    instant: {
+        aptitudes?: string[];
+        talents?: string[];
+        unsanctionedCorruption?: string;
+    };
+    description: string;
+}
+
 class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
+    /** Cached elite advance definitions */
+    static #eliteAdvanceData: EliteAdvanceDef[] = [];
+    static #eliteDataLoaded = false;
     static override DEFAULT_OPTIONS = fu.mergeObject(super.DEFAULT_OPTIONS, {
         id: "dh2e-advancement-shop",
         classes: ["dh2e", "dialog", "advancement-shop"],
@@ -47,8 +68,21 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         return `${this.#actor.name} — Advancement`;
     }
 
+    /** Load elite advance definitions from data module */
+    static async #loadEliteAdvances(): Promise<void> {
+        if (AdvancementShop.#eliteDataLoaded) return;
+        try {
+            const data = await fu.fetchJsonWithTimeout("modules/dh2e-data/data/elite-advances.json");
+            AdvancementShop.#eliteAdvanceData = data as EliteAdvanceDef[];
+        } catch {
+            AdvancementShop.#eliteAdvanceData = [];
+        }
+        AdvancementShop.#eliteDataLoaded = true;
+    }
+
     protected override async _prepareContext(): Promise<SvelteApplicationRenderContext> {
         const costs = await loadXPCostData();
+        await AdvancementShop.#loadEliteAdvances();
         const options = this.#buildOptions(costs);
         const system = this.#actor.system;
 
@@ -266,9 +300,87 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             }
         }
 
-        // Sort: characteristics first (by name), then skills (alpha), then talents (tier → name)
+        // --- Elite Advances ---
+        const ownedElites: string[] = (system as any).eliteAdvances ?? [];
+
+        for (const adv of AdvancementShop.#eliteAdvanceData) {
+            const alreadyOwned = ownedElites.includes(adv.id);
+            if (alreadyOwned) continue;
+
+            // Check prerequisites
+            const unmet: string[] = [];
+            if (adv.prerequisites.characteristics) {
+                for (const [key, min] of Object.entries(adv.prerequisites.characteristics)) {
+                    const charKey = key as keyof typeof system.characteristics;
+                    if (system.characteristics[charKey]?.value < (min as number)) {
+                        const label = CHAR_LABELS[charKey] ?? key.toUpperCase();
+                        unmet.push(`${label} ${min}`);
+                    }
+                }
+            }
+            if (adv.prerequisites.notEliteAdvance) {
+                if (ownedElites.includes(adv.prerequisites.notEliteAdvance)) {
+                    unmet.push(`Not ${adv.prerequisites.notEliteAdvance}`);
+                }
+            }
+            if (adv.prerequisites.influence) {
+                if ((system as any).influence < adv.prerequisites.influence) {
+                    unmet.push(`Influence ${adv.prerequisites.influence}`);
+                }
+            }
+
+            options.push({
+                category: "elite",
+                label: adv.name,
+                sublabel: `Elite Advance`,
+                key: `elite-${adv.id}`,
+                cost: adv.cost,
+                matchCount: 0,
+                aptitudes: ["General", "General"],
+                currentLevel: 0,
+                nextLevel: 1,
+                maxLevel: 1,
+                affordable: xpAvailable >= adv.cost,
+                alreadyMaxed: false,
+                prerequisites: unmet.length > 0 ? unmet.join(", ") : undefined,
+                prereqsMet: unmet.length === 0,
+                prereqsUnmet: unmet,
+            });
+        }
+
+        // --- Psy Rating Advances (if psyker) ---
+        if (ownedElites.includes("psyker")) {
+            const psyTalent = actor.items.find(
+                (i: Item) => i.type === "talent" && i.name.toLowerCase() === "psy rating",
+            );
+            const currentPR = (psyTalent as any)?.system?.tier ?? 1;
+            const maxPR = 10;
+            if (currentPR < maxPR) {
+                const nextPR = currentPR + 1;
+                const prCost = 200 * nextPR;
+                options.push({
+                    category: "elite",
+                    label: `Psy Rating ${nextPR}`,
+                    sublabel: `${prCost} XP`,
+                    key: `psy-rating-${nextPR}`,
+                    cost: prCost,
+                    matchCount: 0,
+                    aptitudes: ["General", "General"],
+                    currentLevel: currentPR,
+                    nextLevel: nextPR,
+                    maxLevel: maxPR,
+                    affordable: xpAvailable >= prCost,
+                    alreadyMaxed: false,
+                    prereqsMet: true,
+                    prereqsUnmet: [],
+                    sourceItemId: psyTalent?.id,
+                });
+            }
+        }
+
+        // Sort: characteristics first (by name), then skills (alpha), then talents (tier → name), then elite
         options.sort((a, b) => {
-            const catOrder = { characteristic: 0, skill: 1, talent: 2 };
+            const catOrder: Record<string, number> = { characteristic: 0, skill: 1, talent: 2, elite: 3 };
             if (catOrder[a.category] !== catOrder[b.category]) {
                 return catOrder[a.category] - catOrder[b.category];
             }
@@ -325,6 +437,79 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             const item = await fromUuid(opt.compendiumUuid);
             if (!item) return;
             await actor.createEmbeddedDocuments("Item", [(item as any).toObject()]);
+            await actor.update({ "system.xp.spent": system.xp.spent + opt.cost });
+        } else if (opt.category === "elite" && opt.key.startsWith("elite-")) {
+            // Purchase elite advance
+            const advId = opt.key.replace("elite-", "");
+            const advDef = AdvancementShop.#eliteAdvanceData.find((a) => a.id === advId);
+            if (!advDef) return;
+
+            const currentElites: string[] = [...((system as any).eliteAdvances ?? [])];
+            currentElites.push(advId);
+            const currentApts: string[] = [...(system.aptitudes ?? [])];
+            const updates: Record<string, unknown> = {
+                "system.eliteAdvances": currentElites,
+                "system.xp.spent": system.xp.spent + opt.cost,
+            };
+
+            // Apply instant aptitudes
+            if (advDef.instant.aptitudes) {
+                for (const apt of advDef.instant.aptitudes) {
+                    if (!currentApts.includes(apt)) currentApts.push(apt);
+                }
+                updates["system.aptitudes"] = currentApts;
+            }
+
+            await actor.update(updates);
+
+            // Apply instant talents
+            if (advDef.instant.talents) {
+                for (const talentName of advDef.instant.talents) {
+                    // Check if actor already has this talent
+                    const existing = actor.items.find(
+                        (i: Item) => i.type === "talent" && i.name.toLowerCase() === talentName.toLowerCase(),
+                    );
+                    if (existing) continue;
+
+                    const talentPack = game.packs?.get("dh2e-data.talents");
+                    if (talentPack) {
+                        const idx = (await talentPack.getIndex()).find(
+                            (e: any) => e.name.toLowerCase() === talentName.toLowerCase(),
+                        );
+                        if (idx) {
+                            const doc = await talentPack.getDocument(idx._id);
+                            if (doc) {
+                                await actor.createEmbeddedDocuments("Item", [(doc as any).toObject()]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Unsanctioned psyker corruption
+            if (advId === "psyker" && advDef.instant.unsanctionedCorruption) {
+                const bgName = (system as any).details?.background ?? "";
+                const isSanctioned = bgName === "Adeptus Astra Telepathica";
+                if (!isSanctioned) {
+                    const corruptionRoll = new foundry.dice.Roll(advDef.instant.unsanctionedCorruption);
+                    await corruptionRoll.evaluate();
+                    const corruptionGain = corruptionRoll.total ?? 6;
+                    const currentCorruption = (system as any).corruption ?? 0;
+                    await actor.update({ "system.corruption": currentCorruption + corruptionGain });
+
+                    const speaker = fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
+                    await fd.ChatMessage.create({
+                        content: `<div class="dh2e chat-card system-note"><em>${game.i18n?.format("DH2E.EliteAdvance.UnsanctionedCorruption", { amount: String(corruptionGain) }) ?? `Unsanctioned psyker — gained ${corruptionGain} Corruption Points!`}</em></div>`,
+                        speaker,
+                    });
+                }
+            }
+        } else if (opt.category === "elite" && opt.key.startsWith("psy-rating-")) {
+            // Advance Psy Rating
+            if (!opt.sourceItemId) return;
+            const psyTalent = actor.items.get(opt.sourceItemId);
+            if (!psyTalent) return;
+            await psyTalent.update({ "system.tier": opt.nextLevel });
             await actor.update({ "system.xp.spent": system.xp.spent + opt.cost });
         }
 

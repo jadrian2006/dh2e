@@ -246,6 +246,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     description: sys.description ?? "",
                     aptitudes: sys.aptitudes ?? [],
                     talent: sys.talent ?? "",
+                    eliteAdvances: sys.eliteAdvances ?? undefined,
                     bonus: sys.bonus ?? "",
                     bonusDescription: sys.bonusDescription ?? "",
                     _itemData: doc.toObject(),
@@ -448,6 +449,49 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 if (!found) {
                     console.warn(`dh2e | Role talent "${role.talent}" not found in compendium`);
                 }
+            }
+        }
+
+        // 4b. Elite Advances from role
+        if (role?.eliteAdvances?.length) {
+            const eliteAdvanceIds: string[] = [];
+            for (const advId of role.eliteAdvances) {
+                if (advId === "psyker") {
+                    // Grant Psyker aptitude
+                    aptitudes.push("Psyker");
+                    // Grant Psy Rating talent (tier 1)
+                    const prDoc = await findInPack("dh2e-data.talents", "Psy Rating");
+                    if (prDoc) {
+                        const prData = prDoc.toObject();
+                        prData.system.tier = 1;
+                        itemsToCreate.push(prData);
+                    } else {
+                        console.warn("dh2e | Psy Rating talent not found in compendium");
+                    }
+                    eliteAdvanceIds.push("psyker");
+
+                    // Unsanctioned psyker corruption — if background is NOT Adeptus Astra Telepathica
+                    const bgName = background?.name ?? "";
+                    const isSanctioned = bgName === "Adeptus Astra Telepathica";
+                    if (!isSanctioned) {
+                        // Roll 1d10+3 corruption and apply during creation
+                        const corruptionRoll = new foundry.dice.Roll("1d10+3");
+                        await corruptionRoll.evaluate();
+                        const corruptionGain = corruptionRoll.total ?? 6;
+                        const currentCorruption = (updates["system.corruption"] as number) ?? 0;
+                        updates["system.corruption"] = currentCorruption + corruptionGain;
+
+                        // Post a chat message about unsanctioned corruption
+                        const speaker = fd.ChatMessage.getSpeaker?.({ actor: this.#actor }) ?? { alias: this.#actor.name };
+                        await fd.ChatMessage.create({
+                            content: `<div class="dh2e chat-card system-note"><em>${game.i18n?.format("DH2E.EliteAdvance.UnsanctionedCorruption", { amount: String(corruptionGain) }) ?? `Unsanctioned psyker — gained ${corruptionGain} Corruption Points!`}</em></div>`,
+                            speaker,
+                        });
+                    }
+                }
+            }
+            if (eliteAdvanceIds.length > 0) {
+                updates["system.eliteAdvances"] = eliteAdvanceIds;
             }
         }
 

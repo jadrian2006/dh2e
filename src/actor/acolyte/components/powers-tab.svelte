@@ -23,6 +23,18 @@
         return pr?.system?.tier ?? 0;
     });
 
+    /** Whether the character has the Psyker elite advance */
+    const isPsyker = $derived(() => {
+        const elites: string[] = ctx.actor?.system?.eliteAdvances ?? [];
+        return elites.includes("psyker");
+    });
+
+    /** Whether the psyker is sanctioned (Adeptus Astra Telepathica background) */
+    const isSanctioned = $derived(() => {
+        const bg: string = ctx.actor?.system?.details?.background ?? "";
+        return bg === "Adeptus Astra Telepathica";
+    });
+
     const groupedPowers = $derived(() => {
         const powers: PowerItem[] = ctx.items?.powers ?? [];
         const groups: Record<string, PowerItem[]> = {};
@@ -48,6 +60,10 @@
         await power.delete();
     }
 
+    function usePower(power: PowerItem) {
+        ctx.usePower?.(power);
+    }
+
     function toggleFavorite(power: any) {
         const current = power.getFlag?.("dh2e", "favorite");
         if (current) power.unsetFlag("dh2e", "favorite");
@@ -59,7 +75,22 @@
     <div class="psy-rating-display">
         <span class="psy-label">Psy Rating</span>
         <span class="psy-value">{psyRating()}</span>
+        {#if isPsyker() && psyRating() > 0}
+            <div class="pr-modes">
+                <span class="pr-mode unfettered" title="Unfettered: PR x5 bonus. Phenomena on doubles.">Unfettered: {psyRating()}</span>
+                <span class="pr-mode pushed" title="Pushed: PR x10 bonus. Always triggers Phenomena (+25).">Pushed: {psyRating()}</span>
+            </div>
+        {/if}
     </div>
+
+    {#if isPsyker()}
+        <div class="psyker-status">
+            <span class="status-badge" class:sanctioned={isSanctioned()} class:unsanctioned={!isSanctioned()}>
+                <i class={isSanctioned() ? "fa-solid fa-shield-halved" : "fa-solid fa-skull"}></i>
+                {isSanctioned() ? "Sanctioned Psyker" : "Unsanctioned Psyker"}
+            </span>
+        </div>
+    {/if}
 
     {#each disciplines() as disc}
         <section class="discipline-section">
@@ -80,6 +111,9 @@
                     {#if power.system?.focusTest}
                         <span class="power-focus">{power.system.focusTest}</span>
                     {/if}
+                    <button class="use-btn" onclick={() => usePower(power)} title="Use Power">
+                        <i class="fa-solid fa-hat-wizard"></i>
+                    </button>
                     {#if ctx.editable}
                         <button class="edit-btn" onclick={() => editPower(power)} title="Edit">&#9998;</button>
                         <button class="delete-btn" onclick={() => deletePower(power)} title="Delete">&times;</button>
@@ -90,7 +124,15 @@
     {/each}
 
     {#if (ctx.items?.powers ?? []).length === 0}
-        <p class="empty-msg">No psychic powers.</p>
+        {#if isPsyker() && psyRating() > 0}
+            <div class="empty-psyker">
+                <i class="fa-solid fa-hat-wizard empty-icon"></i>
+                <p class="empty-title">You are a Psyker with Psy Rating {psyRating()}.</p>
+                <p class="empty-hint">Drag psychic powers from the compendium to add them.</p>
+            </div>
+        {:else}
+            <p class="empty-msg">No psychic powers.</p>
+        {/if}
     {/if}
 </div>
 
@@ -106,6 +148,7 @@
         align-items: center;
         justify-content: center;
         gap: var(--dh2e-space-sm, 0.5rem);
+        flex-wrap: wrap;
         background: var(--dh2e-bg-light, #3a3a45);
         border: 1px solid var(--dh2e-border, #4a4a55);
         border-radius: var(--dh2e-radius-sm, 3px);
@@ -122,6 +165,53 @@
         font-size: var(--dh2e-text-xl, 1.2rem);
         font-weight: 700;
         color: var(--dh2e-gold-bright, #c8a84e);
+    }
+
+    .pr-modes {
+        display: flex;
+        gap: var(--dh2e-space-sm, 0.5rem);
+        margin-left: auto;
+    }
+    .pr-mode {
+        font-size: 0.6rem;
+        padding: 1px 6px;
+        border-radius: 3px;
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        cursor: help;
+
+        &.unfettered {
+            color: var(--dh2e-gold, #b49545);
+            border-color: var(--dh2e-gold-muted, #7a6a3e);
+        }
+        &.pushed {
+            color: var(--dh2e-red-bright, #d44);
+            border-color: rgba(168, 48, 48, 0.4);
+        }
+    }
+
+    .psyker-status {
+        text-align: center;
+    }
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--dh2e-space-xs, 0.25rem);
+        font-size: var(--dh2e-text-xs, 0.7rem);
+        padding: 2px 8px;
+        border-radius: 3px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+
+        &.sanctioned {
+            color: var(--dh2e-success, #48a868);
+            border: 1px solid rgba(72, 168, 104, 0.4);
+            background: rgba(72, 168, 104, 0.1);
+        }
+        &.unsanctioned {
+            color: var(--dh2e-red-bright, #d44);
+            border: 1px solid rgba(168, 48, 48, 0.4);
+            background: rgba(168, 48, 48, 0.1);
+        }
     }
 
     .discipline-header {
@@ -188,6 +278,22 @@
         white-space: nowrap;
     }
 
+    .use-btn {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: none;
+        background: transparent;
+        color: var(--dh2e-gold-muted, #8a7a3e);
+        cursor: pointer;
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        &:hover { color: var(--dh2e-gold-bright, #c8a84e); }
+    }
+
     .edit-btn, .delete-btn {
         width: 1.5rem;
         height: 1.5rem;
@@ -204,6 +310,31 @@
         &:hover { color: var(--dh2e-text-primary, #d0cfc8); }
     }
     .delete-btn:hover { color: var(--dh2e-red-bright, #d44); }
+
+    .empty-psyker {
+        text-align: center;
+        padding: var(--dh2e-space-lg, 1rem);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--dh2e-space-xs, 0.25rem);
+    }
+    .empty-icon {
+        font-size: 2rem;
+        color: var(--dh2e-gold-muted, #7a6a3e);
+        opacity: 0.6;
+    }
+    .empty-title {
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        color: var(--dh2e-text-primary, #d0cfc8);
+        margin: 0;
+    }
+    .empty-hint {
+        font-size: var(--dh2e-text-xs, 0.7rem);
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-style: italic;
+        margin: 0;
+    }
 
     .empty-msg {
         color: var(--dh2e-text-secondary, #a0a0a8);
