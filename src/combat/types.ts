@@ -1,7 +1,7 @@
 import type { HitLocationKey } from "@actor/types.ts";
 
 /** Fire mode for ranged weapons */
-type FireMode = "single" | "semi" | "full";
+type FireMode = "single" | "semi" | "full" | "suppressive";
 
 /** Result of a single hit within an attack */
 interface HitResult {

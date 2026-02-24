@@ -1,3 +1,58 @@
+// DH2E animation keyframes
+@keyframes dh2e-shake {
+    0%, 100% { transform: translateX(0); }
+    10% { transform: translateX(calc(-1 * var(--shake-intensity, 4px))); }
+    20% { transform: translateX(var(--shake-intensity, 4px)); }
+    30% { transform: translateX(calc(-0.8 * var(--shake-intensity, 4px))); }
+    40% { transform: translateX(calc(0.8 * var(--shake-intensity, 4px))); }
+    50% { transform: translateX(calc(-0.5 * var(--shake-intensity, 4px))); }
+    60% { transform: translateX(calc(0.5 * var(--shake-intensity, 4px))); }
+    70% { transform: translateX(calc(-0.3 * var(--shake-intensity, 4px))); }
+    80% { transform: translateX(calc(0.3 * var(--shake-intensity, 4px))); }
+    90% { transform: translateX(calc(-0.1 * var(--shake-intensity, 4px))); }
+}
+
+@keyframes dh2e-dice-spin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes dh2e-slide-up {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes dh2e-slide-down {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes dh2e-slide-left {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes dh2e-slide-right {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes dh2e-pulse-glow {
+    0% { box-shadow: 0 0 0 0 var(--glow-color, #c8a84e); }
+    50% { box-shadow: 0 0 12px 4px var(--glow-color, #c8a84e); }
+    100% { box-shadow: 0 0 0 0 var(--glow-color, #c8a84e); }
+}
+
+// Animation utility classes
+.dh2e-shake { animation: dh2e-shake 0.4s ease-in-out; }
+.dh2e-dice-roll { animation: dh2e-dice-spin 0.5s ease-out; }
+.dh2e-slide-in-up { animation: dh2e-slide-up 0.3s ease-out; }
+.dh2e-slide-in-down { animation: dh2e-slide-down 0.3s ease-out; }
+.dh2e-slide-in-left { animation: dh2e-slide-left 0.3s ease-out; }
+.dh2e-slide-in-right { animation: dh2e-slide-right 0.3s ease-out; }
+.dh2e-pulse-glow { animation: dh2e-pulse-glow 0.6s ease-in-out; }
+
 // DH2E global layout styles
 .dh2e.sheet {
     background: var(--dh2e-bg-dark);

@@ -5,13 +5,39 @@
 
     let situationalValue = $state(0);
     let situationalLabel = $state("");
+    let calledShotEnabled = $state(false);
+    let calledShotLocation = $state("head");
 
     const modifiers: ModifierDH2e[] = $derived(ctx.modifiers ?? []);
     const baseTarget: number = $derived(ctx.baseTarget ?? 0);
+    const canCalledShot: boolean = $derived(ctx.canCalledShot ?? false);
+    const calledShotPenalty: number = $derived(calledShotEnabled ? -20 : 0);
     const modTotal: number = $derived(
-        modifiers.filter((m: ModifierDH2e) => m.enabled).reduce((sum: number, m: ModifierDH2e) => sum + m.value, 0),
+        modifiers.filter((m: ModifierDH2e) => m.enabled).reduce((sum: number, m: ModifierDH2e) => sum + m.value, 0)
+        + calledShotPenalty,
     );
     const finalTarget: number = $derived(Math.max(1, baseTarget + modTotal));
+
+    const hitLocations = [
+        { key: "head", label: "Head" },
+        { key: "rightArm", label: "Right Arm" },
+        { key: "leftArm", label: "Left Arm" },
+        { key: "body", label: "Body" },
+        { key: "rightLeg", label: "Right Leg" },
+        { key: "leftLeg", label: "Left Leg" },
+    ];
+
+    function onCalledShotToggle() {
+        calledShotEnabled = !calledShotEnabled;
+        ctx.onCalledShotChange?.(calledShotEnabled ? calledShotLocation : null);
+    }
+
+    function onCalledShotSelect(event: Event) {
+        calledShotLocation = (event.target as HTMLSelectElement).value;
+        if (calledShotEnabled) {
+            ctx.onCalledShotChange?.(calledShotLocation);
+        }
+    }
 
     function toggleModifier(mod: ModifierDH2e) {
         if (mod.toggleable) {
@@ -51,8 +77,8 @@
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="check-dialog" onkeydown={handleKeydown}>
-    <div class="target-display">
+<div class="check-dialog" onkeydown={handleKeydown} role="dialog" aria-label={ctx.label ?? "Skill Check"}>
+    <div class="target-display" aria-live="polite">
         <span class="target-label">Target Number</span>
         <span class="target-value">{finalTarget}</span>
         <span class="target-breakdown">{baseTarget} base {modTotal >= 0 ? "+" : ""}{modTotal}</span>
@@ -84,6 +110,23 @@
         </div>
     {/if}
 
+    {#if canCalledShot}
+        <div class="called-shot-row">
+            <label class="called-shot-toggle">
+                <input type="checkbox" checked={calledShotEnabled} onchange={onCalledShotToggle} />
+                <span class="called-shot-label">Called Shot</span>
+                <span class="called-shot-penalty">-20</span>
+            </label>
+            {#if calledShotEnabled}
+                <select class="called-shot-select" value={calledShotLocation} onchange={onCalledShotSelect}>
+                    {#each hitLocations as loc}
+                        <option value={loc.key}>{loc.label}</option>
+                    {/each}
+                </select>
+            {/if}
+        </div>
+    {/if}
+
     <div class="situational-row">
         <label class="situational-label">
             <span class="field-label">Add Modifier</span>
@@ -106,9 +149,9 @@
         <button class="add-btn" onclick={addSituational} title="Add modifier">+</button>
     </div>
 
-    <div class="dialog-buttons">
-        <button class="btn roll-btn" onclick={() => ctx.onRoll?.()}>Roll</button>
-        <button class="btn cancel-btn" onclick={() => ctx.onCancel?.()}>Cancel</button>
+    <div class="dialog-buttons" role="group" aria-label="Dialog actions">
+        <button class="btn roll-btn" onclick={() => ctx.onRoll?.()} aria-label="Roll the check">Roll</button>
+        <button class="btn cancel-btn" onclick={() => ctx.onCancel?.()} aria-label="Cancel the check">Cancel</button>
     </div>
 </div>
 
@@ -211,6 +254,41 @@
 
         &.bonus { color: var(--dh2e-success, #4a8); }
         &.penalty { color: var(--dh2e-red-bright, #d44); }
+    }
+
+    .called-shot-row {
+        display: flex;
+        flex-direction: column;
+        gap: var(--dh2e-space-xs, 0.25rem);
+        padding: var(--dh2e-space-sm, 0.5rem);
+        background: var(--dh2e-bg-light, #3a3a45);
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
+    }
+    .called-shot-toggle {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-sm, 0.5rem);
+        cursor: pointer;
+    }
+    .called-shot-label {
+        flex: 1;
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        font-weight: 600;
+        color: var(--dh2e-text-primary, #d0cfc8);
+    }
+    .called-shot-penalty {
+        font-weight: 700;
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        color: var(--dh2e-red-bright, #d44);
+    }
+    .called-shot-select {
+        width: 100%;
+        padding: var(--dh2e-space-xs, 0.25rem);
+        background: var(--dh2e-bg-mid, #2e2e35);
+        color: var(--dh2e-text-primary, #d0cfc8);
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
     }
 
     .situational-row {

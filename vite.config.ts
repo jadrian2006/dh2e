@@ -80,6 +80,11 @@ export default defineConfig(({ command, mode }): UserConfig => {
                 "@ui": path.resolve(srcDir, "ui"),
                 "@util": path.resolve(srcDir, "util"),
                 "@advancement": path.resolve(srcDir, "advancement"),
+                "@psychic": path.resolve(srcDir, "psychic"),
+                "@corruption": path.resolve(srcDir, "corruption"),
+                "@insanity": path.resolve(srcDir, "insanity"),
+                "@requisition": path.resolve(srcDir, "requisition"),
+                "@migration": path.resolve(srcDir, "migration"),
             },
         },
         define: {

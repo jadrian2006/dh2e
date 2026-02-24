@@ -1,10 +1,12 @@
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@sheet/mixin.ts";
 import type { ModifierDH2e } from "@rules/modifier.ts";
+import type { HitLocationKey } from "@actor/types.ts";
 import DialogRoot from "./dialog-root.svelte";
 
 interface CheckDialogResult {
     cancelled: boolean;
     modifiers: ModifierDH2e[];
+    calledShot?: HitLocationKey;
 }
 
 /**
@@ -30,6 +32,9 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     #baseTarget: number;
     #modifiers: ModifierDH2e[];
     #skillDescription: string;
+    #isAttack: boolean;
+    #fireMode: string;
+    #calledShot: HitLocationKey | null = null;
     #resolve: ((result: CheckDialogResult) => void) | null = null;
 
     constructor(options: {
@@ -37,12 +42,16 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         baseTarget: number;
         modifiers: ModifierDH2e[];
         skillDescription?: string;
+        isAttack?: boolean;
+        fireMode?: string;
     }) {
         super({});
         this.#label = options.label;
         this.#baseTarget = options.baseTarget;
         this.#modifiers = options.modifiers;
         this.#skillDescription = options.skillDescription ?? "";
+        this.#isAttack = options.isAttack ?? false;
+        this.#fireMode = options.fireMode ?? "single";
     }
 
     override get title(): string {
@@ -50,21 +59,34 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 
     protected override async _prepareContext(): Promise<SvelteApplicationRenderContext> {
+        // Called shots only available for single-fire attack rolls
+        const canCalledShot = this.#isAttack && this.#fireMode === "single";
+
         return {
             ctx: {
                 label: this.#label,
                 baseTarget: this.#baseTarget,
                 modifiers: this.#modifiers,
                 skillDescription: this.#skillDescription,
+                isAttack: this.#isAttack,
+                canCalledShot,
+                calledShot: this.#calledShot,
                 onRoll: () => this.#confirm(),
                 onCancel: () => this.#cancel(),
                 onAddModifier: (mod: ModifierDH2e) => this.#addModifier(mod),
+                onCalledShotChange: (location: HitLocationKey | null) => {
+                    this.#calledShot = location;
+                },
             },
         };
     }
 
     #confirm(): void {
-        this.#resolve?.({ cancelled: false, modifiers: this.#modifiers });
+        this.#resolve?.({
+            cancelled: false,
+            modifiers: this.#modifiers,
+            calledShot: this.#calledShot ?? undefined,
+        });
         this.close();
     }
 
@@ -90,6 +112,8 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         baseTarget: number;
         modifiers: ModifierDH2e[];
         skillDescription?: string;
+        isAttack?: boolean;
+        fireMode?: string;
     }): Promise<CheckDialogResult> {
         const dialog = new CheckDialog(options);
         return new Promise((resolve) => {

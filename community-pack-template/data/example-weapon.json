@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Example Custom Laspistol",
+        "type": "weapon",
+        "img": "icons/svg/sword.svg",
+        "system": {
+            "description": "<p>A custom-modified laspistol with enhanced focusing crystal.</p>",
+            "class": "pistol",
+            "range": 30,
+            "rof": { "single": 1, "semi": 2, "full": 0 },
+            "damage": { "formula": "1d10+3", "type": "energy" },
+            "penetration": 1,
+            "clip": { "value": 30, "max": 30 },
+            "reload": "half",
+            "weight": 1.5,
+            "availability": "scarce",
+            "qualities": ["reliable"],
+            "equipped": false,
+            "ruleElements": [
+                {
+                    "type": "FlatModifier",
+                    "selector": "ranged-attack",
+                    "value": 5,
+                    "label": "Custom Targeting Laser"
+                },
+                {
+                    "type": "RollOption",
+                    "domain": "weapon",
+                    "option": "weapon:custom-laspistol"
+                }
+            ]
+        }
+    }
+]

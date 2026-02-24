@@ -8,6 +8,9 @@ import { getQualityRuleElements } from "./weapon-qualities.ts";
 import { instantiateRuleElement } from "@rules/rule-element/registry.ts";
 import { createSynthetics, type DH2eSynthetics } from "@rules/synthetics.ts";
 import type { RuleElementSource } from "@rules/rule-element/base.ts";
+import type { HordeDH2e } from "@actor/horde/document.ts";
+import type { VehicleDH2e } from "@actor/vehicle/document.ts";
+import { determineFacing } from "./vehicle-damage.ts";
 
 /**
  * Resolves a full attack sequence:
@@ -57,7 +60,8 @@ class AttackResolver {
             rollOptions.add(opt);
         }
 
-        // Roll the attack check
+        // Roll the attack check — pass isAttack and fireMode so the dialog
+        // can offer Called Shot (only available on Standard Attack / single fire)
         const result = await CheckDH2e.roll({
             actor,
             characteristic,
@@ -65,9 +69,14 @@ class AttackResolver {
             label: `${weapon.name} Attack (${fireMode === "single" ? "Single" : fireMode === "semi" ? "Semi-Auto" : "Full-Auto"})`,
             domain: `attack:${isMelee ? "melee" : "ranged"}`,
             rollOptions,
+            isAttack: true,
+            fireMode,
         });
 
         if (!result) return null; // User cancelled
+
+        // Read called shot from the check context (set by dialog)
+        const calledShot = result.context.calledShot;
 
         if (!result.dos.success) {
             // Attack missed
@@ -88,10 +97,10 @@ class AttackResolver {
 
         // Determine hit locations
         const hits = [];
-        // First hit uses reversed digits of the attack roll
-        hits.push(determineHitLocation(result.roll));
+        // First hit: use called shot location if specified, else reversed digits
+        hits.push(determineHitLocation(result.roll, calledShot));
 
-        // Additional hits use random d100 reversed
+        // Additional hits use random d100 reversed (no called shot override)
         for (let i = 1; i < hitCount; i++) {
             const randomRoll = Math.floor(Math.random() * 100) + 1;
             hits.push(determineHitLocation(randomRoll));
@@ -190,6 +199,38 @@ class AttackResolver {
         // Post damage card
         await AttackResolver.#postDamageCard(results, attackResult.weaponName, target);
 
+        // Route damage to target — horde uses magnitude, others use wounds
+        if ((target as any).type === "horde") {
+            const horde = target as unknown as HordeDH2e;
+            const totalWounds = results.reduce((sum, r) => sum + r.woundsDealt, 0);
+            const qualities: string[] = weapon.effectiveQualities ?? sys.qualities ?? [];
+            const isBlast = qualities.some((q: string) => q.toLowerCase().startsWith("blast"));
+            const isFlame = qualities.some((q: string) => q.toLowerCase() === "flame");
+            let blastRadius = 0;
+            if (isBlast) {
+                const blastMatch = qualities.find((q: string) => q.toLowerCase().startsWith("blast"))?.match(/\d+/);
+                blastRadius = blastMatch ? parseInt(blastMatch[0], 10) : 0;
+            }
+            await horde.applyMagnitudeDamage(totalWounds, { isBlast, blastRadius, isFlame });
+        } else if ((target as any).type === "vehicle") {
+            // Determine facing from token positions if available
+            const vehicle = target as unknown as VehicleDH2e;
+            const totalWounds = results.reduce((sum, r) => sum + r.woundsDealt, 0);
+
+            // Try to get token positions for facing calculation
+            let facing: "front" | "side" | "rear" = "front";
+            const attackerToken = (options.actor as any).token ?? (options.actor as any).getActiveTokens?.()?.[0];
+            const targetToken = (target as any).token ?? (target as any).getActiveTokens?.()?.[0];
+            if (attackerToken && targetToken) {
+                facing = determineFacing(
+                    { x: attackerToken.x, y: attackerToken.y },
+                    { x: targetToken.x, y: targetToken.y, rotation: targetToken.rotation },
+                );
+            }
+
+            await vehicle.applyVehicleDamage(totalWounds, facing);
+        }
+
         return results;
     }
 
@@ -266,12 +307,16 @@ class AttackResolver {
     ): Promise<void> {
         const templatePath = `systems/${SYSTEM_ID}/templates/chat/damage-card.hbs`;
         const totalWounds = results.reduce((sum, r) => sum + r.woundsDealt, 0);
+        const isGM = (game as any).user?.isGM ?? false;
 
         const templateData = {
             weaponName,
             targetName: target.name,
+            targetId: target.id,
             hits: results,
             totalWounds,
+            isGM,
+            applied: false,
         };
 
         const content = await fa.handlebars.renderTemplate(templatePath, templateData);
@@ -282,6 +327,16 @@ class AttackResolver {
                 [SYSTEM_ID]: {
                     type: "damage",
                     result: templateData,
+                    snapshot: {
+                        targetId: target.id,
+                        field: "system.wounds.value",
+                        previous: (target as any).system?.wounds?.value ?? 0,
+                        woundsDealt: totalWounds,
+                        hitDetails: results.map((r) => ({
+                            location: r.location,
+                            woundsDealt: r.woundsDealt,
+                        })),
+                    },
                 },
             },
         });

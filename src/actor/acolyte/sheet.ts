@@ -2,6 +2,9 @@ import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@sh
 import { CreationWizard } from "../../character-creation/wizard.ts";
 import { AdvancementShop } from "../../advancement/shop.ts";
 import { getSetting } from "../../ui/settings/settings.ts";
+import { FocusPowerResolver } from "@psychic/focus-power.ts";
+import { FocusPowerDialog } from "@psychic/focus-dialog.ts";
+import type { CharacteristicAbbrev } from "@actor/types.ts";
 import type { AcolyteDH2e } from "./document.ts";
 import SheetRoot from "./sheet-root.svelte";
 
@@ -21,6 +24,9 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
 
     /** Persisted tab state — survives Svelte remounts */
     #activeTab = "summary";
+
+    /** View mode: "full" | "compact" | "combat" */
+    #viewMode: string = getSetting<string>("defaultSheetViewMode") || "full";
 
     /** Whether native drop listeners have been attached */
     #dropListenersBound = false;
@@ -63,8 +69,14 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 },
                 openWizard: () => CreationWizard.open(actor),
                 openShop: () => AdvancementShop.open(actor),
+                usePower: (power: Item) => this.#usePower(actor, power),
                 activeTab: this.#activeTab,
                 setActiveTab: (tab: string) => { this.#activeTab = tab; },
+                viewMode: this.#viewMode,
+                setViewMode: (mode: string) => {
+                    this.#viewMode = mode;
+                    this.render(true);
+                },
             },
         };
     }
@@ -107,6 +119,40 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
         background: "system.details.background",
         role: "system.details.role",
     };
+
+    /** Launch the Focus Power flow for a psychic power */
+    async #usePower(actor: AcolyteDH2e, power: Item): Promise<void> {
+        const sys = (power as any).system ?? {};
+        const charKey = (sys.focusTest || "wp") as CharacteristicAbbrev;
+
+        // Derive Psy Rating from "Psy Rating" talent
+        const talents = actor.items.filter((i: Item) => i.type === "talent");
+        const prTalent = talents.find((t: Item) => t.name === "Psy Rating");
+        const psyRating = (prTalent as any)?.system?.tier ?? 0;
+
+        if (psyRating <= 0) {
+            ui.notifications?.warn(game.i18n?.localize("DH2E.Psychic.NoPsyRating") ?? "No Psy Rating — cannot use powers.");
+            return;
+        }
+
+        // Show mode selection dialog
+        const dialogResult = await FocusPowerDialog.prompt({
+            powerName: power.name ?? "Power",
+            psyRating,
+            description: sys.description ?? "",
+        });
+        if (dialogResult.cancelled) return;
+
+        await FocusPowerResolver.resolve({
+            actor,
+            power,
+            focusCharacteristic: charKey,
+            focusModifier: sys.focusModifier ?? 0,
+            psyRating,
+            mode: dialogResult.mode,
+            skipDialog: false,
+        });
+    }
 
     /** Handle item drops from compendium or sidebar */
     async #handleDrop(event: DragEvent): Promise<void> {

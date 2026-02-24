@@ -44,8 +44,20 @@ class CheckDH2e {
                 baseTarget: context.baseTarget,
                 modifiers: allModifiers,
                 skillDescription: context.skillDescription,
+                isAttack: context.isAttack,
+                fireMode: context.fireMode,
             });
             if (dialogResult.cancelled) return null;
+
+            // If user selected a called shot, store it and add the -20 modifier
+            if (dialogResult.calledShot) {
+                context.calledShot = dialogResult.calledShot;
+                allModifiers.push(new ModifierDH2e({
+                    label: "Called Shot",
+                    value: -20,
+                    source: "called-shot",
+                }));
+            }
         }
 
         // Resolve modifier pipeline

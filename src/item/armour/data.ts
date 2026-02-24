@@ -7,4 +7,5 @@ export interface ArmourSystemSource {
     qualities: string[];
     weight: number;
     equipped: boolean;
+    availability: string;
 }

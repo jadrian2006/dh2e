@@ -59,6 +59,15 @@ class NpcDH2e extends ActorDH2e {
 
         // Process Rule Elements
         this.#processRuleElements();
+
+        // Apply armour:all modifiers (Natural Armour, Machine, etc.)
+        const armourMods = this.synthetics.modifiers["armour:all"] ?? [];
+        if (armourMods.length > 0) {
+            const bonus = armourMods.reduce((sum, m) => sum + m.value, 0);
+            for (const loc of Object.keys(armour)) {
+                armour[loc] += bonus;
+            }
+        }
     }
 
     /** Get armour protection at a hit location */
@@ -99,6 +108,12 @@ class NpcDH2e extends ActorDH2e {
 
     #processRuleElements(): void {
         for (const item of this.items) {
+            // Skip uninstalled cybernetics — their REs should not contribute
+            if (item.type === "cybernetic") {
+                const sys = item.system as any;
+                if (!sys.installed) continue;
+            }
+
             const rules = (item.system as any)?.rules as RuleElementSource[] | undefined;
             if (!rules || !Array.isArray(rules)) continue;
 

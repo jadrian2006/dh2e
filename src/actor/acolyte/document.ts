@@ -4,6 +4,8 @@ import type { AcolyteSystemData, AcolyteSystemSource, CharacteristicData } from 
 import { createSynthetics } from "@rules/synthetics.ts";
 import { instantiateRuleElement } from "@rules/rule-element/registry.ts";
 import type { RuleElementSource } from "@rules/rule-element/base.ts";
+import { CorruptionHandler } from "@corruption/corruption.ts";
+import { InsanityHandler } from "@insanity/insanity.ts";
 
 /** The Acolyte (player character) actor */
 class AcolyteDH2e extends ActorDH2e {
@@ -81,13 +83,55 @@ class AcolyteDH2e extends ActorDH2e {
             run: agBonus * 6,
         };
 
+        // Calculate encumbrance (Core Rulebook p.247)
+        const sBonus = this.system.characteristics.s.bonus;
+        const tBonus = this.system.characteristics.t.bonus;
+        const carry = sBonus + tBonus;
+        const lift = carry * 2;
+        const push = carry * 4;
+
+        let totalWeight = 0;
+        for (const item of this.items) {
+            const sys = item.system as any;
+            const weight = sys.weight ?? 0;
+            const quantity = sys.quantity ?? 1;
+            totalWeight += weight * quantity;
+        }
+
+        const overloaded = totalWeight > carry;
+        const overencumbered = totalWeight > lift;
+
+        (this.system as any).encumbrance = {
+            current: totalWeight,
+            carry,
+            lift,
+            push,
+            overloaded,
+            overencumbered,
+        };
+
         // Process Rule Elements from all items
         this.#processRuleElements();
+
+        // Apply armour:all modifiers (Natural Armour, Machine, etc.)
+        const armourMods = this.synthetics.modifiers["armour:all"] ?? [];
+        if (armourMods.length > 0) {
+            const bonus = armourMods.reduce((sum, m) => sum + m.value, 0);
+            for (const loc of Object.keys(armour)) {
+                armour[loc] += bonus;
+            }
+        }
     }
 
     /** Iterate all owned items, instantiate their REs, and call onPrepareData */
     #processRuleElements(): void {
         for (const item of this.items) {
+            // Skip uninstalled cybernetics — their REs should not contribute
+            if (item.type === "cybernetic") {
+                const sys = item.system as any;
+                if (!sys.installed) continue;
+            }
+
             const rules = (item.system as any)?.rules as RuleElementSource[] | undefined;
             if (!rules || !Array.isArray(rules)) continue;
 
@@ -148,6 +192,39 @@ class AcolyteDH2e extends ActorDH2e {
         const max = this.system.wounds.max;
         const newValue = Math.min(max, current + wounds);
         await this.update({ "system.wounds.value": newValue });
+    }
+
+    /** Detect corruption/insanity changes and trigger threshold checks */
+    override _onUpdate(
+        changed: Record<string, unknown>,
+        options: Record<string, unknown>,
+        userId: string,
+    ): void {
+        super._onUpdate(changed, options, userId);
+
+        // Only run on the triggering user's client
+        if ((game as any).user?.id !== userId) return;
+
+        const sys = changed.system as Record<string, unknown> | undefined;
+        if (!sys) return;
+
+        if ("corruption" in sys) {
+            const oldVal = this._source.system.corruption as number;
+            const newVal = sys.corruption as number;
+            const automate = (game as any).settings?.get?.(SYSTEM_ID, "automateCorruption") ?? true;
+            if (automate && newVal > oldVal) {
+                CorruptionHandler.onCorruptionChanged(this, oldVal, newVal);
+            }
+        }
+
+        if ("insanity" in sys) {
+            const oldVal = this._source.system.insanity as number;
+            const newVal = sys.insanity as number;
+            const automate = (game as any).settings?.get?.(SYSTEM_ID, "automateInsanity") ?? true;
+            if (automate && newVal > oldVal) {
+                InsanityHandler.onInsanityChanged(this, oldVal, newVal);
+            }
+        }
     }
 }
 

@@ -6,7 +6,8 @@ import { getModifiers, type DH2eSynthetics } from "../synthetics.ts";
 interface FlatModifierSource extends RuleElementSource {
     key: "FlatModifier";
     domain: string;
-    value: number;
+    /** Numeric value, or "rating" to resolve from the parent item's system.rating */
+    value: number | "rating";
     source?: string;
     exclusionGroup?: string;
 }
@@ -29,9 +30,15 @@ interface FlatModifierSource extends RuleElementSource {
 class FlatModifierRE extends RuleElementDH2e {
     override onPrepareData(synthetics: DH2eSynthetics): void {
         const src = this.source as FlatModifierSource;
+
+        // Resolve "rating" to the parent item's system.rating
+        const value = src.value === "rating"
+            ? (this.item.system as any)?.rating ?? 0
+            : src.value;
+
         const modifier = new ModifierDH2e({
             label: src.label ?? this.item.name,
-            value: src.value,
+            value,
             source: src.source ?? "rule-element",
             exclusionGroup: src.exclusionGroup,
             predicate: src.predicate,

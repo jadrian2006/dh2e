@@ -1,5 +1,6 @@
 <script lang="ts">
     import { rulesToYaml, yamlToRules, validateRules, YAML_TEMPLATE } from "./yaml-editor.ts";
+    import RuleBuilder from "../rule-builder/rule-builder.svelte";
 
     let {
         rules = [],
@@ -12,6 +13,8 @@
     } = $props();
 
     let editing = $state(false);
+    let showBuilder = $state(false);
+    let builderRule: Record<string, any> = $state({ key: "FlatModifier" });
     let yamlText = $state("");
     let errors: string[] = $state([]);
     let saved = $state(false);
@@ -57,6 +60,20 @@
         }
     }
 
+    function openBuilder() {
+        builderRule = { key: "FlatModifier" };
+        showBuilder = true;
+    }
+
+    async function onBuilderSave(newRule: Record<string, any>) {
+        const current = rules ? [...rules] : [];
+        current.push(newRule as any);
+        await item.update({ "system.rules": current });
+        showBuilder = false;
+        saved = true;
+        setTimeout(() => { saved = false; }, 2000);
+    }
+
     function handleKeydown(event: KeyboardEvent) {
         // Ctrl+S / Cmd+S to save
         if ((event.ctrlKey || event.metaKey) && event.key === "s") {
@@ -90,9 +107,12 @@
                 <span class="rule-count">({ruleCount})</span>
             {/if}
         </h3>
-        {#if editable && !editing}
+        {#if editable && !editing && !showBuilder}
             <button class="edit-btn" onclick={startEditing} title="Edit Rule Elements (YAML)">
-                <i class="fas fa-code"></i> Edit
+                <i class="fas fa-code"></i> YAML
+            </button>
+            <button class="edit-btn visual-btn" onclick={openBuilder} title="Add rule element visually">
+                <i class="fas fa-wand-magic-sparkles"></i> Visual
             </button>
         {/if}
         {#if saved}
@@ -159,7 +179,15 @@
             {/each}
         </div>
     {:else if editable}
-        <p class="empty-rules">No rule elements. Click Edit to add effects.</p>
+        <p class="empty-rules">No rule elements. Click YAML or Visual to add effects.</p>
+    {/if}
+
+    {#if showBuilder}
+        <RuleBuilder
+            bind:rule={builderRule}
+            onSave={onBuilderSave}
+            onCancel={() => { showBuilder = false; }}
+        />
     {/if}
 </div>
 
@@ -208,6 +236,16 @@
             background: var(--dh2e-gold-dark, #9c7a28);
             color: var(--dh2e-bg-darkest, #111114);
             border-color: var(--dh2e-gold, #c8a84e);
+        }
+    }
+
+    .visual-btn {
+        background: var(--dh2e-gold-dark, #9c7a28);
+        color: var(--dh2e-bg-darkest, #111114);
+        border-color: var(--dh2e-gold, #c8a84e);
+
+        &:hover {
+            background: var(--dh2e-gold, #c8a84e);
         }
     }
 

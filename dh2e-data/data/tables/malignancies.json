@@ -1,0 +1,22 @@
+[
+    { "min": 1, "max": 5, "title": "Palsy", "description": "The character's hands shake involuntarily.", "effect": "-10 to Agility tests involving fine motor control." },
+    { "min": 6, "max": 10, "title": "Dark-hearted", "description": "The character grows cruel and callous.", "effect": "-10 to Fellowship tests when trying to appear sympathetic." },
+    { "min": 11, "max": 15, "title": "Ill-fortuned", "description": "The character is cursed with terrible luck.", "effect": "Reduce Fate Points by 1 (minimum 0)." },
+    { "min": 16, "max": 20, "title": "Skin Affliction", "description": "Hideous boils, rashes, or weeping sores cover the body.", "effect": "-10 to Fellowship tests involving appearance." },
+    { "min": 21, "max": 25, "title": "Night Terrors", "description": "Horrific nightmares plague the character's rest.", "effect": "Must pass WP test each morning or gain 1 Fatigue." },
+    { "min": 26, "max": 30, "title": "Fell Obsession", "description": "The character becomes fixated on a dark topic.", "effect": "-10 to all Perception tests (distracted by obsession)." },
+    { "min": 31, "max": 35, "title": "Irrational Nausea", "description": "A specific common stimulus triggers uncontrollable nausea.", "effect": "WP test when exposed or Stunned for 1 round." },
+    { "min": 36, "max": 40, "title": "Wasted Frame", "description": "The character's body wastes away despite eating.", "effect": "-5 Toughness bonus for resisting disease." },
+    { "min": 41, "max": 45, "title": "Baleful Eye", "description": "One eye becomes milky and disturbing.", "effect": "-5 to BS tests. Disturbing appearance." },
+    { "min": 46, "max": 50, "title": "Cursed Luck", "description": "Mechanical devices frequently malfunction around the character.", "effect": "Tech-Use tests within 5m suffer -10." },
+    { "min": 51, "max": 55, "title": "Morbid Fascination", "description": "The character is drawn to scenes of death and suffering.", "effect": "WP test to leave a scene of carnage voluntarily." },
+    { "min": 56, "max": 60, "title": "Witch-mark", "description": "A visible brand or mark of corruption appears on the body.", "effect": "Easily identified as tainted. Social penalties in Imperial society." },
+    { "min": 61, "max": 65, "title": "Ashen Taste", "description": "All food tastes of ash and decay.", "effect": "No mechanical effect, but deeply unsettling." },
+    { "min": 66, "max": 70, "title": "Bloodlust", "description": "The character craves violence.", "effect": "WP test or must attack nearest enemy in melee when combat begins." },
+    { "min": 71, "max": 75, "title": "Unnatural Taint", "description": "Animals react with fear and hostility.", "effect": "Animals flee or attack within 10m. Survival tests at -20." },
+    { "min": 76, "max": 80, "title": "Warp Echo", "description": "The character's reflection shows something monstrous.", "effect": "Fear (1) test for anyone who sees the reflection." },
+    { "min": 81, "max": 85, "title": "Fell Addiction", "description": "The character becomes addicted to a harmful substance or practice.", "effect": "Must indulge daily or suffer -10 to all tests." },
+    { "min": 86, "max": 90, "title": "Blackouts", "description": "The character suffers periodic blackouts lasting minutes to hours.", "effect": "GM may impose blackouts at dramatic moments." },
+    { "min": 91, "max": 95, "title": "Corpse-like Pallor", "description": "The character's skin becomes deathly pale and cold.", "effect": "-5 Fellowship. Easily mistaken for undead." },
+    { "min": 96, "max": 100, "title": "Mutation", "description": "A visible mutation manifests — extra fingers, vestigial limb, or worse.", "effect": "Visible mutation. Automatic execution if discovered by authorities." }
+]

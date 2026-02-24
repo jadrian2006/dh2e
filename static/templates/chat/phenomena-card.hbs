@@ -1,0 +1,33 @@
+<div class="dh2e chat-card phenomena-card {{#if isPerils}}perils{{/if}}">
+    <header class="card-header phenomena-header">
+        <h3>
+            {{#if isPerils}}
+                <i class="fas fa-skull-crossbones"></i> {{localize "DH2E.Psychic.PerilsOfTheWarp"}}
+            {{else}}
+                <i class="fas fa-bolt"></i> {{localize "DH2E.Psychic.PsychicPhenomena"}}
+            {{/if}}
+        </h3>
+        <span class="phenomena-title">{{title}}</span>
+    </header>
+    <div class="card-body">
+        <p class="phenomena-description">{{description}}</p>
+        <div class="phenomena-effect">
+            <span class="effect-label">{{localize "DH2E.Psychic.Effect"}}:</span>
+            <span class="effect-text">{{effect}}</span>
+        </div>
+        {{#if damage}}
+        <div class="phenomena-damage">
+            <span class="damage-label">{{localize "DH2E.Psychic.Damage"}}:</span>
+            <span class="damage-text">{{damage}}</span>
+        </div>
+        {{/if}}
+        {{#if isGM}}
+        <div class="gm-controls">
+            <button class="btn-apply" data-action="apply-phenomena" title="{{localize "DH2E.Psychic.ApplyEffect"}}">
+                <i class="fas fa-check"></i> {{localize "DH2E.Psychic.ApplyEffect"}}
+            </button>
+            <button class="gm-override-btn" data-action="gm-override" title="GM Override"><i class="fas fa-cog"></i></button>
+        </div>
+        {{/if}}
+    </div>
+</div>

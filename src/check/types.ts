@@ -1,5 +1,5 @@
 import type { ModifierDH2e } from "@rules/modifier.ts";
-import type { CharacteristicAbbrev } from "@actor/types.ts";
+import type { CharacteristicAbbrev, HitLocationKey } from "@actor/types.ts";
 import type { DoSResult } from "@util/degree-of-success.ts";
 
 /** Context for initiating a d100 check */
@@ -24,6 +24,12 @@ interface CheckContext {
     dosThreshold?: number;
     /** Skill description text shown as a foldout in the roll dialog */
     skillDescription?: string;
+    /** Called shot target location — overrides random hit location on success */
+    calledShot?: HitLocationKey;
+    /** Whether this is an attack context where called shots can be selected */
+    isAttack?: boolean;
+    /** Fire mode for the attack — called shots restricted to "single" */
+    fireMode?: string;
 }
 
 /** The final result of a completed check */

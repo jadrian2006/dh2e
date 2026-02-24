@@ -33,6 +33,7 @@ class ChatCardDH2e {
                 value: m.value,
                 source: m.source,
             })),
+            isGM: (game as any).user?.isGM ?? false,
         };
 
         const content = await fa.handlebars.renderTemplate(templatePath, templateData);

@@ -96,6 +96,20 @@
             "system": "dh2e"
         },
         {
+            "name": "cybernetics",
+            "label": "DH2E Cybernetics",
+            "path": "packs/cybernetics",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "traits",
+            "label": "DH2E Traits",
+            "path": "packs/traits",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
             "name": "npcs",
             "label": "DH2E NPCs & Creatures",
             "path": "packs/npcs",

@@ -1,0 +1,302 @@
+[
+    {
+        "name": "Bionic Arm",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "A mechanical replacement for a lost arm. Common models restore normal function, while higher-quality versions can enhance Strength. Best-craftsmanship bionic arms grant +10 to Strength tests made with that arm.",
+            "location": "Arm",
+            "type": "replacement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 4,
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Bionic Leg",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "A mechanical replacement for a lost leg. Common models restore normal movement, while higher-quality versions can improve Agility-based movement. Best-craftsmanship bionic legs grant +10 to Agility tests involving movement.",
+            "location": "Leg",
+            "type": "replacement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 5,
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Bionic Eye",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "A mechanical replacement for a lost eye. Restores normal vision. Good-craftsmanship versions include magnifying lenses, IR vision, or low-light filters. Best-craftsmanship grants Dark-sight and +10 to Perception tests involving sight.",
+            "location": "Head",
+            "type": "replacement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Bionic Heart",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "A mechanical heart implant that replaces or augments the natural organ. Provides increased stamina and resistance to Blood Loss and Stunning. Grants +1 AP to Body location from internal plating.",
+            "location": "Body",
+            "type": "replacement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Very Rare"
+        }
+    },
+    {
+        "name": "Cerebral Implant",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "Cogitator implants within the brain that boost mental functions. Good-craftsmanship models grant +10 to Logic and Lore tests. Best models grant Unnatural Intelligence (1).",
+            "location": "Head",
+            "type": "enhancement",
+            "grade": "good",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Very Rare"
+        }
+    },
+    {
+        "name": "Cranial Armour",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "Subdermal armour plating implanted beneath the skin of the skull. Provides +2 AP to the Head location. Common among combat servitors and battle-hardened veterans.",
+            "location": "Head",
+            "type": "enhancement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Scarce"
+        }
+    },
+    {
+        "name": "Ferric Lure Implant",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "A powerful electromagnet implanted in the palm or forearm. Can be used to manipulate metallic objects at short range, summon weapons to hand, or disarm opponents. Usable a number of times per day equal to WP bonus.",
+            "location": "Arm",
+            "type": "enhancement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Very Rare"
+        }
+    },
+    {
+        "name": "Interface Port",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "A surgically implanted data port, usually in the base of the skull or along the spine, allowing direct connection to cogitator systems. Grants +10 to Tech-Use tests when connected to a cogitator.",
+            "location": "Head",
+            "type": "enhancement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Scarce"
+        }
+    },
+    {
+        "name": "Locator Matrix",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "An implanted navigation and location device. The character always knows their exact position relative to known landmarks. Grants +20 to Navigate (Surface) tests.",
+            "location": "Head",
+            "type": "enhancement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Maglev Coils",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "Implanted magnetic levitation coils allow the user to hover up to 20-30cm above metallic surfaces and move silently. Grants the Hoverer (6) trait while over ferrous terrain.",
+            "location": "Body",
+            "type": "enhancement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 2,
+            "availability": "Very Rare"
+        }
+    },
+    {
+        "name": "Memorance Implant",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "A cerebral implant that records sensory data, allowing perfect recall of past events. The user can review recorded memories at will. Grants Eidetic Memory and +10 to all Lore tests.",
+            "location": "Head",
+            "type": "enhancement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Mind Impulse Unit (MIU)",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "A neural link allowing direct mental control of machinery and devices. Grants +10 to Tech-Use, Operate, and Logic tests when interfaced with a compatible system. Essential for Titan crews and Knight pilots.",
+            "location": "Head",
+            "type": "enhancement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Very Rare"
+        }
+    },
+    {
+        "name": "MIU Weapon Interface",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "A specialised Mind Impulse Unit that allows mental control of a linked weapon. The weapon can be fired as a Free Action once per round and gains +10 to BS tests.",
+            "location": "Head",
+            "type": "enhancement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Very Rare"
+        }
+    },
+    {
+        "name": "Respiratory Filter Implant",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "Internal lung and airway filters that protect against airborne toxins, gases, and contaminants. Grants +20 to Toughness tests to resist inhaled poisons and toxic atmospheres.",
+            "location": "Body",
+            "type": "enhancement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Scarce"
+        }
+    },
+    {
+        "name": "Subskin Armour",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "Implanted mesh or ceramite plates beneath the skin, providing protection without visible modification. Provides +2 AP to Arms, Body, and Legs.",
+            "location": "Body",
+            "type": "enhancement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Very Rare"
+        }
+    },
+    {
+        "name": "Synthetic Muscle Grafts",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "Artificial muscle fibres woven into or replacing natural musculature, providing enhanced physical power. Grants +10 to Strength tests and Unnatural Strength (1).",
+            "location": "Body",
+            "type": "enhancement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Very Rare"
+        }
+    },
+    {
+        "name": "Vocal Implant",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "A replacement or modification to the vocal cords. Can be used to replicate any voice the user has heard (Deceive test to mimic), broadcast at extreme volume, or emit frequencies outside normal range.",
+            "location": "Head",
+            "type": "replacement",
+            "grade": "common",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Baleful Eye",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "A cybernetic eye replacement fitted with a concealed las-weapon. Fires as a hot-shot laspistol (1d10+4 E, Pen 7) with Accurate quality. Uses BS to fire. Short range 20m.",
+            "location": "Head",
+            "type": "enhancement",
+            "grade": "good",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Near Unique"
+        }
+    },
+    {
+        "name": "Calculus Logi Upgrade",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "An implanted cogitator that greatly enhances calculation and probability assessment. Grants +10 to Logistics, Commerce, and Gambling tests. Once per session, reroll a failed Logic test.",
+            "location": "Head",
+            "type": "enhancement",
+            "grade": "good",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Very Rare"
+        }
+    },
+    {
+        "name": "Luminen Capacitor",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "Implanted energy cells and discharge nodes, usually in the hands. Can absorb and emit electrical energy. Can recharge devices or emit an electrical attack (1d10+WP bonus E, Pen 0, Shocking). Requires Toughness test or suffer 1 Fatigue per use.",
+            "location": "Body",
+            "type": "enhancement",
+            "grade": "good",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Very Rare"
+        }
+    }
+]

@@ -31,9 +31,18 @@
         }, 0);
     });
 
+    const encumbrance = $derived(ctx.encumbrance ?? { current: 0, carry: 0, lift: 0, push: 0, overloaded: false, overencumbered: false });
+    const encPct = $derived(encumbrance.carry > 0 ? Math.min(100, (encumbrance.current / encumbrance.carry) * 100) : 0);
+    const encClass = $derived(encumbrance.overencumbered ? "over-encumbered" : encumbrance.overloaded ? "overloaded" : "normal");
+
     async function toggleEquipped(item: any) {
         const sys = item.system ?? {};
         await item.update({ "system.equipped": !sys.equipped });
+    }
+
+    async function toggleInstalled(item: any) {
+        const sys = item.system ?? {};
+        await item.update({ "system.installed": !sys.installed });
     }
 
     async function deleteItem(item: any) {
@@ -67,15 +76,27 @@
 
 <div class="equipment-tab">
     <div class="equipment-header">
-        <div class="category-filter">
-            <button class="filter-btn" class:active={category === "all"} onclick={() => category = "all"}>All</button>
-            <button class="filter-btn" class:active={category === "weapons"} onclick={() => category = "weapons"}>Weapons</button>
-            <button class="filter-btn" class:active={category === "armour"} onclick={() => category = "armour"}>Armour</button>
-            <button class="filter-btn" class:active={category === "gear"} onclick={() => category = "gear"}>Gear</button>
-            <button class="filter-btn" class:active={category === "ammunition"} onclick={() => category = "ammunition"}>Ammo</button>
-            <button class="filter-btn" class:active={category === "cybernetics"} onclick={() => category = "cybernetics"}>Cybernetics</button>
+        <div class="category-filter" role="tablist" aria-label="Equipment category filter">
+            <button class="filter-btn" class:active={category === "all"} onclick={() => category = "all"} role="tab" aria-selected={category === "all"}>All</button>
+            <button class="filter-btn" class:active={category === "weapons"} onclick={() => category = "weapons"} role="tab" aria-selected={category === "weapons"}>Weapons</button>
+            <button class="filter-btn" class:active={category === "armour"} onclick={() => category = "armour"} role="tab" aria-selected={category === "armour"}>Armour</button>
+            <button class="filter-btn" class:active={category === "gear"} onclick={() => category = "gear"} role="tab" aria-selected={category === "gear"}>Gear</button>
+            <button class="filter-btn" class:active={category === "ammunition"} onclick={() => category = "ammunition"} role="tab" aria-selected={category === "ammunition"}>Ammo</button>
+            <button class="filter-btn" class:active={category === "cybernetics"} onclick={() => category = "cybernetics"} role="tab" aria-selected={category === "cybernetics"}>Cybernetics</button>
         </div>
         <span class="weight-total">Weight: {totalWeight().toFixed(1)} kg</span>
+    </div>
+
+    <div class="encumbrance-bar {encClass}">
+        <div class="enc-fill" style="width: {encPct}%"></div>
+        <span class="enc-label">
+            {encumbrance.current.toFixed(1)} / {encumbrance.carry} kg
+        </span>
+        {#if encumbrance.overencumbered}
+            <span class="enc-warning"><i class="fas fa-exclamation-triangle"></i> Cannot Move</span>
+        {:else if encumbrance.overloaded}
+            <span class="enc-warning"><i class="fas fa-weight-hanging"></i> Overloaded (-10 Ag, half movement)</span>
+        {/if}
     </div>
 
     <div class="item-list">
@@ -92,7 +113,7 @@
                 {#if item.system?.quantity !== undefined}
                     <span class="item-qty">x{item.system.quantity ?? 1}</span>
                 {/if}
-                {#if item.type === "weapon" || item.type === "armour" || item.type === "cybernetic"}
+                {#if item.type === "weapon" || item.type === "armour"}
                     <button
                         class="equip-btn"
                         class:equipped={item.system?.equipped}
@@ -100,6 +121,15 @@
                         title={item.system?.equipped ? "Unequip" : "Equip"}
                     >
                         {item.system?.equipped ? "E" : "—"}
+                    </button>
+                {:else if item.type === "cybernetic"}
+                    <button
+                        class="install-btn"
+                        class:installed={item.system?.installed}
+                        onclick={() => toggleInstalled(item)}
+                        title={item.system?.installed ? "Uninstall" : "Install"}
+                    >
+                        <i class={item.system?.installed ? "fa-solid fa-plug-circle-check" : "fa-solid fa-plug-circle-xmark"}></i>
                     </button>
                 {/if}
                 <button class="edit-btn" onclick={() => editItem(item)} title="Edit">&#9998;</button>
@@ -236,6 +266,26 @@
         }
     }
 
+    .install-btn {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        background: transparent;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-size: 0.7rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.installed {
+            background: #1a3020;
+            color: #6c6;
+            border-color: #4a6a4a;
+        }
+    }
+
     .edit-btn, .delete-btn {
         width: 1.5rem;
         height: 1.5rem;
@@ -259,5 +309,64 @@
         text-align: center;
         padding: var(--dh2e-space-lg, 1rem);
         font-size: var(--dh2e-text-sm, 0.8rem);
+    }
+
+    .encumbrance-bar {
+        position: relative;
+        height: 1.4rem;
+        background: var(--dh2e-bg-dark, #1a1a20);
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+
+        &.overloaded {
+            border-color: var(--dh2e-gold, #c8a84e);
+        }
+
+        &.over-encumbered {
+            border-color: var(--dh2e-red-bright, #d44);
+        }
+    }
+
+    .enc-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: var(--dh2e-gold-dark, #9c7a28);
+        opacity: 0.4;
+        transition: width 0.3s ease;
+
+        .overloaded & {
+            background: var(--dh2e-gold, #c8a84e);
+            opacity: 0.5;
+        }
+
+        .over-encumbered & {
+            background: var(--dh2e-red-bright, #d44);
+            opacity: 0.5;
+        }
+    }
+
+    .enc-label {
+        position: relative;
+        z-index: 1;
+        padding: 0 var(--dh2e-space-sm, 0.5rem);
+        font-size: var(--dh2e-text-xs, 0.7rem);
+        color: var(--dh2e-text-primary, #d0cfc8);
+    }
+
+    .enc-warning {
+        position: relative;
+        z-index: 1;
+        margin-left: auto;
+        padding-right: var(--dh2e-space-sm, 0.5rem);
+        font-size: var(--dh2e-text-xs, 0.7rem);
+        font-weight: 700;
+        color: var(--dh2e-red-bright, #d44);
+
+        i { margin-right: 0.2rem; }
     }
 </style>

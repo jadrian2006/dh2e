@@ -16,5 +16,9 @@
             {{localize "DH2E.Attack.RollDamage"}}
         </button>
         {{/if}}
+
+        {{#if isGM}}
+        <button class="gm-override-btn" data-action="gm-override" title="GM Override"><i class="fas fa-cog"></i></button>
+        {{/if}}
     </div>
 </div>

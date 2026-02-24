@@ -1,5 +1,7 @@
 import { AcolyteSheetDH2e } from "@actor/acolyte/sheet.ts";
 import { NpcSheetDH2e } from "@actor/npc/sheet.ts";
+import { HordeSheetDH2e } from "@actor/horde/sheet.ts";
+import { VehicleSheetDH2e } from "@actor/vehicle/sheet.ts";
 import { WeaponSheetDH2e } from "@item/weapon/sheet.ts";
 import { ArmourSheetDH2e } from "@item/armour/sheet.ts";
 import { GearSheetDH2e } from "@item/gear/sheet.ts";
@@ -30,6 +32,18 @@ export function registerSheets(): void {
         types: ["npc"],
         makeDefault: true,
         label: "DH2E.Sheet.NPC",
+    });
+
+    fd.collections.Actors.registerSheet(SYSTEM_ID, HordeSheetDH2e, {
+        types: ["horde"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Horde",
+    });
+
+    fd.collections.Actors.registerSheet(SYSTEM_ID, VehicleSheetDH2e, {
+        types: ["vehicle"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Vehicle",
     });
 
     // Item sheets

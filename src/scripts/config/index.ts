@@ -87,6 +87,14 @@ export const DH2ECONFIG: DH2EConfig = {
         single: "DH2E.FireMode.Single",
         semi: "DH2E.FireMode.SemiAuto",
         full: "DH2E.FireMode.FullAuto",
+        suppressive: "DH2E.FireMode.Suppressive",
+    },
+
+    environmentalHazards: {
+        fire: "DH2E.Environment.Fire",
+        vacuum: "DH2E.Environment.Vacuum",
+        toxic: "DH2E.Environment.Toxic",
+        gravity: "DH2E.Environment.Gravity",
     },
 
     availabilityTiers: {
@@ -112,6 +120,43 @@ export const DH2ECONFIG: DH2EConfig = {
     cyberneticTypes: {
         replacement: "DH2E.Cybernetic.Replacement",
         enhancement: "DH2E.Cybernetic.Enhancement",
+    },
+
+    cyberneticGrades: {
+        poor: "DH2E.Cybernetic.Grade.Poor",
+        common: "DH2E.Cybernetic.Grade.Common",
+        good: "DH2E.Cybernetic.Grade.Good",
+        best: "DH2E.Cybernetic.Grade.Best",
+    },
+
+    motiveTypes: {
+        wheeled: "DH2E.Vehicle.Motive.Wheeled",
+        tracked: "DH2E.Vehicle.Motive.Tracked",
+        hover: "DH2E.Vehicle.Motive.Hover",
+        walker: "DH2E.Vehicle.Motive.Walker",
+    },
+
+    vehicleSizes: {
+        hulking: "DH2E.Vehicle.Size.Hulking",
+        enormous: "DH2E.Vehicle.Size.Enormous",
+        massive: "DH2E.Vehicle.Size.Massive",
+        immense: "DH2E.Vehicle.Size.Immense",
+    },
+
+    crewRoles: {
+        driver: "DH2E.Vehicle.Crew.Driver",
+        gunner: "DH2E.Vehicle.Crew.Gunner",
+        commander: "DH2E.Vehicle.Crew.Commander",
+        passenger: "DH2E.Vehicle.Crew.Passenger",
+    },
+
+    fireArcs: {
+        front: "DH2E.Vehicle.Arc.Front",
+        turret: "DH2E.Vehicle.Arc.Turret",
+        left: "DH2E.Vehicle.Arc.Left",
+        right: "DH2E.Vehicle.Arc.Right",
+        rear: "DH2E.Vehicle.Arc.Rear",
+        all: "DH2E.Vehicle.Arc.All",
     },
 
     traitCategories: {

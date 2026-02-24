@@ -16,7 +16,10 @@ import { MalignancyDH2e } from "@item/malignancy/document.ts";
 import { MentalDisorderDH2e } from "@item/mental-disorder/document.ts";
 import { AmmunitionDH2e } from "@item/ammunition/document.ts";
 import { CyberneticDH2e } from "@item/cybernetic/document.ts";
+import { HordeDH2e } from "@actor/horde/document.ts";
+import { VehicleDH2e } from "@actor/vehicle/document.ts";
 import { DH2ECONFIG } from "@scripts/config/index.ts";
+import { DH2E_STATUS_EFFECTS } from "@scripts/config/status-effects.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { preloadTemplates } from "@scripts/register-templates.ts";
 import { registerAllSettings } from "../../ui/settings/settings.ts";
@@ -33,6 +36,8 @@ export class Init {
             CONFIG.DH2E.Actor.documentClasses = {
                 acolyte: AcolyteDH2e as unknown as typeof Actor,
                 npc: NpcDH2e as unknown as typeof Actor,
+                horde: HordeDH2e as unknown as typeof Actor,
+                vehicle: VehicleDH2e as unknown as typeof Actor,
             };
             CONFIG.DH2E.Item.documentClasses = {
                 weapon: WeaponDH2e as unknown as typeof Item,
@@ -53,6 +58,15 @@ export class Init {
                 cybernetic: CyberneticDH2e as unknown as typeof Item,
             };
 
+            // Set initiative formula
+            CONFIG.Combat.initiative = {
+                formula: "1d10 + @characteristics.ag.bonus",
+                decimals: 0,
+            };
+
+            // Register status effects for token overlays
+            CONFIG.statusEffects = DH2E_STATUS_EFFECTS;
+
             // Register custom Handlebars helpers
             registerHandlebarsHelpers();
 
@@ -61,6 +75,18 @@ export class Init {
 
             // Register game settings
             registerAllSettings();
+
+            // Register keybindings
+            game.keybindings.register(SYSTEM_ID, "openCompendiumBrowser", {
+                name: "DH2E.Browser.Title",
+                editable: [{ key: "KeyB", modifiers: ["Control"] }],
+                onDown: () => {
+                    import("../../ui/compendium-browser/browser.ts").then(m => m.CompendiumBrowser.open());
+                    return true;
+                },
+                restricted: false,
+                precedence: (CONST as any).KEYBINDING_PRECEDENCE?.NORMAL ?? 0,
+            });
         });
     }
 }

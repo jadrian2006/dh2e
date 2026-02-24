@@ -4,8 +4,8 @@ import type { DH2eSynthetics, ToughnessAdjustment } from "../synthetics.ts";
 /** Source data for an AdjustToughness rule element */
 interface AdjustToughnessSource extends RuleElementSource {
     key: "AdjustToughness";
-    /** The adjustment value */
-    value: number;
+    /** The adjustment value, or "rating" to resolve from the parent item's system.rating */
+    value: number | "rating";
     /** "add" = add to TB, "multiply" = multiply TB */
     mode?: "add" | "multiply";
 }
@@ -26,10 +26,16 @@ interface AdjustToughnessSource extends RuleElementSource {
 class AdjustToughnessRE extends RuleElementDH2e {
     override onPrepareData(synthetics: DH2eSynthetics): void {
         const src = this.source as AdjustToughnessSource;
-        if (typeof src.value !== "number") return;
+
+        // Resolve "rating" to the parent item's system.rating
+        const value = src.value === "rating"
+            ? (this.item.system as any)?.rating ?? 0
+            : src.value;
+
+        if (typeof value !== "number") return;
 
         const adjustment: ToughnessAdjustment = {
-            value: src.value,
+            value,
             mode: src.mode ?? "add",
             source: src.label ?? this.item.name,
         };

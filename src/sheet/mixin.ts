@@ -50,11 +50,47 @@ function SvelteApplicationMixin<
                 content.replaceChildren();
             }
 
+            // Ensure popout windows have the correct styles
+            this.#ensurePopoutStyles(content);
+
             // Mount fresh Svelte tree with current data
             this.#mount = svelte.mount(this.root, {
                 target: content,
                 props: { ...result, ctx: { ...result.ctx } },
             });
+        }
+
+        /**
+         * When a sheet is popped out to a new window, that window won't have
+         * the system's CSS variables or styles. Copy all <link> and <style>
+         * elements from the main document's <head> into the popout's <head>.
+         */
+        #ensurePopoutStyles(content: HTMLElement): void {
+            const ownerDoc = content.ownerDocument;
+            if (!ownerDoc || ownerDoc === document) return; // Not a popout
+
+            const popoutHead = ownerDoc.head;
+            if (!popoutHead) return;
+
+            // Skip if we already injected styles
+            if (popoutHead.querySelector("[data-dh2e-popout]")) return;
+
+            // Copy <link rel="stylesheet"> elements
+            for (const link of document.head.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]')) {
+                const clone = ownerDoc.createElement("link");
+                clone.rel = "stylesheet";
+                clone.href = link.href;
+                clone.setAttribute("data-dh2e-popout", "true");
+                popoutHead.appendChild(clone);
+            }
+
+            // Copy <style> elements
+            for (const style of document.head.querySelectorAll<HTMLStyleElement>("style")) {
+                const clone = ownerDoc.createElement("style");
+                clone.textContent = style.textContent;
+                clone.setAttribute("data-dh2e-popout", "true");
+                popoutHead.appendChild(clone);
+            }
         }
 
         protected override _onClose(options: fa.ApplicationClosingOptions): void {

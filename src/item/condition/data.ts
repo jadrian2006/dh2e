@@ -3,4 +3,5 @@ export interface ConditionSystemSource {
     slug: string;
     duration: string;
     stackable: boolean;
+    remainingRounds: number;
 }

@@ -1,6 +1,9 @@
 import { ActorProxyDH2e } from "@actor/base.ts";
 import { ItemProxyDH2e } from "@item/base/document.ts";
 import { CheckRollDH2e } from "@check/roll.ts";
+import { CombatDH2e } from "@combat/combat-dh2e.ts";
+import { CombatantDH2e } from "@combat/combatant-dh2e.ts";
+import { CombatTrackerDH2e } from "@combat/tracker.ts";
 
 const ICON_PATH = `systems/${SYSTEM_ID}/icons`;
 
@@ -14,6 +17,11 @@ export class Load {
         // Register custom roll class for serialization/deserialization
         CONFIG.Dice.rolls.push(CheckRollDH2e as typeof Roll);
 
+        // Register custom combat documents
+        CONFIG.Combat.documentClass = CombatDH2e as typeof Combat;
+        CONFIG.Combatant.documentClass = CombatantDH2e as typeof Combatant;
+        CONFIG.ui.combat = CombatTrackerDH2e as any;
+
         // Set default types
         CONFIG.Actor.defaultType = "acolyte";
         CONFIG.Item.defaultType = "gear";
@@ -22,6 +30,8 @@ export class Load {
         CONFIG.Actor.typeIcons = {
             acolyte: "fa-solid fa-user",
             npc: "fa-solid fa-skull",
+            horde: "fa-solid fa-users",
+            vehicle: "fa-solid fa-truck-monster",
         };
 
         CONFIG.Item.typeIcons = {

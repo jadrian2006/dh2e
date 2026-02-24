@@ -6,6 +6,7 @@
         {{#each hits}}
         <div class="damage-hit">
             <h4>{{this.locationLabel}}</h4>
+            {{#if ../isGM}}
             <table class="damage-breakdown">
                 <tr>
                     <td>{{localize "DH2E.Damage.Raw"}}</td>
@@ -30,7 +31,33 @@
                     <td class="value wounds">{{this.woundsDealt}}</td>
                 </tr>
             </table>
+            {{else}}
+            <div class="damage-player-summary">
+                <span class="wounds-label">{{localize "DH2E.Damage.WoundsDealt"}}</span>
+                <span class="wounds-value">{{this.woundsDealt}}</span>
+            </div>
+            {{/if}}
         </div>
         {{/each}}
+
+        {{#if targetId}}
+        <div class="damage-apply-controls">
+            {{#unless applied}}
+            <button class="btn apply-damage" data-action="apply-damage" data-target-id="{{targetId}}">
+                <i class="fas fa-crosshairs"></i> {{localize "DH2E.Damage.Apply"}}
+            </button>
+            {{/unless}}
+            {{#if applied}}
+            <div class="damage-applied">
+                <span class="applied-label"><i class="fas fa-check"></i> {{localize "DH2E.Damage.Applied"}}</span>
+                {{#if ../isGM}}
+                <button class="btn revert-damage" data-action="revert-damage" data-target-id="{{targetId}}" title="{{localize "DH2E.Damage.Revert"}}">
+                    <i class="fas fa-undo"></i>
+                </button>
+                {{/if}}
+            </div>
+            {{/if}}
+        </div>
+        {{/if}}
     </div>
 </div>

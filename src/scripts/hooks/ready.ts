@@ -2,6 +2,9 @@ import { ChatListenersDH2e } from "@chat/listeners.ts";
 import { XPAwardDialog } from "../../ui/xp-award-dialog.ts";
 import { RollRequestDialog } from "../../ui/roll-request-dialog.ts";
 import { RollRequestPrompt } from "../../ui/roll-request-prompt.ts";
+import { MigrationRunner } from "@migration/runner.ts";
+import { CombatHUD } from "@combat/hud/combat-hud.ts";
+import { CompendiumBrowser } from "../../ui/compendium-browser/browser.ts";
 
 /** Hooks.once("ready") — final initialization, migrations */
 export class Ready {
@@ -12,6 +15,7 @@ export class Ready {
             // Expose API on game.dh2e
             (game as any).dh2e.awardXP = () => XPAwardDialog.open();
             (game as any).dh2e.requestRoll = () => RollRequestDialog.open();
+            (game as any).dh2e.compendiumBrowser = CompendiumBrowser;
 
             // Register socket handler
             Ready.#registerSocket();
@@ -19,7 +23,11 @@ export class Ready {
             // Create a default landing scene if none exist (GM only)
             await Ready.#ensureLandingScene();
 
-            // Future: run data migrations
+            // Run data migrations (GM only)
+            await MigrationRunner.run();
+
+            // Initialize combat HUD
+            CombatHUD.init();
         });
     }
 

@@ -1,0 +1,31 @@
+<div class="dh2e chat-card focus-power-card">
+    <header class="card-header {{#if success}}success{{else}}failure{{/if}}">
+        <h3><i class="fa-solid fa-hat-wizard"></i> {{powerName}}</h3>
+        {{#if discipline}}<span class="discipline-badge">{{discipline}}</span>{{/if}}
+        <span class="result-badge">
+            {{#if success}}
+                {{localize "DH2E.Check.Success"}} — {{format "DH2E.Check.DegreesOfSuccess" count=degrees}}
+            {{else}}
+                {{localize "DH2E.Check.Failure"}} — {{format "DH2E.Check.DegreesOfFailure" count=degrees}}
+            {{/if}}
+        </span>
+    </header>
+    <div class="card-body">
+        <div class="power-meta">
+            <span class="mode-tag {{mode}}">{{modeLabel}}</span>
+            <span class="pr-tag">PR {{psyRating}} (+{{effectivePR}})</span>
+        </div>
+        <p class="roll-summary">{{format "DH2E.Check.Roll" roll=roll target=target}}</p>
+
+        {{#if phenomenaTriggered}}
+        <div class="phenomena-warning">
+            <i class="fas fa-bolt"></i>
+            <span>{{localize "DH2E.Psychic.PhenomenaTriggered"}}</span>
+        </div>
+        {{/if}}
+
+        {{#if isGM}}
+        <button class="gm-override-btn" data-action="gm-override" title="GM Override"><i class="fas fa-cog"></i></button>
+        {{/if}}
+    </div>
+</div>

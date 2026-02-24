@@ -10,5 +10,8 @@ export {
     applyCriticalInjury,
     applyConditionBySlug,
 } from "./critical.ts";
+export { CombatDH2e } from "./combat-dh2e.ts";
+export { CombatantDH2e } from "./combatant-dh2e.ts";
+export { CombatTrackerDH2e } from "./tracker.ts";
 export type { CriticalEntry, CriticalPenalty } from "./critical.ts";
 export type { FireMode, AttackResult, DamageResult, HitResult } from "./types.ts";

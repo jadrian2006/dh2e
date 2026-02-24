@@ -1,0 +1,23 @@
+<div class="dh2e chat-card corruption-card {{#if lost}}lost{{/if}}">
+    <header class="card-header corruption-header">
+        <h3><i class="fas fa-biohazard"></i> {{localize "DH2E.Corruption.ThresholdCrossed"}}</h3>
+    </header>
+    <div class="card-body">
+        <p><strong>{{actorName}}</strong> — {{localize "DH2E.Corruption"}}: {{corruption}} ({{localize "DH2E.Corruption.Threshold"}}: {{threshold}})</p>
+
+        {{#if lost}}
+        <div class="lost-warning">
+            <i class="fas fa-skull"></i>
+            <span>{{localize "DH2E.Corruption.Lost"}}</span>
+        </div>
+        {{else if hasMalignancy}}
+        <p class="malignancy-gained">{{localize "DH2E.Corruption.MalignancyGained"}}: <strong>{{malignancyName}}</strong></p>
+        {{else}}
+        <p class="wp-passed">{{localize "DH2E.Corruption.WPPassed"}}</p>
+        {{/if}}
+
+        {{#if isGM}}
+        <button class="gm-override-btn" data-action="gm-override" title="GM Override"><i class="fas fa-cog"></i></button>
+        {{/if}}
+    </div>
+</div>

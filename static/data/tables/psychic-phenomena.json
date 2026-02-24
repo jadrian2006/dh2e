@@ -1,0 +1,22 @@
+[
+    { "min": 1, "max": 3, "title": "Dark Foreboding", "description": "A chill wind blows and all light sources dim for a moment.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 4, "max": 5, "title": "Warp Echo", "description": "For a few moments all sounds are muted and distant.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 6, "max": 8, "title": "Unholy Stench", "description": "The stink of putrefaction and corruption hangs in the air.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 9, "max": 11, "title": "Hoarfrost", "description": "A layer of frost covers everything within 3d10 metres.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 12, "max": 14, "title": "Mind Worm", "description": "The psyker hears muttering and whispers in his mind.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 15, "max": 17, "title": "Spoilage", "description": "Any food or drink within 5d10 metres instantly rots.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 18, "max": 20, "title": "Haunting Breeze", "description": "A ghostly wind chills the air, fluttering clothing and hair.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 21, "max": 23, "title": "Veil of Darkness", "description": "For a brief moment, shadows deepen and light sources waver.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 24, "max": 27, "title": "Distorted Reflections", "description": "Reflections in nearby surfaces distort grotesquely.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 28, "max": 32, "title": "Breath Stealing", "description": "Everyone within 4d10 metres feels a sudden shortness of breath.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 33, "max": 38, "title": "Bleeding Walls", "description": "Blood seeps from nearby walls and surfaces.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 39, "max": 43, "title": "Daemonic Whispers", "description": "Voices from beyond the veil can be heard by everyone within earshot.", "effect": "No mechanical effect.", "escalate": false },
+    { "min": 44, "max": 49, "title": "Warp Madness", "description": "All characters within 2d10 metres must make a WP test or gain 1d5 Insanity Points.", "effect": "WP test or +1d5 Insanity within 2d10m.", "escalate": false },
+    { "min": 50, "max": 54, "title": "Terrifying Visions", "description": "Horrible visions of the Warp assault the mind of the psyker.", "effect": "Psyker gains 1d5 Insanity Points.", "escalate": false },
+    { "min": 55, "max": 58, "title": "The Earth Protests", "description": "The ground trembles and shakes within 5d10 metres.", "effect": "Agility test or fall Prone within 5d10m.", "escalate": false },
+    { "min": 59, "max": 63, "title": "Bloody Tears", "description": "The psyker weeps blood. Temporarily blinded for one round.", "effect": "Psyker Blinded for 1 round.", "escalate": false },
+    { "min": 64, "max": 68, "title": "Psychic Feedback", "description": "The psyker's brain burns with warp energy.", "effect": "Psyker takes 1d5 Energy damage (ignoring armour).", "escalate": false },
+    { "min": 69, "max": 72, "title": "Unnatural Aura", "description": "Animals panic and flee, servitors malfunction.", "effect": "No mechanical effect on PCs.", "escalate": false },
+    { "min": 73, "max": 74, "title": "Memory Worm", "description": "The psyker must make a WP test or forget events of the last 1d5 rounds.", "effect": "WP test or lose 1d5 rounds of memory.", "escalate": false },
+    { "min": 75, "max": 100, "title": "Perils of the Warp!", "description": "The warp tears through! Roll on the Perils of the Warp table.", "effect": "Roll on Perils of the Warp.", "escalate": true }
+]

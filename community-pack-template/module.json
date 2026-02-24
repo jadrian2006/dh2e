@@ -1,0 +1,64 @@
+{
+    "id": "dh2e-my-pack",
+    "title": "DH2E - My Custom Data Pack",
+    "description": "Custom compendium data for the DH2E system. Replace this description with your own.",
+    "version": "0.1.0",
+    "compatibility": {
+        "minimum": "13.348",
+        "verified": "13.351",
+        "maximum": "13"
+    },
+    "authors": [
+        {
+            "name": "Your Name Here"
+        }
+    ],
+    "relationships": {
+        "systems": [
+            {
+                "id": "dh2e",
+                "type": "system",
+                "compatibility": {
+                    "minimum": "0.1.0"
+                }
+            }
+        ]
+    },
+    "packs": [
+        {
+            "name": "weapons",
+            "label": "My Weapons",
+            "path": "packs/weapons",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "armour",
+            "label": "My Armour",
+            "path": "packs/armour",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "gear",
+            "label": "My Gear",
+            "path": "packs/gear",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "talents",
+            "label": "My Talents",
+            "path": "packs/talents",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "npcs",
+            "label": "My NPCs",
+            "path": "packs/npcs",
+            "type": "Actor",
+            "system": "dh2e"
+        }
+    ]
+}

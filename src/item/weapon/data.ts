@@ -28,4 +28,6 @@ export interface WeaponSystemSource {
     loadedAmmoId: string;
     /** Rule elements from weapon qualities or manual configuration */
     rules: RuleElementSource[];
+    /** Availability tier for requisition tests */
+    availability: string;
 }

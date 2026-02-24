@@ -32,6 +32,8 @@ const PACKS = [
     { name: "backgrounds", file: "data/backgrounds.json", collection: "items" },
     { name: "roles", file: "data/roles.json", collection: "items" },
     { name: "ammunition", file: "data/ammunition.json", collection: "items" },
+    { name: "cybernetics", file: "data/cybernetics.json", collection: "items" },
+    { name: "traits", file: "data/traits.json", collection: "items" },
     { name: "npcs", file: "data/npcs.json", collection: "actors" },
     { name: "macros", file: "data/macros.json", collection: "macros" },
 ];
@@ -83,7 +85,7 @@ async function buildPack(packDef) {
                 systemVersion: "0.1.2",
                 createdTime: Date.now(),
                 modifiedTime: Date.now(),
-                lastModifiedBy: "build-script",
+                lastModifiedBy: "dh2eBu1ldScr1pt",
             },
         };
 

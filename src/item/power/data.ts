@@ -1,3 +1,5 @@
+import type { RuleElementSource } from "@rules/rule-element/base.ts";
+
 export interface PowerSystemSource {
     description: string;
     discipline: string;
@@ -7,4 +9,5 @@ export interface PowerSystemSource {
     range: string;
     sustained: boolean;
     action: string;
+    rules: RuleElementSource[];
 }

@@ -39,7 +39,17 @@
             "@ui/*": ["./src/ui/*"],
             "@util": ["./src/util/index.ts"],
             "@util/*": ["./src/util/*"],
-            "@advancement/*": ["./src/advancement/*"]
+            "@advancement/*": ["./src/advancement/*"],
+            "@psychic": ["./src/psychic/index.ts"],
+            "@psychic/*": ["./src/psychic/*"],
+            "@corruption": ["./src/corruption/index.ts"],
+            "@corruption/*": ["./src/corruption/*"],
+            "@insanity": ["./src/insanity/index.ts"],
+            "@insanity/*": ["./src/insanity/*"],
+            "@requisition": ["./src/requisition/index.ts"],
+            "@requisition/*": ["./src/requisition/*"],
+            "@migration": ["./src/migration/index.ts"],
+            "@migration/*": ["./src/migration/*"]
         }
     },
     "include": [

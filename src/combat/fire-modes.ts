@@ -22,6 +22,9 @@ function calculateHits(mode: FireMode, dos: number, rofValue: number): number {
             return Math.min(1 + Math.floor(dos / 2), rofValue);
         case "full":
             return Math.min(1 + dos, rofValue);
+        case "suppressive":
+            // Suppressive fire hits are rolled as 1d5 per target in zone
+            return 0;
     }
 }
 
