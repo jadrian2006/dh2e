@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Tarot card with eye -->
+  <g stroke="#c8a84e" stroke-width="1.5">
+    <!-- Card outline -->
+    <rect x="14" y="6" width="36" height="52" rx="3" fill="#c8a84e" fill-opacity="0.1"/>
+    <!-- Inner border -->
+    <rect x="18" y="10" width="28" height="44" rx="2" fill="none" stroke-opacity="0.5"/>
+    <!-- All-seeing eye -->
+    <path d="M22 32 Q32 20 42 32" fill="#c8a84e" fill-opacity="0.1"/>
+    <path d="M22 32 Q32 44 42 32" fill="#c8a84e" fill-opacity="0.1"/>
+    <circle cx="32" cy="32" r="5" fill="#c8a84e" fill-opacity="0.25"/>
+    <circle cx="32" cy="32" r="2.5" fill="#1a1a1f"/>
+    <circle cx="33" cy="31" r="0.75" fill="#c8a84e"/>
+    <!-- Rays from eye -->
+    <line x1="32" y1="14" x2="32" y2="22" stroke-width="0.75" opacity="0.4"/>
+    <line x1="22" y1="18" x2="26" y2="24" stroke-width="0.75" opacity="0.4"/>
+    <line x1="42" y1="18" x2="38" y2="24" stroke-width="0.75" opacity="0.4"/>
+    <!-- Bottom decorative -->
+    <line x1="24" y1="46" x2="40" y2="46" stroke-width="0.75" opacity="0.3"/>
+    <circle cx="32" cy="48" r="1.5" fill="#c8a84e" fill-opacity="0.3"/>
+    <!-- Corner ornaments -->
+    <circle cx="18" cy="10" r="1" fill="#c8a84e" fill-opacity="0.3"/>
+    <circle cx="46" cy="10" r="1" fill="#c8a84e" fill-opacity="0.3"/>
+    <circle cx="18" cy="54" r="1" fill="#c8a84e" fill-opacity="0.3"/>
+    <circle cx="46" cy="54" r="1" fill="#c8a84e" fill-opacity="0.3"/>
+  </g>
+</svg>

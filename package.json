@@ -1,6 +1,6 @@
 {
     "name": "dh2e",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Foundry VTT system for Warhammer 40k Dark Heresy 2nd Edition",
     "private": true,
     "type": "module",
@@ -16,10 +16,12 @@
         "test:watch": "vitest"
     },
     "dependencies": {
+        "js-yaml": "^4.1.1",
         "svelte": "^5.40.1"
     },
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^6.2.1",
+        "@types/js-yaml": "^4.0.9",
         "@typescript-eslint/eslint-plugin": "^8.32.0",
         "@typescript-eslint/parser": "^8.32.0",
         "eslint": "^9.27.0",
@@ -37,6 +39,9 @@
         "node": ">=22"
     },
     "pnpm": {
-        "onlyBuiltDependencies": ["@parcel/watcher", "esbuild"]
+        "onlyBuiltDependencies": [
+            "@parcel/watcher",
+            "esbuild"
+        ]
     }
 }

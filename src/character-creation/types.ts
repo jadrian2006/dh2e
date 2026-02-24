@@ -1,25 +1,34 @@
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 
-/** A selectable homeworld option */
+/** A selectable homeworld option (matches dh2e-data JSON) */
 interface HomeworldOption {
-    id: string;
     name: string;
     description: string;
-    /** Characteristic bonuses: e.g., { ws: 5, t: 5 } */
-    characteristicBonuses: Partial<Record<CharacteristicAbbrev, number>>;
-    /** Characteristic penalties: e.g., { fel: -5 } */
-    characteristicPenalties: Partial<Record<CharacteristicAbbrev, number>>;
-    /** Fate threshold */
-    fateThreshold: number;
-    /** Starting wounds modifier */
-    woundsModifier: number;
+    /** Characteristic bonuses: positive keys get +5, negative keys get -5 */
+    characteristicBonuses: {
+        positive: CharacteristicAbbrev[];
+        negative: CharacteristicAbbrev[];
+    };
+    /** Fate points */
+    fate: { threshold: number; blessing: number };
+    /** Starting wounds (legacy flat value) */
+    wounds: number;
+    /** Wounds formula (e.g., "9+1d5") — used for rolling */
+    woundsFormula?: string;
     /** Aptitude granted */
     aptitude: string;
+    /** Home skill granted */
+    homeSkill: string;
+    /** Bonus ability name */
+    bonus: string;
+    /** Bonus ability description */
+    bonusDescription: string;
+    /** Carries the full compendium item data for embedding on actor */
+    _itemData?: Record<string, unknown>;
 }
 
-/** A selectable background option */
+/** A selectable background option (matches dh2e-data JSON) */
 interface BackgroundOption {
-    id: string;
     name: string;
     description: string;
     /** Skill names granted */
@@ -30,27 +39,59 @@ interface BackgroundOption {
     equipment: string[];
     /** Aptitude granted */
     aptitude: string;
+    /** Bonus ability name */
+    bonus: string;
+    /** Bonus ability description */
+    bonusDescription: string;
+    /** Carries the full compendium item data for embedding on actor */
+    _itemData?: Record<string, unknown>;
 }
 
-/** A selectable role option */
+/** A selectable role option (matches dh2e-data JSON) */
 interface RoleOption {
-    id: string;
     name: string;
     description: string;
     /** Aptitudes granted */
     aptitudes: string[];
     /** Talent name granted */
     talent: string;
-    /** Special ability description */
-    special: string;
+    /** Bonus ability name */
+    bonus: string;
+    /** Bonus ability description */
+    bonusDescription: string;
+    /** Carries the full compendium item data for embedding on actor */
+    _itemData?: Record<string, unknown>;
 }
 
-/** A divination result */
+/** A divination result (matches dh2e-data JSON) */
 interface DivinationResult {
-    id: string;
-    roll: number;
+    /** Roll range [min, max] */
+    roll: [number, number];
     text: string;
     effect: string;
+}
+
+/** All loaded creation data from the data pack */
+interface CreationData {
+    homeworlds: HomeworldOption[];
+    backgrounds: BackgroundOption[];
+    roles: RoleOption[];
+    divinations: DivinationResult[];
+}
+
+/** A purchase made during the wizard advancement step */
+interface WizardPurchase {
+    category: "characteristic" | "skill" | "talent";
+    label: string;
+    sublabel: string;
+    key: string;
+    cost: number;
+    /** For characteristics: the new advance level */
+    nextLevel?: number;
+    /** For skills/talents from compendium */
+    compendiumUuid?: string;
+    /** For existing embedded skills */
+    sourceItemId?: string;
 }
 
 /** State accumulated during character creation */
@@ -71,5 +112,7 @@ export type {
     BackgroundOption,
     RoleOption,
     DivinationResult,
+    CreationData,
     CreationState,
+    WizardPurchase,
 };

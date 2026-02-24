@@ -51,6 +51,65 @@
         font-size: 0.85rem;
     }
 
+    // DoS threshold result
+    .dos-threshold {
+        margin: 0.3rem 0;
+        padding: 0.25rem 0.4rem;
+        border-radius: var(--dh2e-radius-sm, 3px);
+        font-size: 0.8rem;
+        font-weight: 700;
+
+        &.met {
+            background: rgba(74, 170, 136, 0.15);
+            color: #7fdf7f;
+            border-left: 3px solid #4a8;
+        }
+
+        &.not-met {
+            background: rgba(221, 68, 68, 0.15);
+            color: #df7f7f;
+            border-left: 3px solid #d44;
+        }
+    }
+
+    // DoS breakdown (tens-digit math)
+    .dos-breakdown {
+        margin-top: 0.3rem;
+
+        summary {
+            cursor: pointer;
+            font-size: 0.75rem;
+            color: #a0a0a8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            user-select: none;
+
+            &:hover {
+                color: #c8a84e;
+            }
+        }
+
+        .dos-math {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-top: 0.3rem;
+            font-size: 0.8rem;
+            color: #c0bfb8;
+        }
+
+        .separator {
+            color: #555;
+        }
+
+        .dos-formula {
+            margin: 0.2rem 0 0;
+            font-size: 0.8rem;
+            color: #a0a0a8;
+            font-style: italic;
+        }
+    }
+
     .modifier-breakdown {
         margin-top: 0.3rem;
 

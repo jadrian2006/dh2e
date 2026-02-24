@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Backpack / tools -->
+  <g stroke="#c8a84e" stroke-width="2">
+    <!-- Backpack body -->
+    <rect x="18" y="16" width="28" height="34" rx="3" fill="#c8a84e" fill-opacity="0.15"/>
+    <!-- Top flap -->
+    <path d="M18 24 L46 24" stroke-width="1.5"/>
+    <!-- Straps -->
+    <path d="M22 16 L22 10 L28 10 L28 16" fill="none"/>
+    <path d="M36 16 L36 10 L42 10 L42 16" fill="none"/>
+    <!-- Buckle details -->
+    <rect x="23" y="10" width="4" height="3" rx="0.5" fill="#c8a84e" fill-opacity="0.3"/>
+    <rect x="37" y="10" width="4" height="3" rx="0.5" fill="#c8a84e" fill-opacity="0.3"/>
+    <!-- Pocket -->
+    <rect x="24" y="30" width="16" height="10" rx="1" fill="#c8a84e" fill-opacity="0.1"/>
+    <!-- Side tool -->
+    <line x1="48" y1="20" x2="52" y2="20"/>
+    <line x1="52" y1="16" x2="52" y2="28"/>
+    <!-- Bottom pouches -->
+    <rect x="20" y="44" width="10" height="4" rx="1" fill="#c8a84e" fill-opacity="0.1"/>
+    <rect x="34" y="44" width="10" height="4" rx="1" fill="#c8a84e" fill-opacity="0.1"/>
+  </g>
+</svg>

@@ -6,6 +6,16 @@ import { GearSheetDH2e } from "@item/gear/sheet.ts";
 import { SkillSheetDH2e } from "@item/skill/sheet.ts";
 import { TalentSheetDH2e } from "@item/talent/sheet.ts";
 import { ConditionSheetDH2e } from "@item/condition/sheet.ts";
+import { PowerSheetDH2e } from "@item/power/sheet.ts";
+import { HomeworldSheetDH2e } from "@item/homeworld/sheet.ts";
+import { BackgroundSheetDH2e } from "@item/background/sheet.ts";
+import { RoleSheetDH2e } from "@item/role/sheet.ts";
+import { TraitSheetDH2e } from "@item/trait/sheet.ts";
+import { CriticalInjurySheetDH2e } from "@item/critical-injury/sheet.ts";
+import { MalignancySheetDH2e } from "@item/malignancy/sheet.ts";
+import { MentalDisorderSheetDH2e } from "@item/mental-disorder/sheet.ts";
+import { AmmunitionSheetDH2e } from "@item/ammunition/sheet.ts";
+import { CyberneticSheetDH2e } from "@item/cybernetic/sheet.ts";
 
 /** Register all actor and item sheets with Foundry */
 export function registerSheets(): void {
@@ -57,5 +67,65 @@ export function registerSheets(): void {
         types: ["condition"],
         makeDefault: true,
         label: "DH2E.Sheet.Condition",
+    });
+
+    fd.collections.Items.registerSheet(SYSTEM_ID, PowerSheetDH2e, {
+        types: ["power"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Power",
+    });
+
+    fd.collections.Items.registerSheet(SYSTEM_ID, HomeworldSheetDH2e, {
+        types: ["homeworld"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Homeworld",
+    });
+
+    fd.collections.Items.registerSheet(SYSTEM_ID, BackgroundSheetDH2e, {
+        types: ["background"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Background",
+    });
+
+    fd.collections.Items.registerSheet(SYSTEM_ID, RoleSheetDH2e, {
+        types: ["role"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Role",
+    });
+
+    fd.collections.Items.registerSheet(SYSTEM_ID, TraitSheetDH2e, {
+        types: ["trait"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Trait",
+    });
+
+    fd.collections.Items.registerSheet(SYSTEM_ID, CriticalInjurySheetDH2e, {
+        types: ["critical-injury"],
+        makeDefault: true,
+        label: "DH2E.Sheet.CriticalInjury",
+    });
+
+    fd.collections.Items.registerSheet(SYSTEM_ID, MalignancySheetDH2e, {
+        types: ["malignancy"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Malignancy",
+    });
+
+    fd.collections.Items.registerSheet(SYSTEM_ID, MentalDisorderSheetDH2e, {
+        types: ["mental-disorder"],
+        makeDefault: true,
+        label: "DH2E.Sheet.MentalDisorder",
+    });
+
+    fd.collections.Items.registerSheet(SYSTEM_ID, AmmunitionSheetDH2e, {
+        types: ["ammunition"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Ammunition",
+    });
+
+    fd.collections.Items.registerSheet(SYSTEM_ID, CyberneticSheetDH2e, {
+        types: ["cybernetic"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Cybernetic",
     });
 }

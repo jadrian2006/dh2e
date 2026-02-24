@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320">
+  <!-- Desperado: duster coat, wide-brimmed hat, pistol -->
+  <g fill="#1a1a22" stroke="none">
+    <!-- Wide-brimmed hat -->
+    <ellipse cx="100" cy="14" rx="36" ry="6"/>
+    <ellipse cx="100" cy="12" rx="20" ry="12"/>
+    <!-- Head under hat -->
+    <ellipse cx="100" cy="32" rx="18" ry="20"/>
+    <!-- Neck -->
+    <rect x="93" y="50" width="14" height="12" rx="3"/>
+    <!-- Duster coat (wide, flared at bottom) -->
+    <path d="M72 60 Q68 90 64 130 Q60 165 54 200 Q50 225 48 240 L86 240 L86 160 Q88 130 90 100 Q92 78 100 60 Q108 78 110 100 Q112 130 114 160 L114 240 L152 240 Q150 225 146 200 Q140 165 136 130 Q132 90 128 60 Q116 56 100 55 Q84 56 72 60Z"/>
+    <!-- Coat opening/lapels -->
+    <path d="M88 62 Q94 80 96 100 L100 100 Q100 80 98 62Z" fill="#0d0d14"/>
+    <path d="M112 62 Q106 80 104 100 L100 100 Q100 80 102 62Z" fill="#0d0d14"/>
+    <!-- Left Arm -->
+    <path d="M72 62 Q56 68 48 86 Q42 104 44 130 Q45 140 50 140 Q56 138 56 130 Q58 110 62 96 Q66 82 72 72Z"/>
+    <!-- Right Arm (holding pistol) -->
+    <path d="M128 62 Q142 68 148 84 Q152 98 150 116 Q149 124 144 126 Q140 124 140 118 Q138 102 135 90 Q132 78 128 70Z"/>
+    <!-- Pistol in right hand -->
+    <path d="M148 116 L168 110 L170 114 L152 122Z"/>
+    <!-- Left Leg -->
+    <path d="M74 238 Q74 258 74 278 Q74 294 74 302 Q73 310 80 312 Q88 310 86 298 Q86 280 86 260 Q86 246 86 238Z"/>
+    <!-- Right Leg -->
+    <path d="M126 238 Q126 258 126 278 Q126 294 126 302 Q127 310 120 312 Q112 310 114 298 Q114 280 114 260 Q114 246 114 238Z"/>
+  </g>
+</svg>

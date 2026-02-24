@@ -1,7 +1,7 @@
 <script lang="ts">
     let { ctx }: { ctx: Record<string, any> } = $props();
 
-    type Category = "all" | "weapons" | "armour" | "gear";
+    type Category = "all" | "weapons" | "armour" | "gear" | "ammunition" | "cybernetics";
     let category: Category = $state("all");
 
     const allItems = $derived(() => {
@@ -10,10 +10,14 @@
             case "weapons": return items.weapons ?? [];
             case "armour": return items.armour ?? [];
             case "gear": return items.gear ?? [];
+            case "ammunition": return items.ammunition ?? [];
+            case "cybernetics": return items.cybernetics ?? [];
             default: return [
                 ...(items.weapons ?? []),
                 ...(items.armour ?? []),
                 ...(items.gear ?? []),
+                ...(items.ammunition ?? []),
+                ...(items.cybernetics ?? []),
             ];
         }
     });
@@ -40,12 +44,23 @@
         item.sheet?.render(true);
     }
 
+    function toggleFavorite(item: any) {
+        const current = item.getFlag?.("dh2e", "favorite");
+        if (current) item.unsetFlag("dh2e", "favorite");
+        else item.setFlag("dh2e", "favorite", true);
+    }
+
     function getItemIcon(type: string): string {
         switch (type) {
-            case "weapon": return "\u2694";
-            case "armour": return "\u1F6E1";
-            case "gear": return "\u1F4E6";
-            default: return "\u2022";
+            case "weapon": return "fa-solid fa-crosshairs";
+            case "armour": return "fa-solid fa-shield-halved";
+            case "gear": return "fa-solid fa-box-open";
+            case "talent": return "fa-solid fa-star";
+            case "condition": return "fa-solid fa-bolt";
+            case "power": return "fa-solid fa-hat-wizard";
+            case "ammunition": return "fa-solid fa-burst";
+            case "cybernetic": return "fa-solid fa-microchip";
+            default: return "fa-solid fa-circle";
         }
     }
 </script>
@@ -57,6 +72,8 @@
             <button class="filter-btn" class:active={category === "weapons"} onclick={() => category = "weapons"}>Weapons</button>
             <button class="filter-btn" class:active={category === "armour"} onclick={() => category = "armour"}>Armour</button>
             <button class="filter-btn" class:active={category === "gear"} onclick={() => category = "gear"}>Gear</button>
+            <button class="filter-btn" class:active={category === "ammunition"} onclick={() => category = "ammunition"}>Ammo</button>
+            <button class="filter-btn" class:active={category === "cybernetics"} onclick={() => category = "cybernetics"}>Cybernetics</button>
         </div>
         <span class="weight-total">Weight: {totalWeight().toFixed(1)} kg</span>
     </div>
@@ -64,7 +81,10 @@
     <div class="item-list">
         {#each allItems() as item}
             <div class="item-row" class:equipped={item.system?.equipped}>
-                <span class="item-icon">{getItemIcon(item.type)}</span>
+                <button class="fav-star" onclick={() => toggleFavorite(item)} title="Favorite">
+                    <i class={item.getFlag?.("dh2e", "favorite") ? "fa-solid fa-star" : "fa-regular fa-star"}></i>
+                </button>
+                <i class="item-icon {getItemIcon(item.type)}"></i>
                 <div class="item-info">
                     <span class="item-name">{item.name}</span>
                     <span class="item-type">{item.type}</span>
@@ -72,7 +92,7 @@
                 {#if item.system?.quantity !== undefined}
                     <span class="item-qty">x{item.system.quantity ?? 1}</span>
                 {/if}
-                {#if item.type === "weapon" || item.type === "armour"}
+                {#if item.type === "weapon" || item.type === "armour" || item.type === "cybernetic"}
                     <button
                         class="equip-btn"
                         class:equipped={item.system?.equipped}
@@ -148,10 +168,28 @@
         &.equipped { border-left: 2px solid var(--dh2e-gold, #c8a84e); }
     }
 
+    .fav-star {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        color: var(--dh2e-gold-muted, #8a7a3e);
+        font-size: 0.7rem;
+        width: 1rem;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover { color: var(--dh2e-gold-bright, #c8a84e); }
+        :global(.fa-solid.fa-star) { color: var(--dh2e-gold, #b49545); }
+    }
+
     .item-icon {
         width: 1.2rem;
         text-align: center;
-        font-size: 0.9rem;
+        font-size: 0.75rem;
+        color: var(--dh2e-gold-muted, #8a7a3e);
     }
 
     .item-info {

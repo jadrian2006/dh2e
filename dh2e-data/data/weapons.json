@@ -1,0 +1,992 @@
+[
+    {
+        "name": "Knife",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A simple blade, ubiquitous across the Imperium. Every guardsman, hive ganger, and pilgrim carries one.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d5", "type": "rending", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 0.5,
+            "qualities": [],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Sword",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A standard-issue blade favoured by officers, nobles, and militiamen throughout the Imperium.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "rending", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 3,
+            "qualities": ["Balanced"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Great Weapon",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A massive two-handed blade, axe, or hammer requiring both hands and considerable strength to wield effectively.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "2d10", "type": "rending", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 7,
+            "qualities": ["Unbalanced", "Unwieldy"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Truncheon",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A heavy baton used by enforcers and gangers alike. Crude but effective at putting down unruly subjects.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 2,
+            "qualities": ["Primitive (7)"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Staff",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A long wooden or metal pole wielded with both hands, common among travellers, pilgrims, and psykers.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 3,
+            "qualities": ["Balanced", "Primitive (7)"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Shield",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A sturdy shield used to block incoming blows and batter foes at close quarters.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d5", "type": "impact", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 3,
+            "qualities": ["Defensive"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Warhammer",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A heavy, blunt weapon with a reinforced head, capable of crushing armour and bone alike.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 1 },
+            "penetration": 1,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 4.5,
+            "qualities": ["Concussive (1)", "Unwieldy"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Chainsword",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "An iconic weapon of the Imperium, its motorised teeth rip through flesh and light armour with terrifying ease.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "rending", "bonus": 2 },
+            "penetration": 2,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 6,
+            "qualities": ["Balanced", "Tearing"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Chain Axe",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A brutal axe with a motorised chain-edged blade, favoured by berserkers and fanatics across the galaxy.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "rending", "bonus": 4 },
+            "penetration": 2,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 13,
+            "qualities": ["Tearing", "Unbalanced"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Power Sword",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A finely-crafted blade sheathed in a disruptive energy field, capable of cutting through almost any material.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 5 },
+            "penetration": 5,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 3,
+            "qualities": ["Balanced", "Power Field"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Power Axe",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A heavy axe wreathed in a disruptive power field, delivering devastating cleaving blows.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 7 },
+            "penetration": 7,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 6,
+            "qualities": ["Power Field", "Unbalanced"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Power Maul",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A crushing mace surrounded by a disruptive energy field that stuns and burns targets on impact.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 5 },
+            "penetration": 4,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 5.5,
+            "qualities": ["Power Field", "Shocking"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Power Fist",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "An armoured gauntlet surrounded by a devastating power field, capable of smashing through walls and vehicles.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "2d10", "type": "energy", "bonus": 0 },
+            "penetration": 9,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 13,
+            "qualities": ["Power Field", "Unwieldy"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Force Sword",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A psychically-attuned blade that channels the wielder's warp powers into devastating strikes against body and soul.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "rending", "bonus": 0 },
+            "penetration": 2,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 3.5,
+            "qualities": ["Balanced", "Force"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Force Staff",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A psychically-resonant staff that amplifies the wielder's connection to the Warp, serving as both weapon and focus.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 0 },
+            "penetration": 2,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 5,
+            "qualities": ["Force", "Unwieldy"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Mono Knife",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A knife honed to a monomolecular edge, capable of slicing through armour with surgical precision.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d5", "type": "rending", "bonus": 0 },
+            "penetration": 2,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 0.5,
+            "qualities": [],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Mono Sword",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A blade ground to a monomolecular edge, significantly more effective at piercing armour than a standard sword.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "rending", "bonus": 0 },
+            "penetration": 2,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 3,
+            "qualities": ["Balanced"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Neural Whip",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A flexible lash that delivers agonising neural shocks to its victims, favoured by beast masters and interrogators.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 2,
+            "qualities": ["Flexible", "Shocking"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Omnissian Axe",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "The sacred weapon of the Adeptus Mechanicus Tech-Priests, combining a massive power axe with integrated tools and circuits.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "2d10", "type": "energy", "bonus": 4 },
+            "penetration": 6,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 8,
+            "qualities": ["Power Field", "Unbalanced", "Unwieldy"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Shock Maul",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "An electrified baton used by Arbites and enforcers to subdue criminals and rioters with painful shocks.",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 2.5,
+            "qualities": ["Shocking"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Hunting Lance",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A devastating mounted lance used by Rough Riders, designed to deliver a single catastrophic impact charge.",
+            "class": "mounted",
+            "range": 0,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "3d10", "type": "impact", "bonus": 0 },
+            "penetration": 7,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 8,
+            "qualities": ["Concussive (2)", "Lance", "Proven (3)"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Stub Automatic",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A common solid-projectile sidearm found on nearly every civilised world. Cheap, reliable, and easy to maintain.",
+            "class": "pistol",
+            "range": 30,
+            "rof": { "single": true, "semi": 3, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 3 },
+            "penetration": 0,
+            "clip": { "value": 9, "max": 9 },
+            "reload": "Half",
+            "weight": 1.5,
+            "qualities": ["Reliable"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Stub Revolver",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A rugged, cylinder-fed pistol renowned for its simplicity and stopping power. A frontier classic.",
+            "class": "pistol",
+            "range": 30,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 3 },
+            "penetration": 0,
+            "clip": { "value": 6, "max": 6 },
+            "reload": "2Full",
+            "weight": 1.5,
+            "qualities": ["Reliable"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Hand Cannon",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "An oversized stub pistol firing massive rounds. Difficult to aim but devastating at close range.",
+            "class": "pistol",
+            "range": 35,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 4 },
+            "penetration": 2,
+            "clip": { "value": 5, "max": 5 },
+            "reload": "2Full",
+            "weight": 3,
+            "qualities": ["Inaccurate"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Autopistol",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A lightweight automatic pistol capable of rapid fire, popular among gangers and underhive scum.",
+            "class": "pistol",
+            "range": 30,
+            "rof": { "single": true, "semi": 0, "full": 6 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 2 },
+            "penetration": 0,
+            "clip": { "value": 18, "max": 18 },
+            "reload": "Full",
+            "weight": 1.5,
+            "qualities": [],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Laspistol",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "The standard-issue sidearm of Imperial officers and agents, firing focused beams of coherent light.",
+            "class": "pistol",
+            "range": 30,
+            "rof": { "single": true, "semi": 2, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 2 },
+            "penetration": 0,
+            "clip": { "value": 30, "max": 30 },
+            "reload": "Half",
+            "weight": 1.5,
+            "qualities": ["Reliable"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Bolt Pistol",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A compact bolt weapon firing mass-reactive explosive rounds. A symbol of Imperial authority and power.",
+            "class": "pistol",
+            "range": 30,
+            "rof": { "single": true, "semi": 2, "full": 0 },
+            "damage": { "formula": "1d10", "type": "explosive", "bonus": 5 },
+            "penetration": 4,
+            "clip": { "value": 8, "max": 8 },
+            "reload": "Full",
+            "weight": 3.5,
+            "qualities": ["Tearing"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Inferno Pistol",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "An extremely rare pistol-sized melta weapon, capable of reducing targets to slag at close range.",
+            "class": "pistol",
+            "range": 10,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "2d10", "type": "energy", "bonus": 2 },
+            "penetration": 12,
+            "clip": { "value": 3, "max": 3 },
+            "reload": "Full",
+            "weight": 2.5,
+            "qualities": ["Melta"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Plasma Pistol",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A rare and dangerous sidearm that fires searing bolts of superheated plasma, prized despite its volatility.",
+            "class": "pistol",
+            "range": 30,
+            "rof": { "single": true, "semi": 2, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 6 },
+            "penetration": 6,
+            "clip": { "value": 10, "max": 10 },
+            "reload": "3Full",
+            "weight": 4,
+            "qualities": ["Maximal", "Overheats"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Hand Flamer",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A compact flamer that projects a cone of burning promethium, devastating in confined spaces.",
+            "class": "pistol",
+            "range": 10,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 4 },
+            "penetration": 2,
+            "clip": { "value": 2, "max": 2 },
+            "reload": "2Full",
+            "weight": 3.5,
+            "qualities": ["Flame", "Spray"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Autogun",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A solid-projectile automatic rifle common among planetary defence forces, mercenaries, and insurrectionists.",
+            "class": "basic",
+            "range": 100,
+            "rof": { "single": true, "semi": 3, "full": 10 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 3 },
+            "penetration": 0,
+            "clip": { "value": 30, "max": 30 },
+            "reload": "Full",
+            "weight": 5,
+            "qualities": [],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Shotgun",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A combat shotgun firing solid slug or scatter rounds, effective at close range and in confined corridors.",
+            "class": "basic",
+            "range": 30,
+            "rof": { "single": true, "semi": 3, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 4 },
+            "penetration": 0,
+            "clip": { "value": 8, "max": 8 },
+            "reload": "2Full",
+            "weight": 5,
+            "qualities": ["Scatter"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Hunting Rifle",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A well-crafted solid-slug rifle with excellent accuracy, used by hunters and frontier settlers across the Imperium.",
+            "class": "basic",
+            "range": 150,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 3 },
+            "penetration": 0,
+            "clip": { "value": 5, "max": 5 },
+            "reload": "Full",
+            "weight": 5,
+            "qualities": ["Accurate", "Reliable"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Lasgun",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "The standard-issue weapon of the Astra Militarum, firing focused beams of light. Reliable, easily maintained, and produced in the billions.",
+            "class": "basic",
+            "range": 100,
+            "rof": { "single": true, "semi": 3, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 3 },
+            "penetration": 0,
+            "clip": { "value": 60, "max": 60 },
+            "reload": "Full",
+            "weight": 4,
+            "qualities": ["Reliable"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Long Las",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A precision lasweapon fitted with enhanced focusing arrays, used by snipers and designated marksmen.",
+            "class": "basic",
+            "range": 150,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 3 },
+            "penetration": 1,
+            "clip": { "value": 40, "max": 40 },
+            "reload": "Full",
+            "weight": 4.5,
+            "qualities": ["Accurate", "Felling (4)", "Reliable"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Boltgun",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "The iconic weapon of the Adeptus Astartes, firing self-propelled mass-reactive bolts that detonate within the target.",
+            "class": "basic",
+            "range": 100,
+            "rof": { "single": true, "semi": 3, "full": 0 },
+            "damage": { "formula": "1d10", "type": "explosive", "bonus": 5 },
+            "penetration": 4,
+            "clip": { "value": 24, "max": 24 },
+            "reload": "Full",
+            "weight": 7,
+            "qualities": ["Tearing"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Flamer",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A weapon that projects a stream of burning promethium, engulfing targets in cleansing flame. Effective against hordes.",
+            "class": "basic",
+            "range": 20,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 4 },
+            "penetration": 2,
+            "clip": { "value": 6, "max": 6 },
+            "reload": "2Full",
+            "weight": 6,
+            "qualities": ["Flame", "Spray"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Meltagun",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A fearsome anti-armour weapon that fires a concentrated blast of microwave energy, reducing targets to molten slag.",
+            "class": "basic",
+            "range": 20,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "2d10", "type": "energy", "bonus": 4 },
+            "penetration": 12,
+            "clip": { "value": 5, "max": 5 },
+            "reload": "2Full",
+            "weight": 8,
+            "qualities": ["Melta"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Plasma Gun",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A powerful and volatile weapon that fires bolts of superheated plasma, capable of burning through heavy armour.",
+            "class": "basic",
+            "range": 90,
+            "rof": { "single": true, "semi": 2, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 7 },
+            "penetration": 6,
+            "clip": { "value": 20, "max": 20 },
+            "reload": "5Full",
+            "weight": 18,
+            "qualities": ["Maximal", "Overheats"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Sniper Rifle",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A high-powered, long-range solid-slug rifle fitted with advanced optics for precision assassination and reconnaissance.",
+            "class": "basic",
+            "range": 200,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "impact", "bonus": 4 },
+            "penetration": 3,
+            "clip": { "value": 20, "max": 20 },
+            "reload": "Full",
+            "weight": 5,
+            "qualities": ["Accurate", "Reliable"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Storm Bolter",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A twin-linked boltgun that unleashes a devastating hail of mass-reactive bolts, favoured by elite Imperial forces.",
+            "class": "basic",
+            "range": 90,
+            "rof": { "single": true, "semi": 2, "full": 4 },
+            "damage": { "formula": "1d10", "type": "explosive", "bonus": 5 },
+            "penetration": 4,
+            "clip": { "value": 60, "max": 60 },
+            "reload": "2Full",
+            "weight": 9,
+            "qualities": ["Storm", "Tearing"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Grenade Launcher",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A versatile launcher that fires various grenade types at range, providing flexible tactical support.",
+            "class": "basic",
+            "range": 60,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "0", "type": "explosive", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 6, "max": 6 },
+            "reload": "2Full",
+            "weight": 12,
+            "qualities": ["Inaccurate"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Heavy Bolter",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A massive, tripod- or vehicle-mounted bolt weapon that unleashes a torrent of explosive bolts, devastating infantry and light vehicles.",
+            "class": "heavy",
+            "range": 150,
+            "rof": { "single": false, "semi": 0, "full": 6 },
+            "damage": { "formula": "1d10", "type": "explosive", "bonus": 8 },
+            "penetration": 5,
+            "clip": { "value": 60, "max": 60 },
+            "reload": "Full",
+            "weight": 40,
+            "qualities": ["Tearing"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Heavy Flamer",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A large flamer projecting a massive gout of burning promethium, purging everything in its path with holy fire.",
+            "class": "heavy",
+            "range": 30,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 5 },
+            "penetration": 4,
+            "clip": { "value": 10, "max": 10 },
+            "reload": "2Full",
+            "weight": 45,
+            "qualities": ["Flame", "Spray"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Autocannon",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A heavy automatic weapon firing large-calibre shells at high velocity, effective against both infantry and armoured targets.",
+            "class": "heavy",
+            "range": 300,
+            "rof": { "single": true, "semi": 3, "full": 0 },
+            "damage": { "formula": "3d10", "type": "impact", "bonus": 8 },
+            "penetration": 6,
+            "clip": { "value": 20, "max": 20 },
+            "reload": "2Full",
+            "weight": 40,
+            "qualities": ["Ogryn-Proof", "Reliable"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Lascannon",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "The most powerful man-portable las weapon, firing a devastating beam of coherent light capable of destroying vehicles and fortifications.",
+            "class": "heavy",
+            "range": 300,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "5d10", "type": "energy", "bonus": 10 },
+            "penetration": 10,
+            "clip": { "value": 5, "max": 5 },
+            "reload": "2Full",
+            "weight": 55,
+            "qualities": ["Felling (4)", "Proven (3)", "Reliable"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Missile Launcher",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A versatile heavy weapon that fires guided missiles of various types, providing anti-infantry and anti-armour capability.",
+            "class": "heavy",
+            "range": 300,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "0", "type": "explosive", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 1, "max": 1 },
+            "reload": "Full",
+            "weight": 15,
+            "qualities": [],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Multi-Laser",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A multi-barrelled las weapon that fires rapid bursts of laser bolts, commonly mounted on vehicles and emplacements.",
+            "class": "heavy",
+            "range": 150,
+            "rof": { "single": false, "semi": 0, "full": 5 },
+            "damage": { "formula": "2d10", "type": "energy", "bonus": 10 },
+            "penetration": 2,
+            "clip": { "value": 100, "max": 100 },
+            "reload": "2Full",
+            "weight": 35,
+            "qualities": ["Reliable"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Plasma Cannon",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A devastating heavy plasma weapon that fires massive blasts of superheated plasma, annihilating armoured targets in blinding detonations.",
+            "class": "heavy",
+            "range": 120,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "2d10", "type": "energy", "bonus": 10 },
+            "penetration": 10,
+            "clip": { "value": 16, "max": 16 },
+            "reload": "5Full",
+            "weight": 40,
+            "qualities": ["Blast (1)", "Maximal", "Overheats", "Recharge"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Frag Grenade",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A standard fragmentation grenade that explodes into a hail of deadly shrapnel, effective against unarmoured infantry.",
+            "class": "thrown",
+            "range": 36,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "2d10", "type": "explosive", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 0.5,
+            "qualities": ["Blast (3)", "Ogryn-Proof"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Krak Grenade",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "An anti-armour grenade that delivers a focused shaped charge, designed to crack open vehicles and fortifications.",
+            "class": "thrown",
+            "range": 36,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "2d10", "type": "explosive", "bonus": 4 },
+            "penetration": 6,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 0.5,
+            "qualities": ["Concussive (0)"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Hallucinogen Grenade",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A grenade that releases a cloud of potent hallucinogenic gas, causing targets to suffer terrifying delusions and erratic behaviour.",
+            "class": "thrown",
+            "range": 36,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "0", "type": "impact", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 0.5,
+            "qualities": ["Blast (5)"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Photon Flash Grenade",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A grenade that detonates in a blinding flash of light, temporarily blinding and disorienting all nearby targets.",
+            "class": "thrown",
+            "range": 36,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "0", "type": "impact", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 0.5,
+            "qualities": ["Blast (10)"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Smoke Grenade",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A grenade that creates a dense cloud of obscuring smoke, providing concealment for advancing troops.",
+            "class": "thrown",
+            "range": 36,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "0", "type": "impact", "bonus": 0 },
+            "penetration": 0,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 0.5,
+            "qualities": ["Smoke (6)"],
+            "equipped": false
+        }
+    },
+    {
+        "name": "Fire Bomb",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A crude incendiary device filled with flammable liquid, shattering on impact and engulfing the area in flames.",
+            "class": "thrown",
+            "range": 36,
+            "rof": { "single": true, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10", "type": "energy", "bonus": 3 },
+            "penetration": 6,
+            "clip": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 0.5,
+            "qualities": ["Blast (2)", "Flame"],
+            "equipped": false
+        }
+    }
+]

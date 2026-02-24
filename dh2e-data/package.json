@@ -1,0 +1,13 @@
+{
+    "name": "dh2e-data",
+    "version": "0.1.0",
+    "description": "Private DH2E core rulebook data pack",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "node scripts/build-packs.mjs"
+    },
+    "dependencies": {
+        "classic-level": "^2.0.0"
+    }
+}

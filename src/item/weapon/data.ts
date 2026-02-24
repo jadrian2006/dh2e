@@ -1,4 +1,5 @@
 import type { WeaponClass, FireMode, DamageType } from "./types.ts";
+import type { RuleElementSource } from "@rules/rule-element/base.ts";
 
 export interface WeaponSystemSource {
     description: string;
@@ -23,4 +24,8 @@ export interface WeaponSystemSource {
     weight: number;
     qualities: string[];   // e.g., ["Reliable", "Tearing"]
     equipped: boolean;
+    /** UUID of loaded ammunition item (empty = no special ammo) */
+    loadedAmmoId: string;
+    /** Rule elements from weapon qualities or manual configuration */
+    rules: RuleElementSource[];
 }

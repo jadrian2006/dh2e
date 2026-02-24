@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Skull icon for NPCs -->
+  <g stroke="#c8a84e" stroke-width="1.5">
+    <!-- Skull outline -->
+    <path d="M20 28 Q20 12 32 10 Q44 12 44 28 L44 36 Q44 42 38 44 L36 44 L36 50 L28 50 L28 44 L26 44 Q20 42 20 36Z"
+          fill="#c8a84e" fill-opacity="0.15"/>
+    <!-- Eye sockets -->
+    <ellipse cx="27" cy="26" rx="4" ry="5" fill="#1a1a1f"/>
+    <ellipse cx="37" cy="26" rx="4" ry="5" fill="#1a1a1f"/>
+    <!-- Nose -->
+    <path d="M30 34 L32 37 L34 34" fill="#1a1a1f" stroke-width="1"/>
+    <!-- Teeth -->
+    <line x1="28" y1="44" x2="28" y2="48" stroke-width="1"/>
+    <line x1="31" y1="44" x2="31" y2="49" stroke-width="1"/>
+    <line x1="33" y1="44" x2="33" y2="49" stroke-width="1"/>
+    <line x1="36" y1="44" x2="36" y2="48" stroke-width="1"/>
+    <!-- Jaw line -->
+    <line x1="26" y1="44" x2="38" y2="44" stroke-width="1.5"/>
+    <!-- Cracks for grimdark feel -->
+    <path d="M32 10 L30 18" stroke-width="0.5" opacity="0.4"/>
+    <path d="M40 16 L38 22" stroke-width="0.5" opacity="0.4"/>
+  </g>
+</svg>

@@ -4,6 +4,10 @@ import { determineHitLocation } from "./hit-location.ts";
 import { calculateHits } from "./fire-modes.ts";
 import { calculateDamage, getLocationAP } from "./damage.ts";
 import { CheckDH2e } from "@check/check.ts";
+import { getQualityRuleElements } from "./weapon-qualities.ts";
+import { instantiateRuleElement } from "@rules/rule-element/registry.ts";
+import { createSynthetics, type DH2eSynthetics } from "@rules/synthetics.ts";
+import type { RuleElementSource } from "@rules/rule-element/base.ts";
 
 /**
  * Resolves a full attack sequence:
@@ -33,6 +37,26 @@ class AttackResolver {
         if (fireMode === "semi") rofValue = sys.rof?.semi ?? 2;
         if (fireMode === "full") rofValue = sys.rof?.full ?? 4;
 
+        // Collect weapon quality REs for roll options
+        const qualities: string[] = weapon.effectiveQualities ?? sys.qualities ?? [];
+        const qualityRESources = getQualityRuleElements(qualities);
+
+        // Build weapon-specific roll options
+        const rollOptions = new Set<string>();
+        rollOptions.add(`weapon:class:${sys.class}`);
+        if (fireMode !== "single") rollOptions.add(`weapon:firemode:${fireMode}`);
+
+        // Inject quality roll options (apply quality REs to a temporary synthetics)
+        const weaponSynthetics = createSynthetics();
+        for (const reSrc of qualityRESources) {
+            const re = instantiateRuleElement(reSrc, weapon);
+            if (re) re.onPrepareData(weaponSynthetics);
+        }
+        // Merge weapon quality roll options
+        for (const opt of weaponSynthetics.rollOptions) {
+            rollOptions.add(opt);
+        }
+
         // Roll the attack check
         const result = await CheckDH2e.roll({
             actor,
@@ -40,6 +64,7 @@ class AttackResolver {
             baseTarget: charValue,
             label: `${weapon.name} Attack (${fireMode === "single" ? "Single" : fireMode === "semi" ? "Semi-Auto" : "Full-Auto"})`,
             domain: `attack:${isMelee ? "melee" : "ranged"}`,
+            rollOptions,
         });
 
         if (!result) return null; // User cancelled
@@ -96,18 +121,56 @@ class AttackResolver {
         target: Actor,
     ): Promise<DamageResult[]> {
         const sys = weapon.system ?? {};
-        const formula = sys.damage?.formula ?? "1d10";
-        const penetration = sys.penetration ?? 0;
+
+        // Use effective damage (includes ammo mods) if available
+        const effective = weapon.effectiveDamage ?? {
+            formula: sys.damage?.formula ?? "1d10",
+            type: sys.damage?.type ?? "impact",
+            bonus: sys.damage?.bonus ?? 0,
+            penetration: sys.penetration ?? 0,
+        };
+        const formula = effective.formula;
+        const penetration = effective.penetration;
+        const damageType = effective.type;
+
         const targetSys = (target as any).system;
         const toughnessBonus = targetSys?.characteristics?.t?.bonus ??
             Math.floor((targetSys?.characteristics?.t?.value ?? 0) / 10);
+
+        // Collect resistances and TB adjustments from target synthetics
+        const targetSynthetics = (target as any).synthetics as DH2eSynthetics | undefined;
+        const resistances = targetSynthetics?.resistances;
+        const toughnessAdjustments = targetSynthetics?.toughnessAdjustments;
+
+        // Collect dice overrides from weapon qualities
+        const qualities: string[] = weapon.effectiveQualities ?? sys.qualities ?? [];
+        const qualityRESources = getQualityRuleElements(qualities);
+        const weaponSynthetics = createSynthetics();
+        for (const reSrc of qualityRESources) {
+            const re = instantiateRuleElement(reSrc, weapon);
+            if (re) re.onPrepareData(weaponSynthetics);
+        }
+        const isMelee = sys.class === "melee";
+        const damageDomain = `damage:${isMelee ? "melee" : "ranged"}`;
+        const diceOverrides = [
+            ...(weaponSynthetics.diceOverrides[damageDomain] ?? []),
+            ...(weaponSynthetics.diceOverrides["damage:*"] ?? []),
+        ];
 
         const results: DamageResult[] = [];
 
         for (const hit of attackResult.hits) {
             const roll = new foundry.dice.Roll(formula);
             await roll.evaluate();
-            const rawDamage = roll.total ?? 0;
+            let rawDamage = roll.total ?? 0;
+
+            // Apply dice overrides
+            if (diceOverrides.length > 0 && roll.dice?.length) {
+                rawDamage = AttackResolver.#applyDiceOverrides(roll, diceOverrides);
+            }
+
+            // Add damage bonus
+            rawDamage += effective.bonus;
 
             const locationAP = getLocationAP(target, hit.location);
 
@@ -118,6 +181,7 @@ class AttackResolver {
                 toughnessBonus,
                 hit.location,
                 formula,
+                { damageType, resistances, toughnessAdjustments },
             );
 
             results.push(damageResult);
@@ -127,6 +191,38 @@ class AttackResolver {
         await AttackResolver.#postDamageCard(results, attackResult.weaponName, target);
 
         return results;
+    }
+
+    /** Apply dice override effects (Tearing, Proven, Primitive) to a damage roll */
+    static #applyDiceOverrides(
+        roll: any,
+        overrides: { mode: string; value?: number; source: string }[],
+    ): number {
+        const dice = roll.dice ?? [];
+        if (dice.length === 0) return roll.total ?? 0;
+
+        // Get all individual die results
+        let results: number[] = [];
+        for (const die of dice) {
+            results.push(...(die.results?.map((r: any) => r.result) ?? []));
+        }
+
+        for (const override of overrides) {
+            if (override.mode === "rerollLowest" && results.length > 0) {
+                // Tearing: re-roll the lowest die
+                const minIdx = results.indexOf(Math.min(...results));
+                const faces = dice[0]?.faces ?? 10;
+                results[minIdx] = Math.floor(Math.random() * faces) + 1;
+            } else if (override.mode === "minimumDie" && override.value) {
+                // Proven: any die below the value counts as the value
+                results = results.map((r) => Math.max(r, override.value!));
+            } else if (override.mode === "maximizeDie" && override.value) {
+                // Primitive: cap each die at the given value
+                results = results.map((r) => Math.min(r, override.value!));
+            }
+        }
+
+        return results.reduce((sum, r) => sum + r, 0);
     }
 
     static async #postAttackCard(

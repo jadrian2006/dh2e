@@ -29,7 +29,7 @@
         );
     });
 
-    function onSkillRoll(skill: any) {
+    function onSkillRoll(skill: any, shiftKey = false) {
         const actor = ctx.actor;
         if (!actor) return;
         CheckDH2e.roll({
@@ -38,8 +38,11 @@
             baseTarget: skill.totalTarget,
             label: `${skill.displayName ?? skill.name} Test`,
             domain: `skill:${skill.name.toLowerCase().replace(/\s+/g, "-")}`,
+            skillDescription: skill.system?.description ?? "",
+            skipDialog: CheckDH2e.shouldSkipDialog(shiftKey),
         });
     }
+
 </script>
 
 <div class="skills-tab">
@@ -53,7 +56,7 @@
         <div class="skills-header">
             <span class="col-name">Skill</span>
             <span class="col-char">Char</span>
-            <span class="col-pips">Rank</span>
+            <span class="col-pips" title="Training rank — each pip = one advance">Rank</span>
             <span class="col-target">Target</span>
         </div>
         {#each skills() as skill}
@@ -67,7 +70,8 @@
                     totalTarget: skill.totalTarget ?? 0,
                     isTrained: skill.isTrained ?? false,
                 }}
-                onRoll={() => onSkillRoll(skill)}
+                item={skill}
+                onRoll={(e) => onSkillRoll(skill, e?.shiftKey)}
             />
         {/each}
         {#if skills().length === 0}

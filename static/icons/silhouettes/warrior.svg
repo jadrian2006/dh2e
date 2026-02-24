@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320">
+  <!-- Warrior: heavy armour, large weapon, imposing stance -->
+  <g fill="#1a1a22" stroke="none">
+    <!-- Helmet -->
+    <path d="M78 8 Q74 14 72 26 Q72 40 76 48 Q82 54 100 56 Q118 54 124 48 Q128 40 128 26 Q126 14 122 8 Q114 2 100 2 Q86 2 78 8Z"/>
+    <!-- Visor slit -->
+    <rect x="82" y="30" width="36" height="6" rx="2" fill="#0d0d14"/>
+    <!-- Thick neck -->
+    <rect x="90" y="54" width="20" height="14" rx="4"/>
+    <!-- Broad armoured torso -->
+    <path d="M62 66 Q58 95 60 135 Q62 155 78 162 L122 162 Q138 155 140 135 Q142 95 138 66 Q122 60 100 59 Q78 60 62 66Z"/>
+    <!-- Pauldron left -->
+    <ellipse cx="62" cy="72" rx="14" ry="10"/>
+    <!-- Pauldron right -->
+    <ellipse cx="138" cy="72" rx="14" ry="10"/>
+    <!-- Left Arm (thick, armoured) -->
+    <path d="M62 74 Q44 80 36 100 Q30 120 32 148 Q33 158 40 158 Q48 156 48 146 Q50 124 56 108 Q60 92 62 82Z"/>
+    <!-- Right Arm (holding large weapon upright) -->
+    <path d="M138 74 Q154 80 162 96 Q166 112 164 136 Q163 144 158 146 Q154 144 154 138 Q152 118 148 104 Q144 90 138 82Z"/>
+    <!-- Large weapon (sword/axe held upright) -->
+    <path d="M160 60 L162 10 L166 10 L168 60 L170 64 L158 64Z"/>
+    <!-- Weapon crossguard -->
+    <rect x="154" y="60" width="20" height="4" rx="1"/>
+    <!-- Left Leg (armoured, wide stance) -->
+    <path d="M82 160 Q76 200 72 240 Q70 268 68 288 Q67 304 76 308 Q86 306 84 292 Q86 268 88 242 Q92 202 96 170Z"/>
+    <!-- Right Leg (armoured, wide stance) -->
+    <path d="M118 160 Q124 200 128 240 Q130 268 132 288 Q133 304 124 308 Q114 306 116 292 Q114 268 112 242 Q108 202 104 170Z"/>
+  </g>
+</svg>

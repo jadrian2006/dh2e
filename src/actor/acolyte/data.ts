@@ -12,6 +12,14 @@ export interface CharacteristicData extends CharacteristicSource {
     bonus: number; // Math.floor(value / 10)
 }
 
+/** Derived movement rates */
+export interface MovementData {
+    half: number;
+    full: number;
+    charge: number;
+    run: number;
+}
+
 /** Per-location armour values */
 export type ArmourByLocation = Record<HitLocationKey, number>;
 
@@ -41,6 +49,12 @@ export interface AcolyteSystemSource {
         role: string;
         divination: string;
         notes: string;
+        biography: string;
+        appearance: string;
+        age: string;
+        sex: string;
+        height: string;
+        weight: string;
     };
 }
 
@@ -52,4 +66,5 @@ export interface AcolyteSystemData extends Omit<AcolyteSystemSource, "characteri
         spent: number;
         available: number;
     };
+    movement: MovementData;
 }

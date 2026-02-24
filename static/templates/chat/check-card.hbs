@@ -11,6 +11,35 @@
     </header>
     <div class="card-body">
         <p class="roll-summary">{{format "DH2E.Check.Roll" roll=roll target=target}}</p>
+
+        {{!-- DoS threshold result --}}
+        {{#if dosThreshold}}
+        <p class="dos-threshold {{#if thresholdMet}}met{{else}}not-met{{/if}}">
+            {{#if thresholdMet}}
+                {{format "DH2E.DoS.ThresholdMet" dos=degrees threshold=dosThreshold}}
+            {{else}}
+                {{format "DH2E.DoS.ThresholdNotMet" dos=degrees threshold=dosThreshold}}
+            {{/if}}
+        </p>
+        {{/if}}
+
+        {{!-- Degrees breakdown --}}
+        <details class="dos-breakdown">
+            <summary>{{localize "DH2E.DoS.Breakdown"}}</summary>
+            <div class="dos-math">
+                <span>{{format "DH2E.DoS.TargetTens" value=targetTens}}</span>
+                <span class="separator">|</span>
+                <span>{{format "DH2E.DoS.RollTens" value=rollTens}}</span>
+            </div>
+            <p class="dos-formula">
+                {{#if success}}
+                1 + ({{targetTens}} − {{rollTens}}) = {{degrees}} DoS
+                {{else}}
+                1 + ({{rollTens}} − {{targetTens}}) = {{degrees}} DoF
+                {{/if}}
+            </p>
+        </details>
+
         {{#if modifiers.length}}
         <details class="modifier-breakdown">
             <summary>Modifiers</summary>

@@ -1,7 +1,11 @@
 import type { ActorType } from "./types.ts";
+import { createSynthetics, type DH2eSynthetics } from "@rules/synthetics.ts";
 
 /** Base actor class for all DH2E actor types */
 class ActorDH2e extends Actor {
+    /** Synthetics registry — populated during data preparation by Rule Elements */
+    synthetics: DH2eSynthetics = createSynthetics();
+
     /** Actor type narrowing */
     get actorType(): ActorType {
         return this.type as ActorType;

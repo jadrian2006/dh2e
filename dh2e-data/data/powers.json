@@ -1,0 +1,812 @@
+[
+    {
+        "name": "Invigourate",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Remove levels of Fatigue from the psyker and allies within range. The total number of Fatigue levels removed across all targets cannot exceed the psy rating. After use, requires 12 hours of recovery before it can be used again.",
+            "discipline": "Biomancy",
+            "cost": 100,
+            "prerequisites": "Toughness 30",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "1 metre",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Smite",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Unleash a Psychic Barrage that deals 1d10 + psy rating Energy damage with Penetration 4.",
+            "discipline": "Biomancy",
+            "cost": 200,
+            "prerequisites": "Willpower 40",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "20 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Enfeeble",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The target opposes with Toughness. On failure, the target is Stunned for 1 round. While the power remains in effect, whenever the target rolls doubles on any test, they suffer Fatigue equal to half the psy rating (rounded down).",
+            "discipline": "Biomancy",
+            "cost": 100,
+            "prerequisites": "Toughness 35",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "20 metres x psy rating",
+            "sustained": "Half Action",
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": true
+        }
+    },
+    {
+        "name": "Shape Flesh",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Alter the physical appearance of the psyker or a touched target. At PR 1-3, make subtle changes. At PR 4-6, choose specific features. At PR 7-9, mimic another person. At PR 10+, create an exact duplicate appearance. Tests to identify the true identity suffer a -5 x psy rating penalty.",
+            "discipline": "Biomancy",
+            "cost": 200,
+            "prerequisites": "Perception 35, Toughness 30",
+            "focusTest": "Willpower",
+            "focusModifier": 10,
+            "range": "1 metre",
+            "sustained": "Free Action",
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Endurance",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "A number of allies equal to psy rating plus the psyker within the radius recover wounds equal to half the psy rating (rounded up). Affected characters may also overcome Pinning. Requires 12 hours of recovery before it can be used again.",
+            "discipline": "Biomancy",
+            "cost": 300,
+            "prerequisites": "Toughness 30",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "3 metres x psy rating radius",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Iron Arm",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker gains the Unnatural Toughness and Unnatural Strength traits, each at a value equal to half the psy rating (rounded up). While active, the psyker suffers -10 to Agility.",
+            "discipline": "Biomancy",
+            "cost": 400,
+            "prerequisites": "Strength 35, Toughness 35",
+            "focusTest": "Willpower",
+            "focusModifier": -20,
+            "range": "Self",
+            "sustained": "Free Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Haemorrhage",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The target opposes with Toughness. On failure, the target suffers Energy damage equal to the psy rating plus 1 per degree of failure on the Toughness test, ignoring Toughness bonus and Armour. If the target is killed, the psyker may immediately recast this power as a Free Action on another target within 5 metres of the slain target.",
+            "discipline": "Biomancy",
+            "cost": 400,
+            "prerequisites": "Psy rating 4",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "10 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": true
+        }
+    },
+    {
+        "name": "Life Leech",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The target opposes with Toughness. On failure, the target suffers 1d10 + psy rating Toughness damage. The psyker gains the Unnatural Toughness (1) trait, increasing by 1 for every full 5 points of Toughness damage dealt.",
+            "discipline": "Biomancy",
+            "cost": 400,
+            "prerequisites": "Toughness 40",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "10 metres x psy rating",
+            "sustained": "Free Action",
+            "action": "Full Action",
+            "subtype": "Attack, Concentration",
+            "opposed": true
+        }
+    },
+    {
+        "name": "Warp Speed",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker gains the Unnatural Weapon Skill, Unnatural Ballistic Skill, and Unnatural Agility traits, all at a value equal to the psy rating.",
+            "discipline": "Biomancy",
+            "cost": 500,
+            "prerequisites": "Psy rating 5",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "Self",
+            "sustained": "Free Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Warp Perception",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker gains the Unnatural Senses (X) trait, where X equals psy rating multiplied by 10.",
+            "discipline": "Divination",
+            "cost": 100,
+            "prerequisites": "Willpower 35",
+            "focusTest": "Psyniscience",
+            "focusModifier": 0,
+            "range": "Self",
+            "sustained": "Half Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Foreboding",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "When called upon to make an Evasion test, the psyker may use this power instead as a Reaction. On success, the attack is avoided as if the psyker passed an Evasion test with degrees of success equal to the Focus Power degrees of success.",
+            "discipline": "Divination",
+            "cost": 200,
+            "prerequisites": "Psyniscience rank 1",
+            "focusTest": "Perception",
+            "focusModifier": -10,
+            "range": "Self",
+            "sustained": false,
+            "action": "Reaction",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Prescience",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker and up to psy rating allies within range gain a bonus to Weapon Skill and Ballistic Skill tests equal to 2 x psy rating.",
+            "discipline": "Divination",
+            "cost": 200,
+            "prerequisites": "Psyniscience rank 1",
+            "focusTest": "Psyniscience",
+            "focusModifier": 0,
+            "range": "3 metres x psy rating radius",
+            "sustained": "Half Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Scrier's Gaze",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Project psychic vision over a distant area through a 30-minute ritual. The amount of information gained depends on degrees of success: 1 DoS reveals a single threat, 2 DoS reveals enemy movements, 3 DoS reveals enemy numbers, and 4+ DoS reveals enemy plans.",
+            "discipline": "Divination",
+            "cost": 200,
+            "prerequisites": "Psyniscience rank 2",
+            "focusTest": "Psyniscience",
+            "focusModifier": 0,
+            "range": "Self",
+            "sustained": false,
+            "action": "Special (30 min ritual)",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Misfortune",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The target's Armour is reduced in all locations by half the psy rating (rounded up). Additionally, the target's weapons jam on any failed attack roll.",
+            "discipline": "Divination",
+            "cost": 300,
+            "prerequisites": "Willpower 45",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "20 metres x psy rating",
+            "sustained": "Free Action",
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": true
+        }
+    },
+    {
+        "name": "Perfect Timing",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker and up to psy rating allies within range ignore the effects of cover when making ranged attacks.",
+            "discipline": "Divination",
+            "cost": 300,
+            "prerequisites": "Perception 55",
+            "focusTest": "Psyniscience",
+            "focusModifier": -10,
+            "range": "3 metres x psy rating radius",
+            "sustained": "Half Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Forewarning",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Up to psy rating allies plus the psyker within range gain a bonus to Evasion tests equal to 2 x psy rating.",
+            "discipline": "Divination",
+            "cost": 400,
+            "prerequisites": "Perception 50",
+            "focusTest": "Psyniscience",
+            "focusModifier": 0,
+            "range": "3 metres x psy rating radius",
+            "sustained": "Free Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Precognition",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker gains a number of re-rolls equal to the psy rating, lasting until the start of the next turn. These re-rolls may be spent for the psyker or for allies within range.",
+            "discipline": "Divination",
+            "cost": 400,
+            "prerequisites": "Perception 45, Willpower 45",
+            "focusTest": "Psyniscience",
+            "focusModifier": -20,
+            "range": "5 metres x psy rating radius",
+            "sustained": false,
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Winding Fate",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Touch a character or item to receive visions of its past or future. The vision lasts for 2 x psy rating seconds and can reveal events up to psy rating days in the past or future.",
+            "discipline": "Divination",
+            "cost": 500,
+            "prerequisites": "Perception 50",
+            "focusTest": "Psyniscience",
+            "focusModifier": -10,
+            "range": "Self",
+            "sustained": false,
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Manipulate Flame",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Choose a fire source within range with a radius of up to psy rating metres. Each round the psyker may either extinguish the fire or control it, moving it up to psy rating metres per round along a flammable surface.",
+            "discipline": "Pyromancy",
+            "cost": 100,
+            "prerequisites": "Willpower 35",
+            "focusTest": "Willpower",
+            "focusModifier": 20,
+            "range": "10 metres x psy rating",
+            "sustained": "Half Action",
+            "action": "Half Action",
+            "subtype": "Attack",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Spontaneous Combustion",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Unleash a Psychic Bolt that deals 1d10 + 2 + (2 x psy rating) Energy damage with the Flame quality.",
+            "discipline": "Pyromancy",
+            "cost": 200,
+            "prerequisites": "Willpower 40",
+            "focusTest": "Willpower",
+            "focusModifier": 10,
+            "range": "20 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Cauterise",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Touch the psyker or another character to instantly remove the Blood Loss condition.",
+            "discipline": "Pyromancy",
+            "cost": 300,
+            "prerequisites": "Willpower 45",
+            "focusTest": "Willpower",
+            "focusModifier": 20,
+            "range": "1 metre",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Flame Breath",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Unleash a Psychic Barrage that deals 1d10 + 2 + (2 x psy rating) Energy damage with the Flame quality.",
+            "discipline": "Pyromancy",
+            "cost": 300,
+            "prerequisites": "Psy rating 3",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "20 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Fire Shield",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Any character within range who successfully strikes the psyker in melee immediately suffers Energy damage equal to the psy rating, ignoring Armour and Toughness bonus. This damage has the Flame quality.",
+            "discipline": "Pyromancy",
+            "cost": 300,
+            "prerequisites": "Agility 40",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "20 metres x psy rating",
+            "sustained": "Free Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Fiery Form",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker's melee attacks deal additional Energy damage equal to the psy rating with the Flame quality. Each turn, the psyker also emits a Psychic Blast dealing 1d10 + psy rating Energy damage with Blast (psy rating) and the Flame quality.",
+            "discipline": "Pyromancy",
+            "cost": 400,
+            "prerequisites": "Psy rating 4",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "Self",
+            "sustained": "Half Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Molten Beam",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Unleash a Psychic Bolt that deals 1d10 + 5 + (3 x psy rating) Energy damage with Penetration equal to 2 x psy rating and the Melta quality.",
+            "discipline": "Pyromancy",
+            "cost": 400,
+            "prerequisites": "Psy rating 4",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "5 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Sunburst",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Unleash a Psychic Storm that deals 1d10 + 2 + (2 x psy rating) Energy damage with the Flame quality.",
+            "discipline": "Pyromancy",
+            "cost": 400,
+            "prerequisites": "Psy rating 4",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "20 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Inferno",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Unleash a Psychic Blast that deals 2d10 + (3 x psy rating) Energy damage with Blast (psy rating) and the Flame quality.",
+            "discipline": "Pyromancy",
+            "cost": 500,
+            "prerequisites": "Psy rating 5",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "10 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Telekinetic Control",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Move an object weighing up to 2 x psy rating kilograms at a speed of up to 2 x psy rating metres per round. The power ends immediately if the object leaves the power's range.",
+            "discipline": "Telekinesis",
+            "cost": 100,
+            "prerequisites": "Willpower 35",
+            "focusTest": "Willpower",
+            "focusModifier": 20,
+            "range": "10 metres x psy rating",
+            "sustained": "Half Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Assail",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Unleash a Psychic Bolt that deals 1d10 + psy rating Impact damage with Penetration 2. On 3 or more degrees of success, the target is hurled 1d5 metres and knocked Prone.",
+            "discipline": "Telekinesis",
+            "cost": 200,
+            "prerequisites": "Willpower 40",
+            "focusTest": "Willpower",
+            "focusModifier": 10,
+            "range": "20 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Telekine Shield",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "All of the psyker's hit locations count as being protected by cover with an Armour Value equal to half the psy rating. The shield can be damaged like normal cover; if reduced to 0, the power ceases.",
+            "discipline": "Telekinesis",
+            "cost": 200,
+            "prerequisites": "Intelligence 40",
+            "focusTest": "Willpower",
+            "focusModifier": 20,
+            "range": "Self",
+            "sustained": "Free Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Crush",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The target opposes with Toughness. Unleash a Psychic Bolt that deals 1d10 + psy rating Impact damage with Penetration 2 and the Snare (half psy rating, rounded down) quality.",
+            "discipline": "Telekinesis",
+            "cost": 300,
+            "prerequisites": "Willpower 45",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "10 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": true
+        }
+    },
+    {
+        "name": "Objuration Mechanicum",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Create a Haywire Field centred on a chosen point within range. The field has a radius equal to the psy rating in metres.",
+            "discipline": "Telekinesis",
+            "cost": 300,
+            "prerequisites": "Intelligence 40",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "10 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Shockwave",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Unleash a Psychic Blast that deals 1d10 + psy rating Explosive damage with Blast (psy rating). All affected targets are pushed away from the psyker by a distance equal to the psy rating in metres.",
+            "discipline": "Telekinesis",
+            "cost": 300,
+            "prerequisites": "Willpower 50",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "Self",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Telekine Dome",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Create a dome of invisible telekinetic energy at a point within range. The dome has a radius equal to half the psy rating (rounded up). Allies inside the dome gain Armour Points equal to the psy rating against attacks originating from outside the dome.",
+            "discipline": "Telekinesis",
+            "cost": 300,
+            "prerequisites": "Psy rating 4",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "5 metres x psy rating",
+            "sustained": "Free Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Gate of Infinity",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Open a portal linking two points within range. The portal has a radius equal to the psy rating in metres and lasts for psy rating rounds. The psyker must be aware of the destination. Requires 12 hours of recovery before it can be used again.",
+            "discipline": "Telekinesis",
+            "cost": 400,
+            "prerequisites": "Psy rating 5",
+            "focusTest": "Willpower",
+            "focusModifier": -20,
+            "range": "1 kilometre x psy rating",
+            "sustained": false,
+            "action": "Extended Action (3)",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Vortex of Doom",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Create a vortex of warp energy starting at a 2-metre radius. The vortex deals 2d10 + (2 x psy rating) Explosive damage with Penetration equal to the vortex's current radius. The psyker cannot voluntarily stop sustaining this power and must test Willpower each turn to maintain control. On failure, the vortex expands and moves randomly. If the radius exceeds the psy rating, the vortex explodes, dealing 2d10 + (4 x psy rating) Explosive damage with Blast (2 x psy rating).",
+            "discipline": "Telekinesis",
+            "cost": 400,
+            "prerequisites": "Psy rating 5",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "5 metres x psy rating",
+            "sustained": "Half Action",
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Telepathic Link",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The target opposes with Willpower. On failure, the psyker can either read the target's surface thoughts (depth of information depends on degrees of success and psy rating) or send a brief mental message lasting up to 5 x psy rating seconds. A willing target may voluntarily fail the opposed test.",
+            "discipline": "Telepathy",
+            "cost": 100,
+            "prerequisites": "Willpower 35",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "20 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": true
+        }
+    },
+    {
+        "name": "Erasure",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The target opposes with Willpower. On failure, the psyker removes up to 10 x psy rating minutes of the target's memory. The event to be erased cannot have occurred more than psy rating hours ago.",
+            "discipline": "Telepathy",
+            "cost": 100,
+            "prerequisites": "Fellowship 40",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "5 metres x psy rating",
+            "sustained": false,
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": true
+        }
+    },
+    {
+        "name": "Dominate",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Nominate up to half the psy rating (rounded up) targets who oppose with Willpower. Those who fail must follow a simple command such as 'Flee', 'Fall', or 'Attack your friend'. Commands that would result in suicide grant the target a +20 bonus to resist.",
+            "discipline": "Telepathy",
+            "cost": 200,
+            "prerequisites": "Willpower 40",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "5 metres x psy rating",
+            "sustained": false,
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": true
+        }
+    },
+    {
+        "name": "Hallucination",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The target opposes with Willpower. On failure, the target rolls on the Hallucinogenic Effects table. The hallucinogenic effect lasts for half the psy rating rounds (rounded up).",
+            "discipline": "Telepathy",
+            "cost": 200,
+            "prerequisites": "Fellowship 40",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "10 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": true
+        }
+    },
+    {
+        "name": "Mental Fortitude",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Up to psy rating allies within range count as having the Adamantium Faith talent for the duration. The benefit is lost if an ally moves out of range.",
+            "discipline": "Telepathy",
+            "cost": 300,
+            "prerequisites": "Adamantium Faith",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "3 metres x psy rating radius",
+            "sustained": "Free Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Psychic Shriek",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Unleash a Psychic Bolt that deals 1d10 + 2 + (2 x psy rating) Explosive damage with the Concussive (1) quality.",
+            "discipline": "Telepathy",
+            "cost": 300,
+            "prerequisites": "Psy rating 3",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "10 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Invisibility",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The target counts as having the Stealth skill at Known (rank 1) and gains a +5 x psy rating bonus to Stealth tests. Ranged attacks against the target suffer a -5 x psy rating penalty. The benefit is lost if the target moves out of range.",
+            "discipline": "Telepathy",
+            "cost": 400,
+            "prerequisites": "Agility 30, Psy rating 4",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "10 metres x psy rating",
+            "sustained": "Free Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false
+        }
+    },
+    {
+        "name": "Terrify",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The target opposes with Willpower. On failure, the target must roll on the Shock table, adding +10 x psy rating to the roll instead of the normal degrees of failure addition.",
+            "discipline": "Telepathy",
+            "cost": 400,
+            "prerequisites": "Fellowship 45",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "10 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": true
+        }
+    },
+    {
+        "name": "Puppet Master",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The target (who must have a maximum of 3 x psy rating total wounds) opposes with Willpower. On failure, the psyker controls the target like a puppet, dividing their actions each turn between themselves and the target. The controlled target uses its own characteristics at -10. Suicidal actions allow the target a new opposed Willpower test. The power breaks if the target leaves range.",
+            "discipline": "Telepathy",
+            "cost": 400,
+            "prerequisites": "Fellowship 55",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "10 metres x psy rating",
+            "sustained": "Special",
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": true
+        }
+    }
+]

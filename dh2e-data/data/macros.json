@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Award XP",
+        "type": "script",
+        "img": "icons/svg/upgrade.svg",
+        "command": "game.dh2e.awardXP();",
+        "scope": "global",
+        "flags": {
+            "dh2e": { "gmOnly": true }
+        }
+    },
+    {
+        "name": "Request Roll",
+        "type": "script",
+        "img": "icons/svg/d20-grey.svg",
+        "command": "game.dh2e.requestRoll();",
+        "scope": "global",
+        "flags": {
+            "dh2e": { "gmOnly": true }
+        }
+    }
+]

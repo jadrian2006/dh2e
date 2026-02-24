@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320">
+  <!-- Mystic: hooded figure, psychic energy wisps around hands -->
+  <g fill="#1a1a22" stroke="none">
+    <!-- Deep hood -->
+    <path d="M78 4 Q70 10 68 24 Q66 40 70 52 Q78 60 100 62 Q122 60 130 52 Q134 40 132 24 Q130 10 122 4 Q112 -2 100 -2 Q88 -2 78 4Z"/>
+    <!-- Face void -->
+    <ellipse cx="100" cy="32" rx="16" ry="10" fill="#0d0d14"/>
+    <!-- Neck -->
+    <rect x="94" y="58" width="12" height="10" rx="3"/>
+    <!-- Robes -->
+    <path d="M70 66 Q66 100 64 140 Q62 180 60 220 Q58 250 56 270 L144 270 Q142 250 140 220 Q138 180 136 140 Q134 100 130 66 Q118 62 100 61 Q82 62 70 66Z"/>
+    <!-- Left Arm (extended, channeling) -->
+    <path d="M70 68 Q52 72 42 88 Q34 104 30 120 Q28 128 34 130 Q40 128 42 122 Q46 106 52 94 Q58 82 70 76Z"/>
+    <!-- Right Arm (extended, channeling) -->
+    <path d="M130 68 Q148 72 158 88 Q166 104 170 120 Q172 128 166 130 Q160 128 158 122 Q154 106 148 94 Q142 82 130 76Z"/>
+    <!-- Psychic energy wisps (left hand) -->
+    <path d="M28 122 Q20 116 16 108 Q14 104 18 106 Q24 110 28 118Z" fill="#1a1a22" opacity="0.7"/>
+    <path d="M26 128 Q18 132 12 128 Q10 124 14 124 Q20 126 26 126Z" fill="#1a1a22" opacity="0.5"/>
+    <ellipse cx="22" cy="118" rx="6" ry="4" fill="#1a1a22" opacity="0.4"/>
+    <!-- Psychic energy wisps (right hand) -->
+    <path d="M172 122 Q180 116 184 108 Q186 104 182 106 Q176 110 172 118Z" fill="#1a1a22" opacity="0.7"/>
+    <path d="M174 128 Q182 132 188 128 Q190 124 186 124 Q180 126 174 126Z" fill="#1a1a22" opacity="0.5"/>
+    <ellipse cx="178" cy="118" rx="6" ry="4" fill="#1a1a22" opacity="0.4"/>
+    <!-- Legs hidden under robes -->
+    <path d="M80 268 Q78 282 78 296 Q78 306 84 308 Q90 306 88 296 Q88 282 90 272Z"/>
+    <path d="M120 268 Q122 282 122 296 Q122 306 116 308 Q110 306 112 296 Q112 282 110 272Z"/>
+  </g>
+</svg>

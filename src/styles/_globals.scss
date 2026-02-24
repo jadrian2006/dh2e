@@ -10,6 +10,11 @@
         font-size: var(--dh2e-text-md);
         padding: 0;
         overflow: hidden;
+
+        // Ensure FontAwesome icons aren't overridden by our font-family
+        [class*="fa-"]::before {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+        }
     }
 
     // Sheet header with dark bg

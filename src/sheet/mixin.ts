@@ -9,8 +9,9 @@ interface SvelteApplicationRenderContext {
 /**
  * Mixin that integrates Svelte 5 components into Foundry's ApplicationV2.
  *
- * Pattern: mount on first render, Object.assign($state) on re-renders, unmount on close.
- * Based on PF2e's approach (~58 lines).
+ * Pattern: unmount + remount on every render to guarantee fresh reactive state.
+ * Svelte 5's mount() doesn't support external prop updates, so we remount
+ * each time Foundry triggers a render (document changes, explicit render calls).
  */
 function SvelteApplicationMixin<
     TBase extends AbstractConstructorOf<fa.api.ApplicationV2> & {
@@ -25,11 +26,8 @@ function SvelteApplicationMixin<
         /** The root Svelte component class */
         protected abstract root: svelte.Component<any>;
 
-        /** Reactive context object — plain object, reactivity comes from Svelte's mount props */
-        protected $ctx: Record<string, unknown> = {};
-
         /** Mounted Svelte component instance */
-        #mount: object = {};
+        #mount: object | null = null;
 
         protected abstract override _prepareContext(
             options: fa.ApplicationRenderOptions,
@@ -46,18 +44,25 @@ function SvelteApplicationMixin<
             content: HTMLElement,
             options: fa.ApplicationRenderOptions,
         ): void {
-            Object.assign(this.$ctx, result.ctx);
-            if (options.isFirstRender) {
-                this.#mount = svelte.mount(this.root, {
-                    target: content,
-                    props: { ...result, ctx: this.$ctx },
-                });
+            // Unmount previous Svelte tree if this is a re-render
+            if (!options.isFirstRender && this.#mount) {
+                svelte.unmount(this.#mount);
+                content.replaceChildren();
             }
+
+            // Mount fresh Svelte tree with current data
+            this.#mount = svelte.mount(this.root, {
+                target: content,
+                props: { ...result, ctx: { ...result.ctx } },
+            });
         }
 
         protected override _onClose(options: fa.ApplicationClosingOptions): void {
             super._onClose(options);
-            svelte.unmount(this.#mount);
+            if (this.#mount) {
+                svelte.unmount(this.#mount);
+                this.#mount = null;
+            }
         }
     }
 

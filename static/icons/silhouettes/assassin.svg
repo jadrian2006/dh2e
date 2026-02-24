@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320">
+  <!-- Assassin: lean figure, hooded, bladed weapon -->
+  <g fill="#1a1a22" stroke="none">
+    <!-- Hood -->
+    <path d="M80 6 Q74 10 72 22 Q70 36 74 48 Q80 56 100 58 Q120 56 126 48 Q130 36 128 22 Q126 10 120 6 Q110 0 100 0 Q90 0 80 6Z"/>
+    <!-- Face shadow slit -->
+    <ellipse cx="100" cy="32" rx="14" ry="8" fill="#0d0d14"/>
+    <!-- Neck -->
+    <rect x="94" y="56" width="12" height="12" rx="3"/>
+    <!-- Slim torso -->
+    <path d="M74 66 Q72 90 73 130 Q74 148 84 154 L116 154 Q126 148 127 130 Q128 90 126 66 Q116 62 100 61 Q84 62 74 66Z"/>
+    <!-- Left arm (reaching back) -->
+    <path d="M74 68 Q58 72 50 88 Q44 105 42 130 Q41 138 46 140 Q52 138 54 130 Q58 110 62 98 Q66 84 74 76Z"/>
+    <!-- Right arm (blade forward) -->
+    <path d="M126 68 Q140 72 148 86 Q154 100 156 118 Q157 126 152 128 Q148 126 146 120 Q142 104 138 92 Q134 80 126 74Z"/>
+    <!-- Blade extending from right hand -->
+    <path d="M154 118 L170 88 L172 90 L158 122Z" fill="#1a1a22"/>
+    <!-- Left Leg (wider stance) -->
+    <path d="M84 152 Q78 190 74 230 Q72 260 68 282 Q67 298 74 302 Q82 302 82 288 Q84 262 87 232 Q90 194 94 164Z"/>
+    <!-- Right Leg (wider stance) -->
+    <path d="M116 152 Q122 190 126 230 Q128 260 132 282 Q133 298 126 302 Q118 302 118 288 Q116 262 113 232 Q110 194 106 164Z"/>
+  </g>
+</svg>

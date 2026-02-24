@@ -1,5 +1,5 @@
 <script lang="ts">
-    let { skill, onRoll }: {
+    let { skill, item, onRoll }: {
         skill: {
             name: string;
             displayName: string;
@@ -9,7 +9,8 @@
             totalTarget: number;
             isTrained: boolean;
         };
-        onRoll: () => void;
+        item?: any;
+        onRoll: (e?: { shiftKey: boolean }) => void;
     } = $props();
 
     const charAbbrevMap: Record<string, string> = {
@@ -17,19 +18,35 @@
         int: "Int", per: "Per", wp: "WP", fel: "Fel",
     };
 
+    const rankNames = ["Untrained", "Known", "Trained (+10)", "Experienced (+20)", "Veteran (+30)"];
+
     const maxPips = 4;
+
+    function toggleFavorite() {
+        if (!item) return;
+        const current = item.getFlag?.("dh2e", "favorite");
+        if (current) item.unsetFlag("dh2e", "favorite");
+        else item.setFlag("dh2e", "favorite", true);
+    }
 </script>
 
-<button class="skill-row" class:untrained={!skill.isTrained} onclick={onRoll} title="Roll {skill.displayName}">
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div class="skill-row" class:untrained={!skill.isTrained} onclick={(e) => onRoll({ shiftKey: e.shiftKey })} onkeydown={(e) => { if (e.key === "Enter" || e.key === " ") onRoll({ shiftKey: e.shiftKey }); }} title="Roll {skill.displayName}" role="button" tabindex="0">
+    {#if item}
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
+        <button class="fav-star" onclick={(e) => { e.stopPropagation(); toggleFavorite(); }} title="Favorite">
+            <i class={item.getFlag?.("dh2e", "favorite") ? "fa-solid fa-star" : "fa-regular fa-star"}></i>
+        </button>
+    {/if}
     <span class="skill-name">{skill.displayName}</span>
     <span class="skill-char">{charAbbrevMap[skill.linkedCharacteristic] ?? skill.linkedCharacteristic}</span>
-    <span class="skill-pips">
+    <span class="skill-pips" title={rankNames[skill.advancement] ?? "Untrained"}>
         {#each Array(maxPips) as _, i}
             <span class="pip" class:filled={i < skill.advancement}></span>
         {/each}
     </span>
     <span class="skill-target">{skill.totalTarget}</span>
-</button>
+</div>
 
 <style lang="scss">
     .skill-row {
@@ -62,6 +79,23 @@
         }
     }
 
+    .fav-star {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        color: var(--dh2e-gold-muted, #8a7a3e);
+        font-size: 0.7rem;
+        width: 1rem;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover { color: var(--dh2e-gold-bright, #c8a84e); }
+        :global(.fa-solid.fa-star) { color: var(--dh2e-gold, #b49545); }
+    }
+
     .skill-name {
         flex: 1;
         font-size: var(--dh2e-text-sm, 0.8rem);
@@ -80,6 +114,7 @@
     .skill-pips {
         display: flex;
         gap: 2px;
+        padding: 2px 4px;
     }
 
     .pip {
@@ -91,7 +126,7 @@
         background: transparent;
 
         &.filled {
-            background: var(--dh2e-gold, #c8a84e);
+            background: var(--dh2e-gold, #b49545);
         }
     }
 
@@ -100,6 +135,6 @@
         text-align: right;
         font-weight: 700;
         font-size: var(--dh2e-text-sm, 0.8rem);
-        color: var(--dh2e-gold-bright, #e8c84e);
+        color: var(--dh2e-gold-bright, #c8a84e);
     }
 </style>

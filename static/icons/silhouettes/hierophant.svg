@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320">
+  <!-- Hierophant: priestly robes, aquila/rosarius, raised hands -->
+  <g fill="#1a1a22" stroke="none">
+    <!-- Head -->
+    <ellipse cx="100" cy="28" rx="20" ry="24"/>
+    <!-- High collar / cowl -->
+    <path d="M80 44 Q78 50 78 56 Q80 62 88 64 L112 64 Q120 62 122 56 Q122 50 120 44 Q114 48 100 48 Q86 48 80 44Z"/>
+    <!-- Robes (long, flowing, wide hem) -->
+    <path d="M66 62 Q62 100 58 150 Q54 200 50 250 Q48 275 46 290 L154 290 Q152 275 150 250 Q146 200 142 150 Q138 100 134 62 Q118 58 100 57 Q82 58 66 62Z"/>
+    <!-- Left Arm (raised in blessing) -->
+    <path d="M66 64 Q50 66 42 76 Q36 86 32 70 Q30 58 34 48 Q38 40 44 42 Q50 46 54 56 Q58 62 66 66Z"/>
+    <!-- Left Hand (open, raised) -->
+    <path d="M30 50 Q26 40 28 34 Q32 28 36 32 Q38 38 34 48Z"/>
+    <!-- Right Arm (raised in blessing) -->
+    <path d="M134 64 Q150 66 158 76 Q164 86 168 70 Q170 58 166 48 Q162 40 156 42 Q150 46 146 56 Q142 62 134 66Z"/>
+    <!-- Right Hand (open, raised) -->
+    <path d="M170 50 Q174 40 172 34 Q168 28 164 32 Q162 38 166 48Z"/>
+    <!-- Aquila symbol on chest -->
+    <path d="M90 80 L100 74 L110 80 L106 78 L100 82 L94 78Z" fill="#0d0d14"/>
+    <!-- Rosarius chain -->
+    <ellipse cx="100" cy="90" rx="6" ry="6" fill="#0d0d14"/>
+  </g>
+</svg>

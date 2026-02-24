@@ -1,37 +1,62 @@
 <script lang="ts">
     import WeaponRow from "./weapon-row.svelte";
     import ArmourDisplay from "./armour-display.svelte";
+    import MovementDisplay from "./movement-display.svelte";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
     const weapons = $derived(ctx.items?.weapons ?? []);
+    const role = $derived((ctx.system?.details?.role ?? "") as string);
 </script>
 
 <div class="combat-tab">
-    <section class="weapons-section">
-        <h3 class="section-title">Weapons</h3>
-        {#if weapons.length > 0}
-            <div class="weapons-list">
-                {#each weapons as weapon}
-                    <WeaponRow {weapon} actor={ctx.actor} />
-                {/each}
-            </div>
-        {:else}
-            <p class="empty-msg">No weapons equipped. Drag weapons from the Items sidebar.</p>
-        {/if}
-    </section>
-
-    <section class="armour-section">
+    <!-- Left column: Paper Doll -->
+    <div class="combat-left">
         <h3 class="section-title">Armour</h3>
-        <ArmourDisplay {ctx} />
-    </section>
+        <ArmourDisplay {ctx} {role} />
+    </div>
+
+    <!-- Right column: Movement + Weapons -->
+    <div class="combat-right">
+        <section class="movement-section">
+            <h3 class="section-title">Movement</h3>
+            <MovementDisplay movement={ctx.system?.movement ?? { half: 0, full: 0, charge: 0, run: 0 }} />
+        </section>
+
+        <section class="weapons-section">
+            <h3 class="section-title">Weapons</h3>
+            {#if weapons.length > 0}
+                <div class="weapons-list">
+                    {#each weapons as weapon}
+                        <WeaponRow {weapon} actor={ctx.actor} />
+                    {/each}
+                </div>
+            {:else}
+                <p class="empty-msg">No weapons equipped. Drag weapons from the Items sidebar.</p>
+            {/if}
+        </section>
+    </div>
 </div>
 
 <style lang="scss">
     .combat-tab {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: var(--dh2e-space-lg, 1rem);
+        align-items: start;
+    }
+
+    .combat-left {
+        display: flex;
+        flex-direction: column;
+        min-width: 180px;
+    }
+
+    .combat-right {
         display: flex;
         flex-direction: column;
         gap: var(--dh2e-space-lg, 1rem);
+        min-width: 0;
     }
 
     .section-title {

@@ -1,0 +1,442 @@
+[
+    {
+        "name": "Quilted Vest",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A simple padded cloth vest offering minimal protection against blows.",
+            "locations": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 2,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 2,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Chainmail Coat",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A medieval-style coat of interlocking metal rings covering the torso and arms.",
+            "locations": {
+                "head": 0,
+                "rightArm": 3,
+                "leftArm": 3,
+                "body": 3,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 8,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Feudal Plate",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Full plate armour from a feudal world, covering the entire body in heavy metal plates. Significantly restricts agility.",
+            "locations": {
+                "head": 5,
+                "rightArm": 5,
+                "leftArm": 5,
+                "body": 5,
+                "rightLeg": 5,
+                "leftLeg": 5
+            },
+            "maxAgility": 35,
+            "qualities": [],
+            "weight": 30,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Flak Vest",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Standard-issue flak vest protecting the torso. Common among Imperial Guard and law enforcement.",
+            "locations": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 3,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 3,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Flak Coat",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A full-length flak coat covering torso, arms, and legs. Heavier but more comprehensive protection than a flak vest.",
+            "locations": {
+                "head": 0,
+                "rightArm": 3,
+                "leftArm": 3,
+                "body": 3,
+                "rightLeg": 3,
+                "leftLeg": 3
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 5,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Flak Cloak",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A lightweight cloak woven with flak-absorbent materials, covering the torso and arms.",
+            "locations": {
+                "head": 0,
+                "rightArm": 3,
+                "leftArm": 3,
+                "body": 3,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 3,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Flak Helmet",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A standard flak helmet offering basic head protection.",
+            "locations": {
+                "head": 2,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 2,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Guard Flak Armour",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Full Imperial Guard-issue flak armour covering head, torso, arms, and legs. Standard kit for Astra Militarum troopers.",
+            "locations": {
+                "head": 4,
+                "rightArm": 4,
+                "leftArm": 4,
+                "body": 4,
+                "rightLeg": 4,
+                "leftLeg": 4
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 11,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Mesh Vest",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A vest made from thermoplas mesh weave, offering superior protection to flak in a compact form.",
+            "locations": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 4,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 2,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Mesh Cloak",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A cloak woven from thermoplas mesh, covering the torso and arms with excellent protection.",
+            "locations": {
+                "head": 0,
+                "rightArm": 4,
+                "leftArm": 4,
+                "body": 4,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 3,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Carapace Chestplate",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A heavy carapace chestplate offering excellent torso protection. Favoured by enforcers and mercenaries.",
+            "locations": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 6,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 7,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Carapace Gauntlets",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Armoured gauntlets made from carapace plating, protecting the arms.",
+            "locations": {
+                "head": 0,
+                "rightArm": 5,
+                "leftArm": 5,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 2,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Carapace Greaves",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Leg armour made from carapace plating, providing solid protection to the lower body.",
+            "locations": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 5,
+                "leftLeg": 5
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 3,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Carapace Helm",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A heavy carapace helmet offering superior head protection.",
+            "locations": {
+                "head": 4,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 2,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Carapace Armour (Full)",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Full carapace armour as issued to Tempestus Scions and elite troops. Covers the entire body with rigid armour plates.",
+            "locations": {
+                "head": 5,
+                "rightArm": 6,
+                "leftArm": 6,
+                "body": 6,
+                "rightLeg": 6,
+                "leftLeg": 6
+            },
+            "maxAgility": 40,
+            "qualities": [],
+            "weight": 15,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Light Power Armour",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A lighter variant of power armour with servo-assisted movement. Incorporates auto-senses and strength augmentation.",
+            "locations": {
+                "head": 7,
+                "rightArm": 7,
+                "leftArm": 7,
+                "body": 7,
+                "rightLeg": 7,
+                "leftLeg": 7
+            },
+            "maxAgility": 40,
+            "qualities": ["Auto-senses", "+10 Strength"],
+            "weight": 40,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Power Armour",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Full power armour with extensive servo-assistance, auto-senses, and life-sustaining systems. The iconic armour of the Adeptus Astartes.",
+            "locations": {
+                "head": 8,
+                "rightArm": 8,
+                "leftArm": 8,
+                "body": 8,
+                "rightLeg": 8,
+                "leftLeg": 8
+            },
+            "maxAgility": 35,
+            "qualities": ["Auto-senses", "+20 Strength", "Sustainable"],
+            "weight": 65,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Xenos Hide Vest",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A vest crafted from alien leather. Primitive but functional protection, often seen on frontier worlds.",
+            "locations": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 2,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": ["Primitive"],
+            "weight": 1,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Imperial Robes",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Ceremonial robes of the Imperium, offering minimal but meaningful protection to the torso and arms.",
+            "locations": {
+                "head": 0,
+                "rightArm": 1,
+                "leftArm": 1,
+                "body": 1,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 2,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Storm Shield",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A large energy-enhanced shield held in one hand, providing a significant cover bonus rather than worn armour points. Used as a held item.",
+            "locations": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 5,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Bodyglove",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "A skin-tight flexible suit offering light protection across the body, arms, and legs. Popular among operatives and infiltrators.",
+            "locations": {
+                "head": 0,
+                "rightArm": 2,
+                "leftArm": 2,
+                "body": 2,
+                "rightLeg": 2,
+                "leftLeg": 2
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 1.5,
+            "equipped": false
+        }
+    },
+    {
+        "name": "Synskin",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "An advanced synthetic skin-suit with photo-reactive camouflage properties. Extremely lightweight and enhances stealth operations.",
+            "locations": {
+                "head": 0,
+                "rightArm": 2,
+                "leftArm": 2,
+                "body": 2,
+                "rightLeg": 2,
+                "leftLeg": 2
+            },
+            "maxAgility": 0,
+            "qualities": ["Photo-Reactive", "+10 Stealth"],
+            "weight": 0.5,
+            "equipped": false
+        }
+    }
+]

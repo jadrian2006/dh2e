@@ -22,6 +22,7 @@ interface DragDropOptions {
 // TextEditor
 declare class TextEditor {
     static enrichHTML(content: string, options?: Record<string, unknown>): Promise<string>;
+    static getDragEventData(event: DragEvent): Record<string, unknown> | undefined;
 }
 
 // Dialog

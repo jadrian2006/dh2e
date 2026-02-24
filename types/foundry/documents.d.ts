@@ -108,6 +108,11 @@ declare class Actor<TParent = TokenDocument | null> extends Document<TParent> {
 
 // Item document
 declare class Item<TParent = Actor | null> extends Document<TParent> {
+    static DEFAULT_ICON: string;
+
+    /** The configured document class (may be a subclass proxy) */
+    static readonly implementation: typeof Item;
+
     readonly actor: TParent;
     readonly img: string;
     readonly effects: Collection<ActiveEffect<this>>;
@@ -119,6 +124,9 @@ declare class Item<TParent = Actor | null> extends Document<TParent> {
     prepareDerivedData(): void;
 
     getRollData(): Record<string, unknown>;
+
+    /** Create an Item instance from drop transfer data */
+    static fromDropData(data: Record<string, unknown>): Promise<Item | undefined>;
 
     static getDefaultArtwork(itemData: Record<string, unknown>): { img: ImageFilePath };
 }
@@ -235,3 +243,7 @@ declare class Macro extends Document {
     readonly command: string;
     execute(): void;
 }
+
+// fromUuid — resolve any document by UUID
+declare function fromUuid(uuid: string): Promise<Document | null>;
+declare function fromUuidSync(uuid: string): Document | null;

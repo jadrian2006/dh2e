@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Warp eye / psychic power icon -->
+  <ellipse cx="32" cy="32" rx="26" ry="16" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+  <circle cx="32" cy="32" r="8" fill="#a080e0"/>
+  <circle cx="32" cy="32" r="3.5" fill="#1a1a1f"/>
+  <!-- Energy rays -->
+  <line x1="32" y1="4" x2="32" y2="14" stroke="#a080e0" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="32" y1="50" x2="32" y2="60" stroke="#a080e0" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="6" y1="32" x2="4" y2="32" stroke="#a080e0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  <line x1="58" y1="32" x2="60" y2="32" stroke="#a080e0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  <!-- Highlight -->
+  <circle cx="30" cy="30" r="1.5" fill="#d0c0f0" opacity="0.8"/>
+</svg>

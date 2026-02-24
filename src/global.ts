@@ -9,6 +9,7 @@ declare global {
     interface Game {
         dh2e: {
             config: DH2EConfig;
+            awardXP: () => void;
         };
     }
 

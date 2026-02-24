@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320">
+  <!-- Seeker: explorer gear, auspex/scanner device, travel cloak -->
+  <g fill="#1a1a22" stroke="none">
+    <!-- Head -->
+    <ellipse cx="100" cy="30" rx="20" ry="24"/>
+    <!-- Goggle band -->
+    <rect x="82" y="26" width="36" height="8" rx="3"/>
+    <circle cx="90" cy="30" r="5" fill="#0d0d14"/>
+    <circle cx="110" cy="30" r="5" fill="#0d0d14"/>
+    <!-- Neck -->
+    <rect x="93" y="52" width="14" height="12" rx="3"/>
+    <!-- Travel cloak (asymmetric, draped over one shoulder) -->
+    <path d="M62 58 Q56 80 52 110 Q48 145 46 180 Q44 210 44 230 L80 230 Q80 200 82 170 Q84 140 86 110 Q88 80 90 62Z"/>
+    <!-- Torso under cloak -->
+    <path d="M88 62 Q86 90 86 130 Q86 150 90 158 L120 158 Q128 150 130 130 Q132 90 130 62 Q118 58 100 58 Q92 58 88 62Z"/>
+    <!-- Right Arm (holding auspex forward) -->
+    <path d="M130 64 Q144 68 152 82 Q158 96 158 110 Q158 118 152 120 Q148 118 148 112 Q146 98 142 88 Q138 78 130 72Z"/>
+    <!-- Auspex/scanner device -->
+    <rect x="152" y="106" width="16" height="10" rx="3"/>
+    <rect x="170" y="108" width="4" height="6" rx="1"/>
+    <!-- Backpack -->
+    <rect x="78" y="66" width="12" height="30" rx="3"/>
+    <!-- Left Leg -->
+    <path d="M84 156 Q80 196 78 236 Q76 262 76 282 Q76 298 82 302 Q88 298 88 284 Q88 264 90 240 Q92 200 94 168Z"/>
+    <!-- Right Leg (striding forward) -->
+    <path d="M116 156 Q122 192 128 228 Q132 254 136 274 Q137 290 130 294 Q122 292 122 278 Q120 256 116 232 Q112 196 108 166Z"/>
+  </g>
+</svg>

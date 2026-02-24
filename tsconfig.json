@@ -38,7 +38,8 @@
             "@ui": ["./src/ui/index.ts"],
             "@ui/*": ["./src/ui/*"],
             "@util": ["./src/util/index.ts"],
-            "@util/*": ["./src/util/*"]
+            "@util/*": ["./src/util/*"],
+            "@advancement/*": ["./src/advancement/*"]
         }
     },
     "include": [

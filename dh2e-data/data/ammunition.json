@@ -1,0 +1,152 @@
+[
+    {
+        "name": "Standard Ammunition",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Standard-issue ammunition for solid projectile weapons.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "availability": "Common"
+        }
+    },
+    {
+        "name": "Man-Stopper Rounds",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Armour-piercing rounds with a hardened penetrator core. Increases penetration by 3.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 3,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "availability": "Scarce"
+        }
+    },
+    {
+        "name": "Dumdum Rounds",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Expanding rounds that cause horrific wounds. +2 damage, but -1 penetration and adds Tearing.",
+            "damageModifier": 2,
+            "damageType": "",
+            "penetrationModifier": -1,
+            "qualities": ["Tearing"],
+            "quantity": 1,
+            "weight": 0.5,
+            "availability": "Scarce"
+        }
+    },
+    {
+        "name": "Hot-Shot Charge Pack",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Overcharged power cell that boosts las weapon output. +1 damage, +2 penetration. Single shot then spent.",
+            "damageModifier": 1,
+            "damageType": "",
+            "penetrationModifier": 2,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.3,
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Inferno Shells",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Shotgun shells loaded with a volatile incendiary mix. Changes damage type to Energy.",
+            "damageModifier": 0,
+            "damageType": "energy",
+            "penetrationModifier": 0,
+            "qualities": ["Flame"],
+            "quantity": 1,
+            "weight": 0.5,
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Expander Rounds",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Hollow rounds with an expanding core. +1 damage on hit.",
+            "damageModifier": 1,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "availability": "Average"
+        }
+    },
+    {
+        "name": "Blessed Ammunition",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Rounds consecrated by the Ecclesiarchy. Adds Sanctified quality.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": ["Sanctified"],
+            "quantity": 1,
+            "weight": 0.5,
+            "availability": "Very Rare"
+        }
+    },
+    {
+        "name": "Tempest Bolt Shells",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Bolt shells containing a potent electrical discharge. +2 damage, adds Haywire quality.",
+            "damageModifier": 2,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": ["Haywire"],
+            "quantity": 1,
+            "weight": 1,
+            "availability": "Very Rare"
+        }
+    },
+    {
+        "name": "Toxic Rounds",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Rounds laced with a potent toxin. Adds Toxic(1) quality.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": ["Toxic(1)"],
+            "quantity": 1,
+            "weight": 0.5,
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Overcharge Pack",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A modified power cell for plasma weapons. +1 damage, adds Overheats quality.",
+            "damageModifier": 1,
+            "damageType": "",
+            "penetrationModifier": 1,
+            "qualities": ["Overheats"],
+            "quantity": 1,
+            "weight": 0.5,
+            "availability": "Very Rare"
+        }
+    }
+]

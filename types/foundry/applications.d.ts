@@ -38,6 +38,7 @@ declare namespace foundry {
                 options: ApplicationRenderOptions,
             ): void;
             protected _onRender(context: Record<string, unknown>, options: ApplicationRenderOptions): void;
+            protected _attachFrameListeners(): void;
             protected _onClose(options: ApplicationClosingOptions): void;
         }
 
@@ -51,6 +52,8 @@ declare namespace foundry {
             get isOwner(): boolean;
 
             protected _prepareContext(options: ApplicationRenderOptions): Promise<Record<string, unknown>>;
+            protected _onDrop(event: DragEvent): Promise<void>;
+            _canDragDrop(selector: string): boolean;
 
             submit(): Promise<void>;
         }
@@ -253,6 +256,9 @@ declare namespace foundry {
         function flattenObject(obj: Record<string, unknown>): Record<string, unknown>;
         function expandObject(obj: Record<string, unknown>): Record<string, unknown>;
         function isEmpty(obj: unknown): boolean;
+
+        /** Fetch JSON with a timeout */
+        function fetchJsonWithTimeout(url: string, options?: RequestInit): Promise<unknown>;
     }
 
     const CONST: {

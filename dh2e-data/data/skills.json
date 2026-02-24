@@ -1,0 +1,1380 @@
+[
+    {
+        "name": "Acrobatics",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Perform feats of tumbling, balance, and contortion. Used for acrobatic manoeuvres, maintaining balance on narrow or unstable surfaces, and escaping bonds or grapples through flexibility.",
+            "linkedCharacteristic": "ag",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Athletics",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Perform physical activities such as climbing, swimming, running, and jumping. Covers general feats of physical endurance, strength, and coordination.",
+            "linkedCharacteristic": "s",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Awareness",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Notice details in the environment, spot hidden threats, and detect ambushes. Represents the character's general perceptiveness and ability to pick up on subtle sensory cues.",
+            "linkedCharacteristic": "per",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Fieldcraft"
+        }
+    },
+    {
+        "name": "Charm",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Persuade others through likability, flattery, and personal magnetism. Used to win people over, make favourable impressions, and convince others to act in a desired way.",
+            "linkedCharacteristic": "fel",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Social"
+        }
+    },
+    {
+        "name": "Command",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Lead others through authority, presence, and tactical acumen. Used to issue orders in combat, coordinate groups, and inspire or compel subordinates to action.",
+            "linkedCharacteristic": "fel",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Leadership"
+        }
+    },
+    {
+        "name": "Commerce",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Conduct trade, barter for goods, and evaluate the worth of items. Covers knowledge of markets, mercantile practices, and the ability to negotiate favourable deals.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Deceive",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Lie convincingly, create disguises, and employ misdirection. Used to fool others through falsehoods, forge documents, create false identities, and perform cons.",
+            "linkedCharacteristic": "fel",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Social"
+        }
+    },
+    {
+        "name": "Dodge",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Evade incoming attacks through quick reflexes and agile movement. Used as a reaction to avoid melee attacks, ranged fire, and area effects in combat.",
+            "linkedCharacteristic": "ag",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Defence"
+        }
+    },
+    {
+        "name": "Inquiry",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Gather information from people through questioning, conversation, and social networking. Used to canvass areas, interview witnesses, and piece together rumours and leads.",
+            "linkedCharacteristic": "fel",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Social"
+        }
+    },
+    {
+        "name": "Interrogation",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Extract information from unwilling subjects through intimidation, psychological pressure, and force. Covers formal interrogation techniques, both physical and mental.",
+            "linkedCharacteristic": "wp",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Social"
+        }
+    },
+    {
+        "name": "Intimidate",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Frighten or coerce others through threats, physical presence, and displays of force. Used to cow enemies, force compliance, and break the will of opponents.",
+            "linkedCharacteristic": "s",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Social"
+        }
+    },
+    {
+        "name": "Logic",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Apply deductive reasoning, analysis, and problem-solving skills. Used to solve puzzles, process complex data, see through logical fallacies, and perform mathematical calculations.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Medicae",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Provide medical treatment, perform surgery, and diagnose ailments. Covers first aid, long-term care, use of medical equipment, and knowledge of anatomy and physiology.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Fieldcraft"
+        }
+    },
+    {
+        "name": "Parry",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Deflect incoming melee attacks using a weapon or shield. Used as a reaction in combat to block blows, requiring a melee weapon or appropriate defensive item.",
+            "linkedCharacteristic": "ws",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Defence"
+        }
+    },
+    {
+        "name": "Psyniscience",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Detect the presence and influence of psychic phenomena, warp disturbances, and daemonic entities. Used to sense the use of psychic powers, warp taint, and immaterium disturbances.",
+            "linkedCharacteristic": "per",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Psyker"
+        }
+    },
+    {
+        "name": "Scrutiny",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Read people's body language, detect lies, and assess motives. Used to determine if someone is being truthful, gauge emotional states, and see through disguises or social deception.",
+            "linkedCharacteristic": "per",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Security",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Bypass or set up locks, traps, alarm systems, and electronic security measures. Covers both physical and electronic security systems, including picking locks and disabling alarms.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Tech"
+        }
+    },
+    {
+        "name": "Sleight of Hand",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Perform acts of manual dexterity such as pickpocketing, palming small objects, and stage magic. Used for any task requiring subtle and precise hand movements without being noticed.",
+            "linkedCharacteristic": "ag",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Stealth",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Move silently, hide from sight, and avoid detection. Covers sneaking past guards, concealing oneself in shadows, and tailing targets without being noticed.",
+            "linkedCharacteristic": "ag",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Fieldcraft"
+        }
+    },
+    {
+        "name": "Survival",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Endure and thrive in hostile wilderness environments. Covers finding food and water, building shelters, tracking prey or people, navigating natural terrain, and predicting weather.",
+            "linkedCharacteristic": "per",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Fieldcraft"
+        }
+    },
+    {
+        "name": "Tech-Use",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Operate, maintain, and repair technological devices and machinery. Covers cogitators, vox-casters, auspex scanners, and other Imperial technology, as well as basic rites of maintenance.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": false,
+            "specialization": "",
+            "aptitude": "Tech"
+        }
+    },
+    {
+        "name": "Common Lore (Adepta Sororitas)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the Adepta Sororitas, the militant arm of the Ecclesiarchy. Covers their orders, practices, notable saints, history, and organisation of the Sisters of Battle.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Adepta Sororitas",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Adeptus Arbites)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the Adeptus Arbites, the enforcers of Imperial law. Covers their organisation, procedures, ranks, precinct operations, and the Lex Imperialis.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Adeptus Arbites",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Adeptus Astartes)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the physiologically and psychologically modified Space Marines, the Imperium's most potent defenders. Covers the culture of Chapters, their history, wargear, and unusual physiology.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Adeptus Astartes",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Adeptus Astra Telepathica)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the Adeptus Astra Telepathica, the organisation responsible for the training and sanctioning of psykers. Covers soul binding, the Black Ships, and Astropathic communications.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Adeptus Astra Telepathica",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Adeptus Mechanicus)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the Adeptus Mechanicus, the keepers of technology and the Machine God. Covers their forge worlds, rituals, ranks, the Omnissiah, and the Quest for Knowledge.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Adeptus Mechanicus",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Administratum)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the Administratum, the vast bureaucratic apparatus of the Imperium. Covers its departments, procedures, record-keeping systems, hierarchies, and administrative processes.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Administratum",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Askellon Sector)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the basic layout and history of the Askellon Sector, including Juno and the Grand Worlds, plus many of the Tributary Worlds.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Askellon Sector",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Chartist Captains)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the merchant vessels across Askellon which complete centuries-long circuits through neighbouring worlds as the primary means of Imperial commerce.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Chartist Captains",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Collegia Titanicus)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of those who control the Battle Titans of the Adeptus Mechanicus, some of the most potent planet-bound weapons known to the Imperium.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Collegia Titanicus",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Ecclesiarchy)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the Ecclesiarchy, the state church of the Imperium. Covers its hierarchy, prominent cardinals, holy days, religious practices, and the Imperial Cult.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Ecclesiarchy",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Imperial Creed)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the Imperial Creed, the dominant religion of the Imperium. Covers its tenets, prayers, saints, holy texts, common rituals, and the worship of the God-Emperor.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Imperial Creed",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Imperial Guard)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the Imperial Guard, the primary military force of the Imperium. Covers its regiments, tactics, ranks, famous campaigns, equipment, and organisational structure.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Imperial Guard",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Imperial Navy)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the Imperial Navy, the void-faring military arm of the Imperium. Covers its fleets, ship classes, ranks, famous admirals, void warfare tactics, and naval traditions.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Imperial Navy",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Imperium)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "General knowledge of the Imperium of Man. Covers its broad structure, major institutions, history, the role of the Emperor, High Lords of Terra, and common Imperial customs and culture.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Imperium",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Navigators)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the valued mutants essential for Warp travel and the Imperium's survival, including the various Navis Nobilite Houses, their lineages, and methodologies.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Navigators",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Planetary Defence Forces)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of a planet's standing force dedicated to defending itself and assisting nearby Imperial systems, including composition, tactics, and equipment.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Planetary Defence Forces",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Rogue Traders)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the many Rogue Trader dynasties operating within the sector and beyond in search of profit and power.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Rogue Traders",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Schola Progenium)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the institution that trains and indoctrinates Imperial orphans, preparing them for lives of faithful service as elite troopers, Commissars, or adepts.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Schola Progenium",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Tech)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Common knowledge of technology in the Imperium. Covers widely known facts about machines, machine spirits, common technological devices, and basic principles of Imperial technology.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Tech",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (Underworld)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Knowledge of the criminal underworld. Covers black markets, criminal organisations, smuggling routes, gang hierarchies, underworld customs, and illicit trade networks.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Underworld",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Common Lore (War)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "General knowledge of warfare in the Imperium. Covers famous battles, common military tactics, the nature of the Imperium's many enemies, and widely known facts about galactic conflicts.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "War",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Forbidden Lore (Archaeotech)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of archaeotech, ancient and lost technologies from before the Age of Strife. Covers relics of the Dark Age of Technology, their identification, and rumoured capabilities.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Archaeotech",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (Chaos Space Marines)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of the traitor Adeptus Astartes who turned against the Emperor. Covers the paths they embrace, the equipment they use, their warbands, and their role in the Long War.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Chaos Space Marines",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (Criminal Cartels and Smugglers)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of organised criminal groups that flout the Emperor's Law, such as those engaging in the Faceless Trade of proscribed artefacts, smuggling networks, and sector-wide cartels.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Criminal Cartels and Smugglers",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (Daemonology)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of daemons and daemonic entities. Covers their true names, hierarchies, weaknesses, methods of summoning and banishment, and the nature of daemonic possession.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Daemonology",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (Heresy)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of heresies against the Imperial Creed. Covers heretical movements, forbidden texts, seditious philosophies, and the history of schisms within the Imperium.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Heresy",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (Inquisition)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of the Holy Ordos of the Inquisition. Covers its secret organisation, Ordos structure, notable Inquisitors, operational methods, internal politics, and hidden facilities.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Inquisition",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (Mutants)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of mutants and mutation. Covers the causes and types of mutation, mutant communities, abhuman strains, and the relationship between mutation and Chaos taint.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Mutants",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (Officio Assassinorum)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of the highly secretive agency that exists to eliminate powerful, singular threats to the Imperium. Covers their techniques, temples, and specialised wargear.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Officio Assassinorum",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (Pirates)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of the scourges of the Warp lanes, their tactics, infamous vessels, notorious captains, and the hidden ports and safe havens they frequent.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Pirates",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (Psykers)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of psykers and psychic powers. Covers the nature of the psyker mutation, psychic disciplines, the dangers of uncontrolled powers, and the history of psychic phenomena.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Psykers",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (The Horus Heresy and the Long War)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of the origins and history of the ten-thousand year struggle between the forces of the Ruinous Powers and the Imperium of Man, including the betrayal of the Warmaster Horus.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "The Horus Heresy and the Long War",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (The Warp)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of the Warp, the immaterium that underlies reality. Covers warp travel, warp storms, the nature of the immaterium, its denizens, and the dangers of warp exposure.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "The Warp",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Forbidden Lore (Xenos)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Forbidden knowledge of alien species and civilisations. Covers major xenos races, their biology, technology, culture, threat levels, and known weaknesses.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Xenos",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Linguistics (Chaos Marks)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to read and interpret the countless symbols and signs that followers of the Ruinous Powers use to share their dark secrets, each with its own subtle meaning or specific purpose.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Chaos Marks",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (Chapter Runes)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to read and write in Chapter Runes, the secret symbolic language used by the Adeptus Astartes Space Marine Chapters for encoded communication.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Chapter Runes",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (Eldar)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to read, write, and speak the Eldar language. Covers the complex and nuanced tongue of the ancient Eldar race, including its many dialectal variations.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Eldar",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (High Gothic)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to read, write, and speak High Gothic, the formal and ceremonial language of the Imperium. Used in official documents, religious texts, and communication among the upper echelons of Imperial society.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "High Gothic",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (Imperial Codes)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to read and write Imperial Codes, the various cyphers and encoded communication systems used by Imperial military and administrative organisations.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Imperial Codes",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (Low Gothic)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to read, write, and speak Low Gothic, the common tongue of the Imperium. The everyday language used by the vast majority of Imperial citizens across the galaxy.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Low Gothic",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (Mercenary Cant)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to speak and understand Mercenary Cant, the informal coded language used by mercenaries, bounty hunters, and hired guns to communicate discreetly.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Mercenary Cant",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (Necrontyr)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to understand the ancient and mechanical tones that the arisen Necron lords use to communicate with each other and their underlings.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Necrontyr",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (Ork)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to understand and speak the crude and brutal language of the Orks. Covers the guttural tongue, tribal variations, and the surprisingly complex gestural components of Orkish communication.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Ork",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (Tau)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to read, write, and speak the Tau language. Covers the precise and logical tongue of the Tau Empire, used in their diplomacy and trade communications.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Tau",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (Techna-Lingua)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to speak and understand Techna-Lingua, the secret language of the Adeptus Mechanicus. A complex binary and verbal hybrid used by Tech-Priests for technical and ritual communication.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Techna-Lingua",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (Underworld)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to speak and understand underworld argot, the coded slang and secret languages used by criminal elements. Covers thieves' cant, gang signs, and smuggler cyphers.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Underworld",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Linguistics (Xenos Markings)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Ability to understand the extensive symbolism and icons used by alien races, allowing a broad understanding of their meaning such as boundaries or areas marked as dangerous.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Xenos Markings",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Navigate (Stellar)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Plot courses through the void between stars using star charts, cogitator calculations, and astrogation equipment. Used for interstellar travel and plotting realspace routes between systems.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Stellar",
+            "aptitude": "Fieldcraft"
+        }
+    },
+    {
+        "name": "Navigate (Surface)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Find one's way across planetary surfaces using maps, landmarks, compass readings, and natural signs. Covers overland navigation in wilderness, urban, and subterranean environments.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Surface",
+            "aptitude": "Fieldcraft"
+        }
+    },
+    {
+        "name": "Navigate (Warp)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Guide a vessel through the treacherous currents of the Warp. A rare and dangerous skill typically possessed by Navigators, used to plot and maintain courses through the immaterium.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Warp",
+            "aptitude": "Fieldcraft"
+        }
+    },
+    {
+        "name": "Operate (Aeronautica)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Pilot aircraft and atmospheric flying vehicles. Covers fighters, bombers, shuttles, gunships, grav-craft, and any other vehicle that operates in a planet's atmosphere.",
+            "linkedCharacteristic": "ag",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Aeronautica",
+            "aptitude": "Fieldcraft"
+        }
+    },
+    {
+        "name": "Operate (Surface)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Drive ground-based vehicles and walkers. Covers cars, trucks, tanks, APCs, bikes, walkers, and any other vehicle that moves across a planetary surface.",
+            "linkedCharacteristic": "ag",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Surface",
+            "aptitude": "Fieldcraft"
+        }
+    },
+    {
+        "name": "Operate (Voidship)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Operate and crew void-faring vessels. Covers the operation of starships, system monitors, orbital stations, and any other vessel designed for travel through the void of space.",
+            "linkedCharacteristic": "ag",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Voidship",
+            "aptitude": "Fieldcraft"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Astromancy)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of astromancy, the study of stars and celestial phenomena. Covers star charts, stellar classification, astronomical events, and their interpretation and significance.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Astromancy",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Beasts)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of fauna across the Imperium and beyond. Covers the classification, behaviour, habitats, and weaknesses of animals, xenos beasts, and other creatures.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Beasts",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Bureaucracy)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of Imperial bureaucratic systems and processes. Covers regulations, official procedures, departmental hierarchies, and how to navigate the labyrinthine Imperial administration.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Bureaucracy",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Chymistry)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of chemistry and alchemical processes. Covers chemical compounds, reactions, pharmaceutical preparation, toxicology, and the creation of various substances.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Chymistry",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Cryptology)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of codes, cyphers, and cryptographic systems. Covers the creation and breaking of encrypted messages, code theory, and the history of Imperial cryptographic methods.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Cryptology",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Heraldry)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of heraldic traditions and symbols. Covers noble house sigils, military unit markings, Ecclesiarchy iconography, guild marks, and the reading and creation of coats of arms.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Heraldry",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Imperial Warrants)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of Imperial Warrants of Trade and similar documents. Covers the legal frameworks, rights, and privileges granted by Warrants, and the dynasties that hold them.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Imperial Warrants",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Judgement)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of Imperial law and the justice system. Covers the Lex Imperialis, legal precedents, trial procedures, sentencing guidelines, and the workings of Imperial courts.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Judgement",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Legend)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of myths, legends, and folklore of the Imperium. Covers famous tales, legendary figures, mythical places, and the oral and written traditions passed down through millennia.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Legend",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Numerology)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of numerology, the study of the mystical significance of numbers. Covers mathematical divination, sacred geometry, and the interpretation of numerical patterns and omens.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Numerology",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Occult)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of occult matters and esoteric traditions. Covers arcane symbols, mystical traditions, superstitions, and knowledge that borders on the forbidden without crossing into true heresy.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Occult",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Philosophy)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of Imperial philosophy and logical thought. Covers philosophical schools, ethical frameworks, theological debates, and the great thinkers of the Imperium's history.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Philosophy",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Scholastic Lore (Tactica Imperialis)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "Academic knowledge of military strategy and tactics as recorded in the Tactica Imperialis. Covers grand strategy, battlefield tactics, siege warfare, force disposition, and the study of historical campaigns.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Tactica Imperialis",
+            "aptitude": "Knowledge"
+        }
+    },
+    {
+        "name": "Trade (Agri)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of growing, caring for, and harvesting crops and animals. Covers agricultural techniques, animal husbandry, and food production.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Agri",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Archaeologist)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of locating, examining, and analysing ancient ruins and artefacts. Covers excavation techniques, artefact preservation, and site documentation.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Archaeologist",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Armourer)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of making and repairing armour, weapons, and other military equipment. Covers metalworking, weapon maintenance, ammunition crafting, and equipment modification.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Armourer",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Astrographer)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of creating and maintaining star charts and astronomical maps. Covers cartographic techniques, stellar surveying, and the recording of celestial phenomena.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Astrographer",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Chymist)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of preparing chemical compounds, drugs, and substances. Covers pharmaceutical production, chemical synthesis, and the creation of compounds for various purposes.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Chymist",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Cook)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of preparing food and drink. Covers cooking techniques, food preservation, recipe knowledge, catering for large groups, and identifying edible substances.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Cook",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Cryptographer)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of creating and breaking codes and cyphers. Covers practical cryptographic work, the design of secure communication systems, and codebreaking techniques.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Cryptographer",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Explorator)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of exploring unknown stellar regions. Covers survey techniques, first-contact protocols, and the documentation of new discoveries.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Explorator",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Linguist)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The professional craft of translation and interpretation. Covers translating documents, interpreting conversations in real-time, and the academic study of language structure and evolution.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Linguist",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Loremancer)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of recounting events in a variety of ways, from dry recitations or texts to epic operas or statuary. Covers historical narrative, oral tradition, and dramatic composition.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Loremancer",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Morticator)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of preparing the dead for burial or recycling. Covers mortuary practices, embalming, corpse-starch processing, and the funerary rites of the Imperium.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Morticator",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Performancer)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of performance arts including acting, singing, dancing, and playing musical instruments. Covers stagecraft, public entertainment, and artistic expression.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Performancer",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Prospector)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of surveying land for mineral deposits and valuable resources. Covers geological assessment, mining techniques, ore identification, and resource extraction methods.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Prospector",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Scrimshawer)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of engraving and carving intricate designs on bone, ivory, and similar materials. Covers decorative arts, the creation of scrimshaw talismans, and ornamental craftsmanship.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Scrimshawer",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Sculptor)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of sculpting and shaping materials into artistic or functional forms. Covers stone carving, metalwork sculpture, religious iconography, and architectural decoration.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Sculptor",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Shipwright)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of building, maintaining, and repairing void-faring vessels. Covers hull construction, structural repair, shipboard systems, and the practical aspects of voidship engineering.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Shipwright",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Soothsayer)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of divination, fortune-telling, and reading omens. Covers the Emperor's Tarot, reading entrails, interpreting dreams, and other methods of prognostication common in the Imperium.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Soothsayer",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Technomat)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of maintaining and operating technology through rote ritual and procedure. Covers the maintenance rites used by lesser tech-adepts who follow prescribed steps without true understanding.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Technomat",
+            "aptitude": "General"
+        }
+    },
+    {
+        "name": "Trade (Voidfarer)",
+        "type": "skill",
+        "img": "systems/dh2e/icons/items/skill.svg",
+        "system": {
+            "description": "The craft of working aboard void-faring vessels as crew. Covers the practical skills of a void sailor including rigging, cargo handling, void suit operation, and shipboard survival.",
+            "linkedCharacteristic": "int",
+            "advancement": 0,
+            "isSpecialist": true,
+            "specialization": "Voidfarer",
+            "aptitude": "General"
+        }
+    }
+]

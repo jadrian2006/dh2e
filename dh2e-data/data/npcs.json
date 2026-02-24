@@ -1,0 +1,1060 @@
+[
+    {
+        "name": "Hive Ganger",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 30, "advances": 0 }, "bs": { "base": 25, "advances": 0 },
+                "s": { "base": 30, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 30, "advances": 0 }, "int": { "base": 20, "advances": 0 },
+                "per": { "base": 25, "advances": 0 }, "wp": { "base": 20, "advances": 0 },
+                "fel": { "base": 20, "advances": 0 }
+            },
+            "wounds": { "value": 8, "max": 8 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 4, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "Street-level criminal from the underhive. Hive Gangers are the foot soldiers of the countless criminal organisations that infest the lower levels of Imperial hive cities. Poorly disciplined but vicious, they rely on numbers, ambush tactics, and knowledge of their home turf. Tactics: Gangers prefer ambushes and rarely fight to the death, fleeing when outmatched. They use the cramped corridors and catwalks of the underhive to their advantage. Traits: Street Fighting, Weapon Training (Solid Projectile, Low-Tech)."
+            }
+        },
+        "items": [
+            { "name": "Stub Revolver", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A simple, reliable solid-projectile handgun.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+3", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 6, "max": 6 }, "reload": "Full", "weight": 1.5, "qualities": ["Reliable"], "equipped": true } },
+            { "name": "Knife", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A simple blade.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d5+3", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0.5, "qualities": [], "equipped": true } },
+            { "name": "Mesh Vest", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "A vest of interlocking thermoplas rings.", "locations": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 4, "rightLeg": 0, "leftLeg": 0 }, "maxAgility": 0, "qualities": [], "weight": 2, "equipped": true } }
+        ]
+    },
+    {
+        "name": "PDF Conscript",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 20, "advances": 0 }, "bs": { "base": 25, "advances": 0 },
+                "s": { "base": 25, "advances": 0 }, "t": { "base": 25, "advances": 0 },
+                "ag": { "base": 25, "advances": 0 }, "int": { "base": 20, "advances": 0 },
+                "per": { "base": 25, "advances": 0 }, "wp": { "base": 20, "advances": 0 },
+                "fel": { "base": 20, "advances": 0 }
+            },
+            "wounds": { "value": 8, "max": 8 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "Poorly trained planetary defence force soldier, pressed into service. PDF Conscripts are the most basic military unit available to an Imperial world. Hastily trained and poorly equipped, they are numerous and expendable. Tactics: Fight in large groups, rely on massed fire. Break easily under sustained pressure. Traits: Weapon Training (Las, Low-Tech)."
+            }
+        },
+        "items": [
+            { "name": "Lasgun", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Standard-issue weapon of the Imperial Guard and PDF.", "class": "ranged", "range": 100, "rof": { "single": true, "semi": 3, "full": 0 }, "damage": { "formula": "1d10+3", "type": "energy", "bonus": 0 }, "penetration": 0, "clip": { "value": 60, "max": 60 }, "reload": "Full", "weight": 4, "qualities": ["Reliable"], "equipped": true } },
+            { "name": "Combat Knife", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Standard-issue military blade.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d5+2", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 1, "qualities": [], "equipped": true } },
+            { "name": "Flak Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Standard-issue ablative armour.", "locations": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 }, "maxAgility": 0, "qualities": [], "weight": 8, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Underhive Scum",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 25, "advances": 0 }, "bs": { "base": 20, "advances": 0 },
+                "s": { "base": 25, "advances": 0 }, "t": { "base": 25, "advances": 0 },
+                "ag": { "base": 30, "advances": 0 }, "int": { "base": 15, "advances": 0 },
+                "per": { "base": 25, "advances": 0 }, "wp": { "base": 15, "advances": 0 },
+                "fel": { "base": 15, "advances": 0 }
+            },
+            "wounds": { "value": 6, "max": 6 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 0, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "Desperate lowlife from the deepest levels of the hive. Underhive Scum survive through petty theft, scavenging, and occasional violence. Malnourished, poorly equipped, driven by desperation. Tactics: Attack only with overwhelming numbers or against weak targets. Flee at the first sign of organised resistance. Traits: Weapon Training (Solid Projectile, Low-Tech), Catfall."
+            }
+        },
+        "items": [
+            { "name": "Autopistol", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A cheap, mass-produced automatic handgun.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 0, "full": 6 }, "damage": { "formula": "1d10+2", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 18, "max": 18 }, "reload": "Full", "weight": 1.5, "qualities": [], "equipped": true } },
+            { "name": "Club", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A heavy blunt instrument.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+2", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 3, "qualities": ["Primitive (7)"], "equipped": true } }
+        ]
+    },
+    {
+        "name": "Cultist",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 30, "advances": 0 }, "bs": { "base": 25, "advances": 0 },
+                "s": { "base": 30, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 25, "advances": 0 }, "int": { "base": 20, "advances": 0 },
+                "per": { "base": 25, "advances": 0 }, "wp": { "base": 30, "advances": 0 },
+                "fel": { "base": 20, "advances": 0 }
+            },
+            "wounds": { "value": 8, "max": 8 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 1, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "Chaos worshipper, fanatical devotee of the Dark Gods. Cultists are mortal servants of Chaos, drawn from all levels of Imperial society. They gather in secret performing blasphemous rituals and working to undermine the Imperium. Tactics: Attack in frenzied waves, heedless of casualties. May be led by a more powerful champion or sorcerer. Some bear minor mutations. Traits: Weapon Training (Solid Projectile, Low-Tech), Resistance (Fear), Fanatic (do not break from combat due to morale)."
+            }
+        },
+        "items": [
+            { "name": "Autogun", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A common automatic rifle firing solid slugs.", "class": "ranged", "range": 100, "rof": { "single": true, "semi": 3, "full": 10 }, "damage": { "formula": "1d10+3", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 30, "max": 30 }, "reload": "Full", "weight": 5, "qualities": [], "equipped": true } },
+            { "name": "Knife", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A crude blade inscribed with profane symbols.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d5+3", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0.5, "qualities": [], "equipped": true } },
+            { "name": "Tattered Robes", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Filthy robes bearing forbidden marks.", "locations": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 1, "rightLeg": 0, "leftLeg": 0 }, "maxAgility": 0, "qualities": [], "weight": 1, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Imperial Guardsman",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 30, "advances": 0 }, "bs": { "base": 35, "advances": 0 },
+                "s": { "base": 30, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 30, "advances": 0 }, "int": { "base": 25, "advances": 0 },
+                "per": { "base": 30, "advances": 0 }, "wp": { "base": 30, "advances": 0 },
+                "fel": { "base": 25, "advances": 0 }
+            },
+            "wounds": { "value": 10, "max": 10 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 3, "rightArm": 3, "leftArm": 3, "body": 3, "rightLeg": 3, "leftLeg": 3 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "Trained soldier of the Imperial Guard, the Hammer of the Emperor. Individually unremarkable, their strength lies in numbers, discipline, and weight of fire. Tactics: Fight in disciplined formations using covering fire and coordinated advances. Morale holds as long as command structure is intact. Traits: Weapon Training (Las, Low-Tech), Rapid Reload, Discipline (re-roll failed WP tests to resist Fear while in formation)."
+            }
+        },
+        "items": [
+            { "name": "Lasgun", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Standard-issue weapon of the Imperial Guard.", "class": "ranged", "range": 100, "rof": { "single": true, "semi": 3, "full": 0 }, "damage": { "formula": "1d10+3", "type": "energy", "bonus": 0 }, "penetration": 0, "clip": { "value": 60, "max": 60 }, "reload": "Full", "weight": 4, "qualities": ["Reliable"], "equipped": true } },
+            { "name": "Bayonet", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A blade affixed to a lasgun barrel.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d5+3", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0.5, "qualities": [], "equipped": true } },
+            { "name": "Flak Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Standard Imperial Guard-issue ablative armour.", "locations": { "head": 3, "rightArm": 3, "leftArm": 3, "body": 3, "rightLeg": 3, "leftLeg": 3 }, "maxAgility": 0, "qualities": [], "weight": 8, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Pilgrim Fanatic",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 25, "advances": 0 }, "bs": { "base": 15, "advances": 0 },
+                "s": { "base": 25, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 20, "advances": 0 }, "int": { "base": 15, "advances": 0 },
+                "per": { "base": 20, "advances": 0 }, "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 20, "advances": 0 }
+            },
+            "wounds": { "value": 7, "max": 7 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 1, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "Religious zealot driven mad by devotion to the God-Emperor. Pilgrim Fanatics wander the Imperium in vast processions seeking holy sites. Some are driven to violent extremes. Tactics: Charge headlong into melee screaming prayers. Feel no pain. Fight to the death. Often encountered in mobs. Traits: Weapon Training (Low-Tech), Frenzy, Resistance (Fear), Die Hard, Fanatic (immune to morale effects)."
+            }
+        },
+        "items": [
+            { "name": "Makeshift Flail", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A length of chain with heavy weights, often incorporating devotional icons.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+2", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 4, "qualities": ["Flexible", "Primitive (7)"], "equipped": true } },
+            { "name": "Tattered Robes", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Filthy pilgrim vestments covered in devotional parchment and wax seals.", "locations": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 1, "rightLeg": 0, "leftLeg": 0 }, "maxAgility": 0, "qualities": [], "weight": 1, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Hive Gang Leader",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 40, "advances": 0 }, "bs": { "base": 35, "advances": 0 },
+                "s": { "base": 35, "advances": 0 }, "t": { "base": 35, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 }, "int": { "base": 30, "advances": 0 },
+                "per": { "base": 30, "advances": 0 }, "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 35, "advances": 0 }
+            },
+            "wounds": { "value": 14, "max": 14 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 4, "leftArm": 4, "body": 5, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Experienced gang boss who has clawed their way to the top through cunning and brutality. Commands respect through personal combat prowess, ruthless cunning, and sheer force of personality. Controls territory, runs rackets, and maintains order through violence. Tactics: Lets minions soften up opponents first. Uses bolt pistol at range, closes with chainsword when confident. Always has an escape route. Traits: Weapon Training (Bolt, Chain), Command, Iron Discipline, Street Fighting, Quick Draw, Combat Master."
+            }
+        },
+        "items": [
+            { "name": "Bolt Pistol", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A compact weapon firing mass-reactive explosive bolts.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 2, "full": 0 }, "damage": { "formula": "1d10+5", "type": "explosive", "bonus": 0 }, "penetration": 4, "clip": { "value": 8, "max": 8 }, "reload": "Full", "weight": 3.5, "qualities": ["Tearing"], "equipped": true } },
+            { "name": "Chainsword", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A sword with a motorised chain of razor-sharp teeth.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+5", "type": "rending", "bonus": 0 }, "penetration": 2, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 6, "qualities": ["Tearing", "Balanced"], "equipped": true } },
+            { "name": "Carapace Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Heavy moulded ceramite plates covering torso and arms.", "locations": { "head": 0, "rightArm": 4, "leftArm": 4, "body": 5, "rightLeg": 0, "leftLeg": 0 }, "maxAgility": 0, "qualities": [], "weight": 9, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Enforcer",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 }, "bs": { "base": 40, "advances": 0 },
+                "s": { "base": 35, "advances": 0 }, "t": { "base": 35, "advances": 0 },
+                "ag": { "base": 30, "advances": 0 }, "int": { "base": 30, "advances": 0 },
+                "per": { "base": 35, "advances": 0 }, "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 30, "advances": 0 }
+            },
+            "wounds": { "value": 12, "max": 12 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 5, "rightArm": 5, "leftArm": 5, "body": 5, "rightLeg": 5, "leftLeg": 5 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Arbites-trained law enforcement officer maintaining Imperial order. Well-equipped and disciplined, enforcing the Lex Imperialis with brutal efficiency. Tactics: Work in squads using coordinated tactics. Open with shotgun fire to suppress, close with shock mauls to subdue. Call for reinforcements when outmatched. Traits: Weapon Training (Solid Projectile, Shock), Takedown, Iron Jaw, Rapid Reload, Peer (Adeptus Arbites)."
+            }
+        },
+        "items": [
+            { "name": "Shotgun", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A pump-action combat shotgun, standard Enforcer issue.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 8, "max": 8 }, "reload": "2Full", "weight": 5, "qualities": ["Scatter"], "equipped": true } },
+            { "name": "Shock Maul", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "An electrified baton that delivers stunning blows.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 2.5, "qualities": ["Shocking"], "equipped": true } },
+            { "name": "Carapace Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Full carapace armour, standard Enforcer issue.", "locations": { "head": 5, "rightArm": 5, "leftArm": 5, "body": 5, "rightLeg": 5, "leftLeg": 5 }, "maxAgility": 0, "qualities": [], "weight": 15, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Rogue Psyker",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 20, "advances": 0 }, "bs": { "base": 20, "advances": 0 },
+                "s": { "base": 25, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 30, "advances": 0 }, "int": { "base": 40, "advances": 0 },
+                "per": { "base": 35, "advances": 0 }, "wp": { "base": 45, "advances": 0 },
+                "fel": { "base": 25, "advances": 0 }
+            },
+            "wounds": { "value": 10, "max": 10 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 0, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "An untrained psyker, dangerous and highly unstable. Rogue Psykers have escaped the Black Ships or never been identified. Without sanctioning, their powers are volatile and prone to catastrophic warp phenomena. Psychic Powers: Telekinetic Force (WP test, 1d10+5 Impact, range 20m), Warp Shriek (WP test, all within 10m must pass WP or take 1d5 Insanity), Mind Over Matter (levitate objects up to 50kg). Psy Rating: 3. Tactics: Rely entirely on powers, using telekinesis to hurl objects and enemies. Panic when powers fail. Extremely vulnerable to anti-psyker measures. Each use risks Perils of the Warp. Traits: Psyker (Psy Rating 3), Weapon Training (Low-Tech), Warp Sense."
+            }
+        },
+        "items": [
+            { "name": "Force Staff", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A staff attuned to psychic energy.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+2", "type": "impact", "bonus": 0 }, "penetration": 2, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 2, "qualities": ["Force", "Two-Handed"], "equipped": true } }
+        ]
+    },
+    {
+        "name": "Chaos Cult Magus",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 30, "advances": 0 }, "bs": { "base": 25, "advances": 0 },
+                "s": { "base": 30, "advances": 0 }, "t": { "base": 35, "advances": 0 },
+                "ag": { "base": 30, "advances": 0 }, "int": { "base": 35, "advances": 0 },
+                "per": { "base": 30, "advances": 0 }, "wp": { "base": 40, "advances": 0 },
+                "fel": { "base": 40, "advances": 0 }
+            },
+            "wounds": { "value": 13, "max": 13 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 4, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Cult leader with knowledge of dark rituals and forbidden lore. The Chaos Cult Magus guides the faithful through blasphemous ceremonies toward dark prophecies. Possesses charisma, cunning, and genuine warp-touched power. Tactics: Avoids direct combat, lets cultists absorb attacks while using warp blade and dark rituals from behind. Uses Fellowship to command followers and may attempt to corrupt enemies. Always has a contingency escape plan. Traits: Weapon Training (Las, Low-Tech), Deceive +20, Command, Dark Rituals (summoning and binding given time and sacrifices), Peer (Heretics), Enemy (Inquisition)."
+            }
+        },
+        "items": [
+            { "name": "Laspistol", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A compact las weapon sidearm.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 2, "full": 0 }, "damage": { "formula": "1d10+2", "type": "energy", "bonus": 0 }, "penetration": 0, "clip": { "value": 30, "max": 30 }, "reload": "Half", "weight": 1.5, "qualities": ["Reliable"], "equipped": true } },
+            { "name": "Warp Blade", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A blade infused with warp energy, its edge flickering with eldritch light.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+4", "type": "energy", "bonus": 0 }, "penetration": 5, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 3, "qualities": ["Warp Weapon"], "equipped": true } },
+            { "name": "Mesh Cloak", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "A cloak woven with thermoplas mesh for discreet protection.", "locations": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 4, "rightLeg": 0, "leftLeg": 0 }, "maxAgility": 0, "qualities": [], "weight": 3, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Bounty Hunter",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 }, "bs": { "base": 45, "advances": 0 },
+                "s": { "base": 30, "advances": 0 }, "t": { "base": 35, "advances": 0 },
+                "ag": { "base": 40, "advances": 0 }, "int": { "base": 30, "advances": 0 },
+                "per": { "base": 40, "advances": 0 }, "wp": { "base": 30, "advances": 0 },
+                "fel": { "base": 25, "advances": 0 }
+            },
+            "wounds": { "value": 13, "max": 13 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 4, "leftArm": 4, "body": 4, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Professional tracker and killer-for-hire operating in the grey area of Imperial law. Takes contracts from guilds, nobles, and even the Inquisition. Patient, methodical, and lethal. Tactics: Prefers ambushes, using hunting rifle from concealment. Studies targets carefully and exploits weaknesses. Competent with mono-sword in close quarters. Works alone or with a small trusted team. Traits: Weapon Training (Solid Projectile, Low-Tech), Deadeye Shot, Marksman, Awareness +20, Shadowing +10, Quick Draw, Hard Target."
+            }
+        },
+        "items": [
+            { "name": "Hunting Rifle", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A precision long-arm designed for accuracy at range.", "class": "ranged", "range": 150, "rof": { "single": true, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+3", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 5, "max": 5 }, "reload": "Full", "weight": 5, "qualities": ["Accurate"], "equipped": true } },
+            { "name": "Mono-sword", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A sword with a molecularly-sharpened edge.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+3", "type": "rending", "bonus": 0 }, "penetration": 2, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 3, "qualities": ["Balanced"], "equipped": true } },
+            { "name": "Mesh Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Lightweight mesh armour covering torso and arms.", "locations": { "head": 0, "rightArm": 4, "leftArm": 4, "body": 4, "rightLeg": 0, "leftLeg": 0 }, "maxAgility": 0, "qualities": [], "weight": 4, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Tech-Heretek",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 30, "advances": 0 }, "bs": { "base": 35, "advances": 0 },
+                "s": { "base": 35, "advances": 0 }, "t": { "base": 40, "advances": 0 },
+                "ag": { "base": 25, "advances": 0 }, "int": { "base": 45, "advances": 0 },
+                "per": { "base": 35, "advances": 0 }, "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 15, "advances": 0 }
+            },
+            "wounds": { "value": 14, "max": 14 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 3, "rightArm": 3, "leftArm": 3, "body": 3, "rightLeg": 3, "leftLeg": 3 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "A rogue Mechanicus adept who pursues forbidden technologies. Excommunicated for pursuing xenos tech, warp-tainted devices, or other techno-heresies. Brilliant and dangerous, augmenting themselves with forbidden implants. Tactics: Uses mechadendrite in close combat while firing laspistol. May deploy servitors, automated defences, or improvised tech-weapons. Prefers fighting from behind creations. Traits: Weapon Training (Las, Low-Tech), Mechadendrite Use (Weapon), Tech-Use +20, Forbidden Lore (Archeotech, Xenos) +10, Luminen Charge, Cybernetic Implants (various augmetics provide armour)."
+            }
+        },
+        "items": [
+            { "name": "Mechadendrite", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A flexible mechanical tentacle tipped with a cutting tool.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+4", "type": "rending", "bonus": 0 }, "penetration": 2, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Flexible"], "equipped": true } },
+            { "name": "Laspistol", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A compact las weapon.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 2, "full": 0 }, "damage": { "formula": "1d10+2", "type": "energy", "bonus": 0 }, "penetration": 0, "clip": { "value": 30, "max": 30 }, "reload": "Half", "weight": 1.5, "qualities": ["Reliable"], "equipped": true } },
+            { "name": "Cybernetic Implants", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Extensive cybernetic augmentation providing subdermal armour plating.", "locations": { "head": 3, "rightArm": 3, "leftArm": 3, "body": 3, "rightLeg": 3, "leftLeg": 3 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Adepta Sororitas Battle Sister",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 40, "advances": 0 }, "bs": { "base": 45, "advances": 0 },
+                "s": { "base": 35, "advances": 0 }, "t": { "base": 35, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 }, "int": { "base": 30, "advances": 0 },
+                "per": { "base": 35, "advances": 0 }, "wp": { "base": 45, "advances": 0 },
+                "fel": { "base": 30, "advances": 0 }
+            },
+            "wounds": { "value": 14, "max": 14 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 7, "rightArm": 7, "leftArm": 7, "body": 7, "rightLeg": 7, "leftLeg": 7 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Zealous warrior of the Adepta Sororitas, the armed wing of the Ecclesiarchy. Among the most formidable warriors in the Imperium, combining power armour and bolter weaponry with fanatical devotion to the God-Emperor. Their faith is a weapon in itself. Tactics: Advance in disciplined formations laying down bolter fire, closing to melee with chainswords. Fight with absolute conviction and never flee. Use hymns and litanies to bolster resolve. Traits: Weapon Training (Bolt, Chain), Shield of Faith (re-roll failed Fear tests), Hatred (Heretics, Mutants), Nerves of Steel, Pure Faith, Acts of Faith (once per encounter, re-roll a failed test or add +10)."
+            }
+        },
+        "items": [
+            { "name": "Bolter", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "The iconic weapon firing explosive mass-reactive bolts.", "class": "ranged", "range": 100, "rof": { "single": true, "semi": 3, "full": 0 }, "damage": { "formula": "1d10+5", "type": "explosive", "bonus": 0 }, "penetration": 4, "clip": { "value": 24, "max": 24 }, "reload": "Full", "weight": 7, "qualities": ["Tearing"], "equipped": true } },
+            { "name": "Chainsword", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A motorised chain-bladed sword, standard Sororitas issue.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+4", "type": "rending", "bonus": 0 }, "penetration": 2, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 6, "qualities": ["Tearing", "Balanced"], "equipped": true } },
+            { "name": "Sororitas Power Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Powered armour of the Adepta Sororitas.", "locations": { "head": 7, "rightArm": 7, "leftArm": 7, "body": 7, "rightLeg": 7, "leftLeg": 7 }, "maxAgility": 0, "qualities": [], "weight": 30, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Commissar",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 40, "advances": 0 }, "bs": { "base": 40, "advances": 0 },
+                "s": { "base": 35, "advances": 0 }, "t": { "base": 35, "advances": 0 },
+                "ag": { "base": 30, "advances": 0 }, "int": { "base": 35, "advances": 0 },
+                "per": { "base": 35, "advances": 0 }, "wp": { "base": 45, "advances": 0 },
+                "fel": { "base": 40, "advances": 0 }
+            },
+            "wounds": { "value": 14, "max": 14 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 5, "rightArm": 5, "leftArm": 5, "body": 5, "rightLeg": 5, "leftLeg": 5 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Officer of the Officio Prefectus, maintaining morale and discipline among Imperial Guard forces. Feared and respected in equal measure, possessing authority to execute any soldier showing cowardice. Leads from the front. Tactics: Charges into the fray with bolt pistol and power sword. Uses authority to bolster nearby troops. Targets enemy leaders for dramatic displays to inspire troops. Traits: Weapon Training (Bolt, Power), Iron Discipline (nearby allies re-roll failed WP tests), Summary Execution (execute an ally to grant +20 WP to all nearby for one round), Fearless, Command +20, Intimidate +10."
+            }
+        },
+        "items": [
+            { "name": "Bolt Pistol", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A compact bolt weapon, favoured sidearm of Imperial officers.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 2, "full": 0 }, "damage": { "formula": "1d10+5", "type": "explosive", "bonus": 0 }, "penetration": 4, "clip": { "value": 8, "max": 8 }, "reload": "Full", "weight": 3.5, "qualities": ["Tearing"], "equipped": true } },
+            { "name": "Power Sword", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A sword sheathed in a disruptive energy field.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+5", "type": "energy", "bonus": 0 }, "penetration": 5, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 3, "qualities": ["Power Field", "Balanced"], "equipped": true } },
+            { "name": "Carapace Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Officer-grade carapace armour with Commissariat markings.", "locations": { "head": 5, "rightArm": 5, "leftArm": 5, "body": 5, "rightLeg": 5, "leftLeg": 5 }, "maxAgility": 0, "qualities": [], "weight": 15, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Chaos Space Marine",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 55, "advances": 0 }, "bs": { "base": 50, "advances": 0 },
+                "s": { "base": 55, "advances": 0 }, "t": { "base": 55, "advances": 0 },
+                "ag": { "base": 40, "advances": 0 }, "int": { "base": 35, "advances": 0 },
+                "per": { "base": 40, "advances": 0 }, "wp": { "base": 50, "advances": 0 },
+                "fel": { "base": 30, "advances": 0 }
+            },
+            "wounds": { "value": 22, "max": 22 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 8, "rightArm": 8, "leftArm": 8, "body": 8, "rightLeg": 8, "leftLeg": 8 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Master", "divination": "",
+                "notes": "A transhuman nightmare, a fallen Adeptus Astartes sworn to the Dark Gods. Chaos Space Marines are among the most terrifying foes the Imperium faces. Millenia of warfare and warp exposure have made them utterly inhuman killing machines. Unnatural Strength (+4), Unnatural Toughness (+4). Tactics: CSMs are supremely confident and aggressive, advancing relentlessly while laying down bolter fire then closing to melee. They are tactically proficient and exploit terrain and cover. They may have mutations, daemon weapons, or sorcerous abilities. Traits: Weapon Training (Bolt, Chain), Unnatural Strength (4), Unnatural Toughness (4), Fear (3), Autosanguine, Heightened Senses (Hearing, Sight), Bulging Biceps, Quick Draw, Swift Attack, True Grit."
+            }
+        },
+        "items": [
+            { "name": "Bolter", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A bolt weapon of ancient and blasphemous provenance.", "class": "ranged", "range": 100, "rof": { "single": true, "semi": 3, "full": 0 }, "damage": { "formula": "1d10+5", "type": "explosive", "bonus": 0 }, "penetration": 4, "clip": { "value": 24, "max": 24 }, "reload": "Full", "weight": 7, "qualities": ["Tearing"], "equipped": true } },
+            { "name": "Chainsword", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A brutal chain weapon etched with blasphemous runes.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+9", "type": "rending", "bonus": 0 }, "penetration": 2, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 6, "qualities": ["Tearing", "Balanced"], "equipped": true } },
+            { "name": "Chaos Power Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Ancient power armour corrupted by millennia in the Eye of Terror.", "locations": { "head": 8, "rightArm": 8, "leftArm": 8, "body": 8, "rightLeg": 8, "leftLeg": 8 }, "maxAgility": 0, "qualities": [], "weight": 40, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Daemon Prince (Lesser)",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 60, "advances": 0 }, "bs": { "base": 25, "advances": 0 },
+                "s": { "base": 65, "advances": 0 }, "t": { "base": 60, "advances": 0 },
+                "ag": { "base": 40, "advances": 0 }, "int": { "base": 40, "advances": 0 },
+                "per": { "base": 45, "advances": 0 }, "wp": { "base": 55, "advances": 0 },
+                "fel": { "base": 15, "advances": 0 }
+            },
+            "wounds": { "value": 35, "max": 35 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 6, "rightArm": 6, "leftArm": 6, "body": 6, "rightLeg": 6, "leftLeg": 6 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Master", "divination": "",
+                "notes": "A greater daemon manifest in realspace, a being of immense warp power given terrible form. Daemon Princes are mortals who have ascended to daemonhood through service to the Dark Gods. They are nightmarish combatants of terrifying power. Fear (3), Daemonic Instability. Tactics: Daemon Princes wade into combat with utter contempt for their foes, using their hellblade to cleave through multiple enemies. They may use warp fire at range. They are arrogant and may toy with prey before killing. Traits: Daemonic (TB doubled against non-warp/blessed weapons), Fear (3), Warp Instability, From Beyond, Unnatural Strength (6), Unnatural Toughness (4), Flyer (6), Size (Hulking), Dark Sight, Psyker (Psy Rating 4), multiple psychic powers."
+            }
+        },
+        "items": [
+            { "name": "Hellblade", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A massive blade forged in the warp, burning with unholy flame.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "2d10+10", "type": "rending", "bonus": 0 }, "penetration": 5, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 8, "qualities": ["Warp Weapon", "Tearing"], "equipped": true } },
+            { "name": "Warp Fire", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Blazing bolts of warp energy hurled from the daemon's claws.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 0, "full": 0 }, "damage": { "formula": "2d10+5", "type": "energy", "bonus": 0 }, "penetration": 4, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Warp Weapon"], "equipped": true } },
+            { "name": "Daemonic Hide", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Unnaturally resilient skin suffused with warp energy.", "locations": { "head": 6, "rightArm": 6, "leftArm": 6, "body": 6, "rightLeg": 6, "leftLeg": 6 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Inquisitor",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 45, "advances": 0 }, "bs": { "base": 45, "advances": 0 },
+                "s": { "base": 35, "advances": 0 }, "t": { "base": 40, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 }, "int": { "base": 50, "advances": 0 },
+                "per": { "base": 45, "advances": 0 }, "wp": { "base": 50, "advances": 0 },
+                "fel": { "base": 45, "advances": 0 }
+            },
+            "wounds": { "value": 18, "max": 18 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 6, "rightArm": 6, "leftArm": 6, "body": 6, "rightLeg": 6, "leftLeg": 6 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Master", "divination": "",
+                "notes": "A master investigator of the Imperial Inquisition, wielding vast authority and resources. Inquisitors are among the most powerful individuals in the Imperium, answerable only to the Emperor and their peers. They root out heresy, corruption, and xenos threats through any means necessary. Tactics: Inquisitors adapt their approach to each situation. They may lead from the front or direct from behind, using their retinue as needed. They employ deception, diplomacy, and overwhelming force as the situation demands. They always have contingency plans and hidden resources. Traits: Weapon Training (Plasma, Power), Inquisitorial Authority (can requisition almost any Imperial resource), Peer (Inquisition, Adeptus Arbites), Resistance (Psychic Powers), Strong Minded, Rosarius (force field, Protection Rating 50)."
+            }
+        },
+        "items": [
+            { "name": "Plasma Pistol", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A rare and devastating energy weapon that fires superheated plasma.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 2, "full": 0 }, "damage": { "formula": "1d10+6", "type": "energy", "bonus": 0 }, "penetration": 6, "clip": { "value": 10, "max": 10 }, "reload": "3Full", "weight": 4, "qualities": ["Maximal", "Overheats"], "equipped": true } },
+            { "name": "Power Sword", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A master-crafted sword sheathed in a disruptive energy field.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+5", "type": "energy", "bonus": 0 }, "penetration": 5, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 3, "qualities": ["Power Field", "Balanced"], "equipped": true } },
+            { "name": "Carapace with Rosarius", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Carapace armour augmented by a rosarius conversion field.", "locations": { "head": 6, "rightArm": 6, "leftArm": 6, "body": 6, "rightLeg": 6, "leftLeg": 6 }, "maxAgility": 0, "qualities": ["Rosarius (Protection Rating 50)"], "weight": 16, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Ork Boy",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 }, "bs": { "base": 20, "advances": 0 },
+                "s": { "base": 40, "advances": 0 }, "t": { "base": 40, "advances": 0 },
+                "ag": { "base": 20, "advances": 0 }, "int": { "base": 15, "advances": 0 },
+                "per": { "base": 25, "advances": 0 }, "wp": { "base": 25, "advances": 0 },
+                "fel": { "base": 15, "advances": 0 }
+            },
+            "wounds": { "value": 12, "max": 12 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 2, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "The basic greenskin warrior, brutal and numerous. Ork Boyz live for fighting and are naturally strong and tough. They attack in great mobs, relying on volume of fire and sheer aggression. Unnatural Strength (+2). Mob Rule: gain +10 WS for every 5 additional Ork Boyz within 10m. Tactics: Rush at the enemy in a screaming green tide, firing wildly with sluggas before crashing into melee with choppas. No concept of retreat. Traits: Unnatural Strength (2), Mob Rule, Sturdy, Furious Assault, Weapon Training (Solid Projectile, Low-Tech), Size (Hulking), Brutal Charge."
+            }
+        },
+        "items": [
+            { "name": "Slugga", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A crude but heavy Ork pistol firing large-calibre solid slugs.", "class": "ranged", "range": 20, "rof": { "single": true, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 12, "max": 12 }, "reload": "Full", "weight": 3, "qualities": ["Inaccurate", "Unreliable"], "equipped": true } },
+            { "name": "Choppa", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A heavy, crude cleaving weapon. Each one is unique.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+6", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 5, "qualities": ["Unbalanced"], "equipped": true } },
+            { "name": "Scrap Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Crude armour beaten from scrap metal and salvage.", "locations": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 2, "rightLeg": 0, "leftLeg": 0 }, "maxAgility": 0, "qualities": [], "weight": 10, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Ork Nob",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 45, "advances": 0 }, "bs": { "base": 25, "advances": 0 },
+                "s": { "base": 50, "advances": 0 }, "t": { "base": 50, "advances": 0 },
+                "ag": { "base": 25, "advances": 0 }, "int": { "base": 20, "advances": 0 },
+                "per": { "base": 30, "advances": 0 }, "wp": { "base": 30, "advances": 0 },
+                "fel": { "base": 25, "advances": 0 }
+            },
+            "wounds": { "value": 20, "max": 20 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 4, "rightArm": 4, "leftArm": 4, "body": 4, "rightLeg": 4, "leftLeg": 4 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "A larger, meaner, and more cunning Ork who has risen to command through sheer brutality. Ork Nobz are significantly bigger and tougher than regular Boyz, and enforce their authority through violence. Unnatural Strength (+4), Unnatural Toughness (+2). Tactics: Nobz lead from the front, smashing aside any opposition with their big choppas. They bully nearby Boyz into fighting harder and may challenge enemy leaders to single combat. Traits: Unnatural Strength (4), Unnatural Toughness (2), Furious Assault, Iron Jaw, True Grit, Size (Hulking), Brutal Charge, Weapon Training (Solid Projectile, Low-Tech)."
+            }
+        },
+        "items": [
+            { "name": "Big Choppa", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A massive Ork cleaving weapon requiring immense strength to wield.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "2d10+8", "type": "rending", "bonus": 0 }, "penetration": 2, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 10, "qualities": ["Unbalanced", "Two-Handed"], "equipped": true } },
+            { "name": "Slugga", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A crude Ork pistol.", "class": "ranged", "range": 20, "rof": { "single": true, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 12, "max": 12 }, "reload": "Full", "weight": 3, "qualities": ["Inaccurate", "Unreliable"], "equipped": true } },
+            { "name": "'Eavy Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Thick plates of scrap metal crudely welded together.", "locations": { "head": 4, "rightArm": 4, "leftArm": 4, "body": 4, "rightLeg": 4, "leftLeg": 4 }, "maxAgility": 0, "qualities": [], "weight": 20, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Ork Warboss",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 55, "advances": 0 }, "bs": { "base": 30, "advances": 0 },
+                "s": { "base": 60, "advances": 0 }, "t": { "base": 55, "advances": 0 },
+                "ag": { "base": 30, "advances": 0 }, "int": { "base": 25, "advances": 0 },
+                "per": { "base": 30, "advances": 0 }, "wp": { "base": 40, "advances": 0 },
+                "fel": { "base": 35, "advances": 0 }
+            },
+            "wounds": { "value": 30, "max": 30 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 8, "rightArm": 8, "leftArm": 8, "body": 8, "rightLeg": 8, "leftLeg": 8 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Master", "divination": "",
+                "notes": "The biggest, meanest, and most cunning Ork in the warband. Warbosses are massive greenskins who have fought their way to the top of Ork society, commanding entire WAAAGH!s through a combination of brute strength and surprising animal cunning. Fear (2). Unnatural Strength (+6), Unnatural Toughness (+4). Tactics: Warbosses charge directly at the biggest, toughest enemy they can see, seeking to prove their dominance. Their power klaw can tear through vehicles and power armour alike. They inspire nearby Orks into a frenzy. Traits: Unnatural Strength (6), Unnatural Toughness (4), Fear (2), Iron Jaw, True Grit, Size (Enormous), Brutal Charge, Furious Assault, Swift Attack, Weapon Training (Solid Projectile, Power, Low-Tech)."
+            }
+        },
+        "items": [
+            { "name": "Power Klaw", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A massive powered claw that can rend through the toughest armour.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "2d10+14", "type": "energy", "bonus": 0 }, "penetration": 7, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 12, "qualities": ["Power Field", "Unwieldy"], "equipped": true } },
+            { "name": "Kombi-Shoota", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A ramshackle combination weapon cobbled together by a Mekboy.", "class": "ranged", "range": 50, "rof": { "single": true, "semi": 0, "full": 5 }, "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 30, "max": 30 }, "reload": "Full", "weight": 6, "qualities": ["Inaccurate", "Unreliable"], "equipped": true } },
+            { "name": "Mega Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Massively thick orkish power armour bristling with trophies and glyphs.", "locations": { "head": 8, "rightArm": 8, "leftArm": 8, "body": 8, "rightLeg": 8, "leftLeg": 8 }, "maxAgility": 0, "qualities": [], "weight": 50, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Eldar Guardian",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 }, "bs": { "base": 40, "advances": 0 },
+                "s": { "base": 30, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 45, "advances": 0 }, "int": { "base": 35, "advances": 0 },
+                "per": { "base": 40, "advances": 0 }, "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 30, "advances": 0 }
+            },
+            "wounds": { "value": 10, "max": 10 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 3, "rightArm": 3, "leftArm": 3, "body": 3, "rightLeg": 3, "leftLeg": 3 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "Citizen-militia of the Eldar Craftworlds, called to arms in times of need. Eldar Guardians are not professional soldiers but civilians who take up arms to defend their Craftworld. Even so, their superior agility and ancient wargear makes them formidable opponents. Unnatural Agility (+2). Tactics: Guardians fight in coordinated squads, using their superior speed and shuriken catapults to maintain distance. They attempt to outmanoeuvre opponents rather than face them head-on. Traits: Unnatural Agility (2), Heightened Senses (Sight), Weapon Training (Shuriken, Power), Catfall, Sprint."
+            }
+        },
+        "items": [
+            { "name": "Shuriken Catapult", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "An Eldar weapon that fires a hail of razor-sharp monomolecular discs.", "class": "ranged", "range": 60, "rof": { "single": true, "semi": 3, "full": 6 }, "damage": { "formula": "1d10+4", "type": "rending", "bonus": 0 }, "penetration": 4, "clip": { "value": 40, "max": 40 }, "reload": "Full", "weight": 3, "qualities": ["Reliable"], "equipped": true } },
+            { "name": "Power Sword", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "An elegant Eldar blade with a power field.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+3", "type": "energy", "bonus": 0 }, "penetration": 5, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 2, "qualities": ["Power Field", "Balanced"], "equipped": true } },
+            { "name": "Mesh Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Lightweight Eldar mesh armour woven from psycho-reactive material.", "locations": { "head": 3, "rightArm": 3, "leftArm": 3, "body": 3, "rightLeg": 3, "leftLeg": 3 }, "maxAgility": 0, "qualities": [], "weight": 3, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Eldar Ranger",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 30, "advances": 0 }, "bs": { "base": 55, "advances": 0 },
+                "s": { "base": 25, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 50, "advances": 0 }, "int": { "base": 40, "advances": 0 },
+                "per": { "base": 50, "advances": 0 }, "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 25, "advances": 0 }
+            },
+            "wounds": { "value": 10, "max": 10 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Master snipers and stealth experts who have chosen the Path of the Outcast. Eldar Rangers wander the galaxy, serving as scouts and pathfinders for their Craftworld. Their long rifles can pick off targets at extreme range with uncanny precision. Tactics: Rangers set up in concealed positions and engage from maximum range. They use their cameleoline cloaks to remain hidden, relocating after each shot. They avoid close combat at all costs. Traits: Unnatural Agility (2), Heightened Senses (Sight), Deadeye Shot, Marksman, Stealth +30, Concealment +20, Catfall, Sprint, Hard Target."
+            }
+        },
+        "items": [
+            { "name": "Long Rifle", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "An Eldar sniper weapon of exquisite precision.", "class": "ranged", "range": 200, "rof": { "single": true, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+6", "type": "energy", "bonus": 0 }, "penetration": 4, "clip": { "value": 20, "max": 20 }, "reload": "Full", "weight": 3, "qualities": ["Accurate", "Reliable", "Felling (2)"], "equipped": true } },
+            { "name": "Mono-knife", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A molecularly-sharpened Eldar blade.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d5+2", "type": "rending", "bonus": 0 }, "penetration": 2, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0.5, "qualities": [], "equipped": true } },
+            { "name": "Cameleoline Cloak", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "A cloak that shifts colour and pattern to match surroundings, granting +20 Stealth.", "locations": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 }, "maxAgility": 0, "qualities": ["Cameleoline (+20 Stealth)"], "weight": 1, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Dark Eldar Kabalite Warrior",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 40, "advances": 0 }, "bs": { "base": 40, "advances": 0 },
+                "s": { "base": 30, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 50, "advances": 0 }, "int": { "base": 30, "advances": 0 },
+                "per": { "base": 40, "advances": 0 }, "wp": { "base": 30, "advances": 0 },
+                "fel": { "base": 20, "advances": 0 }
+            },
+            "wounds": { "value": 10, "max": 10 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 4, "rightArm": 4, "leftArm": 4, "body": 4, "rightLeg": 4, "leftLeg": 4 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Raiders from the dark city of Commorragh, sustained by the suffering of others. Dark Eldar Kabalite Warriors are cruel, sadistic raiders who descend on their victims in lightning-fast attacks, taking captives back to Commorragh to feed their insatiable hunger. Unnatural Agility (+2). Power from Pain: gain bonuses as the battle progresses and enemies suffer. Tactics: Launch surprise attacks from Webway portals. Use splinter rifles with toxic ammunition to incapacitate rather than kill, as live captives are more valuable. Withdraw rapidly if meeting serious resistance. Traits: Unnatural Agility (2), Power from Pain (cumulative bonuses each round), Heightened Senses (Sight), Combat Master, Step Aside, Weapon Training (Splinter, Low-Tech)."
+            }
+        },
+        "items": [
+            { "name": "Splinter Rifle", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A Dark Eldar weapon that fires shards of crystallised toxin.", "class": "ranged", "range": 80, "rof": { "single": false, "semi": 3, "full": 5 }, "damage": { "formula": "1d10+2", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 40, "max": 40 }, "reload": "Full", "weight": 3, "qualities": ["Toxic (3)"], "equipped": true } },
+            { "name": "Power Blade", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A wickedly sharp Dark Eldar blade wreathed in a power field.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+3", "type": "energy", "bonus": 0 }, "penetration": 5, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 1.5, "qualities": ["Power Field"], "equipped": true } },
+            { "name": "Xenos Armour", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Lightweight Dark Eldar armour of alien design.", "locations": { "head": 4, "rightArm": 4, "leftArm": 4, "body": 4, "rightLeg": 4, "leftLeg": 4 }, "maxAgility": 0, "qualities": [], "weight": 4, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Hormagaunt",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 }, "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 30, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 }, "int": { "base": 5, "advances": 0 },
+                "per": { "base": 30, "advances": 0 }, "wp": { "base": 20, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 8, "max": 8 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "Fast-moving Tyranid assault organism designed to overwhelm enemies in close combat. Hormagaunts bound across the battlefield in great leaping strides, closing with prey at terrifying speed before shredding them with scything talons. Fearless, Bounding Leap (can leap up to 12m as a charge), Instinctive Behaviour (Feed): without Synapse, will charge nearest living target. Unnatural Agility (+1). Tactics: Swarm forward in vast numbers, leaping over obstacles. They are mindless without Synapse creatures and will attack the nearest target. With Synapse, they are directed with cunning efficiency. Traits: Unnatural Agility (1), Fearless, Bounding Leap, Instinctive Behaviour (Feed), Natural Weapons, Swift Attack."
+            }
+        },
+        "items": [
+            { "name": "Scything Talons", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Razor-sharp biological blades evolved to rend flesh and armour.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+3", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": [], "equipped": true } },
+            { "name": "Chitinous Hide", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Hard biological armour plates covering the creature.", "locations": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Termagant",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 25, "advances": 0 }, "bs": { "base": 25, "advances": 0 },
+                "s": { "base": 25, "advances": 0 }, "t": { "base": 25, "advances": 0 },
+                "ag": { "base": 30, "advances": 0 }, "int": { "base": 5, "advances": 0 },
+                "per": { "base": 25, "advances": 0 }, "wp": { "base": 20, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 6, "max": 6 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 1, "rightArm": 1, "leftArm": 1, "body": 1, "rightLeg": 1, "leftLeg": 1 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "Basic Tyranid ranged organism carrying a living weapon symbiote. Termagants provide ranged fire support for Tyranid swarms, unleashing volleys of bio-projectiles. They are individually weak but extremely numerous. Instinctive Behaviour (Lurk): without Synapse, will seek cover and fire at nearest target. Tactics: Advance in massive numbers while firing fleshborers. They rely on quantity over quality. Without Synapse, they hunker down in cover and shoot at anything nearby. Traits: Fearless, Instinctive Behaviour (Lurk), Natural Weapons."
+            }
+        },
+        "items": [
+            { "name": "Fleshborer", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A living weapon that launches a carnivorous beetle-like organism.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+5", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Living Ammunition"], "equipped": true } },
+            { "name": "Chitinous Hide", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Thin biological armour plating.", "locations": { "head": 1, "rightArm": 1, "leftArm": 1, "body": 1, "rightLeg": 1, "leftLeg": 1 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Tyranid Warrior",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 50, "advances": 0 }, "bs": { "base": 40, "advances": 0 },
+                "s": { "base": 45, "advances": 0 }, "t": { "base": 45, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 }, "int": { "base": 25, "advances": 0 },
+                "per": { "base": 40, "advances": 0 }, "wp": { "base": 40, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 25, "max": 25 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 6, "rightArm": 6, "leftArm": 6, "body": 6, "rightLeg": 6, "leftLeg": 6 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Synapse creature that serves as a node in the Tyranid Hive Mind. Tyranid Warriors are versatile, intelligent bioforms that coordinate lesser Tyranids through their synaptic link. They are deadly in both ranged and close combat. Unnatural Strength (+4), Unnatural Toughness (+2). Fear (2). Shadow in the Warp: psykers within 30m suffer -20 to all psychic tests and must test WP or gain 1d5 Insanity. Synapse Creature: lesser Tyranids within 30m are immune to Instinctive Behaviour. Tactics: Warriors advance steadily, firing devourers while closing to melee range. They direct lesser Tyranids with tactical precision. Traits: Unnatural Strength (4), Unnatural Toughness (2), Fear (2), Synapse Creature, Shadow in the Warp, Fearless, Natural Weapons, Swift Attack, Size (Hulking)."
+            }
+        },
+        "items": [
+            { "name": "Bonesword", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A living blade connected directly to the Hive Mind.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+8", "type": "rending", "bonus": 0 }, "penetration": 5, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Tearing"], "equipped": true } },
+            { "name": "Devourer", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A living weapon that launches a swarm of burrowing grubs.", "class": "ranged", "range": 30, "rof": { "single": false, "semi": 0, "full": 3 }, "damage": { "formula": "1d10+6", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Living Ammunition", "Storm"], "equipped": true } },
+            { "name": "Reinforced Chitin", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Heavily reinforced biological armour plating.", "locations": { "head": 6, "rightArm": 6, "leftArm": 6, "body": 6, "rightLeg": 6, "leftLeg": 6 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Genestealer",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 55, "advances": 0 }, "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 50, "advances": 0 }, "t": { "base": 45, "advances": 0 },
+                "ag": { "base": 50, "advances": 0 }, "int": { "base": 20, "advances": 0 },
+                "per": { "base": 40, "advances": 0 }, "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 18, "max": 18 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 4, "rightArm": 4, "leftArm": 4, "body": 4, "rightLeg": 4, "leftLeg": 4 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "The ultimate Tyranid close-combat organism, terrifyingly fast and lethal. Genestealers are the vanguard of Tyranid invasions, infiltrating worlds generations before the Hive Fleet arrives. Their rending claws can tear through power armour. Unnatural Strength (+3), Unnatural Agility (+2). Fear (2). Tactics: Genestealers use ventilation shafts, sewers, and tunnels to ambush prey. They attack in coordinated packs, tearing through even heavily armoured targets with ease. They are incredibly fast and difficult to hit. Traits: Unnatural Strength (3), Unnatural Agility (2), Fear (2), Fearless, Swift Attack, Lightning Attack, Natural Weapons, Stealth +20, Size (Hulking), Brood Telepathy."
+            }
+        },
+        "items": [
+            { "name": "Rending Claws", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Monomolecular-edged talons that can shred ceramite.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+10", "type": "rending", "bonus": 0 }, "penetration": 5, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Tearing"], "equipped": true } },
+            { "name": "Chitinous Hide", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Dense biological armour evolved for close combat.", "locations": { "head": 4, "rightArm": 4, "leftArm": 4, "body": 4, "rightLeg": 4, "leftLeg": 4 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Carnifex",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 40, "advances": 0 }, "bs": { "base": 20, "advances": 0 },
+                "s": { "base": 70, "advances": 0 }, "t": { "base": 70, "advances": 0 },
+                "ag": { "base": 15, "advances": 0 }, "int": { "base": 10, "advances": 0 },
+                "per": { "base": 25, "advances": 0 }, "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 60, "max": 60 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 10, "rightArm": 10, "leftArm": 10, "body": 10, "rightLeg": 10, "leftLeg": 10 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Master", "divination": "",
+                "notes": "A massive Tyranid bio-construct designed as a living battering ram. Carnifexes are the heavy assault organisms of the Tyranid swarm, capable of smashing through fortifications and crushing tanks. Their immense bulk and thick exoskeleton make them incredibly difficult to bring down. Unnatural Strength (+8), Unnatural Toughness (+8). Fear (3). Size (Enormous). Tactics: Carnifexes advance relentlessly, shrugging off fire that would destroy lesser creatures. They fire bio-plasma at range then crash into enemy lines, crushing everything in their path. They are not subtle. Traits: Unnatural Strength (8), Unnatural Toughness (8), Fear (3), Size (Enormous), Fearless, Natural Armour, Natural Weapons, Crushing Charge, Multiple Arms, Instinctive Behaviour (Feed), True Grit."
+            }
+        },
+        "items": [
+            { "name": "Crushing Claws", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Massive bio-engineered claws that can pulverise ferrocrete.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "3d10+14", "type": "impact", "bonus": 0 }, "penetration": 8, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Concussive (2)"], "equipped": true } },
+            { "name": "Bio-plasma", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A gout of super-heated bio-acidic plasma vomited from a specialised organ.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 0, "full": 0 }, "damage": { "formula": "2d10+10", "type": "energy", "bonus": 0 }, "penetration": 6, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Blast (3)"], "equipped": true } },
+            { "name": "Bonded Exoskeleton", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Massively thick bio-organic armour plating.", "locations": { "head": 10, "rightArm": 10, "leftArm": 10, "body": 10, "rightLeg": 10, "leftLeg": 10 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Kroot Carnivore",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 }, "bs": { "base": 30, "advances": 0 },
+                "s": { "base": 35, "advances": 0 }, "t": { "base": 35, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 }, "int": { "base": 20, "advances": 0 },
+                "per": { "base": 30, "advances": 0 }, "wp": { "base": 25, "advances": 0 },
+                "fel": { "base": 15, "advances": 0 }
+            },
+            "wounds": { "value": 12, "max": 12 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 0, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "Alien mercenaries who consume the flesh of the dead to absorb genetic traits. Kroot Carnivores are versatile warriors who serve as mercenaries throughout the galaxy, though they most commonly fight alongside Tau forces. They are excellent fieldsmen and trackers. Their ritual consumption of fallen foes allows them to slowly adapt their physiology. Eaters of the Dead: may gain temporary traits by consuming fallen enemies (GM discretion). Tactics: Kroot use their fieldcraft to set ambushes in dense terrain. They fire their Kroot rifles at range then charge into melee, using their natural beak and claws alongside their weapon. They favour wooded or overgrown terrain. Traits: Fieldcraft, Eaters of the Dead, Natural Weapons (beak/claws), Weapon Training (Kroot), Stealth +10, Survival +20."
+            }
+        },
+        "items": [
+            { "name": "Kroot Rifle", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A versatile weapon that serves as both a ranged weapon and a bladed melee weapon.", "class": "ranged", "range": 110, "rof": { "single": true, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 6, "max": 6 }, "reload": "Full", "weight": 4, "qualities": [], "equipped": true } },
+            { "name": "Kroot Rifle (Melee)", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "The Kroot Rifle's bladed stock used in close combat.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": [], "equipped": true } }
+        ]
+    },
+    {
+        "name": "Bloodletter",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 50, "advances": 0 }, "bs": { "base": 10, "advances": 0 },
+                "s": { "base": 45, "advances": 0 }, "t": { "base": 40, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 }, "int": { "base": 20, "advances": 0 },
+                "per": { "base": 35, "advances": 0 }, "wp": { "base": 40, "advances": 0 },
+                "fel": { "base": 10, "advances": 0 }
+            },
+            "wounds": { "value": 15, "max": 15 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 3, "rightArm": 3, "leftArm": 3, "body": 3, "rightLeg": 3, "leftLeg": 3 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Lesser daemon of Khorne, the Blood God. Bloodletters are savage, relentless melee combatants driven by an insatiable thirst for blood and skulls. Their hellblades can cleave through armour with ease. Unnatural Strength (+3). Daemonic: TB is doubled against non-warp/blessed weapons. Fear (2). Warp Instability: takes damage when losing combat or exposed to holy/psychic effects. From Beyond: immune to Fear, Pinning, Insanity, and mind-affecting powers. Tactics: Bloodletters charge headlong at the nearest enemy, seeking to spill blood in Khorne's name. They attack the strongest-looking foe first, seeking worthy skulls. They never retreat. Traits: Daemonic, Fear (2), Warp Instability, From Beyond, Unnatural Strength (3), Furious Assault, Swift Attack, Fearless, Resistance (Psychic Powers)."
+            }
+        },
+        "items": [
+            { "name": "Hellblade", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A jagged blade forged in the Blood God's realm, eternally dripping gore.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+8", "type": "rending", "bonus": 0 }, "penetration": 4, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Tearing", "Warp Weapon"], "equipped": true } },
+            { "name": "Daemonic Hide", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Supernaturally tough red skin.", "locations": { "head": 3, "rightArm": 3, "leftArm": 3, "body": 3, "rightLeg": 3, "leftLeg": 3 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Plaguebearer",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 }, "bs": { "base": 15, "advances": 0 },
+                "s": { "base": 40, "advances": 0 }, "t": { "base": 50, "advances": 0 },
+                "ag": { "base": 20, "advances": 0 }, "int": { "base": 25, "advances": 0 },
+                "per": { "base": 30, "advances": 0 }, "wp": { "base": 40, "advances": 0 },
+                "fel": { "base": 10, "advances": 0 }
+            },
+            "wounds": { "value": 20, "max": 20 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 4, "rightArm": 4, "leftArm": 4, "body": 4, "rightLeg": 4, "leftLeg": 4 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Lesser daemon of Nurgle, the Plague God. Plaguebearers are shambling, rotting horrors that spread disease wherever they tread. They are extraordinarily resilient, shrugging off wounds that would fell other creatures. Unnatural Toughness (+4). Daemonic: TB is doubled against non-warp/blessed weapons. Fear (2). Cloud of Flies: all enemies within 5m suffer -10 to WS and BS. Disgustingly Resilient: ignore the first Critical Effect suffered each encounter. Tactics: Plaguebearers advance slowly but inexorably, their plague swords dripping with virulent toxins. They rely on their incredible durability to outlast opponents. The cloud of flies makes them difficult to fight effectively. Traits: Daemonic, Fear (2), Warp Instability, From Beyond, Unnatural Toughness (4), Cloud of Flies, Disgustingly Resilient, Fearless, Toxic."
+            }
+        },
+        "items": [
+            { "name": "Plague Sword", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A corroded blade dripping with the most virulent diseases of the warp.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+5", "type": "rending", "bonus": 0 }, "penetration": 2, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Toxic (3)", "Warp Weapon"], "equipped": true } },
+            { "name": "Rotting Hide", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Bloated, diseased flesh that is supernaturally resilient.", "locations": { "head": 4, "rightArm": 4, "leftArm": 4, "body": 4, "rightLeg": 4, "leftLeg": 4 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Pink Horror",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 20, "advances": 0 }, "bs": { "base": 40, "advances": 0 },
+                "s": { "base": 25, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 30, "advances": 0 }, "int": { "base": 30, "advances": 0 },
+                "per": { "base": 35, "advances": 0 }, "wp": { "base": 45, "advances": 0 },
+                "fel": { "base": 20, "advances": 0 }
+            },
+            "wounds": { "value": 12, "max": 12 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Lesser daemon of Tzeentch, the Changer of Ways. Pink Horrors are gibbering, capering daemons that hurl bolts of warp fire at their enemies. They cackle madly as they fight, their forms constantly shifting. Daemonic: TB is doubled against non-warp/blessed weapons. Fear (1). Splits into Blue Horrors: when killed, splits into two Blue Horrors (use half the Pink Horror's stats, 6 wounds each). Psychic powers (Psy Rating 2). Tactics: Horrors stay at range, hurling warp fire bolts while cackling and gibbering. They are unpredictable and may suddenly change targets or tactics on a whim. Their splitting makes them frustrating to put down. Traits: Daemonic, Fear (1), Warp Instability, From Beyond, Psyker (Psy Rating 2), Split (spawns 2 Blue Horrors on death), Fearless."
+            }
+        },
+        "items": [
+            { "name": "Warp Fire Bolt", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A crackling bolt of multi-coloured warp flame.", "class": "ranged", "range": 30, "rof": { "single": true, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+6", "type": "energy", "bonus": 0 }, "penetration": 3, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Warp Weapon"], "equipped": true } },
+            { "name": "Daemonic Hide", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Rubbery, ever-shifting warp-stuff.", "locations": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Daemonette",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 45, "advances": 0 }, "bs": { "base": 10, "advances": 0 },
+                "s": { "base": 35, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 50, "advances": 0 }, "int": { "base": 30, "advances": 0 },
+                "per": { "base": 40, "advances": 0 }, "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 55, "advances": 0 }
+            },
+            "wounds": { "value": 12, "max": 12 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Lesser daemon of Slaanesh, the Prince of Excess. Daemonettes are disturbingly graceful and hauntingly beautiful daemons that revel in sensation and excess. Their appearance beguiles the unwary, leaving them vulnerable to razor-sharp claws. Unnatural Agility (+3). Daemonic: TB is doubled against non-warp/blessed weapons. Fear (2). Beguiling Aura: all enemies within 10m must pass a WP test at -10 or suffer -20 to WS when attacking the Daemonette. Tactics: Daemonettes dance through combat with supernatural grace, using their beguiling aura to confuse and bewitch opponents before striking with their piercing claws. They target the most strong-willed enemies first, seeking the thrill of corrupting the resolute. Traits: Daemonic, Fear (2), Warp Instability, From Beyond, Unnatural Agility (3), Beguiling Aura, Swift Attack, Lightning Attack, Step Aside, Fearless."
+            }
+        },
+        "items": [
+            { "name": "Piercing Claws", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Elegant, crab-like claws that can punch through armour plate.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+4", "type": "rending", "bonus": 0 }, "penetration": 3, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Tearing", "Warp Weapon"], "equipped": true } },
+            { "name": "Daemonic Grace", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Supernaturally fluid movements and warp-touched skin.", "locations": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Nurgling Swarm",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 20, "advances": 0 }, "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 10, "advances": 0 }, "t": { "base": 20, "advances": 0 },
+                "ag": { "base": 15, "advances": 0 }, "int": { "base": 5, "advances": 0 },
+                "per": { "base": 15, "advances": 0 }, "wp": { "base": 20, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 10, "max": 10 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 0, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "A carpet of tiny, giggling daemon-mites of Nurgle. Nurgling Swarms are masses of tiny, rotund daemons that surge forward in a tide of filth and malicious glee. Individually harmless, their sheer numbers and the diseases they carry make them a genuine threat. Daemonic. Swarm: immune to single-target attacks, only damaged by area-effect weapons. Cloud of Flies: -10 to WS and BS for all within 5m. Disease Carriers: anyone bitten must pass a Toughness test or contract a random disease. Fear (1). Disgustingly Resilient. Tactics: Nurgling Swarms simply surge toward the nearest living creature, attempting to overwhelm them with tiny bites and infectious filth. They cannot be reasoned with or deterred. Traits: Daemonic, Swarm, Fear (1), Cloud of Flies, Disease Carriers, Disgustingly Resilient, Fearless, From Beyond."
+            }
+        },
+        "items": [
+            { "name": "Tiny Bites", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Countless tiny fangs and claws tearing at flesh.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d5", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Toxic (1)"], "equipped": true } }
+        ]
+    },
+    {
+        "name": "Flesh Hound",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 45, "advances": 0 }, "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 45, "advances": 0 }, "t": { "base": 40, "advances": 0 },
+                "ag": { "base": 40, "advances": 0 }, "int": { "base": 15, "advances": 0 },
+                "per": { "base": 50, "advances": 0 }, "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 15, "max": 15 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 3, "rightArm": 3, "leftArm": 3, "body": 3, "rightLeg": 3, "leftLeg": 3 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "Daemonic hunting beasts of Khorne, relentless trackers of psykers and sorcerers. Flesh Hounds are bestial daemons that hunt in packs, capable of tracking prey across continents through their preternatural senses. Their brass collars render them immune to psychic powers. Daemonic: TB is doubled against non-warp/blessed weapons. Fear (1). Collar of Khorne: immune to all psychic powers. Generates a psychic null field within 5m (all psychic powers suffer -30). Tireless Tracker: never needs rest when pursuing prey, can track targets across any terrain. Tactics: Flesh Hounds hunt in coordinated packs, running prey to exhaustion then dragging them down. They prioritise psykers above all other targets. They leap on victims and tear them apart with powerful jaws. Traits: Daemonic, Fear (1), Collar of Khorne, From Beyond, Tireless Tracker, Sprint, Fearless, Quadruped, Natural Weapons, Swift Attack."
+            }
+        },
+        "items": [
+            { "name": "Fangs", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Massive brass-tipped fangs that can tear through armour.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+6", "type": "rending", "bonus": 0 }, "penetration": 2, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Tearing"], "equipped": true } },
+            { "name": "Brass Collar Hide", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Tough daemonic hide augmented by the Collar of Khorne.", "locations": { "head": 3, "rightArm": 3, "leftArm": 3, "body": 3, "rightLeg": 3, "leftLeg": 3 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Plague Zombie",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 20, "advances": 0 }, "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 30, "advances": 0 }, "t": { "base": 35, "advances": 0 },
+                "ag": { "base": 10, "advances": 0 }, "int": { "base": 5, "advances": 0 },
+                "per": { "base": 15, "advances": 0 }, "wp": { "base": 10, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 12, "max": 12 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 0, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "The walking dead, animated by warp-plague or dark sorcery. Plague Zombies are corpses reanimated by Nurgle's pestilence or necromantic rituals. They are slow, mindless, and relentless, shambling toward the living in vast hordes. Fearless. Undead: immune to Fear, Pinning, Stunning, Fatigue, and all mental effects. Shambling: can only take a Half Move action each turn. Horde Creature: best used with the Horde rules, combining multiple zombies into a single entity. Can only be truly killed by destroying the head (called shot to head at -20, reduces wounds to 0). Toxic: anyone wounded must pass T test or suffer additional 1d10 damage. Tactics: Plague Zombies advance in a mindless, endless tide. They feel no pain and never stop. They overwhelm through sheer numbers. Traits: Fearless, Undead, Shambling, Horde Creature, Toxic, Natural Weapons, Fear (1), Strange Physiology (called shot to head required to kill)."
+            }
+        },
+        "items": [
+            { "name": "Rotting Fists", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Decaying hands and gnashing teeth carrying virulent plague.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10", "type": "impact", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Toxic (2)"], "equipped": true } }
+        ]
+    },
+    {
+        "name": "Warp Ghost",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 }, "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 20, "advances": 0 }, "t": { "base": 20, "advances": 0 },
+                "ag": { "base": 40, "advances": 0 }, "int": { "base": 20, "advances": 0 },
+                "per": { "base": 35, "advances": 0 }, "wp": { "base": 40, "advances": 0 },
+                "fel": { "base": 10, "advances": 0 }
+            },
+            "wounds": { "value": 8, "max": 8 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 0, "rightArm": 0, "leftArm": 0, "body": 0, "rightLeg": 0, "leftLeg": 0 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "A warp-born spectral entity, the remnant of a soul lost in the Immaterium. Warp Ghosts haunt places where the veil between realspace and the warp is thin, or where great suffering has occurred. They are terrifying to behold and nearly impossible to harm with conventional weapons. Daemonic. Fear (2). Incorporeal: immune to all physical damage. Only warp weapons, force weapons, blessed weapons, and psychic powers can harm them. Can phase through solid walls and objects. Their chilling touch drains warmth and life force, ignoring all armour. Tactics: Warp Ghosts drift through walls to ambush victims, reaching through cover to strike with their chilling touch. They retreat through solid objects when threatened. They are drawn to psychic activity and strong emotions. Traits: Daemonic, Fear (2), Incorporeal, Phase, From Beyond, Fearless, Dark Sight, Hoverer (6)."
+            }
+        },
+        "items": [
+            { "name": "Chilling Touch", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A spectral touch that drains warmth and life, bypassing all physical protection.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+2", "type": "energy", "bonus": 0 }, "penetration": 99, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Warp Weapon"], "equipped": true } }
+        ]
+    },
+    {
+        "name": "Cyber-Mastiff",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 }, "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 25, "advances": 0 }, "t": { "base": 30, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 }, "int": { "base": 10, "advances": 0 },
+                "per": { "base": 40, "advances": 0 }, "wp": { "base": 25, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 8, "max": 8 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "A cybernetically enhanced canine, used by Enforcers and Inquisitorial agents for tracking and guard duty. Cyber-Mastiffs are loyal, fearless, and relentless once they have a scent. Their tracking augmetics allow them to follow trails days old across harsh terrain. Size (Scrawny). Tracking Augmetics: +20 to Awareness tests to track by scent. Loyal: will fight to the death to protect their handler. Tactics: Cyber-Mastiffs are unleashed to track fleeing targets or guard perimeters. They attack by clamping their jaws on a target and refusing to let go. They are most effective when supporting their handler. Traits: Quadruped, Natural Weapons, Tracking Augmetics (+20 scent tracking), Loyal, Size (Scrawny), Heightened Senses (Smell), Sprint."
+            }
+        },
+        "items": [
+            { "name": "Bite", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Reinforced cybernetic jaws with a crushing bite.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+3", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": [], "equipped": true } },
+            { "name": "Cybernetic Plating", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Lightweight cybernetic armour plates grafted to the animal.", "locations": { "head": 2, "rightArm": 2, "leftArm": 2, "body": 2, "rightLeg": 2, "leftLeg": 2 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Ambull",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 40, "advances": 0 }, "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 55, "advances": 0 }, "t": { "base": 55, "advances": 0 },
+                "ag": { "base": 20, "advances": 0 }, "int": { "base": 5, "advances": 0 },
+                "per": { "base": 25, "advances": 0 }, "wp": { "base": 30, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 30, "max": 30 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 6, "rightArm": 6, "leftArm": 6, "body": 6, "rightLeg": 6, "leftLeg": 6 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Elite", "divination": "",
+                "notes": "A massive burrowing predator found on many Imperial worlds. Ambulls are huge, insectoid creatures with powerful digging claws and thick armoured hides. They tunnel through rock and soil, bursting from the ground to ambush prey. Unnatural Strength (+4), Unnatural Toughness (+4). Burrower: can tunnel through earth and soft rock at half movement speed. Size (Hulking). Fear (2). Tactics: Ambulls burst from the ground beneath or behind their prey, striking with surprise. They use their massive claws to crush and rend. They retreat underground if badly wounded, only to attack again from a different angle. They are drawn to heat and vibration. Traits: Unnatural Strength (4), Unnatural Toughness (4), Fear (2), Burrower, Natural Weapons, Natural Armour, Size (Hulking), Dark Sight, Blind (uses tremorsense)."
+            }
+        },
+        "items": [
+            { "name": "Crushing Claws", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "Massive digging claws that can punch through rockcrete.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "2d10+8", "type": "impact", "bonus": 0 }, "penetration": 4, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Concussive (1)"], "equipped": true } },
+            { "name": "Thick Hide", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Dense, rocky carapace that deflects most attacks.", "locations": { "head": 6, "rightArm": 6, "leftArm": 6, "body": 6, "rightLeg": 6, "leftLeg": 6 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    },
+    {
+        "name": "Psychneuein",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 30, "advances": 0 }, "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 20, "advances": 0 }, "t": { "base": 20, "advances": 0 },
+                "ag": { "base": 45, "advances": 0 }, "int": { "base": 10, "advances": 0 },
+                "per": { "base": 40, "advances": 0 }, "wp": { "base": 25, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 6, "max": 6 },
+            "fate": { "value": 0, "max": 0 }, "corruption": 0, "insanity": 0, "influence": 0,
+            "xp": { "total": 0, "spent": 0 }, "aptitudes": [],
+            "armour": { "head": 1, "rightArm": 1, "leftArm": 1, "body": 1, "rightLeg": 1, "leftLeg": 1 },
+            "details": {
+                "homeworld": "", "background": "", "role": "Troop", "divination": "",
+                "notes": "Warp-spawned insectoid creatures that are irresistibly drawn to psychic activity. Psychneuein are wasp-like predators from the warp that infest areas of psychic disturbance. They are a particular horror for psykers, as they implant eggs directly into the brains of those with psychic talent. Flyer (8). Drawn to Psykers: automatically aware of any psyker within 1km. Gain +20 to all tests when attacking psykers. Egg Implantation: on a successful hit against a psyker, may attempt to implant eggs (target must pass T test at -20 or have eggs implanted; eggs hatch in 1d5 days, killing the host and spawning 1d5 new Psychneuein). Fear (1). Tactics: Psychneuein swarm toward the nearest psyker, ignoring non-psychic targets unless attacked. They dive-bomb their target, attempting to sting and implant eggs. They are fragile but fast and difficult to hit. Traits: Flyer (8), Drawn to Psykers, Egg Implantation, Fear (1), Natural Weapons, Size (Puny), Hoverer."
+            }
+        },
+        "items": [
+            { "name": "Stinger", "type": "weapon", "img": "systems/dh2e/icons/items/weapon.svg", "system": { "description": "A barbed ovipositor dripping with paralytic venom.", "class": "melee", "range": 0, "rof": { "single": false, "semi": 0, "full": 0 }, "damage": { "formula": "1d10+2", "type": "rending", "bonus": 0 }, "penetration": 0, "clip": { "value": 0, "max": 0 }, "reload": "", "weight": 0, "qualities": ["Toxic (2)"], "equipped": true } },
+            { "name": "Chitin", "type": "armour", "img": "systems/dh2e/icons/items/armour.svg", "system": { "description": "Thin but hard insectoid exoskeleton.", "locations": { "head": 1, "rightArm": 1, "leftArm": 1, "body": 1, "rightLeg": 1, "leftLeg": 1 }, "maxAgility": 0, "qualities": [], "weight": 0, "equipped": true } }
+        ]
+    }
+]

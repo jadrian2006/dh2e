@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Planet -->
+  <g stroke="#c8a84e" stroke-width="1.5">
+    <!-- Planet body -->
+    <circle cx="32" cy="32" r="22" fill="#c8a84e" fill-opacity="0.15"/>
+    <!-- Equator line -->
+    <ellipse cx="32" cy="32" rx="22" ry="6" fill="none" opacity="0.5"/>
+    <!-- Meridian -->
+    <ellipse cx="32" cy="32" rx="8" ry="22" fill="none" opacity="0.4"/>
+    <!-- Continent shapes -->
+    <path d="M20 24 Q24 20 30 22 Q34 18 36 24 Q32 28 26 26Z" fill="#c8a84e" fill-opacity="0.2"/>
+    <path d="M36 36 Q42 34 44 40 Q40 44 36 42Z" fill="#c8a84e" fill-opacity="0.2"/>
+    <!-- Atmosphere glow -->
+    <circle cx="32" cy="32" r="24" stroke-opacity="0.2" fill="none"/>
+    <!-- Stars -->
+    <circle cx="8" cy="12" r="0.75" fill="#c8a84e"/>
+    <circle cx="56" cy="8" r="0.75" fill="#c8a84e"/>
+    <circle cx="52" cy="54" r="0.75" fill="#c8a84e"/>
+    <circle cx="12" cy="52" r="0.75" fill="#c8a84e"/>
+  </g>
+</svg>

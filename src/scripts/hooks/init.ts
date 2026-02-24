@@ -6,6 +6,16 @@ import { GearDH2e } from "@item/gear/document.ts";
 import { SkillDH2e } from "@item/skill/document.ts";
 import { TalentDH2e } from "@item/talent/document.ts";
 import { ConditionDH2e } from "@item/condition/document.ts";
+import { PowerDH2e } from "@item/power/document.ts";
+import { HomeworldDH2e } from "@item/homeworld/document.ts";
+import { BackgroundDH2e } from "@item/background/document.ts";
+import { RoleDH2e } from "@item/role/document.ts";
+import { TraitDH2e } from "@item/trait/document.ts";
+import { CriticalInjuryDH2e } from "@item/critical-injury/document.ts";
+import { MalignancyDH2e } from "@item/malignancy/document.ts";
+import { MentalDisorderDH2e } from "@item/mental-disorder/document.ts";
+import { AmmunitionDH2e } from "@item/ammunition/document.ts";
+import { CyberneticDH2e } from "@item/cybernetic/document.ts";
 import { DH2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { preloadTemplates } from "@scripts/register-templates.ts";
@@ -31,6 +41,16 @@ export class Init {
                 skill: SkillDH2e as unknown as typeof Item,
                 talent: TalentDH2e as unknown as typeof Item,
                 condition: ConditionDH2e as unknown as typeof Item,
+                power: PowerDH2e as unknown as typeof Item,
+                homeworld: HomeworldDH2e as unknown as typeof Item,
+                background: BackgroundDH2e as unknown as typeof Item,
+                role: RoleDH2e as unknown as typeof Item,
+                trait: TraitDH2e as unknown as typeof Item,
+                "critical-injury": CriticalInjuryDH2e as unknown as typeof Item,
+                malignancy: MalignancyDH2e as unknown as typeof Item,
+                "mental-disorder": MentalDisorderDH2e as unknown as typeof Item,
+                ammunition: AmmunitionDH2e as unknown as typeof Item,
+                cybernetic: CyberneticDH2e as unknown as typeof Item,
             };
 
             // Register custom Handlebars helpers

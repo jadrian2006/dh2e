@@ -2,7 +2,7 @@
     "id": "dh2e",
     "title": "Dark Heresy 2nd Edition",
     "description": "Foundry VTT system for Warhammer 40k Dark Heresy 2nd Edition",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "compatibility": {
         "minimum": "13.348",
         "verified": "13.351",
@@ -26,6 +26,7 @@
             "path": "lang/en.json"
         }
     ],
+    "background": "systems/dh2e/ui/pause-bg.svg",
     "socket": true,
     "grid": {
         "distance": 1,
@@ -35,7 +36,7 @@
     "documentTypes": {
         "Actor": {
             "acolyte": {
-                "htmlFields": ["details.notes"]
+                "htmlFields": ["details.notes", "details.biography", "details.appearance"]
             },
             "npc": {
                 "htmlFields": ["details.notes"]
@@ -58,6 +59,36 @@
                 "htmlFields": ["description"]
             },
             "condition": {
+                "htmlFields": ["description"]
+            },
+            "power": {
+                "htmlFields": ["description"]
+            },
+            "homeworld": {
+                "htmlFields": ["description", "bonusDescription"]
+            },
+            "background": {
+                "htmlFields": ["description", "bonusDescription"]
+            },
+            "role": {
+                "htmlFields": ["description", "bonusDescription"]
+            },
+            "trait": {
+                "htmlFields": ["description"]
+            },
+            "critical-injury": {
+                "htmlFields": ["description"]
+            },
+            "malignancy": {
+                "htmlFields": ["description"]
+            },
+            "mental-disorder": {
+                "htmlFields": ["description"]
+            },
+            "ammunition": {
+                "htmlFields": ["description"]
+            },
+            "cybernetic": {
                 "htmlFields": ["description"]
             }
         }

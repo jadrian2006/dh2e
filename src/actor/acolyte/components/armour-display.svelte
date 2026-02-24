@@ -2,81 +2,124 @@
     import { calculateArmourByLocation } from "../../../item/armour/helpers.ts";
     import type { HitLocationKey } from "../../../actor/types.ts";
 
-    let { ctx }: { ctx: Record<string, any> } = $props();
+    let { ctx, role = "" }: { ctx: Record<string, any>; role?: string } = $props();
 
-    const locations: { key: HitLocationKey; label: string }[] = [
-        { key: "head", label: "Head" },
-        { key: "rightArm", label: "R. Arm" },
-        { key: "leftArm", label: "L. Arm" },
-        { key: "body", label: "Body" },
-        { key: "rightLeg", label: "R. Leg" },
-        { key: "leftLeg", label: "L. Leg" },
-    ];
+    const VALID_ROLES = new Set([
+        "assassin", "chirurgeon", "desperado", "hierophant",
+        "mystic", "sage", "seeker", "warrior",
+    ]);
+
+    const silhouetteSrc = $derived(() => {
+        const key = (role ?? "").toLowerCase().trim();
+        const slug = VALID_ROLES.has(key) ? key : "default";
+        return `systems/dh2e/icons/silhouettes/${slug}.svg`;
+    });
 
     const armourByLocation = $derived(() => {
         const armourItems = ctx.items?.armour ?? [];
         return calculateArmourByLocation(armourItems);
     });
+
+    function ap(key: HitLocationKey): number {
+        return armourByLocation()[key] ?? 0;
+    }
 </script>
 
-<div class="armour-display">
-    <h4 class="section-label">Armour by Location</h4>
-    <div class="location-grid">
-        {#each locations as loc}
-            <div class="location-cell" class:protected={armourByLocation()[loc.key] > 0}>
-                <span class="loc-label">{loc.label}</span>
-                <span class="loc-ap">{armourByLocation()[loc.key]}</span>
-            </div>
-        {/each}
-    </div>
+<div class="armour-paperdoll">
+    <svg viewBox="0 0 200 320" class="silhouette" xmlns="http://www.w3.org/2000/svg">
+        <!-- Role-based silhouette image -->
+        <image
+            href={silhouetteSrc()}
+            x="0" y="0"
+            width="200" height="320"
+            preserveAspectRatio="xMidYMid meet"
+        />
+
+        <!-- AP value badges -->
+        <!-- Head -->
+        <g class="ap-badge" class:protected={ap("head") > 0}>
+            <circle cx="100" cy="32" r="14" />
+            <text x="100" y="37">{ap("head")}</text>
+        </g>
+        <!-- Body -->
+        <g class="ap-badge" class:protected={ap("body") > 0}>
+            <circle cx="100" cy="112" r="14" />
+            <text x="100" y="117">{ap("body")}</text>
+        </g>
+        <!-- Right Arm (viewer's left) -->
+        <g class="ap-badge" class:protected={ap("rightArm") > 0}>
+            <circle cx="44" cy="110" r="14" />
+            <text x="44" y="115">{ap("rightArm")}</text>
+        </g>
+        <!-- Left Arm (viewer's right) -->
+        <g class="ap-badge" class:protected={ap("leftArm") > 0}>
+            <circle cx="156" cy="110" r="14" />
+            <text x="156" y="115">{ap("leftArm")}</text>
+        </g>
+        <!-- Right Leg (viewer's left) -->
+        <g class="ap-badge" class:protected={ap("rightLeg") > 0}>
+            <circle cx="80" cy="248" r="14" />
+            <text x="80" y="253">{ap("rightLeg")}</text>
+        </g>
+        <!-- Left Leg (viewer's right) -->
+        <g class="ap-badge" class:protected={ap("leftLeg") > 0}>
+            <circle cx="120" cy="248" r="14" />
+            <text x="120" y="253">{ap("leftLeg")}</text>
+        </g>
+
+        <!-- Location labels -->
+        <text class="loc-label" x="100" y="8">Head</text>
+        <text class="loc-label" x="16" y="98">R.Arm</text>
+        <text class="loc-label" x="184" y="98">L.Arm</text>
+        <text class="loc-label" x="100" y="88">Body</text>
+        <text class="loc-label" x="62" y="228">R.Leg</text>
+        <text class="loc-label" x="138" y="228">L.Leg</text>
+    </svg>
 </div>
 
 <style lang="scss">
-    .armour-display {
-        margin-top: var(--dh2e-space-sm, 0.5rem);
-    }
-
-    .section-label {
-        font-size: var(--dh2e-text-xs, 0.7rem);
-        color: var(--dh2e-text-secondary, #a0a0a8);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin-bottom: var(--dh2e-space-xs, 0.25rem);
-    }
-
-    .location-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--dh2e-space-xxs, 0.125rem);
-    }
-
-    .location-cell {
+    .armour-paperdoll {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: var(--dh2e-bg-mid, #2e2e35);
-        border: 1px solid var(--dh2e-border, #4a4a55);
-        border-radius: var(--dh2e-radius-sm, 3px);
-        padding: var(--dh2e-space-xxs, 0.125rem) var(--dh2e-space-xs, 0.25rem);
+        justify-content: center;
+        padding: var(--dh2e-space-sm, 0.5rem) 0;
+    }
+
+    .silhouette {
+        width: 180px;
+        height: auto;
+    }
+
+    .ap-badge {
+        circle {
+            fill: var(--dh2e-bg-light, #3a3a45);
+            stroke: var(--dh2e-border, #4a4a55);
+            stroke-width: 1.5;
+        }
+        text {
+            fill: var(--dh2e-text-secondary, #a0a0a8);
+            font-size: 14px;
+            font-weight: 700;
+            text-anchor: middle;
+            font-family: var(--dh2e-font-body, sans-serif);
+        }
 
         &.protected {
-            border-color: var(--dh2e-gold-muted, #8a7a3e);
+            circle {
+                fill: var(--dh2e-gold-dark, #7a6228);
+                stroke: var(--dh2e-gold, #b49545);
+            }
+            text {
+                fill: var(--dh2e-parchment-light, #e2d6c0);
+            }
         }
     }
 
     .loc-label {
-        font-size: 0.6rem;
-        color: var(--dh2e-text-secondary, #a0a0a8);
+        fill: var(--dh2e-text-secondary, #a0a0a8);
+        font-size: 9px;
+        text-anchor: middle;
         text-transform: uppercase;
-    }
-
-    .loc-ap {
-        font-size: var(--dh2e-text-md, 0.9rem);
-        font-weight: 700;
-        color: var(--dh2e-text-primary, #d0cfc8);
-    }
-
-    .protected .loc-ap {
-        color: var(--dh2e-gold-bright, #e8c84e);
+        letter-spacing: 0.05em;
+        font-family: var(--dh2e-font-body, sans-serif);
     }
 </style>

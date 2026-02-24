@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Inquisition Rosette / I symbol -->
+  <g stroke="#c8a84e" stroke-width="1.5">
+    <!-- Outer ring -->
+    <circle cx="32" cy="32" r="24" fill="#c8a84e" fill-opacity="0.1"/>
+    <circle cx="32" cy="32" r="20" fill="#c8a84e" fill-opacity="0.05"/>
+    <!-- Central I bar -->
+    <rect x="28" y="14" width="8" height="36" rx="1" fill="#c8a84e" fill-opacity="0.25"/>
+    <!-- Top serif -->
+    <rect x="24" y="14" width="16" height="4" rx="1" fill="#c8a84e" fill-opacity="0.2"/>
+    <!-- Bottom serif -->
+    <rect x="24" y="46" width="16" height="4" rx="1" fill="#c8a84e" fill-opacity="0.2"/>
+    <!-- Skull in center -->
+    <circle cx="32" cy="30" r="5" fill="#c8a84e" fill-opacity="0.2"/>
+    <circle cx="30" cy="29" r="1" fill="#1a1a1f"/>
+    <circle cx="34" cy="29" r="1" fill="#1a1a1f"/>
+    <path d="M31 32 L32 33.5 L33 32" stroke-width="0.75" fill="none"/>
+    <!-- Radiating lines -->
+    <line x1="32" y1="8" x2="32" y2="12" stroke-width="1" opacity="0.5"/>
+    <line x1="32" y1="52" x2="32" y2="56" stroke-width="1" opacity="0.5"/>
+    <line x1="8" y1="32" x2="12" y2="32" stroke-width="1" opacity="0.5"/>
+    <line x1="52" y1="32" x2="56" y2="32" stroke-width="1" opacity="0.5"/>
+  </g>
+</svg>

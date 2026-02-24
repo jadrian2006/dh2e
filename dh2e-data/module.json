@@ -1,0 +1,112 @@
+{
+    "id": "dh2e-data",
+    "title": "DH2E - Core Rulebook Data",
+    "description": "Private compendium data for Dark Heresy 2nd Edition. Contains skills, talents, weapons, armour, gear, and character creation options from the core rulebook. FOR PERSONAL USE ONLY.",
+    "version": "0.1.0",
+    "compatibility": {
+        "minimum": "13.348",
+        "verified": "13.351",
+        "maximum": "13"
+    },
+    "authors": [
+        {
+            "name": "jadrian2006"
+        }
+    ],
+    "relationships": {
+        "systems": [
+            {
+                "id": "dh2e",
+                "type": "system",
+                "compatibility": {
+                    "minimum": "0.1.0"
+                }
+            }
+        ]
+    },
+    "packs": [
+        {
+            "name": "skills",
+            "label": "DH2E Skills",
+            "path": "packs/skills",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "talents",
+            "label": "DH2E Talents",
+            "path": "packs/talents",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "weapons",
+            "label": "DH2E Weapons",
+            "path": "packs/weapons",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "armour",
+            "label": "DH2E Armour",
+            "path": "packs/armour",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "gear",
+            "label": "DH2E Gear",
+            "path": "packs/gear",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "powers",
+            "label": "DH2E Psychic Powers",
+            "path": "packs/powers",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "homeworlds",
+            "label": "DH2E Homeworlds",
+            "path": "packs/homeworlds",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "backgrounds",
+            "label": "DH2E Backgrounds",
+            "path": "packs/backgrounds",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "roles",
+            "label": "DH2E Roles",
+            "path": "packs/roles",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "ammunition",
+            "label": "DH2E Ammunition",
+            "path": "packs/ammunition",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "npcs",
+            "label": "DH2E NPCs & Creatures",
+            "path": "packs/npcs",
+            "type": "Actor",
+            "system": "dh2e"
+        },
+        {
+            "name": "macros",
+            "label": "DH2E Macros",
+            "path": "packs/macros",
+            "type": "Macro"
+        }
+    ]
+}

@@ -1,0 +1,3912 @@
+[
+  {
+    "damageType": "impact",
+    "location": "head",
+    "severity": 1,
+    "title": "Jarring Blow",
+    "description": "A solid hit to the head leaves the target seeing stars. They suffer 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "head",
+    "severity": 2,
+    "title": "Dazed",
+    "description": "The target's vision blurs and their ears ring from the force of the blow. They are Stunned for 1 round.",
+    "effects": [
+      "stunned-1"
+    ],
+    "lethal": false,
+    "duration": "1 round",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "head",
+    "severity": 3,
+    "title": "Broken Nose",
+    "description": "With an ugly crunch, the target's nose breaks. They suffer 2 levels of Fatigue and a -10 penalty to Fellowship-based Tests for 1d5 days until the swelling subsides.",
+    "effects": [
+      "fatigue-2"
+    ],
+    "lethal": false,
+    "duration": "1d5 days",
+    "penalties": [
+      {
+        "characteristic": "fellowship",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "head",
+    "severity": 4,
+    "title": "Concussion",
+    "description": "The target suffers a severe concussion. They are Stunned for 1d5 rounds and suffer a -10 penalty to Intelligence and Perception Tests for 1d10 days.",
+    "effects": [
+      "stunned-1d5"
+    ],
+    "lethal": false,
+    "duration": "1d10 days",
+    "penalties": [
+      {
+        "characteristic": "intelligence",
+        "modifier": -10
+      },
+      {
+        "characteristic": "perception",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "head",
+    "severity": 5,
+    "title": "Fractured Skull",
+    "description": "The target's skull fractures with an audible crack. They are Stunned for 1d10 rounds and fall Prone. They suffer 1d5 levels of Fatigue. Until receiving medical attention, they suffer a -20 penalty to Intelligence Tests.",
+    "effects": [
+      "stunned-1d10",
+      "prone",
+      "fatigue-1d5"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "intelligence",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "head",
+    "severity": 6,
+    "title": "Shattered Jaw",
+    "description": "The target's jaw is broken in multiple places. They are Stunned for 1d10 rounds and cannot speak or use their mouth until receiving medical attention. They suffer 2d5 levels of Fatigue.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-2d5",
+      "silenced"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "fellowship",
+        "modifier": -30
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "head",
+    "severity": 7,
+    "title": "Crushed Eye Socket",
+    "description": "The orbital bone collapses, destroying one eye. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, and permanently loses one eye. They suffer a -20 penalty to Ballistic Skill and Perception Tests based on sight.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "lost-eye"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "ballisticSkill",
+        "modifier": -20
+      },
+      {
+        "characteristic": "perception",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "head",
+    "severity": 8,
+    "title": "Devastating Cranial Trauma",
+    "description": "The target's skull is caved in by the tremendous blow. They fall Unconscious and must pass a Hard (-20) Toughness Test or die. Even if they survive, they permanently reduce Intelligence by 1d10.",
+    "effects": [
+      "unconscious",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "intelligence",
+        "modifier": -10,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "head",
+    "severity": 9,
+    "title": "Pulverised Skull",
+    "description": "The target's skull shatters under the catastrophic impact. They fall Unconscious, suffer 2d10 levels of Fatigue, and must pass a Very Hard (-30) Toughness Test or die. Survivors suffer permanent brain damage, reducing Intelligence and Perception by 1d10 each.",
+    "effects": [
+      "unconscious",
+      "fatigue-2d10",
+      "toughness-test-very-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "intelligence",
+        "modifier": -10,
+        "permanent": true
+      },
+      {
+        "characteristic": "perception",
+        "modifier": -10,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "head",
+    "severity": 10,
+    "title": "Head Destroyed",
+    "description": "The target's head is utterly crushed by the blow, killing them instantly in a shower of bone fragments and brain matter. They are irrevocably dead.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightArm",
+    "severity": 1,
+    "title": "Numbing Blow",
+    "description": "The impact sends painful vibrations through the arm. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightArm",
+    "severity": 2,
+    "title": "Bruised Arm",
+    "description": "A deep bruise forms on the target's arm, making movement painful. They suffer a -10 penalty to Tests using this arm for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "location": "rightArm",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "rightArm",
+    "severity": 3,
+    "title": "Sprained Wrist",
+    "description": "The target's wrist twists painfully. They drop anything held in this hand and suffer a -20 penalty to Tests using this arm for 1d10 rounds.",
+    "effects": [
+      "drop-held"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": [
+      {
+        "location": "rightArm",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "rightArm",
+    "severity": 4,
+    "title": "Fractured Forearm",
+    "description": "A bone in the forearm fractures. The target drops anything held in this hand, suffers 2 levels of Fatigue, and the arm is Useless until treated.",
+    "effects": [
+      "drop-held",
+      "fatigue-2",
+      "useless-rightArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightArm",
+    "severity": 5,
+    "title": "Broken Arm",
+    "description": "The arm breaks with an audible snap. The target is Stunned for 1 round, drops anything held, suffers 1d5 levels of Fatigue, and the arm is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "drop-held",
+      "fatigue-1d5",
+      "useless-rightArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightArm",
+    "severity": 6,
+    "title": "Compound Fracture",
+    "description": "Shattered bone tears through flesh. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, and the arm is Useless until treated. They suffer Blood Loss.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "useless-rightArm",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightArm",
+    "severity": 7,
+    "title": "Crushed Elbow",
+    "description": "The elbow joint is completely destroyed. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue. The arm is permanently Useless without augmetic replacement.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "useless-rightArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightArm",
+    "severity": 8,
+    "title": "Mangled Arm",
+    "description": "The arm is pulverised from shoulder to wrist. The target suffers 2d10 levels of Fatigue, Blood Loss, and the arm is permanently Useless. They must pass a Challenging (+0) Toughness Test or fall Unconscious.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "useless-rightArm",
+      "toughness-test-or-unconscious"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightArm",
+    "severity": 9,
+    "title": "Arm Torn Off",
+    "description": "The arm is ripped clean off by the tremendous force. The target suffers 2d10 levels of Fatigue, is Stunned for 1d10 rounds, and suffers Blood Loss. Without immediate medical attention they will die.",
+    "effects": [
+      "fatigue-2d10",
+      "stunned-1d10",
+      "blood-loss",
+      "lost-rightArm"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightArm",
+    "severity": 10,
+    "title": "Arm Obliterated",
+    "description": "The arm is completely destroyed, the shoulder a ruin of shattered bone and pulped flesh. The target must pass a Very Hard (-30) Toughness Test or die from shock. Survivors lose the arm permanently and suffer Blood Loss.",
+    "effects": [
+      "toughness-test-very-hard-or-die",
+      "blood-loss",
+      "lost-rightArm"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftArm",
+    "severity": 1,
+    "title": "Numbing Blow",
+    "description": "The impact sends painful vibrations through the arm. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftArm",
+    "severity": 2,
+    "title": "Bruised Arm",
+    "description": "A deep bruise forms on the target's arm, making movement painful. They suffer a -10 penalty to Tests using this arm for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "location": "leftArm",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "leftArm",
+    "severity": 3,
+    "title": "Sprained Wrist",
+    "description": "The target's wrist twists painfully. They drop anything held in this hand and suffer a -20 penalty to Tests using this arm for 1d10 rounds.",
+    "effects": [
+      "drop-held"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": [
+      {
+        "location": "leftArm",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "leftArm",
+    "severity": 4,
+    "title": "Fractured Forearm",
+    "description": "A bone in the forearm fractures. The target drops anything held in this hand, suffers 2 levels of Fatigue, and the arm is Useless until treated.",
+    "effects": [
+      "drop-held",
+      "fatigue-2",
+      "useless-leftArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftArm",
+    "severity": 5,
+    "title": "Broken Arm",
+    "description": "The arm breaks with an audible snap. The target is Stunned for 1 round, drops anything held, suffers 1d5 levels of Fatigue, and the arm is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "drop-held",
+      "fatigue-1d5",
+      "useless-leftArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftArm",
+    "severity": 6,
+    "title": "Compound Fracture",
+    "description": "Shattered bone tears through flesh. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, and the arm is Useless until treated. They suffer Blood Loss.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "useless-leftArm",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftArm",
+    "severity": 7,
+    "title": "Crushed Elbow",
+    "description": "The elbow joint is completely destroyed. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue. The arm is permanently Useless without augmetic replacement.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "useless-leftArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftArm",
+    "severity": 8,
+    "title": "Mangled Arm",
+    "description": "The arm is pulverised from shoulder to wrist. The target suffers 2d10 levels of Fatigue, Blood Loss, and the arm is permanently Useless. They must pass a Challenging (+0) Toughness Test or fall Unconscious.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "useless-leftArm",
+      "toughness-test-or-unconscious"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftArm",
+    "severity": 9,
+    "title": "Arm Torn Off",
+    "description": "The arm is ripped clean off by the tremendous force. The target suffers 2d10 levels of Fatigue, is Stunned for 1d10 rounds, and suffers Blood Loss. Without immediate medical attention they will die.",
+    "effects": [
+      "fatigue-2d10",
+      "stunned-1d10",
+      "blood-loss",
+      "lost-leftArm"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftArm",
+    "severity": 10,
+    "title": "Arm Obliterated",
+    "description": "The arm is completely destroyed, the shoulder a ruin of shattered bone and pulped flesh. The target must pass a Very Hard (-30) Toughness Test or die from shock. Survivors lose the arm permanently and suffer Blood Loss.",
+    "effects": [
+      "toughness-test-very-hard-or-die",
+      "blood-loss",
+      "lost-leftArm"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "body",
+    "severity": 1,
+    "title": "Winded",
+    "description": "A solid blow to the torso drives the air from the target's lungs. They suffer 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "body",
+    "severity": 2,
+    "title": "Bruised Ribs",
+    "description": "The target's ribs ache from the blow. They suffer a -10 penalty to Agility Tests for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "body",
+    "severity": 3,
+    "title": "Knocked Down",
+    "description": "The impact sends the target sprawling. They are knocked Prone and suffer 2 levels of Fatigue.",
+    "effects": [
+      "prone",
+      "fatigue-2"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "body",
+    "severity": 4,
+    "title": "Cracked Ribs",
+    "description": "Several ribs crack under the blow. The target suffers 1d5 levels of Fatigue and a -10 penalty to Agility and Strength Tests until treated.",
+    "effects": [
+      "fatigue-1d5"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -10
+      },
+      {
+        "characteristic": "strength",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "body",
+    "severity": 5,
+    "title": "Broken Ribs",
+    "description": "Multiple ribs snap. The target is Stunned for 1 round, suffers 1d10 levels of Fatigue, and risks a punctured lung. They suffer a -20 penalty to Agility Tests until treated.",
+    "effects": [
+      "stunned-1",
+      "fatigue-1d10"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "body",
+    "severity": 6,
+    "title": "Internal Bleeding",
+    "description": "The blow ruptures internal blood vessels. The target suffers 2d5 levels of Fatigue, Blood Loss, and a -20 penalty to Toughness Tests until they receive medical attention.",
+    "effects": [
+      "fatigue-2d5",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "toughness",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "body",
+    "severity": 7,
+    "title": "Shattered Ribcage",
+    "description": "The target's ribcage buckles inward. They are Stunned for 1d10 rounds, suffer 1d10 levels of Fatigue, Blood Loss, and a -30 penalty to Agility and Strength Tests until surgically repaired.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -30
+      },
+      {
+        "characteristic": "strength",
+        "modifier": -30
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "body",
+    "severity": 8,
+    "title": "Crushed Organs",
+    "description": "Internal organs are ruptured by the devastating blow. The target falls Unconscious, suffers Blood Loss, and must pass a Hard (-20) Toughness Test or die from internal haemorrhaging.",
+    "effects": [
+      "unconscious",
+      "blood-loss",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "body",
+    "severity": 9,
+    "title": "Spine Shattered",
+    "description": "The target's spine is broken by the catastrophic impact. They are Paralysed from the waist down, fall Unconscious, and suffer Blood Loss. They must pass a Very Hard (-30) Toughness Test or die.",
+    "effects": [
+      "unconscious",
+      "blood-loss",
+      "paralysed-legs",
+      "toughness-test-very-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "body",
+    "severity": 10,
+    "title": "Torso Caved In",
+    "description": "The target's entire torso is crushed, shattering ribs, pulping organs, and snapping the spine. They die instantly.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightLeg",
+    "severity": 1,
+    "title": "Stinging Blow",
+    "description": "A painful hit to the leg that leaves a deep bruise. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightLeg",
+    "severity": 2,
+    "title": "Dead Leg",
+    "description": "The impact numbs the leg. The target's Movement is reduced by half for 1d5 rounds.",
+    "effects": [
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightLeg",
+    "severity": 3,
+    "title": "Twisted Ankle",
+    "description": "The target's ankle twists badly. They fall Prone, suffer 2 levels of Fatigue, and their Movement is reduced by half for 1d10 rounds.",
+    "effects": [
+      "prone",
+      "fatigue-2",
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightLeg",
+    "severity": 4,
+    "title": "Fractured Shin",
+    "description": "The shinbone fractures. The target falls Prone, suffers 1d5 levels of Fatigue, and the leg is Useless until treated. They must hop or crawl to move.",
+    "effects": [
+      "prone",
+      "fatigue-1d5",
+      "useless-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightLeg",
+    "severity": 5,
+    "title": "Broken Leg",
+    "description": "The leg breaks cleanly. The target is Stunned for 1 round, falls Prone, suffers 1d10 levels of Fatigue, and the leg is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "prone",
+      "fatigue-1d10",
+      "useless-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightLeg",
+    "severity": 6,
+    "title": "Shattered Kneecap",
+    "description": "The kneecap shatters into fragments. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, falls Prone, and the leg is Useless until surgically repaired.",
+    "effects": [
+      "stunned-1d5",
+      "prone",
+      "fatigue-2d5",
+      "useless-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightLeg",
+    "severity": 7,
+    "title": "Crushed Foot",
+    "description": "The foot is mangled beyond repair. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, and permanently loses the foot. Movement is permanently halved without augmetic replacement.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "lost-rightFoot"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "movement": "half",
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "rightLeg",
+    "severity": 8,
+    "title": "Mangled Leg",
+    "description": "The leg is a ruin of shattered bone and torn muscle. The target suffers 2d10 levels of Fatigue, Blood Loss, falls Unconscious, and the leg is permanently destroyed.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "unconscious",
+      "lost-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightLeg",
+    "severity": 9,
+    "title": "Leg Torn Off",
+    "description": "The leg is ripped away at the hip by the tremendous force. The target suffers 2d10 levels of Fatigue, is Stunned for 1d10 rounds, and suffers Blood Loss. They must pass a Hard (-20) Toughness Test or die from shock.",
+    "effects": [
+      "fatigue-2d10",
+      "stunned-1d10",
+      "blood-loss",
+      "lost-rightLeg",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "rightLeg",
+    "severity": 10,
+    "title": "Leg and Hip Destroyed",
+    "description": "The leg and hip are completely obliterated. Bone fragments pierce the lower abdomen. The target dies from massive trauma.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftLeg",
+    "severity": 1,
+    "title": "Stinging Blow",
+    "description": "A painful hit to the leg that leaves a deep bruise. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftLeg",
+    "severity": 2,
+    "title": "Dead Leg",
+    "description": "The impact numbs the leg. The target's Movement is reduced by half for 1d5 rounds.",
+    "effects": [
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftLeg",
+    "severity": 3,
+    "title": "Twisted Ankle",
+    "description": "The target's ankle twists badly. They fall Prone, suffer 2 levels of Fatigue, and their Movement is reduced by half for 1d10 rounds.",
+    "effects": [
+      "prone",
+      "fatigue-2",
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftLeg",
+    "severity": 4,
+    "title": "Fractured Shin",
+    "description": "The shinbone fractures. The target falls Prone, suffers 1d5 levels of Fatigue, and the leg is Useless until treated. They must hop or crawl to move.",
+    "effects": [
+      "prone",
+      "fatigue-1d5",
+      "useless-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftLeg",
+    "severity": 5,
+    "title": "Broken Leg",
+    "description": "The leg breaks cleanly. The target is Stunned for 1 round, falls Prone, suffers 1d10 levels of Fatigue, and the leg is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "prone",
+      "fatigue-1d10",
+      "useless-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftLeg",
+    "severity": 6,
+    "title": "Shattered Kneecap",
+    "description": "The kneecap shatters into fragments. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, falls Prone, and the leg is Useless until surgically repaired.",
+    "effects": [
+      "stunned-1d5",
+      "prone",
+      "fatigue-2d5",
+      "useless-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftLeg",
+    "severity": 7,
+    "title": "Crushed Foot",
+    "description": "The foot is mangled beyond repair. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, and permanently loses the foot. Movement is permanently halved without augmetic replacement.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "lost-leftFoot"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "movement": "half",
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "impact",
+    "location": "leftLeg",
+    "severity": 8,
+    "title": "Mangled Leg",
+    "description": "The leg is a ruin of shattered bone and torn muscle. The target suffers 2d10 levels of Fatigue, Blood Loss, falls Unconscious, and the leg is permanently destroyed.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "unconscious",
+      "lost-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftLeg",
+    "severity": 9,
+    "title": "Leg Torn Off",
+    "description": "The leg is ripped away at the hip by the tremendous force. The target suffers 2d10 levels of Fatigue, is Stunned for 1d10 rounds, and suffers Blood Loss. They must pass a Hard (-20) Toughness Test or die from shock.",
+    "effects": [
+      "fatigue-2d10",
+      "stunned-1d10",
+      "blood-loss",
+      "lost-leftLeg",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "impact",
+    "location": "leftLeg",
+    "severity": 10,
+    "title": "Leg and Hip Destroyed",
+    "description": "The leg and hip are completely obliterated. Bone fragments pierce the lower abdomen. The target dies from massive trauma.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "head",
+    "severity": 1,
+    "title": "Scorched Hair",
+    "description": "The blast singes the target's hair and eyebrows. They suffer 1 level of Fatigue from the pain.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "head",
+    "severity": 2,
+    "title": "Flash Blinded",
+    "description": "The searing energy flash temporarily blinds the target. They are Blinded for 1 round.",
+    "effects": [
+      "blinded-1"
+    ],
+    "lethal": false,
+    "duration": "1 round",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "head",
+    "severity": 3,
+    "title": "Blistered Face",
+    "description": "Painful burns cover the target's face. They suffer 2 levels of Fatigue and a -10 penalty to Fellowship Tests for 1d10 days as the burns heal.",
+    "effects": [
+      "fatigue-2"
+    ],
+    "lethal": false,
+    "duration": "1d10 days",
+    "penalties": [
+      {
+        "characteristic": "fellowship",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "head",
+    "severity": 4,
+    "title": "Scorched Eyes",
+    "description": "The energy sears the target's eyes. They are Blinded for 1d5 rounds and suffer a -20 penalty to Perception Tests based on sight for 1d10 days.",
+    "effects": [
+      "blinded-1d5"
+    ],
+    "lethal": false,
+    "duration": "1d10 days",
+    "penalties": [
+      {
+        "characteristic": "perception",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "head",
+    "severity": 5,
+    "title": "Melted Flesh",
+    "description": "Skin and muscle melt from the target's skull. They are Stunned for 1d10 rounds, suffer 1d5 levels of Fatigue, and a permanent -20 penalty to Fellowship Tests due to horrific scarring.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d5"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "fellowship",
+        "modifier": -20,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "head",
+    "severity": 6,
+    "title": "Burned Away Eyes",
+    "description": "Both eyes are destroyed by the searing energy. The target is permanently Blinded, Stunned for 1d10 rounds, and suffers 1d10 levels of Fatigue.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blinded-permanent"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "head",
+    "severity": 7,
+    "title": "Charred Skull",
+    "description": "The flesh is burned away to reveal blackened bone. The target falls Unconscious, suffers 1d10 levels of Fatigue, and must pass a Challenging (+0) Toughness Test or die. Survivors are horribly disfigured.",
+    "effects": [
+      "unconscious",
+      "fatigue-1d10",
+      "toughness-test-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "fellowship",
+        "modifier": -30,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "head",
+    "severity": 8,
+    "title": "Brain Boiled",
+    "description": "The intense energy superheats the target's cranial fluids. They fall Unconscious and must pass a Hard (-20) Toughness Test or die as their brain cooks inside their skull. Survivors suffer permanent Intelligence and Perception reduction of 1d10.",
+    "effects": [
+      "unconscious",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "intelligence",
+        "modifier": -10,
+        "permanent": true
+      },
+      {
+        "characteristic": "perception",
+        "modifier": -10,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "head",
+    "severity": 9,
+    "title": "Head Immolated",
+    "description": "The target's entire head is engulfed in flame or energy, cooking flesh from bone. They must pass a Very Hard (-30) Toughness Test or die instantly. Even survivors are left blind, deaf, and hideously scarred.",
+    "effects": [
+      "toughness-test-very-hard-or-die",
+      "blinded-permanent",
+      "deafened-permanent"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "head",
+    "severity": 10,
+    "title": "Head Vaporised",
+    "description": "The target's head is consumed entirely by the searing blast. Nothing remains but a charred stump. They die instantly.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightArm",
+    "severity": 1,
+    "title": "Singed Hand",
+    "description": "The energy scorches the target's hand. They suffer 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightArm",
+    "severity": 2,
+    "title": "Blistered Arm",
+    "description": "Painful blisters form across the arm. The target suffers a -10 penalty to Tests using this arm for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "location": "rightArm",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "rightArm",
+    "severity": 3,
+    "title": "Burned Hand",
+    "description": "The target's hand is badly burned. They drop anything held in this hand and suffer a -20 penalty to Tests using this arm for 1d10 rounds.",
+    "effects": [
+      "drop-held"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": [
+      {
+        "location": "rightArm",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "rightArm",
+    "severity": 4,
+    "title": "Seared Muscles",
+    "description": "The energy burns through skin into the underlying muscle. The target drops anything held, suffers 2 levels of Fatigue, and the arm is Useless until treated.",
+    "effects": [
+      "drop-held",
+      "fatigue-2",
+      "useless-rightArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightArm",
+    "severity": 5,
+    "title": "Charred Forearm",
+    "description": "The forearm is blackened and the flesh crackles. The target is Stunned for 1 round, suffers 1d5 levels of Fatigue, and the arm is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "fatigue-1d5",
+      "useless-rightArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightArm",
+    "severity": 6,
+    "title": "Fused Fingers",
+    "description": "The fingers melt together in the intense heat. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, and permanently loses the use of the hand without augmetic replacement.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "useless-rightArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightArm",
+    "severity": 7,
+    "title": "Arm Ablaze",
+    "description": "The arm catches fire and burns fiercely. The target suffers 1d10 levels of Fatigue, is on fire (1d10 Energy damage per round until extinguished), and the arm is Useless. Blood Loss from weeping burns.",
+    "effects": [
+      "fatigue-1d10",
+      "on-fire",
+      "useless-rightArm",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightArm",
+    "severity": 8,
+    "title": "Burned to the Bone",
+    "description": "The arm is burned down to the bone, all flesh seared away. The target falls Unconscious, suffers 2d10 levels of Fatigue, and the arm is permanently destroyed. Blood Loss.",
+    "effects": [
+      "unconscious",
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-rightArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightArm",
+    "severity": 9,
+    "title": "Arm Incinerated",
+    "description": "The arm is consumed by fire from fingertip to shoulder. The target suffers 2d10 levels of Fatigue, Blood Loss, and must pass a Hard (-20) Toughness Test or die from shock. The arm is gone.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-rightArm",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightArm",
+    "severity": 10,
+    "title": "Arm Vaporised",
+    "description": "The arm simply ceases to exist, consumed by the searing energy. The cauterised stump smokes. The target must pass a Very Hard (-30) Toughness Test or die instantly from neural shock.",
+    "effects": [
+      "toughness-test-very-hard-or-die",
+      "lost-rightArm"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftArm",
+    "severity": 1,
+    "title": "Singed Hand",
+    "description": "The energy scorches the target's hand. They suffer 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftArm",
+    "severity": 2,
+    "title": "Blistered Arm",
+    "description": "Painful blisters form across the arm. The target suffers a -10 penalty to Tests using this arm for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "location": "leftArm",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "leftArm",
+    "severity": 3,
+    "title": "Burned Hand",
+    "description": "The target's hand is badly burned. They drop anything held in this hand and suffer a -20 penalty to Tests using this arm for 1d10 rounds.",
+    "effects": [
+      "drop-held"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": [
+      {
+        "location": "leftArm",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "leftArm",
+    "severity": 4,
+    "title": "Seared Muscles",
+    "description": "The energy burns through skin into the underlying muscle. The target drops anything held, suffers 2 levels of Fatigue, and the arm is Useless until treated.",
+    "effects": [
+      "drop-held",
+      "fatigue-2",
+      "useless-leftArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftArm",
+    "severity": 5,
+    "title": "Charred Forearm",
+    "description": "The forearm is blackened and the flesh crackles. The target is Stunned for 1 round, suffers 1d5 levels of Fatigue, and the arm is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "fatigue-1d5",
+      "useless-leftArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftArm",
+    "severity": 6,
+    "title": "Fused Fingers",
+    "description": "The fingers melt together in the intense heat. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, and permanently loses the use of the hand without augmetic replacement.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "useless-leftArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftArm",
+    "severity": 7,
+    "title": "Arm Ablaze",
+    "description": "The arm catches fire and burns fiercely. The target suffers 1d10 levels of Fatigue, is on fire (1d10 Energy damage per round until extinguished), and the arm is Useless. Blood Loss from weeping burns.",
+    "effects": [
+      "fatigue-1d10",
+      "on-fire",
+      "useless-leftArm",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftArm",
+    "severity": 8,
+    "title": "Burned to the Bone",
+    "description": "The arm is burned down to the bone, all flesh seared away. The target falls Unconscious, suffers 2d10 levels of Fatigue, and the arm is permanently destroyed. Blood Loss.",
+    "effects": [
+      "unconscious",
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-leftArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftArm",
+    "severity": 9,
+    "title": "Arm Incinerated",
+    "description": "The arm is consumed by fire from fingertip to shoulder. The target suffers 2d10 levels of Fatigue, Blood Loss, and must pass a Hard (-20) Toughness Test or die from shock. The arm is gone.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-leftArm",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftArm",
+    "severity": 10,
+    "title": "Arm Vaporised",
+    "description": "The arm simply ceases to exist, consumed by the searing energy. The cauterised stump smokes. The target must pass a Very Hard (-30) Toughness Test or die instantly from neural shock.",
+    "effects": [
+      "toughness-test-very-hard-or-die",
+      "lost-leftArm"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "body",
+    "severity": 1,
+    "title": "Scorched Torso",
+    "description": "A flash of heat scorches clothing and reddens skin. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "body",
+    "severity": 2,
+    "title": "Blistered Chest",
+    "description": "Painful blisters erupt across the torso. The target suffers a -10 penalty to Agility Tests for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "body",
+    "severity": 3,
+    "title": "Flash Burns",
+    "description": "The torso is covered in first-degree burns. The target suffers 2 levels of Fatigue and falls Prone from the pain.",
+    "effects": [
+      "fatigue-2",
+      "prone"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "body",
+    "severity": 4,
+    "title": "Seared Flesh",
+    "description": "Deep burns penetrate through clothing and armour. The target suffers 1d5 levels of Fatigue and a -10 penalty to Agility and Toughness Tests until treated.",
+    "effects": [
+      "fatigue-1d5"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -10
+      },
+      {
+        "characteristic": "toughness",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "body",
+    "severity": 5,
+    "title": "Charred Torso",
+    "description": "The skin across the torso blackens and cracks. The target is Stunned for 1 round, suffers 1d10 levels of Fatigue, and a -20 penalty to Agility Tests until treated.",
+    "effects": [
+      "stunned-1",
+      "fatigue-1d10"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "body",
+    "severity": 6,
+    "title": "Melted Armour",
+    "description": "The energy melts armour into the target's flesh. The target suffers 2d5 levels of Fatigue, the armour on this location is destroyed, and they suffer Blood Loss from weeping wounds.",
+    "effects": [
+      "fatigue-2d5",
+      "blood-loss",
+      "armour-destroyed-body"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "body",
+    "severity": 7,
+    "title": "Organs Cooked",
+    "description": "Internal organs begin to cook from the intense heat. The target falls Unconscious, suffers 1d10 levels of Fatigue, Blood Loss, and a -30 penalty to Toughness Tests. Must pass a Challenging (+0) Toughness Test or die.",
+    "effects": [
+      "unconscious",
+      "fatigue-1d10",
+      "blood-loss",
+      "toughness-test-or-die"
+    ],
+    "lethal": true,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "toughness",
+        "modifier": -30
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "body",
+    "severity": 8,
+    "title": "Body Ablaze",
+    "description": "The target's entire torso catches fire. They suffer 2d10 levels of Fatigue, are on fire (1d10 Energy damage per round), and must pass a Hard (-20) Toughness Test or die.",
+    "effects": [
+      "fatigue-2d10",
+      "on-fire",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "body",
+    "severity": 9,
+    "title": "Immolated",
+    "description": "The target becomes a living torch. Their flesh melts and organs rupture from the heat. They must pass a Very Hard (-30) Toughness Test or die. Even survivors suffer permanent -20 to Toughness and Agility.",
+    "effects": [
+      "on-fire",
+      "toughness-test-very-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "toughness",
+        "modifier": -20,
+        "permanent": true
+      },
+      {
+        "characteristic": "agility",
+        "modifier": -20,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "energy",
+    "location": "body",
+    "severity": 10,
+    "title": "Reduced to Ash",
+    "description": "The target's torso is consumed by the searing energy, flash-burning organs and boiling blood. Nothing remains but charred bones and ash. They die instantly.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightLeg",
+    "severity": 1,
+    "title": "Scorched Shin",
+    "description": "The energy flash reddens the skin and singes leg hair. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightLeg",
+    "severity": 2,
+    "title": "Blistered Leg",
+    "description": "Painful burns form across the leg. The target's Movement is reduced by half for 1d5 rounds.",
+    "effects": [
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightLeg",
+    "severity": 3,
+    "title": "Burned Foot",
+    "description": "The foot is badly burned, making each step agony. The target falls Prone, suffers 2 levels of Fatigue, and their Movement is halved for 1d10 rounds.",
+    "effects": [
+      "prone",
+      "fatigue-2",
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightLeg",
+    "severity": 4,
+    "title": "Seared Muscles",
+    "description": "The energy burns deep into the leg muscles. The target falls Prone, suffers 1d5 levels of Fatigue, and the leg is Useless until treated.",
+    "effects": [
+      "prone",
+      "fatigue-1d5",
+      "useless-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightLeg",
+    "severity": 5,
+    "title": "Charred Leg",
+    "description": "The leg is blackened by severe burns. The target is Stunned for 1 round, falls Prone, suffers 1d10 levels of Fatigue, and the leg is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "prone",
+      "fatigue-1d10",
+      "useless-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightLeg",
+    "severity": 6,
+    "title": "Melted Boot",
+    "description": "Footwear and armour melt into the burning flesh. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, and the leg is Useless until treated. Armour on this location is destroyed.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "useless-rightLeg",
+      "armour-destroyed-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightLeg",
+    "severity": 7,
+    "title": "Leg Ablaze",
+    "description": "The entire leg catches fire. The target suffers 1d10 levels of Fatigue, is on fire (1d10 Energy damage per round), Blood Loss, and the leg is Useless.",
+    "effects": [
+      "fatigue-1d10",
+      "on-fire",
+      "blood-loss",
+      "useless-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightLeg",
+    "severity": 8,
+    "title": "Burned to the Bone",
+    "description": "All flesh is seared from the leg, leaving blackened bone. The target falls Unconscious, suffers 2d10 levels of Fatigue, Blood Loss, and the leg is permanently destroyed.",
+    "effects": [
+      "unconscious",
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightLeg",
+    "severity": 9,
+    "title": "Leg Incinerated",
+    "description": "The leg is consumed by fire from hip to toes. The target suffers 2d10 levels of Fatigue, Blood Loss, and must pass a Hard (-20) Toughness Test or die. The leg is gone.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-rightLeg",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "rightLeg",
+    "severity": 10,
+    "title": "Leg Vaporised",
+    "description": "The leg is consumed by blinding energy, leaving a cauterised stump at the hip. The shock kills the target instantly.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftLeg",
+    "severity": 1,
+    "title": "Scorched Shin",
+    "description": "The energy flash reddens the skin and singes leg hair. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftLeg",
+    "severity": 2,
+    "title": "Blistered Leg",
+    "description": "Painful burns form across the leg. The target's Movement is reduced by half for 1d5 rounds.",
+    "effects": [
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftLeg",
+    "severity": 3,
+    "title": "Burned Foot",
+    "description": "The foot is badly burned, making each step agony. The target falls Prone, suffers 2 levels of Fatigue, and their Movement is halved for 1d10 rounds.",
+    "effects": [
+      "prone",
+      "fatigue-2",
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftLeg",
+    "severity": 4,
+    "title": "Seared Muscles",
+    "description": "The energy burns deep into the leg muscles. The target falls Prone, suffers 1d5 levels of Fatigue, and the leg is Useless until treated.",
+    "effects": [
+      "prone",
+      "fatigue-1d5",
+      "useless-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftLeg",
+    "severity": 5,
+    "title": "Charred Leg",
+    "description": "The leg is blackened by severe burns. The target is Stunned for 1 round, falls Prone, suffers 1d10 levels of Fatigue, and the leg is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "prone",
+      "fatigue-1d10",
+      "useless-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftLeg",
+    "severity": 6,
+    "title": "Melted Boot",
+    "description": "Footwear and armour melt into the burning flesh. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, and the leg is Useless until treated. Armour on this location is destroyed.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "useless-leftLeg",
+      "armour-destroyed-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftLeg",
+    "severity": 7,
+    "title": "Leg Ablaze",
+    "description": "The entire leg catches fire. The target suffers 1d10 levels of Fatigue, is on fire (1d10 Energy damage per round), Blood Loss, and the leg is Useless.",
+    "effects": [
+      "fatigue-1d10",
+      "on-fire",
+      "blood-loss",
+      "useless-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftLeg",
+    "severity": 8,
+    "title": "Burned to the Bone",
+    "description": "All flesh is seared from the leg, leaving blackened bone. The target falls Unconscious, suffers 2d10 levels of Fatigue, Blood Loss, and the leg is permanently destroyed.",
+    "effects": [
+      "unconscious",
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftLeg",
+    "severity": 9,
+    "title": "Leg Incinerated",
+    "description": "The leg is consumed by fire from hip to toes. The target suffers 2d10 levels of Fatigue, Blood Loss, and must pass a Hard (-20) Toughness Test or die. The leg is gone.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-leftLeg",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "energy",
+    "location": "leftLeg",
+    "severity": 10,
+    "title": "Leg Vaporised",
+    "description": "The leg is consumed by blinding energy, leaving a cauterised stump at the hip. The shock kills the target instantly.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "head",
+    "severity": 1,
+    "title": "Grazing Cut",
+    "description": "A shallow cut across the scalp bleeds profusely but is largely superficial. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "head",
+    "severity": 2,
+    "title": "Slashed Forehead",
+    "description": "A deep cut across the forehead sends blood streaming into the target's eyes. They suffer a -10 penalty to Ballistic Skill and Perception Tests for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "characteristic": "ballisticSkill",
+        "modifier": -10
+      },
+      {
+        "characteristic": "perception",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "head",
+    "severity": 3,
+    "title": "Torn Ear",
+    "description": "Part of the target's ear is sliced away. They suffer 2 levels of Fatigue and a -10 penalty to Perception Tests based on hearing for 1d10 days.",
+    "effects": [
+      "fatigue-2"
+    ],
+    "lethal": false,
+    "duration": "1d10 days",
+    "penalties": [
+      {
+        "characteristic": "perception",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "head",
+    "severity": 4,
+    "title": "Severed Ear",
+    "description": "The target's ear is cut clean off. They are Stunned for 1 round, suffer 1d5 levels of Fatigue, and permanently suffer a -10 penalty to Perception Tests based on hearing.",
+    "effects": [
+      "stunned-1",
+      "fatigue-1d5",
+      "lost-ear"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "perception",
+        "modifier": -10,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "head",
+    "severity": 5,
+    "title": "Slashed Eye",
+    "description": "A vicious cut destroys one of the target's eyes. They are Stunned for 1d5 rounds, suffer 1d10 levels of Fatigue, and permanently lose one eye with a -20 penalty to Ballistic Skill and Perception Tests.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-1d10",
+      "lost-eye"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "ballisticSkill",
+        "modifier": -20,
+        "permanent": true
+      },
+      {
+        "characteristic": "perception",
+        "modifier": -20,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "head",
+    "severity": 6,
+    "title": "Throat Slashed",
+    "description": "A deep laceration across the throat severs blood vessels. The target suffers 1d10 levels of Fatigue, Blood Loss, and cannot speak until treated. They are Stunned for 1d10 rounds.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss",
+      "silenced"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "head",
+    "severity": 7,
+    "title": "Face Flayed",
+    "description": "The skin of the target's face is torn away in strips. They fall Unconscious, suffer 1d10 levels of Fatigue, Blood Loss, and a permanent -30 penalty to Fellowship Tests. Must pass a Challenging (+0) Toughness Test or die.",
+    "effects": [
+      "unconscious",
+      "fatigue-1d10",
+      "blood-loss",
+      "toughness-test-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "fellowship",
+        "modifier": -30,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "head",
+    "severity": 8,
+    "title": "Skull Split Open",
+    "description": "A terrible wound splits the skull open, exposing the brain. The target falls Unconscious and must pass a Hard (-20) Toughness Test or die. Survivors suffer permanent Intelligence reduction of 1d10.",
+    "effects": [
+      "unconscious",
+      "blood-loss",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "intelligence",
+        "modifier": -10,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "head",
+    "severity": 9,
+    "title": "Jugular Severed",
+    "description": "The blade severs the jugular vein and carotid artery. Blood fountains from the wound. The target falls Unconscious and must pass a Very Hard (-30) Toughness Test each round or die. Without immediate surgery, death is certain.",
+    "effects": [
+      "unconscious",
+      "blood-loss-critical",
+      "toughness-test-very-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "head",
+    "severity": 10,
+    "title": "Decapitated",
+    "description": "The target's head is severed from their body in a spray of arterial blood. They die instantly.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightArm",
+    "severity": 1,
+    "title": "Nick",
+    "description": "A shallow cut on the arm that stings but poses no real threat. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightArm",
+    "severity": 2,
+    "title": "Sliced Forearm",
+    "description": "A long cut across the forearm bleeds freely. The target suffers a -10 penalty to Tests using this arm for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "location": "rightArm",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "rightArm",
+    "severity": 3,
+    "title": "Deep Laceration",
+    "description": "A deep cut severs muscle fibres. The target drops anything held in this hand and suffers a -20 penalty to Tests using this arm for 1d10 rounds.",
+    "effects": [
+      "drop-held"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": [
+      {
+        "location": "rightArm",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "rightArm",
+    "severity": 4,
+    "title": "Severed Tendons",
+    "description": "The tendons in the forearm are cut. The target drops anything held, suffers 2 levels of Fatigue, and the hand is Useless until surgically repaired.",
+    "effects": [
+      "drop-held",
+      "fatigue-2",
+      "useless-rightArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightArm",
+    "severity": 5,
+    "title": "Slashed Artery",
+    "description": "An artery in the arm is severed. The target suffers 1d5 levels of Fatigue, Blood Loss, and the arm is Useless until treated.",
+    "effects": [
+      "fatigue-1d5",
+      "blood-loss",
+      "useless-rightArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightArm",
+    "severity": 6,
+    "title": "Severed Fingers",
+    "description": "One or more fingers are sliced off. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, Blood Loss, and permanently loses 1d5 fingers. The arm is Useless until treated.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "blood-loss",
+      "lost-fingers",
+      "useless-rightArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightArm",
+    "severity": 7,
+    "title": "Hand Severed",
+    "description": "The hand is cut cleanly off at the wrist. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, and Blood Loss. The hand is permanently lost.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss",
+      "lost-rightHand"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightArm",
+    "severity": 8,
+    "title": "Arm Hacked Off",
+    "description": "The arm is severed below the elbow. The target suffers 2d10 levels of Fatigue, Blood Loss, and must pass a Challenging (+0) Toughness Test or fall Unconscious. The forearm is permanently lost.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-rightArm",
+      "toughness-test-or-unconscious"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightArm",
+    "severity": 9,
+    "title": "Arm Severed at Shoulder",
+    "description": "The entire arm is severed at the shoulder joint. Blood sprays in great gouts. The target suffers 2d10 levels of Fatigue, Blood Loss, and must pass a Hard (-20) Toughness Test or die from shock.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-rightArm",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightArm",
+    "severity": 10,
+    "title": "Arm Destroyed",
+    "description": "The arm is split lengthwise by the vicious blow, rending flesh and bone apart. The target must pass a Very Hard (-30) Toughness Test or die instantly. Blood Loss is severe.",
+    "effects": [
+      "toughness-test-very-hard-or-die",
+      "blood-loss",
+      "lost-rightArm"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftArm",
+    "severity": 1,
+    "title": "Nick",
+    "description": "A shallow cut on the arm that stings but poses no real threat. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftArm",
+    "severity": 2,
+    "title": "Sliced Forearm",
+    "description": "A long cut across the forearm bleeds freely. The target suffers a -10 penalty to Tests using this arm for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "location": "leftArm",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "leftArm",
+    "severity": 3,
+    "title": "Deep Laceration",
+    "description": "A deep cut severs muscle fibres. The target drops anything held in this hand and suffers a -20 penalty to Tests using this arm for 1d10 rounds.",
+    "effects": [
+      "drop-held"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": [
+      {
+        "location": "leftArm",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "leftArm",
+    "severity": 4,
+    "title": "Severed Tendons",
+    "description": "The tendons in the forearm are cut. The target drops anything held, suffers 2 levels of Fatigue, and the hand is Useless until surgically repaired.",
+    "effects": [
+      "drop-held",
+      "fatigue-2",
+      "useless-leftArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftArm",
+    "severity": 5,
+    "title": "Slashed Artery",
+    "description": "An artery in the arm is severed. The target suffers 1d5 levels of Fatigue, Blood Loss, and the arm is Useless until treated.",
+    "effects": [
+      "fatigue-1d5",
+      "blood-loss",
+      "useless-leftArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftArm",
+    "severity": 6,
+    "title": "Severed Fingers",
+    "description": "One or more fingers are sliced off. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, Blood Loss, and permanently loses 1d5 fingers. The arm is Useless until treated.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "blood-loss",
+      "lost-fingers",
+      "useless-leftArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftArm",
+    "severity": 7,
+    "title": "Hand Severed",
+    "description": "The hand is cut cleanly off at the wrist. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, and Blood Loss. The hand is permanently lost.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss",
+      "lost-leftHand"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftArm",
+    "severity": 8,
+    "title": "Arm Hacked Off",
+    "description": "The arm is severed below the elbow. The target suffers 2d10 levels of Fatigue, Blood Loss, and must pass a Challenging (+0) Toughness Test or fall Unconscious. The forearm is permanently lost.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-leftArm",
+      "toughness-test-or-unconscious"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftArm",
+    "severity": 9,
+    "title": "Arm Severed at Shoulder",
+    "description": "The entire arm is severed at the shoulder joint. Blood sprays in great gouts. The target suffers 2d10 levels of Fatigue, Blood Loss, and must pass a Hard (-20) Toughness Test or die from shock.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-leftArm",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftArm",
+    "severity": 10,
+    "title": "Arm Destroyed",
+    "description": "The arm is split lengthwise by the vicious blow, rending flesh and bone apart. The target must pass a Very Hard (-30) Toughness Test or die instantly. Blood Loss is severe.",
+    "effects": [
+      "toughness-test-very-hard-or-die",
+      "blood-loss",
+      "lost-leftArm"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "body",
+    "severity": 1,
+    "title": "Shallow Cut",
+    "description": "A shallow slash across the torso that draws a thin line of blood. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "body",
+    "severity": 2,
+    "title": "Deep Gash",
+    "description": "A deep cut across the chest or abdomen bleeds freely. The target suffers a -10 penalty to Agility Tests for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "body",
+    "severity": 3,
+    "title": "Torn Flesh",
+    "description": "A ragged wound tears open the skin, exposing raw muscle beneath. The target suffers 2 levels of Fatigue and falls Prone from the pain.",
+    "effects": [
+      "fatigue-2",
+      "prone"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "body",
+    "severity": 4,
+    "title": "Flayed Skin",
+    "description": "A large patch of skin is torn away. The target suffers 1d5 levels of Fatigue, Blood Loss, and a -10 penalty to Agility and Toughness Tests until treated.",
+    "effects": [
+      "fatigue-1d5",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -10
+      },
+      {
+        "characteristic": "toughness",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "body",
+    "severity": 5,
+    "title": "Open Wound",
+    "description": "A terrible wound opens the torso, exposing muscle and bone. The target is Stunned for 1 round, suffers 1d10 levels of Fatigue, Blood Loss, and a -20 penalty to Agility Tests.",
+    "effects": [
+      "stunned-1",
+      "fatigue-1d10",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "body",
+    "severity": 6,
+    "title": "Gut Wound",
+    "description": "The blade penetrates the abdomen, spilling intestines. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, Blood Loss, and a -20 penalty to Toughness Tests. Infection is likely without immediate treatment.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "toughness",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "body",
+    "severity": 7,
+    "title": "Pierced Lung",
+    "description": "The weapon punctures a lung. The target falls Prone, suffers 1d10 levels of Fatigue, Blood Loss, and a -30 penalty to Toughness Tests. They gasp for breath and cannot run or charge.",
+    "effects": [
+      "prone",
+      "fatigue-1d10",
+      "blood-loss",
+      "cannot-run"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "toughness",
+        "modifier": -30
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "body",
+    "severity": 8,
+    "title": "Severed Artery",
+    "description": "A major artery in the torso is severed. The target falls Unconscious, suffers critical Blood Loss, and must pass a Hard (-20) Toughness Test or die from blood loss in 1d5 rounds.",
+    "effects": [
+      "unconscious",
+      "blood-loss-critical",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "body",
+    "severity": 9,
+    "title": "Disembowelled",
+    "description": "The target's abdomen is torn open and their entrails spill forth. They fall Unconscious, suffer critical Blood Loss, and must pass a Very Hard (-30) Toughness Test or die. Even with treatment, they suffer permanent -10 to Toughness.",
+    "effects": [
+      "unconscious",
+      "blood-loss-critical",
+      "toughness-test-very-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "toughness",
+        "modifier": -10,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "body",
+    "severity": 10,
+    "title": "Bisected",
+    "description": "The terrible blow cleaves the target nearly in two, splitting them from shoulder to hip. They die instantly in a spray of blood and viscera.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightLeg",
+    "severity": 1,
+    "title": "Shallow Cut",
+    "description": "A thin cut along the leg that bleeds but causes no lasting harm. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightLeg",
+    "severity": 2,
+    "title": "Sliced Calf",
+    "description": "A cut to the calf muscle hampers movement. The target's Movement is reduced by half for 1d5 rounds.",
+    "effects": [
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightLeg",
+    "severity": 3,
+    "title": "Hamstrung",
+    "description": "The blade cuts into the back of the knee. The target falls Prone, suffers 2 levels of Fatigue, and their Movement is halved for 1d10 rounds.",
+    "effects": [
+      "prone",
+      "fatigue-2",
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightLeg",
+    "severity": 4,
+    "title": "Severed Tendons",
+    "description": "Tendons in the leg are cut. The target falls Prone, suffers 1d5 levels of Fatigue, Blood Loss, and the leg is Useless until surgically repaired.",
+    "effects": [
+      "prone",
+      "fatigue-1d5",
+      "blood-loss",
+      "useless-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightLeg",
+    "severity": 5,
+    "title": "Deep Thigh Wound",
+    "description": "A deep cut into the thigh severs muscle. The target is Stunned for 1 round, suffers 1d10 levels of Fatigue, Blood Loss, and the leg is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "fatigue-1d10",
+      "blood-loss",
+      "useless-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightLeg",
+    "severity": 6,
+    "title": "Severed Toes",
+    "description": "Several toes are sliced off. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, Blood Loss, and permanently loses 1d5 toes. Movement is permanently reduced.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "blood-loss",
+      "lost-toes"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "movement": "reduced",
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "rightLeg",
+    "severity": 7,
+    "title": "Foot Severed",
+    "description": "The foot is cut off at the ankle. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, Blood Loss, and permanently loses the foot.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss",
+      "lost-rightFoot"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "movement": "half",
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "rightLeg",
+    "severity": 8,
+    "title": "Leg Severed Below Knee",
+    "description": "The leg is severed below the knee. The target suffers 2d10 levels of Fatigue, Blood Loss, and must pass a Challenging (+0) Toughness Test or fall Unconscious. The lower leg is permanently lost.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-rightLeg",
+      "toughness-test-or-unconscious"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightLeg",
+    "severity": 9,
+    "title": "Leg Severed at Hip",
+    "description": "The entire leg is severed at the hip. The femoral artery sprays blood everywhere. The target must pass a Hard (-20) Toughness Test or die. Survivors suffer critical Blood Loss.",
+    "effects": [
+      "blood-loss-critical",
+      "lost-rightLeg",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "rightLeg",
+    "severity": 10,
+    "title": "Leg Split Apart",
+    "description": "The leg is split open from hip to ankle, the blade carving through bone and artery alike. The target dies from catastrophic blood loss.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftLeg",
+    "severity": 1,
+    "title": "Shallow Cut",
+    "description": "A thin cut along the leg that bleeds but causes no lasting harm. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftLeg",
+    "severity": 2,
+    "title": "Sliced Calf",
+    "description": "A cut to the calf muscle hampers movement. The target's Movement is reduced by half for 1d5 rounds.",
+    "effects": [
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftLeg",
+    "severity": 3,
+    "title": "Hamstrung",
+    "description": "The blade cuts into the back of the knee. The target falls Prone, suffers 2 levels of Fatigue, and their Movement is halved for 1d10 rounds.",
+    "effects": [
+      "prone",
+      "fatigue-2",
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftLeg",
+    "severity": 4,
+    "title": "Severed Tendons",
+    "description": "Tendons in the leg are cut. The target falls Prone, suffers 1d5 levels of Fatigue, Blood Loss, and the leg is Useless until surgically repaired.",
+    "effects": [
+      "prone",
+      "fatigue-1d5",
+      "blood-loss",
+      "useless-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftLeg",
+    "severity": 5,
+    "title": "Deep Thigh Wound",
+    "description": "A deep cut into the thigh severs muscle. The target is Stunned for 1 round, suffers 1d10 levels of Fatigue, Blood Loss, and the leg is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "fatigue-1d10",
+      "blood-loss",
+      "useless-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftLeg",
+    "severity": 6,
+    "title": "Severed Toes",
+    "description": "Several toes are sliced off. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, Blood Loss, and permanently loses 1d5 toes. Movement is permanently reduced.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "blood-loss",
+      "lost-toes"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "movement": "reduced",
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "leftLeg",
+    "severity": 7,
+    "title": "Foot Severed",
+    "description": "The foot is cut off at the ankle. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, Blood Loss, and permanently loses the foot.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss",
+      "lost-leftFoot"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "movement": "half",
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "rending",
+    "location": "leftLeg",
+    "severity": 8,
+    "title": "Leg Severed Below Knee",
+    "description": "The leg is severed below the knee. The target suffers 2d10 levels of Fatigue, Blood Loss, and must pass a Challenging (+0) Toughness Test or fall Unconscious. The lower leg is permanently lost.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "lost-leftLeg",
+      "toughness-test-or-unconscious"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftLeg",
+    "severity": 9,
+    "title": "Leg Severed at Hip",
+    "description": "The entire leg is severed at the hip. The femoral artery sprays blood everywhere. The target must pass a Hard (-20) Toughness Test or die. Survivors suffer critical Blood Loss.",
+    "effects": [
+      "blood-loss-critical",
+      "lost-leftLeg",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "rending",
+    "location": "leftLeg",
+    "severity": 10,
+    "title": "Leg Split Apart",
+    "description": "The leg is split open from hip to ankle, the blade carving through bone and artery alike. The target dies from catastrophic blood loss.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "head",
+    "severity": 1,
+    "title": "Blast Concussion",
+    "description": "The shockwave rattles the target's skull. They suffer 1 level of Fatigue and are Deafened for 1 round.",
+    "effects": [
+      "fatigue-1",
+      "deafened-1"
+    ],
+    "lethal": false,
+    "duration": "1 round",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "head",
+    "severity": 2,
+    "title": "Shell Shocked",
+    "description": "The blast leaves the target disoriented and dazed. They are Stunned for 1 round and Deafened for 1d5 rounds.",
+    "effects": [
+      "stunned-1",
+      "deafened-1d5"
+    ],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "head",
+    "severity": 3,
+    "title": "Shrapnel Cuts",
+    "description": "Fragments pepper the target's face and scalp. They suffer 2 levels of Fatigue and a -10 penalty to Perception Tests for 1d10 rounds from blood and debris in their eyes.",
+    "effects": [
+      "fatigue-2"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": [
+      {
+        "characteristic": "perception",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "head",
+    "severity": 4,
+    "title": "Ruptured Eardrums",
+    "description": "The concussive blast ruptures both eardrums. The target is Stunned for 1d5 rounds, permanently Deafened, and suffers 1d5 levels of Fatigue.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-1d5",
+      "deafened-permanent"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "head",
+    "severity": 5,
+    "title": "Shrapnel to the Face",
+    "description": "A large fragment embeds in the target's face. They are Stunned for 1d10 rounds, suffer 1d10 levels of Fatigue, Blood Loss, and a permanent -20 penalty to Fellowship Tests from scarring.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "fellowship",
+        "modifier": -20,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "head",
+    "severity": 6,
+    "title": "Eye Destroyed by Shrapnel",
+    "description": "A fragment destroys one eye. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, Blood Loss, and permanently loses one eye.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss",
+      "lost-eye"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "ballisticSkill",
+        "modifier": -20,
+        "permanent": true
+      },
+      {
+        "characteristic": "perception",
+        "modifier": -20,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "head",
+    "severity": 7,
+    "title": "Jaw Blown Off",
+    "description": "The lower jaw is torn away by the blast. The target falls Unconscious, suffers 1d10 levels of Fatigue, Blood Loss, and permanently cannot speak without augmetic replacement. Must pass a Challenging (+0) Toughness Test or die.",
+    "effects": [
+      "unconscious",
+      "fatigue-1d10",
+      "blood-loss",
+      "lost-jaw",
+      "toughness-test-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "head",
+    "severity": 8,
+    "title": "Skull Fragmented",
+    "description": "The blast shatters the skull, driving bone fragments into the brain. The target falls Unconscious and must pass a Hard (-20) Toughness Test or die. Survivors suffer permanent 1d10 reduction to Intelligence and Perception.",
+    "effects": [
+      "unconscious",
+      "blood-loss",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "intelligence",
+        "modifier": -10,
+        "permanent": true
+      },
+      {
+        "characteristic": "perception",
+        "modifier": -10,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "head",
+    "severity": 9,
+    "title": "Face Blown Apart",
+    "description": "The entire face is destroyed by the explosion, leaving a crater of shattered bone and pulped tissue. The target must pass a Very Hard (-30) Toughness Test or die instantly. Survivors are blind, deaf, and mute.",
+    "effects": [
+      "toughness-test-very-hard-or-die",
+      "blinded-permanent",
+      "deafened-permanent",
+      "silenced-permanent"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "head",
+    "severity": 10,
+    "title": "Head Explodes",
+    "description": "The target's head detonates in a shower of bone, brain, and blood. They are irrevocably dead. Nearby allies must pass a Challenging (+0) Willpower Test or suffer 1d5 Insanity Points.",
+    "effects": [
+      "death",
+      "morale-check-nearby"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightArm",
+    "severity": 1,
+    "title": "Stinging Fragments",
+    "description": "Small shrapnel fragments pepper the arm. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightArm",
+    "severity": 2,
+    "title": "Shrapnel Cuts",
+    "description": "Multiple small fragments embed in the arm. The target suffers a -10 penalty to Tests using this arm for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "location": "rightArm",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightArm",
+    "severity": 3,
+    "title": "Blast Sprain",
+    "description": "The concussive force wrenches the arm painfully. The target drops anything held and suffers a -20 penalty to Tests using this arm for 1d10 rounds.",
+    "effects": [
+      "drop-held"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": [
+      {
+        "location": "rightArm",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightArm",
+    "severity": 4,
+    "title": "Embedded Shrapnel",
+    "description": "Large fragments embed deep in the arm. The target drops anything held, suffers 2 levels of Fatigue, and the arm is Useless until treated as the shrapnel is removed.",
+    "effects": [
+      "drop-held",
+      "fatigue-2",
+      "useless-rightArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightArm",
+    "severity": 5,
+    "title": "Shattered Hand",
+    "description": "The blast destroys the hand in a spray of bone and meat. The target is Stunned for 1 round, suffers 1d5 levels of Fatigue, Blood Loss, and permanently loses the hand.",
+    "effects": [
+      "stunned-1",
+      "fatigue-1d5",
+      "blood-loss",
+      "lost-rightHand"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightArm",
+    "severity": 6,
+    "title": "Forearm Shattered",
+    "description": "The bones of the forearm are shattered by the blast. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, Blood Loss, and the arm is Useless. Requires augmetic replacement.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "blood-loss",
+      "useless-rightArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightArm",
+    "severity": 7,
+    "title": "Arm Mangled by Blast",
+    "description": "The explosion tears the arm to shreds. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, Blood Loss, and the arm is permanently destroyed.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss",
+      "lost-rightArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightArm",
+    "severity": 8,
+    "title": "Arm Blown Off",
+    "description": "The arm is blasted clean off at the elbow. The target suffers 2d10 levels of Fatigue, Blood Loss, falls Unconscious, and the arm is permanently gone.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "unconscious",
+      "lost-rightArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightArm",
+    "severity": 9,
+    "title": "Arm Destroyed by Blast",
+    "description": "The entire arm is obliterated by the explosion, leaving a ragged stump at the shoulder. The target must pass a Hard (-20) Toughness Test or die from shock and blood loss.",
+    "effects": [
+      "blood-loss-critical",
+      "lost-rightArm",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightArm",
+    "severity": 10,
+    "title": "Arm Vaporised",
+    "description": "The arm simply ceases to exist in the blast. The shockwave ruptures organs on that side of the body. The target must pass a Very Hard (-30) Toughness Test or die instantly.",
+    "effects": [
+      "toughness-test-very-hard-or-die",
+      "lost-rightArm",
+      "blood-loss-critical"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftArm",
+    "severity": 1,
+    "title": "Stinging Fragments",
+    "description": "Small shrapnel fragments pepper the arm. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftArm",
+    "severity": 2,
+    "title": "Shrapnel Cuts",
+    "description": "Multiple small fragments embed in the arm. The target suffers a -10 penalty to Tests using this arm for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "location": "leftArm",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftArm",
+    "severity": 3,
+    "title": "Blast Sprain",
+    "description": "The concussive force wrenches the arm painfully. The target drops anything held and suffers a -20 penalty to Tests using this arm for 1d10 rounds.",
+    "effects": [
+      "drop-held"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": [
+      {
+        "location": "leftArm",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftArm",
+    "severity": 4,
+    "title": "Embedded Shrapnel",
+    "description": "Large fragments embed deep in the arm. The target drops anything held, suffers 2 levels of Fatigue, and the arm is Useless until treated as the shrapnel is removed.",
+    "effects": [
+      "drop-held",
+      "fatigue-2",
+      "useless-leftArm"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftArm",
+    "severity": 5,
+    "title": "Shattered Hand",
+    "description": "The blast destroys the hand in a spray of bone and meat. The target is Stunned for 1 round, suffers 1d5 levels of Fatigue, Blood Loss, and permanently loses the hand.",
+    "effects": [
+      "stunned-1",
+      "fatigue-1d5",
+      "blood-loss",
+      "lost-leftHand"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftArm",
+    "severity": 6,
+    "title": "Forearm Shattered",
+    "description": "The bones of the forearm are shattered by the blast. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, Blood Loss, and the arm is Useless. Requires augmetic replacement.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "blood-loss",
+      "useless-leftArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftArm",
+    "severity": 7,
+    "title": "Arm Mangled by Blast",
+    "description": "The explosion tears the arm to shreds. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, Blood Loss, and the arm is permanently destroyed.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss",
+      "lost-leftArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftArm",
+    "severity": 8,
+    "title": "Arm Blown Off",
+    "description": "The arm is blasted clean off at the elbow. The target suffers 2d10 levels of Fatigue, Blood Loss, falls Unconscious, and the arm is permanently gone.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "unconscious",
+      "lost-leftArm"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftArm",
+    "severity": 9,
+    "title": "Arm Destroyed by Blast",
+    "description": "The entire arm is obliterated by the explosion, leaving a ragged stump at the shoulder. The target must pass a Hard (-20) Toughness Test or die from shock and blood loss.",
+    "effects": [
+      "blood-loss-critical",
+      "lost-leftArm",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftArm",
+    "severity": 10,
+    "title": "Arm Vaporised",
+    "description": "The arm simply ceases to exist in the blast. The shockwave ruptures organs on that side of the body. The target must pass a Very Hard (-30) Toughness Test or die instantly.",
+    "effects": [
+      "toughness-test-very-hard-or-die",
+      "lost-leftArm",
+      "blood-loss-critical"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "body",
+    "severity": 1,
+    "title": "Winding Blast",
+    "description": "The concussive force drives the air from the target's lungs. They suffer 1 level of Fatigue and are knocked Prone.",
+    "effects": [
+      "fatigue-1",
+      "prone"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "body",
+    "severity": 2,
+    "title": "Peppered with Fragments",
+    "description": "Shrapnel peppers the torso, causing numerous small wounds. The target suffers a -10 penalty to Agility Tests for 1d5 rounds.",
+    "effects": [],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "body",
+    "severity": 3,
+    "title": "Blast Knockdown",
+    "description": "The explosion hurls the target to the ground. They fall Prone, are knocked back 1d5 metres, and suffer 2 levels of Fatigue.",
+    "effects": [
+      "prone",
+      "fatigue-2",
+      "knockback-1d5"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "body",
+    "severity": 4,
+    "title": "Deep Shrapnel Wounds",
+    "description": "Large fragments embed deep in the torso. The target suffers 1d5 levels of Fatigue, Blood Loss, and a -10 penalty to Agility and Toughness Tests until treated.",
+    "effects": [
+      "fatigue-1d5",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -10
+      },
+      {
+        "characteristic": "toughness",
+        "modifier": -10
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "body",
+    "severity": 5,
+    "title": "Cracked Ribs from Blast",
+    "description": "The concussive force cracks several ribs. The target is Stunned for 1 round, suffers 1d10 levels of Fatigue, and a -20 penalty to Agility Tests. Blood Loss from shrapnel wounds.",
+    "effects": [
+      "stunned-1",
+      "fatigue-1d10",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "agility",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "body",
+    "severity": 6,
+    "title": "Perforated Abdomen",
+    "description": "Multiple fragments penetrate the abdomen. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, Blood Loss, and a -20 penalty to Toughness Tests until treated.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "blood-loss"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": [
+      {
+        "characteristic": "toughness",
+        "modifier": -20
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "body",
+    "severity": 7,
+    "title": "Organs Ruptured",
+    "description": "The blast ruptures internal organs. The target falls Unconscious, suffers 1d10 levels of Fatigue, Blood Loss, and must pass a Challenging (+0) Toughness Test or die from internal haemorrhaging.",
+    "effects": [
+      "unconscious",
+      "fatigue-1d10",
+      "blood-loss",
+      "toughness-test-or-die"
+    ],
+    "lethal": true,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "body",
+    "severity": 8,
+    "title": "Chest Blown Open",
+    "description": "The blast tears open the chest cavity, exposing the ribcage and organs. The target falls Unconscious, suffers critical Blood Loss, and must pass a Hard (-20) Toughness Test or die.",
+    "effects": [
+      "unconscious",
+      "blood-loss-critical",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "body",
+    "severity": 9,
+    "title": "Torso Shredded",
+    "description": "The explosion tears the torso apart, shredding organs and shattering the spine. The target must pass a Very Hard (-30) Toughness Test or die instantly. Even survivors are permanently crippled with -20 to Toughness, Strength, and Agility.",
+    "effects": [
+      "toughness-test-very-hard-or-die",
+      "blood-loss-critical"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "characteristic": "toughness",
+        "modifier": -20,
+        "permanent": true
+      },
+      {
+        "characteristic": "strength",
+        "modifier": -20,
+        "permanent": true
+      },
+      {
+        "characteristic": "agility",
+        "modifier": -20,
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "body",
+    "severity": 10,
+    "title": "Body Destroyed",
+    "description": "The target's torso is blown apart by the explosion. Fragments of bone, organs, and armour scatter across the area. They die instantly. Nearby allies must pass a Challenging (+0) Willpower Test or suffer 1d5 Insanity Points.",
+    "effects": [
+      "death",
+      "morale-check-nearby"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightLeg",
+    "severity": 1,
+    "title": "Stinging Fragments",
+    "description": "Small shrapnel fragments pepper the leg. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightLeg",
+    "severity": 2,
+    "title": "Blast Stumble",
+    "description": "The concussive force causes the target to stumble. Their Movement is halved for 1d5 rounds.",
+    "effects": [
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightLeg",
+    "severity": 3,
+    "title": "Shrapnel in Leg",
+    "description": "Fragments embed in the leg. The target falls Prone, suffers 2 levels of Fatigue, and their Movement is halved for 1d10 rounds.",
+    "effects": [
+      "prone",
+      "fatigue-2",
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightLeg",
+    "severity": 4,
+    "title": "Blasted Kneecap",
+    "description": "Shrapnel shatters the kneecap. The target falls Prone, suffers 1d5 levels of Fatigue, Blood Loss, and the leg is Useless until treated.",
+    "effects": [
+      "prone",
+      "fatigue-1d5",
+      "blood-loss",
+      "useless-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightLeg",
+    "severity": 5,
+    "title": "Shattered Shin",
+    "description": "The blast shatters the shinbone. The target is Stunned for 1 round, falls Prone, suffers 1d10 levels of Fatigue, Blood Loss, and the leg is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "prone",
+      "fatigue-1d10",
+      "blood-loss",
+      "useless-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightLeg",
+    "severity": 6,
+    "title": "Foot Blown Off",
+    "description": "The foot is destroyed by the blast. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, Blood Loss, and permanently loses the foot.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "blood-loss",
+      "lost-rightFoot"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "movement": "half",
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightLeg",
+    "severity": 7,
+    "title": "Leg Mangled by Blast",
+    "description": "The explosion tears the leg to ribbons. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, Blood Loss, and the leg is permanently destroyed.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss",
+      "lost-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightLeg",
+    "severity": 8,
+    "title": "Leg Blown Off",
+    "description": "The leg is blasted off at the thigh. The target suffers 2d10 levels of Fatigue, Blood Loss, falls Unconscious, and the leg is permanently gone.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "unconscious",
+      "lost-rightLeg"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightLeg",
+    "severity": 9,
+    "title": "Leg Obliterated",
+    "description": "The entire leg and hip are destroyed by the blast. The target must pass a Hard (-20) Toughness Test or die from shock and blood loss. Survivors suffer critical Blood Loss.",
+    "effects": [
+      "blood-loss-critical",
+      "lost-rightLeg",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "rightLeg",
+    "severity": 10,
+    "title": "Leg Vaporised",
+    "description": "The leg is annihilated by the blast. The shockwave shatters the pelvis and ruptures abdominal organs. The target dies instantly.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftLeg",
+    "severity": 1,
+    "title": "Stinging Fragments",
+    "description": "Small shrapnel fragments pepper the leg. The target suffers 1 level of Fatigue.",
+    "effects": [
+      "fatigue-1"
+    ],
+    "lethal": false,
+    "duration": "instant",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftLeg",
+    "severity": 2,
+    "title": "Blast Stumble",
+    "description": "The concussive force causes the target to stumble. Their Movement is halved for 1d5 rounds.",
+    "effects": [
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d5 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftLeg",
+    "severity": 3,
+    "title": "Shrapnel in Leg",
+    "description": "Fragments embed in the leg. The target falls Prone, suffers 2 levels of Fatigue, and their Movement is halved for 1d10 rounds.",
+    "effects": [
+      "prone",
+      "fatigue-2",
+      "half-movement"
+    ],
+    "lethal": false,
+    "duration": "1d10 rounds",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftLeg",
+    "severity": 4,
+    "title": "Blasted Kneecap",
+    "description": "Shrapnel shatters the kneecap. The target falls Prone, suffers 1d5 levels of Fatigue, Blood Loss, and the leg is Useless until treated.",
+    "effects": [
+      "prone",
+      "fatigue-1d5",
+      "blood-loss",
+      "useless-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftLeg",
+    "severity": 5,
+    "title": "Shattered Shin",
+    "description": "The blast shatters the shinbone. The target is Stunned for 1 round, falls Prone, suffers 1d10 levels of Fatigue, Blood Loss, and the leg is Useless until treated.",
+    "effects": [
+      "stunned-1",
+      "prone",
+      "fatigue-1d10",
+      "blood-loss",
+      "useless-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "until treated",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftLeg",
+    "severity": 6,
+    "title": "Foot Blown Off",
+    "description": "The foot is destroyed by the blast. The target is Stunned for 1d5 rounds, suffers 2d5 levels of Fatigue, Blood Loss, and permanently loses the foot.",
+    "effects": [
+      "stunned-1d5",
+      "fatigue-2d5",
+      "blood-loss",
+      "lost-leftFoot"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": [
+      {
+        "movement": "half",
+        "permanent": true
+      }
+    ]
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftLeg",
+    "severity": 7,
+    "title": "Leg Mangled by Blast",
+    "description": "The explosion tears the leg to ribbons. The target is Stunned for 1d10 rounds, suffers 1d10 levels of Fatigue, Blood Loss, and the leg is permanently destroyed.",
+    "effects": [
+      "stunned-1d10",
+      "fatigue-1d10",
+      "blood-loss",
+      "lost-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftLeg",
+    "severity": 8,
+    "title": "Leg Blown Off",
+    "description": "The leg is blasted off at the thigh. The target suffers 2d10 levels of Fatigue, Blood Loss, falls Unconscious, and the leg is permanently gone.",
+    "effects": [
+      "fatigue-2d10",
+      "blood-loss",
+      "unconscious",
+      "lost-leftLeg"
+    ],
+    "lethal": false,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftLeg",
+    "severity": 9,
+    "title": "Leg Obliterated",
+    "description": "The entire leg and hip are destroyed by the blast. The target must pass a Hard (-20) Toughness Test or die from shock and blood loss. Survivors suffer critical Blood Loss.",
+    "effects": [
+      "blood-loss-critical",
+      "lost-leftLeg",
+      "toughness-test-hard-or-die"
+    ],
+    "lethal": true,
+    "duration": "permanent",
+    "penalties": []
+  },
+  {
+    "damageType": "explosive",
+    "location": "leftLeg",
+    "severity": 10,
+    "title": "Leg Vaporised",
+    "description": "The leg is annihilated by the blast. The shockwave shatters the pelvis and ruptures abdominal organs. The target dies instantly.",
+    "effects": [
+      "death"
+    ],
+    "lethal": true,
+    "duration": "instant",
+    "penalties": []
+  }
+]

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" fill="none">
+  <!-- Imperial Aquila - double-headed eagle -->
+  <g stroke="#c8a84e" stroke-width="1.5" fill="#c8a84e" fill-opacity="0.15">
+    <!-- Left wing -->
+    <path d="M60 40 L10 15 L15 25 L5 20 L12 30 L2 28 L15 38 L8 38 L20 45 L12 48 L30 50 L25 52 L45 52 L60 48Z" fill-opacity="0.2"/>
+    <!-- Right wing -->
+    <path d="M60 40 L110 15 L105 25 L115 20 L108 30 L118 28 L105 38 L112 38 L100 45 L108 48 L90 50 L95 52 L75 52 L60 48Z" fill-opacity="0.2"/>
+    <!-- Left head -->
+    <path d="M42 28 L35 18 L38 22 L33 14 L40 24 L42 20 L44 28Z"/>
+    <!-- Right head -->
+    <path d="M78 28 L85 18 L82 22 L87 14 L80 24 L78 20 L76 28Z"/>
+    <!-- Body -->
+    <ellipse cx="60" cy="44" rx="12" ry="10"/>
+    <!-- Central skull -->
+    <circle cx="60" cy="42" r="5" fill="#c8a84e" fill-opacity="0.3"/>
+    <circle cx="58" cy="41" r="1" fill="#1a1a1f"/>
+    <circle cx="62" cy="41" r="1" fill="#1a1a1f"/>
+    <!-- Tail feathers -->
+    <path d="M50 54 L55 65 L60 58 L65 65 L70 54" fill-opacity="0.15"/>
+  </g>
+</svg>

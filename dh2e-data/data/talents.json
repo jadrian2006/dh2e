@@ -1,0 +1,1550 @@
+[
+    {
+        "name": "Ambidextrous",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Reduce penalties for using two weapons. When wielding two single-handed weapons, the character reduces the penalty for attacks with both weapons by 10 (to -10 for the primary hand and -20 for the secondary hand).",
+            "tier": 1,
+            "aptitudes": ["Weapon Skill", "Ballistic Skill"],
+            "prerequisites": "Ag 30",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Blind Fighting",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character suffers no penalties for fighting in melee combat due to obscured vision, darkness, fog, smoke, or similar conditions.",
+            "tier": 1,
+            "aptitudes": ["Perception", "Fieldcraft"],
+            "prerequisites": "Per 30",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Catfall",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Reduce effective falling distance by a number of metres equal to the character's Agility bonus. Also gain +20 to Acrobatics tests when using the Jump special use.",
+            "tier": 1,
+            "aptitudes": ["Agility", "Fieldcraft"],
+            "prerequisites": "Ag 30",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Clues from the Crowds",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Once per day, the character can re-roll a failed test to gather information from a group of people.",
+            "tier": 1,
+            "aptitudes": ["General", "Social"],
+            "prerequisites": "Fel 30",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Die Hard",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When suffering Fatigue from Blood Loss, the character may make a Challenging (+0) Willpower test to ignore the Fatigue for that round.",
+            "tier": 1,
+            "aptitudes": ["Willpower", "Defence"],
+            "prerequisites": "WP 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Disarm",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "As a Full Action, the character may make an Opposed Weapon Skill test against an opponent to force them to drop their weapon. With 3 or more Degrees of Success, the character can take the weapon.",
+            "tier": 1,
+            "aptitudes": ["Weapon Skill", "Defence"],
+            "prerequisites": "Ag 30",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Double Team",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When ganging up on an opponent, the character gains an additional +10 bonus to Weapon Skill tests for outnumbering. If both characters have this talent, the total bonus is +20.",
+            "tier": 1,
+            "aptitudes": ["General", "Offence"],
+            "prerequisites": "None",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Enemy (Chaos Cults)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "-10 to Fellowship and Influence tests when dealing with Chaos Cults. This talent does not cost XP.",
+            "tier": 1,
+            "aptitudes": ["General", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Enemy (Mutants)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "-10 to Fellowship and Influence tests when dealing with Mutants. This talent does not cost XP.",
+            "tier": 1,
+            "aptitudes": ["General", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Enemy (Recidivists)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "-10 to Fellowship and Influence tests when dealing with Recidivists. This talent does not cost XP.",
+            "tier": 1,
+            "aptitudes": ["General", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Enemy (Xenos)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "-10 to Fellowship and Influence tests when dealing with Xenos. This talent does not cost XP.",
+            "tier": 1,
+            "aptitudes": ["General", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Enemy (The Mechanicum)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "-10 to Fellowship and Influence tests when dealing with The Mechanicum. This talent does not cost XP.",
+            "tier": 1,
+            "aptitudes": ["General", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Enemy (Ecclesiarchy)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "-10 to Fellowship and Influence tests when dealing with the Ecclesiarchy. This talent does not cost XP.",
+            "tier": 1,
+            "aptitudes": ["General", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Ferric Summons",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can summon metal objects weighing up to 2 kg per point of Willpower bonus from up to 40 metres away to their hand.",
+            "tier": 1,
+            "aptitudes": ["Willpower", "Tech"],
+            "prerequisites": "Ferric Lure Implants, Mechanicus Implants",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Frenzy",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Spend one round psyching up to enter a frenzied state. While Frenzied, gain +10 to Weapon Skill, Strength, Toughness, and Willpower, but suffer -20 to Ballistic Skill, Intelligence, and Fellowship. Must attack the nearest enemy in melee. Immune to Fear, Pinning, Stunning, and Fatigue effects. Cannot Parry, retreat, or flee. Cannot use psychic powers.",
+            "tier": 1,
+            "aptitudes": ["Strength", "Offence"],
+            "prerequisites": "None",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Iron Jaw",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When Stunned, the character may make a Challenging (+0) Toughness test to ignore the effects of being Stunned.",
+            "tier": 1,
+            "aptitudes": ["Toughness", "Defence"],
+            "prerequisites": "T 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Jaded",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Mundane horrors, such as mutilated corpses or grisly crime scenes, do not cause Insanity points or Fear tests. Daemons, Warp phenomena, and other unnatural horrors still affect the character normally.",
+            "tier": 1,
+            "aptitudes": ["Willpower", "Defence"],
+            "prerequisites": "WP 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Keen Intuition",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may retry a failed Awareness test once, but with a -10 modifier.",
+            "tier": 1,
+            "aptitudes": ["Perception", "Social"],
+            "prerequisites": "Int 35",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Leap Up",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can stand from prone as a Free Action.",
+            "tier": 1,
+            "aptitudes": ["Agility", "General"],
+            "prerequisites": "Ag 30",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Nowhere to Hide",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When making a ranged attack, the character may add the Degrees of Success from the attack roll to reduce the Armour value of any cover protecting the target.",
+            "tier": 1,
+            "aptitudes": ["Perception", "Offence"],
+            "prerequisites": "Per 30",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Peer (Administratum)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Fellowship tests when dealing with the Administratum, and +5 to Influence tests involving them.",
+            "tier": 1,
+            "aptitudes": ["Fellowship", "Social"],
+            "prerequisites": "Fel 30",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Peer (Adeptus Arbites)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Fellowship tests when dealing with the Adeptus Arbites, and +5 to Influence tests involving them.",
+            "tier": 1,
+            "aptitudes": ["Fellowship", "Social"],
+            "prerequisites": "Fel 30",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Peer (Adeptus Mechanicus)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Fellowship tests when dealing with the Adeptus Mechanicus, and +5 to Influence tests involving them.",
+            "tier": 1,
+            "aptitudes": ["Fellowship", "Social"],
+            "prerequisites": "Fel 30",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Peer (Astropaths)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Fellowship tests when dealing with Astropaths, and +5 to Influence tests involving them.",
+            "tier": 1,
+            "aptitudes": ["Fellowship", "Social"],
+            "prerequisites": "Fel 30",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Peer (Ecclesiarchy)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Fellowship tests when dealing with the Ecclesiarchy, and +5 to Influence tests involving them.",
+            "tier": 1,
+            "aptitudes": ["Fellowship", "Social"],
+            "prerequisites": "Fel 30",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Peer (Imperial Guard)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Fellowship tests when dealing with the Imperial Guard, and +5 to Influence tests involving them.",
+            "tier": 1,
+            "aptitudes": ["Fellowship", "Social"],
+            "prerequisites": "Fel 30",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Peer (Imperial Navy)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Fellowship tests when dealing with the Imperial Navy, and +5 to Influence tests involving them.",
+            "tier": 1,
+            "aptitudes": ["Fellowship", "Social"],
+            "prerequisites": "Fel 30",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Peer (Inquisition)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Fellowship tests when dealing with the Inquisition, and +5 to Influence tests involving them.",
+            "tier": 1,
+            "aptitudes": ["Fellowship", "Social"],
+            "prerequisites": "Fel 30",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Peer (Nobility)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Fellowship tests when dealing with Nobility, and +5 to Influence tests involving them.",
+            "tier": 1,
+            "aptitudes": ["Fellowship", "Social"],
+            "prerequisites": "Fel 30",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Peer (Underworld)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Fellowship tests when dealing with the Underworld, and +5 to Influence tests involving them.",
+            "tier": 1,
+            "aptitudes": ["Fellowship", "Social"],
+            "prerequisites": "Fel 30",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Quick Draw",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can draw a weapon as a Free Action.",
+            "tier": 1,
+            "aptitudes": ["Agility", "Finesse"],
+            "prerequisites": "None",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Rapid Reload",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character halves all reload times, rounded down, to a minimum of a Half Action.",
+            "tier": 1,
+            "aptitudes": ["Agility", "Fieldcraft"],
+            "prerequisites": "None",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Resistance (Cold)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 bonus to tests to resist the effects of Cold.",
+            "tier": 1,
+            "aptitudes": ["Toughness", "Defence"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Resistance (Fear)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 bonus to tests to resist the effects of Fear.",
+            "tier": 1,
+            "aptitudes": ["Toughness", "Defence"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Resistance (Heat)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 bonus to tests to resist the effects of Heat.",
+            "tier": 1,
+            "aptitudes": ["Toughness", "Defence"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Resistance (Poisons)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 bonus to tests to resist the effects of Poisons.",
+            "tier": 1,
+            "aptitudes": ["Toughness", "Defence"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Resistance (Psychic Powers)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 bonus to tests to resist the effects of Psychic Powers.",
+            "tier": 1,
+            "aptitudes": ["Toughness", "Defence"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Resistance (Radiation)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 bonus to tests to resist the effects of Radiation.",
+            "tier": 1,
+            "aptitudes": ["Toughness", "Defence"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Sound Constitution",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Gain an additional wound. This talent may be taken multiple times, each time gaining another wound.",
+            "tier": 1,
+            "aptitudes": ["Toughness", "General"],
+            "prerequisites": "None",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Takedown",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "As a Full Action, the character may make a special melee attack to stun an opponent. If the attack hits, it deals no damage but the target must make a Challenging (+0) Toughness test or be Stunned for 1 round and knocked Prone.",
+            "tier": 1,
+            "aptitudes": ["Weapon Skill", "Offence"],
+            "prerequisites": "None",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Technical Knock",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can un-jam a ranged weapon as a Half Action rather than a Full Action.",
+            "tier": 1,
+            "aptitudes": ["Intelligence", "Tech"],
+            "prerequisites": "Int 30",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Warp Sense",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can make a Psyniscience test as a Free Action instead of a Half Action.",
+            "tier": 1,
+            "aptitudes": ["Perception", "Psyker"],
+            "prerequisites": "Psy Rating, Psyniscience, Per 30",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Weapon-Tech",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can increase the potency of advanced weaponry through ritual maintenance and tech-prayers.",
+            "tier": 1,
+            "aptitudes": ["Intelligence", "Tech"],
+            "prerequisites": "Tech-Use +10, Int 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Weapon Training (Bolt)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Bolt weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Weapon Training (Chain)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Chain weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Weapon Training (Flame)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Flame weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Weapon Training (Heavy)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Heavy weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Weapon Training (Las)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Las weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Weapon Training (Launcher)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Launcher weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Weapon Training (Low-Tech)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Low-Tech weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Weapon Training (Melta)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Melta weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Weapon Training (Plasma)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Plasma weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Weapon Training (Power)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Power weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Weapon Training (Shock)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Shock weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Weapon Training (Solid Projectile)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use Solid Projectile weapons without penalty.",
+            "tier": 1,
+            "aptitudes": ["General", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Armour-Monger",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character gains extra Armour Points equal to their Intelligence bonus, which may be distributed across any armoured locations. This requires one hour of work and access to an armourer's workshop.",
+            "tier": 2,
+            "aptitudes": ["Intelligence", "Tech"],
+            "prerequisites": "Int 35, Tech-Use, Trade (Armourer)",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Battle Rage",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can Parry while Frenzied. Additionally, the character may re-roll a failed test to snap out of or resist Frenzy.",
+            "tier": 2,
+            "aptitudes": ["Strength", "Defence"],
+            "prerequisites": "Frenzy",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Bulging Biceps",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can fire Heavy weapons on Semi-Auto or Full Auto without bracing first. They also gain +20 to Athletics tests when using the Heft special use.",
+            "tier": 2,
+            "aptitudes": ["Strength", "Offence"],
+            "prerequisites": "S 45",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Combat Master",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Opponents fighting the character in melee gain no bonus for Ganging Up against the character.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Defence"],
+            "prerequisites": "WS 30",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Constant Vigilance (Intelligence)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character uses Intelligence instead of Agility for Initiative rolls, and rolls two dice picking the highest.",
+            "tier": 2,
+            "aptitudes": ["Perception", "Defence"],
+            "prerequisites": "Int 35, Awareness +10",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Constant Vigilance (Perception)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character uses Perception instead of Agility for Initiative rolls, and rolls two dice picking the highest.",
+            "tier": 2,
+            "aptitudes": ["Perception", "Defence"],
+            "prerequisites": "Per 35, Awareness +10",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Contact Network",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may use Fellowship instead of Influence for Requisition tests, representing personal connections rather than formal authority.",
+            "tier": 2,
+            "aptitudes": ["Fellowship", "Leadership"],
+            "prerequisites": "Cover-Up, Int 35",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Coordinated Interrogation",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Interrogation tests. Additionally, gain +5 for each ally assisting who also has this talent.",
+            "tier": 2,
+            "aptitudes": ["Intelligence", "Social"],
+            "prerequisites": "Clues from the Crowds, S 40 or WP 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Counter Attack",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Once per turn, after a successful Parry, the character may make a Standard Attack against the attacker as a Free Action with a -20 penalty to Weapon Skill.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Defence"],
+            "prerequisites": "WS 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Cover-Up",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may reduce their Influence to increase Subtlety, trading 1 point of Influence for 1d5 Subtlety.",
+            "tier": 2,
+            "aptitudes": ["Intelligence", "Knowledge"],
+            "prerequisites": "Int 35",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Deny the Witch",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may use Willpower in place of Agility when making Evasion tests against psychic attacks.",
+            "tier": 2,
+            "aptitudes": ["Willpower", "Defence"],
+            "prerequisites": "WP 35",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Devastating Assault",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Once per turn, if the character succeeds on an All Out Attack, they may immediately make a second All Out Attack against the same target as a Free Action.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Offence"],
+            "prerequisites": "WS 35",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Double Tap",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When firing two ranged weapons at the same target, the second attack gains a +20 bonus if the first attack hit.",
+            "tier": 2,
+            "aptitudes": ["Finesse", "Offence"],
+            "prerequisites": "Two-Weapon Wielder",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Exotic Weapon Training (Needle Pistol)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use a Needle Pistol without penalty.",
+            "tier": 2,
+            "aptitudes": ["Intelligence", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Exotic Weapon Training (Needle Rifle)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use a Needle Rifle without penalty.",
+            "tier": 2,
+            "aptitudes": ["Intelligence", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Exotic Weapon Training (Web Pistol)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use a Web Pistol without penalty.",
+            "tier": 2,
+            "aptitudes": ["Intelligence", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Exotic Weapon Training (Webber)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can use a Webber without penalty.",
+            "tier": 2,
+            "aptitudes": ["Intelligence", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Face in a Crowd",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may use Fellowship instead of Agility when making Shadowing tests in crowds.",
+            "tier": 2,
+            "aptitudes": ["Fellowship", "Social"],
+            "prerequisites": "Clues from the Crowds, Fel 35",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Hard Target",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Whenever the character is Charging or Running, ranged attacks targeting them suffer a -20 penalty to Ballistic Skill tests.",
+            "tier": 2,
+            "aptitudes": ["Agility", "Defence"],
+            "prerequisites": "Ag 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Hardy",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character always heals as if Lightly Damaged, regardless of the actual level of damage.",
+            "tier": 2,
+            "aptitudes": ["Toughness", "Defence"],
+            "prerequisites": "T 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Hatred (Chaos Space Marines)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Weapon Skill tests against Chaos Space Marines. The character must pass a Willpower test to retreat from or surrender to them.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Hatred (Daemons)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Weapon Skill tests against Daemons. The character must pass a Willpower test to retreat from or surrender to them.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Hatred (Mutants)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Weapon Skill tests against Mutants. The character must pass a Willpower test to retreat from or surrender to them.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Hatred (Psykers)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Weapon Skill tests against Psykers. The character must pass a Willpower test to retreat from or surrender to them.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Hatred (Xenos)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Weapon Skill tests against Xenos. The character must pass a Willpower test to retreat from or surrender to them.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Hatred (Heretics)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "+10 to Weapon Skill tests against Heretics. The character must pass a Willpower test to retreat from or surrender to them.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Social"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Hip Shooting",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "As a Full Action, the character may move up to their Full Move rate and make a single ranged attack at any point during the move.",
+            "tier": 2,
+            "aptitudes": ["Ballistic Skill", "Finesse"],
+            "prerequisites": "BS 40, Ag 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Independent Targeting",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When firing two ranged weapons, the targets do not need to be within 10 metres of each other.",
+            "tier": 2,
+            "aptitudes": ["Ballistic Skill", "Finesse"],
+            "prerequisites": "BS 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Inescapable Attack (Ranged)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When making a ranged attack, the character imposes a penalty on the target's Evasion test equal to 10 times the Degrees of Success on the attack roll.",
+            "tier": 2,
+            "aptitudes": ["Ballistic Skill", "Finesse"],
+            "prerequisites": "BS 40, Per 35",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Inescapable Attack (Melee)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When making a melee attack, the character imposes a penalty on the target's Evasion test equal to 10 times the Degrees of Success on the attack roll.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Finesse"],
+            "prerequisites": "WS 40, Per 35",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Killing Strike",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may spend a Fate point to make melee attacks unavoidable for one round. The target cannot use Evasion reactions against the character's melee attacks.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Offence"],
+            "prerequisites": "WS 50",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Luminen Shock",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can discharge stored electrical energy as a melee attack using Luminen Capacitors.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Tech"],
+            "prerequisites": "Luminen Capacitors, Mechanicus Implants",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Maglev Transcendence",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can hover for extended periods using Maglev Coils, gaining greater mobility and flight duration.",
+            "tier": 2,
+            "aptitudes": ["Intelligence", "Tech"],
+            "prerequisites": "Maglev Coils, Mechanicus Implants",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Marksman",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character suffers no penalties for firing at long or extreme range.",
+            "tier": 2,
+            "aptitudes": ["Ballistic Skill", "Finesse"],
+            "prerequisites": "BS 35",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Mechadendrite Use (Weapon)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character gains the ability to use Weapon mechadendrites.",
+            "tier": 2,
+            "aptitudes": ["Intelligence", "Tech"],
+            "prerequisites": "Mechanicus Implants",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Mechadendrite Use (Utility)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character gains the ability to use Utility mechadendrites.",
+            "tier": 2,
+            "aptitudes": ["Intelligence", "Tech"],
+            "prerequisites": "Mechanicus Implants",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Precision Killer (Ranged)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character suffers no penalty when making Called Shot attacks with ranged weapons.",
+            "tier": 2,
+            "aptitudes": ["Ballistic Skill", "Finesse"],
+            "prerequisites": "BS 40",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Precision Killer (Melee)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character suffers no penalty when making Called Shot attacks with melee weapons.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Finesse"],
+            "prerequisites": "WS 40",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Prosanguine",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Once per day, the character may make a Tech-Use test to heal 1d5 damage using their Autosanguine implants.",
+            "tier": 2,
+            "aptitudes": ["Toughness", "Tech"],
+            "prerequisites": "Autosanguine Implants, Mechanicus Implants",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Strong Minded",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may re-roll failed Willpower tests to resist psychic powers.",
+            "tier": 2,
+            "aptitudes": ["Willpower", "Defence"],
+            "prerequisites": "WP 30, Resistance (Psychic Powers)",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Swift Attack",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "As a Full Action, the character may make multiple melee attacks with a single Weapon Skill test.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Finesse"],
+            "prerequisites": "WS 30",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Two-Weapon Wielder (Melee)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can fight with a melee weapon in each hand. They can make attacks with both weapons in the same turn.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Two-Weapon Wielder (Ranged)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can fight with a ranged weapon in each hand. They can make attacks with both weapons in the same turn.",
+            "tier": 2,
+            "aptitudes": ["Ballistic Skill", "Finesse"],
+            "prerequisites": "None",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Unarmed Specialist",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character's unarmed attacks count as Deadly Natural Weapons, and the character may re-roll damage for unarmed attacks.",
+            "tier": 2,
+            "aptitudes": ["Strength", "Offence"],
+            "prerequisites": "Ambidextrous, Ag 35, WS 35",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Warp Conduit",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may spend a Fate point to add 1d5 to their psy rating for a single power use.",
+            "tier": 2,
+            "aptitudes": ["Willpower", "Psyker"],
+            "prerequisites": "Psy Rating, Strong Minded, WP 50",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Whirlwind of Death",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "As a Full Action, the character may make one melee attack against each opponent currently engaged with them in melee.",
+            "tier": 2,
+            "aptitudes": ["Weapon Skill", "Finesse"],
+            "prerequisites": "WS 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Adamantium Faith",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character subtracts their Willpower bonus from the Degrees of Failure on any failed Fear or Pinning test. If this reduces the result to 0 or less, it counts as 1 Degree of Success instead.",
+            "tier": 3,
+            "aptitudes": ["Willpower", "Defence"],
+            "prerequisites": "Jaded, Resistance (Fear), WP 45",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Assassin Strike",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "After making a melee attack, the character may make a Challenging (+0) Acrobatics test to move at half rate as a Free Action. This may be done once per round and does not provoke free attacks.",
+            "tier": 3,
+            "aptitudes": ["Weapon Skill", "Fieldcraft"],
+            "prerequisites": "Ag 40, Acrobatics",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Bastion of Iron Will",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character adds 5 times their psy rating to any Opposed test when defending against psychic powers.",
+            "tier": 3,
+            "aptitudes": ["Willpower", "Psyker"],
+            "prerequisites": "Psy Rating, Strong Minded, WP 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Blademaster",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Once per round, the character may re-roll one missed melee attack made with a bladed weapon.",
+            "tier": 3,
+            "aptitudes": ["Weapon Skill", "Finesse"],
+            "prerequisites": "WS 30, Weapon Training (any melee)",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Crushing Blow",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character adds half their Weapon Skill bonus (rounded up) to melee damage.",
+            "tier": 3,
+            "aptitudes": ["Weapon Skill", "Offence"],
+            "prerequisites": "WS 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Deathdealer (Ranged)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When the character inflicts Critical damage with a ranged attack, they add their Perception bonus to the Critical damage result.",
+            "tier": 3,
+            "aptitudes": ["Perception", "Finesse"],
+            "prerequisites": "BS 45",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Deathdealer (Melee)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When the character inflicts Critical damage with a melee attack, they add their Perception bonus to the Critical damage result.",
+            "tier": 3,
+            "aptitudes": ["Perception", "Finesse"],
+            "prerequisites": "WS 45",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Delicate Interrogation",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Reduce Subtlety loss from interrogation by 1d5. If the result would be negative, gain that amount of Subtlety instead.",
+            "tier": 3,
+            "aptitudes": ["Intelligence", "Finesse"],
+            "prerequisites": "Coordinated Interrogation, Fel 50",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Eye of Vengeance",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may spend a Fate point before making a ranged Standard Attack. If the attack hits, add the Degrees of Success to both the damage and the penetration of the attack.",
+            "tier": 3,
+            "aptitudes": ["Ballistic Skill", "Offence"],
+            "prerequisites": "BS 50",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Favoured by the Warp",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Whenever the character triggers Psychic Phenomena (but not Perils of the Warp), they may roll twice on the Psychic Phenomena table and choose which result to apply.",
+            "tier": 3,
+            "aptitudes": ["Willpower", "Psyker"],
+            "prerequisites": "WP 35",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Flash of Insight",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may spend a Fate point to reveal a clue or important piece of information during an investigation.",
+            "tier": 3,
+            "aptitudes": ["Perception", "Knowledge"],
+            "prerequisites": "Contact Network, Coordinated Interrogation, Int 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Halo of Command",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Social and Leadership skills affect NPCs within 100 times the character's Fellowship bonus in metres, instead of the normal 10 times.",
+            "tier": 3,
+            "aptitudes": ["Fellowship", "Leadership"],
+            "prerequisites": "Fel 40, WP 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Hammer Blow",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When the character uses the All Out Attack action to make a single melee attack, they add half their Strength bonus (rounded up) to the weapon's penetration. The attack also gains the Concussive (2) quality.",
+            "tier": 3,
+            "aptitudes": ["Strength", "Offence"],
+            "prerequisites": "Crushing Blow",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Infused Knowledge",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "All Common Lore and Scholastic Lore skills count as Known (rank 1) for the character. Additionally, gain +1 Degree of Success on any successful Lore test.",
+            "tier": 3,
+            "aptitudes": ["Intelligence", "Knowledge"],
+            "prerequisites": "Int 40, Lore (any one)",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Lightning Attack",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "As a Full Action, the character may make many melee attacks with a single Weapon Skill test, gaining additional hits for additional Degrees of Success.",
+            "tier": 3,
+            "aptitudes": ["Weapon Skill", "Finesse"],
+            "prerequisites": "Swift Attack",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Luminen Blast",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can discharge stored electrical energy as a ranged attack using Luminen Capacitors.",
+            "tier": 3,
+            "aptitudes": ["Ballistic Skill", "Tech"],
+            "prerequisites": "Luminen Shock, Luminen Capacitors, Mechanicus Implants",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Mastery",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may spend a Fate point to automatically succeed on a test with the selected skill, with a number of Degrees of Success equal to their characteristic bonus.",
+            "tier": 3,
+            "aptitudes": ["Intelligence", "Knowledge"],
+            "prerequisites": "Rank 4 in selected skill",
+            "specialist": true
+        }
+    },
+    {
+        "name": "Mighty Shot",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character adds half their Ballistic Skill bonus (rounded up) to ranged damage.",
+            "tier": 3,
+            "aptitudes": ["Ballistic Skill", "Offence"],
+            "prerequisites": "BS 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Never Die",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may spend a Fate point to ignore all penalties from Critical damage for one round.",
+            "tier": 3,
+            "aptitudes": ["Toughness", "Defence"],
+            "prerequisites": "WP 50, T 50",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Preternatural Speed",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character doubles their speed when Charging.",
+            "tier": 3,
+            "aptitudes": ["Agility", "Offence"],
+            "prerequisites": "WS 40, Ag 50",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Sprint",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character moves more quickly in combat. Full Move becomes Agility bonus x 3, and Run becomes Agility bonus x 6.",
+            "tier": 3,
+            "aptitudes": ["Agility", "Fieldcraft"],
+            "prerequisites": "None",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Step Aside",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character may make one additional Dodge or Parry attempt per round beyond the normal one reaction.",
+            "tier": 3,
+            "aptitudes": ["Agility", "Defence"],
+            "prerequisites": "Ag 40, Dodge or Parry",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Superior Chirurgeon",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character gains +20 to Medicae tests and enhanced First Aid capabilities.",
+            "tier": 3,
+            "aptitudes": ["Intelligence", "Fieldcraft"],
+            "prerequisites": "Medicae rank 2",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Target Selection",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can shoot into melee combat without penalty and never accidentally hits allies.",
+            "tier": 3,
+            "aptitudes": ["Ballistic Skill", "Finesse"],
+            "prerequisites": "BS 50",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Thunder Charge",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character can break enemies with an armoured charge, inflicting devastating impact damage when charging.",
+            "tier": 3,
+            "aptitudes": ["Strength", "Offence"],
+            "prerequisites": "S 50",
+            "specialist": false
+        }
+    },
+    {
+        "name": "True Grit",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character reduces all Critical damage taken by their Toughness bonus, to a minimum of 1.",
+            "tier": 3,
+            "aptitudes": ["Toughness", "Defence"],
+            "prerequisites": "T 40",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Two-Weapon Master",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character suffers no penalties when fighting with two single-handed weapons.",
+            "tier": 3,
+            "aptitudes": ["Finesse", "Offence"],
+            "prerequisites": "Ag 45, Ambidextrous, BS 40 or WS 40, Two-Weapon Wielder (Melee), Two-Weapon Wielder (Ranged)",
+            "specialist": false
+        }
+    },
+    {
+        "name": "Warp Lock",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Once per session, the character may ignore a single Psychic Phenomenon result they have generated.",
+            "tier": 3,
+            "aptitudes": ["Willpower", "Psyker"],
+            "prerequisites": "Psy Rating, Strong Minded, WP 50",
+            "specialist": false
+        }
+    }
+]

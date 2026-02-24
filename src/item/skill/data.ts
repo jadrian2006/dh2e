@@ -7,6 +7,8 @@ export interface SkillSystemSource {
     advancement: 0 | 1 | 2 | 3 | 4;
     isSpecialist: boolean;
     specialization: string;
+    /** Skill aptitude for XP cost calculations (e.g. "General", "Fieldcraft", "Social") */
+    aptitude: string;
 }
 
 /** Advancement tier bonus mapping */

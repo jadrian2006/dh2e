@@ -31,6 +31,13 @@
     button {
         cursor: pointer;
         font-family: inherit;
+        // Reset Foundry V13 default button flex constraints
+        display: revert;
+        align-items: revert;
+        justify-content: revert;
+        height: auto;
+        min-height: auto;
+        line-height: inherit;
     }
 
     input, select, textarea {

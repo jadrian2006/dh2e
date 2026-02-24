@@ -1,6 +1,6 @@
 <script lang="ts">
     let { tabs, activeTab = $bindable("summary"), children }: {
-        tabs: { id: string; label: string }[];
+        tabs: { id: string; label: string; icon?: string }[];
         activeTab: string;
         children: any;
     } = $props();
@@ -16,8 +16,12 @@
             class="tab-btn"
             class:active={activeTab === tab.id}
             onclick={() => selectTab(tab.id)}
+            title={tab.label}
         >
-            {tab.label}
+            {#if tab.icon}
+                <i class={tab.icon}></i>
+            {/if}
+            <span class="tab-label">{tab.label}</span>
         </button>
     {/each}
 </nav>
@@ -34,18 +38,26 @@
         padding: 0 var(--dh2e-space-sm);
     }
     .tab-btn {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-xs);
         background: transparent;
         border: none;
         border-bottom: 2px solid transparent;
         color: var(--dh2e-text-secondary);
         font-family: var(--dh2e-font-header);
         font-size: var(--dh2e-text-sm);
-        padding: var(--dh2e-space-sm) var(--dh2e-space-md);
+        padding: var(--dh2e-space-sm) var(--dh2e-space-sm);
         cursor: pointer;
         margin-bottom: -2px;
         transition: all var(--dh2e-transition-fast);
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.03em;
+        font-size: 0.72rem;
+
+        i {
+            font-size: 0.85em;
+        }
 
         &:hover {
             color: var(--dh2e-text-primary);

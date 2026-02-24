@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320">
+  <!-- Chirurgeon: robed figure with medic satchel -->
+  <g fill="#1a1a22" stroke="none">
+    <!-- Head -->
+    <ellipse cx="100" cy="30" rx="20" ry="24"/>
+    <!-- Neck -->
+    <rect x="93" y="52" width="14" height="12" rx="3"/>
+    <!-- Wide robes (torso + robe flowing down) -->
+    <path d="M68 62 Q64 90 62 130 Q60 160 58 190 Q56 210 56 220 L144 220 Q144 210 142 190 Q140 160 138 130 Q136 90 132 62 Q118 58 100 57 Q82 58 68 62Z"/>
+    <!-- Left Arm with sleeve -->
+    <path d="M68 64 Q52 70 44 90 Q38 108 40 134 Q40 142 46 144 Q52 142 54 134 Q58 114 62 100 Q66 86 68 74Z"/>
+    <!-- Right Arm holding satchel -->
+    <path d="M132 64 Q146 70 152 86 Q156 100 154 120 Q153 128 148 130 Q144 128 143 122 Q140 106 137 94 Q134 82 132 72Z"/>
+    <!-- Satchel/medical bag on right hip -->
+    <rect x="140" y="120" width="20" height="16" rx="4"/>
+    <line x1="146" y1="120" x2="146" y2="136" stroke="#0d0d14" stroke-width="1.5"/>
+    <line x1="154" y1="120" x2="154" y2="136" stroke="#0d0d14" stroke-width="1.5"/>
+    <!-- Cross on satchel -->
+    <rect x="147" y="124" width="8" height="2" rx="0.5" fill="#0d0d14"/>
+    <rect x="150" y="122" width="2" height="8" rx="0.5" fill="#0d0d14"/>
+    <!-- Left Leg (under robes) -->
+    <path d="M80 218 Q78 240 76 264 Q74 282 74 296 Q73 306 80 308 Q88 308 86 296 Q86 280 88 264 Q90 242 92 224Z"/>
+    <!-- Right Leg (under robes) -->
+    <path d="M120 218 Q122 240 124 264 Q126 282 126 296 Q127 306 120 308 Q112 308 114 296 Q114 280 112 264 Q110 242 108 224Z"/>
+  </g>
+</svg>

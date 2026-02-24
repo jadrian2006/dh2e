@@ -89,5 +89,36 @@ export const DH2ECONFIG: DH2EConfig = {
         full: "DH2E.FireMode.FullAuto",
     },
 
+    availabilityTiers: {
+        ubiquitous: { label: "DH2E.Availability.Ubiquitous", modifier: 30 },
+        abundant: { label: "DH2E.Availability.Abundant", modifier: 20 },
+        plentiful: { label: "DH2E.Availability.Plentiful", modifier: 10 },
+        common: { label: "DH2E.Availability.Common", modifier: 0 },
+        average: { label: "DH2E.Availability.Average", modifier: -10 },
+        scarce: { label: "DH2E.Availability.Scarce", modifier: -20 },
+        rare: { label: "DH2E.Availability.Rare", modifier: -30 },
+        veryRare: { label: "DH2E.Availability.VeryRare", modifier: -40 },
+        extremelyRare: { label: "DH2E.Availability.ExtremelyRare", modifier: -50 },
+        nearUnique: { label: "DH2E.Availability.NearUnique", modifier: -60 },
+        unique: { label: "DH2E.Availability.Unique", modifier: -70 },
+    },
+
+    disorderSeverities: {
+        minor: "DH2E.Disorder.Minor",
+        severe: "DH2E.Disorder.Severe",
+        acute: "DH2E.Disorder.Acute",
+    },
+
+    cyberneticTypes: {
+        replacement: "DH2E.Cybernetic.Replacement",
+        enhancement: "DH2E.Cybernetic.Enhancement",
+    },
+
+    traitCategories: {
+        creature: "DH2E.TraitCategory.Creature",
+        npc: "DH2E.TraitCategory.NPC",
+        daemonic: "DH2E.TraitCategory.Daemonic",
+    },
+
     modifierCap: 60,
 };

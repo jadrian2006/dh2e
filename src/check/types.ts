@@ -20,6 +20,10 @@ interface CheckContext {
     rollOptions?: Set<string>;
     /** Skip the roll dialog and roll immediately */
     skipDialog?: boolean;
+    /** DoS threshold set by GM roll request (e.g. 3 means need 3+ DoS) */
+    dosThreshold?: number;
+    /** Skill description text shown as a foldout in the roll dialog */
+    skillDescription?: string;
 }
 
 /** The final result of a completed check */

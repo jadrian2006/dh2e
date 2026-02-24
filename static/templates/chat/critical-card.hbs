@@ -1,0 +1,55 @@
+<div class="dh2e chat-card critical-card {{#if lethal}}lethal{{/if}}">
+    <header class="card-header critical-header">
+        <h3>{{localize "DH2E.Critical.Title"}} — {{location}}</h3>
+        <span class="severity-badge">{{localize "DH2E.Critical.Severity"}} {{severity}}</span>
+    </header>
+    <div class="card-body">
+        <div class="critical-title">
+            <h4>{{title}}</h4>
+            <span class="damage-type-badge">{{damageType}}</span>
+        </div>
+        <p class="critical-description">{{description}}</p>
+
+        {{#if lethal}}
+        <div class="lethal-warning">
+            <i class="fas fa-skull"></i>
+            <span>{{localize "DH2E.Critical.Lethal"}}</span>
+        </div>
+        {{/if}}
+
+        {{#if effects.length}}
+        <div class="critical-effects">
+            <span class="effects-label">{{localize "DH2E.Critical.Effects"}}:</span>
+            {{#each effects}}
+            <span class="effect-tag">{{this}}</span>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        {{#if penalties.length}}
+        <div class="critical-penalties">
+            <span class="penalties-label">{{localize "DH2E.Critical.Penalties"}}:</span>
+            {{#each penalties}}
+            <span class="penalty-entry">{{this.characteristic}} {{this.modifier}}</span>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        {{#if duration}}
+        <div class="critical-duration">
+            <span>{{localize "DH2E.Critical.Duration"}}: {{duration}}</span>
+        </div>
+        {{/if}}
+
+        {{#if isGM}}
+        <div class="gm-controls">
+            <button class="btn-override" data-action="override-critical" data-actor-id="{{actorId}}">
+                <i class="fas fa-cog"></i> {{localize "DH2E.Critical.Override"}}
+            </button>
+            <button class="btn-undo" data-action="undo-critical" data-actor-id="{{actorId}}">
+                <i class="fas fa-undo"></i> {{localize "DH2E.Critical.Undo"}}
+            </button>
+        </div>
+        {{/if}}
+    </div>
+</div>

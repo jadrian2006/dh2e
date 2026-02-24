@@ -566,4 +566,4 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 }
 
-export { CreationWizard, splitOrChoices };
+export { CreationWizard, splitOrChoices, parseEquipment, findInPacks };

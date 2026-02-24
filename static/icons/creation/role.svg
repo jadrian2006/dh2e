@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Figure silhouette -->
+  <g stroke="#c8a84e" stroke-width="2">
+    <!-- Head -->
+    <circle cx="32" cy="14" r="7" fill="#c8a84e" fill-opacity="0.2"/>
+    <!-- Body -->
+    <path d="M32 21 L32 42" stroke-width="2.5"/>
+    <!-- Arms -->
+    <path d="M32 28 L18 36" stroke-width="2"/>
+    <path d="M32 28 L46 36" stroke-width="2"/>
+    <!-- Legs -->
+    <path d="M32 42 L22 58" stroke-width="2"/>
+    <path d="M32 42 L42 58" stroke-width="2"/>
+    <!-- Cloak/cape suggestion -->
+    <path d="M25 22 Q20 30 16 42 Q24 40 32 42 Q40 40 48 42 Q44 30 39 22"
+          fill="#c8a84e" fill-opacity="0.1" stroke="none"/>
+    <!-- Eye glow -->
+    <circle cx="30" cy="13" r="1" fill="#c8a84e"/>
+    <circle cx="34" cy="13" r="1" fill="#c8a84e"/>
+  </g>
+</svg>

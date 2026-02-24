@@ -79,6 +79,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
                 "@sheet": path.resolve(srcDir, "sheet"),
                 "@ui": path.resolve(srcDir, "ui"),
                 "@util": path.resolve(srcDir, "util"),
+                "@advancement": path.resolve(srcDir, "advancement"),
             },
         },
         define: {

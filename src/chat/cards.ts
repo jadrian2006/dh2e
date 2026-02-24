@@ -12,12 +12,22 @@ class ChatCardDH2e {
     ): Promise<void> {
         const templatePath = `systems/${SYSTEM_ID}/templates/chat/check-card.hbs`;
 
+        const targetTens = Math.floor(result.target / 10);
+        const rollTens = Math.floor(result.roll / 10);
+        const dosThreshold = result.context.dosThreshold;
+
         const templateData = {
             title: result.context.label,
             success: result.dos.success,
             degrees: result.dos.degrees,
             roll: result.roll,
             target: result.target,
+            targetTens,
+            rollTens,
+            dosThreshold,
+            thresholdMet: dosThreshold != null
+                ? result.dos.success && result.dos.degrees >= dosThreshold
+                : null,
             modifiers: result.appliedModifiers.map((m) => ({
                 label: m.label,
                 value: m.value,
@@ -45,6 +55,7 @@ class ChatCardDH2e {
                         degrees: result.dos.degrees,
                         characteristic: result.context.characteristic,
                         domain: result.context.domain,
+                        dosThreshold,
                     },
                 },
             },

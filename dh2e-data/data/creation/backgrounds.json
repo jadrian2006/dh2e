@@ -1,0 +1,169 @@
+[
+    {
+        "name": "Adeptus Administratum",
+        "skills": [
+            "Commerce or Medicae",
+            "Common Lore (Adeptus Administratum)",
+            "Linguistics (High Gothic)",
+            "Logic",
+            "Scholastic Lore (pick one)"
+        ],
+        "talents": ["Weapon Training (Las or Solid Projectile)"],
+        "equipment": [
+            "Laspistol or stub automatic",
+            "Imperial robes",
+            "autoquill",
+            "chrono",
+            "dataslate",
+            "medi-kit"
+        ],
+        "aptitude": "Knowledge or Social",
+        "bonus": "Master of Paperwork",
+        "bonusDescription": "An Adeptus Administratum character counts the Availability of all items as one level more available (Very Rare items count as Rare, Average items count as Common, etc.).",
+        "description": "The great bureaucracy of tithes and tallies that holds the Imperium together and keeps it running; they keep the lore, histories, and secrets of a million worlds so that the Imperium might prosper."
+    },
+    {
+        "name": "Adeptus Arbites",
+        "skills": [
+            "Awareness",
+            "Common Lore (Adeptus Arbites)",
+            "Common Lore (Underworld)",
+            "Inquiry or Interrogation",
+            "Intimidate",
+            "Scrutiny"
+        ],
+        "talents": ["Weapon Training (Shock or Solid Projectile)"],
+        "equipment": [
+            "Shotgun or shock maul",
+            "Enforcer light carapace armour or carapace chestplate",
+            "3 doses of stimm",
+            "manacles",
+            "12 lho sticks"
+        ],
+        "aptitude": "Offence or Defence",
+        "bonus": "The Face of the Law",
+        "bonusDescription": "An Arbitrator can re-roll any failed Intimidation and Interrogation test, and can substitute his Willpower bonus for his degrees of success on these tests.",
+        "description": "Keepers of the Imperium's laws, who see that the rule of the Emperor is brought to His worlds; they are judge, jury, and executioner against any who would break the Imperial rule of law."
+    },
+    {
+        "name": "Adeptus Astra Telepathica",
+        "skills": [
+            "Awareness",
+            "Common Lore (Adeptus Astra Telepathica)",
+            "Deceive or Interrogation",
+            "Forbidden Lore (the Warp)",
+            "Psyniscience or Scrutiny"
+        ],
+        "talents": [
+            "Weapon Training (Las)",
+            "Weapon Training (Low-Tech)"
+        ],
+        "equipment": [
+            "Laspistol",
+            "staff or whip",
+            "light flak cloak or flak vest",
+            "micro-bead or psy focus"
+        ],
+        "aptitude": "Defence or Psyker",
+        "bonus": "The Constant Threat / Tested on Terra",
+        "bonusDescription": "The Constant Threat: When the character or an ally within 10 metres triggers a roll on the Psychic Phenomena table, the character can increase or decrease the result by an amount equal to his Willpower bonus.\nTested on Terra: If the character takes the Psyker elite advance during character creation, he also gains the Sanctioned trait.",
+        "description": "The ancient and sacred organisation vital to the survival of the Imperium and Mankind; guiding ships and transmitting information across millions of scattered worlds, they bind the Imperium with their web of minds."
+    },
+    {
+        "name": "Adeptus Mechanicus",
+        "skills": [
+            "Awareness or Operate (pick one)",
+            "Common Lore (Adeptus Mechanicus)",
+            "Logic",
+            "Security",
+            "Tech-Use"
+        ],
+        "talents": [
+            "Mechadendrite Use (Utility)",
+            "Weapon Training (Solid Projectile)"
+        ],
+        "equipment": [
+            "Autogun or hand cannon",
+            "monotask servo-skull (utility) or optical mechadendrite",
+            "Imperial robes",
+            "2 vials of sacred unguents"
+        ],
+        "aptitude": "Knowledge or Tech",
+        "bonus": "Replace the Weak Flesh",
+        "bonusDescription": "An Adeptus Mechanicus character counts the Availability of all cybernetics as two levels more available (Rare items count as Average, Very Rare items count as Scarce, etc.).\nStarting Trait: Mechanicus Implants.",
+        "description": "Keepers of the ancient secrets of technology and the Imperium's most venerable and treasured artefacts; they serve the Machine God in the quest for lost knowledge."
+    },
+    {
+        "name": "Adeptus Ministorum",
+        "skills": [
+            "Charm",
+            "Command",
+            "Common Lore (Adeptus Ministorum)",
+            "Inquiry or Scrutiny",
+            "Linguistics (High Gothic)"
+        ],
+        "talents": ["Weapon Training (Flame) or Weapon Training (Low-Tech, Solid Projectile)"],
+        "equipment": [
+            "Hand flamer, or warhammer and stub revolver",
+            "Imperial robes or flak vest",
+            "backpack",
+            "glow-globe",
+            "monotask servo-skull (laud hailer)"
+        ],
+        "aptitude": "Leadership or Social",
+        "bonus": "Faith is All",
+        "bonusDescription": "When spending a Fate point to gain a +10 bonus to any one test, an Adeptus Ministorum character gains a +20 bonus instead.",
+        "description": "The great religious agency of the Emperor of Mankind; with shrines and cathedrals on a million worlds, they are dedicated to spreading and teaching the word of the Emperor so all might bask within His light and fear His wrath."
+    },
+    {
+        "name": "Imperial Guard",
+        "skills": [
+            "Athletics",
+            "Command",
+            "Common Lore (Imperial Guard)",
+            "Medicae or Operate (Surface)",
+            "Navigate (Surface)"
+        ],
+        "talents": [
+            "Weapon Training (Las)",
+            "Weapon Training (Low-Tech)"
+        ],
+        "equipment": [
+            "Lasgun, or laspistol and sword",
+            "combat vest",
+            "Imperial Guard flak armour",
+            "grapnel and line",
+            "12 lho sticks",
+            "magnoculars"
+        ],
+        "aptitude": "Fieldcraft or Leadership",
+        "bonus": "Hammer of the Emperor",
+        "bonusDescription": "When attacking a target that an ally attacked since the end of the Guardsman's last turn, the Guardsman can re-roll any results of 1 or 2 on damage rolls.",
+        "description": "Vast armies drawn from countless worlds; skilled warriors and hardened veterans of mankind's many brutal and bloody wars, they are all that stands between the Imperium and its innumerable foes."
+    },
+    {
+        "name": "Outcast",
+        "skills": [
+            "Acrobatics or Sleight of Hand",
+            "Common Lore (Underworld)",
+            "Deceive",
+            "Dodge",
+            "Stealth"
+        ],
+        "talents": [
+            "Weapon Training (Chain)",
+            "Weapon Training (Las or Solid Projectile)"
+        ],
+        "equipment": [
+            "Autopistol or laspistol",
+            "chainsword",
+            "armoured bodyglove or flak vest",
+            "injector",
+            "2 doses of obscura or slaught"
+        ],
+        "aptitude": "Fieldcraft or Social",
+        "bonus": "Never Quit",
+        "bonusDescription": "An Outcast character counts his Toughness bonus as two higher for purposes of determining Fatigue.",
+        "description": "Living in the shadow of the might of the Imperium, gangers, criminals, and dregs prosper and thrive; cunning survivors and experienced outlaws, they exist only for themselves and those who have bought their loyalties."
+    }
+]

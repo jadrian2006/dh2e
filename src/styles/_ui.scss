@@ -1,0 +1,50 @@
+// DH2E — In-world UI theming (pause screen, notifications, sidebar)
+
+// Override default Foundry canvas background when no scene is active
+#board {
+    background: url("/systems/dh2e/ui/pause-bg.svg") center center / cover no-repeat #050508 !important;
+}
+
+// Pause overlay — DH themed
+#pause {
+    // Override Foundry's default pause with our background
+    background-image: url("/systems/dh2e/icons/aquila.svg") !important;
+    background-size: 200px 200px !important;
+    background-repeat: no-repeat !important;
+    background-position: center 35% !important;
+    background-color: rgba(10, 10, 14, 0.85) !important;
+
+    figcaption {
+        font-family: "Cinzel", "Palatino Linotype", "Book Antiqua", serif;
+        color: #c8a84e;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-size: 1.5rem;
+        text-shadow: 0 0 10px rgba(200, 168, 78, 0.3);
+    }
+}
+
+// Sidebar theming — subtle DH touches
+#sidebar {
+    .directory-header {
+        .header-search input::placeholder {
+            font-style: italic;
+        }
+    }
+}
+
+// Compendium pack list icons for DH2E items
+.compendium-sidebar {
+    .directory-item {
+        .entry-name {
+            font-family: "EB Garamond", "Georgia", serif;
+        }
+    }
+}
+
+// Notifications styling
+#notifications {
+    .notification {
+        font-family: "EB Garamond", "Georgia", serif;
+    }
+}

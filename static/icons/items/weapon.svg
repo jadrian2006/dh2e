@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Crossed sword and gun -->
+  <g stroke="#c8a84e" stroke-width="2" stroke-linecap="round">
+    <!-- Sword (diagonal) -->
+    <line x1="12" y1="52" x2="50" y2="14"/>
+    <line x1="50" y1="14" x2="52" y2="12"/>
+    <!-- Sword guard -->
+    <line x1="22" y1="38" x2="28" y2="44"/>
+    <!-- Sword pommel -->
+    <circle cx="10" cy="54" r="2" fill="#c8a84e"/>
+    <!-- Gun (diagonal opposite) -->
+    <line x1="52" y1="52" x2="22" y2="22"/>
+    <!-- Gun barrel -->
+    <line x1="22" y1="22" x2="18" y2="18"/>
+    <!-- Gun body -->
+    <rect x="38" y="38" width="12" height="6" rx="1" transform="rotate(-45 44 41)" fill="#c8a84e" fill-opacity="0.2"/>
+    <!-- Gun grip -->
+    <line x1="48" y1="48" x2="54" y2="54"/>
+  </g>
+</svg>

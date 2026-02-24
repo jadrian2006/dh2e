@@ -29,17 +29,20 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     #label: string;
     #baseTarget: number;
     #modifiers: ModifierDH2e[];
+    #skillDescription: string;
     #resolve: ((result: CheckDialogResult) => void) | null = null;
 
     constructor(options: {
         label: string;
         baseTarget: number;
         modifiers: ModifierDH2e[];
+        skillDescription?: string;
     }) {
         super({});
         this.#label = options.label;
         this.#baseTarget = options.baseTarget;
         this.#modifiers = options.modifiers;
+        this.#skillDescription = options.skillDescription ?? "";
     }
 
     override get title(): string {
@@ -52,6 +55,7 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 label: this.#label,
                 baseTarget: this.#baseTarget,
                 modifiers: this.#modifiers,
+                skillDescription: this.#skillDescription,
                 onRoll: () => this.#confirm(),
                 onCancel: () => this.#cancel(),
                 onAddModifier: (mod: ModifierDH2e) => this.#addModifier(mod),
@@ -85,6 +89,7 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         label: string;
         baseTarget: number;
         modifiers: ModifierDH2e[];
+        skillDescription?: string;
     }): Promise<CheckDialogResult> {
         const dialog = new CheckDialog(options);
         return new Promise((resolve) => {

@@ -73,7 +73,7 @@
         }
     },
     "Item": {
-        "types": ["weapon", "armour", "gear", "skill", "talent", "condition"],
+        "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic"],
         "weapon": {
             "description": "",
             "class": "melee",
@@ -85,7 +85,9 @@
             "reload": "",
             "weight": 0,
             "qualities": [],
-            "equipped": false
+            "equipped": false,
+            "loadedAmmoId": "",
+            "rules": []
         },
         "armour": {
             "description": "",
@@ -118,13 +120,75 @@
             "description": "",
             "tier": 1,
             "aptitudes": [],
-            "prerequisites": ""
+            "prerequisites": "",
+            "rules": []
         },
         "condition": {
             "description": "",
             "slug": "",
             "duration": "",
-            "stackable": false
+            "stackable": false,
+            "rules": []
+        },
+        "power": {
+            "description": "",
+            "discipline": "",
+            "cost": 200,
+            "focusTest": "wp",
+            "focusModifier": 0,
+            "range": "",
+            "sustained": false,
+            "action": "Half Action",
+            "rules": []
+        },
+        "trait": {
+            "description": "",
+            "rules": [],
+            "hasRating": false,
+            "rating": 0,
+            "category": ""
+        },
+        "critical-injury": {
+            "description": "",
+            "location": "",
+            "damageType": "",
+            "severity": 1,
+            "effects": [],
+            "lethal": false,
+            "duration": "",
+            "penalties": []
+        },
+        "malignancy": {
+            "description": "",
+            "threshold": 0,
+            "rules": [],
+            "visible": true
+        },
+        "mental-disorder": {
+            "description": "",
+            "threshold": 0,
+            "severity": "minor",
+            "rules": [],
+            "triggers": ""
+        },
+        "ammunition": {
+            "description": "",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0,
+            "availability": "Common"
+        },
+        "cybernetic": {
+            "description": "",
+            "location": "",
+            "type": "replacement",
+            "rules": [],
+            "installed": false,
+            "weight": 0,
+            "availability": "Scarce"
         }
     }
 }

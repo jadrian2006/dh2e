@@ -20,6 +20,14 @@ class CheckDH2e {
     static async roll(context: CheckContext): Promise<CheckResult | null> {
         const rollOptions = context.rollOptions ?? new Set<string>();
 
+        // Merge actor's synthetic roll options
+        const actor = context.actor as any;
+        if (actor?.synthetics?.rollOptions) {
+            for (const opt of actor.synthetics.rollOptions) {
+                rollOptions.add(opt);
+            }
+        }
+
         // Build roll option context
         if (context.characteristic) {
             rollOptions.add(`self:characteristic:${context.characteristic}`);
@@ -35,6 +43,7 @@ class CheckDH2e {
                 label: context.label,
                 baseTarget: context.baseTarget,
                 modifiers: allModifiers,
+                skillDescription: context.skillDescription,
             });
             if (dialogResult.cancelled) return null;
         }
@@ -57,6 +66,19 @@ class CheckDH2e {
         // Calculate DoS/DoF
         const dos = calculateDoS(d100, target);
 
+        // Apply DoS adjustments from synthetics (e.g., AdjustDegree REs)
+        if (actor?.synthetics?.dosAdjustments) {
+            const { Predicate } = await import("@rules/predicate.ts");
+            for (const adj of actor.synthetics.dosAdjustments) {
+                const pred = Predicate.from(adj.predicate);
+                if (pred.test(rollOptions)) {
+                    dos.degrees += adj.amount;
+                    // Ensure DoS can't flip success/failure via adjustment
+                    if (dos.degrees < 0) dos.degrees = 0;
+                }
+            }
+        }
+
         const result: CheckResult = {
             roll: d100,
             target,
@@ -70,6 +92,16 @@ class CheckDH2e {
         await ChatCardDH2e.createCheckCard(result, roll);
 
         return result;
+    }
+
+    /**
+     * Resolve whether to skip the dialog based on shift key + invertShiftRoll setting.
+     * Default: click = dialog, shift+click = quick roll.
+     * Inverted: click = quick roll, shift+click = dialog.
+     */
+    static shouldSkipDialog(shiftKey: boolean): boolean {
+        const inverted = (game as any).settings?.get?.(SYSTEM_ID, "invertShiftRoll") ?? false;
+        return inverted ? !shiftKey : shiftKey;
     }
 
     /** Collect modifiers from actor synthetics and direct context */

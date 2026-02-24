@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320">
+  <!-- Sage: scholarly robes, data-slate/book, slightly hunched -->
+  <g fill="#1a1a22" stroke="none">
+    <!-- Head (slightly forward/hunched) -->
+    <ellipse cx="104" cy="30" rx="20" ry="24"/>
+    <!-- Neck (angled forward) -->
+    <path d="M96 52 Q94 58 94 62 L108 62 Q108 58 106 52Z"/>
+    <!-- Scholarly robes (slightly hunched posture) -->
+    <path d="M72 60 Q68 90 66 130 Q64 170 62 210 Q60 240 58 260 L142 260 Q140 240 138 210 Q136 170 134 130 Q132 90 128 60 Q116 56 102 56 Q86 57 72 60Z"/>
+    <!-- Left Arm (holding book up to read) -->
+    <path d="M72 62 Q56 66 48 80 Q42 94 40 108 Q38 116 44 118 Q50 116 52 110 Q56 96 60 86 Q64 74 72 68Z"/>
+    <!-- Book/data-slate in left hand -->
+    <rect x="28" y="100" width="18" height="24" rx="2"/>
+    <!-- Book detail lines -->
+    <line x1="31" y1="106" x2="43" y2="106" stroke="#0d0d14" stroke-width="1"/>
+    <line x1="31" y1="110" x2="43" y2="110" stroke="#0d0d14" stroke-width="1"/>
+    <line x1="31" y1="114" x2="43" y2="114" stroke="#0d0d14" stroke-width="1"/>
+    <line x1="31" y1="118" x2="40" y2="118" stroke="#0d0d14" stroke-width="1"/>
+    <!-- Right Arm (at side) -->
+    <path d="M128 62 Q142 68 148 84 Q152 100 150 124 Q149 132 144 134 Q140 132 140 126 Q138 106 136 94 Q133 80 128 70Z"/>
+    <!-- Left Leg -->
+    <path d="M80 258 Q78 274 78 290 Q78 302 84 304 Q90 302 88 290 Q88 276 90 262Z"/>
+    <!-- Right Leg -->
+    <path d="M120 258 Q122 274 122 290 Q122 302 116 304 Q110 302 112 290 Q112 276 110 262Z"/>
+  </g>
+</svg>

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import RuleElementEditor from "@rules/rule-element/rule-element-editor.svelte";
+
     let { ctx }: { ctx: Record<string, any> } = $props();
     const sys = $derived(ctx.system ?? {});
 </script>
@@ -83,6 +85,12 @@
             <span class="field-label">Special Qualities</span>
             <input type="text" value={(sys.qualities ?? []).join(", ")} disabled={!ctx.editable} placeholder="Reliable, Tearing..." />
         </label>
+
+        <RuleElementEditor
+            rules={sys.rules ?? []}
+            item={ctx.item}
+            editable={ctx.editable}
+        />
     </section>
 </div>
 

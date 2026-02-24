@@ -45,46 +45,48 @@
         }
     }
 
-    // Buttons
-    button, .btn {
-        background: var(--dh2e-bg-light);
-        border: 1px solid var(--dh2e-border);
-        border-radius: var(--dh2e-radius-sm);
-        color: var(--dh2e-text-primary);
-        padding: var(--dh2e-space-xs) var(--dh2e-space-md);
-        font-family: var(--dh2e-font-ui);
-        font-size: var(--dh2e-text-sm);
-        transition: all var(--dh2e-transition-fast);
+    // Buttons — scoped to .window-content to avoid breaking window header controls
+    .window-content {
+        button, .btn {
+            background: var(--dh2e-bg-light);
+            border: 1px solid var(--dh2e-border);
+            border-radius: var(--dh2e-radius-sm);
+            color: var(--dh2e-text-primary);
+            padding: var(--dh2e-space-xs) var(--dh2e-space-md);
+            font-family: var(--dh2e-font-ui);
+            font-size: var(--dh2e-text-sm);
+            transition: all var(--dh2e-transition-fast);
 
-        &:hover {
+            &:hover {
+                background: var(--dh2e-gold-dark);
+                border-color: var(--dh2e-gold);
+                color: var(--dh2e-text-primary);
+            }
+
+            &:active {
+                transform: translateY(1px);
+            }
+        }
+
+        .btn-primary {
             background: var(--dh2e-gold-dark);
             border-color: var(--dh2e-gold);
             color: var(--dh2e-text-primary);
+            font-weight: 600;
+
+            &:hover {
+                background: var(--dh2e-gold);
+                color: var(--dh2e-bg-darkest);
+            }
         }
 
-        &:active {
-            transform: translateY(1px);
-        }
-    }
+        .btn-danger {
+            background: var(--dh2e-red-dark);
+            border-color: var(--dh2e-red);
 
-    .btn-primary {
-        background: var(--dh2e-gold-dark);
-        border-color: var(--dh2e-gold);
-        color: var(--dh2e-text-primary);
-        font-weight: 600;
-
-        &:hover {
-            background: var(--dh2e-gold);
-            color: var(--dh2e-bg-darkest);
-        }
-    }
-
-    .btn-danger {
-        background: var(--dh2e-red-dark);
-        border-color: var(--dh2e-red);
-
-        &:hover {
-            background: var(--dh2e-red);
+            &:hover {
+                background: var(--dh2e-red);
+            }
         }
     }
 }

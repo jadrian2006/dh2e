@@ -12,14 +12,63 @@ import type { ModifierDH2e } from "./modifier.ts";
  * - "attack:melee" — modifiers to melee attack rolls
  * - "damage:ranged" — modifiers to ranged damage
  */
+
+/** Adjustment to Degrees of Success/Failure after a check */
+interface DosAdjustment {
+    /** Positive = add DoS, negative = add DoF */
+    amount: number;
+    /** Predicate string that must be in rollOptions for this to apply */
+    predicate: string[];
+    source: string;
+}
+
+/** Override applied to damage dice (e.g., Tearing, Proven) */
+interface DiceOverrideEntry {
+    /** "rerollLowest" (Tearing), "minimumDie" (Proven), "maximizeDie" (Force) */
+    mode: "rerollLowest" | "minimumDie" | "maximizeDie";
+    /** Numeric parameter (e.g., minimum value for Proven) */
+    value?: number;
+    source: string;
+}
+
+/** Adjustment to effective Toughness Bonus for damage soak */
+interface ToughnessAdjustment {
+    value: number;
+    mode: "add" | "multiply";
+    source: string;
+}
+
+/** Damage resistance entry */
+interface ResistanceEntry {
+    damageType: string;
+    value: number;
+    mode: "flat" | "half";
+    source: string;
+}
+
 interface DH2eSynthetics {
     /** Modifiers keyed by domain string */
     modifiers: Record<string, ModifierDH2e[]>;
+    /** Roll option strings injected by RollOption REs */
+    rollOptions: Set<string>;
+    /** DoS/DoF adjustments from AdjustDegree REs */
+    dosAdjustments: DosAdjustment[];
+    /** Dice overrides keyed by domain (e.g. "damage:melee") */
+    diceOverrides: Record<string, DiceOverrideEntry[]>;
+    /** Toughness Bonus adjustments for damage soak */
+    toughnessAdjustments: ToughnessAdjustment[];
+    /** Damage resistances by type */
+    resistances: ResistanceEntry[];
 }
 
 function createSynthetics(): DH2eSynthetics {
     return {
         modifiers: {},
+        rollOptions: new Set(),
+        dosAdjustments: [],
+        diceOverrides: {},
+        toughnessAdjustments: [],
+        resistances: [],
     };
 }
 
@@ -28,5 +77,16 @@ function getModifiers(synthetics: DH2eSynthetics, domain: string): ModifierDH2e[
     return (synthetics.modifiers[domain] ??= []);
 }
 
-export { createSynthetics, getModifiers };
-export type { DH2eSynthetics };
+/** Get or create a dice override array for the given domain */
+function getDiceOverrides(synthetics: DH2eSynthetics, domain: string): DiceOverrideEntry[] {
+    return (synthetics.diceOverrides[domain] ??= []);
+}
+
+export { createSynthetics, getModifiers, getDiceOverrides };
+export type {
+    DH2eSynthetics,
+    DosAdjustment,
+    DiceOverrideEntry,
+    ToughnessAdjustment,
+    ResistanceEntry,
+};

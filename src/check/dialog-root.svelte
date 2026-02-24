@@ -58,6 +58,13 @@
         <span class="target-breakdown">{baseTarget} base {modTotal >= 0 ? "+" : ""}{modTotal}</span>
     </div>
 
+    {#if ctx.skillDescription}
+        <details class="skill-info">
+            <summary class="skill-info-toggle">Skill Details</summary>
+            <p class="skill-info-text">{ctx.skillDescription}</p>
+        </details>
+    {/if}
+
     {#if modifiers.length > 0}
         <div class="modifiers-list">
             <h4 class="section-label">Modifiers</h4>
@@ -118,13 +125,13 @@
         flex-direction: column;
         align-items: center;
         padding: var(--dh2e-space-md, 0.75rem);
-        background: var(--dh2e-bg-light, #e8dcc8);
+        background: var(--dh2e-bg-mid, #2e2e35);
         border: 2px solid var(--dh2e-gold, #c8a84e);
         border-radius: var(--dh2e-radius-md, 6px);
     }
     .target-label {
         font-size: var(--dh2e-text-xs, 0.7rem);
-        color: var(--dh2e-text-dark-secondary, #6b5c4b);
+        color: var(--dh2e-gold, #c8a84e);
         text-transform: uppercase;
         letter-spacing: 0.1em;
     }
@@ -132,11 +139,31 @@
         font-family: var(--dh2e-font-header, serif);
         font-size: 2rem;
         font-weight: 700;
-        color: var(--dh2e-text-dark, #2c2420);
+        color: var(--dh2e-text-primary, #d0cfc8);
     }
     .target-breakdown {
         font-size: var(--dh2e-text-sm, 0.8rem);
-        color: var(--dh2e-text-dark-secondary, #6b5c4b);
+        color: var(--dh2e-text-secondary, #a0a0a8);
+    }
+
+    .skill-info {
+        background: var(--dh2e-bg-light, #3a3a45);
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-sm, 0.5rem);
+    }
+    .skill-info-toggle {
+        font-size: var(--dh2e-text-xs, 0.7rem);
+        color: var(--dh2e-gold, #c8a84e);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+    }
+    .skill-info-text {
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        line-height: 1.4;
+        margin: var(--dh2e-space-xs, 0.25rem) 0 0;
     }
 
     .section-label {

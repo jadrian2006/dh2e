@@ -1,6 +1,14 @@
 <script lang="ts">
     import type { BackgroundOption, CreationData } from "../types.ts";
-    import { splitOrChoices } from "../wizard.ts";
+    import { splitOrChoices, parseEquipment, findInPacks } from "../wizard.ts";
+
+    const EQUIPMENT_PACKS = ["dh2e-data.weapons", "dh2e-data.armour", "dh2e-data.gear"];
+
+    async function previewGear(text: string) {
+        const { name } = parseEquipment(text);
+        const doc = await findInPacks(EQUIPMENT_PACKS, name);
+        if (doc) doc.sheet?.render(true);
+    }
 
     let { data, selected = $bindable<BackgroundOption | null>(null), gearChoices = $bindable<Record<number, string>>({}) }: {
         data: CreationData;
@@ -80,6 +88,9 @@
                                                 }}
                                             />
                                             {opt}
+                                            <button class="gear-preview-btn" type="button" title="Preview item" onclick={(e) => { e.stopPropagation(); previewGear(opt); }}>
+                                                <i class="fa-solid fa-eye"></i>
+                                            </button>
                                         </label>
                                     {/each}
                                 </fieldset>
@@ -293,5 +304,16 @@
             accent-color: var(--dh2e-gold, #c8a84e);
             margin: 0;
         }
+    }
+
+    .gear-preview-btn {
+        background: none;
+        border: none;
+        padding: 0 0.2rem;
+        cursor: pointer;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-size: 0.7rem;
+
+        &:hover { color: var(--dh2e-gold, #c8a84e); }
     }
 </style>
