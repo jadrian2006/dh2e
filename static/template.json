@@ -1,6 +1,6 @@
 {
     "Actor": {
-        "types": ["acolyte", "npc", "horde", "vehicle"],
+        "types": ["acolyte", "npc", "horde", "vehicle", "warband"],
         "acolyte": {
             "characteristics": {
                 "ws":  { "base": 25, "advances": 0 },
@@ -101,6 +101,10 @@
             ],
             "size": "enormous",
             "details": { "notes": "" }
+        },
+        "warband": {
+            "members": [],
+            "details": { "name": "", "notes": "" }
         }
     },
     "Item": {

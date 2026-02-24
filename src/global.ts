@@ -10,6 +10,7 @@ declare global {
         dh2e: {
             config: DH2EConfig;
             awardXP: () => void;
+            warband: any;
         };
     }
 

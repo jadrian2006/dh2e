@@ -5,6 +5,7 @@ import { RollRequestPrompt } from "../../ui/roll-request-prompt.ts";
 import { MigrationRunner } from "@migration/runner.ts";
 import { CombatHUD } from "@combat/hud/combat-hud.ts";
 import { CompendiumBrowser } from "../../ui/compendium-browser/browser.ts";
+import { createFirstWarband } from "@actor/warband/helpers.ts";
 
 /** Hooks.once("ready") — final initialization, migrations */
 export class Ready {
@@ -25,6 +26,60 @@ export class Ready {
 
             // Run data migrations (GM only)
             await MigrationRunner.run();
+
+            // Create default warband (GM only)
+            await createFirstWarband();
+
+            // Expose warband getter on game.dh2e
+            Object.defineProperty((game as any).dh2e, "warband", {
+                get() {
+                    const g = game as any;
+                    const id = g.settings?.get(SYSTEM_ID, "activeWarband") as string;
+                    return id ? g.actors?.get(id) ?? null : null;
+                },
+                configurable: true,
+            });
+
+            // Block deletion of the active warband
+            Hooks.on("preDeleteActor", (actor: any) => {
+                const g = game as any;
+                const activeId = g.settings?.get(SYSTEM_ID, "activeWarband") as string;
+                if (actor.id === activeId) {
+                    ui.notifications.error(
+                        g.i18n?.localize("DH2E.Warband.CannotDelete")
+                            ?? "The active warband cannot be deleted.",
+                    );
+                    return false;
+                }
+            });
+
+            // Re-render warband sheet when a member actor updates
+            Hooks.on("updateActor", (actor: any) => {
+                if (actor.type === "warband") return;
+                const g = game as any;
+                const warband = g.dh2e?.warband;
+                if (!warband) return;
+                const isMember = warband.system?.resolvedMembers?.some(
+                    (m: any) => m.id === actor.id,
+                );
+                if (isMember && warband.sheet?.rendered) {
+                    warband.sheet.render(true);
+                }
+            });
+
+            // Hide warband actors from the Actors sidebar
+            Hooks.on("renderActorDirectory", (_app: any, html: HTMLElement) => {
+                const list = html.querySelector(".directory-list");
+                if (!list) return;
+                for (const entry of list.querySelectorAll<HTMLElement>(".directory-item.document")) {
+                    const docId = entry.dataset.entryId ?? entry.dataset.documentId;
+                    if (!docId) continue;
+                    const actor = (game as any).actors?.get(docId);
+                    if (actor?.type === "warband") {
+                        entry.style.display = "none";
+                    }
+                }
+            });
 
             // Initialize combat HUD
             CombatHUD.init();

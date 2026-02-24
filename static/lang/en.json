@@ -846,5 +846,24 @@
     "DH2E.Power.PsykerStatus": "You are a Psyker with Psy Rating {pr}.",
     "DH2E.Power.EmptyPsyker": "Drag psychic powers from the compendium to add them.",
     "DH2E.Power.PRUnfettered": "Unfettered: {pr}",
-    "DH2E.Power.PRPushed": "Pushed: {pr}"
+    "DH2E.Power.PRPushed": "Pushed: {pr}",
+
+    "DH2E.ActorType.Warband": "Warband",
+    "DH2E.Sheet.Warband": "Warband Sheet",
+
+    "DH2E.Warband.DefaultName": "The Warband",
+    "DH2E.Warband.CannotDelete": "The active warband cannot be deleted.",
+    "DH2E.Warband.DragHint": "Drag Acolyte actors here to add members",
+    "DH2E.Warband.Tab.Overview": "Overview",
+    "DH2E.Warband.Tab.Skills": "Skills",
+    "DH2E.Warband.NoSkills": "No skills found among warband members.",
+    "DH2E.Warband.RemoveMember": "Remove from warband",
+    "DH2E.Warband.Wounds": "Wounds",
+    "DH2E.Warband.FatePoints": "Fate",
+    "DH2E.Warband.Untrained": "---",
+    "DH2E.Warband.MembersAdded": "Added {count} member(s) to the warband.",
+    "DH2E.Warband.MembersRemoved": "Removed member from the warband.",
+    "DH2E.Warband.AcolyteOnly": "Only Acolyte actors can join a warband.",
+
+    "DH2E.Keybinding.ToggleWarband": "Toggle Warband Sheet"
 }

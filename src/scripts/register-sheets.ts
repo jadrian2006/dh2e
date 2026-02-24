@@ -18,6 +18,7 @@ import { MalignancySheetDH2e } from "@item/malignancy/sheet.ts";
 import { MentalDisorderSheetDH2e } from "@item/mental-disorder/sheet.ts";
 import { AmmunitionSheetDH2e } from "@item/ammunition/sheet.ts";
 import { CyberneticSheetDH2e } from "@item/cybernetic/sheet.ts";
+import { WarbandSheetDH2e } from "@actor/warband/sheet.ts";
 
 /** Register all actor and item sheets with Foundry */
 export function registerSheets(): void {
@@ -44,6 +45,12 @@ export function registerSheets(): void {
         types: ["vehicle"],
         makeDefault: true,
         label: "DH2E.Sheet.Vehicle",
+    });
+
+    fd.collections.Actors.registerSheet(SYSTEM_ID, WarbandSheetDH2e, {
+        types: ["warband"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Warband",
     });
 
     // Item sheets

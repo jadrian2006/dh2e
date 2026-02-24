@@ -1,5 +1,5 @@
 /** Actor type identifiers */
-export type ActorType = "acolyte" | "npc" | "horde" | "vehicle";
+export type ActorType = "acolyte" | "npc" | "horde" | "vehicle" | "warband";
 
 /** The 9 DH2E characteristics */
 export type CharacteristicAbbrev = "ws" | "bs" | "s" | "t" | "ag" | "int" | "per" | "wp" | "fel";

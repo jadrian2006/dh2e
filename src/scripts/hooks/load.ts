@@ -32,6 +32,7 @@ export class Load {
             npc: "fa-solid fa-skull",
             horde: "fa-solid fa-users",
             vehicle: "fa-solid fa-truck-monster",
+            warband: "fa-solid fa-people-group",
         };
 
         CONFIG.Item.typeIcons = {

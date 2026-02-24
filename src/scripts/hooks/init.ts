@@ -18,6 +18,7 @@ import { AmmunitionDH2e } from "@item/ammunition/document.ts";
 import { CyberneticDH2e } from "@item/cybernetic/document.ts";
 import { HordeDH2e } from "@actor/horde/document.ts";
 import { VehicleDH2e } from "@actor/vehicle/document.ts";
+import { WarbandDH2e } from "@actor/warband/document.ts";
 import { DH2ECONFIG } from "@scripts/config/index.ts";
 import { DH2E_STATUS_EFFECTS } from "@scripts/config/status-effects.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
@@ -38,6 +39,7 @@ export class Init {
                 npc: NpcDH2e as unknown as typeof Actor,
                 horde: HordeDH2e as unknown as typeof Actor,
                 vehicle: VehicleDH2e as unknown as typeof Actor,
+                warband: WarbandDH2e as unknown as typeof Actor,
             };
             CONFIG.DH2E.Item.documentClasses = {
                 weapon: WeaponDH2e as unknown as typeof Item,
@@ -77,6 +79,27 @@ export class Init {
             registerAllSettings();
 
             // Register keybindings
+            game.keybindings.register(SYSTEM_ID, "toggleWarbandSheet", {
+                name: "DH2E.Keybinding.ToggleWarband",
+                editable: [{ key: "KeyW" }],
+                onDown: () => {
+                    const g = game as any;
+                    const warbandId = g.settings?.get(SYSTEM_ID, "activeWarband") as string;
+                    if (!warbandId) return false;
+                    const warband = g.actors?.get(warbandId);
+                    if (!warband) return false;
+                    const sheet = warband.sheet;
+                    if (sheet?.rendered) {
+                        sheet.close();
+                    } else {
+                        sheet?.render(true);
+                    }
+                    return true;
+                },
+                restricted: false,
+                precedence: (CONST as any).KEYBINDING_PRECEDENCE?.NORMAL ?? 0,
+            });
+
             game.keybindings.register(SYSTEM_ID, "openCompendiumBrowser", {
                 name: "DH2E.Browser.Title",
                 editable: [{ key: "KeyB", modifiers: ["Control"] }],

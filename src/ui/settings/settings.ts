@@ -284,6 +284,16 @@ const SETTINGS: SettingDefinition[] = [
         type: String,
         default: "0.1.2",
     },
+    {
+        key: "activeWarband",
+        category: "automation",
+        name: "Active Warband ID",
+        hint: "The actor ID of the active warband.",
+        scope: "world",
+        config: false,
+        type: String,
+        default: "",
+    },
 ];
 
 /** Register all DH2E settings */

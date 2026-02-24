@@ -40,6 +40,9 @@
             },
             "npc": {
                 "htmlFields": ["details.notes"]
+            },
+            "warband": {
+                "htmlFields": ["details.notes"]
             }
         },
         "Item": {
