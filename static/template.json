@@ -104,11 +104,13 @@
         },
         "warband": {
             "members": [],
+            "inquisitor": { "uuid": "" },
+            "pendingRequisitions": [],
             "details": { "name": "", "notes": "" }
         }
     },
     "Item": {
-        "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic"],
+        "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic", "objective"],
         "weapon": {
             "description": "",
             "class": "melee",
@@ -229,6 +231,15 @@
             "installed": false,
             "weight": 0,
             "availability": "Scarce"
+        },
+        "objective": {
+            "description": "",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "personal",
+            "format": "parchment"
         }
     }
 }

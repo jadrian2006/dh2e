@@ -1,5 +1,9 @@
 <script lang="ts">
+    import PersonalObjectives from "./personal-objectives.svelte";
+
     let { ctx }: { ctx: Record<string, any> } = $props();
+
+    const objectives = $derived(ctx.items?.objectives ?? []);
 
     let notesContent = $derived(ctx.system?.details?.notes ?? "");
     let editorEl: HTMLDivElement | undefined = $state();
@@ -21,6 +25,18 @@
 </script>
 
 <div class="notes-tab">
+    <!-- Personal Objectives -->
+    <PersonalObjectives
+        {objectives}
+        editable={ctx.editable}
+        onAdd={() => ctx.addPersonalObjective?.()}
+        onOpen={(obj) => ctx.openObjective?.(obj)}
+        onComplete={(obj) => ctx.completeObjective?.(obj)}
+        onFail={(obj) => ctx.failObjective?.(obj)}
+        onReactivate={(obj) => ctx.reactivateObjective?.(obj)}
+        onDelete={(obj) => ctx.deleteObjective?.(obj)}
+    />
+
     {#if ctx.editable}
         <div
             class="notes-editor"

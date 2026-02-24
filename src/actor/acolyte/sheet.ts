@@ -6,6 +6,7 @@ import { FocusPowerResolver } from "@psychic/focus-power.ts";
 import { FocusPowerDialog } from "@psychic/focus-dialog.ts";
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 import type { AcolyteDH2e } from "./document.ts";
+import type { ObjectiveDH2e } from "@item/objective/document.ts";
 import SheetRoot from "./sheet-root.svelte";
 
 /** Acolyte character sheet — Svelte-based ApplicationV2 */
@@ -66,9 +67,18 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                     mentalDisorders: actor.items.filter((i: Item) => i.type === "mental-disorder"),
                     ammunition: actor.items.filter((i: Item) => i.type === "ammunition"),
                     cybernetics: actor.items.filter((i: Item) => i.type === "cybernetic"),
+                    objectives: actor.items.filter((i: Item) => i.type === "objective"),
                 },
+                // Objective actions
+                addPersonalObjective: () => this.#addPersonalObjective(actor),
+                completeObjective: (obj: any) => (obj as ObjectiveDH2e).complete(),
+                failObjective: (obj: any) => (obj as ObjectiveDH2e).fail(),
+                reactivateObjective: (obj: any) => (obj as ObjectiveDH2e).reactivate(),
+                deleteObjective: (obj: any) => actor.deleteEmbeddedDocuments("Item", [obj.id]),
+                openObjective: (obj: any) => obj.sheet?.render(true),
                 openWizard: () => CreationWizard.open(actor),
                 openShop: () => AdvancementShop.open(actor),
+                openRequisitionDialog: () => this.#openRequisitionDialog(),
                 usePower: (power: Item) => this.#usePower(actor, power),
                 activeTab: this.#activeTab,
                 setActiveTab: (tab: string) => { this.#activeTab = tab; },
@@ -152,6 +162,33 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
             mode: dialogResult.mode,
             skipDialog: false,
         });
+    }
+
+    /** Open the requisition request dialog */
+    async #openRequisitionDialog(): Promise<void> {
+        const { RequisitionRequestDialog } = await import("../../requisition/requisition-request-dialog.ts");
+        const g = game as any;
+        const warband = g.dh2e?.warband ?? null;
+        RequisitionRequestDialog.open(this.document as unknown as AcolyteDH2e, warband);
+    }
+
+    /** Create a personal objective inline on this actor */
+    async #addPersonalObjective(actor: AcolyteDH2e): Promise<void> {
+        const g = game as any;
+        await actor.createEmbeddedDocuments("Item", [{
+            name: "New Objective",
+            type: "objective",
+            img: `systems/${SYSTEM_ID}/icons/default-icons/objective.svg`,
+            system: {
+                description: "",
+                status: "active",
+                assignedBy: g.user?.name ?? "",
+                timestamp: Date.now(),
+                completedTimestamp: 0,
+                scope: "personal",
+                format: "parchment",
+            },
+        }]);
     }
 
     /** Handle item drops from compendium or sidebar */

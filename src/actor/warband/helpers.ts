@@ -23,6 +23,7 @@ export async function createFirstWarband(): Promise<void> {
             name: "The Warband",
             type: "warband",
             img: `systems/${SYSTEM_ID}/icons/default-icons/warband.svg`,
+            ownership: { default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER },
         });
         if (warband) {
             await g.settings.set(SYSTEM_ID, "activeWarband", warband.id);

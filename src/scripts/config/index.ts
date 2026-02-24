@@ -165,5 +165,12 @@ export const DH2ECONFIG: DH2EConfig = {
         daemonic: "DH2E.TraitCategory.Daemonic",
     },
 
+    craftsmanshipTiers: {
+        poor:   { label: "DH2E.Craftsmanship.Poor",   modifier: 10 },
+        common: { label: "DH2E.Craftsmanship.Common", modifier: 0 },
+        good:   { label: "DH2E.Craftsmanship.Good",   modifier: -10 },
+        best:   { label: "DH2E.Craftsmanship.Best",   modifier: -30 },
+    },
+
     modifierCap: 60,
 };

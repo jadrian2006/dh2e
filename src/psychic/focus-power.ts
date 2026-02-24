@@ -4,6 +4,7 @@ import { CheckDH2e } from "@check/check.ts";
 import { ModifierDH2e } from "@rules/modifier.ts";
 import { rollPhenomena, rollPerils } from "./tables.ts";
 import { ChatCardDH2e } from "@chat/cards.ts";
+import { VFXResolver } from "../vfx/resolver.ts";
 
 /**
  * Resolves the full Focus Power flow:
@@ -94,6 +95,23 @@ class FocusPowerResolver {
 
         // Post focus power card
         await FocusPowerResolver.#postFocusPowerCard(result, power);
+
+        // Play VFX if available and successful
+        if (VFXResolver.available && checkResult.dos.success) {
+            const casterToken = actor.token ?? actor.getActiveTokens?.()?.[0];
+            if (casterToken) {
+                const g = game as any;
+                const targetActor = g.user?.targets?.first()?.actor;
+                const targetToken = targetActor?.token ?? targetActor?.getActiveTokens?.()?.[0];
+                VFXResolver.psychicPower({
+                    casterToken,
+                    targetToken,
+                    power,
+                    discipline: power.system?.discipline ?? "",
+                    powerName: power.name ?? "",
+                });
+            }
+        }
 
         // Roll phenomena if triggered
         if (phenomenaTriggered) {

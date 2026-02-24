@@ -93,6 +93,9 @@
             },
             "cybernetic": {
                 "htmlFields": ["description"]
+            },
+            "objective": {
+                "htmlFields": ["description"]
             }
         }
     }

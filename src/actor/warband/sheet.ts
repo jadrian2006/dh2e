@@ -1,8 +1,14 @@
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@sheet/mixin.ts";
+import { getSetting } from "../../ui/settings/settings.ts";
 import type { WarbandDH2e } from "./document.ts";
 import type { AcolyteDH2e } from "@actor/acolyte/document.ts";
 import type { CharacteristicAbbrev } from "@actor/types.ts";
+import type { ObjectiveDH2e } from "@item/objective/document.ts";
+import type { PendingRequisition } from "./data.ts";
 import SheetRoot from "./sheet-root.svelte";
+
+/** Item types that can be stored in warband inventory */
+const INVENTORY_TYPES = new Set(["weapon", "armour", "gear", "ammunition", "cybernetic"]);
 
 const CHAR_KEYS: CharacteristicAbbrev[] = ["ws", "bs", "s", "t", "ag", "int", "per", "wp", "fel"];
 
@@ -122,6 +128,56 @@ class WarbandSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
             };
         });
 
+        // Inquisitor data
+        const inquisitor = actor.inquisitor;
+
+        // Objectives (embedded items of type "objective")
+        const objectives = actor.items.filter((i: Item) => i.type === "objective");
+
+        // Permission: GM or Inquisitor controller can assign objectives
+        const g = game as any;
+        const isGM = g.user?.isGM ?? false;
+        const canAssignObjectives = isGM || actor.isInquisitorController();
+
+        // Compute inventory editing permission based on setting
+        const accessSetting = getSetting<string>("warbandInventoryAccess");
+        let canEditInventory = false;
+        if (accessSetting === "all") {
+            canEditInventory = true;
+        } else if (accessSetting === "inquisitorGM") {
+            canEditInventory = isGM || actor.isInquisitorController();
+        } else {
+            canEditInventory = isGM;
+        }
+
+        // Inventory items grouped by type
+        const inventoryItems: Record<string, any[]> = {
+            weapons: [],
+            armour: [],
+            gear: [],
+            ammunition: [],
+            cybernetics: [],
+        };
+        for (const item of actor.items) {
+            if (item.type === "weapon") inventoryItems.weapons.push(item);
+            else if (item.type === "armour") inventoryItems.armour.push(item);
+            else if (item.type === "gear") inventoryItems.gear.push(item);
+            else if (item.type === "ammunition") inventoryItems.ammunition.push(item);
+            else if (item.type === "cybernetic") inventoryItems.cybernetics.push(item);
+        }
+
+        // Pending requisitions
+        const pendingRequisitions = (actor.system?.pendingRequisitions ?? []) as PendingRequisition[];
+        const now = Date.now();
+        const pendingItems = pendingRequisitions
+            .filter((r: PendingRequisition) => r.status !== "delivered")
+            .map((r: PendingRequisition) => ({
+                ...r,
+                timeRemaining: r.readyAt > 0 && r.readyAt > now
+                    ? r.readyAt - now
+                    : 0,
+            }));
+
         return {
             ctx: {
                 actor,
@@ -136,6 +192,28 @@ class WarbandSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 setActiveTab: (tab: string) => { this.#activeTab = tab; },
                 removeMember: (uuid: string) => actor.removeMembers(uuid),
                 openMemberSheet: (member: AcolyteDH2e) => member.sheet?.render(true),
+                // Inquisitor
+                inquisitor,
+                removeInquisitor: () => actor.removeInquisitor(),
+                openInquisitorSheet: () => inquisitor?.sheet?.render(true),
+                // Objectives
+                objectives,
+                canAssignObjectives,
+                addObjective: () => this.#openAssignDialog(),
+                changeObjectiveStatus: (obj: any, status: string) => this.#changeObjectiveStatus(obj, status),
+                deleteObjective: (obj: any) => this.#deleteObjective(obj),
+                openObjective: (obj: any) => obj.sheet?.render(true),
+                // Inventory
+                canEditInventory,
+                inventoryItems,
+                assignItemTo: (item: any, memberUuid: string) => this.#assignItemTo(item, memberUuid),
+                deleteItem: (item: any) => this.#deleteItem(item),
+                openItem: (item: any) => item.sheet?.render(true),
+                // Pending requisitions
+                isGM,
+                pendingItems,
+                deliverRequisition: (id: string, target: "player" | "warband") =>
+                    (actor as any).deliverRequisition(id, target),
             },
         };
     }
@@ -169,17 +247,87 @@ class WarbandSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
         if (rawData) {
             try { data = JSON.parse(rawData); } catch { return; }
         }
-        if (!data || data.type !== "Actor") return;
+        if (!data) return;
+
+        const warband = this.document as unknown as WarbandDH2e;
+
+        // Handle Item drops — add to warband inventory
+        if (data.type === "Item") {
+            let droppedItem: any = null;
+            if (data.uuid) {
+                droppedItem = await fromUuid(data.uuid as string);
+            }
+            if (!droppedItem || !INVENTORY_TYPES.has(droppedItem.type)) return;
+
+            // Check we're not on the inquisitor section
+            const target = event.target as HTMLElement;
+            if (target?.closest?.("[data-drop-target='inquisitor']")) return;
+
+            // Create the item as an embedded document on the warband
+            const itemData = droppedItem.toObject();
+            await warband.createEmbeddedDocuments("Item", [itemData]);
+            return;
+        }
+
+        // Handle Actor drops
+        if (data.type !== "Actor") return;
 
         let droppedActor: any = null;
         if (data.uuid) {
             droppedActor = await fromUuid(data.uuid as string);
         }
-        if (!droppedActor || droppedActor.type !== "acolyte") return;
+        if (!droppedActor) return;
 
-        const warband = this.document as unknown as WarbandDH2e;
+        // Check if dropped on the inquisitor section
+        const target = event.target as HTMLElement;
+        const inqSection = target?.closest?.("[data-drop-target='inquisitor']");
+        if (inqSection) {
+            if (droppedActor.type === "acolyte" || droppedActor.type === "npc") {
+                await warband.setInquisitor(droppedActor);
+                return;
+            }
+        }
+
+        // Default: add as member (acolyte only)
+        if (droppedActor.type !== "acolyte") return;
         await warband.addMembers(droppedActor);
     }
+
+    async #openAssignDialog(): Promise<void> {
+        const { ObjectiveAssignDialog } = await import("./objective-assign-dialog.ts");
+        ObjectiveAssignDialog.open(this.document as unknown as WarbandDH2e);
+    }
+
+    async #changeObjectiveStatus(obj: any, status: string): Promise<void> {
+        const objective = obj as ObjectiveDH2e;
+        if (status === "completed") await objective.complete();
+        else if (status === "failed") await objective.fail();
+        else if (status === "active") await objective.reactivate();
+    }
+
+    async #deleteObjective(obj: any): Promise<void> {
+        const warband = this.document as unknown as WarbandDH2e;
+        await warband.deleteEmbeddedDocuments("Item", [obj.id]);
+    }
+
+    /** Transfer an item from warband inventory to a member actor */
+    async #assignItemTo(item: any, memberUuid: string): Promise<void> {
+        const targetActor = fromUuidSync(memberUuid) as any;
+        if (!targetActor) return;
+
+        const itemData = item.toObject();
+        await targetActor.createEmbeddedDocuments("Item", [itemData]);
+
+        const warband = this.document as unknown as WarbandDH2e;
+        await warband.deleteEmbeddedDocuments("Item", [item.id]);
+    }
+
+    /** Delete an item from warband inventory */
+    async #deleteItem(item: any): Promise<void> {
+        const warband = this.document as unknown as WarbandDH2e;
+        await warband.deleteEmbeddedDocuments("Item", [item.id]);
+    }
+
 }
 
 export { WarbandSheetDH2e };

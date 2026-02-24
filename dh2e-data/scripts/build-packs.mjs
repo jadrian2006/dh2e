@@ -63,8 +63,49 @@ async function buildPack(packDef) {
     let count = 0;
     const batch = db.batch();
 
+    // Foundry V13 uses LevelDB sublevels for embedded documents.
+    // Actor items are stored separately at !actors.items!<actorId>.<itemId>
+    // and the actor document's items[] array contains only ID strings.
+    const embeddedKey = packDef.collection === "actors" ? "items" : null;
+
     for (const item of items) {
         const id = item._id || foundryId();
+
+        // Process embedded items for actors — write each to sublevel
+        const embeddedIds = [];
+        if (embeddedKey && Array.isArray(item[embeddedKey])) {
+            for (let i = 0; i < item[embeddedKey].length; i++) {
+                const embedded = item[embeddedKey][i];
+                const embeddedId = embedded._id || foundryId();
+                const embeddedDoc = {
+                    _id: embeddedId,
+                    name: embedded.name,
+                    type: embedded.type,
+                    img: embedded.img || "icons/svg/item-bag.svg",
+                    system: embedded.system || {},
+                    effects: embedded.effects || [],
+                    flags: embedded.flags || {},
+                    sort: i * 100000,
+                    ownership: { default: 0 },
+                    _stats: {
+                        compendiumSource: null,
+                        duplicateSource: null,
+                        coreVersion: "13.351",
+                        systemId: "dh2e",
+                        systemVersion: "0.1.2",
+                        createdTime: Date.now(),
+                        modifiedTime: Date.now(),
+                        lastModifiedBy: "dh2eBu1ldScr1pt",
+                    },
+                };
+
+                // Store full doc in sublevel: !actors.items!<actorId>.<itemId>
+                const sublevelKey = `!${packDef.collection}.${embeddedKey}!${id}.${embeddedId}`;
+                batch.put(sublevelKey, embeddedDoc);
+                embeddedIds.push(embeddedId);
+            }
+        }
+
         const doc = {
             _id: id,
             name: item.name,
@@ -73,6 +114,8 @@ async function buildPack(packDef) {
             ...(packDef.collection === "macros"
                 ? { command: item.command || "", scope: item.scope || "global" }
                 : { system: item.system || {} }),
+            // Actor items array stores only ID strings (full docs in sublevel)
+            ...(embeddedKey ? { [embeddedKey]: embeddedIds } : {}),
             effects: item.effects || [],
             flags: item.flags || {},
             sort: count * 100000,
@@ -92,6 +135,7 @@ async function buildPack(packDef) {
         // LevelDB key format for Foundry V13 compendiums
         const key = `!${packDef.collection}!${id}`;
         batch.put(key, doc);
+
         count++;
     }
 

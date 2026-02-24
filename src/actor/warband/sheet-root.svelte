@@ -1,7 +1,12 @@
 <script lang="ts">
     import MemberCard from "./components/member-card.svelte";
+    import InquisitorCard from "./components/inquisitor-card.svelte";
+    import InquisitorDropZone from "./components/inquisitor-drop-zone.svelte";
     import CharComparison from "./components/char-comparison.svelte";
     import SkillComparison from "./components/skill-comparison.svelte";
+    import ObjectivesTab from "./components/objectives-tab.svelte";
+    import InventoryTab from "./components/inventory-tab.svelte";
+    import PendingRequisitions from "./components/pending-requisitions.svelte";
     import TabGroup from "../../sheet/components/tab-group.svelte";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
@@ -15,9 +20,12 @@
     const tabs = [
         { id: "overview", label: "Overview", icon: "fa-solid fa-chart-bar" },
         { id: "skills", label: "Skills", icon: "fa-solid fa-book" },
+        { id: "inventory", label: "Inventory", icon: "fa-solid fa-warehouse" },
+        { id: "objectives", label: "Objectives", icon: "fa-solid fa-scroll" },
     ];
 
-    const isEmpty = $derived((ctx.memberCards?.length ?? 0) === 0);
+    const isEmpty = $derived((ctx.memberCards?.length ?? 0) === 0 && !ctx.inquisitor);
+    const hasInquisitor = $derived(!!ctx.inquisitor);
 </script>
 
 <div class="warband-sheet">
@@ -31,7 +39,21 @@
         {/if}
     </header>
 
-    {#if !isEmpty}
+    <!-- Inquisitor Section -->
+    <section class="inquisitor-section" data-drop-target="inquisitor">
+        {#if hasInquisitor}
+            <InquisitorCard
+                inquisitor={ctx.inquisitor}
+                editable={ctx.editable}
+                onRemove={() => ctx.removeInquisitor?.()}
+                onOpen={() => ctx.openInquisitorSheet?.()}
+            />
+        {:else}
+            <InquisitorDropZone editable={ctx.editable} />
+        {/if}
+    </section>
+
+    {#if !isEmpty || hasInquisitor}
         <section class="member-strip">
             {#each ctx.memberCards as card (card.uuid)}
                 <MemberCard
@@ -54,6 +76,20 @@
                 <SkillComparison
                     members={ctx.memberCards}
                     skills={ctx.skillComparison}
+                />
+            {:else if activeTab === "inventory"}
+                <InventoryTab {ctx} />
+                <PendingRequisitions {ctx} />
+            {:else if activeTab === "objectives"}
+                <ObjectivesTab
+                    objectives={ctx.objectives ?? []}
+                    canManage={ctx.canAssignObjectives ?? false}
+                    onAdd={() => ctx.addObjective?.()}
+                    onOpenObjective={(obj) => ctx.openObjective?.(obj)}
+                    onComplete={(obj) => ctx.changeObjectiveStatus?.(obj, "completed")}
+                    onFail={(obj) => ctx.changeObjectiveStatus?.(obj, "failed")}
+                    onReactivate={(obj) => ctx.changeObjectiveStatus?.(obj, "active")}
+                    onDelete={(obj) => ctx.deleteObjective?.(obj)}
                 />
             {/if}
         </TabGroup>
@@ -82,6 +118,9 @@
         font-style: italic;
         margin: var(--dh2e-space-sm) 0 0;
         i { margin-right: var(--dh2e-space-xs); }
+    }
+    .inquisitor-section {
+        padding: var(--dh2e-space-sm) var(--dh2e-space-md);
     }
     .member-strip {
         display: flex;

@@ -11,6 +11,7 @@ import type { RuleElementSource } from "@rules/rule-element/base.ts";
 import type { HordeDH2e } from "@actor/horde/document.ts";
 import type { VehicleDH2e } from "@actor/vehicle/document.ts";
 import { determineFacing } from "./vehicle-damage.ts";
+import { VFXResolver } from "../vfx/resolver.ts";
 
 /**
  * Resolves a full attack sequence:
@@ -120,6 +121,24 @@ class AttackResolver {
         // Post attack card
         await AttackResolver.#postAttackCard(attackResult, weapon, actor);
 
+        // Play VFX if available
+        if (VFXResolver.available && hitCount > 0) {
+            const attackerToken = (actor as any).token ?? (actor as any).getActiveTokens?.()?.[0];
+            const g = game as any;
+            const targetActor = g.user?.targets?.first()?.actor;
+            const targetToken = targetActor?.token ?? targetActor?.getActiveTokens?.()?.[0];
+            if (attackerToken && targetToken) {
+                VFXResolver.attack({
+                    attackerToken,
+                    targetToken,
+                    weapon,
+                    weaponClass: sys.class ?? "solid",
+                    damageType: sys.damage?.type ?? "impact",
+                    isAutofire: fireMode === "full" || fireMode === "semi",
+                });
+            }
+        }
+
         return attackResult;
     }
 
@@ -198,6 +217,20 @@ class AttackResolver {
 
         // Post damage card
         await AttackResolver.#postDamageCard(results, attackResult.weaponName, target);
+
+        // Play damage impact VFX
+        if (VFXResolver.available) {
+            const targetToken = (target as any).token ?? (target as any).getActiveTokens?.()?.[0];
+            if (targetToken) {
+                const isCritical = results.some(r => r.woundsDealt > 0 &&
+                    ((target as any).system?.wounds?.value ?? 0) <= 0);
+                VFXResolver.damageImpact({
+                    token: targetToken,
+                    damageType: effective.type ?? "impact",
+                    isCritical,
+                });
+            }
+        }
 
         // Route damage to target — horde uses magnitude, others use wounds
         if ((target as any).type === "horde") {

@@ -51,6 +51,8 @@ interface DH2EConfig {
     damageTypes: Record<string, string>;
     weaponClasses: Record<string, string>;
     fireModes: Record<string, string>;
+    availabilityTiers: Record<string, { label: string; modifier: number }>;
+    craftsmanshipTiers: Record<string, { label: string; modifier: number }>;
     modifierCap: number;
 }
 

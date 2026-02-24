@@ -11,6 +11,8 @@ declare global {
             config: DH2EConfig;
             awardXP: () => void;
             grantAdvance: () => void;
+            assignObjective: () => void;
+            requisition: () => void;
             warband: any;
         };
     }

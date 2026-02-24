@@ -85,6 +85,9 @@
             <button class="filter-btn" class:active={category === "cybernetics"} onclick={() => category = "cybernetics"} role="tab" aria-selected={category === "cybernetics"}>Cybernetics</button>
         </div>
         <span class="weight-total">Weight: {totalWeight().toFixed(1)} kg</span>
+        <button class="requisition-btn" onclick={() => ctx.openRequisitionDialog?.()}>
+            <i class="fa-solid fa-coins"></i> Requisition
+        </button>
     </div>
 
     <div class="encumbrance-bar {encClass}">
@@ -180,6 +183,21 @@
     .weight-total {
         font-size: var(--dh2e-text-sm, 0.8rem);
         color: var(--dh2e-text-secondary, #a0a0a8);
+    }
+
+    .requisition-btn {
+        padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-md, 0.75rem);
+        background: var(--dh2e-gold-muted, #7a6a3e);
+        border: 1px solid var(--dh2e-gold, #b49545);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        color: var(--dh2e-text-primary, #d0cfc8);
+        cursor: pointer;
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        font-weight: 700;
+
+        &:hover { background: var(--dh2e-gold, #b49545); color: #1e1e22; }
+
+        i { margin-right: var(--dh2e-space-xs, 0.25rem); }
     }
 
     .item-list {

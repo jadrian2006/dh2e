@@ -1,7 +1,9 @@
 <script lang="ts">
-    import CharGrid from "../../acolyte/components/char-grid.svelte";
+    import CharCell from "../../acolyte/components/char-grid.svelte";
     import TabGroup from "../../../sheet/components/tab-group.svelte";
     import WeaponRow from "../../acolyte/components/weapon-row.svelte";
+    import { CheckDH2e } from "../../../check/check.ts";
+    import type { CharacteristicAbbrev } from "../../../actor/types.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
@@ -16,6 +18,41 @@
         { id: "notes", label: "Notes", icon: "fa-solid fa-pen-fancy" },
     ];
 
+    const charKeys: { key: string; abbrev: string; label: string }[] = [
+        { key: "ws",  abbrev: "WS",  label: "Weapon Skill" },
+        { key: "bs",  abbrev: "BS",  label: "Ballistic Skill" },
+        { key: "s",   abbrev: "S",   label: "Strength" },
+        { key: "t",   abbrev: "T",   label: "Toughness" },
+        { key: "ag",  abbrev: "Ag",  label: "Agility" },
+        { key: "int", abbrev: "Int", label: "Intelligence" },
+        { key: "per", abbrev: "Per", label: "Perception" },
+        { key: "wp",  abbrev: "WP",  label: "Willpower" },
+        { key: "fel", abbrev: "Fel", label: "Fellowship" },
+    ];
+
+    function getChar(key: string) {
+        const char = ctx.system?.characteristics?.[key];
+        return {
+            value: char?.value ?? char?.base ?? 0,
+            bonus: char?.bonus ?? Math.floor((char?.value ?? char?.base ?? 0) / 10),
+        };
+    }
+
+    function onCharClick(key: string, shiftKey = false) {
+        const actor = ctx.actor;
+        if (!actor) return;
+        const info = charKeys.find((c) => c.key === key)!;
+        const char = getChar(key);
+        CheckDH2e.roll({
+            actor,
+            characteristic: key as CharacteristicAbbrev,
+            baseTarget: char.value,
+            label: `${info.label} Test`,
+            domain: `characteristic:${key}`,
+            skipDialog: CheckDH2e.shouldSkipDialog(shiftKey),
+        });
+    }
+
     function editItem(item: any) {
         item.sheet?.render(true);
     }
@@ -26,7 +63,18 @@
 </script>
 
 <div class="npc-full-view">
-    <CharGrid {ctx} />
+    <div class="char-grid">
+        {#each charKeys as { key, abbrev, label }}
+            {@const c = getChar(key)}
+            <CharCell
+                abbreviation={abbrev}
+                {label}
+                value={c.value}
+                bonus={c.bonus}
+                onclick={(e) => onCharClick(key, e.shiftKey)}
+            />
+        {/each}
+    </div>
 
     <div class="resource-bar">
         <div class="resource">
@@ -143,6 +191,12 @@
         gap: var(--dh2e-space-sm, 0.5rem);
         flex: 1;
         overflow-y: auto;
+    }
+
+    .char-grid {
+        display: grid;
+        grid-template-columns: repeat(9, 1fr);
+        gap: 2px;
     }
 
     .resource-bar {

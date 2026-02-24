@@ -1,4 +1,5 @@
 import { CheckDH2e } from "@check/check.ts";
+import { VFXResolver } from "../vfx/resolver.ts";
 
 /**
  * Suppressive Fire resolution.
@@ -59,6 +60,14 @@ class SuppressiveFireResolver {
                 },
             },
         });
+
+        // Play VFX if available
+        if (VFXResolver.available) {
+            const attackerToken = (actor as any).token ?? (actor as any).getActiveTokens?.()?.[0];
+            if (attackerToken) {
+                VFXResolver.suppressiveFire({ attackerToken });
+            }
+        }
     }
 
     /** Roll pinning WP tests for each target in the zone */

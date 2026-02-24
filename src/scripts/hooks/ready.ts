@@ -9,6 +9,8 @@ import { MigrationRunner } from "@migration/runner.ts";
 import { CombatHUD } from "@combat/hud/combat-hud.ts";
 import { CompendiumBrowser } from "../../ui/compendium-browser/browser.ts";
 import { createFirstWarband } from "@actor/warband/helpers.ts";
+import { RequisitionApprovalPrompt } from "../../requisition/requisition-approval-prompt.ts";
+import { RequisitionRequestDialog } from "../../requisition/requisition-request-dialog.ts";
 
 /** Hooks.once("ready") — final initialization, migrations */
 export class Ready {
@@ -21,6 +23,20 @@ export class Ready {
             (game as any).dh2e.requestRoll = () => RollRequestDialog.open();
             (game as any).dh2e.compendiumBrowser = CompendiumBrowser;
             (game as any).dh2e.grantAdvance = () => GMGrantDialog.open();
+            (game as any).dh2e.assignObjective = () => {
+                const warband = (game as any).dh2e?.warband;
+                if (warband) {
+                    import("@actor/warband/objective-assign-dialog.ts").then(m =>
+                        m.ObjectiveAssignDialog.open(warband),
+                    );
+                }
+            };
+            (game as any).dh2e.requisition = () => {
+                const g = game as any;
+                const actor = g.user?.character ?? null;
+                const warband = g.dh2e?.warband ?? null;
+                RequisitionRequestDialog.open(actor, warband);
+            };
 
             // Register socket handler
             Ready.#registerSocket();
@@ -44,6 +60,12 @@ export class Ready {
                 configurable: true,
             });
 
+            // Check for ready requisitions on startup (GM only)
+            Ready.#checkReadyRequisitions();
+
+            // Periodically check for ready requisitions during play
+            Hooks.on("updateWorldTime", () => Ready.#checkReadyRequisitions());
+
             // Block deletion of the active warband
             Hooks.on("preDeleteActor", (actor: any) => {
                 const g = game as any;
@@ -57,16 +79,17 @@ export class Ready {
                 }
             });
 
-            // Re-render warband sheet when a member actor updates
+            // Re-render warband sheet when a member or Inquisitor actor updates
             Hooks.on("updateActor", (actor: any) => {
                 if (actor.type === "warband") return;
                 const g = game as any;
                 const warband = g.dh2e?.warband;
-                if (!warband) return;
+                if (!warband || !warband.sheet?.rendered) return;
                 const isMember = warband.system?.resolvedMembers?.some(
                     (m: any) => m.id === actor.id,
                 );
-                if (isMember && warband.sheet?.rendered) {
+                const isInquisitor = warband.system?.resolvedInquisitor?.id === actor.id;
+                if (isMember || isInquisitor) {
                     warband.sheet.render(true);
                 }
             });
@@ -109,6 +132,19 @@ export class Ready {
             } else if (data.type === "eliteApprovalDenied") {
                 // Player receives GM's denial
                 AdvancementShop.handleApprovalDenied(data.payload);
+            } else if (data.type === "objectiveAssigned") {
+                Ready.#handleObjectiveAssigned(data.payload);
+            } else if (data.type === "requisitionRequest") {
+                // GM receives player's requisition request
+                if (g.user?.isGM) {
+                    RequisitionApprovalPrompt.show(data.payload);
+                }
+            } else if (data.type === "requisitionApproved") {
+                Ready.#handleRequisitionApproved(data.payload);
+            } else if (data.type === "requisitionApprovedDelayed") {
+                Ready.#handleRequisitionApprovedDelayed(data.payload);
+            } else if (data.type === "requisitionDenied") {
+                Ready.#handleRequisitionDenied(data.payload);
             } else if (data.type === "gmGrantFlavor") {
                 // Player receives GM grant flavor text popup
                 Ready.#handleGMGrantFlavor(data.payload);
@@ -160,6 +196,22 @@ export class Ready {
         }).render(true);
     }
 
+    /** Handle objective assignment notification (player side) */
+    static #handleObjectiveAssigned(payload: {
+        userId: string;
+        actorName: string;
+        title: string;
+    }): void {
+        const g = game as any;
+        if (g.user?.id !== payload.userId) return;
+        ui.notifications.info(
+            game.i18n.format("DH2E.Objective.Notification", {
+                name: payload.actorName,
+                title: payload.title,
+            }),
+        );
+    }
+
     /** Handle roll declined notification (GM side) */
     static #handleRollDeclined(payload: { userName: string }): void {
         const g = game as any;
@@ -168,6 +220,82 @@ export class Ready {
         ui.notifications.info(
             game.i18n.format("DH2E.Request.Prompt.Declined", { name: payload.userName }),
         );
+    }
+
+    /** Handle approved requisition (player side) — create item on actor */
+    static async #handleRequisitionApproved(payload: {
+        userId: string;
+        itemData: object;
+        itemName: string;
+        actorUuid: string;
+        craftsmanship: string;
+        modifications: string;
+    }): Promise<void> {
+        const g = game as any;
+        if (g.user?.id !== payload.userId) return;
+
+        try {
+            const actor = await fromUuid(payload.actorUuid) as any;
+            if (actor && payload.itemData && Object.keys(payload.itemData).length > 0) {
+                await actor.createEmbeddedDocuments("Item", [payload.itemData]);
+            }
+        } catch (e) {
+            console.warn("DH2E | Failed to create requisitioned item:", e);
+        }
+
+        ui.notifications.info(
+            game.i18n.format("DH2E.Requisition.Approved", { name: payload.itemName }),
+        );
+    }
+
+    /** Handle delayed requisition approval (player side) — notification only */
+    static #handleRequisitionApprovedDelayed(payload: {
+        userId: string;
+        itemName: string;
+        time: string;
+    }): void {
+        const g = game as any;
+        if (g.user?.id !== payload.userId) return;
+
+        ui.notifications.info(
+            game.i18n.format("DH2E.Requisition.ApprovedDelayed", {
+                name: payload.itemName,
+                time: payload.time,
+            }),
+        );
+    }
+
+    /** Handle denied requisition (player side) — notification */
+    static #handleRequisitionDenied(payload: {
+        userId: string;
+        itemName: string;
+    }): void {
+        const g = game as any;
+        if (g.user?.id !== payload.userId) return;
+
+        ui.notifications.warn(
+            game.i18n.format("DH2E.Requisition.Denied", { name: payload.itemName }),
+        );
+    }
+
+    /** Check for pending requisitions that are ready for delivery (GM only) */
+    static async #checkReadyRequisitions(): Promise<void> {
+        const g = game as any;
+        if (!g.user?.isGM) return;
+
+        const warband = g.dh2e?.warband;
+        if (!warband) return;
+
+        const pending = warband.system?.pendingRequisitions ?? [];
+        const now = Date.now();
+        for (const req of pending) {
+            if (req.status === "pending" && req.readyAt > 0 && now >= req.readyAt) {
+                await warband.updatePendingRequisition(req.id, { status: "ready" });
+                ui.notifications.info(
+                    game.i18n.format("DH2E.Requisition.ItemReady", { name: req.itemName }),
+                );
+            }
+        }
     }
 
     /** Create a DH2E-themed landing scene if one doesn't already exist */
