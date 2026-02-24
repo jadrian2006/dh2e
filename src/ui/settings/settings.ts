@@ -150,6 +150,16 @@ const SETTINGS: SettingDefinition[] = [
         type: Boolean,
         default: true,
     },
+    {
+        key: "requireEliteApproval",
+        category: "automation",
+        name: "DH2E.Settings.RequireEliteApproval.Name",
+        hint: "DH2E.Settings.RequireEliteApproval.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+    },
 
     // Combat
     {

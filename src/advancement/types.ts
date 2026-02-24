@@ -34,6 +34,10 @@ export interface AdvanceOption {
     sourceItemId?: string;
     /** Compendium UUID (for unowned skills/talents) */
     compendiumUuid?: string;
+    /** True when elite advance requires GM approval before purchase */
+    needsApproval?: boolean;
+    /** True while waiting for GM response to an approval request */
+    pendingApproval?: boolean;
 }
 
 export interface XPTransaction {

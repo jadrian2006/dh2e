@@ -102,7 +102,12 @@
             <div class="advance-row" class:maxed={opt.alreadyMaxed} class:unaffordable={!opt.affordable && !opt.alreadyMaxed}>
                 <span class="row-icon"><i class={categoryIcon(opt.category)}></i></span>
                 <div class="row-info">
-                    <span class="row-label">{opt.label}</span>
+                    <span class="row-label">
+                        {opt.label}
+                        {#if opt.needsApproval}
+                            <i class="fa-solid fa-shield-halved fa-xs approval-icon" title={game.i18n.localize("DH2E.EliteApproval.RequiresApproval")}></i>
+                        {/if}
+                    </span>
                     <span class="row-sublabel">{opt.sublabel}</span>
                     {#if opt.prerequisites}
                         <span class="row-prereqs" class:prereqs-unmet={!opt.prereqsMet}>
@@ -130,7 +135,17 @@
                 </span>
                 <div class="row-action">
                     {#if !opt.alreadyMaxed}
-                        <button class="buy-btn" disabled={!opt.affordable || !opt.prereqsMet} title={!opt.prereqsMet ? `Unmet: ${opt.prereqsUnmet.join(", ")}` : ""} onclick={() => buy(opt)}>Buy</button>
+                        {#if opt.pendingApproval}
+                            <button class="buy-btn pending" disabled>
+                                <i class="fa-solid fa-spinner fa-spin fa-xs"></i> {game.i18n.localize("DH2E.EliteApproval.Pending")}
+                            </button>
+                        {:else if opt.needsApproval}
+                            <button class="buy-btn request" disabled={!opt.affordable || !opt.prereqsMet} title={!opt.prereqsMet ? `Unmet: ${opt.prereqsUnmet.join(", ")}` : game.i18n.localize("DH2E.EliteApproval.RequiresApproval")} onclick={() => buy(opt)}>
+                                <i class="fa-solid fa-shield-halved fa-xs"></i> {game.i18n.localize("DH2E.EliteApproval.Request")}
+                            </button>
+                        {:else}
+                            <button class="buy-btn" disabled={!opt.affordable || !opt.prereqsMet} title={!opt.prereqsMet ? `Unmet: ${opt.prereqsUnmet.join(", ")}` : ""} onclick={() => buy(opt)}>Buy</button>
+                        {/if}
                     {/if}
                 </div>
             </div>
@@ -277,7 +292,7 @@
     .hdr-info { width: 24px; }
     .hdr-pips { width: 40px; text-align: center; cursor: help; }
     .hdr-cost { min-width: 60px; text-align: right; }
-    .hdr-action { width: 50px; }
+    .hdr-action { width: 70px; }
     .advance-row {
         display: flex;
         align-items: center;
@@ -380,7 +395,7 @@
         font-weight: 700;
     }
     .row-action {
-        width: 50px;
+        width: 70px;
         flex-shrink: 0;
     }
     .buy-btn {
@@ -403,6 +418,33 @@
             color: var(--dh2e-text-secondary);
             border-color: var(--dh2e-border);
         }
+
+        &.request {
+            background: rgba(168, 78, 200, 0.25);
+            border-color: rgba(168, 78, 200, 0.5);
+            color: #e8d0f8;
+            font-size: 0.55rem;
+
+            i { margin-right: 2px; }
+            &:hover:not(:disabled) {
+                background: rgba(168, 78, 200, 0.4);
+            }
+        }
+
+        &.pending {
+            background: var(--dh2e-bg-mid);
+            border-color: var(--dh2e-border);
+            color: var(--dh2e-text-secondary);
+            font-size: 0.55rem;
+            opacity: 0.7;
+
+            i { margin-right: 2px; }
+        }
+    }
+    .approval-icon {
+        color: rgba(168, 78, 200, 0.6);
+        margin-left: 4px;
+        cursor: help;
     }
 
     .elite-tab {

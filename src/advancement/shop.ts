@@ -13,6 +13,7 @@ import {
 import { recordTransaction } from "./xp-ledger.ts";
 import { appendLog } from "@actor/log.ts";
 import { checkPrerequisites, hasEliteAdvance } from "./prerequisites.ts";
+import { executeElitePurchase, type EliteAdvanceDef } from "./elite-purchase.ts";
 import type { AdvanceOption, XPCostData, XPTransaction } from "./types.ts";
 import ShopRoot from "./shop-root.svelte";
 
@@ -26,28 +27,13 @@ const CHAR_LABELS: Record<string, string> = {
 const CHAR_ADVANCE_NAMES = ["Simple", "Intermediate", "Trained", "Expert"];
 const SKILL_RANK_NAMES = ["Known", "Trained (+10)", "Experienced (+20)", "Veteran (+30)"];
 
-/** Elite advance definition loaded from dh2e-data */
-interface EliteAdvanceDef {
-    id: string;
-    name: string;
-    cost: number;
-    prerequisites: {
-        characteristics?: Record<string, number>;
-        notEliteAdvance?: string;
-        influence?: number;
-    };
-    instant: {
-        aptitudes?: string[];
-        talents?: string[];
-        unsanctionedCorruption?: string;
-    };
-    description: string;
-}
-
 class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     /** Cached elite advance definitions */
     static #eliteAdvanceData: EliteAdvanceDef[] = [];
     static #eliteDataLoaded = false;
+    /** Map of open shop instances by actor ID for socket callbacks */
+    static #instances = new Map<string, AdvancementShop>();
+
     static override DEFAULT_OPTIONS = fu.mergeObject(super.DEFAULT_OPTIONS, {
         id: "dh2e-advancement-shop",
         classes: ["dh2e", "dialog", "advancement-shop"],
@@ -58,6 +44,10 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     protected override root = ShopRoot;
 
     #actor: AcolyteDH2e;
+    /** Tracks advance keys with pending GM approval */
+    #pendingApprovals = new Set<string>();
+    /** Cached costs for re-use in approval handler */
+    #cachedCosts: XPCostData | null = null;
 
     constructor(actor: AcolyteDH2e) {
         super({});
@@ -82,6 +72,7 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     protected override async _prepareContext(): Promise<SvelteApplicationRenderContext> {
         const costs = await loadXPCostData();
+        this.#cachedCosts = costs;
         await AdvancementShop.#loadEliteAdvances();
         const options = this.#buildOptions(costs);
         const system = this.#actor.system;
@@ -302,6 +293,7 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
         // --- Elite Advances ---
         const ownedElites: string[] = (system as any).eliteAdvances ?? [];
+        const requireApproval = game.settings.get(SYSTEM_ID, "requireEliteApproval") as boolean;
 
         for (const adv of AdvancementShop.#eliteAdvanceData) {
             const alreadyOwned = ownedElites.includes(adv.id);
@@ -329,11 +321,12 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 }
             }
 
+            const optKey = `elite-${adv.id}`;
             options.push({
                 category: "elite",
                 label: adv.name,
                 sublabel: `Elite Advance`,
-                key: `elite-${adv.id}`,
+                key: optKey,
                 cost: adv.cost,
                 matchCount: 0,
                 aptitudes: ["General", "General"],
@@ -345,6 +338,8 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 prerequisites: unmet.length > 0 ? unmet.join(", ") : undefined,
                 prereqsMet: unmet.length === 0,
                 prereqsUnmet: unmet,
+                needsApproval: requireApproval && !(game as any).user?.isGM,
+                pendingApproval: this.#pendingApprovals.has(optKey),
             });
         }
 
@@ -399,6 +394,12 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const actor = this.#actor;
         const system = actor.system;
 
+        // Elite advance with approval required — redirect to request flow
+        if (opt.needsApproval && !opt.pendingApproval && opt.category === "elite" && opt.key.startsWith("elite-")) {
+            this.#requestEliteApproval(opt);
+            return;
+        }
+
         if (system.xp.available < opt.cost) {
             ui.notifications.warn("Not enough XP!");
             return;
@@ -419,13 +420,11 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 "system.xp.spent": system.xp.spent + opt.cost,
             });
         } else if (opt.category === "skill" && opt.sourceItemId) {
-            // Advance existing embedded skill
             const skillItem = actor.items.get(opt.sourceItemId);
             if (!skillItem) return;
             await skillItem.update({ "system.advancement": opt.nextLevel });
             await actor.update({ "system.xp.spent": system.xp.spent + opt.cost });
         } else if (opt.category === "skill" && opt.compendiumUuid) {
-            // Add new skill from compendium
             const item = await fromUuid(opt.compendiumUuid);
             if (!item) return;
             const data = (item as any).toObject();
@@ -433,79 +432,19 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             await actor.createEmbeddedDocuments("Item", [data]);
             await actor.update({ "system.xp.spent": system.xp.spent + opt.cost });
         } else if (opt.category === "talent" && opt.compendiumUuid) {
-            // Add talent from compendium
             const item = await fromUuid(opt.compendiumUuid);
             if (!item) return;
             await actor.createEmbeddedDocuments("Item", [(item as any).toObject()]);
             await actor.update({ "system.xp.spent": system.xp.spent + opt.cost });
         } else if (opt.category === "elite" && opt.key.startsWith("elite-")) {
-            // Purchase elite advance
             const advId = opt.key.replace("elite-", "");
             const advDef = AdvancementShop.#eliteAdvanceData.find((a) => a.id === advId);
             if (!advDef) return;
-
-            const currentElites: string[] = [...((system as any).eliteAdvances ?? [])];
-            currentElites.push(advId);
-            const currentApts: string[] = [...(system.aptitudes ?? [])];
-            const updates: Record<string, unknown> = {
-                "system.eliteAdvances": currentElites,
-                "system.xp.spent": system.xp.spent + opt.cost,
-            };
-
-            // Apply instant aptitudes
-            if (advDef.instant.aptitudes) {
-                for (const apt of advDef.instant.aptitudes) {
-                    if (!currentApts.includes(apt)) currentApts.push(apt);
-                }
-                updates["system.aptitudes"] = currentApts;
-            }
-
-            await actor.update(updates);
-
-            // Apply instant talents
-            if (advDef.instant.talents) {
-                for (const talentName of advDef.instant.talents) {
-                    // Check if actor already has this talent
-                    const existing = actor.items.find(
-                        (i: Item) => i.type === "talent" && i.name.toLowerCase() === talentName.toLowerCase(),
-                    );
-                    if (existing) continue;
-
-                    const talentPack = game.packs?.get("dh2e-data.talents");
-                    if (talentPack) {
-                        const idx = (await talentPack.getIndex()).find(
-                            (e: any) => e.name.toLowerCase() === talentName.toLowerCase(),
-                        );
-                        if (idx) {
-                            const doc = await talentPack.getDocument(idx._id);
-                            if (doc) {
-                                await actor.createEmbeddedDocuments("Item", [(doc as any).toObject()]);
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Unsanctioned psyker corruption
-            if (advId === "psyker" && advDef.instant.unsanctionedCorruption) {
-                const bgName = (system as any).details?.background ?? "";
-                const isSanctioned = bgName === "Adeptus Astra Telepathica";
-                if (!isSanctioned) {
-                    const corruptionRoll = new foundry.dice.Roll(advDef.instant.unsanctionedCorruption);
-                    await corruptionRoll.evaluate();
-                    const corruptionGain = corruptionRoll.total ?? 6;
-                    const currentCorruption = (system as any).corruption ?? 0;
-                    await actor.update({ "system.corruption": currentCorruption + corruptionGain });
-
-                    const speaker = fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
-                    await fd.ChatMessage.create({
-                        content: `<div class="dh2e chat-card system-note"><em>${game.i18n?.format("DH2E.EliteAdvance.UnsanctionedCorruption", { amount: String(corruptionGain) }) ?? `Unsanctioned psyker — gained ${corruptionGain} Corruption Points!`}</em></div>`,
-                        speaker,
-                    });
-                }
-            }
+            await executeElitePurchase(actor, advDef, opt.cost);
+            ui.notifications.info(`Purchased ${opt.label} for ${opt.cost} XP`);
+            this.render();
+            return; // executeElitePurchase already records txn + log
         } else if (opt.category === "elite" && opt.key.startsWith("psy-rating-")) {
-            // Advance Psy Rating
             if (!opt.sourceItemId) return;
             const psyTalent = actor.items.get(opt.sourceItemId);
             if (!psyTalent) return;
@@ -523,6 +462,113 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         });
         ui.notifications.info(`Purchased ${opt.label} for ${opt.cost} XP`);
         this.render();
+    }
+
+    /** Send an elite advance approval request to the GM via socket */
+    #requestEliteApproval(opt: AdvanceOption): void {
+        const g = game as any;
+        const gmOnline = g.users?.find((u: any) => u.isGM && u.active);
+        if (!gmOnline) {
+            ui.notifications.warn(game.i18n.localize("DH2E.EliteApproval.GMOffline"));
+            return;
+        }
+
+        // Mark as pending
+        this.#pendingApprovals.add(opt.key);
+
+        // Register this instance for callbacks
+        AdvancementShop.#instances.set(this.#actor.id, this);
+
+        g.socket.emit(`system.${SYSTEM_ID}`, {
+            type: "eliteApprovalRequest",
+            payload: {
+                actorId: this.#actor.id,
+                actorName: this.#actor.name,
+                userId: g.user?.id,
+                userName: g.user?.name,
+                advanceKey: opt.key,
+                advanceName: opt.label,
+                cost: opt.cost,
+                prerequisites: opt.prerequisites,
+            },
+        });
+
+        this.render();
+    }
+
+    /** Handle GM approval — execute the purchase */
+    static async handleApprovalGranted(payload: {
+        actorId: string;
+        advanceKey: string;
+        userId: string;
+    }): Promise<void> {
+        const g = game as any;
+        if (g.user?.id !== payload.userId) return;
+
+        const actor = g.actors?.get(payload.actorId) as AcolyteDH2e | undefined;
+        if (!actor) return;
+
+        const advId = payload.advanceKey.replace("elite-", "");
+        await AdvancementShop.#loadEliteAdvances();
+        const advDef = AdvancementShop.#eliteAdvanceData.find((a) => a.id === advId);
+        if (!advDef) return;
+
+        // Check XP still available
+        if (actor.system.xp.available < advDef.cost) {
+            ui.notifications.warn("Not enough XP!");
+            return;
+        }
+
+        await executeElitePurchase(actor, advDef, advDef.cost);
+        ui.notifications.info(
+            game.i18n.format("DH2E.EliteApproval.Approved", {
+                name: advDef.name,
+                actor: actor.name,
+            }),
+        );
+
+        // Clean up pending state on open shop
+        const shop = AdvancementShop.#instances.get(payload.actorId);
+        if (shop) {
+            shop.#pendingApprovals.delete(payload.advanceKey);
+            shop.render();
+        }
+    }
+
+    /** Handle GM denial — show notification, clear pending */
+    static handleApprovalDenied(payload: {
+        actorId: string;
+        advanceKey: string;
+        advanceName: string;
+        userId: string;
+        reason?: string;
+    }): void {
+        const g = game as any;
+        if (g.user?.id !== payload.userId) return;
+
+        if (payload.reason) {
+            ui.notifications.warn(
+                game.i18n.format("DH2E.EliteApproval.DeniedReason", {
+                    name: payload.advanceName,
+                    reason: payload.reason,
+                }),
+            );
+        } else {
+            ui.notifications.warn(
+                game.i18n.format("DH2E.EliteApproval.Denied", { name: payload.advanceName }),
+            );
+        }
+
+        const shop = AdvancementShop.#instances.get(payload.actorId);
+        if (shop) {
+            shop.#pendingApprovals.delete(payload.advanceKey);
+            shop.render();
+        }
+    }
+
+    override close(options?: any): Promise<void> {
+        AdvancementShop.#instances.delete(this.#actor.id);
+        return super.close(options);
     }
 
     #ordinalSuffix(n: number): string {

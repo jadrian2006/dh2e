@@ -865,5 +865,35 @@
     "DH2E.Warband.MembersRemoved": "Removed member from the warband.",
     "DH2E.Warband.AcolyteOnly": "Only Acolyte actors can join a warband.",
 
-    "DH2E.Keybinding.ToggleWarband": "Toggle Warband Sheet"
+    "DH2E.Keybinding.ToggleWarband": "Toggle Warband Sheet",
+
+    "DH2E.Settings.RequireEliteApproval.Name": "Require GM Approval for Elite Advances",
+    "DH2E.Settings.RequireEliteApproval.Hint": "When enabled, players must request GM approval before purchasing elite advances (Psyker, Untouchable, Inquisitor). Does not affect auto-grants from character creation.",
+
+    "DH2E.EliteApproval.Request": "Request Approval",
+    "DH2E.EliteApproval.Pending": "Pending...",
+    "DH2E.EliteApproval.Approved": "{name} elite advance approved for {actor}.",
+    "DH2E.EliteApproval.Denied": "Your request for {name} was denied by the GM.",
+    "DH2E.EliteApproval.DeniedReason": "Your request for {name} was denied: {reason}",
+    "DH2E.EliteApproval.GMOffline": "No GM is currently online to approve your request.",
+    "DH2E.EliteApproval.PromptTitle": "Elite Advance Request",
+    "DH2E.EliteApproval.PromptBody": "{player} requests to purchase {advance} for {actor} ({cost} XP).",
+    "DH2E.EliteApproval.RequiresApproval": "Requires GM Approval",
+
+    "DH2E.GMGrant.Title": "Grant Advance",
+    "DH2E.GMGrant.GrantButton": "Grant",
+    "DH2E.GMGrant.Success": "Granted {advance} to {actor}.",
+    "DH2E.GMGrant.LogEntry": "GM Grant: {advance}",
+    "DH2E.GMGrant.ChatMessage": "{gm} granted <strong>{advance}</strong> to <strong>{actor}</strong>.",
+    "DH2E.GMGrant.FlavorLabel": "Flavor Text (shown to player)",
+    "DH2E.GMGrant.FlavorPlaceholder": "Your near-death experience twisted your perception of the world...",
+    "DH2E.GMGrant.FlavorTitle": "The Emperor's Will",
+    "DH2E.GMGrant.SelectActor": "Select Actor",
+    "DH2E.GMGrant.SelectType": "Grant Type",
+    "DH2E.GMGrant.TypeElite": "Elite Advance",
+    "DH2E.GMGrant.TypeTalent": "Talent",
+    "DH2E.GMGrant.TypeSkill": "Skill",
+    "DH2E.GMGrant.SelectAdvance": "Select Advance",
+    "DH2E.GMGrant.Search": "Search...",
+    "DH2E.GMGrant.GMOnly": "Only the GM can grant advances."
 }

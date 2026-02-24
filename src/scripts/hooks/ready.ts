@@ -2,6 +2,9 @@ import { ChatListenersDH2e } from "@chat/listeners.ts";
 import { XPAwardDialog } from "../../ui/xp-award-dialog.ts";
 import { RollRequestDialog } from "../../ui/roll-request-dialog.ts";
 import { RollRequestPrompt } from "../../ui/roll-request-prompt.ts";
+import { EliteApprovalPrompt } from "../../ui/elite-approval-prompt.ts";
+import { AdvancementShop } from "../../advancement/shop.ts";
+import { GMGrantDialog } from "../../ui/gm-grant-dialog.ts";
 import { MigrationRunner } from "@migration/runner.ts";
 import { CombatHUD } from "@combat/hud/combat-hud.ts";
 import { CompendiumBrowser } from "../../ui/compendium-browser/browser.ts";
@@ -17,6 +20,7 @@ export class Ready {
             (game as any).dh2e.awardXP = () => XPAwardDialog.open();
             (game as any).dh2e.requestRoll = () => RollRequestDialog.open();
             (game as any).dh2e.compendiumBrowser = CompendiumBrowser;
+            (game as any).dh2e.grantAdvance = () => GMGrantDialog.open();
 
             // Register socket handler
             Ready.#registerSocket();
@@ -86,7 +90,7 @@ export class Ready {
         });
     }
 
-    /** Register system socket for GM roll requests */
+    /** Register system socket for GM roll requests and elite approval */
     static #registerSocket(): void {
         const g = game as any;
         g.socket.on(`system.${SYSTEM_ID}`, (data: any) => {
@@ -94,6 +98,20 @@ export class Ready {
                 Ready.#handleRollRequest(data.payload);
             } else if (data.type === "rollDeclined") {
                 Ready.#handleRollDeclined(data.payload);
+            } else if (data.type === "eliteApprovalRequest") {
+                // GM receives player's request
+                if (g.user?.isGM) {
+                    EliteApprovalPrompt.show(data.payload);
+                }
+            } else if (data.type === "eliteApprovalGranted") {
+                // Player receives GM's approval
+                AdvancementShop.handleApprovalGranted(data.payload);
+            } else if (data.type === "eliteApprovalDenied") {
+                // Player receives GM's denial
+                AdvancementShop.handleApprovalDenied(data.payload);
+            } else if (data.type === "gmGrantFlavor") {
+                // Player receives GM grant flavor text popup
+                Ready.#handleGMGrantFlavor(data.payload);
             }
         });
     }
@@ -105,6 +123,41 @@ export class Ready {
         if (!userId || !payload.targetUserIds?.includes(userId)) return;
 
         RollRequestPrompt.show(payload);
+    }
+
+    /** Handle GM grant flavor text popup (player side) */
+    static #handleGMGrantFlavor(payload: {
+        userId: string;
+        advanceName: string;
+        actorName: string;
+        flavorText: string;
+    }): void {
+        const g = game as any;
+        if (g.user?.id !== payload.userId) return;
+
+        // Show a dialog with the GM's narrative flavor text
+        new fa.api.DialogV2({
+            window: {
+                title: game.i18n.localize("DH2E.GMGrant.FlavorTitle"),
+                icon: "fa-solid fa-scroll",
+            },
+            content: `
+                <div style="text-align:center; padding: 0.75rem;">
+                    <p style="font-size: 0.75rem; color: var(--dh2e-text-secondary, #a0a0a8); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 0.5rem;">
+                        <strong>${payload.advanceName}</strong> granted to <strong>${payload.actorName}</strong>
+                    </p>
+                    <p style="font-family: var(--dh2e-font-header, serif); font-size: 1rem; color: var(--dh2e-gold, #c8a84e); font-style: italic; line-height: 1.5; margin: 0;">
+                        "${payload.flavorText}"
+                    </p>
+                </div>
+            `,
+            buttons: [{
+                action: "ok",
+                label: "The Emperor Protects",
+                default: true,
+            }],
+            position: { width: 420 },
+        }).render(true);
     }
 
     /** Handle roll declined notification (GM side) */
