@@ -10,16 +10,8 @@ import { FateDialog } from "@ui/fate-dialog.ts";
 class ChatListenersDH2e {
     /** Register delegated listeners on the chat log */
     static listen(): void {
-        Hooks.on("renderChatMessage", (message: unknown, html: unknown) => {
-            // V13 may pass jQuery, HTMLElement, or other wrapper — handle all cases
-            let element: HTMLElement | null = null;
-            if (html instanceof HTMLElement) {
-                element = html;
-            } else if (html && typeof html === "object" && 0 in (html as Record<number, unknown>)) {
-                const first = (html as Record<number, unknown>)[0];
-                if (first instanceof HTMLElement) element = first;
-            }
-            if (element) ChatListenersDH2e.#bindListeners(element, message as StoredDocument<ChatMessage>);
+        Hooks.on("renderChatMessageHTML", (message: unknown, html: HTMLElement) => {
+            ChatListenersDH2e.#bindListeners(html, message as StoredDocument<ChatMessage>);
         });
     }
 

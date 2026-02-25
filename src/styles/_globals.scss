@@ -65,11 +65,6 @@
         font-size: var(--dh2e-text-md);
         padding: 0;
         overflow: hidden;
-
-        // Ensure FontAwesome icons aren't overridden by our font-family
-        [class*="fa-"]::before {
-            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
-        }
     }
 
     // Sheet header with dark bg
@@ -138,6 +133,13 @@
         background: var(--dh2e-gold-dark);
         border-radius: 3px;
     }
+}
+
+// Ensure FA icons work everywhere in DH2E apps (window headers, dialogs, sheets)
+// Foundry V13 ships FA6 Pro — use the CSS variable with Pro fallback
+.dh2e [class*="fa-"]::before {
+    font-family: var(--fa-style-family, "Font Awesome 6 Pro"), "Font Awesome 6 Brands" !important;
+    font-weight: inherit !important;
 }
 
 // Window header styling for all DH2E apps

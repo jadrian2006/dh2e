@@ -7,7 +7,9 @@ import TrackerRoot from "./tracker-root.svelte";
  * Wraps a Svelte component for the combat tracker UI with
  * action economy, condition badges, and wound bars.
  */
-class CombatTrackerDH2e extends CombatTracker {
+const BaseCombatTracker = foundry.applications.sidebar.tabs.CombatTracker ?? CombatTracker;
+
+class CombatTrackerDH2e extends (BaseCombatTracker as typeof CombatTracker) {
     #mount: object | null = null;
 
     /** Re-render the Svelte tracker whenever combat state changes */

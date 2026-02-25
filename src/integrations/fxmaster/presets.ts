@@ -18,7 +18,7 @@ interface FXMasterEffect {
 const PRESETS: FXMasterPreset[] = [
     {
         id: "ash-waste-storm",
-        nameKey: "DH2E.FXMaster.AshWasteStorm",
+        nameKey: "DH2E.FXMaster.AshWasteStorm.Name",
         descKey: "DH2E.FXMaster.AshWasteStorm.Desc",
         icon: "fa-solid fa-smog",
         effects: {
@@ -34,7 +34,7 @@ const PRESETS: FXMasterPreset[] = [
     },
     {
         id: "acid-rain",
-        nameKey: "DH2E.FXMaster.AcidRain",
+        nameKey: "DH2E.FXMaster.AcidRain.Name",
         descKey: "DH2E.FXMaster.AcidRain.Desc",
         icon: "fa-solid fa-cloud-rain",
         effects: {
@@ -50,7 +50,7 @@ const PRESETS: FXMasterPreset[] = [
     },
     {
         id: "hive-smog",
-        nameKey: "DH2E.FXMaster.HiveSmog",
+        nameKey: "DH2E.FXMaster.HiveSmog.Name",
         descKey: "DH2E.FXMaster.HiveSmog.Desc",
         icon: "fa-solid fa-city",
         effects: {
@@ -66,7 +66,7 @@ const PRESETS: FXMasterPreset[] = [
     },
     {
         id: "warp-rift",
-        nameKey: "DH2E.FXMaster.WarpRift",
+        nameKey: "DH2E.FXMaster.WarpRift.Name",
         descKey: "DH2E.FXMaster.WarpRift.Desc",
         icon: "fa-solid fa-burst",
         effects: {
@@ -82,7 +82,7 @@ const PRESETS: FXMasterPreset[] = [
     },
     {
         id: "void-exposure",
-        nameKey: "DH2E.FXMaster.VoidExposure",
+        nameKey: "DH2E.FXMaster.VoidExposure.Name",
         descKey: "DH2E.FXMaster.VoidExposure.Desc",
         icon: "fa-solid fa-moon",
         effects: {
@@ -94,7 +94,7 @@ const PRESETS: FXMasterPreset[] = [
     },
     {
         id: "promethium-fire",
-        nameKey: "DH2E.FXMaster.PromethiumFire",
+        nameKey: "DH2E.FXMaster.PromethiumFire.Name",
         descKey: "DH2E.FXMaster.PromethiumFire.Desc",
         icon: "fa-solid fa-fire",
         effects: {
@@ -106,7 +106,7 @@ const PRESETS: FXMasterPreset[] = [
     },
     {
         id: "blizzard",
-        nameKey: "DH2E.FXMaster.Blizzard",
+        nameKey: "DH2E.FXMaster.Blizzard.Name",
         descKey: "DH2E.FXMaster.Blizzard.Desc",
         icon: "fa-solid fa-snowflake",
         effects: {
@@ -118,7 +118,7 @@ const PRESETS: FXMasterPreset[] = [
     },
     {
         id: "blood-rain",
-        nameKey: "DH2E.FXMaster.BloodRain",
+        nameKey: "DH2E.FXMaster.BloodRain.Name",
         descKey: "DH2E.FXMaster.BloodRain.Desc",
         icon: "fa-solid fa-droplet",
         effects: {

@@ -90,7 +90,7 @@ class InsanityHandler {
                 <h3><i class="fas fa-brain"></i> ${game.i18n?.localize("DH2E.Insanity.ThresholdCrossed") ?? "Insanity Threshold Crossed"}</h3>
             </header>
             <div class="card-body">
-                <p><strong>${actorName}</strong> — ${game.i18n?.localize("DH2E.Insanity") ?? "Insanity"}: ${insanity} (${game.i18n?.localize("DH2E.Insanity.Threshold") ?? "Threshold"}: ${threshold})</p>`;
+                <p><strong>${actorName}</strong> — ${game.i18n?.localize("DH2E.InsanityLabel") ?? "Insanity"}: ${insanity} (${game.i18n?.localize("DH2E.Insanity.Threshold") ?? "Threshold"}: ${threshold})</p>`;
 
         if (lost) {
             html += `<p class="lost-warning"><i class="fas fa-skull"></i> ${game.i18n?.localize("DH2E.Insanity.Lost") ?? "Irrecoverably insane!"}</p>`;
