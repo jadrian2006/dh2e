@@ -117,6 +117,11 @@
 
         {#if ctx.editable}
             <div class="status-actions">
+                {#if ctx.isGM}
+                    <button class="action-btn vox" onclick={ctx.sendViaVox} title={game.i18n.localize("DH2E.Vox.SendViaVox")}>
+                        <i class="fa-solid fa-tower-broadcast"></i>
+                    </button>
+                {/if}
                 {#if status === "active"}
                     <button class="action-btn complete" onclick={ctx.complete}>
                         <i class="fa-solid fa-check"></i> {isParchment ? "Complete" : "CONFIRM"}
@@ -314,6 +319,7 @@
             &.complete { background: #6a9a4a; color: #fff; }
             &.fail { background: #a04a3a; color: #fff; }
             &.reactivate { background: #5a7a9a; color: #fff; }
+            &.vox { background: #9c7a28; color: #fff; }
         }
     }
 
@@ -393,6 +399,7 @@
             &.complete { color: #33ff33; border-color: #33ff33; }
             &.fail { color: #ff3333; border-color: #ff3333; }
             &.reactivate { color: #3399ff; border-color: #3399ff; }
+            &.vox { color: #33ff33; border-color: #33ff33; }
         }
     }
 </style>

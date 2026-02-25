@@ -136,8 +136,11 @@
     "DH2E.Skill.Trade": "Trade",
 
     "DH2E.Skill.Trained": "Trained",
-    "DH2E.Skill.Untrained": "Untrained",
+    "DH2E.Skill.Untrained": "(Untrained)",
+    "DH2E.Skill.UntrainedBlocked": "You must be trained in this skill to use it.",
     "DH2E.Skill.Advancement": "Advancement",
+    "DH2E.Skill.Actions": "Actions",
+    "DH2E.Skill.Passive": "Passive",
 
     "DH2E.DamageType.Energy": "Energy",
     "DH2E.DamageType.Impact": "Impact",
@@ -254,6 +257,7 @@
     "DH2E.Sheet.MentalDisorder": "Mental Disorder Sheet",
     "DH2E.Sheet.Ammunition": "Ammunition Sheet",
     "DH2E.Sheet.Cybernetic": "Cybernetic Sheet",
+    "DH2E.Sheet.PopOut": "Pop Out",
     "DH2E.Sheet.Objective": "Objective Sheet",
 
     "DH2E.Settings.ModifierCap.Name": "Modifier Cap",
@@ -289,6 +293,8 @@
     "DH2E.Settings.InvertShiftRoll.Hint": "When OFF: click opens roll dialog, shift+click quick-rolls. When ON: click quick-rolls, shift+click opens dialog.",
     "DH2E.Settings.WizardScale.Name": "Wizard Scale (%)",
     "DH2E.Settings.WizardScale.Hint": "Zoom level for the character creation wizard. Scales all content proportionally.",
+    "DH2E.Settings.SheetScale.Name": "Sheet Scale",
+    "DH2E.Settings.SheetScale.Hint": "Scale the entire sheet window including header and frame. 100% is default size.",
 
     "DH2E.Advancement.Title": "Advancement",
     "DH2E.Advancement.Buy": "Buy",
@@ -900,8 +906,14 @@
 
     "DH2E.Keybinding.ToggleWarband": "Toggle Warband Sheet",
 
+    "DH2E.Settings.BlockUntrained.Name": "Block Untrained Skill Rolls",
+    "DH2E.Settings.BlockUntrained.Hint": "When enabled, players cannot roll skill uses for skills they are not trained in. GMs can always roll.",
+
     "DH2E.Settings.RequireEliteApproval.Name": "Require GM Approval for Elite Advances",
     "DH2E.Settings.RequireEliteApproval.Hint": "When enabled, players must request GM approval before purchasing elite advances (Psyker, Untouchable, Inquisitor). Does not affect auto-grants from character creation.",
+
+    "DH2E.Settings.AllowRuleEditing.Name": "Allow Rule Element Editing",
+    "DH2E.Settings.AllowRuleEditing.Hint": "When enabled, the YAML and Visual rule element editors are available on item sheets. Disable to prevent accidental rule changes.",
 
     "DH2E.EliteApproval.Request": "Request Approval",
     "DH2E.EliteApproval.Pending": "Pending...",
@@ -1053,5 +1065,67 @@
     "DH2E.Chronicle.Deadline.Today": "DEADLINE TODAY: {title}",
     "DH2E.Chronicle.Deadline.Urgent": "URGENT: {count} day(s) to accomplish: {title}",
     "DH2E.Chronicle.Deadline.NoDeadlines": "No deadlines set.",
-    "DH2E.Common.Save": "Save"
+    "DH2E.Common.Save": "Save",
+
+    "DH2E.HUD.Weapons": "Weapons",
+    "DH2E.HUD.Actions": "Actions",
+    "DH2E.HUD.Quick": "Quick",
+    "DH2E.HUD.SlotEmpty": "Empty slot — drag an action here",
+    "DH2E.HUD.Wounds": "W",
+    "DH2E.HUD.Fate": "F",
+
+    "DH2E.Keybinding.OpenActionsGrid": "Open Actions Grid",
+
+    "DH2E.ActionsGrid.Title": "Actions Grid",
+    "DH2E.ActionsGrid.FavoritesOnly": "Favorites Only",
+
+    "DH2E.Macro.NoActor": "No actor found. Assign a character or select a token.",
+    "DH2E.Macro.WeaponNotFound": "Weapon not found on the current actor.",
+    "DH2E.Macro.UnknownSkillUse": "Unknown skill use.",
+
+    "DH2E.Settings.CombatHUDPosition.Name": "Combat HUD Position",
+    "DH2E.Settings.CombatHUDPosition.Hint": "Where to display the compact combat HUD panel.",
+    "DH2E.Settings.CombatHUDPosition.BottomLeft": "Bottom Left",
+    "DH2E.Settings.CombatHUDPosition.BottomCenter": "Bottom Center",
+
+    "DH2E.Chat.SendToChat": "Send to Chat",
+    "DH2E.Chat.ItemCard.RollSkillUse": "Roll",
+    "DH2E.Chat.ItemCard.Attack": "Attack",
+
+    "DH2E.Origins.ClickBonus": "Click for bonus details",
+    "DH2E.Origins.HomeSkill": "Home Skill",
+    "DH2E.Origins.Skills": "Skills",
+    "DH2E.Origins.Talents": "Talents",
+    "DH2E.Origins.Equipment": "Equipment",
+    "DH2E.Origins.Elite": "Elite",
+
+    "DH2E.Advancement.Powers": "Powers",
+    "DH2E.Advancement.PowerCost": "{cost} XP",
+
+    "DH2E.Sheet.LevelUp": "Level Up",
+    "DH2E.Sheet.CreationWizard": "Creation Wizard",
+
+    "DH2E.Vox.ComposeTitle": "Vox Transmitter",
+    "DH2E.Vox.TerminalTitle": "Incoming Vox Transmission",
+    "DH2E.Vox.GMOnly": "Only the Game Master can send vox transmissions.",
+    "DH2E.Vox.Sent": "Vox transmission sent.",
+    "DH2E.Vox.Sender": "Designation",
+    "DH2E.Vox.SenderPlaceholder": "Inquisitor Graves",
+    "DH2E.Vox.Message": "Transmission",
+    "DH2E.Vox.MessagePlaceholder": "Your orders, Acolyte...",
+    "DH2E.Vox.Speed": "Transmission Speed",
+    "DH2E.Vox.SpeedSlow": "Slow",
+    "DH2E.Vox.SpeedNormal": "Normal",
+    "DH2E.Vox.SpeedFast": "Fast",
+    "DH2E.Vox.Transmit": "Transmit",
+    "DH2E.Vox.IncomingTransmission": "Incoming Transmission",
+    "DH2E.Vox.From": "From",
+    "DH2E.Vox.Dismiss": "Close Channel",
+    "DH2E.Vox.ClickToSkip": "Click to reveal full message",
+    "DH2E.Vox.LoadFromItem": "Load from Item",
+    "DH2E.Vox.SearchItems": "Search items...",
+    "DH2E.Vox.NoItemsFound": "No items with descriptions found.",
+    "DH2E.Vox.ItemLoaded": "Loaded: {name}",
+    "DH2E.Vox.SendViaVox": "Send via Vox",
+    "DH2E.Vox.WorldItems": "World Items"
 }

@@ -1,4 +1,5 @@
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@sheet/mixin.ts";
+import { getSetting } from "../../../ui/settings/settings.ts";
 import SheetRoot from "./sheet-root.svelte";
 
 /** Base item sheet for all DH2E item types */
@@ -29,6 +30,12 @@ class ItemSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 type: item.type,
                 system: item.system,
                 editable: this.isEditable,
+                ruleEditingAllowed: getSetting<boolean>("allowRuleEditing"),
+                sendViaVox: async () => {
+                    const { VoxComposeDialog } = await import("@ui/vox-terminal/vox-compose-dialog.ts");
+                    VoxComposeDialog.openWithItem(item.uuid);
+                },
+                isGM: (game as any).user?.isGM ?? false,
             },
         };
     }
