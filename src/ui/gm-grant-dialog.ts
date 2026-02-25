@@ -35,12 +35,9 @@ class GMGrantDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     static async #loadEliteAdvances(): Promise<void> {
         if (GMGrantDialog.#eliteDataLoaded) return;
-        try {
-            const data = await fu.fetchJsonWithTimeout("modules/dh2e-data/data/elite-advances.json");
-            GMGrantDialog.#eliteAdvanceData = data as EliteAdvanceDef[];
-        } catch {
-            GMGrantDialog.#eliteAdvanceData = [];
-        }
+        // Use the canonical definitions from AdvancementShop
+        const { AdvancementShop } = await import("@advancement/shop.ts");
+        GMGrantDialog.#eliteAdvanceData = AdvancementShop.ELITE_ADVANCES;
         GMGrantDialog.#eliteDataLoaded = true;
     }
 

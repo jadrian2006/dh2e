@@ -6,8 +6,10 @@ export { MigrationRunner, LATEST_SCHEMA } from "./runner.ts";
 import { MigrationRunner } from "./runner.ts";
 import { Migration001HordeType } from "./migrations/001-horde-type.ts";
 import { Migration002VehicleType } from "./migrations/002-vehicle-type.ts";
+import { Migration003WarbandChronicle } from "./migrations/003-warband-chronicle.ts";
 
 MigrationRunner.register([
     new Migration001HordeType(),
     new Migration002VehicleType(),
+    new Migration003WarbandChronicle(),
 ]);

@@ -102,6 +102,26 @@ export class Init {
                 precedence: (CONST as any).KEYBINDING_PRECEDENCE?.NORMAL ?? 0,
             });
 
+            // FX Master scene control button (GM only, only when FX Master active)
+            Hooks.on("getSceneControlButtons", (controls: any[]) => {
+                const g = game as any;
+                if (!g.user?.isGM) return;
+                if (!g.modules?.get("fxmaster")?.active) return;
+
+                const tokenControls = controls.find((c: any) => c.name === "token");
+                if (tokenControls?.tools) {
+                    tokenControls.tools.push({
+                        name: "dh2e-weather",
+                        title: "DH2E.FXMaster.Title",
+                        icon: "fa-solid fa-cloud-bolt",
+                        button: true,
+                        onClick: () => {
+                            import("../../integrations/fxmaster/fxmaster-menu.ts").then(m => m.FXMasterMenu.open());
+                        },
+                    });
+                }
+            });
+
             game.keybindings.register(SYSTEM_ID, "openCompendiumBrowser", {
                 name: "DH2E.Browser.Title",
                 editable: [{ key: "KeyB", modifiers: ["Control"] }],

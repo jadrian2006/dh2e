@@ -58,15 +58,38 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         return `${this.#actor.name} — Advancement`;
     }
 
-    /** Load elite advance definitions from data module */
+    /** Elite advance definitions — embedded directly in the system */
+    static readonly ELITE_ADVANCES: EliteAdvanceDef[] = [
+        {
+            id: "psyker",
+            name: "Psyker",
+            cost: 300,
+            prerequisites: { characteristics: { wp: 40 }, notEliteAdvance: "untouchable" },
+            instant: { aptitudes: ["Psyker"], talents: ["Psy Rating"], unsanctionedCorruption: "1d10+3" },
+            description: "The character's mind has been opened to the Warp, granting them terrifying psychic abilities. They gain the Psyker aptitude and Psy Rating 1. Unsanctioned psykers gain 1d10+3 Corruption Points.",
+        },
+        {
+            id: "untouchable",
+            name: "Untouchable",
+            cost: 300,
+            prerequisites: { notEliteAdvance: "psyker" },
+            instant: { talents: ["Resistance (Psychic Powers)"] },
+            description: "The character is a psychic blank — an anathema to the Warp. They are immune to direct psychic effects and gain Resistance (Psychic Powers).",
+        },
+        {
+            id: "inquisitor",
+            name: "Inquisitor",
+            cost: 1000,
+            prerequisites: { influence: 75 },
+            instant: { aptitudes: ["Leadership"], talents: ["Peer (Inquisition)"] },
+            description: "The character has been elevated to the rank of Inquisitor. They gain the Leadership aptitude and the Peer (Inquisition) talent.",
+        },
+    ];
+
+    /** Load elite advance definitions */
     static async #loadEliteAdvances(): Promise<void> {
         if (AdvancementShop.#eliteDataLoaded) return;
-        try {
-            const data = await fu.fetchJsonWithTimeout("modules/dh2e-data/data/elite-advances.json");
-            AdvancementShop.#eliteAdvanceData = data as EliteAdvanceDef[];
-        } catch {
-            AdvancementShop.#eliteAdvanceData = [];
-        }
+        AdvancementShop.#eliteAdvanceData = AdvancementShop.ELITE_ADVANCES;
         AdvancementShop.#eliteDataLoaded = true;
     }
 

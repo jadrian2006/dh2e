@@ -11,6 +11,9 @@ import { CompendiumBrowser } from "../../ui/compendium-browser/browser.ts";
 import { createFirstWarband } from "@actor/warband/helpers.ts";
 import { RequisitionApprovalPrompt } from "../../requisition/requisition-approval-prompt.ts";
 import { RequisitionRequestDialog } from "../../requisition/requisition-request-dialog.ts";
+import { DSNIntegration } from "../../integrations/dice-so-nice/dsn-themes.ts";
+import { RulerOverlay } from "../../integrations/ruler/ruler-overlay.ts";
+import { DeadlineNotifier } from "../../integrations/imperial-calendar/deadline-notifier.ts";
 
 /** Hooks.once("ready") — final initialization, migrations */
 export class Ready {
@@ -107,6 +110,16 @@ export class Ready {
                     }
                 }
             });
+
+            // Module integrations
+            Hooks.once("diceSoNiceReady", (dice3d: any) => DSNIntegration.registerThemes(dice3d));
+            RulerOverlay.init();
+            DeadlineNotifier.init();
+
+            // FX Master weather presets API + scene control
+            (game as any).dh2e.weatherPresets = () => {
+                import("../../integrations/fxmaster/fxmaster-menu.ts").then(m => m.FXMasterMenu.open());
+            };
 
             // Initialize combat HUD
             CombatHUD.init();

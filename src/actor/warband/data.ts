@@ -1,5 +1,6 @@
 import type { AcolyteDH2e } from "@actor/acolyte/document.ts";
 import type { ActorDH2e } from "@actor/base.ts";
+import type { ImperialDate } from "../../integrations/imperial-calendar/imperial-date.ts";
 
 /** A single warband member entry (stored in DB) */
 export interface WarbandMemberSource {
@@ -49,11 +50,38 @@ export interface PendingRequisition {
     approvedAt: number;
 }
 
+/** A chronicle log entry */
+export interface ChronicleEntry {
+    id: string;
+    date: ImperialDate;
+    title: string;
+    body: string;
+    author: string;
+    timestamp: number;
+    category: "session" | "event" | "note";
+}
+
+/** An objective deadline */
+export interface ObjectiveDeadline {
+    objectiveId: string;
+    objectiveName: string;
+    deadline: ImperialDate;
+    dismissed: boolean;
+}
+
+/** Chronicle data block stored on the warband */
+export interface ChronicleData {
+    currentDate: ImperialDate;
+    entries: ChronicleEntry[];
+    deadlines: ObjectiveDeadline[];
+}
+
 /** Warband system source data (stored in DB) */
 export interface WarbandSystemSource {
     members: WarbandMemberSource[];
     inquisitor: InquisitorSource;
     pendingRequisitions: PendingRequisition[];
+    chronicle: ChronicleData;
     details: {
         name: string;
         notes: string;

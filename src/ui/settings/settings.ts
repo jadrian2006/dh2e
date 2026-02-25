@@ -323,6 +323,58 @@ const SETTINGS: SettingDefinition[] = [
         default: true,
     },
 
+    // Module Integrations
+    {
+        key: "enableDSN",
+        category: "display",
+        name: "DH2E.Settings.EnableDSN.Name",
+        hint: "DH2E.Settings.EnableDSN.Hint",
+        scope: "client",
+        config: true,
+        type: Boolean,
+        default: true,
+    },
+    {
+        key: "enableRulerOverlay",
+        category: "display",
+        name: "DH2E.Settings.EnableRulerOverlay.Name",
+        hint: "DH2E.Settings.EnableRulerOverlay.Hint",
+        scope: "client",
+        config: true,
+        type: Boolean,
+        default: true,
+    },
+    {
+        key: "enableTMFX",
+        category: "display",
+        name: "DH2E.Settings.EnableTMFX.Name",
+        hint: "DH2E.Settings.EnableTMFX.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+    },
+    {
+        key: "enableFXMaster",
+        category: "display",
+        name: "DH2E.Settings.EnableFXMaster.Name",
+        hint: "DH2E.Settings.EnableFXMaster.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+    },
+    {
+        key: "deadlineNotifications",
+        category: "display",
+        name: "DH2E.Settings.DeadlineNotifications.Name",
+        hint: "DH2E.Settings.DeadlineNotifications.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+    },
+
     // Internal (hidden)
     {
         key: "schemaVersion",
@@ -332,7 +384,7 @@ const SETTINGS: SettingDefinition[] = [
         scope: "world",
         config: false,
         type: String,
-        default: "0.1.2",
+        default: "0.4.0",
     },
     {
         key: "activeWarband",

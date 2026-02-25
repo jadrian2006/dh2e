@@ -1,5 +1,13 @@
 import { ActorDH2e } from "@actor/base.ts";
-import type { WarbandSystemData, WarbandMemberSource, InquisitorSource, PendingRequisition } from "./data.ts";
+import type {
+    WarbandSystemData,
+    WarbandMemberSource,
+    InquisitorSource,
+    PendingRequisition,
+    ChronicleEntry,
+    ObjectiveDeadline,
+} from "./data.ts";
+import { ImperialDateUtil, type ImperialDate } from "../../integrations/imperial-calendar/imperial-date.ts";
 import type { AcolyteDH2e } from "@actor/acolyte/document.ts";
 
 /** Valid actor types for the Inquisitor slot */
@@ -156,6 +164,68 @@ class WarbandDH2e extends ActorDH2e {
         }
 
         await this.updatePendingRequisition(id, { status: "delivered" });
+    }
+
+    // ─── Chronicle / Imperial Calendar ─────────────────────
+
+    /** Advance the Imperial date by a number of days */
+    async advanceImperialDate(days: number): Promise<void> {
+        const current = (this._source.system as any)?.chronicle?.currentDate;
+        if (!current) return;
+        const advanced = ImperialDateUtil.advanceDay(current, days);
+        await this.update({ "system.chronicle.currentDate": advanced });
+    }
+
+    /** Set the Imperial date explicitly */
+    async setImperialDate(date: ImperialDate): Promise<void> {
+        await this.update({ "system.chronicle.currentDate": date });
+    }
+
+    /** Add a chronicle log entry */
+    async addChronicleEntry(entry: ChronicleEntry): Promise<void> {
+        const current: ChronicleEntry[] = (this._source.system as any)?.chronicle?.entries ?? [];
+        await this.update({ "system.chronicle.entries": [...current, entry] });
+    }
+
+    /** Remove a chronicle entry by ID */
+    async removeChronicleEntry(id: string): Promise<void> {
+        const current: ChronicleEntry[] = (this._source.system as any)?.chronicle?.entries ?? [];
+        const filtered = current.filter((e: ChronicleEntry) => e.id !== id);
+        await this.update({ "system.chronicle.entries": filtered });
+    }
+
+    /** Update a chronicle entry in place */
+    async updateChronicleEntry(id: string, changes: Partial<ChronicleEntry>): Promise<void> {
+        const current: ChronicleEntry[] = (this._source.system as any)?.chronicle?.entries ?? [];
+        const updated = current.map((e: ChronicleEntry) =>
+            e.id === id ? { ...e, ...changes } : e,
+        );
+        await this.update({ "system.chronicle.entries": updated });
+    }
+
+    /** Set or update a deadline for an objective */
+    async setObjectiveDeadline(objectiveId: string, deadline: ImperialDate, objectiveName: string): Promise<void> {
+        const current: ObjectiveDeadline[] = (this._source.system as any)?.chronicle?.deadlines ?? [];
+        const existing = current.findIndex((d: ObjectiveDeadline) => d.objectiveId === objectiveId);
+        if (existing >= 0) {
+            const updated = [...current];
+            updated[existing] = { ...updated[existing], deadline, objectiveName, dismissed: false };
+            await this.update({ "system.chronicle.deadlines": updated });
+        } else {
+            await this.update({
+                "system.chronicle.deadlines": [
+                    ...current,
+                    { objectiveId, objectiveName, deadline, dismissed: false },
+                ],
+            });
+        }
+    }
+
+    /** Remove a deadline for an objective */
+    async removeObjectiveDeadline(objectiveId: string): Promise<void> {
+        const current: ObjectiveDeadline[] = (this._source.system as any)?.chronicle?.deadlines ?? [];
+        const filtered = current.filter((d: ObjectiveDeadline) => d.objectiveId !== objectiveId);
+        await this.update({ "system.chronicle.deadlines": filtered });
     }
 
     /** Force warband to have no folder */

@@ -7,6 +7,7 @@
     import ObjectivesTab from "./components/objectives-tab.svelte";
     import InventoryTab from "./components/inventory-tab.svelte";
     import PendingRequisitions from "./components/pending-requisitions.svelte";
+    import ChronicleTab from "./components/chronicle-tab.svelte";
     import TabGroup from "../../sheet/components/tab-group.svelte";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
@@ -22,6 +23,7 @@
         { id: "skills", label: "Skills", icon: "fa-solid fa-book" },
         { id: "inventory", label: "Inventory", icon: "fa-solid fa-warehouse" },
         { id: "objectives", label: "Objectives", icon: "fa-solid fa-scroll" },
+        { id: "chronicle", label: "Chronicle", icon: "fa-solid fa-clock-rotate-left" },
     ];
 
     const isEmpty = $derived((ctx.memberCards?.length ?? 0) === 0 && !ctx.inquisitor);
@@ -91,6 +93,8 @@
                     onReactivate={(obj) => ctx.changeObjectiveStatus?.(obj, "active")}
                     onDelete={(obj) => ctx.deleteObjective?.(obj)}
                 />
+            {:else if activeTab === "chronicle"}
+                <ChronicleTab {ctx} />
             {/if}
         </TabGroup>
     {/if}

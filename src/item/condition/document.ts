@@ -66,6 +66,19 @@ class ConditionDH2e extends ItemDH2e {
                 console.warn(`DH2E | Failed to sync token effect "${slug}" for ${actor.name}`, e);
             }
         }
+
+        // TMFX integration — apply/remove visual filters for conditions
+        try {
+            const { TMFXResolver } = await import("../../integrations/tmfx/tmfx-resolver.ts");
+            if (TMFXResolver.available) {
+                for (const token of tokens) {
+                    if (active) await TMFXResolver.applyConditionFilter(token, slug);
+                    else await TMFXResolver.removeConditionFilter(token, slug);
+                }
+            }
+        } catch {
+            // TMFX integration not available — no-op
+        }
     }
 }
 

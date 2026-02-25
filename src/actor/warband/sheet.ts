@@ -4,7 +4,8 @@ import type { WarbandDH2e } from "./document.ts";
 import type { AcolyteDH2e } from "@actor/acolyte/document.ts";
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 import type { ObjectiveDH2e } from "@item/objective/document.ts";
-import type { PendingRequisition } from "./data.ts";
+import type { PendingRequisition, ChronicleEntry, ObjectiveDeadline } from "./data.ts";
+import { ImperialDateUtil } from "../../integrations/imperial-calendar/imperial-date.ts";
 import SheetRoot from "./sheet-root.svelte";
 
 /** Item types that can be stored in warband inventory */
@@ -178,6 +179,28 @@ class WarbandSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                     : 0,
             }));
 
+        // Chronicle data
+        const chronicleSrc = (actor as any).system?.chronicle ?? {};
+        const currentDate = chronicleSrc.currentDate;
+        const chronicleEntries: ChronicleEntry[] = chronicleSrc.entries ?? [];
+        const chronicleDeadlines: ObjectiveDeadline[] = chronicleSrc.deadlines ?? [];
+
+        const chronicle = {
+            formattedDate: currentDate ? ImperialDateUtil.format(currentDate) : "0.000.815.M41",
+            entries: chronicleEntries
+                .sort((a: ChronicleEntry, b: ChronicleEntry) => b.timestamp - a.timestamp)
+                .map((e: ChronicleEntry) => ({
+                    ...e,
+                    formattedDate: ImperialDateUtil.format(e.date),
+                })),
+            deadlines: chronicleDeadlines.map((d: ObjectiveDeadline) => ({
+                ...d,
+                formattedDeadline: ImperialDateUtil.format(d.deadline),
+                daysRemaining: currentDate ? ImperialDateUtil.daysRemaining(currentDate, d.deadline) : 0,
+                overdue: currentDate ? ImperialDateUtil.isOverdue(currentDate, d.deadline) : false,
+            })),
+        };
+
         return {
             ctx: {
                 actor,
@@ -214,6 +237,15 @@ class WarbandSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 pendingItems,
                 deliverRequisition: (id: string, target: "player" | "warband") =>
                     (actor as any).deliverRequisition(id, target),
+                // Chronicle
+                chronicle,
+                onAdvanceDay: (days: number) => actor.advanceImperialDate(days),
+                onSetDate: () => this.#showSetDateDialog(),
+                onAddEntry: () => this.#addChronicleEntry(),
+                onEditEntry: (id: string) => this.#editChronicleEntry(id),
+                onDeleteEntry: (id: string) => actor.removeChronicleEntry(id),
+                onSetDeadline: () => this.#setDeadline(),
+                onRemoveDeadline: (objId: string) => actor.removeObjectiveDeadline(objId),
             },
         };
     }
@@ -326,6 +358,86 @@ class WarbandSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
     async #deleteItem(item: any): Promise<void> {
         const warband = this.document as unknown as WarbandDH2e;
         await warband.deleteEmbeddedDocuments("Item", [item.id]);
+    }
+
+    /** Show set-date dialog */
+    async #showSetDateDialog(): Promise<void> {
+        const warband = this.document as unknown as WarbandDH2e;
+        const currentDate = (warband as any).system?.chronicle?.currentDate;
+        if (!currentDate) return;
+
+        const result = await new Promise<{ check: number; year: number; day: number; millennium: number } | null>((resolve) => {
+            new fa.api.DialogV2({
+                window: { title: game.i18n.localize("DH2E.Chronicle.SetDate"), icon: "fa-solid fa-calendar" },
+                content: `
+                    <form class="dh2e" style="display:flex;flex-direction:column;gap:8px;padding:8px 0;">
+                        <div class="form-group" style="display:flex;gap:8px;">
+                            <div style="flex:1;">
+                                <label>Check (0-9)</label>
+                                <input type="number" name="check" value="${currentDate.check}" min="0" max="9" />
+                            </div>
+                            <div style="flex:1;">
+                                <label>Day (1-365)</label>
+                                <input type="number" name="day" value="${currentDate.day}" min="1" max="365" />
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:flex;gap:8px;">
+                            <div style="flex:1;">
+                                <label>Year (1-999)</label>
+                                <input type="number" name="year" value="${currentDate.year}" min="1" max="999" />
+                            </div>
+                            <div style="flex:1;">
+                                <label>Millennium</label>
+                                <input type="number" name="millennium" value="${currentDate.millennium}" min="1" max="99" />
+                            </div>
+                        </div>
+                    </form>
+                `,
+                buttons: [
+                    {
+                        action: "set",
+                        label: game.i18n.localize("DH2E.Chronicle.SetDate"),
+                        icon: "fa-solid fa-check",
+                        default: true,
+                        callback: (_event: any, _button: any, dialog: HTMLElement) => {
+                            const form = dialog.querySelector("form");
+                            if (!form) { resolve(null); return; }
+                            const fd = new FormData(form);
+                            resolve({
+                                check: Math.max(0, Math.min(9, parseInt(fd.get("check") as string) || 0)),
+                                year: Math.max(1, Math.min(999, parseInt(fd.get("year") as string) || 815)),
+                                day: Math.max(1, Math.min(365, parseInt(fd.get("day") as string) || 1)),
+                                millennium: Math.max(1, parseInt(fd.get("millennium") as string) || 41),
+                            });
+                        },
+                    },
+                    { action: "cancel", label: game.i18n.localize("DH2E.Roll.Dialog.Cancel"), callback: () => resolve(null) },
+                ],
+                position: { width: 380 },
+            }).render(true);
+        });
+
+        if (result) {
+            await warband.setImperialDate(result);
+        }
+    }
+
+    /** Add a chronicle entry via dialog */
+    async #addChronicleEntry(): Promise<void> {
+        const { ChronicleEntryDialog } = await import("./chronicle-entry-dialog.ts");
+        await ChronicleEntryDialog.create(this.document as unknown as WarbandDH2e);
+    }
+
+    /** Edit a chronicle entry via dialog */
+    async #editChronicleEntry(entryId: string): Promise<void> {
+        const { ChronicleEntryDialog } = await import("./chronicle-entry-dialog.ts");
+        await ChronicleEntryDialog.edit(this.document as unknown as WarbandDH2e, entryId);
+    }
+
+    /** Set a deadline on an objective */
+    async #setDeadline(): Promise<void> {
+        const { DeadlineDialog } = await import("./deadline-dialog.ts");
+        await DeadlineDialog.open(this.document as unknown as WarbandDH2e);
     }
 
 }
