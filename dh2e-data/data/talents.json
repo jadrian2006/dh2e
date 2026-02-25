@@ -1546,5 +1546,18 @@
             "prerequisites": "Psy Rating, Strong Minded, WP 50",
             "specialist": false
         }
+    },
+    {
+        "name": "Psy Rating",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character is a psyker with the ability to channel the energies of the Warp. The character's Psy Rating determines the maximum number of dice they can use when manifesting psychic powers. Each additional tier increases the Psy Rating by 1.",
+            "tier": 1,
+            "aptitudes": ["Willpower", "Psyker"],
+            "prerequisites": "Psyker Elite Advance",
+            "specialist": false,
+            "stackable": true
+        }
     }
 ]

@@ -48,37 +48,77 @@ class VFXResolver {
         weaponClass: string;
         damageType: string;
         isAutofire: boolean;
+        miss?: boolean;
     }): Promise<void> {
         if (!VFXResolver.available) return;
+
+        // Miss VFX only plays at "normal" or "full" intensity
+        if (opts.miss && VFXResolver.#intensity === "minimal") return;
 
         const Sequence = VFXResolver.#getSequence();
         if (!Sequence) return;
 
-        // Per-item override
-        const overridePath = opts.weapon?.flags?.dh2e?.vfxProfile;
+        // Priority: 1) actor synthetics vfxOverrides[weapon.id]
+        //           2) weapon.flags.dh2e.vfxProfile
+        //           3) WEAPON_EFFECTS[weaponClass] default
+        const actor = opts.weapon?.parent;
+        const synthOverride = actor?.synthetics?.vfxOverrides?.[opts.weapon?.id];
+        const overridePath = synthOverride?.effectPath
+            ?? opts.weapon?.flags?.dh2e?.vfxProfile;
         const effectPath = overridePath ?? WEAPON_EFFECTS[opts.weaponClass] ?? WEAPON_EFFECTS.solid;
 
+        // If synthetics specify effectType, use that; otherwise infer from weaponClass
+        const effectType = synthOverride?.effectType;
+        const scale = synthOverride?.scale ?? 1.5;
+
         const seq = new Sequence();
-        const isMelee = opts.weaponClass === "melee" || opts.weaponClass === "chain";
+        const isMelee = effectType
+            ? effectType === "melee"
+            : (opts.weaponClass === "melee" || opts.weaponClass === "chain");
+        const isFlame = effectType
+            ? effectType === "cone"
+            : opts.weaponClass === "flame";
 
         if (isMelee) {
-            // Melee: play on target
-            seq.effect()
-                .file(effectPath)
-                .atLocation(opts.targetToken)
-                .scaleToObject(1.5)
-                .fadeIn(100)
-                .fadeOut(200);
-        } else if (opts.weaponClass === "flame") {
-            // Flame: cone from attacker toward target
+            if (opts.miss) {
+                // Melee miss: short whoosh, offset from target
+                seq.effect()
+                    .file(effectPath)
+                    .atLocation(opts.targetToken)
+                    .scaleToObject(scale * 0.8)
+                    .fadeIn(50)
+                    .fadeOut(100);
+            } else {
+                // Melee hit: play on target
+                seq.effect()
+                    .file(effectPath)
+                    .atLocation(opts.targetToken)
+                    .scaleToObject(scale)
+                    .fadeIn(100)
+                    .fadeOut(200);
+            }
+        } else if (isFlame) {
+            // Flame: same cone regardless of hit/miss (flamer doesn't "miss" visually)
             seq.effect()
                 .file(effectPath)
                 .atLocation(opts.attackerToken)
                 .stretchTo(opts.targetToken)
                 .fadeIn(100)
                 .fadeOut(300);
+        } else if (opts.miss) {
+            // Ranged miss: single projectile that streaks past the target
+            const offset = {
+                x: (Math.random() - 0.5) * 200,
+                y: (Math.random() - 0.5) * 200,
+            };
+            seq.effect()
+                .file(effectPath)
+                .atLocation(opts.attackerToken)
+                .stretchTo(opts.targetToken, { offset })
+                .fadeIn(100)
+                .fadeOut(200);
         } else {
-            // Ranged projectile
+            // Ranged projectile hit
             const count = opts.isAutofire ? 3 : 1;
             for (let i = 0; i < count; i++) {
                 seq.effect()
@@ -111,8 +151,13 @@ class VFXResolver {
         const Sequence = VFXResolver.#getSequence();
         if (!Sequence) return;
 
-        // Per-item override
-        const overridePath = opts.power?.flags?.dh2e?.vfxProfile;
+        // Priority: 1) actor synthetics vfxOverrides[power.id]
+        //           2) power.flags.dh2e.vfxProfile
+        //           3) PSYCHIC_EFFECTS[discipline] default
+        const caster = opts.power?.parent;
+        const synthOverride = caster?.synthetics?.vfxOverrides?.[opts.power?.id];
+        const overridePath = synthOverride?.effectPath
+            ?? opts.power?.flags?.dh2e?.vfxProfile;
         const discipline = opts.discipline.toLowerCase().replace(/\s+/g, "");
         const effectPath = overridePath ?? PSYCHIC_EFFECTS[discipline] ?? PSYCHIC_EFFECTS.telepathy;
 

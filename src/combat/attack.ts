@@ -79,9 +79,11 @@ class AttackResolver {
         // Read called shot from the check context (set by dialog)
         const calledShot = result.context.calledShot;
 
+        let attackResult: AttackResult;
+
         if (!result.dos.success) {
             // Attack missed
-            return {
+            attackResult = {
                 success: false,
                 degrees: result.dos.degrees,
                 roll: result.roll,
@@ -91,42 +93,41 @@ class AttackResolver {
                 fireMode,
                 weaponName: weapon.name,
             };
+        } else {
+            // Calculate hits
+            const hitCount = calculateHits(fireMode, result.dos.degrees, rofValue);
+
+            // Determine hit locations
+            const hits = [];
+            // First hit: use called shot location if specified, else reversed digits
+            hits.push(determineHitLocation(result.roll, calledShot));
+
+            // Additional hits use random d100 reversed (no called shot override)
+            for (let i = 1; i < hitCount; i++) {
+                const randomRoll = Math.floor(Math.random() * 100) + 1;
+                hits.push(determineHitLocation(randomRoll));
+            }
+
+            attackResult = {
+                success: true,
+                degrees: result.dos.degrees,
+                roll: result.roll,
+                target: result.target,
+                hitCount,
+                hits,
+                fireMode,
+                weaponName: weapon.name,
+            };
         }
-
-        // Calculate hits
-        const hitCount = calculateHits(fireMode, result.dos.degrees, rofValue);
-
-        // Determine hit locations
-        const hits = [];
-        // First hit: use called shot location if specified, else reversed digits
-        hits.push(determineHitLocation(result.roll, calledShot));
-
-        // Additional hits use random d100 reversed (no called shot override)
-        for (let i = 1; i < hitCount; i++) {
-            const randomRoll = Math.floor(Math.random() * 100) + 1;
-            hits.push(determineHitLocation(randomRoll));
-        }
-
-        const attackResult: AttackResult = {
-            success: true,
-            degrees: result.dos.degrees,
-            roll: result.roll,
-            target: result.target,
-            hitCount,
-            hits,
-            fireMode,
-            weaponName: weapon.name,
-        };
 
         // Post attack card
         await AttackResolver.#postAttackCard(attackResult, weapon, actor);
 
-        // Play VFX if available
-        if (VFXResolver.available && hitCount > 0) {
+        // Play VFX for both hits and misses
+        if (VFXResolver.available) {
             const attackerToken = (actor as any).token ?? (actor as any).getActiveTokens?.()?.[0];
             const g = game as any;
-            const targetActor = g.user?.targets?.first()?.actor;
-            const targetToken = targetActor?.token ?? targetActor?.getActiveTokens?.()?.[0];
+            const targetToken = g.user?.targets?.first();
             if (attackerToken && targetToken) {
                 VFXResolver.attack({
                     attackerToken,
@@ -135,6 +136,7 @@ class AttackResolver {
                     weaponClass: sys.class ?? "solid",
                     damageType: sys.damage?.type ?? "impact",
                     isAutofire: fireMode === "full" || fireMode === "semi",
+                    miss: attackResult.hitCount === 0,
                 });
             }
         }

@@ -38,6 +38,20 @@ interface ToughnessAdjustment {
     source: string;
 }
 
+/** VFX override injected by VFXOverride rule elements */
+interface VFXOverrideEntry {
+    /** JB2A Sequencer database path (dot notation) */
+    effectPath: string;
+    /** How the effect is played */
+    effectType: "projectile" | "melee" | "cone" | "impact" | "aura";
+    /** Scale multiplier (default 1.0) */
+    scale?: number;
+    /** Source item ID (auto-set by the RE) */
+    sourceItemId: string;
+    /** Source label for tooltips */
+    source: string;
+}
+
 /** Damage resistance entry */
 interface ResistanceEntry {
     damageType: string;
@@ -59,6 +73,8 @@ interface DH2eSynthetics {
     toughnessAdjustments: ToughnessAdjustment[];
     /** Damage resistances by type */
     resistances: ResistanceEntry[];
+    /** VFX overrides keyed by item ID */
+    vfxOverrides: Record<string, VFXOverrideEntry>;
 }
 
 function createSynthetics(): DH2eSynthetics {
@@ -69,6 +85,7 @@ function createSynthetics(): DH2eSynthetics {
         diceOverrides: {},
         toughnessAdjustments: [],
         resistances: [],
+        vfxOverrides: {},
     };
 }
 
@@ -89,4 +106,5 @@ export type {
     DiceOverrideEntry,
     ToughnessAdjustment,
     ResistanceEntry,
+    VFXOverrideEntry,
 };

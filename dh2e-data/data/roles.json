@@ -55,6 +55,7 @@
             "description": "Souls touched by the Warp and filled with its eldritch power; psykers, Warp-seers, and shamans both cursed and blessed with the power to manipulate the arcane energies of the Immaterium and turn them against their enemies.",
             "aptitudes": ["Defence", "Intelligence", "Knowledge", "Perception", "Willpower"],
             "talent": "Resistance (Psychic Powers) or Warp Sense",
+            "eliteAdvances": ["psyker"],
             "bonus": "Stare into the Warp",
             "bonusDescription": "A Mystic character starts the game with the Psyker elite advance. It is recommended that a character who wishes to be a Mystic have a Willpower of at least 35."
         }

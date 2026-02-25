@@ -106,11 +106,16 @@
             "members": [],
             "inquisitor": { "uuid": "" },
             "pendingRequisitions": [],
+            "chronicle": {
+                "currentDate": { "check": 0, "year": 815, "day": 1, "millennium": 41 },
+                "entries": [],
+                "deadlines": []
+            },
             "details": { "name": "", "notes": "" }
         }
     },
     "Item": {
-        "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic", "objective"],
+        "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic", "objective", "homeworld", "background", "role"],
         "weapon": {
             "description": "",
             "class": "melee",
@@ -240,6 +245,33 @@
             "completedTimestamp": 0,
             "scope": "personal",
             "format": "parchment"
+        },
+        "homeworld": {
+            "description": "",
+            "characteristicBonuses": { "positive": [], "negative": [] },
+            "fate": { "threshold": 2, "blessing": 1 },
+            "woundsFormula": "8+1d5",
+            "aptitude": "",
+            "homeSkill": "",
+            "bonus": "",
+            "bonusDescription": ""
+        },
+        "background": {
+            "description": "",
+            "skills": [],
+            "talents": [],
+            "equipment": [],
+            "aptitude": "",
+            "bonus": "",
+            "bonusDescription": ""
+        },
+        "role": {
+            "description": "",
+            "aptitudes": [],
+            "talent": "",
+            "eliteAdvances": [],
+            "bonus": "",
+            "bonusDescription": ""
         }
     }
 }

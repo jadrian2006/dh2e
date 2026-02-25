@@ -7,6 +7,7 @@ import { GrantItemRE } from "./grant-item.ts";
 import { ResistanceRE } from "./resistance.ts";
 import { AdjustToughnessRE } from "./adjust-toughness.ts";
 import { ChoiceSetRE } from "./choice-set.ts";
+import { VFXOverrideRE } from "./vfx-override.ts";
 
 /** Map of RE key strings to their constructor classes */
 const RE_REGISTRY: Record<string, typeof RuleElementDH2e> = {
@@ -18,6 +19,7 @@ const RE_REGISTRY: Record<string, typeof RuleElementDH2e> = {
     Resistance: ResistanceRE,
     AdjustToughness: AdjustToughnessRE,
     ChoiceSet: ChoiceSetRE,
+    VFXOverride: VFXOverrideRE,
 };
 
 /**
