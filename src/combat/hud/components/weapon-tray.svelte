@@ -1,4 +1,6 @@
 <script lang="ts">
+    import type { WeaponDragData } from "../../../macros/types.ts";
+
     let {
         weapons = [],
         actor,
@@ -11,12 +13,21 @@
         const { AttackResolver } = await import("@combat/attack.ts");
         await AttackResolver.resolve({ actor, weapon, fireMode: fireMode as any });
     }
+
+    function onDragStart(e: DragEvent, weapon: any) {
+        const data: WeaponDragData = {
+            type: "Weapon",
+            weaponId: weapon.id ?? weapon._id ?? "",
+            weaponName: weapon.name,
+        };
+        e.dataTransfer?.setData("text/plain", JSON.stringify(data));
+    }
 </script>
 
 <div class="weapon-tray">
     {#each weapons as weapon}
         {@const sys = weapon.system ?? {}}
-        <div class="weapon-btn-group">
+        <div class="weapon-btn-group" draggable="true" ondragstart={(e) => onDragStart(e, weapon)}>
             <button class="weapon-btn" onclick={() => attackWith(weapon, "single")} title="{weapon.name} — Single">
                 <i class="fa-solid fa-crosshairs"></i>
                 <span class="weapon-label">{weapon.name}</span>
@@ -38,7 +49,7 @@
 
 <style lang="scss">
     .weapon-tray { display: flex; gap: var(--dh2e-space-xs, 0.25rem); align-items: center; flex-wrap: wrap; }
-    .weapon-btn-group { display: flex; align-items: center; gap: 2px; }
+    .weapon-btn-group { display: flex; align-items: center; gap: 2px; cursor: grab; }
     .weapon-btn {
         display: flex; align-items: center; gap: var(--dh2e-space-xs, 0.25rem);
         padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-sm, 0.5rem);

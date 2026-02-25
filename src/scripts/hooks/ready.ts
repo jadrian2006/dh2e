@@ -14,6 +14,11 @@ import { RequisitionRequestDialog } from "../../requisition/requisition-request-
 import { DSNIntegration } from "../../integrations/dice-so-nice/dsn-themes.ts";
 import { RulerOverlay } from "../../integrations/ruler/ruler-overlay.ts";
 import { DeadlineNotifier } from "../../integrations/imperial-calendar/deadline-notifier.ts";
+import { registerHotbarDrop } from "../../macros/hotbar-drop.ts";
+import { rollSkillUse, rollWeapon, rollSkill } from "../../macros/api.ts";
+import { ActionsGrid } from "../../ui/actions-grid/actions-grid.ts";
+import { VoxComposeDialog } from "../../ui/vox-terminal/vox-compose-dialog.ts";
+import { VoxTerminalPopup } from "../../ui/vox-terminal/vox-terminal-popup.ts";
 
 /** Hooks.once("ready") — final initialization, migrations */
 export class Ready {
@@ -40,6 +45,17 @@ export class Ready {
                 const warband = g.dh2e?.warband ?? null;
                 RequisitionRequestDialog.open(actor, warband);
             };
+
+            // Macro API
+            (game as any).dh2e.rollSkillUse = rollSkillUse;
+            (game as any).dh2e.rollWeapon = rollWeapon;
+            (game as any).dh2e.rollSkill = rollSkill;
+
+            (game as any).dh2e.actionsGrid = () => ActionsGrid.open();
+            (game as any).dh2e.voxTerminal = () => VoxComposeDialog.open();
+
+            // Register hotbar drop handler for drag-to-macro
+            registerHotbarDrop();
 
             // Register socket handler
             Ready.#registerSocket();
@@ -158,6 +174,8 @@ export class Ready {
                 Ready.#handleRequisitionApprovedDelayed(data.payload);
             } else if (data.type === "requisitionDenied") {
                 Ready.#handleRequisitionDenied(data.payload);
+            } else if (data.type === "voxTerminal") {
+                VoxTerminalPopup.show(data.payload);
             } else if (data.type === "gmGrantFlavor") {
                 // Player receives GM grant flavor text popup
                 Ready.#handleGMGrantFlavor(data.payload);

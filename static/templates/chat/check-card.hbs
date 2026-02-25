@@ -1,6 +1,6 @@
 <div class="dh2e chat-card check-card">
     <header class="card-header {{#if success}}success{{else}}failure{{/if}}">
-        <h3>{{title}}</h3>
+        <h3>{{title}}{{#if untrained}} <span class="untrained-badge">{{localize "DH2E.Skill.Untrained"}}</span>{{/if}}</h3>
         <span class="result-badge">
             {{#if success}}
                 {{localize "DH2E.Check.Success"}} — {{format "DH2E.Check.DegreesOfSuccess" count=degrees}}
@@ -54,8 +54,13 @@
         </details>
         {{/if}}
 
-        {{#if isGM}}
-        <button class="gm-override-btn" data-action="gm-override" title="GM Override"><i class="fas fa-cog"></i></button>
-        {{/if}}
+        <div class="card-actions">
+            <button class="fate-btn" data-action="spend-fate" title="{{localize "DH2E.Fate.InvokeFate"}}">
+                <i class="fas fa-star"></i>
+            </button>
+            {{#if isGM}}
+            <button class="gm-override-btn" data-action="gm-override" title="GM Override"><i class="fas fa-cog"></i></button>
+            {{/if}}
+        </div>
     </div>
 </div>

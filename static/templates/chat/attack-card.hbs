@@ -17,8 +17,13 @@
         </button>
         {{/if}}
 
-        {{#if isGM}}
-        <button class="gm-override-btn" data-action="gm-override" title="GM Override"><i class="fas fa-cog"></i></button>
-        {{/if}}
+        <div class="card-actions">
+            <button class="fate-btn" data-action="spend-fate" title="{{localize "DH2E.Fate.InvokeFate"}}">
+                <i class="fas fa-star"></i>
+            </button>
+            {{#if isGM}}
+            <button class="gm-override-btn" data-action="gm-override" title="GM Override"><i class="fas fa-cog"></i></button>
+            {{/if}}
+        </div>
     </div>
 </div>

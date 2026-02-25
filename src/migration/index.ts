@@ -7,9 +7,11 @@ import { MigrationRunner } from "./runner.ts";
 import { Migration001HordeType } from "./migrations/001-horde-type.ts";
 import { Migration002VehicleType } from "./migrations/002-vehicle-type.ts";
 import { Migration003WarbandChronicle } from "./migrations/003-warband-chronicle.ts";
+import { Migration004SkillUses } from "./migrations/004-skill-uses.ts";
 
 MigrationRunner.register([
     new Migration001HordeType(),
     new Migration002VehicleType(),
     new Migration003WarbandChronicle(),
+    new Migration004SkillUses(),
 ]);

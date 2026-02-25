@@ -1,5 +1,6 @@
 import { ItemDH2e } from "@item/base/document.ts";
-import { ADVANCEMENT_BONUS, type SkillSystemSource } from "./data.ts";
+import { ADVANCEMENT_BONUS, type SkillSystemSource, type SkillUse } from "./data.ts";
+import { CANONICAL_SKILL_USES } from "./uses.ts";
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 
 /** Skill item — trained skills with advancement tiers */
@@ -48,6 +49,23 @@ class SkillDH2e extends ItemDH2e {
             return `${this.name} (${this.skillSystem.specialization})`;
         }
         return this.name;
+    }
+
+    /** Skill uses / sub-actions. Falls back to canonical map for legacy items without embedded uses. */
+    get uses(): SkillUse[] {
+        const embedded = this.skillSystem.uses;
+        if (embedded && embedded.length > 0) return embedded;
+        return CANONICAL_SKILL_USES[this.name] ?? [];
+    }
+
+    /** Whether this skill has any uses defined */
+    get hasUses(): boolean {
+        return this.uses.length > 0;
+    }
+
+    /** Get a specific use by slug */
+    getUse(slug: string): SkillUse | undefined {
+        return this.uses.find((u) => u.slug === slug);
     }
 }
 

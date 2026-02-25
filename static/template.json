@@ -159,7 +159,8 @@
             "linkedCharacteristic": "ws",
             "advancement": 0,
             "isSpecialist": false,
-            "specialization": ""
+            "specialization": "",
+            "uses": []
         },
         "talent": {
             "description": "",

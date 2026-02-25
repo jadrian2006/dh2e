@@ -1,4 +1,7 @@
 <script lang="ts">
+    import type { SkillDragData } from "../../../macros/types.ts";
+    import { sendItemToChat } from "../../../chat/send-to-chat.ts";
+
     let { skill, item, onRoll }: {
         skill: {
             name: string;
@@ -12,6 +15,11 @@
         item?: any;
         onRoll: (e?: { shiftKey: boolean }) => void;
     } = $props();
+
+    function onDragStart(e: DragEvent) {
+        const data: SkillDragData = { type: "Skill", skillName: skill.name };
+        e.dataTransfer?.setData("text/plain", JSON.stringify(data));
+    }
 
     const charAbbrevMap: Record<string, string> = {
         ws: "WS", bs: "BS", s: "S", t: "T", ag: "Ag",
@@ -31,11 +39,16 @@
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="skill-row" class:untrained={!skill.isTrained} onclick={(e) => onRoll({ shiftKey: e.shiftKey })} onkeydown={(e) => { if (e.key === "Enter" || e.key === " ") onRoll({ shiftKey: e.shiftKey }); }} title="Roll {skill.displayName}" role="button" tabindex="0">
+<div class="skill-row" class:untrained={!skill.isTrained} draggable="true" ondragstart={onDragStart} onclick={(e) => onRoll({ shiftKey: e.shiftKey })} onkeydown={(e) => { if (e.key === "Enter" || e.key === " ") onRoll({ shiftKey: e.shiftKey }); }} title="Roll {skill.displayName}" role="button" tabindex="0">
     {#if item}
         <!-- svelte-ignore a11y_click_events_have_key_events -->
         <button class="fav-star" onclick={(e) => { e.stopPropagation(); toggleFavorite(); }} title="Favorite">
             <i class={item.getFlag?.("dh2e", "favorite") ? "fa-solid fa-star" : "fa-regular fa-star"}></i>
+        </button>
+    {/if}
+    {#if item}
+        <button class="chat-btn" onclick={(e) => { e.stopPropagation(); sendItemToChat(item); }} title="Send to Chat">
+            <i class="fa-solid fa-comment"></i>
         </button>
     {/if}
     <span class="skill-name">{skill.displayName}</span>
@@ -77,6 +90,23 @@
         &.untrained {
             opacity: 0.6;
         }
+    }
+
+    .chat-btn {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-size: 0.6rem;
+        width: 0.8rem;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.4;
+
+        &:hover { color: var(--dh2e-gold, #c8a84e); opacity: 1; }
     }
 
     .fav-star {

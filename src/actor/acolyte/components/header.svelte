@@ -12,6 +12,22 @@
         const val = ctx.system?.wounds?.value ?? 0;
         return Math.max(0, Math.min(100, (val / max) * 100));
     });
+
+    let editingWounds = $state(false);
+    let woundInput = $state(0);
+
+    function startEditWounds() {
+        if (!ctx.editable) return;
+        woundInput = ctx.system?.wounds?.value ?? 0;
+        editingWounds = true;
+    }
+
+    function commitWounds() {
+        editingWounds = false;
+        const max = ctx.system?.wounds?.max ?? 0;
+        const val = Math.max(0, Math.min(max, woundInput));
+        ctx.actor?.update({ "system.wounds.value": val });
+    }
 </script>
 
 <header class="acolyte-header">
@@ -33,9 +49,24 @@
     </div>
 
     <div class="vital-stats">
-        <div class="stat wounds" class:critical={ctx.system?.wounds?.value <= 0} class:wounded={(ctx.system?.wounds?.value ?? 0) < (ctx.system?.wounds?.max ?? 0)}>
+        <div class="stat wounds" class:critical={ctx.system?.wounds?.value <= 0} class:wounded={(ctx.system?.wounds?.value ?? 0) < (ctx.system?.wounds?.max ?? 0)}
+            class:clickable={ctx.editable && !editingWounds}
+            role={ctx.editable ? "button" : undefined}
+            tabindex={ctx.editable ? 0 : undefined}
+            onclick={() => { if (!editingWounds) startEditWounds(); }}
+            onkeydown={(e) => { if (e.key === "Enter" && !editingWounds) startEditWounds(); }}>
             <span class="stat-label">W</span>
-            <span class="stat-value">{ctx.system?.wounds?.value ?? 0}/{ctx.system?.wounds?.max ?? 0}</span>
+            {#if editingWounds}
+                <!-- svelte-ignore a11y_autofocus -->
+                <input type="number" class="wound-edit" bind:value={woundInput}
+                    autofocus
+                    onblur={() => commitWounds()}
+                    onkeydown={(e) => { if (e.key === "Enter") commitWounds(); if (e.key === "Escape") editingWounds = false; }}
+                    onclick={(e) => e.stopPropagation()}
+                    min="0" max={ctx.system?.wounds?.max ?? 0} />
+            {:else}
+                <span class="stat-value">{ctx.system?.wounds?.value ?? 0}/{ctx.system?.wounds?.max ?? 0}</span>
+            {/if}
             <div class="wound-bar">
                 <div class="wound-fill" style="width: {woundPercent()}%"></div>
             </div>
@@ -139,6 +170,23 @@
     }
     .wounds.critical .stat-value {
         color: var(--dh2e-red-bright);
+    }
+    .wound-edit {
+        width: 40px;
+        font-size: var(--dh2e-text-md);
+        font-weight: 700;
+        text-align: center;
+        background: var(--dh2e-bg-darkest, #1a1a1f);
+        color: var(--dh2e-text-primary, #d0cfc8);
+        border: 1px solid var(--dh2e-gold, #c8a84e);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        padding: 0;
+        -moz-appearance: textfield;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     }
     .wound-bar {
         width: 100%;

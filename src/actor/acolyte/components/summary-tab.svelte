@@ -3,24 +3,78 @@
     import MovementDisplay from "./movement-display.svelte";
     import { CheckDH2e } from "../../../check/check.ts";
     import { FateDialog } from "../../../ui/fate-dialog.ts";
+    import { executeSkillUseRoll } from "../../../item/skill/roll-skill-use.ts";
+    import { CANONICAL_SKILL_USES, CANONICAL_SKILL_CHARS } from "../../../item/skill/uses.ts";
     import type { CharacteristicAbbrev } from "../../../actor/types.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
-    /** Favorites: items with the "favorite" flag set */
+    /** Favorites: items with the "favorite" flag set + skill use favorites from actor flags */
     const favorites = $derived(() => {
         const skills: any[] = ctx.items?.skills ?? [];
         const powers: any[] = ctx.items?.powers ?? [];
         const weapons: any[] = ctx.items?.weapons ?? [];
         const armour: any[] = ctx.items?.armour ?? [];
         const gear: any[] = ctx.items?.gear ?? [];
-        return [...skills, ...powers, ...weapons, ...armour, ...gear]
+        const itemFavs = [...skills, ...powers, ...weapons, ...armour, ...gear]
             .filter((i: any) => i.getFlag?.("dh2e", "favorite"))
             .sort((a: any, b: any) => a.name.localeCompare(b.name));
+
+        // Merge skill use favorites from actor flags
+        const useFavs = ctx.actor?.getFlag?.("dh2e", "favoriteUses") ?? {};
+        const skillUseFavs: any[] = [];
+        for (const [key, val] of Object.entries(useFavs)) {
+            if (!val) continue;
+            // Key format: "skill-name--use-slug"
+            const sepIdx = key.indexOf("--");
+            if (sepIdx < 0) continue;
+            const skillSlug = key.substring(0, sepIdx);
+            const useSlug = key.substring(sepIdx + 2);
+
+            // Find the skill name from slug
+            let skillName = "";
+            let skillItem: any = null;
+            for (const s of skills) {
+                const sSlug = s.name.toLowerCase().replace(/\s+/g, "-");
+                if (sSlug === skillSlug) {
+                    skillName = s.name;
+                    skillItem = s;
+                    break;
+                }
+            }
+            // Also check canonical uses if no owned skill found
+            if (!skillName) {
+                for (const [name] of Object.entries(CANONICAL_SKILL_USES)) {
+                    if (name.toLowerCase().replace(/\s+/g, "-") === skillSlug) {
+                        skillName = name;
+                        break;
+                    }
+                }
+            }
+            if (!skillName) continue;
+
+            // Find the use definition
+            const uses = skillItem?.system?.uses ?? skillItem?.skillSystem?.uses
+                ?? CANONICAL_SKILL_USES[skillName] ?? [];
+            const use = uses.find((u: any) => u.slug === useSlug);
+            if (!use) continue;
+
+            skillUseFavs.push({
+                _skillUseFav: true,
+                type: "skillUse",
+                name: `${use.label}`,
+                skillName,
+                skillItem,
+                use,
+            });
+        }
+
+        return [...itemFavs, ...skillUseFavs.sort((a: any, b: any) => a.name.localeCompare(b.name))];
     });
 
     function favIcon(type: string): string {
         if (type === "skill") return "fa-solid fa-graduation-cap";
+        if (type === "skillUse") return "fa-solid fa-bolt";
         if (type === "power") return "fa-solid fa-hat-wizard";
         if (type === "weapon") return "fa-solid fa-crosshairs";
         if (type === "armour") return "fa-solid fa-shield-halved";
@@ -31,6 +85,23 @@
     function useFavorite(fav: any, shiftKey = false) {
         const actor = ctx.actor;
         if (!actor) return;
+
+        // Skill use favorite — invoke the skill use roll
+        if (fav._skillUseFav && fav.use) {
+            const skill = fav.skillItem ?? {
+                name: fav.skillName,
+                displayName: fav.skillName,
+                linkedCharacteristic: CANONICAL_SKILL_CHARS[fav.skillName] ?? "ws",
+                advancement: 0,
+                advancementBonus: 0,
+                totalTarget: actor.system?.characteristics?.[CANONICAL_SKILL_CHARS[fav.skillName] ?? "ws"]?.value ?? 0,
+                isTrained: false,
+                _synthetic: true,
+            };
+            executeSkillUseRoll(actor, skill, fav.use);
+            return;
+        }
+
         if (fav.type === "skill") {
             const sys = fav.skillSystem ?? fav.system ?? {};
             CheckDH2e.roll({
@@ -55,17 +126,20 @@
                 domain: `attack:${fav.name.toLowerCase().replace(/\s+/g, "-")}`,
                 skipDialog: CheckDH2e.shouldSkipDialog(shiftKey),
             });
+        } else if (fav.type === "power") {
+            // Invoke Focus Power flow instead of opening sheet
+            ctx.usePower?.(fav);
         } else {
             fav.sheet?.render(true);
         }
     }
 
-    /** DH2e paired layout: WS↔Int, BS↔Per, S↔WP, T↔Fel, Ag centered */
-    const charPairs: [string, string][] = [
-        ["ws", "int"],
-        ["bs", "per"],
-        ["s", "wp"],
-        ["t", "fel"],
+    /** Diamond/Hex layout: 2-3-2-2 arrangement */
+    const charRows: string[][] = [
+        ["ws", "bs"],
+        ["s", "t", "ag"],
+        ["int", "per"],
+        ["wp", "fel"],
     ];
 
     const charLabels: Record<string, { label: string; abbrev: string }> = {
@@ -125,37 +199,21 @@
     <!-- LEFT COLUMN: Characteristics -->
     <section class="char-panel">
         <h2 class="section-title">Characteristics</h2>
-        <div class="char-pairs">
-            {#each charPairs as [left, right]}
-                {@const lc = getChar(left)}
-                {@const rc = getChar(right)}
-                <div class="char-pair-row">
-                    <CharGrid
-                        abbreviation={charLabels[left].abbrev}
-                        label={charLabels[left].label}
-                        value={lc.value}
-                        bonus={lc.bonus}
-                        onclick={(e) => onCharClick(left, e.shiftKey)}
-                    />
-                    <CharGrid
-                        abbreviation={charLabels[right].abbrev}
-                        label={charLabels[right].label}
-                        value={rc.value}
-                        bonus={rc.bonus}
-                        onclick={(e) => onCharClick(right, e.shiftKey)}
-                    />
+        <div class="char-diamond">
+            {#each charRows as row, rowIdx}
+                <div class="char-row" class:row-wide={row.length === 3}>
+                    {#each row as key}
+                        {@const c = getChar(key)}
+                        <CharGrid
+                            abbreviation={charLabels[key].abbrev}
+                            label={charLabels[key].label}
+                            value={c.value}
+                            bonus={c.bonus}
+                            onclick={(e) => onCharClick(key, e.shiftKey)}
+                        />
+                    {/each}
                 </div>
             {/each}
-            <!-- Centered Agility -->
-            <div class="char-pair-row centered">
-                <CharGrid
-                    abbreviation={charLabels.ag.abbrev}
-                    label={charLabels.ag.label}
-                    value={getChar("ag").value}
-                    bonus={getChar("ag").bonus}
-                    onclick={(e) => onCharClick("ag", e.shiftKey)}
-                />
-            </div>
         </div>
     </section>
 
@@ -245,31 +303,14 @@
                             {#if fav.type === "skill"}
                                 <span class="fav-target">{fav.totalTarget ?? "?"}</span>
                             {/if}
+                            {#if fav.type === "skillUse"}
+                                <span class="fav-skill-hint">{fav.skillName}</span>
+                            {/if}
                         </button>
                     {/each}
                 </div>
             </div>
         {/if}
-
-        <!-- Details -->
-        <div class="details-grid">
-            <div class="detail-field">
-                <span class="detail-label">HW</span>
-                <span class="detail-value">{ctx.system?.details?.homeworld || "—"}</span>
-            </div>
-            <div class="detail-field">
-                <span class="detail-label">BG</span>
-                <span class="detail-value">{ctx.system?.details?.background || "—"}</span>
-            </div>
-            <div class="detail-field">
-                <span class="detail-label">Role</span>
-                <span class="detail-value">{ctx.system?.details?.role || "—"}</span>
-            </div>
-            <div class="detail-field">
-                <span class="detail-label">Div</span>
-                <span class="detail-value">{ctx.system?.details?.divination || "—"}</span>
-            </div>
-        </div>
 
         <!-- Compact fluff -->
         <div class="details-grid">
@@ -298,18 +339,6 @@
                 </div>
             {/if}
         </div>
-
-        <!-- Wizard / Level Up buttons -->
-        {#if !ctx.system?.details?.homeworld && ctx.openWizard}
-            <button class="btn wizard-btn" type="button" onclick={() => ctx.openWizard?.()}>
-                Character Creation Wizard
-            </button>
-        {/if}
-        {#if ctx.system?.details?.homeworld}
-            <button class="btn levelup-btn" type="button" onclick={() => ctx.openShop?.()}>
-                Level Up / Spend XP
-            </button>
-        {/if}
     </section>
 </div>
 
@@ -331,24 +360,23 @@
         border-bottom: 1px solid var(--dh2e-gold-muted);
     }
 
-    /* Left column — Characteristics */
+    /* Left column — Characteristics (Diamond Layout) */
     .char-panel {
         min-width: 220px;
     }
-    .char-pairs {
+    .char-diamond {
         display: flex;
         flex-direction: column;
         gap: var(--dh2e-space-xs);
+        align-items: center;
     }
-    .char-pair-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+    .char-row {
+        display: flex;
         gap: var(--dh2e-space-xs);
+        justify-content: center;
 
-        &.centered {
-            grid-template-columns: 1fr;
-            max-width: 50%;
-            margin: 0 auto;
+        &.row-wide {
+            /* 3-char row — slightly wider */
         }
     }
 
@@ -550,6 +578,11 @@
         color: var(--dh2e-gold-bright);
         font-size: var(--dh2e-text-xs);
     }
+    .fav-skill-hint {
+        font-size: 0.6rem;
+        color: var(--dh2e-text-secondary);
+        font-style: italic;
+    }
 
     /* Details */
     .details-grid {
@@ -574,37 +607,5 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-    }
-
-    /* Wizard / Level Up */
-    .wizard-btn {
-        width: 100%;
-        padding: var(--dh2e-space-sm) var(--dh2e-space-md);
-        background: var(--dh2e-gold-dark);
-        color: var(--dh2e-bg-darkest);
-        border: 1px solid var(--dh2e-gold);
-        border-radius: var(--dh2e-radius-sm);
-        font-family: var(--dh2e-font-header);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        cursor: pointer;
-
-        &:hover { background: var(--dh2e-gold); }
-    }
-    .levelup-btn {
-        width: 100%;
-        padding: var(--dh2e-space-xs) var(--dh2e-space-md);
-        background: var(--dh2e-bg-mid);
-        color: var(--dh2e-text-secondary);
-        border: 1px solid var(--dh2e-border);
-        border-radius: var(--dh2e-radius-sm);
-        font-size: var(--dh2e-text-sm);
-        cursor: pointer;
-
-        &:hover {
-            border-color: var(--dh2e-gold-dark);
-            color: var(--dh2e-text-primary);
-        }
     }
 </style>

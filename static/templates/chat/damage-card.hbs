@@ -43,6 +43,11 @@
         {{#if targetId}}
         <div class="damage-apply-controls">
             {{#unless applied}}
+                {{#unless fateHalved}}
+                <button class="fate-btn" data-action="spend-fate" title="{{localize "DH2E.Fate.InvokeFate"}}">
+                    <i class="fas fa-star"></i> {{localize "DH2E.Fate.InvokeFate"}}
+                </button>
+                {{/unless}}
             <button class="btn apply-damage" data-action="apply-damage" data-target-id="{{targetId}}">
                 <i class="fas fa-crosshairs"></i> {{localize "DH2E.Damage.Apply"}}
             </button>

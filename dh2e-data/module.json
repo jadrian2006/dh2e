@@ -121,6 +121,13 @@
             "label": "DH2E Macros",
             "path": "packs/macros",
             "type": "Macro"
+        },
+        {
+            "name": "tables",
+            "label": "DH2E Roll Tables",
+            "path": "packs/tables",
+            "type": "RollTable",
+            "system": "dh2e"
         }
     ]
 }

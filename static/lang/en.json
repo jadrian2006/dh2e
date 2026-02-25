@@ -98,6 +98,8 @@
     "DH2E.Details.Background": "Background",
     "DH2E.Details.Role": "Role",
     "DH2E.Details.Divination": "Divination",
+    "DH2E.Divination.Effect": "Divination Effect",
+    "DH2E.Divination.NarrativeOnly": "Narrative effect only",
     "DH2E.Details.Notes": "Notes",
     "DH2E.Details.Biography": "Biography",
     "DH2E.Details.Appearance": "Appearance",
@@ -230,6 +232,7 @@
     "DH2E.Damage.Reverted": "Damage Reverted",
     "DH2E.Damage.PlayerSummary": "Wounds",
 
+    "DH2E.Fate.InvokeFate": "Invoke Fate",
     "DH2E.Fate.Spend": "Spend Fate Point",
     "DH2E.Fate.Burn": "Burn Fate Point",
     "DH2E.Fate.Reroll": "Reroll",

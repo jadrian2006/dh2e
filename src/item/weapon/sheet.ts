@@ -1,4 +1,5 @@
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@sheet/mixin.ts";
+import { getSetting } from "../../ui/settings/settings.ts";
 import SheetRoot from "./sheet-root.svelte";
 
 class WeaponSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
@@ -25,6 +26,7 @@ class WeaponSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 type: this.document.type,
                 system: this.document.system,
                 editable: this.isEditable,
+                ruleEditingAllowed: getSetting<boolean>("allowRuleEditing"),
             },
         };
     }

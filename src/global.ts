@@ -13,6 +13,7 @@ declare global {
             grantAdvance: () => void;
             assignObjective: () => void;
             requisition: () => void;
+            voxTerminal: () => void;
             warband: any;
         };
     }

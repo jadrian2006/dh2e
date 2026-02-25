@@ -366,6 +366,46 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             });
         }
 
+        // --- Psychic Powers (if psyker) ---
+        if (ownedElites.includes("psyker")) {
+            const ownedPowerNames = new Set<string>();
+            for (const item of actor.items) {
+                if (item.type === "power") ownedPowerNames.add(item.name);
+            }
+
+            const powerPack = game.packs?.get("dh2e-data.powers");
+            if (powerPack) {
+                for (const entry of powerPack.index) {
+                    const meta = entry as any;
+                    if (ownedPowerNames.has(meta.name)) continue;
+
+                    const sys = meta.system ?? {};
+                    // Cost based on power tier: cost 1 = 200 XP, cost 2 = 300 XP, cost 3+ = 400 XP
+                    const powerCost: number = sys.cost ?? 1;
+                    const xpCost = powerCost <= 1 ? 200 : powerCost === 2 ? 300 : 400;
+                    const discipline: string = sys.discipline ?? "Unaligned";
+
+                    options.push({
+                        category: "power",
+                        label: meta.name,
+                        sublabel: `${discipline} — ${xpCost} XP`,
+                        key: meta._id,
+                        cost: xpCost,
+                        matchCount: 0,
+                        aptitudes: ["General", "General"],
+                        currentLevel: 0,
+                        nextLevel: 1,
+                        maxLevel: 1,
+                        affordable: xpAvailable >= xpCost,
+                        alreadyMaxed: false,
+                        prereqsMet: true,
+                        prereqsUnmet: [],
+                        compendiumUuid: `Compendium.dh2e-data.powers.${meta._id}`,
+                    });
+                }
+            }
+        }
+
         // --- Psy Rating Advances (if psyker) ---
         if (ownedElites.includes("psyker")) {
             const psyTalent = actor.items.find(
@@ -396,9 +436,9 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             }
         }
 
-        // Sort: characteristics first (by name), then skills (alpha), then talents (tier → name), then elite
+        // Sort: characteristics first (by name), then skills (alpha), then talents (tier → name), then powers, then elite
         options.sort((a, b) => {
-            const catOrder: Record<string, number> = { characteristic: 0, skill: 1, talent: 2, elite: 3 };
+            const catOrder: Record<string, number> = { characteristic: 0, skill: 1, talent: 2, power: 3, elite: 4 };
             if (catOrder[a.category] !== catOrder[b.category]) {
                 return catOrder[a.category] - catOrder[b.category];
             }
@@ -455,6 +495,11 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             await actor.createEmbeddedDocuments("Item", [data]);
             await actor.update({ "system.xp.spent": system.xp.spent + opt.cost });
         } else if (opt.category === "talent" && opt.compendiumUuid) {
+            const item = await fromUuid(opt.compendiumUuid);
+            if (!item) return;
+            await actor.createEmbeddedDocuments("Item", [(item as any).toObject()]);
+            await actor.update({ "system.xp.spent": system.xp.spent + opt.cost });
+        } else if (opt.category === "power" && opt.compendiumUuid) {
             const item = await fromUuid(opt.compendiumUuid);
             if (!item) return;
             await actor.createEmbeddedDocuments("Item", [(item as any).toObject()]);

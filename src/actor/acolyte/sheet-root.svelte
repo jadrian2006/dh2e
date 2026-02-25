@@ -55,20 +55,34 @@
     <Header {ctx} />
 
     <!-- View mode selector -->
-    <div class="view-mode-bar" role="tablist" aria-label="Sheet view mode">
-        {#each viewModes as vm}
-            <button
-                class="view-mode-btn"
-                class:active={viewMode === vm.id}
-                onclick={() => ctx.setViewMode?.(vm.id)}
-                title={vm.title}
-                role="tab"
-                aria-selected={viewMode === vm.id}
-                aria-label={vm.title}
-            >
-                <i class={vm.icon}></i>
-            </button>
-        {/each}
+    <div class="view-mode-bar">
+        <div class="bar-left">
+            {#if !ctx.system?.details?.homeworld && ctx.openWizard}
+                <button class="bar-action-btn wizard" type="button" onclick={() => ctx.openWizard?.()}>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Creation Wizard
+                </button>
+            {/if}
+            {#if ctx.system?.details?.homeworld}
+                <button class="bar-action-btn levelup" type="button" onclick={() => ctx.openShop?.()}>
+                    <i class="fa-solid fa-arrow-up"></i> Level Up
+                </button>
+            {/if}
+        </div>
+        <div class="bar-right" role="tablist" aria-label="Sheet view mode">
+            {#each viewModes as vm}
+                <button
+                    class="view-mode-btn"
+                    class:active={viewMode === vm.id}
+                    onclick={() => ctx.setViewMode?.(vm.id)}
+                    title={vm.title}
+                    role="tab"
+                    aria-selected={viewMode === vm.id}
+                    aria-label={vm.title}
+                >
+                    <i class={vm.icon}></i>
+                </button>
+            {/each}
+        </div>
     </div>
 
     {#if viewMode === "compact"}
@@ -119,10 +133,40 @@
     }
     .view-mode-bar {
         display: flex;
-        justify-content: flex-end;
-        gap: 2px;
+        justify-content: space-between;
+        align-items: center;
         padding: 2px var(--dh2e-space-sm, 0.5rem);
         border-bottom: 1px solid var(--dh2e-border, #4a4a55);
+    }
+    .bar-left {
+        display: flex;
+        gap: 4px;
+    }
+    .bar-right {
+        display: flex;
+        gap: 2px;
+    }
+    .bar-action-btn {
+        background: none;
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        padding: 2px 8px;
+        font-size: 0.65rem;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        &:hover {
+            color: var(--dh2e-gold, #c8a84e);
+            border-color: var(--dh2e-gold-dark, #9c7a28);
+        }
+        &.wizard {
+            color: var(--dh2e-gold, #c8a84e);
+            border-color: var(--dh2e-gold-dark, #9c7a28);
+        }
+        &.levelup i { font-size: 0.6rem; }
     }
     .view-mode-btn {
         background: none;

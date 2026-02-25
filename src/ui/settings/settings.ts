@@ -166,10 +166,30 @@ const SETTINGS: SettingDefinition[] = [
         },
     },
     {
+        key: "blockUntrainedSkillUses",
+        category: "automation",
+        name: "DH2E.Settings.BlockUntrained.Name",
+        hint: "DH2E.Settings.BlockUntrained.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+    },
+    {
         key: "requireEliteApproval",
         category: "automation",
         name: "DH2E.Settings.RequireEliteApproval.Name",
         hint: "DH2E.Settings.RequireEliteApproval.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+    },
+    {
+        key: "allowRuleEditing",
+        category: "automation",
+        name: "DH2E.Settings.AllowRuleEditing.Name",
+        hint: "DH2E.Settings.AllowRuleEditing.Hint",
         scope: "world",
         config: true,
         type: Boolean,
@@ -251,6 +271,17 @@ const SETTINGS: SettingDefinition[] = [
         default: 100,
         range: { min: 75, max: 200, step: 25 },
     },
+    {
+        key: "sheetScale",
+        category: "display",
+        name: "DH2E.Settings.SheetScale.Name",
+        hint: "DH2E.Settings.SheetScale.Hint",
+        scope: "client",
+        config: true,
+        type: Number,
+        default: 100,
+        range: { min: 75, max: 200, step: 25 },
+    },
 
     {
         key: "enableAnimations",
@@ -322,6 +353,20 @@ const SETTINGS: SettingDefinition[] = [
         type: Boolean,
         default: true,
     },
+    {
+        key: "combatHUDPosition",
+        category: "display",
+        name: "DH2E.Settings.CombatHUDPosition.Name",
+        hint: "DH2E.Settings.CombatHUDPosition.Hint",
+        scope: "client",
+        config: true,
+        type: String,
+        default: "bottomLeft",
+        choices: {
+            bottomLeft: "DH2E.Settings.CombatHUDPosition.BottomLeft",
+            bottomCenter: "DH2E.Settings.CombatHUDPosition.BottomCenter",
+        },
+    },
 
     // Module Integrations
     {
@@ -384,7 +429,7 @@ const SETTINGS: SettingDefinition[] = [
         scope: "world",
         config: false,
         type: String,
-        default: "0.4.0",
+        default: "0.5.0",
     },
     {
         key: "activeWarband",

@@ -71,6 +71,14 @@ export class Init {
             // Register status effects for token overlays
             CONFIG.statusEffects = DH2E_STATUS_EFFECTS;
 
+            // Lock token rotation for non-vehicle actors (vehicles need facing for armour zones)
+            Hooks.on("preCreateToken", (token: any) => {
+                const actorType = token.actor?.type;
+                if (actorType && actorType !== "vehicle") {
+                    token.updateSource({ lockRotation: true });
+                }
+            });
+
             // Register custom Handlebars helpers
             registerHandlebarsHelpers();
 
@@ -120,6 +128,17 @@ export class Init {
                         },
                     });
                 }
+            });
+
+            game.keybindings.register(SYSTEM_ID, "openActionsGrid", {
+                name: "DH2E.Keybinding.OpenActionsGrid",
+                editable: [{ key: "KeyA", modifiers: ["Shift"] }],
+                onDown: () => {
+                    import("../../ui/actions-grid/actions-grid.ts").then(m => m.ActionsGrid.open());
+                    return true;
+                },
+                restricted: false,
+                precedence: (CONST as any).KEYBINDING_PRECEDENCE?.NORMAL ?? 0,
             });
 
             game.keybindings.register(SYSTEM_ID, "openCompendiumBrowser", {

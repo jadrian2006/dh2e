@@ -18,5 +18,15 @@
         "flags": {
             "dh2e": { "gmOnly": true }
         }
+    },
+    {
+        "name": "Vox Terminal",
+        "type": "script",
+        "img": "icons/svg/sound.svg",
+        "command": "game.dh2e.voxTerminal();",
+        "scope": "global",
+        "flags": {
+            "dh2e": { "gmOnly": true }
+        }
     }
 ]

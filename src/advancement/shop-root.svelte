@@ -12,6 +12,11 @@
         return opts.some((o) => o.category === "elite");
     });
 
+    const hasPowerOptions = $derived(() => {
+        const opts: AdvanceOption[] = ctx.options ?? [];
+        return opts.some((o) => o.category === "power");
+    });
+
     const filtered = $derived(() => {
         const opts: AdvanceOption[] = ctx.options ?? [];
         const term = searchText.toLowerCase().trim();
@@ -26,6 +31,7 @@
     function categoryIcon(cat: AdvanceCategory): string {
         if (cat === "characteristic") return "fa-solid fa-chart-bar";
         if (cat === "skill") return "fa-solid fa-graduation-cap";
+        if (cat === "power") return "fa-solid fa-hat-wizard";
         if (cat === "elite") return "fa-solid fa-crown";
         return "fa-solid fa-star";
     }
@@ -70,6 +76,9 @@
             <button class="tab" class:active={filterCategory === "characteristic"} onclick={() => filterCategory = "characteristic"}>Characteristics</button>
             <button class="tab" class:active={filterCategory === "skill"} onclick={() => filterCategory = "skill"}>Skills</button>
             <button class="tab" class:active={filterCategory === "talent"} onclick={() => filterCategory = "talent"}>Talents</button>
+            {#if hasPowerOptions()}
+                <button class="tab power-tab" class:active={filterCategory === "power"} onclick={() => filterCategory = "power"}>Powers</button>
+            {/if}
             {#if hasEliteOptions()}
                 <button class="tab elite-tab" class:active={filterCategory === "elite"} onclick={() => filterCategory = "elite"}>Elite</button>
             {/if}
@@ -118,7 +127,7 @@
                         </span>
                     {/if}
                 </div>
-                {#if opt.category === "skill" || opt.category === "talent"}
+                {#if opt.category === "skill" || opt.category === "talent" || opt.category === "power"}
                     <button class="info-btn" title="View details" onclick={() => ctx.openItem?.(opt)}>
                         <i class="fa-solid fa-circle-info"></i>
                     </button>
@@ -447,6 +456,13 @@
         cursor: help;
     }
 
+    .power-tab {
+        &.active {
+            background: rgba(80, 120, 200, 0.3);
+            border-color: rgba(80, 120, 200, 0.6);
+            color: #c0d8ff;
+        }
+    }
     .elite-tab {
         &.active {
             background: rgba(168, 78, 200, 0.3);

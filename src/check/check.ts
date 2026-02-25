@@ -128,6 +128,17 @@ class CheckDH2e {
             }
         }
 
+        // Inherit modifiers from parent domain (e.g. skill:stealth applies to skill:stealth:sneak)
+        const parts = context.domain.split(":");
+        if (parts.length === 3) {
+            const parentDomain = `${parts[0]}:${parts[1]}`;
+            if (actor?.synthetics?.modifiers?.[parentDomain]) {
+                for (const mod of actor.synthetics.modifiers[parentDomain]) {
+                    modifiers.push(mod.clone());
+                }
+            }
+        }
+
         // Add directly provided modifiers
         if (context.modifiers) {
             modifiers.push(...context.modifiers);

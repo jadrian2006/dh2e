@@ -1,11 +1,22 @@
 <script lang="ts">
     import { AttackResolver } from "../../../combat/attack.ts";
     import type { FireMode } from "../../../combat/types.ts";
+    import type { WeaponDragData } from "../../../macros/types.ts";
+    import { sendItemToChat } from "../../../chat/send-to-chat.ts";
 
     let { weapon, actor }: {
         weapon: any;
         actor: any;
     } = $props();
+
+    function onDragStart(e: DragEvent) {
+        const data: WeaponDragData = {
+            type: "Weapon",
+            weaponId: weapon.id ?? weapon._id ?? "",
+            weaponName: weapon.name,
+        };
+        e.dataTransfer?.setData("text/plain", JSON.stringify(data));
+    }
 
     const sys = $derived(weapon.system ?? {});
     const hasRanged = $derived(sys.class !== "melee");
@@ -18,7 +29,7 @@
     }
 </script>
 
-<div class="weapon-row">
+<div class="weapon-row" draggable="true" ondragstart={onDragStart}>
     <div class="weapon-info">
         <span class="weapon-name">{weapon.name}</span>
         <span class="weapon-details">
@@ -26,6 +37,9 @@
             {#if sys.penetration}| Pen {sys.penetration}{/if}
         </span>
     </div>
+    <button class="chat-btn" onclick={(e) => { e.stopPropagation(); sendItemToChat(weapon); }} title="Send to Chat">
+        <i class="fa-solid fa-comment"></i>
+    </button>
     <div class="weapon-actions">
         {#if !hasRanged}
             <button class="attack-btn melee" onclick={() => attack("single")} title="Melee Attack">Melee</button>
@@ -52,6 +66,23 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
         &:last-child { border-bottom: none; }
+    }
+
+    .chat-btn {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-size: 0.65rem;
+        width: 1rem;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.4;
+
+        &:hover { color: var(--dh2e-gold, #c8a84e); opacity: 1; }
     }
 
     .weapon-info {

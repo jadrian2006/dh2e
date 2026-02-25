@@ -1,0 +1,19 @@
+<div class="dh2e chat-card item-card">
+    <header class="card-header">
+        <img src="{{img}}" width="28" height="28" />
+        <h3>{{name}}</h3>
+        <span class="item-type">{{typeLabel}}</span>
+    </header>
+    {{#if description}}
+    <div class="card-body description">{{{description}}}</div>
+    {{/if}}
+    {{#if actions}}
+    <div class="card-actions">
+        {{#each actions}}
+        <button class="card-action-btn" data-action="{{this.action}}" data-skill="{{this.skill}}" data-use="{{this.use}}" data-weapon-id="{{this.weaponId}}">
+            {{this.label}}
+        </button>
+        {{/each}}
+    </div>
+    {{/if}}
+</div>

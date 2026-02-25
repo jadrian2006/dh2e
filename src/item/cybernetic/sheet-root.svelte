@@ -120,7 +120,7 @@
         <RuleElementEditor
             rules={sys.rules ?? []}
             item={ctx.item}
-            editable={ctx.editable}
+            editable={ctx.editable && ctx.ruleEditingAllowed !== false}
         />
     </section>
 </div>

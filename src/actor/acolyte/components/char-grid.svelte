@@ -28,7 +28,7 @@
         padding: 4px 6px;
         cursor: pointer;
         transition: all var(--dh2e-transition-fast);
-        min-width: 0;
+        width: 68px;
         height: auto !important;
         min-height: 72px !important;
 
@@ -48,7 +48,9 @@
         color: var(--dh2e-text-dark-secondary);
         text-transform: uppercase;
         letter-spacing: 0.04em;
-        line-height: 1;
+        line-height: 1.1;
+        text-align: center;
+        word-break: break-word;
     }
 
     .char-abbrev {

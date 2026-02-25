@@ -1,3 +1,5 @@
+import { getCompendiumTable, lookupTableResult } from "@util/index.ts";
+
 interface DisorderEntry {
     min: number;
     max: number;
@@ -7,9 +9,13 @@ interface DisorderEntry {
     triggers: string;
 }
 
+// Compendium table cache
+let disorderRT: RollTable | null = null;
+
+// JSON fallback cache
 let disorderTable: DisorderEntry[] | null = null;
 
-/** Load and cache the mental disorder d100 table */
+/** Load and cache the mental disorder d100 table (JSON fallback) */
 async function loadDisorderTable(): Promise<DisorderEntry[]> {
     if (disorderTable) return disorderTable;
     try {
@@ -27,11 +33,34 @@ async function rollDisorder(
     actor: Actor,
     severity: "minor" | "severe" | "acute",
 ): Promise<DisorderEntry | undefined> {
-    const table = await loadDisorderTable();
     const roll = new foundry.dice.Roll("1d100");
     await roll.evaluate();
     const result = roll.total ?? 1;
-    const entry = table.find((e) => result >= e.min && result <= e.max);
+
+    let entry: DisorderEntry | undefined;
+
+    // Try compendium RollTable first
+    if (!disorderRT) disorderRT = await getCompendiumTable("mental-disorders");
+    if (disorderRT) {
+        const tr = lookupTableResult(disorderRT, result);
+        if (tr) {
+            const flags = tr.flags?.dh2e ?? {};
+            entry = {
+                min: tr.range[0],
+                max: tr.range[1],
+                title: tr.text,
+                description: flags.description ?? "",
+                effect: flags.effect ?? "",
+                triggers: flags.triggers ?? "",
+            };
+        }
+    }
+
+    // Fallback to JSON
+    if (!entry) {
+        const table = await loadDisorderTable();
+        entry = table.find((e) => result >= e.min && result <= e.max);
+    }
 
     if (entry) {
         await actor.createEmbeddedDocuments("Item", [{

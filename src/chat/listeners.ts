@@ -66,11 +66,24 @@ class ChatListenersDH2e {
             btn.addEventListener("click", () => ChatApplyHandler.revertDamage(message));
         });
 
+        // Right-click reroll on check/attack cards
+        html.querySelectorAll<HTMLElement>(".check-card, .attack-card").forEach((el) => {
+            el.addEventListener("contextmenu", (e) => {
+                e.preventDefault();
+                ChatListenersDH2e.#onSpendFate(e);
+            });
+        });
+
         // Expandable modifier breakdown
         html.querySelectorAll<HTMLDetailsElement>(".modifier-breakdown").forEach((details) => {
             details.addEventListener("toggle", () => {
                 // Allow Foundry to resize the chat message
             });
+        });
+
+        // Item card action buttons (send-to-chat)
+        html.querySelectorAll<HTMLButtonElement>(".item-card .card-action-btn").forEach((btn) => {
+            btn.addEventListener("click", () => ChatListenersDH2e.#onItemCardAction(message, btn));
         });
     }
 
@@ -117,42 +130,28 @@ class ChatListenersDH2e {
 
         const isGM = (game as any).user?.isGM ?? false;
 
-        // Build damage card HTML — GM sees full breakdown, players see only totals
-        const hitsHtml = damageRolls.map((d) => {
-            if (isGM) {
-                return `<div class="damage-hit">
-                    <span class="hit-location">${d.locationLabel}</span>
-                    <span class="hit-damage">${d.rawDamage}</span>
-                    <span class="hit-formula">(${d.formula})</span>
-                </div>`;
-            }
-            return `<div class="damage-hit">
-                <span class="hit-location">${d.locationLabel}</span>
-                <span class="hit-damage">${d.rawDamage}</span>
-            </div>`;
-        }).join("");
+        // Get targeted token for Apply Damage wiring
+        const target = (game as any).user?.targets?.first()?.actor as Actor | undefined;
+        const targetId = target?.id ?? null;
 
-        const infoHtml = isGM
-            ? `<div class="damage-info">
-                    <span>Pen ${penetration}</span>
-                    <span class="damage-type">${damageType}</span>
-                </div>`
-            : "";
+        const templatePath = `systems/${SYSTEM_ID}/templates/chat/damage-card.hbs`;
+        const templateData = {
+            weaponName: (weapon as any).name,
+            hits: damageRolls.map((d) => ({
+                locationLabel: d.locationLabel,
+                rawDamage: d.rawDamage,
+                effectiveAP: 0,
+                penetration,
+                toughnessBonus: 0,
+                woundsDealt: d.rawDamage,
+            })),
+            targetId,
+            applied: false,
+            fateHalved: false,
+            isGM,
+        };
 
-        const content = `<div class="dh2e chat-card damage-card">
-            <header class="card-header">
-                <h3>${(weapon as any).name} — Damage</h3>
-            </header>
-            <div class="card-body">
-                <div class="damage-hits">${hitsHtml}</div>
-                <div class="damage-total">
-                    <span class="total-label">Total Raw Damage</span>
-                    <span class="total-value">${totalDamage}</span>
-                </div>
-                ${infoHtml}
-            </div>
-        </div>`;
-
+        const content = await fa.handlebars.renderTemplate(templatePath, templateData);
         const speaker = fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
 
         await fd.ChatMessage.create({
@@ -162,12 +161,16 @@ class ChatListenersDH2e {
                 [SYSTEM_ID]: {
                     type: "damage",
                     result: {
+                        actorId: actor.id,
                         weaponName: (weapon as any).name,
                         hits: damageRolls,
                         totalDamage,
                         penetration,
                         damageType,
+                        targetId,
                     },
+                    applied: false,
+                    fateHalved: false,
                 },
             },
         });
@@ -392,6 +395,57 @@ class ChatListenersDH2e {
 
         const { SuppressiveFireResolver } = await import("@combat/suppressive-fire.ts");
         await SuppressiveFireResolver.resolvePinning(targetIds);
+    }
+
+    /** Handle item card action button clicks (send-to-chat) */
+    static async #onItemCardAction(message: StoredDocument<ChatMessage>, btn: HTMLButtonElement): Promise<void> {
+        const action = btn.dataset.action;
+        const g = game as any;
+
+        if (action === "roll-skill-use") {
+            const skillName = btn.dataset.skill;
+            const useSlug = btn.dataset.use;
+            if (skillName && useSlug) {
+                g.dh2e?.rollSkillUse?.(skillName, useSlug);
+            }
+        } else if (action === "roll-weapon") {
+            const weaponId = btn.dataset.weaponId;
+            if (weaponId) {
+                g.dh2e?.rollWeapon?.(weaponId);
+            }
+        } else if (action === "focus-power") {
+            const flags = (message as any).flags?.[SYSTEM_ID] as Record<string, unknown> | undefined;
+            const actorId = flags?.actorId as string | undefined;
+            const itemId = flags?.itemId as string | undefined;
+            if (actorId && itemId) {
+                const actor = g.actors?.get(actorId) as any;
+                const power = actor?.items?.get(itemId) as any;
+                if (actor && power) {
+                    const sys = power.system ?? {};
+                    const charKey = sys.focusTest || "wp";
+                    const talents = actor.items.filter((i: any) => i.type === "talent");
+                    const prTalent = talents.find((t: any) => t.name === "Psy Rating");
+                    const psyRating = prTalent?.system?.tier ?? 0;
+                    if (psyRating <= 0) {
+                        ui.notifications?.warn(game.i18n?.localize("DH2E.Psychic.NoPsyRating") ?? "No Psy Rating.");
+                        return;
+                    }
+                    const { FocusPowerDialog } = await import("@psychic/focus-dialog.ts");
+                    const { FocusPowerResolver } = await import("@psychic/focus-power.ts");
+                    const result = await FocusPowerDialog.prompt({
+                        powerName: power.name ?? "Power",
+                        psyRating,
+                        description: sys.description ?? "",
+                    });
+                    if (result.cancelled) return;
+                    await FocusPowerResolver.resolve({
+                        actor, power, focusCharacteristic: charKey,
+                        focusModifier: sys.focusModifier ?? 0,
+                        psyRating, mode: result.mode, skipDialog: false,
+                    });
+                }
+            }
+        }
     }
 
     /** Handle grapple action button clicks */

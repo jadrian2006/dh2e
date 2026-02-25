@@ -4,6 +4,8 @@ import type { CreationData, HomeworldOption, BackgroundOption, RoleOption, Divin
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 import { recordTransaction } from "../advancement/xp-ledger.ts";
 import { appendLog } from "@actor/log.ts";
+import { getSetting } from "../ui/settings/settings.ts";
+import { getCompendiumTable } from "@util/index.ts";
 
 const DATA_BASE = "modules/dh2e-data/data/creation";
 const CHAR_KEYS = new Set<string>(["ws", "bs", "s", "t", "ag", "int", "per", "wp", "fel"]);
@@ -185,6 +187,14 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         return `Character Creation — ${this.#actor.name}`;
     }
 
+    protected override _onRender(context: Record<string, unknown>, options: fa.ApplicationRenderOptions): void {
+        super._onRender(context, options);
+        const scale = getSetting<number>("wizardScale");
+        if (scale !== 100 && this.element) {
+            (this.element as HTMLElement).style.zoom = String(scale / 100);
+        }
+    }
+
     /** Load creation data — tries compendium packs first, falls back to JSON */
     static async #loadData(): Promise<CreationData> {
         if (CreationWizard.#dataCache) return CreationWizard.#dataCache;
@@ -270,11 +280,25 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             }
         }
 
-        // Divinations always from JSON (not items)
-        try {
-            divinations = await fu.fetchJsonWithTimeout(`${DATA_BASE}/divinations.json`) as DivinationResult[];
-        } catch {
-            divinations = [];
+        // Try compendium table first for divinations
+        const divTable = await getCompendiumTable("divinations");
+        if (divTable) {
+            divinations = [...(divTable as any).results]
+                .sort((a: any, b: any) => a.range[0] - b.range[0])
+                .map((r: any) => ({
+                    roll: r.range as [number, number],
+                    text: r.text,
+                    effect: r.flags?.dh2e?.effect ?? "",
+                }));
+        }
+
+        // Fallback to JSON
+        if (divinations.length === 0) {
+            try {
+                divinations = await fu.fetchJsonWithTimeout(`${DATA_BASE}/divinations.json`) as DivinationResult[];
+            } catch {
+                divinations = [];
+            }
         }
 
         homeworlds.sort((a, b) => a.name.localeCompare(b.name));
@@ -290,7 +314,6 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const charGenMethod = game.settings.get(SYSTEM_ID, "charGenMethod") as string ?? "rolled";
         const startingXP = game.settings.get(SYSTEM_ID, "startingXP") as number ?? 1000;
 
-        const wizardScale = game.settings.get(SYSTEM_ID, "wizardScale") as number ?? 100;
         const divinationRerolls = game.settings.get(SYSTEM_ID, "divinationRerolls") as number ?? 1;
 
         return {
@@ -299,7 +322,6 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 data,
                 charGenMethod,
                 startingXP,
-                wizardScale,
                 divinationRerolls,
                 onFinish: (state: Record<string, unknown>) => this.#finish(state),
                 onCancel: () => this.close(),
@@ -610,4 +632,4 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 }
 
-export { CreationWizard, splitOrChoices, parseEquipment, findInPacks };
+export { CreationWizard, DIVINATION_EFFECTS, splitOrChoices, parseEquipment, findInPacks };

@@ -18,6 +18,7 @@ class ChatCardDH2e {
 
         const templateData = {
             title: result.context.label,
+            untrained: result.context.untrained ?? false,
             success: result.dos.success,
             degrees: result.dos.degrees,
             roll: result.roll,
@@ -50,6 +51,7 @@ class ChatCardDH2e {
                 [SYSTEM_ID]: {
                     type: "check",
                     result: {
+                        actorId: result.context.actor.id,
                         roll: result.roll,
                         target: result.target,
                         success: result.dos.success,

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { sendItemToChat } from "../../../chat/send-to-chat.ts";
+
     let { ctx }: { ctx: Record<string, any> } = $props();
 
     interface PowerItem {
@@ -111,6 +113,9 @@
                     {#if power.system?.focusTest}
                         <span class="power-focus">{power.system.focusTest}</span>
                     {/if}
+                    <button class="chat-btn" onclick={(e) => { e.stopPropagation(); sendItemToChat(power as any); }} title="Send to Chat">
+                        <i class="fa-solid fa-comment"></i>
+                    </button>
                     <button class="use-btn" onclick={() => usePower(power)} title="Use Power">
                         <i class="fa-solid fa-hat-wizard"></i>
                     </button>
@@ -276,6 +281,23 @@
         color: var(--dh2e-gold-muted, #7a6a3e);
         font-weight: 600;
         white-space: nowrap;
+    }
+
+    .chat-btn {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: none;
+        background: transparent;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        font-size: 0.65rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        opacity: 0.5;
+
+        &:hover { opacity: 1; color: var(--dh2e-gold, #c8a84e); }
     }
 
     .use-btn {

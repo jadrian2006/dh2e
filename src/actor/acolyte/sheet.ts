@@ -49,7 +49,7 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 img: actor.img,
                 system,
                 editable: this.isEditable,
-                canEditXP: this.isEditable && ((game as any).user.isGM || getSetting<boolean>("allowPlayerXPEdit")),
+                canEditXP: this.isEditable && getSetting<boolean>("allowPlayerXPEdit"),
                 items: {
                     weapons: actor.items.filter((i: Item) => i.type === "weapon"),
                     armour: actor.items.filter((i: Item) => i.type === "armour"),

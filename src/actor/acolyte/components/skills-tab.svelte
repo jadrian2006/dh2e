@@ -1,10 +1,13 @@
 <script lang="ts">
     import SkillRow from "./skill-row.svelte";
+    import SkillActionsView from "./skill-actions-view.svelte";
     import { CheckDH2e } from "../../../check/check.ts";
+    import type { SkillUse } from "../../../item/skill/data.ts";
+    import { executeSkillUseRoll } from "../../../item/skill/roll-skill-use.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
-    type FilterMode = "all" | "trained" | "combat";
+    type FilterMode = "all" | "trained" | "combat" | "actions";
     let filter: FilterMode = $state("all");
 
     /** Combat-related skill names */
@@ -43,6 +46,12 @@
         });
     }
 
+    function onUseRoll(skill: any, use: SkillUse, shiftKey: boolean) {
+        const actor = ctx.actor;
+        if (!actor) return;
+        executeSkillUseRoll(actor, skill, use, CheckDH2e.shouldSkipDialog(shiftKey));
+    }
+
 </script>
 
 <div class="skills-tab">
@@ -50,34 +59,43 @@
         <button class="filter-btn" class:active={filter === "all"} onclick={() => filter = "all"}>All</button>
         <button class="filter-btn" class:active={filter === "trained"} onclick={() => filter = "trained"}>Trained</button>
         <button class="filter-btn" class:active={filter === "combat"} onclick={() => filter = "combat"}>Combat</button>
+        <button class="filter-btn" class:active={filter === "actions"} onclick={() => filter = "actions"}>{game.i18n?.localize?.("DH2E.Skill.Actions") ?? "Actions"}</button>
     </div>
 
-    <div class="skills-list">
-        <div class="skills-header">
-            <span class="col-name">Skill</span>
-            <span class="col-char">Char</span>
-            <span class="col-pips" title="Training rank — each pip = one advance">Rank</span>
-            <span class="col-target">Target</span>
+    {#if filter === "actions"}
+        <SkillActionsView
+            skills={ctx.items?.skills ?? []}
+            actor={ctx.actor}
+            {onUseRoll}
+        />
+    {:else}
+        <div class="skills-list">
+            <div class="skills-header">
+                <span class="col-name">Skill</span>
+                <span class="col-char">Char</span>
+                <span class="col-pips" title="Training rank — each pip = one advance">Rank</span>
+                <span class="col-target">Target</span>
+            </div>
+            {#each skills() as skill}
+                <SkillRow
+                    skill={{
+                        name: skill.name,
+                        displayName: skill.displayName ?? skill.name,
+                        linkedCharacteristic: skill.skillSystem?.linkedCharacteristic ?? skill.system?.linkedCharacteristic ?? "ws",
+                        advancement: skill.skillSystem?.advancement ?? skill.system?.advancement ?? 0,
+                        advancementBonus: skill.advancementBonus ?? 0,
+                        totalTarget: skill.totalTarget ?? 0,
+                        isTrained: skill.isTrained ?? false,
+                    }}
+                    item={skill}
+                    onRoll={(e) => onSkillRoll(skill, e?.shiftKey)}
+                />
+            {/each}
+            {#if skills().length === 0}
+                <p class="empty-msg">No skills match the current filter.</p>
+            {/if}
         </div>
-        {#each skills() as skill}
-            <SkillRow
-                skill={{
-                    name: skill.name,
-                    displayName: skill.displayName ?? skill.name,
-                    linkedCharacteristic: skill.skillSystem?.linkedCharacteristic ?? skill.system?.linkedCharacteristic ?? "ws",
-                    advancement: skill.skillSystem?.advancement ?? skill.system?.advancement ?? 0,
-                    advancementBonus: skill.advancementBonus ?? 0,
-                    totalTarget: skill.totalTarget ?? 0,
-                    isTrained: skill.isTrained ?? false,
-                }}
-                item={skill}
-                onRoll={(e) => onSkillRoll(skill, e?.shiftKey)}
-            />
-        {/each}
-        {#if skills().length === 0}
-            <p class="empty-msg">No skills match the current filter.</p>
-        {/if}
-    </div>
+    {/if}
 </div>
 
 <style lang="scss">

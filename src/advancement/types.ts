@@ -11,7 +11,7 @@ export interface XPCostData {
     talentCosts: number[][];
 }
 
-export type AdvanceCategory = "characteristic" | "skill" | "talent" | "elite";
+export type AdvanceCategory = "characteristic" | "skill" | "talent" | "elite" | "power";
 
 export interface AdvanceOption {
     category: AdvanceCategory;

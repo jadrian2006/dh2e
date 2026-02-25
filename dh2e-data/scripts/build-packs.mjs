@@ -20,6 +20,68 @@ function foundryId() {
     return randomUUID().replace(/-/g, "").slice(0, 16);
 }
 
+/** Roll table definitions for d100 tables */
+const TABLE_DEFS = [
+    {
+        name: "psychic-phenomena",
+        label: "Psychic Phenomena",
+        file: "../static/data/tables/psychic-phenomena.json",
+        formula: "1d100",
+        description:
+            "Rolled when a psyker triggers Psychic Phenomena.",
+        flagMap: (entry) => ({
+            escalate: entry.escalate ?? false,
+        }),
+    },
+    {
+        name: "perils-of-the-warp",
+        label: "Perils of the Warp",
+        file: "../static/data/tables/perils-of-the-warp.json",
+        formula: "1d100",
+        description:
+            "Rolled when Psychic Phenomena escalates to Perils of the Warp.",
+        flagMap: (entry) => ({
+            damage: entry.damage ?? "",
+            conditions: entry.conditions ?? [],
+        }),
+    },
+    {
+        name: "malignancies",
+        label: "Malignancies",
+        file: "../static/data/tables/malignancies.json",
+        formula: "1d100",
+        description:
+            "Rolled when a character crosses a Corruption threshold.",
+        flagMap: (entry) => ({
+            effect: entry.effect ?? "",
+        }),
+    },
+    {
+        name: "mental-disorders",
+        label: "Mental Disorders",
+        file: "../static/data/tables/mental-disorders.json",
+        formula: "1d100",
+        description:
+            "Rolled when a character crosses an Insanity threshold.",
+        flagMap: (entry) => ({
+            effect: entry.effect ?? "",
+            triggers: entry.triggers ?? "",
+        }),
+    },
+    {
+        name: "divinations",
+        label: "Emperor's Divinations",
+        file: "data/creation/divinations.json",
+        formula: "1d100",
+        description:
+            "Rolled during character creation to determine the Emperor's Divination.",
+        rangeExtract: (entry) => ({ min: entry.roll[0], max: entry.roll[1] }),
+        flagMap: (entry) => ({
+            effect: entry.effect ?? "",
+        }),
+    },
+];
+
 /** Pack definitions: maps pack name to data source and item collection key */
 const PACKS = [
     { name: "skills", file: "data/skills.json", collection: "items" },
@@ -145,6 +207,101 @@ async function buildPack(packDef) {
     return count;
 }
 
+/** Build a single LevelDB pack containing all d100 RollTable documents */
+async function buildTablePack() {
+    const packDir = resolve(ROOT, "packs", "tables");
+    if (existsSync(packDir)) rmSync(packDir, { recursive: true });
+    mkdirSync(packDir, { recursive: true });
+
+    const db = new ClassicLevel(packDir, { valueEncoding: "json" });
+    await db.open();
+    const batch = db.batch();
+    let tableCount = 0;
+
+    for (const def of TABLE_DEFS) {
+        const dataPath = resolve(ROOT, def.file);
+        if (!existsSync(dataPath)) {
+            console.warn(`  ⚠ Skipping table ${def.name}: ${def.file} not found`);
+            continue;
+        }
+
+        const entries = JSON.parse(readFileSync(dataPath, "utf-8"));
+        const tableId = foundryId();
+        const resultIds = [];
+
+        for (let i = 0; i < entries.length; i++) {
+            const entry = entries[i];
+            const resultId = foundryId();
+            const range = def.rangeExtract
+                ? def.rangeExtract(entry)
+                : { min: entry.min, max: entry.max };
+
+            const result = {
+                _id: resultId,
+                type: 0, // RESULT_TYPES.TEXT
+                text: entry.title ?? entry.text ?? "",
+                range: [range.min, range.max],
+                weight: 1,
+                drawn: false,
+                img: null,
+                documentCollection: "",
+                documentId: null,
+                flags: {
+                    dh2e: {
+                        description: entry.description ?? "",
+                        ...def.flagMap(entry),
+                    },
+                },
+                _stats: {
+                    compendiumSource: null,
+                    duplicateSource: null,
+                    coreVersion: "13.351",
+                    systemId: "dh2e",
+                    systemVersion: "0.1.2",
+                    createdTime: Date.now(),
+                    modifiedTime: Date.now(),
+                    lastModifiedBy: "dh2eBu1ldScr1pt",
+                },
+            };
+
+            batch.put(`!tables.results!${tableId}.${resultId}`, result);
+            resultIds.push(resultId);
+        }
+
+        const tableDoc = {
+            _id: tableId,
+            name: def.label,
+            img: "icons/svg/d20-grey.svg",
+            description: def.description,
+            formula: def.formula,
+            replacement: true,
+            displayRoll: true,
+            results: resultIds,
+            folder: null,
+            sort: tableCount * 100000,
+            ownership: { default: 0 },
+            flags: { dh2e: { tableKey: def.name } },
+            _stats: {
+                compendiumSource: null,
+                duplicateSource: null,
+                coreVersion: "13.351",
+                systemId: "dh2e",
+                systemVersion: "0.1.2",
+                createdTime: Date.now(),
+                modifiedTime: Date.now(),
+                lastModifiedBy: "dh2eBu1ldScr1pt",
+            },
+        };
+
+        batch.put(`!tables!${tableId}`, tableDoc);
+        tableCount++;
+    }
+
+    await batch.write();
+    await db.close();
+    return tableCount;
+}
+
 async function main() {
     console.log("Building DH2E data packs...\n");
 
@@ -156,7 +313,13 @@ async function main() {
         totalItems += count;
     }
 
-    console.log(`\n✅ Done! ${totalItems} total items across ${PACKS.length} packs.`);
+    process.stdout.write("  📦 tables... ");
+    const tableCount = await buildTablePack();
+    console.log(`${tableCount} tables`);
+
+    console.log(
+        `\n✅ Done! ${totalItems} total items across ${PACKS.length} packs + ${tableCount} roll tables.`,
+    );
 }
 
 main().catch((err) => {

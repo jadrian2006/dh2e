@@ -22,7 +22,6 @@
     const data: CreationData = ctx.data;
     const charGenMethod = (ctx.charGenMethod ?? "rolled") as "rolled" | "rolled25" | "points";
     const startingXP = (ctx.startingXP ?? 1000) as number;
-    const wizardScale = (ctx.wizardScale ?? 100) as number;
     const divinationRerolls = (ctx.divinationRerolls ?? 1) as number;
     const onFinish = ctx.onFinish as (state: Record<string, unknown>) => void;
     const onCancel = ctx.onCancel as () => void;
@@ -91,7 +90,7 @@
     }
 </script>
 
-<div class="wizard" style:zoom={wizardScale / 100}>
+<div class="wizard">
     <nav class="progress-bar">
         {#each stepLabels as label, i}
             <div class="progress-step" class:active={i === step} class:done={i < step}>

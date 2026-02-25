@@ -30,6 +30,8 @@ interface CheckContext {
     isAttack?: boolean;
     /** Fire mode for the attack — called shots restricted to "single" */
     fireMode?: string;
+    /** Whether the skill being rolled is untrained (shown as badge on chat card) */
+    untrained?: boolean;
 }
 
 /** The final result of a completed check */

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { sendItemToChat } from "../../../chat/send-to-chat.ts";
+
     let { ctx }: { ctx: Record<string, any> } = $props();
 
     type Category = "all" | "weapons" | "armour" | "gear" | "ammunition" | "cybernetics";
@@ -135,6 +137,9 @@
                         <i class={item.system?.installed ? "fa-solid fa-plug-circle-check" : "fa-solid fa-plug-circle-xmark"}></i>
                     </button>
                 {/if}
+                <button class="chat-btn" onclick={(e) => { e.stopPropagation(); sendItemToChat(item); }} title="Send to Chat">
+                    <i class="fa-solid fa-comment"></i>
+                </button>
                 <button class="edit-btn" onclick={() => editItem(item)} title="Edit">&#9998;</button>
                 <button class="delete-btn" onclick={() => deleteItem(item)} title="Delete">&times;</button>
             </div>
@@ -302,6 +307,23 @@
             color: #6c6;
             border-color: #4a6a4a;
         }
+    }
+
+    .chat-btn {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: none;
+        background: transparent;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        font-size: 0.65rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        opacity: 0.5;
+
+        &:hover { opacity: 1; color: var(--dh2e-gold, #c8a84e); }
     }
 
     .edit-btn, .delete-btn {
