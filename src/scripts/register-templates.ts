@@ -9,9 +9,6 @@ export function preloadTemplates(): void {
         `systems/${SYSTEM_ID}/templates/chat/phenomena-card.hbs`,
         `systems/${SYSTEM_ID}/templates/chat/corruption-card.hbs`,
         `systems/${SYSTEM_ID}/templates/chat/requisition-card.hbs`,
-        `systems/${SYSTEM_ID}/templates/chat/suppressive-fire-card.hbs`,
-        `systems/${SYSTEM_ID}/templates/chat/overwatch-card.hbs`,
-        `systems/${SYSTEM_ID}/templates/chat/grapple-card.hbs`,
     ];
     fa.handlebars.loadTemplates(templatePaths);
 }

@@ -441,7 +441,7 @@
     "DH2E.Cybernetic.NotInstalled": "Not Installed",
     "DH2E.Cybernetic.Install": "Install",
     "DH2E.Cybernetic.Uninstall": "Uninstall",
-    "DH2E.Cybernetic.Grade": "Grade",
+    "DH2E.Cybernetic.GradeLabel": "Grade",
     "DH2E.Cybernetic.Grade.Poor": "Poor",
     "DH2E.Cybernetic.Grade.Common": "Common",
     "DH2E.Cybernetic.Grade.Good": "Good",

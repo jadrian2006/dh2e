@@ -56,7 +56,7 @@ class HordeDH2e extends ActorDH2e {
         };
 
         // Process Rule Elements from owned items
-        this.#processRuleElements();
+        this._processRuleElements();
     }
 
     /**
@@ -93,7 +93,7 @@ class HordeDH2e extends ActorDH2e {
         }
     }
 
-    #processRuleElements(): void {
+    protected _processRuleElements(): void {
         for (const item of this.items) {
             const rules = (item.system as any)?.rules as RuleElementSource[] | undefined;
             if (!rules || !Array.isArray(rules)) continue;

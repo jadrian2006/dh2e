@@ -111,7 +111,7 @@ class AcolyteDH2e extends ActorDH2e {
         };
 
         // Process Rule Elements from all items
-        this.#processRuleElements();
+        this._processRuleElements();
 
         // Apply armour:all modifiers (Natural Armour, Machine, etc.)
         const armourMods = this.synthetics.modifiers["armour:all"] ?? [];
@@ -124,7 +124,7 @@ class AcolyteDH2e extends ActorDH2e {
     }
 
     /** Iterate all owned items, instantiate their REs, and call onPrepareData */
-    #processRuleElements(): void {
+    protected _processRuleElements(): void {
         for (const item of this.items) {
             // Skip uninstalled cybernetics — their REs should not contribute
             if (item.type === "cybernetic") {
