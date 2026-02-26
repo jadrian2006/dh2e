@@ -24,6 +24,33 @@
             }
         ]
     },
+    "packFolders": [
+        {
+            "name": "DH2E Equipment",
+            "color": "#8a7a3e",
+            "packs": ["weapons", "armour", "gear", "ammunition", "cybernetics"]
+        },
+        {
+            "name": "DH2E Character",
+            "color": "#8cb8e0",
+            "packs": ["skills", "talents", "powers", "traits"]
+        },
+        {
+            "name": "DH2E Character Creation",
+            "color": "#c080e0",
+            "packs": ["homeworlds", "backgrounds", "roles"]
+        },
+        {
+            "name": "DH2E Actors",
+            "color": "#c8a84e",
+            "packs": ["npcs"]
+        },
+        {
+            "name": "DH2E Reference",
+            "color": "#a0a0a8",
+            "packs": ["tables", "macros"]
+        }
+    ],
     "packs": [
         {
             "name": "skills",

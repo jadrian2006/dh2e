@@ -7,13 +7,14 @@
 
     const weapons = $derived(ctx.items?.weapons ?? []);
     const role = $derived((ctx.system?.details?.role ?? "") as string);
+    const background = $derived((ctx.system?.details?.background ?? "") as string);
 </script>
 
 <div class="combat-tab">
     <!-- Left column: Paper Doll -->
     <div class="combat-left">
         <h3 class="section-title">Armour</h3>
-        <ArmourDisplay {ctx} {role} />
+        <ArmourDisplay {ctx} {role} {background} />
     </div>
 
     <!-- Right column: Movement + Weapons -->

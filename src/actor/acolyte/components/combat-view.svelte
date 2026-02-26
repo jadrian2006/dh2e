@@ -54,7 +54,7 @@
     <div class="combat-body">
         <!-- Left: Armour diagram -->
         <div class="combat-left">
-            <ArmourDisplay {ctx} role={(ctx.system?.details?.role ?? "")} />
+            <ArmourDisplay {ctx} role={(ctx.system?.details?.role ?? "")} background={(ctx.system?.details?.background ?? "")} />
             <MovementDisplay movement={ctx.system?.movement ?? { half: 0, full: 0, charge: 0, run: 0 }} />
         </div>
 

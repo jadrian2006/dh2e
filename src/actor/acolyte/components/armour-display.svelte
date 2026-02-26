@@ -2,17 +2,32 @@
     import { calculateArmourByLocation } from "../../../item/armour/helpers.ts";
     import type { HitLocationKey } from "../../../actor/types.ts";
 
-    let { ctx, role = "" }: { ctx: Record<string, any>; role?: string } = $props();
+    let { ctx, role = "", background = "" }: { ctx: Record<string, any>; role?: string; background?: string } = $props();
 
     const VALID_ROLES = new Set([
         "assassin", "chirurgeon", "desperado", "hierophant",
         "mystic", "sage", "seeker", "warrior",
     ]);
 
+    const BACKGROUND_SLUGS: Record<string, string> = {
+        "adeptus administratum": "adeptus-administratum",
+        "adeptus arbites": "adeptus-arbites",
+        "adeptus astra telepathica": "adeptus-astra-telepathica",
+        "adeptus mechanicus": "adeptus-mechanicus",
+        "adeptus ministorum": "adeptus-ministorum",
+        "imperial guard": "imperial-guard",
+        "outcast": "outcast",
+    };
+
     const silhouetteSrc = $derived(() => {
-        const key = (role ?? "").toLowerCase().trim();
-        const slug = VALID_ROLES.has(key) ? key : "default";
-        return `systems/dh2e/icons/silhouettes/${slug}.svg`;
+        // Background-based PNG takes priority
+        const bgKey = (background ?? "").toLowerCase().trim();
+        const bgSlug = BACKGROUND_SLUGS[bgKey];
+        if (bgSlug) return `systems/dh2e/icons/paperdoll/${bgSlug}.png`;
+        // Fall back to role-based SVG
+        const roleKey = (role ?? "").toLowerCase().trim();
+        const roleSlug = VALID_ROLES.has(roleKey) ? roleKey : "default";
+        return `systems/dh2e/icons/silhouettes/${roleSlug}.svg`;
     });
 
     const armourByLocation = $derived(() => {
