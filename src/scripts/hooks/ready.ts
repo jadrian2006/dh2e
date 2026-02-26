@@ -137,6 +137,20 @@ export class Ready {
                 import("../../integrations/fxmaster/fxmaster-menu.ts").then(m => m.FXMasterMenu.open());
             };
 
+            // Inject "Send via Vox" button into JournalSheet header (GM only)
+            Hooks.on("getJournalSheetHeaderButtons", (sheet: any, buttons: any[]) => {
+                if (!(game as any).user?.isGM) return;
+                buttons.unshift({
+                    class: "dh2e-vox-journal",
+                    icon: "fa-solid fa-tower-broadcast",
+                    label: game.i18n.localize("DH2E.Vox.SendViaVox"),
+                    onclick: () => {
+                        const uuid = sheet.document?.uuid;
+                        if (uuid) VoxComposeDialog.openWithItem(uuid);
+                    },
+                });
+            });
+
             // Initialize combat HUD
             CombatHUD.init();
         });

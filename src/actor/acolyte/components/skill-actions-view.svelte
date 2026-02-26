@@ -3,10 +3,11 @@
     import type { SkillUse } from "../../../item/skill/data.ts";
     import { CANONICAL_SKILL_USES, CANONICAL_SKILL_CHARS } from "../../../item/skill/uses.ts";
 
-    let { skills, actor, onUseRoll }: {
+    let { skills, actor, onUseRoll, favoritesOnly = false }: {
         skills: any[];
         actor: any;
         onUseRoll: (skill: any, use: SkillUse, shiftKey: boolean) => void;
+        favoritesOnly?: boolean;
     } = $props();
 
     const charAbbrevMap: Record<string, string> = {
@@ -107,6 +108,13 @@
         return favs?.[useFavKey(skillName, useSlug)] ?? false;
     }
 
+    /** Check if a skill has any favorited uses */
+    function hasAnyFavorite(skillName: string): boolean {
+        const favs = actor?.getFlag?.("dh2e", "favoriteUses") ?? {};
+        const uses = CANONICAL_SKILL_USES[skillName] ?? [];
+        return uses.some((u: SkillUse) => favs[useFavKey(skillName, u.slug)]);
+    }
+
     /** Toggle favorite on a skill use via actor flag */
     function toggleUseFavorite(skillName: string, useSlug: string) {
         if (!actor?.update) return;
@@ -124,7 +132,9 @@
     {#each allSkillsWithUses() as skill}
         {@const trained = isTrained(skill)}
         {@const adv = getAdvancement(skill)}
-        {@const open = isExpanded(skill.name, trained)}
+        {@const hasFav = hasAnyFavorite(skill.name)}
+        {@const open = favoritesOnly ? hasFav : isExpanded(skill.name, trained)}
+        {#if !favoritesOnly || hasFav}
         <div class="skill-group" class:untrained={!trained}>
             <!-- svelte-ignore a11y_no_static_element_interactions -->
             <div
@@ -149,6 +159,7 @@
             {#if open}
                 <div class="skill-uses">
                     {#each getUses(skill) as use}
+                        {#if !favoritesOnly || isUseFavorite(skill.name, use.slug)}
                         <SkillUseRow
                             {use}
                             isTrained={trained}
@@ -157,10 +168,12 @@
                             onToggleFavorite={() => toggleUseFavorite(skill.name, use.slug)}
                             onRoll={(e) => onUseRoll(skill, use, e?.shiftKey ?? false)}
                         />
+                        {/if}
                     {/each}
                 </div>
             {/if}
         </div>
+        {/if}
     {/each}
 
     {#if allSkillsWithUses().length === 0}

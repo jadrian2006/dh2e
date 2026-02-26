@@ -60,6 +60,26 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 loadItem: async (uuid: string) => {
                     const doc = await fromUuid(uuid);
                     if (!doc) return null;
+                    // JournalEntry: concatenate all page text content
+                    if ((doc as any).documentName === "JournalEntry" || (doc as any).pages) {
+                        const pages = (doc as any).pages ?? [];
+                        const texts: string[] = [];
+                        for (const page of pages) {
+                            const html = page.text?.content ?? "";
+                            if (html) {
+                                // Strip HTML tags to get plain text
+                                const div = document.createElement("div");
+                                div.innerHTML = html;
+                                const text = div.textContent?.trim() ?? "";
+                                if (text) texts.push(text);
+                            }
+                        }
+                        return {
+                            sender: "",
+                            message: texts.join("\n\n"),
+                            name: (doc as any).name ?? "",
+                        };
+                    }
                     const sys = (doc as any).system ?? {};
                     return {
                         sender: sys.assignedBy ?? "",
@@ -75,19 +95,17 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const groups: VoxItemGroup[] = [];
         const g = game as any;
         for (const pack of g.packs ?? []) {
-            if (pack.documentName !== "Item") continue;
-            const index = await pack.getIndex({ fields: ["system.description"] });
+            if (pack.documentName !== "Item" && pack.documentName !== "JournalEntry") continue;
+            const index = await pack.getIndex();
             const items: VoxItemEntry[] = [];
             for (const entry of index) {
                 const e = entry as any;
-                if (e.system?.description) {
-                    items.push({
-                        uuid: `Compendium.${pack.collection}.${e._id}`,
-                        name: e.name ?? "Item",
-                        img: e.img ?? "",
-                        type: e.type ?? "unknown",
-                    });
-                }
+                items.push({
+                    uuid: `Compendium.${pack.collection}.${e._id}`,
+                    name: e.name ?? "Item",
+                    img: e.img ?? "",
+                    type: e.type ?? "unknown",
+                });
             }
             if (items.length > 0) {
                 items.sort((a, b) => a.name.localeCompare(b.name));
@@ -96,18 +114,30 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         }
         const worldItems: VoxItemEntry[] = [];
         for (const item of g.items ?? []) {
-            if ((item as any).system?.description) {
-                worldItems.push({
-                    uuid: (item as any).uuid,
-                    name: (item as any).name ?? "Item",
-                    img: (item as any).img ?? "",
-                    type: (item as any).type ?? "unknown",
-                });
-            }
+            worldItems.push({
+                uuid: (item as any).uuid,
+                name: (item as any).name ?? "Item",
+                img: (item as any).img ?? "",
+                type: (item as any).type ?? "unknown",
+            });
         }
         if (worldItems.length > 0) {
             worldItems.sort((a, b) => a.name.localeCompare(b.name));
             groups.push({ label: game.i18n.localize("DH2E.Vox.WorldItems"), items: worldItems });
+        }
+        // World journal entries
+        const worldJournals: VoxItemEntry[] = [];
+        for (const journal of g.journal ?? []) {
+            worldJournals.push({
+                uuid: (journal as any).uuid,
+                name: (journal as any).name ?? "Journal",
+                img: (journal as any).img ?? "",
+                type: "journal",
+            });
+        }
+        if (worldJournals.length > 0) {
+            worldJournals.sort((a, b) => a.name.localeCompare(b.name));
+            groups.push({ label: game.i18n.localize("DH2E.Vox.WorldJournals"), items: worldJournals });
         }
         return groups;
     }
@@ -134,7 +164,7 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         new VoxComposeDialog({}).render(true);
     }
 
-    /** Open the compose dialog pre-populated from an item's data. GM-only. */
+    /** Open the compose dialog pre-populated from an item or journal's data. GM-only. */
     static async openWithItem(uuid: string): Promise<void> {
         if (!(game as any).user?.isGM) {
             ui.notifications.warn(game.i18n.localize("DH2E.Vox.GMOnly"));
@@ -142,6 +172,25 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         }
         const doc = await fromUuid(uuid);
         if (!doc) return;
+        // JournalEntry: extract text from pages
+        if ((doc as any).documentName === "JournalEntry" || (doc as any).pages) {
+            const pages = (doc as any).pages ?? [];
+            const texts: string[] = [];
+            for (const page of pages) {
+                const html = page.text?.content ?? "";
+                if (html) {
+                    const div = document.createElement("div");
+                    div.innerHTML = html;
+                    const text = div.textContent?.trim() ?? "";
+                    if (text) texts.push(text);
+                }
+            }
+            new VoxComposeDialog({
+                initialSender: "",
+                initialMessage: texts.join("\n\n"),
+            }).render(true);
+            return;
+        }
         const sys = (doc as any).system ?? {};
         new VoxComposeDialog({
             initialSender: sys.assignedBy ?? "",

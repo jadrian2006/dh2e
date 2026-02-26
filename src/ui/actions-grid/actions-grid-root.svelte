@@ -25,11 +25,12 @@
             </label>
         </div>
 
-        <div class="ag-content" class:favorites-only={favoritesOnly}>
+        <div class="ag-content">
             <SkillActionsView
                 skills={ctx.skills ?? []}
                 actor={ctx.actor}
                 {onUseRoll}
+                {favoritesOnly}
             />
         </div>
     {:else}
@@ -79,9 +80,6 @@
         overflow-y: auto;
         padding: var(--dh2e-space-sm, 0.5rem);
 
-        &.favorites-only :global(.skill-group:not(:has(.fa-solid.fa-star))) {
-            display: none;
-        }
     }
 
     .ag-no-actor {

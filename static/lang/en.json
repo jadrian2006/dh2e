@@ -1130,5 +1130,6 @@
     "DH2E.Vox.NoItemsFound": "No items with descriptions found.",
     "DH2E.Vox.ItemLoaded": "Loaded: {name}",
     "DH2E.Vox.SendViaVox": "Send via Vox",
-    "DH2E.Vox.WorldItems": "World Items"
+    "DH2E.Vox.WorldItems": "World Items",
+    "DH2E.Vox.WorldJournals": "World Journals"
 }
