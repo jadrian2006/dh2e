@@ -17,6 +17,7 @@ import { MentalDisorderDH2e } from "@item/mental-disorder/document.ts";
 import { AmmunitionDH2e } from "@item/ammunition/document.ts";
 import { CyberneticDH2e } from "@item/cybernetic/document.ts";
 import { ObjectiveDH2e } from "@item/objective/document.ts";
+import { TreasureDH2e } from "@item/treasure/document.ts";
 import { HordeDH2e } from "@actor/horde/document.ts";
 import { VehicleDH2e } from "@actor/vehicle/document.ts";
 import { WarbandDH2e } from "@actor/warband/document.ts";
@@ -62,6 +63,7 @@ export class Init {
                 ammunition: AmmunitionDH2e as unknown as typeof Item,
                 cybernetic: CyberneticDH2e as unknown as typeof Item,
                 objective: ObjectiveDH2e as unknown as typeof Item,
+                treasure: TreasureDH2e as unknown as typeof Item,
             };
 
             // Set initiative formula

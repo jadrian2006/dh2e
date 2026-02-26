@@ -99,6 +99,9 @@
             },
             "objective": {
                 "htmlFields": ["description"]
+            },
+            "treasure": {
+                "htmlFields": ["description"]
             }
         }
     }

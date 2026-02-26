@@ -14,6 +14,8 @@ export interface IndexEntry {
     img: string;
     type: string;
     pack: string;
+    /** The Foundry document class (Item, Macro, etc.) */
+    documentName?: string;
     /** Flattened system fields for filtering */
     availability?: string;
     weaponClass?: string;
@@ -22,6 +24,8 @@ export interface IndexEntry {
     tier?: number;
     characteristic?: string;
     discipline?: string;
+    /** Whether this macro is GM-only */
+    gmOnly?: boolean;
     /** Whether this entry comes from the homebrew compendium */
     isHomebrew: boolean;
     /** Visibility flag for homebrew items */
@@ -80,6 +84,7 @@ export async function buildCompendiumIndex(): Promise<CompendiumIndex> {
         const isHomebrew = pack.collection === HOMEBREW_PACK_COLLECTION;
         if (pack.metadata.packageType === "world" && !isHomebrew) continue;
 
+        const documentName = pack.documentName ?? "Item";
         const indexFields = [
             "system.availability", "system.class", "system.damageType",
             "system.weight", "system.tier", "system.characteristic",
@@ -89,6 +94,11 @@ export async function buildCompendiumIndex(): Promise<CompendiumIndex> {
         // Request homebrew visibility flags for the homebrew pack
         if (isHomebrew) {
             indexFields.push(`flags.${SYSTEM_ID}.homebrewVisibility`);
+        }
+
+        // Request gmOnly flag for macro packs
+        if (documentName === "Macro") {
+            indexFields.push(`flags.${SYSTEM_ID}.gmOnly`);
         }
 
         const index = await pack.getIndex({ fields: indexFields });
@@ -109,9 +119,15 @@ export async function buildCompendiumIndex(): Promise<CompendiumIndex> {
                 img: (entry as any).img ?? "icons/svg/item-bag.svg",
                 type: entry.type ?? "unknown",
                 pack: pack.metadata.label ?? pack.collection,
+                documentName,
                 isHomebrew,
                 homebrewVisibility: isHomebrew ? visibility : undefined,
             };
+
+            // Extract gmOnly flag for macros
+            if (documentName === "Macro") {
+                ie.gmOnly = flags.gmOnly === true;
+            }
 
             if (sys.availability) {
                 ie.availability = sys.availability;

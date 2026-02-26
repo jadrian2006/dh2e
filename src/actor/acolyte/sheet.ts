@@ -8,6 +8,7 @@ import { getVoxLog, deleteVoxEntry, convertToObjective } from "../../ui/vox-term
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 import type { AcolyteDH2e } from "./document.ts";
 import type { ObjectiveDH2e } from "@item/objective/document.ts";
+import { sendTradeOffer } from "../../trade/item-trade.ts";
 import SheetRoot from "./sheet-root.svelte";
 
 /** Acolyte character sheet — Svelte-based ApplicationV2 */
@@ -69,6 +70,7 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                     ammunition: actor.items.filter((i: Item) => i.type === "ammunition"),
                     cybernetics: actor.items.filter((i: Item) => i.type === "cybernetic"),
                     objectives: actor.items.filter((i: Item) => i.type === "objective"),
+                    treasure: actor.items.filter((i: Item) => i.type === "treasure"),
                 },
                 // Objective actions
                 addPersonalObjective: () => this.#addPersonalObjective(actor),
@@ -240,6 +242,14 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
 
         const itemData = item.toObject();
         const itemType = itemData.type as string;
+
+        // Cross-actor drop → item trade
+        const sourceActor = (item as any).parent;
+        if (sourceActor && sourceActor.id !== actor.id && sourceActor.isOwner) {
+            // Direct transfer for warband, trade dialog for other actors
+            await sendTradeOffer(sourceActor.id, actor.id!, (item as any).id);
+            return;
+        }
 
         // Enforce singleton for origin items
         if (AcolyteSheetDH2e.#ORIGIN_TYPES.has(itemType)) {

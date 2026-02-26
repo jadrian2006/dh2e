@@ -9,6 +9,31 @@
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
+    // --- Thrones management ---
+    const thronesItem = $derived(() => {
+        const gear: any[] = ctx.items?.gear ?? [];
+        return gear.find((i: any) => i.name === "Imperial Thrones") ?? null;
+    });
+    const thronesQty = $derived(thronesItem()?.system?.quantity ?? 0);
+
+    async function adjustThrones(delta: number) {
+        const item = thronesItem();
+        if (!item) return;
+        const current = item.system?.quantity ?? 0;
+        const newVal = Math.max(0, current + delta);
+        await item.update({ "system.quantity": newVal });
+    }
+
+    let thronesInputMode = $state(false);
+    async function setThronesFromInput(e: Event) {
+        const val = parseInt((e.target as HTMLInputElement).value, 10);
+        thronesInputMode = false;
+        if (Number.isNaN(val)) return;
+        const item = thronesItem();
+        if (!item) return;
+        await item.update({ "system.quantity": Math.max(0, val) });
+    }
+
     /** Favorites: items with the "favorite" flag set + skill use favorites from actor flags */
     const favorites = $derived(() => {
         const skills: any[] = ctx.items?.skills ?? [];
@@ -285,6 +310,31 @@
             </div>
         </div>
 
+        <!-- Thrones -->
+        {#if thronesItem()}
+            <div class="thrones-block">
+                <span class="thrones-label"><i class="fa-solid fa-coins"></i> Thrones</span>
+                <div class="thrones-controls">
+                    <button class="thrones-btn minus" onclick={() => adjustThrones(-1)} title="Spend 1 Throne">-</button>
+                    {#if thronesInputMode}
+                        <input
+                            class="thrones-input"
+                            type="number"
+                            min="0"
+                            value={thronesQty}
+                            onblur={setThronesFromInput}
+                            onkeydown={(e) => { if (e.key === "Enter") e.currentTarget.blur(); if (e.key === "Escape") { thronesInputMode = false; } }}
+                        />
+                    {:else}
+                        <button class="thrones-value" ondblclick={() => { thronesInputMode = true; }} title="Double-click to edit">
+                            {thronesQty}
+                        </button>
+                    {/if}
+                    <button class="thrones-btn plus" onclick={() => adjustThrones(1)} title="Receive 1 Throne">+</button>
+                </div>
+            </div>
+        {/if}
+
         <!-- Movement -->
         <div class="movement-section">
             <span class="section-label">Movement</span>
@@ -517,6 +567,81 @@
         font-size: var(--dh2e-text-md);
         font-weight: 700;
         color: var(--dh2e-text-primary);
+    }
+
+    /* Thrones */
+    .thrones-block {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--dh2e-bg-light);
+        border: 1px solid var(--dh2e-border);
+        border-radius: var(--dh2e-radius-sm);
+        padding: var(--dh2e-space-xs) var(--dh2e-space-sm);
+    }
+    .thrones-label {
+        font-size: var(--dh2e-text-xs);
+        color: var(--dh2e-gold, #c8a84e);
+        text-transform: uppercase;
+        font-weight: 600;
+        i { margin-right: 4px; }
+    }
+    .thrones-controls {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    .thrones-btn {
+        width: 1.4rem;
+        height: 1.4rem;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        font-weight: 700;
+        background: var(--dh2e-bg-darkest, #111114);
+        color: var(--dh2e-text-primary, #d0cfc8);
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: 2px;
+        cursor: pointer;
+
+        &:hover:not(:disabled) {
+            border-color: var(--dh2e-gold-dark, #9c7a28);
+        }
+    }
+    .thrones-value {
+        min-width: 2.5rem;
+        text-align: center;
+        font-size: var(--dh2e-text-md);
+        font-weight: 700;
+        color: var(--dh2e-gold-bright, #d4b84e);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        &:hover { text-decoration: underline; }
+    }
+    .thrones-input {
+        width: 3rem;
+        text-align: center;
+        font-size: var(--dh2e-text-md);
+        font-weight: 700;
+        color: var(--dh2e-gold-bright, #d4b84e);
+        background: var(--dh2e-bg-mid);
+        border: 1px solid var(--dh2e-gold);
+        border-radius: var(--dh2e-radius-sm);
+        padding: 0;
+        -moz-appearance: textfield;
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 4px var(--dh2e-gold-dark);
+        }
     }
 
     /* Movement */

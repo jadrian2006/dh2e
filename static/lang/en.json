@@ -22,6 +22,7 @@
     "DH2E.ItemType.Ammunition": "Ammunition",
     "DH2E.ItemType.Cybernetic": "Cybernetic",
     "DH2E.ItemType.Objective": "Objective",
+    "DH2E.ItemType.Treasure": "Treasure",
 
     "DH2E.Characteristic.WeaponSkill": "Weapon Skill",
     "DH2E.Characteristic.BallisticSkill": "Ballistic Skill",
@@ -262,6 +263,7 @@
     "DH2E.Sheet.Cybernetic": "Cybernetic Sheet",
     "DH2E.Sheet.PopOut": "Pop Out",
     "DH2E.Sheet.Objective": "Objective Sheet",
+    "DH2E.Sheet.Treasure": "Treasure Sheet",
 
     "DH2E.Settings.ModifierCap.Name": "Modifier Cap",
     "DH2E.Settings.ModifierCap.Hint": "Maximum total modifier (positive or negative) that can apply to a single roll.",
@@ -1255,6 +1257,24 @@
     "DH2E.Ammo.OutOfCombatPrompt": "You are not in combat. Consume {rounds} round(s) from {weapon}?",
     "DH2E.Confirm": "Yes",
     "DH2E.Cancel": "No",
+
+    "DH2E.Item.Split.Title": "Split Stack",
+    "DH2E.Item.Split.Prompt": "How many to split off?",
+    "DH2E.Item.Split.Button": "Split",
+    "DH2E.Item.Merge.Title": "Merge Stacks",
+
+    "DH2E.Trade.OfferTitle": "Item Trade Offer",
+    "DH2E.Trade.OfferPrompt": "{sender} wants to give you {item}. Do you accept?",
+    "DH2E.Trade.Accept": "Accept",
+    "DH2E.Trade.Decline": "Decline",
+    "DH2E.Trade.Accepted": "{receiver} accepted {item}.",
+    "DH2E.Trade.Declined": "{receiver} declined {item}.",
+
+    "DH2E.Treasure.Category.Thrones": "Thrones",
+    "DH2E.Treasure.Category.Gem": "Gem",
+    "DH2E.Treasure.Category.Relic": "Relic",
+    "DH2E.Treasure.Category.Valuable": "Valuable",
+    "DH2E.Treasure.Category.Artefact": "Artefact",
     "DH2E.Fatigue.Label": "Fatigue",
     "DH2E.Fatigue.Threshold": "Fatigue Threshold (TB + WPB)",
     "DH2E.Fatigue.Unconscious": "{name} collapses from exhaustion!",

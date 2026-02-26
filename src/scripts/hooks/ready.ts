@@ -21,6 +21,7 @@ import { ActionsGrid } from "../../ui/actions-grid/actions-grid.ts";
 import { VoxComposeDialog } from "../../ui/vox-terminal/vox-compose-dialog.ts";
 import { VoxTerminalPopup } from "../../ui/vox-terminal/vox-terminal-popup.ts";
 import { ensureHomebrewPack, getHomebrewPack, copyToHomebrew, createHomebrewItem } from "../../homebrew/homebrew-pack.ts";
+import { showTradePrompt, executeTransfer } from "../../trade/item-trade.ts";
 
 /** Hooks.once("ready") — final initialization, migrations */
 export class Ready {
@@ -385,6 +386,30 @@ export class Ready {
             } else if (data.type === "gmGrantFlavor") {
                 // Player receives GM grant flavor text popup
                 Ready.#handleGMGrantFlavor(data.payload);
+            } else if (data.type === "tradeOffer") {
+                // Target player receives trade offer
+                if (g.user?.id === data.payload.targetUserId) {
+                    showTradePrompt(data.payload);
+                }
+            } else if (data.type === "tradeAccepted") {
+                // GM executes the transfer
+                if (g.user?.isGM) {
+                    executeTransfer(data.payload.sourceActorId, data.payload.targetActorId, data.payload.itemId);
+                    ui.notifications.info(
+                        game.i18n.format("DH2E.Trade.Accepted", {
+                            receiver: data.payload.receiverName,
+                            item: data.payload.itemName,
+                        }),
+                    );
+                }
+            } else if (data.type === "tradeDeclined") {
+                // Notify all users (sender will see it)
+                ui.notifications.info(
+                    game.i18n.format("DH2E.Trade.Declined", {
+                        receiver: data.payload.receiverName,
+                        item: data.payload.itemName,
+                    }),
+                );
             }
         });
     }

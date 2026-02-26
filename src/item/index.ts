@@ -15,3 +15,4 @@ export { MalignancyDH2e } from "./malignancy/document.ts";
 export { MentalDisorderDH2e } from "./mental-disorder/document.ts";
 export { AmmunitionDH2e } from "./ammunition/document.ts";
 export { CyberneticDH2e } from "./cybernetic/document.ts";
+export { TreasureDH2e } from "./treasure/document.ts";

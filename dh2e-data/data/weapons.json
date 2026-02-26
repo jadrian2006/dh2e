@@ -1061,7 +1061,7 @@
                 "Scatter"
             ],
             "equipped": false,
-            "weaponGroup": "shotgun",
+            "weaponGroup": "sp",
             "craftsmanship": "common"
         }
     },
@@ -1668,7 +1668,7 @@
                 "Ogryn-Proof"
             ],
             "equipped": false,
-            "weaponGroup": "",
+            "weaponGroup": "thrown",
             "craftsmanship": "common"
         }
     },
@@ -1701,7 +1701,7 @@
                 "Concussive (0)"
             ],
             "equipped": false,
-            "weaponGroup": "",
+            "weaponGroup": "thrown",
             "craftsmanship": "common"
         }
     },
@@ -1734,7 +1734,7 @@
                 "Blast (5)"
             ],
             "equipped": false,
-            "weaponGroup": "",
+            "weaponGroup": "thrown",
             "craftsmanship": "common"
         }
     },
@@ -1767,7 +1767,7 @@
                 "Blast (10)"
             ],
             "equipped": false,
-            "weaponGroup": "",
+            "weaponGroup": "thrown",
             "craftsmanship": "common"
         }
     },
@@ -1800,7 +1800,7 @@
                 "Smoke (6)"
             ],
             "equipped": false,
-            "weaponGroup": "",
+            "weaponGroup": "thrown",
             "craftsmanship": "common"
         }
     },
@@ -1834,7 +1834,7 @@
                 "Flame"
             ],
             "equipped": false,
-            "weaponGroup": "",
+            "weaponGroup": "thrown",
             "craftsmanship": "common"
         }
     }

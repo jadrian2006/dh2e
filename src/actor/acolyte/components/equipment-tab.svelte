@@ -5,7 +5,7 @@
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
-    type Category = "all" | "weapons" | "armour" | "gear" | "ammunition" | "cybernetics";
+    type Category = "all" | "weapons" | "armour" | "gear" | "ammunition" | "cybernetics" | "treasure";
     let category: Category = $state("all");
 
     const allItems = $derived(() => {
@@ -16,12 +16,14 @@
             case "gear": return items.gear ?? [];
             case "ammunition": return items.ammunition ?? [];
             case "cybernetics": return items.cybernetics ?? [];
+            case "treasure": return items.treasure ?? [];
             default: return [
                 ...(items.weapons ?? []),
                 ...(items.armour ?? []),
                 ...(items.gear ?? []),
                 ...(items.ammunition ?? []),
                 ...(items.cybernetics ?? []),
+                ...(items.treasure ?? []),
             ];
         }
     });
@@ -87,6 +89,73 @@
         item.sheet?.render(true);
     }
 
+    /** Check if an item supports stacking (has a quantity field) */
+    function isStackable(item: any): boolean {
+        return (item.system?.quantity !== undefined) && (item.type === "gear" || item.type === "ammunition" || item.type === "treasure");
+    }
+
+    /** Split a stack: prompt for quantity, then create a new item with that amount */
+    async function splitStack(item: any) {
+        const qty = item.system?.quantity ?? 1;
+        if (qty <= 1) return;
+
+        const content = `<form><div class="form-group"><label>${game.i18n?.localize("DH2E.Item.Split.Prompt") ?? "How many to split off?"}</label><input type="number" name="amount" value="1" min="1" max="${qty - 1}" autofocus /></div></form>`;
+
+        const result = await (DialogV2 as any).prompt({
+            window: { title: game.i18n?.localize("DH2E.Item.Split.Title") ?? "Split Stack" },
+            content,
+            ok: {
+                label: game.i18n?.localize("DH2E.Item.Split.Button") ?? "Split",
+                callback: (event: Event, button: HTMLElement, dialog: HTMLElement) => {
+                    const input = dialog.querySelector("input[name='amount']") as HTMLInputElement;
+                    return parseInt(input?.value ?? "0", 10);
+                },
+            },
+        });
+
+        if (!result || result <= 0 || result >= qty) return;
+
+        const actor = ctx.actor;
+        if (!actor) return;
+
+        // Reduce original stack
+        await item.update({ "system.quantity": qty - result });
+
+        // Create new stack
+        const newData = item.toObject();
+        delete newData._id;
+        newData.system.quantity = result;
+        await actor.createEmbeddedDocuments("Item", [newData]);
+    }
+
+    /** Merge two items of the same name/type by summing their quantities */
+    async function mergeStacks(item: any) {
+        const actor = ctx.actor;
+        if (!actor) return;
+
+        // Find other items of same name and type
+        const duplicates = actor.items.filter((i: any) =>
+            i.id !== item.id && i.name === item.name && i.type === item.type && isStackable(i),
+        );
+        if (duplicates.length === 0) {
+            ui.notifications?.info(`No other stacks of "${item.name}" to merge.`);
+            return;
+        }
+
+        // Sum all quantities and delete duplicates
+        let totalQty = item.system?.quantity ?? 1;
+        const toDelete: string[] = [];
+        for (const dup of duplicates) {
+            totalQty += dup.system?.quantity ?? 1;
+            toDelete.push(dup.id!);
+        }
+
+        await item.update({ "system.quantity": totalQty });
+        if (toDelete.length > 0) {
+            await actor.deleteEmbeddedDocuments("Item", toDelete);
+        }
+    }
+
     function toggleFavorite(item: any) {
         const current = item.getFlag?.("dh2e", "favorite");
         if (current) item.unsetFlag("dh2e", "favorite");
@@ -103,6 +172,7 @@
             case "power": return "fa-solid fa-hat-wizard";
             case "ammunition": return "fa-solid fa-burst";
             case "cybernetic": return "fa-solid fa-microchip";
+            case "treasure": return "fa-solid fa-gem";
             default: return "fa-solid fa-circle";
         }
     }
@@ -117,6 +187,7 @@
             <button class="filter-btn" class:active={category === "gear"} onclick={() => category = "gear"} role="tab" aria-selected={category === "gear"}>Gear</button>
             <button class="filter-btn" class:active={category === "ammunition"} onclick={() => category = "ammunition"} role="tab" aria-selected={category === "ammunition"}>Ammo</button>
             <button class="filter-btn" class:active={category === "cybernetics"} onclick={() => category = "cybernetics"} role="tab" aria-selected={category === "cybernetics"}>Cybernetics</button>
+            <button class="filter-btn" class:active={category === "treasure"} onclick={() => category = "treasure"} role="tab" aria-selected={category === "treasure"}>Treasure</button>
         </div>
         <span class="weight-total">Weight: {totalWeight().toFixed(1)} kg</span>
         <button class="requisition-btn" onclick={() => ctx.openRequisitionDialog?.()}>
@@ -143,17 +214,47 @@
                 class="item-row"
                 class:equipped={item.system?.equipped}
                 class:cyber-failure={cyberState === "totalFailure"}
+                draggable="true"
+                ondragstart={(e) => {
+                    e.dataTransfer?.setData("text/plain", JSON.stringify({
+                        type: "Item",
+                        uuid: item.uuid,
+                    }));
+                }}
             >
                 <button class="fav-star" onclick={() => toggleFavorite(item)} title="Favorite">
                     <i class={item.getFlag?.("dh2e", "favorite") ? "fa-solid fa-star" : "fa-regular fa-star"}></i>
+                </button>
+                <button class="chat-btn" onclick={(e) => { e.stopPropagation(); sendItemToChat(item); }} title="Send to Chat">
+                    <i class="fa-solid fa-comment"></i>
                 </button>
                 <i class="item-icon {getItemIcon(item.type)}"></i>
                 <div class="item-info">
                     <span class="item-name">{item.name}</span>
                     <span class="item-type">{item.type}</span>
+                    {#if item.type === "weapon" && (item.system?.clip?.max ?? 0) > 0}
+                        <div class="clip-pips" title="{item.system.clip.value ?? 0} / {item.system.clip.max} rounds">
+                            {#each Array(Math.min(item.system.clip.max, 20)) as _, i}
+                                <span class="pip" class:filled={i < (item.system.clip.value ?? 0)}></span>
+                            {/each}
+                            {#if item.system.clip.max > 20}
+                                <span class="pip-overflow">+{item.system.clip.max - 20}</span>
+                            {/if}
+                        </div>
+                    {/if}
                 </div>
                 {#if item.system?.quantity !== undefined}
                     <span class="item-qty">x{item.system.quantity ?? 1}</span>
+                    {#if isStackable(item) && (item.system.quantity ?? 1) > 1}
+                        <button class="stack-btn" onclick={(e) => { e.stopPropagation(); splitStack(item); }} title="Split Stack">
+                            <i class="fa-solid fa-scissors"></i>
+                        </button>
+                    {/if}
+                    {#if isStackable(item)}
+                        <button class="stack-btn" onclick={(e) => { e.stopPropagation(); mergeStacks(item); }} title="Merge Stacks">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </button>
+                    {/if}
                 {/if}
                 {#if item.type === "weapon" || item.type === "armour"}
                     <button
@@ -190,9 +291,6 @@
                         <i class={item.system?.installed ? "fa-solid fa-plug-circle-check" : "fa-solid fa-plug-circle-xmark"}></i>
                     </button>
                 {/if}
-                <button class="chat-btn" onclick={(e) => { e.stopPropagation(); sendItemToChat(item); }} title="Send to Chat">
-                    <i class="fa-solid fa-comment"></i>
-                </button>
                 <button class="edit-btn" onclick={() => editItem(item)} title="Edit">&#9998;</button>
                 <button class="delete-btn" onclick={() => deleteItem(item)} title="Delete">&times;</button>
             </div>
@@ -319,9 +417,54 @@
         text-transform: capitalize;
     }
 
+    .clip-pips {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        margin-top: 1px;
+    }
+
+    .clip-pips .pip {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        border: 1px solid var(--dh2e-gold-muted, #8a7a3e);
+        background: transparent;
+
+        &.filled {
+            background: var(--dh2e-gold, #b49545);
+        }
+    }
+
+    .pip-overflow {
+        font-size: 0.5rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        margin-left: 2px;
+    }
+
     .item-qty {
         font-size: var(--dh2e-text-xs, 0.7rem);
         color: var(--dh2e-text-secondary, #a0a0a8);
+    }
+
+    .stack-btn {
+        width: 1.2rem;
+        height: 1.2rem;
+        border: none;
+        background: transparent;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        font-size: 0.55rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        opacity: 0;
+        transition: opacity 0.15s;
+
+        .item-row:hover & { opacity: 0.6; }
+        &:hover { opacity: 1 !important; color: var(--dh2e-gold, #c8a84e); }
     }
 
     .equip-btn {

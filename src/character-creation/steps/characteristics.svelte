@@ -75,9 +75,10 @@
     // --- Rolling logic ---
 
     function rollFormula(key: CharacteristicAbbrev): string {
-        if (isPositive(key)) return `3d10kh2+${rollBase}`;
-        if (isNegative(key)) return `3d10kl2+${rollBase}`;
-        return `2d10+${rollBase}`;
+        let base = rollBase;
+        if (isPositive(key)) base += 5;
+        if (isNegative(key)) base -= 5;
+        return `2d10+${base}`;
     }
 
     async function rollOne(key: CharacteristicAbbrev): Promise<void> {

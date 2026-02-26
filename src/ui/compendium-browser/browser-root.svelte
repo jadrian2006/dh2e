@@ -12,7 +12,7 @@
     let searchText = $state("");
     let filters = $state<Record<string, string>>({});
     let page = $state(0);
-    const pageSize = 40;
+    const pageSize = 80;
 
     function onFilterChange(key: string, value: string) {
         filters = { ...filters, [key]: value };

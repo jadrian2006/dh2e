@@ -125,7 +125,7 @@
         }
     },
     "Item": {
-        "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic", "objective", "homeworld", "background", "role"],
+        "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic", "objective", "homeworld", "background", "role", "treasure"],
         "weapon": {
             "description": "",
             "class": "melee",
@@ -291,6 +291,13 @@
             "eliteAdvances": [],
             "bonus": "",
             "bonusDescription": ""
+        },
+        "treasure": {
+            "description": "",
+            "value": 0,
+            "weight": 0,
+            "quantity": 1,
+            "category": "valuable"
         }
     }
 }
