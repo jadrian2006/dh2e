@@ -5,18 +5,20 @@
 
     const sender: string = ctx.sender;
     const fullMessage: string = ctx.message;
+    const fullHtml: string = ctx.html ?? "";
+    const isRichMode = fullHtml.length > 0;
     const charsPerSecond: number = ctx.speed ?? 50;
 
     let animationsOn = true;
     try { animationsOn = getSetting<boolean>("enableAnimations"); } catch { /* default true */ }
 
-    let charIndex = $state(animationsOn ? 0 : fullMessage.length);
-    let finished = $state(!animationsOn);
+    // --- Plain text typewriter mode ---
+    let charIndex = $state(animationsOn && !isRichMode ? 0 : fullMessage.length);
+    let finished = $state(!animationsOn || isRichMode);
     const displayedText = $derived(fullMessage.slice(0, charIndex));
 
-    // Typewriter: self-chaining $effect increments one char at a time
     $effect(() => {
-        if (charIndex >= fullMessage.length) {
+        if (isRichMode || charIndex >= fullMessage.length) {
             finished = true;
             return;
         }
@@ -24,9 +26,28 @@
         return () => clearTimeout(timer);
     });
 
-    // Blinking cursor
+    // --- Rich HTML decode animation ---
+    let decodePhase = $state(animationsOn && isRichMode ? 0 : 2);
+    // Phase 0 = "DECODING", Phase 1 = reveal, Phase 2 = done
+
+    $effect(() => {
+        if (!isRichMode || !animationsOn) return;
+        if (decodePhase === 0) {
+            // Show "DECODING..." for 1.5 seconds
+            const timer = setTimeout(() => { decodePhase = 1; }, 1500);
+            return () => clearTimeout(timer);
+        }
+        if (decodePhase === 1) {
+            // Brief delay then show content
+            const timer = setTimeout(() => { decodePhase = 2; finished = true; }, 300);
+            return () => clearTimeout(timer);
+        }
+    });
+
+    // Blinking cursor (typewriter mode only)
     let cursorVisible = $state(true);
     $effect(() => {
+        if (isRichMode) return;
         const interval = setInterval(() => { cursorVisible = !cursorVisible; }, 530);
         return () => clearInterval(interval);
     });
@@ -34,14 +55,18 @@
     // Auto-scroll terminal body
     let bodyEl: HTMLElement | undefined = $state();
     $effect(() => {
-        // Subscribe to charIndex to trigger scroll
         void charIndex;
+        void decodePhase;
         if (bodyEl) bodyEl.scrollTop = bodyEl.scrollHeight;
     });
 
     function skipToEnd() {
         if (!finished) {
-            charIndex = fullMessage.length;
+            if (isRichMode) {
+                decodePhase = 2;
+            } else {
+                charIndex = fullMessage.length;
+            }
             finished = true;
         }
     }
@@ -64,7 +89,22 @@
     {/if}
 
     <div class="terminal-body" bind:this={bodyEl}>
-        <span class="terminal-text">{displayedText}</span>{#if !finished && cursorVisible}<span class="cursor">&#x2588;</span>{/if}{#if finished}<span class="cursor-done">&#x2588;</span>{/if}
+        {#if isRichMode}
+            <!-- Rich HTML document mode -->
+            {#if decodePhase === 0}
+                <div class="decode-status">
+                    <i class="fa-solid fa-lock"></i>
+                    DECODING ENCRYPTED TRANSMISSION...
+                </div>
+            {:else if decodePhase >= 1}
+                <div class="terminal-html" class:reveal={decodePhase >= 2}>
+                    {@html fullHtml}
+                </div>
+            {/if}
+        {:else}
+            <!-- Plain text typewriter mode -->
+            <span class="terminal-text">{displayedText}</span>{#if !finished && cursorVisible}<span class="cursor">&#x2588;</span>{/if}{#if finished}<span class="cursor-done">&#x2588;</span>{/if}
+        {/if}
     </div>
 
     <div class="terminal-footer">
@@ -154,7 +194,6 @@
         overflow-y: auto;
         font-size: 0.85rem;
         line-height: 1.5;
-        white-space: pre-wrap;
         word-break: break-word;
         z-index: 2;
         text-shadow: 0 0 4px rgba(51, 255, 51, 0.6), 0 0 10px rgba(51, 255, 51, 0.3);
@@ -162,10 +201,113 @@
         /* Scrollbar styling for CRT */
         scrollbar-width: thin;
         scrollbar-color: rgba(51, 255, 51, 0.4) transparent;
+
+        /* Only apply pre-wrap to non-HTML mode */
+        &:not(:has(.terminal-html)) {
+            white-space: pre-wrap;
+        }
     }
 
     .terminal-text {
         /* Inherits CRT styling */
+    }
+
+    /* Rich HTML document styles */
+    .decode-status {
+        text-align: center;
+        padding: 2rem 1rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        animation: blink-step 1s step-end infinite;
+
+        i {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+    }
+
+    .terminal-html {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+
+        &.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        // Override all text colors to CRT green
+        :global(*) {
+            color: #33ff33 !important;
+            text-shadow: 0 0 4px rgba(51, 255, 51, 0.6), 0 0 10px rgba(51, 255, 51, 0.3);
+            background: transparent !important;
+            border-color: rgba(51, 255, 51, 0.3) !important;
+            font-family: var(--dh2e-font-mono, "Fira Code", "Cascadia Code", "Consolas", monospace) !important;
+        }
+
+        :global(h1) { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin: 1rem 0 0.5rem; padding-bottom: 0.25rem; border-bottom: 1px solid rgba(51, 255, 51, 0.3) !important; }
+        :global(h2) { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin: 1rem 0 0.5rem; padding-bottom: 0.25rem; border-bottom: 1px solid rgba(51, 255, 51, 0.3) !important; }
+        :global(h3) { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin: 1rem 0 0.5rem; padding-bottom: 0.25rem; border-bottom: 1px solid rgba(51, 255, 51, 0.3) !important; }
+        :global(h4) { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin: 0.75rem 0 0.35rem; }
+        :global(h5) { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin: 0.75rem 0 0.35rem; }
+        :global(h6) { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin: 0.75rem 0 0.35rem; }
+
+        :global(p) {
+            margin: 0.5rem 0;
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        :global(ul) {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        :global(ol) {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        :global(li) {
+            margin: 0.25rem 0;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        :global(strong) {
+            font-weight: 700;
+        }
+
+        :global(b) {
+            font-weight: 700;
+        }
+
+        :global(em) {
+            font-style: italic;
+        }
+
+        :global(hr) {
+            border: none;
+            border-top: 1px solid rgba(51, 255, 51, 0.3);
+            margin: 1rem 0;
+        }
+
+        :global(blockquote) {
+            border-left: 2px solid rgba(51, 255, 51, 0.5) !important;
+            padding-left: 0.75rem;
+            margin: 0.5rem 0;
+            font-style: italic;
+        }
+
+        :global(a) {
+            text-decoration: underline;
+        }
+
+        :global(img) {
+            display: none;
+        }
     }
 
     .cursor {

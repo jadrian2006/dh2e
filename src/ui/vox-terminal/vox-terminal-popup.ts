@@ -35,6 +35,7 @@ class VoxTerminalPopup extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             ctx: {
                 sender: this.#payload.sender,
                 message: this.#payload.message,
+                html: this.#payload.html ?? "",
                 speed: this.#payload.speed,
                 onDismiss: () => this.close(),
             },

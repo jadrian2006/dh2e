@@ -145,7 +145,11 @@ export class Ready {
                     icon: "fa-solid fa-tower-broadcast",
                     label: game.i18n.localize("DH2E.Vox.SendViaVox"),
                     onclick: () => {
-                        const uuid = sheet.document?.uuid;
+                        // Send the currently viewed page, not the whole journal
+                        const pageId = sheet.pageIndex !== undefined
+                            ? sheet.document?.pages?.contents?.[sheet.pageIndex]?.uuid
+                            : null;
+                        const uuid = pageId ?? sheet.document?.uuid;
                         if (uuid) VoxComposeDialog.openWithItem(uuid);
                     },
                 });

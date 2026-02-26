@@ -5,6 +5,8 @@ import { VoxTerminalPopup } from "./vox-terminal-popup.ts";
 interface VoxTerminalPayload {
     sender: string;
     message: string;
+    /** Raw HTML for rich document rendering (journals). If set, message is ignored. */
+    html?: string;
     speed: number;
     timestamp: number;
 }
@@ -38,14 +40,32 @@ function htmlToPlainText(html: string): string {
         el.prepend("\n\n");
         el.append("\n");
     }
-    for (const el of div.querySelectorAll("li")) {
-        el.prepend("\n- ");
+    // Lists: add indent based on nesting depth
+    for (const el of div.querySelectorAll("ol, ul")) {
+        el.prepend("\n");
+        el.append("\n");
+    }
+    for (const li of div.querySelectorAll("li")) {
+        let depth = 0;
+        let parent = li.parentElement;
+        while (parent && parent !== div) {
+            if (parent.tagName === "OL" || parent.tagName === "UL") depth++;
+            parent = parent.parentElement;
+        }
+        const indent = "  ".repeat(Math.max(0, depth - 1));
+        // Use bullet for <ul>, number for <ol>
+        const isOrdered = li.parentElement?.tagName === "OL";
+        const marker = isOrdered
+            ? `${Array.from(li.parentElement!.children).indexOf(li) + 1}. `
+            : "\u2022 "; // bullet •
+        li.prepend(`\n${indent}${marker}`);
     }
     for (const el of div.querySelectorAll("hr")) {
         el.replaceWith("\n---\n");
     }
     for (const el of div.querySelectorAll("blockquote")) {
         el.prepend("\n> ");
+        el.append("\n");
     }
 
     // Collapse runs of 3+ newlines to 2, and trim
@@ -71,11 +91,13 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     #initialSender: string;
     #initialMessage: string;
+    #initialHtml: string;
 
-    constructor(options?: { initialSender?: string; initialMessage?: string }) {
+    constructor(options?: { initialSender?: string; initialMessage?: string; initialHtml?: string }) {
         super({});
         this.#initialSender = options?.initialSender ?? "";
         this.#initialMessage = options?.initialMessage ?? "";
+        this.#initialHtml = options?.initialHtml ?? "";
     }
 
     override get title(): string {
@@ -90,23 +112,36 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 groups,
                 initialSender: this.#initialSender,
                 initialMessage: this.#initialMessage,
+                initialHtml: this.#initialHtml,
                 loadItem: async (uuid: string) => {
                     const doc = await fromUuid(uuid);
                     if (!doc) return null;
-                    // JournalEntry: concatenate all page text content
+                    // JournalEntryPage: single page — return raw HTML for rich rendering
+                    if ((doc as any).documentName === "JournalEntryPage") {
+                        const html = (doc as any).text?.content ?? "";
+                        return {
+                            sender: "",
+                            message: htmlToPlainText(html),
+                            html,
+                            name: (doc as any).name ?? "",
+                        };
+                    }
+                    // JournalEntry: concatenate all pages — return raw HTML
                     if ((doc as any).documentName === "JournalEntry" || (doc as any).pages) {
                         const pages = (doc as any).pages ?? [];
-                        const texts: string[] = [];
+                        const htmlParts: string[] = [];
+                        const textParts: string[] = [];
                         for (const page of pages) {
                             const html = page.text?.content ?? "";
                             if (html) {
-                                const text = htmlToPlainText(html);
-                                if (text) texts.push(text);
+                                htmlParts.push(html);
+                                textParts.push(htmlToPlainText(html));
                             }
                         }
                         return {
                             sender: "",
-                            message: texts.join("\n\n"),
+                            message: textParts.join("\n\n"),
+                            html: htmlParts.join("<hr/>"),
                             name: (doc as any).name ?? "",
                         };
                     }
@@ -155,15 +190,18 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             worldItems.sort((a, b) => a.name.localeCompare(b.name));
             groups.push({ label: game.i18n.localize("DH2E.Vox.WorldItems"), items: worldItems });
         }
-        // World journal entries
+        // World journal entries — list individual pages
         const worldJournals: VoxItemEntry[] = [];
         for (const journal of g.journal ?? []) {
-            worldJournals.push({
-                uuid: (journal as any).uuid,
-                name: (journal as any).name ?? "Journal",
-                img: (journal as any).img ?? "",
-                type: "journal",
-            });
+            const pages = (journal as any).pages ?? [];
+            for (const page of pages) {
+                worldJournals.push({
+                    uuid: page.uuid,
+                    name: `${(journal as any).name}: ${page.name}`,
+                    img: (journal as any).img ?? "",
+                    type: "page",
+                });
+            }
         }
         if (worldJournals.length > 0) {
             worldJournals.sort((a, b) => a.name.localeCompare(b.name));
@@ -202,20 +240,32 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         }
         const doc = await fromUuid(uuid);
         if (!doc) return;
-        // JournalEntry: extract text from pages
+        // JournalEntryPage: single page
+        if ((doc as any).documentName === "JournalEntryPage") {
+            const html = (doc as any).text?.content ?? "";
+            new VoxComposeDialog({
+                initialSender: "",
+                initialMessage: htmlToPlainText(html),
+                initialHtml: html,
+            }).render(true);
+            return;
+        }
+        // JournalEntry: all pages
         if ((doc as any).documentName === "JournalEntry" || (doc as any).pages) {
             const pages = (doc as any).pages ?? [];
-            const texts: string[] = [];
+            const htmlParts: string[] = [];
+            const textParts: string[] = [];
             for (const page of pages) {
                 const html = page.text?.content ?? "";
                 if (html) {
-                    const text = htmlToPlainText(html);
-                    if (text) texts.push(text);
+                    htmlParts.push(html);
+                    textParts.push(htmlToPlainText(html));
                 }
             }
             new VoxComposeDialog({
                 initialSender: "",
-                initialMessage: texts.join("\n\n"),
+                initialMessage: textParts.join("\n\n"),
+                initialHtml: htmlParts.join("<hr/>"),
             }).render(true);
             return;
         }

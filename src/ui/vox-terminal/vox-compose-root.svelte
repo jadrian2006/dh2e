@@ -5,6 +5,7 @@
 
     let sender = $state(ctx.initialSender ?? "");
     let message = $state(ctx.initialMessage ?? "");
+    let messageHtml = $state(ctx.initialHtml ?? "");
     let speed: number = $state(50);
     let showPicker = $state(false);
     let searchQuery = $state("");
@@ -45,6 +46,7 @@
         if (!result) return;
         if (result.sender) sender = result.sender;
         if (result.message) message = result.message;
+        messageHtml = result.html ?? "";
         loadedName = result.name ?? "";
         showPicker = false;
         searchQuery = "";
@@ -57,6 +59,7 @@
         const payload: VoxTerminalPayload = {
             sender: sender.trim(),
             message: message.trim(),
+            html: messageHtml || undefined,
             speed,
             timestamp: Date.now(),
         };
