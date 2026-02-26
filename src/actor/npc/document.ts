@@ -4,6 +4,9 @@ import { createSynthetics } from "@rules/synthetics.ts";
 import { instantiateRuleElement } from "@rules/rule-element/registry.ts";
 import type { RuleElementSource } from "@rules/rule-element/base.ts";
 import { getSetting } from "../../ui/settings/settings.ts";
+import { getArmourCraftsmanshipBonus } from "@combat/craftsmanship.ts";
+import { ModifierDH2e } from "@rules/modifier.ts";
+import { isInCombat } from "@combat/combat-state.ts";
 
 /** NPC actor — shares Acolyte data structure for Phase 1 */
 class NpcDH2e extends ActorDH2e {
@@ -58,14 +61,18 @@ class NpcDH2e extends ActorDH2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        // Calculate armour from equipped items
+        // Calculate armour from equipped items (including craftsmanship)
         const armour: Record<string, number> = { head: 0, rightArm: 0, leftArm: 0, body: 0, rightLeg: 0, leftLeg: 0 };
         for (const item of this.items) {
             if (item.type !== "armour") continue;
             const sys = item.system as any;
             if (sys.equipped === false) continue;
+            const craftBonus = getArmourCraftsmanshipBonus(sys.craftsmanship ?? "common");
             for (const loc of Object.keys(armour)) {
-                armour[loc] += sys.locations?.[loc] ?? 0;
+                const baseAP = sys.locations?.[loc] ?? 0;
+                if (baseAP > 0 || craftBonus > 0) {
+                    armour[loc] += Math.max(0, baseAP + craftBonus);
+                }
             }
         }
         (this.system as any).armour = armour;
@@ -83,12 +90,54 @@ class NpcDH2e extends ActorDH2e {
         // Process Rule Elements
         this._processRuleElements();
 
+        // Apply fatigue penalty: -10 per fatigue level to ALL characteristics
+        const fatigue = (this.system as any).fatigue ?? 0;
+        if (fatigue > 0) {
+            const fatiguePenalty = -10 * fatigue;
+            const charDomains = ["characteristic:ws", "characteristic:bs", "characteristic:s",
+                "characteristic:t", "characteristic:ag", "characteristic:int",
+                "characteristic:per", "characteristic:wp", "characteristic:fel"];
+            for (const domain of charDomains) {
+                if (!this.synthetics.modifiers[domain]) this.synthetics.modifiers[domain] = [];
+                this.synthetics.modifiers[domain].push(new ModifierDH2e({
+                    label: "Fatigue",
+                    value: fatiguePenalty,
+                    source: "condition",
+                }));
+            }
+
+            // Check fatigue threshold: TB + WPB — if exceeded, auto-apply unconscious
+            const sysCharsLocal = (this.system as any).characteristics;
+            const tBonus = sysCharsLocal?.t?.bonus ?? 0;
+            const wpBonus = sysCharsLocal?.wp?.bonus ?? 0;
+            const threshold = tBonus + wpBonus;
+            if (fatigue > threshold) {
+                this.synthetics.rollOptions.add("self:fatigued:unconscious");
+            }
+        }
+
         // Apply armour:all modifiers (Natural Armour, Machine, etc.)
         const armourMods = this.synthetics.modifiers["armour:all"] ?? [];
         if (armourMods.length > 0) {
             const bonus = armourMods.reduce((sum, m) => sum + m.value, 0);
             for (const loc of Object.keys(armour)) {
                 armour[loc] += bonus;
+            }
+        }
+
+        // Apply per-location armour modifiers (cybernetics: Cranial Armour, Subskin Armour, etc.)
+        const locationKeys: Record<string, string> = {
+            head: "armour:head",
+            rightArm: "armour:rightArm",
+            leftArm: "armour:leftArm",
+            body: "armour:body",
+            rightLeg: "armour:rightLeg",
+            leftLeg: "armour:leftLeg",
+        };
+        for (const [loc, domain] of Object.entries(locationKeys)) {
+            const locMods = this.synthetics.modifiers[domain] ?? [];
+            if (locMods.length > 0) {
+                armour[loc] += locMods.reduce((sum, m) => sum + m.value, 0);
             }
         }
     }
@@ -130,7 +179,7 @@ class NpcDH2e extends ActorDH2e {
             if (!this.isDefeated) {
                 await this.markDefeated();
 
-                if (getSetting<boolean>("lootDegradation") && killingDoS !== undefined) {
+                if (getSetting<boolean>("lootDegradation") && killingDoS !== undefined && isInCombat()) {
                     try {
                         const { degradeNpcEquipment } = await import("@combat/loot-degradation.ts");
                         await degradeNpcEquipment(this, killingDoS);

@@ -33,7 +33,7 @@
         {
             "name": "DH2E Character",
             "color": "#8cb8e0",
-            "packs": ["skills", "talents", "powers", "traits"]
+            "packs": ["skills", "talents", "powers", "traits", "conditions"]
         },
         {
             "name": "DH2E Character Creation",
@@ -126,6 +126,13 @@
             "name": "cybernetics",
             "label": "DH2E Cybernetics",
             "path": "packs/cybernetics",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "conditions",
+            "label": "DH2E Conditions",
+            "path": "packs/conditions",
             "type": "Item",
             "system": "dh2e"
         },

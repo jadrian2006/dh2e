@@ -87,6 +87,11 @@ const DH2E_STATUS_EFFECTS: DH2EStatusEffect[] = [
         label: "DH2E.Condition.Status.Feared",
         icon: "systems/dh2e/icons/conditions/feared.svg",
     },
+    {
+        id: "frenzied",
+        label: "DH2E.Condition.Status.Frenzied",
+        icon: "systems/dh2e/icons/conditions/frenzied.svg",
+    },
 ];
 
 export { DH2E_STATUS_EFFECTS };

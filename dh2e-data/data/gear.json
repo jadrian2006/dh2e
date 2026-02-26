@@ -7,7 +7,8 @@
             "description": "The standard currency of the Imperium of Man. On Barovus, Thrones retain their value but are scarce — inflated by isolation and the absence of regular trade routes. Adjust quantity as Thrones are earned or spent.",
             "weight": 0,
             "quantity": 1,
-            "availability": "Common"
+            "availability": "Common",
+            "craftsmanship": "common"
         }
     },
     {
@@ -17,7 +18,8 @@
         "system": {
             "description": "An encrypted short-range communication device worn in the ear, with an effective range of 10km. Standard Inquisitorial field equipment.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -27,7 +29,8 @@
         "system": {
             "description": "A hand-held sensor device capable of detecting energy emissions, life signs, and other readings within 50m. Grants +20 to Awareness tests within range.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -37,7 +40,8 @@
         "system": {
             "description": "A portable illumination source. Glow-globes hover and provide ambient light, while stab-lights are hand-held directional torches.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -47,7 +51,8 @@
         "system": {
             "description": "A pack of mildly narcotic cigarettes, widely used across the Imperium. A common vice among soldiers and hive-dwellers alike.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -57,7 +62,8 @@
         "system": {
             "description": "A timepiece, ranging from simple mechanical watches to sophisticated multi-function chronometers.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -67,7 +73,8 @@
         "system": {
             "description": "A compact multi-function tool containing various implements useful for technical work. Grants +10 to Tech-Use tests.",
             "weight": 1,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -77,7 +84,8 @@
         "system": {
             "description": "A portable data storage and display device, similar to a tablet computer. Used for storing documents, maps, and other information.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -87,7 +95,8 @@
         "system": {
             "description": "A collection of specialised torture implements and drugs designed for extracting information from unwilling subjects. Grants +20 to Interrogation tests.",
             "weight": 2,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -97,7 +106,8 @@
         "system": {
             "description": "Small nasal plugs that filter out airborne toxins, pollutants, and contaminants. Grants +20 to tests to resist gas-based effects.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -107,7 +117,8 @@
         "system": {
             "description": "A makeshift shield constructed from flak materials. Can be used to provide improvised cover in combat.",
             "weight": 3,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -117,7 +128,8 @@
         "system": {
             "description": "A 50-metre climbing line with a grapnel launcher. Can be fired to reach high or distant anchor points for climbing or crossing gaps.",
             "weight": 2,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -127,7 +139,8 @@
         "system": {
             "description": "A personal slow-fall device used for aerial insertion. Employs anti-gravitic technology to allow safe descent from great heights or aircraft.",
             "weight": 2,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -137,7 +150,8 @@
         "system": {
             "description": "Optical goggles that allow the wearer to see in darkness using infra-red vision, revealing heat signatures and outlines.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -147,7 +161,8 @@
         "system": {
             "description": "An industrial-grade cutting laser designed for slicing through metal and bulkheads. Can be repurposed as an improvised weapon in desperate situations.",
             "weight": 4,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -157,7 +172,8 @@
         "system": {
             "description": "Long-range magnifying viewing device capable of detailed observation at distances exceeding 1km. Often includes low-light enhancement.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -167,7 +183,8 @@
         "system": {
             "description": "Heavy metal restraints used to bind prisoners. Requiring a Challenging (+0) Strength test or Difficult (-10) Security test to break or pick.",
             "weight": 1,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -177,7 +194,8 @@
         "system": {
             "description": "A medical kit containing bandages, synth-skin, counterseptics, and other supplies. Grants +10 to Medicae tests. Contains 5 uses before requiring restocking.",
             "weight": 2,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -187,7 +205,8 @@
         "system": {
             "description": "An advanced electronic lockpicking device capable of interfacing with most standard Imperial locks. Grants +30 to Security tests to open locks.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -197,7 +216,8 @@
         "system": {
             "description": "A portable video and audio recording device. Used for surveillance, documentation, and evidence gathering.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -207,7 +227,8 @@
         "system": {
             "description": "Advanced thermal vision goggles that allow the wearer to see heat signatures through smoke, darkness, and other visual obstructions.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -217,7 +238,8 @@
         "system": {
             "description": "A sealed breathing apparatus that provides clean air in toxic atmospheres, underwater, or in vacuum for a limited duration.",
             "weight": 1,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -227,7 +249,8 @@
         "system": {
             "description": "A personal energy shield that disperses incoming energy across its surface. Provides a 30% chance to negate a hit entirely. Rare and highly valued.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -237,7 +260,8 @@
         "system": {
             "description": "A holy energy shield in the form of a sacred icon of the Ecclesiarchy. Provides a 50% chance to negate a hit. Extremely rare and zealously guarded.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -247,7 +271,8 @@
         "system": {
             "description": "A noise dampening field generator that absorbs sound in a small area around the user. Grants +30 to Stealth tests against sound-based detection.",
             "weight": 1,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -257,7 +282,8 @@
         "system": {
             "description": "Basic wilderness survival gear including a water purification tab, fire starter, a knife, a basic shelter tarp, and protein rations.",
             "weight": 2,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -267,7 +293,8 @@
         "system": {
             "description": "Protective eyewear that automatically darkens in response to bright light, protecting the wearer against flash grenades and blinding effects.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -277,7 +304,8 @@
         "system": {
             "description": "A vacuum-sealed suit designed for operations in the void of space. Provides life support, thermal regulation, and mag-boots for zero gravity environments.",
             "weight": 8,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -287,7 +315,8 @@
         "system": {
             "description": "A climbing harness with clip attachments for rappelling down vertical surfaces or descending from aircraft.",
             "weight": 2,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -297,7 +326,8 @@
         "system": {
             "description": "A sturdy pack for carrying additional equipment. Increases the amount of gear a character can carry comfortably.",
             "weight": 1,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -307,7 +337,8 @@
         "system": {
             "description": "A fine Imperial alcoholic drink distilled from wine or other spirits. Considered a luxury among the lower classes and a staple among the nobility.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -317,7 +348,8 @@
         "system": {
             "description": "A potent hallucinogenic drug that sends the user into a euphoric trance. Highly addictive and illegal on most Imperial worlds.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -327,7 +359,8 @@
         "system": {
             "description": "A powerful drug that rapidly purges toxins, poisons, and other chemical substances from the body. Causes brief nausea but is highly effective.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -337,7 +370,8 @@
         "system": {
             "description": "A combat drug that induces a state of frenzied aggression in the user. The subject becomes fearless and fights with reckless abandon.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -347,7 +381,8 @@
         "system": {
             "description": "A combat stimulant that heightens reflexes and aggression. Grants +3 to Agility and Weapon Skill bonuses for the duration of combat.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -357,7 +392,8 @@
         "system": {
             "description": "A rare psychic drug that temporarily grants the user minor psychic abilities, or enhances existing ones. Extremely dangerous for non-psykers.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -367,7 +403,8 @@
         "system": {
             "description": "A powerful medicinal stimulant injected to keep a wounded combatant fighting. Allows the user to ignore the effects of Critical damage for 1d10 rounds.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -377,7 +414,8 @@
         "system": {
             "description": "Blessed machine oils and consecrated lubricants used by Tech-Priests in rituals of maintenance. Grants +10 to a single Tech-Use test.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -387,7 +425,8 @@
         "system": {
             "description": "A personal focus item attuned to a psyker's mind, such as a crystal, staff, or talisman. Grants +10 to Focus Power tests.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -397,7 +436,8 @@
         "system": {
             "description": "A basic writing kit containing pens, ink, parchment, and sealing wax. Essential for scribes, adepts, and anyone needing to record information.",
             "weight": 0.5,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     },
     {
@@ -407,7 +447,8 @@
         "system": {
             "description": "A small religious trinket or icon of the Imperial Creed. Carried by the faithful for spiritual comfort and as a ward against the forces of Chaos.",
             "weight": 0,
-            "quantity": 1
+            "quantity": 1,
+            "craftsmanship": "common"
         }
     }
 ]

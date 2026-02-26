@@ -119,6 +119,7 @@ class ChatApplyHandler {
 
     /**
      * Apply a condition to a target actor from a chat card.
+     * Sources condition data from the compendium when available for full rule element support.
      */
     static async applyCondition(
         targetId: string,
@@ -140,18 +141,11 @@ class ChatApplyHandler {
             return;
         }
 
-        await actor.createEmbeddedDocuments("Item", [{
-            name: conditionName,
-            type: "condition",
-            img: `systems/dh2e/icons/conditions/${conditionSlug}.svg`,
-            system: {
-                description: "",
-                slug: conditionSlug,
-                duration: "",
-                stackable: false,
-                remainingRounds: 0,
-            },
-        }]);
+        // Source from compendium for full rules data
+        const { getConditionFromCompendium } = await import("@combat/critical.ts");
+        const conditionData = await getConditionFromCompendium(conditionSlug);
+
+        await actor.createEmbeddedDocuments("Item", [conditionData]);
 
         ui.notifications?.info(`Applied ${conditionName} to ${actor.name}.`);
     }

@@ -1,0 +1,255 @@
+[
+    {
+        "name": "Stunned",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/stunned.svg",
+        "system": {
+            "description": "A Stunned character cannot take any Actions. They are also considered a helpless target in melee. Stunned wears off at the end of the character's next turn unless a duration is specified.",
+            "slug": "stunned",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:stunned", "label": "Stunned" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Prone",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/prone.svg",
+        "system": {
+            "description": "A Prone character is lying on the ground. They suffer -10 to Weapon Skill tests and -20 to Dodge tests. Standing up from Prone is a Half Action. Attackers in melee gain +10 WS, while ranged attackers beyond Point Blank suffer -10 BS.",
+            "slug": "prone",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:prone", "label": "Prone" },
+                { "key": "FlatModifier", "domain": "characteristic:ws", "value": -10, "label": "Prone", "source": "condition" },
+                { "key": "FlatModifier", "domain": "skill:dodge", "value": -20, "label": "Prone", "source": "condition" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Blinded",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/blinded.svg",
+        "system": {
+            "description": "A Blinded character cannot see and suffers -30 to Weapon Skill and Ballistic Skill tests. They must pass a Challenging (+0) Awareness test to detect nearby characters. All tests requiring sight automatically fail.",
+            "slug": "blinded",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:blinded", "label": "Blinded" },
+                { "key": "FlatModifier", "domain": "characteristic:ws", "value": -30, "label": "Blinded", "source": "condition" },
+                { "key": "FlatModifier", "domain": "characteristic:bs", "value": -30, "label": "Blinded", "source": "condition" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Deafened",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/deafened.svg",
+        "system": {
+            "description": "A Deafened character cannot hear. All hearing-based Awareness tests automatically fail. They cannot communicate verbally or respond to audible warnings.",
+            "slug": "deafened",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:deafened", "label": "Deafened" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "On Fire",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/on-fire.svg",
+        "system": {
+            "description": "A character On Fire suffers 1d10 Energy damage (ignoring armour but not Toughness Bonus) and gains 1 level of Fatigue at the start of each of their turns. They can attempt to extinguish the flames as a Full Action with an Agility test.",
+            "slug": "on-fire",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:on-fire", "label": "On Fire" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Bleeding",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/bleeding.svg",
+        "system": {
+            "description": "A Bleeding character loses blood rapidly. At the start of each of their turns, they gain 1 level of Fatigue from blood loss. Bleeding can be stopped with a Medicae test or appropriate first aid.",
+            "slug": "bleeding",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:bleeding", "label": "Bleeding" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Pinned",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/pinned.svg",
+        "system": {
+            "description": "A Pinned character is forced into cover by suppressive fire. They suffer -20 to Ballistic Skill tests and can only take Half Actions. They can attempt to break free of Pinning with a Challenging (+0) Willpower test.",
+            "slug": "pinned",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:pinned", "label": "Pinned" },
+                { "key": "FlatModifier", "domain": "characteristic:bs", "value": -20, "label": "Pinned", "source": "condition" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Fatigued",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/fatigued.svg",
+        "system": {
+            "description": "Fatigue represents exhaustion, blood loss, and physical strain. Each level of Fatigue imposes -10 to all characteristic tests (applied via the fatigue counter on the actor, not this condition's rules). If Fatigue exceeds Toughness Bonus + Willpower Bonus, the character falls Unconscious.",
+            "slug": "fatigued",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:fatigued", "label": "Fatigued" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Crippled",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/crippled.svg",
+        "system": {
+            "description": "The character has suffered a crippling wound to a limb. Using that limb for Full Actions inflicts additional damage. Specific effects depend on the critical injury that caused it.",
+            "slug": "crippled",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:crippled", "label": "Crippled" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Unconscious",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/unconscious.svg",
+        "system": {
+            "description": "An Unconscious character cannot take any Actions and is unaware of their surroundings. They are considered Helpless. Unconscious characters can be woken by allies (Full Action) or by taking damage.",
+            "slug": "unconscious",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:unconscious", "label": "Unconscious" },
+                { "key": "RollOption", "option": "self:helpless", "label": "Helpless (Unconscious)" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Helpless",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/helpless.svg",
+        "system": {
+            "description": "A Helpless target cannot defend themselves. Melee attacks against them automatically hit (no roll needed) with DoS equal to the attacker's WS bonus. Ranged attacks at Point Blank automatically hit. Damage against Helpless targets is rolled twice and summed.",
+            "slug": "helpless",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:helpless", "label": "Helpless" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Grappled",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/grappled.svg",
+        "system": {
+            "description": "A Grappled character is locked in close combat. They cannot take Reactions and can only attempt to break free or perform Grapple actions. Both participants in a grapple are considered Grappled.",
+            "slug": "grappled",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:grappled", "label": "Grappled" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Immobilized",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/immobilized.svg",
+        "system": {
+            "description": "An Immobilized character cannot move from their current position. They may still take actions that do not require movement.",
+            "slug": "immobilized",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:immobilized", "label": "Immobilized" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Toxic",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/toxic.svg",
+        "system": {
+            "description": "The character has been exposed to a toxin. The effect is resolved at damage time — the character must pass a Toughness test or suffer additional damage equal to the Toxic rating.",
+            "slug": "toxic",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:toxic", "label": "Toxic" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Feared",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/feared.svg",
+        "system": {
+            "description": "The character is gripped by supernatural terror. They suffer -10 to Weapon Skill, Ballistic Skill, and Willpower tests (Shock level). Higher levels of Fear impose greater penalties at GM discretion.",
+            "slug": "feared",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:feared", "label": "Feared" },
+                { "key": "FlatModifier", "domain": "characteristic:ws", "value": -10, "label": "Feared (Shock)", "source": "condition" },
+                { "key": "FlatModifier", "domain": "characteristic:bs", "value": -10, "label": "Feared (Shock)", "source": "condition" },
+                { "key": "FlatModifier", "domain": "characteristic:wp", "value": -10, "label": "Feared (Shock)", "source": "condition" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Frenzied",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/frenzied.svg",
+        "system": {
+            "description": "A Frenzied character is consumed by battle-rage. They gain +10 to Weapon Skill, Strength, Toughness, and Willpower but cannot Parry, Dodge, or retreat. They must charge or attack the nearest enemy each turn.",
+            "slug": "frenzied",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:frenzied", "label": "Frenzied" },
+                { "key": "FlatModifier", "domain": "characteristic:ws", "value": 10, "label": "Frenzied", "source": "condition" },
+                { "key": "FlatModifier", "domain": "characteristic:s", "value": 10, "label": "Frenzied", "source": "condition" },
+                { "key": "FlatModifier", "domain": "characteristic:t", "value": 10, "label": "Frenzied", "source": "condition" },
+                { "key": "FlatModifier", "domain": "characteristic:wp", "value": 10, "label": "Frenzied", "source": "condition" }
+            ],
+            "remainingRounds": 0
+        }
+    }
+]

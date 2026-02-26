@@ -11,6 +11,7 @@ import { Migration004SkillUses } from "./migrations/004-skill-uses.ts";
 import { Migration005CyberneticMaintenance } from "./migrations/005-cybernetic-maintenance.ts";
 import { Migration006AmmoTracking } from "./migrations/006-ammo-tracking.ts";
 import { Migration007LootSystem } from "./migrations/007-loot-system.ts";
+import { Migration008FatigueField } from "./migrations/008-fatigue-field.ts";
 
 MigrationRunner.register([
     new Migration001HordeType(),
@@ -20,4 +21,5 @@ MigrationRunner.register([
     new Migration005CyberneticMaintenance(),
     new Migration006AmmoTracking(),
     new Migration007LootSystem(),
+    new Migration008FatigueField(),
 ]);

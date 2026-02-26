@@ -127,14 +127,14 @@ async function applyCriticalInjury(
     await postCriticalCard(actor, entry, location);
 }
 
-/** Create a condition item on the actor from an effect slug */
+/** Create a condition item on the actor from an effect slug, sourcing from compendium when available */
 async function applyConditionBySlug(actor: Actor, slug: string): Promise<void> {
     // Parse effect slugs like "stunned-3" => condition "stunned", duration 3
     const match = slug.match(/^(.+?)-(\d+)$/);
     const conditionSlug = match ? match[1] : slug;
-    const duration = match ? match[2] : "";
+    const remainingRounds = match ? parseInt(match[2], 10) : 0;
 
-    // Skip non-condition effects (like "death", "on-fire", etc.)
+    // Skip non-condition effects (like "death", "prone", etc.)
     const skipSlugs = new Set(["death", "prone"]);
     if (skipSlugs.has(slug)) return;
 
@@ -148,19 +148,60 @@ async function applyConditionBySlug(actor: Actor, slug: string): Promise<void> {
         return;
     }
 
-    const conditionData = {
-        name: conditionSlug.charAt(0).toUpperCase() + conditionSlug.slice(1),
+    // Source from compendium for full rules data
+    const conditionData = await getConditionFromCompendium(conditionSlug, remainingRounds);
+    await actor.createEmbeddedDocuments("Item", [conditionData]);
+}
+
+/** Look up a condition from the dh2e-data.conditions compendium, falling back to inline creation */
+async function getConditionFromCompendium(
+    slug: string,
+    remainingRounds: number = 0,
+): Promise<Record<string, unknown>> {
+    try {
+        const g = game as any;
+        const pack = g.packs?.get("dh2e-data.conditions");
+        if (pack) {
+            const index = await pack.getIndex();
+            const entry = index.find((e: any) => {
+                // Match by converting name to slug form
+                const name = e.name?.toLowerCase().replace(/\s+/g, "-");
+                return name === slug;
+            });
+            if (entry) {
+                const doc = await pack.getDocument(entry._id);
+                if (doc) {
+                    const source = doc.toObject();
+                    // Strip _id so a new embedded document is created
+                    delete source._id;
+                    // Override remaining rounds from duration suffix
+                    if (remainingRounds > 0) {
+                        source.system.remainingRounds = remainingRounds;
+                        source.system.duration = `${remainingRounds} rounds`;
+                    }
+                    return source;
+                }
+            }
+        }
+    } catch (e) {
+        console.warn("DH2E | Could not load condition from compendium, using fallback", e);
+    }
+
+    // Fallback: inline condition creation (no rules)
+    const titleName = slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+    return {
+        name: titleName,
         type: "condition",
-        img: "systems/dh2e/icons/items/condition.svg",
+        img: `systems/dh2e/icons/conditions/${slug}.svg`,
         system: {
-            description: `Applied by critical injury`,
-            slug: conditionSlug,
-            duration: duration ? `${duration} rounds` : "",
+            description: "Applied by critical injury",
+            slug,
+            duration: remainingRounds > 0 ? `${remainingRounds} rounds` : "",
             stackable: false,
+            rules: [],
+            remainingRounds,
         },
     };
-
-    await actor.createEmbeddedDocuments("Item", [conditionData]);
 }
 
 /** Post a critical damage chat card */
@@ -215,5 +256,6 @@ export {
     lookupCritical,
     applyCriticalInjury,
     applyConditionBySlug,
+    getConditionFromCompendium,
 };
 export type { CriticalEntry, CriticalPenalty };

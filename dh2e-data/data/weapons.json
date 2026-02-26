@@ -26,7 +26,8 @@
             "weight": 0.5,
             "qualities": [],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -58,7 +59,8 @@
                 "Balanced"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -91,7 +93,8 @@
                 "Unwieldy"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -123,7 +126,8 @@
                 "Primitive (7)"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -156,7 +160,8 @@
                 "Primitive (7)"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -188,7 +193,8 @@
                 "Defensive"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -221,7 +227,8 @@
                 "Unwieldy"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -254,7 +261,8 @@
                 "Tearing"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -287,7 +295,8 @@
                 "Unbalanced"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -320,7 +329,8 @@
                 "Power Field"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -353,7 +363,8 @@
                 "Unbalanced"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -386,7 +397,8 @@
                 "Shocking"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -419,7 +431,8 @@
                 "Unwieldy"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -452,7 +465,8 @@
                 "Force"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -485,7 +499,8 @@
                 "Unwieldy"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -515,7 +530,8 @@
             "weight": 0.5,
             "qualities": [],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -547,7 +563,8 @@
                 "Balanced"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -580,7 +597,8 @@
                 "Shocking"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -614,7 +632,8 @@
                 "Unwieldy"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -646,7 +665,8 @@
                 "Shocking"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -680,7 +700,8 @@
                 "Proven (3)"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -712,7 +733,8 @@
                 "Reliable"
             ],
             "equipped": false,
-            "weaponGroup": "sp"
+            "weaponGroup": "sp",
+            "craftsmanship": "common"
         }
     },
     {
@@ -744,7 +766,8 @@
                 "Reliable"
             ],
             "equipped": false,
-            "weaponGroup": "sp"
+            "weaponGroup": "sp",
+            "craftsmanship": "common"
         }
     },
     {
@@ -776,7 +799,8 @@
                 "Inaccurate"
             ],
             "equipped": false,
-            "weaponGroup": "sp"
+            "weaponGroup": "sp",
+            "craftsmanship": "common"
         }
     },
     {
@@ -806,7 +830,8 @@
             "weight": 1.5,
             "qualities": [],
             "equipped": false,
-            "weaponGroup": "sp"
+            "weaponGroup": "sp",
+            "craftsmanship": "common"
         }
     },
     {
@@ -838,7 +863,8 @@
                 "Reliable"
             ],
             "equipped": false,
-            "weaponGroup": "las"
+            "weaponGroup": "las",
+            "craftsmanship": "common"
         }
     },
     {
@@ -870,7 +896,8 @@
                 "Tearing"
             ],
             "equipped": false,
-            "weaponGroup": "bolt"
+            "weaponGroup": "bolt",
+            "craftsmanship": "common"
         }
     },
     {
@@ -902,7 +929,8 @@
                 "Melta"
             ],
             "equipped": false,
-            "weaponGroup": "melta"
+            "weaponGroup": "melta",
+            "craftsmanship": "common"
         }
     },
     {
@@ -935,7 +963,8 @@
                 "Overheats"
             ],
             "equipped": false,
-            "weaponGroup": "plasma"
+            "weaponGroup": "plasma",
+            "craftsmanship": "common"
         }
     },
     {
@@ -968,7 +997,8 @@
                 "Spray"
             ],
             "equipped": false,
-            "weaponGroup": "flame"
+            "weaponGroup": "flame",
+            "craftsmanship": "common"
         }
     },
     {
@@ -998,7 +1028,8 @@
             "weight": 5,
             "qualities": [],
             "equipped": false,
-            "weaponGroup": "sp"
+            "weaponGroup": "sp",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1030,7 +1061,8 @@
                 "Scatter"
             ],
             "equipped": false,
-            "weaponGroup": "shotgun"
+            "weaponGroup": "shotgun",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1063,7 +1095,8 @@
                 "Reliable"
             ],
             "equipped": false,
-            "weaponGroup": "sp"
+            "weaponGroup": "sp",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1095,7 +1128,8 @@
                 "Reliable"
             ],
             "equipped": false,
-            "weaponGroup": "las"
+            "weaponGroup": "las",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1129,7 +1163,8 @@
                 "Reliable"
             ],
             "equipped": false,
-            "weaponGroup": "las"
+            "weaponGroup": "las",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1161,7 +1196,8 @@
                 "Tearing"
             ],
             "equipped": false,
-            "weaponGroup": "bolt"
+            "weaponGroup": "bolt",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1194,7 +1230,8 @@
                 "Spray"
             ],
             "equipped": false,
-            "weaponGroup": "flame"
+            "weaponGroup": "flame",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1226,7 +1263,8 @@
                 "Melta"
             ],
             "equipped": false,
-            "weaponGroup": "melta"
+            "weaponGroup": "melta",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1259,7 +1297,8 @@
                 "Overheats"
             ],
             "equipped": false,
-            "weaponGroup": "plasma"
+            "weaponGroup": "plasma",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1292,7 +1331,8 @@
                 "Reliable"
             ],
             "equipped": false,
-            "weaponGroup": "sp"
+            "weaponGroup": "sp",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1325,7 +1365,8 @@
                 "Tearing"
             ],
             "equipped": false,
-            "weaponGroup": "bolt"
+            "weaponGroup": "bolt",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1357,7 +1398,8 @@
                 "Inaccurate"
             ],
             "equipped": false,
-            "weaponGroup": "launcher"
+            "weaponGroup": "launcher",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1389,7 +1431,8 @@
                 "Tearing"
             ],
             "equipped": false,
-            "weaponGroup": "bolt"
+            "weaponGroup": "bolt",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1422,7 +1465,8 @@
                 "Spray"
             ],
             "equipped": false,
-            "weaponGroup": "flame"
+            "weaponGroup": "flame",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1455,7 +1499,8 @@
                 "Reliable"
             ],
             "equipped": false,
-            "weaponGroup": "sp"
+            "weaponGroup": "sp",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1489,7 +1534,8 @@
                 "Reliable"
             ],
             "equipped": false,
-            "weaponGroup": "las"
+            "weaponGroup": "las",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1519,7 +1565,8 @@
             "weight": 15,
             "qualities": [],
             "equipped": false,
-            "weaponGroup": "launcher"
+            "weaponGroup": "launcher",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1551,7 +1598,8 @@
                 "Reliable"
             ],
             "equipped": false,
-            "weaponGroup": "las"
+            "weaponGroup": "las",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1586,7 +1634,8 @@
                 "Recharge"
             ],
             "equipped": false,
-            "weaponGroup": "plasma"
+            "weaponGroup": "plasma",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1619,7 +1668,8 @@
                 "Ogryn-Proof"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1651,7 +1701,8 @@
                 "Concussive (0)"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1683,7 +1734,8 @@
                 "Blast (5)"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1715,7 +1767,8 @@
                 "Blast (10)"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1747,7 +1800,8 @@
                 "Smoke (6)"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     },
     {
@@ -1780,7 +1834,8 @@
                 "Flame"
             ],
             "equipped": false,
-            "weaponGroup": ""
+            "weaponGroup": "",
+            "craftsmanship": "common"
         }
     }
 ]

@@ -14,6 +14,9 @@ import type { VehicleDH2e } from "@actor/vehicle/document.ts";
 import { determineFacing } from "./vehicle-damage.ts";
 import { VFXResolver } from "../vfx/resolver.ts";
 import { consumeAmmo, canFire } from "./ammo.ts";
+import { getTargetConditionBonuses } from "./target-condition-modifiers.ts";
+import { getCraftsmanshipRuleElements } from "./craftsmanship.ts";
+import { isInCombat } from "./combat-state.ts";
 
 /**
  * Resolves a full attack sequence:
@@ -75,6 +78,63 @@ class AttackResolver {
             rollOptions.add(opt);
         }
 
+        // Synthesize craftsmanship modifiers for the weapon
+        const craftsmanship = sys.craftsmanship ?? "common";
+        const craftsmanshipREs = getCraftsmanshipRuleElements(craftsmanship);
+        for (const reSrc of craftsmanshipREs) {
+            const re = instantiateRuleElement(reSrc, weapon);
+            if (re) re.onPrepareData(weaponSynthetics);
+        }
+
+        // Inject target condition roll options and attacker bonuses
+        const g = game as any;
+        const targetToken = g.user?.targets?.first();
+        const targetActor = targetToken?.actor as Actor | undefined;
+        let targetIsHelpless = false;
+
+        if (targetActor) {
+            const targetBonuses = getTargetConditionBonuses(targetActor, isMelee);
+            for (const opt of targetBonuses.rollOptions) {
+                rollOptions.add(opt);
+            }
+            // Inject target condition modifier REs into weapon synthetics
+            for (const reSrc of targetBonuses.modifiers) {
+                const re = instantiateRuleElement(reSrc, weapon);
+                if (re) re.onPrepareData(weaponSynthetics);
+            }
+            targetIsHelpless = rollOptions.has("target:helpless");
+        }
+
+        // Helpless melee: auto-hit with DoS = attacker's WS bonus (skip roll)
+        if (targetIsHelpless && isMelee) {
+            const wsBonus = actorSys?.characteristics?.ws?.bonus ?? 0;
+            const calledShot = undefined; // No called shot on auto-hit
+
+            const hits = [];
+            hits.push(determineHitLocation(Math.floor(Math.random() * 100) + 1, calledShot));
+
+            const attackResult: AttackResult = {
+                success: true,
+                degrees: wsBonus,
+                roll: 0,
+                target: charValue,
+                hitCount: 1,
+                hits,
+                fireMode,
+                weaponName: weapon.name,
+            };
+
+            // Consume ammunition for ranged weapons
+            let roundsConsumed = 0;
+            if (clipMax > 0) {
+                const ammoResult = await consumeAmmo(weapon, fireMode);
+                if (ammoResult) roundsConsumed = ammoResult.consumed;
+            }
+
+            await AttackResolver.#postAttackCard(attackResult, weapon, actor, roundsConsumed);
+            return attackResult;
+        }
+
         // Roll the attack check — pass isAttack and fireMode so the dialog
         // can offer Called Shot (only available on Standard Attack / single fire)
         const result = await CheckDH2e.roll({
@@ -134,12 +194,41 @@ class AttackResolver {
             };
         }
 
-        // Consume ammunition for ranged weapons
+        // Consume ammunition for ranged weapons (with out-of-combat confirmation)
         let roundsConsumed = 0;
         if (clipMax > 0) {
-            const ammoResult = await consumeAmmo(weapon, fireMode);
-            if (ammoResult) {
-                roundsConsumed = ammoResult.consumed;
+            const roundsNeeded = fireMode === "single" ? 1 : fireMode === "semi" ? (sys.rof?.semi ?? 2) : (sys.rof?.full ?? 4);
+            let shouldConsume = true;
+
+            if (!isInCombat()) {
+                // Out of combat — prompt for confirmation
+                shouldConsume = await new Promise<boolean>((resolve) => {
+                    const d = new (fd.DialogV2 ?? fd.Dialog as any)({
+                        window: { title: game.i18n?.localize("DH2E.Ammo.OutOfCombatTitle") ?? "Out of Combat" },
+                        content: `<p>${game.i18n?.format("DH2E.Ammo.OutOfCombatPrompt", {
+                            rounds: String(roundsNeeded),
+                            weapon: weapon.name,
+                        }) ?? `You are not in combat. Consume ${roundsNeeded} round(s) from ${weapon.name}?`}</p>`,
+                        buttons: [{
+                            action: "yes",
+                            label: game.i18n?.localize("DH2E.Confirm") ?? "Yes",
+                            callback: () => resolve(true),
+                        }, {
+                            action: "no",
+                            label: game.i18n?.localize("DH2E.Cancel") ?? "No",
+                            callback: () => resolve(false),
+                        }],
+                        close: () => resolve(false),
+                    });
+                    d.render({ force: true });
+                });
+            }
+
+            if (shouldConsume) {
+                const ammoResult = await consumeAmmo(weapon, fireMode);
+                if (ammoResult) {
+                    roundsConsumed = ammoResult.consumed;
+                }
             }
         }
 
@@ -210,6 +299,17 @@ class AttackResolver {
             ...(weaponSynthetics.diceOverrides["damage:*"] ?? []),
         ];
 
+        // Check if target is helpless for double-damage rule
+        const targetConditions = new Set<string>();
+        for (const item of target.items) {
+            if (item.type !== "condition") continue;
+            const slug = (item.system as any)?.slug;
+            if (slug) targetConditions.add(slug);
+        }
+        const targetSynth = (target as any).synthetics;
+        const isHelpless = targetConditions.has("helpless") ||
+            targetSynth?.rollOptions?.has("self:helpless");
+
         const results: DamageResult[] = [];
 
         for (const hit of attackResult.hits) {
@@ -235,6 +335,18 @@ class AttackResolver {
                 ];
                 const { total: damageBonusTotal } = resolveModifiers(damageMods, attackerSynthetics.rollOptions);
                 rawDamage += damageBonusTotal;
+            }
+
+            // Helpless: roll damage twice, sum both results
+            if (isHelpless) {
+                const roll2 = new foundry.dice.Roll(formula);
+                await roll2.evaluate();
+                let rawDamage2 = roll2.total ?? 0;
+                if (diceOverrides.length > 0 && roll2.dice?.length) {
+                    rawDamage2 = AttackResolver.#applyDiceOverrides(roll2, diceOverrides);
+                }
+                rawDamage2 += effective.bonus;
+                rawDamage += rawDamage2;
             }
 
             const locationAP = getLocationAP(target, hit.location);

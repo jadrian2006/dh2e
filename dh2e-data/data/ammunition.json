@@ -12,7 +12,8 @@
             "quantity": 1,
             "weight": 0.5,
             "weaponGroup": "sp",
-            "availability": "Common"
+            "availability": "Common",
+            "craftsmanship": "common"
         }
     },
     {
@@ -28,7 +29,8 @@
             "quantity": 1,
             "weight": 0.3,
             "weaponGroup": "las",
-            "availability": "Common"
+            "availability": "Common",
+            "craftsmanship": "common"
         }
     },
     {
@@ -44,7 +46,8 @@
             "quantity": 1,
             "weight": 1,
             "weaponGroup": "bolt",
-            "availability": "Rare"
+            "availability": "Rare",
+            "craftsmanship": "common"
         }
     },
     {
@@ -60,7 +63,8 @@
             "quantity": 1,
             "weight": 2,
             "weaponGroup": "flame",
-            "availability": "Average"
+            "availability": "Average",
+            "craftsmanship": "common"
         }
     },
     {
@@ -76,7 +80,8 @@
             "quantity": 1,
             "weight": 1.5,
             "weaponGroup": "melta",
-            "availability": "Rare"
+            "availability": "Rare",
+            "craftsmanship": "common"
         }
     },
     {
@@ -92,7 +97,8 @@
             "quantity": 1,
             "weight": 1,
             "weaponGroup": "plasma",
-            "availability": "Rare"
+            "availability": "Rare",
+            "craftsmanship": "common"
         }
     },
     {
@@ -108,7 +114,8 @@
             "quantity": 1,
             "weight": 0.5,
             "weaponGroup": "shotgun",
-            "availability": "Common"
+            "availability": "Common",
+            "craftsmanship": "common"
         }
     },
     {
@@ -124,7 +131,8 @@
             "quantity": 1,
             "weight": 0.5,
             "weaponGroup": "launcher",
-            "availability": "Scarce"
+            "availability": "Scarce",
+            "craftsmanship": "common"
         }
     },
     {
@@ -140,7 +148,8 @@
             "quantity": 1,
             "weight": 0.5,
             "weaponGroup": "sp",
-            "availability": "Scarce"
+            "availability": "Scarce",
+            "craftsmanship": "common"
         }
     },
     {
@@ -152,11 +161,14 @@
             "damageModifier": 2,
             "damageType": "",
             "penetrationModifier": -1,
-            "qualities": ["Tearing"],
+            "qualities": [
+                "Tearing"
+            ],
             "quantity": 1,
             "weight": 0.5,
             "weaponGroup": "sp",
-            "availability": "Scarce"
+            "availability": "Scarce",
+            "craftsmanship": "common"
         }
     },
     {
@@ -172,7 +184,8 @@
             "quantity": 1,
             "weight": 0.3,
             "weaponGroup": "las",
-            "availability": "Rare"
+            "availability": "Rare",
+            "craftsmanship": "common"
         }
     },
     {
@@ -184,11 +197,14 @@
             "damageModifier": 0,
             "damageType": "energy",
             "penetrationModifier": 0,
-            "qualities": ["Flame"],
+            "qualities": [
+                "Flame"
+            ],
             "quantity": 1,
             "weight": 0.5,
             "weaponGroup": "shotgun",
-            "availability": "Rare"
+            "availability": "Rare",
+            "craftsmanship": "common"
         }
     },
     {
@@ -204,7 +220,8 @@
             "quantity": 1,
             "weight": 0.5,
             "weaponGroup": "sp",
-            "availability": "Average"
+            "availability": "Average",
+            "craftsmanship": "common"
         }
     },
     {
@@ -216,11 +233,14 @@
             "damageModifier": 0,
             "damageType": "",
             "penetrationModifier": 0,
-            "qualities": ["Sanctified"],
+            "qualities": [
+                "Sanctified"
+            ],
             "quantity": 1,
             "weight": 0.5,
             "weaponGroup": "",
-            "availability": "Very Rare"
+            "availability": "Very Rare",
+            "craftsmanship": "common"
         }
     },
     {
@@ -232,11 +252,14 @@
             "damageModifier": 2,
             "damageType": "",
             "penetrationModifier": 0,
-            "qualities": ["Haywire"],
+            "qualities": [
+                "Haywire"
+            ],
             "quantity": 1,
             "weight": 1,
             "weaponGroup": "bolt",
-            "availability": "Very Rare"
+            "availability": "Very Rare",
+            "craftsmanship": "common"
         }
     },
     {
@@ -248,11 +271,14 @@
             "damageModifier": 0,
             "damageType": "",
             "penetrationModifier": 0,
-            "qualities": ["Toxic(1)"],
+            "qualities": [
+                "Toxic(1)"
+            ],
             "quantity": 1,
             "weight": 0.5,
             "weaponGroup": "sp",
-            "availability": "Rare"
+            "availability": "Rare",
+            "craftsmanship": "common"
         }
     },
     {
@@ -264,11 +290,14 @@
             "damageModifier": 1,
             "damageType": "",
             "penetrationModifier": 1,
-            "qualities": ["Overheats"],
+            "qualities": [
+                "Overheats"
+            ],
             "quantity": 1,
             "weight": 0.5,
             "weaponGroup": "plasma",
-            "availability": "Very Rare"
+            "availability": "Very Rare",
+            "craftsmanship": "common"
         }
     }
 ]

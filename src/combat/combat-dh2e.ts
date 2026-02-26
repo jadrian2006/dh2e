@@ -56,9 +56,12 @@ class CombatDH2e extends Combat {
                 }
             }
 
-            // Decrement condition durations on the combatant's actor
+            // Process turn-start condition effects (On Fire, Bleeding)
             const actor = current.actor;
             if (actor) {
+                await CombatDH2e.#processConditionEffects(actor);
+
+                // Decrement condition durations
                 await CombatDH2e.#decrementConditions(actor);
             }
         }
@@ -82,6 +85,57 @@ class CombatDH2e extends Combat {
 
         // Final tiebreaker: alphabetical by name
         return (a.name ?? "").localeCompare(b.name ?? "");
+    }
+
+    /** Process turn-start effects for active conditions (On Fire, Bleeding) */
+    static async #processConditionEffects(actor: Actor): Promise<void> {
+        const conditions = actor.items.filter((i: Item) => i.type === "condition");
+        const slugs = new Set(conditions.map((c: Item) => (c.system as any)?.slug));
+        const actorSys = (actor as any).system;
+
+        // On Fire: 1d10 Energy damage (ignoring armour but not TB), +1 fatigue
+        if (slugs.has("on-fire")) {
+            const roll = new foundry.dice.Roll("1d10");
+            await roll.evaluate();
+            const rawDamage = roll.total ?? 0;
+            const tBonus = actorSys?.characteristics?.t?.bonus ?? 0;
+            const woundsDealt = Math.max(0, rawDamage - tBonus);
+
+            // Apply damage
+            if (woundsDealt > 0) {
+                const currentWounds = actorSys?.wounds?.value ?? 0;
+                await actor.update({ "system.wounds.value": Math.max(0, currentWounds - woundsDealt) });
+            }
+
+            // Increment fatigue
+            const currentFatigue = actorSys?.fatigue ?? 0;
+            await actor.update({ "system.fatigue": currentFatigue + 1 });
+
+            // Post chat message
+            await fd.ChatMessage.create({
+                content: `<div class="dh2e-condition-effect">
+                    <strong>${actor.name}</strong> is <strong>On Fire!</strong>
+                    <br>Takes ${rawDamage} Energy damage (${woundsDealt} after TB ${tBonus}) and gains 1 Fatigue.
+                </div>`,
+                speaker: fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name },
+                flags: { [SYSTEM_ID]: { type: "condition-effect", condition: "on-fire" } },
+            });
+        }
+
+        // Bleeding: +1 fatigue
+        if (slugs.has("bleeding")) {
+            const currentFatigue = actorSys?.fatigue ?? 0;
+            await actor.update({ "system.fatigue": currentFatigue + 1 });
+
+            await fd.ChatMessage.create({
+                content: `<div class="dh2e-condition-effect">
+                    <strong>${actor.name}</strong> is <strong>Bleeding!</strong>
+                    <br>Gains 1 Fatigue from blood loss.
+                </div>`,
+                speaker: fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name },
+                flags: { [SYSTEM_ID]: { type: "condition-effect", condition: "bleeding" } },
+            });
+        }
     }
 
     /** Decrement remainingRounds on all conditions, auto-delete expired ones */

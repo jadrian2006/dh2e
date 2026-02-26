@@ -611,6 +611,7 @@
     "DH2E.Condition.Status.Immobilized": "Immobilized",
     "DH2E.Condition.Status.Toxic": "Toxic",
     "DH2E.Condition.Status.Feared": "Feared",
+    "DH2E.Condition.Status.Frenzied": "Frenzied",
 
     "DH2E.GMOverride.Title": "GM Override",
     "DH2E.GMOverride.AdjustDoS": "Adjust Degrees",
@@ -1248,5 +1249,15 @@
     "DH2E.QuickSearch.Title": "Quick Search",
     "DH2E.QuickSearch.Placeholder": "Search items, talents, weapons...",
     "DH2E.QuickSearch.NoResults": "No matches found.",
-    "DH2E.Keybinding.OpenQuickSearch": "Open Quick Search"
+    "DH2E.Keybinding.OpenQuickSearch": "Open Quick Search",
+
+    "DH2E.Ammo.OutOfCombatTitle": "Out of Combat",
+    "DH2E.Ammo.OutOfCombatPrompt": "You are not in combat. Consume {rounds} round(s) from {weapon}?",
+    "DH2E.Confirm": "Yes",
+    "DH2E.Cancel": "No",
+    "DH2E.Fatigue.Label": "Fatigue",
+    "DH2E.Fatigue.Threshold": "Fatigue Threshold (TB + WPB)",
+    "DH2E.Fatigue.Unconscious": "{name} collapses from exhaustion!",
+    "DH2E.Condition.Effect.OnFire": "{name} is On Fire! Takes {damage} Energy damage ({wounds} after TB) and gains 1 Fatigue.",
+    "DH2E.Condition.Effect.Bleeding": "{name} is Bleeding! Gains 1 Fatigue from blood loss."
 }

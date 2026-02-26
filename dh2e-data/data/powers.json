@@ -14,7 +14,14 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:invigourate",
+                    "label": "Invigourate"
+                }
+            ]
         }
     },
     {
@@ -32,7 +39,19 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Attack, Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:smite",
+                    "label": "Smite"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-barrage",
+                    "label": "Psychic Barrage"
+                }
+            ]
         }
     },
     {
@@ -50,7 +69,14 @@
             "sustained": "Half Action",
             "action": "Half Action",
             "subtype": "Attack, Concentration",
-            "opposed": true
+            "opposed": true,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:enfeeble",
+                    "label": "Enfeeble"
+                }
+            ]
         }
     },
     {
@@ -68,7 +94,14 @@
             "sustained": "Free Action",
             "action": "Full Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:shape-flesh",
+                    "label": "Shape Flesh"
+                }
+            ]
         }
     },
     {
@@ -86,7 +119,14 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:endurance",
+                    "label": "Endurance"
+                }
+            ]
         }
     },
     {
@@ -104,7 +144,21 @@
             "sustained": "Free Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:iron-arm",
+                    "label": "Iron Arm"
+                },
+                {
+                    "key": "FlatModifier",
+                    "domain": "characteristic:ag",
+                    "value": -10,
+                    "label": "Iron Arm",
+                    "source": "power"
+                }
+            ]
         }
     },
     {
@@ -122,7 +176,19 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Attack, Concentration",
-            "opposed": true
+            "opposed": true,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:haemorrhage",
+                    "label": "Haemorrhage"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-bolt",
+                    "label": "Psychic Bolt"
+                }
+            ]
         }
     },
     {
@@ -140,7 +206,14 @@
             "sustained": "Free Action",
             "action": "Full Action",
             "subtype": "Attack, Concentration",
-            "opposed": true
+            "opposed": true,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:life-leech",
+                    "label": "Life Leech"
+                }
+            ]
         }
     },
     {
@@ -158,7 +231,14 @@
             "sustained": "Free Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:warp-speed",
+                    "label": "Warp Speed"
+                }
+            ]
         }
     },
     {
@@ -176,7 +256,14 @@
             "sustained": "Half Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:warp-perception",
+                    "label": "Warp Perception"
+                }
+            ]
         }
     },
     {
@@ -194,7 +281,14 @@
             "sustained": false,
             "action": "Reaction",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:foreboding",
+                    "label": "Foreboding"
+                }
+            ]
         }
     },
     {
@@ -212,7 +306,28 @@
             "sustained": "Half Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:prescience",
+                    "label": "Prescience"
+                },
+                {
+                    "key": "FlatModifier",
+                    "domain": "characteristic:ws",
+                    "value": 10,
+                    "label": "Prescience (PR-scaled)",
+                    "source": "power"
+                },
+                {
+                    "key": "FlatModifier",
+                    "domain": "characteristic:bs",
+                    "value": 10,
+                    "label": "Prescience (PR-scaled)",
+                    "source": "power"
+                }
+            ]
         }
     },
     {
@@ -230,7 +345,14 @@
             "sustained": false,
             "action": "Special (30 min ritual)",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:scriers-gaze",
+                    "label": "Scrier's Gaze"
+                }
+            ]
         }
     },
     {
@@ -248,7 +370,14 @@
             "sustained": "Free Action",
             "action": "Half Action",
             "subtype": "Attack, Concentration",
-            "opposed": true
+            "opposed": true,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:misfortune",
+                    "label": "Misfortune"
+                }
+            ]
         }
     },
     {
@@ -266,7 +395,14 @@
             "sustained": "Half Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:perfect-timing",
+                    "label": "Perfect Timing"
+                }
+            ]
         }
     },
     {
@@ -284,7 +420,21 @@
             "sustained": "Free Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:forewarning",
+                    "label": "Forewarning"
+                },
+                {
+                    "key": "FlatModifier",
+                    "domain": "skill:dodge",
+                    "value": 10,
+                    "label": "Forewarning (PR-scaled)",
+                    "source": "power"
+                }
+            ]
         }
     },
     {
@@ -302,7 +452,14 @@
             "sustained": false,
             "action": "Full Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:precognition",
+                    "label": "Precognition"
+                }
+            ]
         }
     },
     {
@@ -320,7 +477,14 @@
             "sustained": false,
             "action": "Full Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:winding-fate",
+                    "label": "Winding Fate"
+                }
+            ]
         }
     },
     {
@@ -338,7 +502,14 @@
             "sustained": "Half Action",
             "action": "Half Action",
             "subtype": "Attack",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:manipulate-flame",
+                    "label": "Manipulate Flame"
+                }
+            ]
         }
     },
     {
@@ -356,7 +527,19 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Attack",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:spontaneous-combustion",
+                    "label": "Spontaneous Combustion"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-bolt",
+                    "label": "Psychic Bolt"
+                }
+            ]
         }
     },
     {
@@ -374,7 +557,14 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:cauterise",
+                    "label": "Cauterise"
+                }
+            ]
         }
     },
     {
@@ -392,7 +582,19 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Attack",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:flame-breath",
+                    "label": "Flame Breath"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-barrage",
+                    "label": "Psychic Barrage"
+                }
+            ]
         }
     },
     {
@@ -410,7 +612,14 @@
             "sustained": "Free Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:fire-shield",
+                    "label": "Fire Shield"
+                }
+            ]
         }
     },
     {
@@ -428,7 +637,21 @@
             "sustained": "Half Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:fiery-form",
+                    "label": "Fiery Form"
+                },
+                {
+                    "key": "FlatModifier",
+                    "domain": "damage:melee",
+                    "value": 0,
+                    "label": "Fiery Form (PR-scaled Energy)",
+                    "source": "power"
+                }
+            ]
         }
     },
     {
@@ -446,7 +669,19 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Attack",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:molten-beam",
+                    "label": "Molten Beam"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-bolt",
+                    "label": "Psychic Bolt"
+                }
+            ]
         }
     },
     {
@@ -464,7 +699,19 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Attack",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:sunburst",
+                    "label": "Sunburst"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-storm",
+                    "label": "Psychic Storm"
+                }
+            ]
         }
     },
     {
@@ -482,7 +729,19 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Attack, Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:inferno",
+                    "label": "Inferno"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-blast",
+                    "label": "Psychic Blast"
+                }
+            ]
         }
     },
     {
@@ -500,7 +759,14 @@
             "sustained": "Half Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:telekinetic-control",
+                    "label": "Telekinetic Control"
+                }
+            ]
         }
     },
     {
@@ -518,7 +784,19 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Attack, Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:assail",
+                    "label": "Assail"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-bolt",
+                    "label": "Psychic Bolt"
+                }
+            ]
         }
     },
     {
@@ -536,7 +814,14 @@
             "sustained": "Free Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:telekine-shield",
+                    "label": "Telekine Shield"
+                }
+            ]
         }
     },
     {
@@ -554,7 +839,19 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Attack, Concentration",
-            "opposed": true
+            "opposed": true,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:crush",
+                    "label": "Crush"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-bolt",
+                    "label": "Psychic Bolt"
+                }
+            ]
         }
     },
     {
@@ -572,7 +869,14 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:objuration-mechanicum",
+                    "label": "Objuration Mechanicum"
+                }
+            ]
         }
     },
     {
@@ -590,7 +894,19 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Attack, Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:shockwave",
+                    "label": "Shockwave"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-blast",
+                    "label": "Psychic Blast"
+                }
+            ]
         }
     },
     {
@@ -608,7 +924,14 @@
             "sustained": "Free Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:telekine-dome",
+                    "label": "Telekine Dome"
+                }
+            ]
         }
     },
     {
@@ -626,7 +949,14 @@
             "sustained": false,
             "action": "Extended Action (3)",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:gate-of-infinity",
+                    "label": "Gate of Infinity"
+                }
+            ]
         }
     },
     {
@@ -644,7 +974,19 @@
             "sustained": "Half Action",
             "action": "Half Action",
             "subtype": "Attack, Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:vortex-of-doom",
+                    "label": "Vortex of Doom"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-bolt",
+                    "label": "Psychic Bolt"
+                }
+            ]
         }
     },
     {
@@ -662,7 +1004,14 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": true
+            "opposed": true,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:telepathic-link",
+                    "label": "Telepathic Link"
+                }
+            ]
         }
     },
     {
@@ -680,7 +1029,14 @@
             "sustained": false,
             "action": "Full Action",
             "subtype": "Concentration",
-            "opposed": true
+            "opposed": true,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:erasure",
+                    "label": "Erasure"
+                }
+            ]
         }
     },
     {
@@ -698,7 +1054,14 @@
             "sustained": false,
             "action": "Full Action",
             "subtype": "Concentration",
-            "opposed": true
+            "opposed": true,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:dominate",
+                    "label": "Dominate"
+                }
+            ]
         }
     },
     {
@@ -716,7 +1079,14 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": true
+            "opposed": true,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:hallucination",
+                    "label": "Hallucination"
+                }
+            ]
         }
     },
     {
@@ -734,7 +1104,14 @@
             "sustained": "Free Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:mental-fortitude",
+                    "label": "Mental Fortitude"
+                }
+            ]
         }
     },
     {
@@ -752,7 +1129,19 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Attack",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:psychic-shriek",
+                    "label": "Psychic Shriek"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "power:attack:psychic-bolt",
+                    "label": "Psychic Bolt"
+                }
+            ]
         }
     },
     {
@@ -770,7 +1159,21 @@
             "sustained": "Free Action",
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": false
+            "opposed": false,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:invisibility",
+                    "label": "Invisibility"
+                },
+                {
+                    "key": "FlatModifier",
+                    "domain": "skill:stealth",
+                    "value": 20,
+                    "label": "Invisibility (PR-scaled)",
+                    "source": "power"
+                }
+            ]
         }
     },
     {
@@ -788,7 +1191,14 @@
             "sustained": false,
             "action": "Half Action",
             "subtype": "Concentration",
-            "opposed": true
+            "opposed": true,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:terrify",
+                    "label": "Terrify"
+                }
+            ]
         }
     },
     {
@@ -806,7 +1216,14 @@
             "sustained": "Special",
             "action": "Full Action",
             "subtype": "Concentration",
-            "opposed": true
+            "opposed": true,
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "power:puppet-master",
+                    "label": "Puppet Master"
+                }
+            ]
         }
     }
 ]

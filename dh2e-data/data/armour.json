@@ -16,7 +16,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 2,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -36,7 +37,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 8,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -56,7 +58,8 @@
             "maxAgility": 35,
             "qualities": [],
             "weight": 30,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -76,7 +79,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 3,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -96,7 +100,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 5,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -116,7 +121,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 3,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -136,7 +142,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 2,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -156,7 +163,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 11,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -176,7 +184,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 2,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -196,7 +205,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 3,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -216,7 +226,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 7,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -236,7 +247,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 2,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -256,7 +268,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 3,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -276,7 +289,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 2,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -296,7 +310,8 @@
             "maxAgility": 40,
             "qualities": [],
             "weight": 15,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -314,9 +329,13 @@
                 "leftLeg": 7
             },
             "maxAgility": 40,
-            "qualities": ["Auto-senses", "+10 Strength"],
+            "qualities": [
+                "Auto-senses",
+                "+10 Strength"
+            ],
             "weight": 40,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -334,9 +353,14 @@
                 "leftLeg": 8
             },
             "maxAgility": 35,
-            "qualities": ["Auto-senses", "+20 Strength", "Sustainable"],
+            "qualities": [
+                "Auto-senses",
+                "+20 Strength",
+                "Sustainable"
+            ],
             "weight": 65,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -354,9 +378,12 @@
                 "leftLeg": 0
             },
             "maxAgility": 0,
-            "qualities": ["Primitive"],
+            "qualities": [
+                "Primitive"
+            ],
             "weight": 1,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -376,7 +403,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 2,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -396,7 +424,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 5,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -416,7 +445,8 @@
             "maxAgility": 0,
             "qualities": [],
             "weight": 1.5,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     },
     {
@@ -434,9 +464,13 @@
                 "leftLeg": 2
             },
             "maxAgility": 0,
-            "qualities": ["Photo-Reactive", "+10 Stealth"],
+            "qualities": [
+                "Photo-Reactive",
+                "+10 Stealth"
+            ],
             "weight": 0.5,
-            "equipped": false
+            "equipped": false,
+            "craftsmanship": "common"
         }
     }
 ]
