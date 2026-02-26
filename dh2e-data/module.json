@@ -48,7 +48,7 @@
         {
             "name": "DH2E Reference",
             "color": "#a0a0a8",
-            "packs": ["tables", "macros"]
+            "packs": ["tables", "macros", "guides"]
         }
     ],
     "packs": [
@@ -155,6 +155,12 @@
             "path": "packs/tables",
             "type": "RollTable",
             "system": "dh2e"
+        },
+        {
+            "name": "guides",
+            "label": "DH2E System Guide",
+            "path": "packs/guides",
+            "type": "JournalEntry"
         }
     ]
 }

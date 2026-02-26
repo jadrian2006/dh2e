@@ -98,6 +98,7 @@ const PACKS = [
     { name: "traits", file: "data/traits.json", collection: "items" },
     { name: "npcs", file: "data/npcs.json", collection: "actors" },
     { name: "macros", file: "data/macros.json", collection: "macros" },
+    { name: "guides", file: "data/guides.json", collection: "journal" },
 ];
 
 async function buildPack(packDef) {
@@ -126,73 +127,128 @@ async function buildPack(packDef) {
     const batch = db.batch();
 
     // Foundry V13 uses LevelDB sublevels for embedded documents.
-    // Actor items are stored separately at !actors.items!<actorId>.<itemId>
-    // and the actor document's items[] array contains only ID strings.
-    const embeddedKey = packDef.collection === "actors" ? "items" : null;
+    // Actor items stored at !actors.items!<actorId>.<itemId>
+    // Journal pages stored at !journal.pages!<journalId>.<pageId>
+    const embeddedKey = packDef.collection === "actors" ? "items"
+        : packDef.collection === "journal" ? "pages"
+        : null;
 
     for (const item of items) {
         const id = item._id || foundryId();
 
-        // Process embedded items for actors — write each to sublevel
+        // Process embedded documents (actor items or journal pages)
         const embeddedIds = [];
         if (embeddedKey && Array.isArray(item[embeddedKey])) {
             for (let i = 0; i < item[embeddedKey].length; i++) {
                 const embedded = item[embeddedKey][i];
                 const embeddedId = embedded._id || foundryId();
-                const embeddedDoc = {
-                    _id: embeddedId,
-                    name: embedded.name,
-                    type: embedded.type,
-                    img: embedded.img || "icons/svg/item-bag.svg",
-                    system: embedded.system || {},
-                    effects: embedded.effects || [],
-                    flags: embedded.flags || {},
-                    sort: i * 100000,
-                    ownership: { default: 0 },
-                    _stats: {
-                        compendiumSource: null,
-                        duplicateSource: null,
-                        coreVersion: "13.351",
-                        systemId: "dh2e",
-                        systemVersion: "0.1.2",
-                        createdTime: Date.now(),
-                        modifiedTime: Date.now(),
-                        lastModifiedBy: "dh2eBu1ldScr1pt",
-                    },
-                };
 
-                // Store full doc in sublevel: !actors.items!<actorId>.<itemId>
+                let embeddedDoc;
+                if (embeddedKey === "pages") {
+                    // JournalEntryPage document
+                    embeddedDoc = {
+                        _id: embeddedId,
+                        name: embedded.name,
+                        type: embedded.type || "text",
+                        title: { show: true, level: 1 },
+                        text: embedded.text || { content: "", format: 1 },
+                        image: embedded.image || {},
+                        video: embedded.video || {},
+                        src: embedded.src || null,
+                        sort: embedded.sort ?? i * 100000,
+                        ownership: { default: -1 },
+                        flags: embedded.flags || {},
+                        _stats: {
+                            compendiumSource: null,
+                            duplicateSource: null,
+                            coreVersion: "13.351",
+                            systemId: "dh2e",
+                            systemVersion: "0.1.2",
+                            createdTime: Date.now(),
+                            modifiedTime: Date.now(),
+                            lastModifiedBy: "dh2eBu1ldScr1pt",
+                        },
+                    };
+                } else {
+                    // Embedded Item document (for actors)
+                    embeddedDoc = {
+                        _id: embeddedId,
+                        name: embedded.name,
+                        type: embedded.type,
+                        img: embedded.img || "icons/svg/item-bag.svg",
+                        system: embedded.system || {},
+                        effects: embedded.effects || [],
+                        flags: embedded.flags || {},
+                        sort: i * 100000,
+                        ownership: { default: 0 },
+                        _stats: {
+                            compendiumSource: null,
+                            duplicateSource: null,
+                            coreVersion: "13.351",
+                            systemId: "dh2e",
+                            systemVersion: "0.1.2",
+                            createdTime: Date.now(),
+                            modifiedTime: Date.now(),
+                            lastModifiedBy: "dh2eBu1ldScr1pt",
+                        },
+                    };
+                }
+
                 const sublevelKey = `!${packDef.collection}.${embeddedKey}!${id}.${embeddedId}`;
                 batch.put(sublevelKey, embeddedDoc);
                 embeddedIds.push(embeddedId);
             }
         }
 
-        const doc = {
-            _id: id,
-            name: item.name,
-            type: item.type,
-            img: item.img || "icons/svg/item-bag.svg",
-            ...(packDef.collection === "macros"
-                ? { command: item.command || "", scope: item.scope || "global" }
-                : { system: item.system || {} }),
-            // Actor items array stores only ID strings (full docs in sublevel)
-            ...(embeddedKey ? { [embeddedKey]: embeddedIds } : {}),
-            effects: item.effects || [],
-            flags: item.flags || {},
-            sort: count * 100000,
-            ownership: { default: 0 },
-            _stats: {
-                compendiumSource: null,
-                duplicateSource: null,
-                coreVersion: "13.351",
-                systemId: "dh2e",
-                systemVersion: "0.1.2",
-                createdTime: Date.now(),
-                modifiedTime: Date.now(),
-                lastModifiedBy: "dh2eBu1ldScr1pt",
-            },
-        };
+        // Build top-level document
+        let doc;
+        if (packDef.collection === "journal") {
+            doc = {
+                _id: id,
+                name: item.name,
+                img: item.img || null,
+                pages: embeddedIds,
+                folder: null,
+                sort: count * 100000,
+                ownership: { default: 0 },
+                flags: item.flags || {},
+                _stats: {
+                    compendiumSource: null,
+                    duplicateSource: null,
+                    coreVersion: "13.351",
+                    systemId: "dh2e",
+                    systemVersion: "0.1.2",
+                    createdTime: Date.now(),
+                    modifiedTime: Date.now(),
+                    lastModifiedBy: "dh2eBu1ldScr1pt",
+                },
+            };
+        } else {
+            doc = {
+                _id: id,
+                name: item.name,
+                type: item.type,
+                img: item.img || "icons/svg/item-bag.svg",
+                ...(packDef.collection === "macros"
+                    ? { command: item.command || "", scope: item.scope || "global" }
+                    : { system: item.system || {} }),
+                ...(embeddedKey && embeddedKey !== "pages" ? { [embeddedKey]: embeddedIds } : {}),
+                effects: item.effects || [],
+                flags: item.flags || {},
+                sort: count * 100000,
+                ownership: { default: 0 },
+                _stats: {
+                    compendiumSource: null,
+                    duplicateSource: null,
+                    coreVersion: "13.351",
+                    systemId: "dh2e",
+                    systemVersion: "0.1.2",
+                    createdTime: Date.now(),
+                    modifiedTime: Date.now(),
+                    lastModifiedBy: "dh2eBu1ldScr1pt",
+                },
+            };
+        }
 
         // LevelDB key format for Foundry V13 compendiums
         const key = `!${packDef.collection}!${id}`;
