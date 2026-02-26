@@ -21,6 +21,39 @@ interface VoxItemGroup {
     items: VoxItemEntry[];
 }
 
+/** Convert HTML to structured plain text, preserving paragraphs, headers, and line breaks. */
+function htmlToPlainText(html: string): string {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+
+    // Insert markers before block elements so textContent preserves structure
+    for (const el of div.querySelectorAll("br")) {
+        el.replaceWith("\n");
+    }
+    for (const el of div.querySelectorAll("p, div")) {
+        el.prepend("\n");
+        el.append("\n");
+    }
+    for (const el of div.querySelectorAll("h1, h2, h3, h4, h5, h6")) {
+        el.prepend("\n\n");
+        el.append("\n");
+    }
+    for (const el of div.querySelectorAll("li")) {
+        el.prepend("\n- ");
+    }
+    for (const el of div.querySelectorAll("hr")) {
+        el.replaceWith("\n---\n");
+    }
+    for (const el of div.querySelectorAll("blockquote")) {
+        el.prepend("\n> ");
+    }
+
+    // Collapse runs of 3+ newlines to 2, and trim
+    return (div.textContent ?? "")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+}
+
 /**
  * GM-only compose dialog for sending vox transmissions to all players.
  *
@@ -67,10 +100,7 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                         for (const page of pages) {
                             const html = page.text?.content ?? "";
                             if (html) {
-                                // Strip HTML tags to get plain text
-                                const div = document.createElement("div");
-                                div.innerHTML = html;
-                                const text = div.textContent?.trim() ?? "";
+                                const text = htmlToPlainText(html);
                                 if (text) texts.push(text);
                             }
                         }
@@ -83,7 +113,7 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     const sys = (doc as any).system ?? {};
                     return {
                         sender: sys.assignedBy ?? "",
-                        message: sys.description ?? "",
+                        message: htmlToPlainText(sys.description ?? ""),
                         name: (doc as any).name ?? "",
                     };
                 },
@@ -179,9 +209,7 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             for (const page of pages) {
                 const html = page.text?.content ?? "";
                 if (html) {
-                    const div = document.createElement("div");
-                    div.innerHTML = html;
-                    const text = div.textContent?.trim() ?? "";
+                    const text = htmlToPlainText(html);
                     if (text) texts.push(text);
                 }
             }
@@ -194,7 +222,7 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const sys = (doc as any).system ?? {};
         new VoxComposeDialog({
             initialSender: sys.assignedBy ?? "",
-            initialMessage: sys.description ?? "",
+            initialMessage: htmlToPlainText(sys.description ?? ""),
         }).render(true);
     }
 }

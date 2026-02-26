@@ -57,9 +57,11 @@
         <span class="header-blink">VOX CHANNEL OPEN</span>
     </div>
 
+    {#if sender}
     <div class="terminal-sender">
         &gt; {game.i18n.localize("DH2E.Vox.From").toUpperCase()}: {sender.toUpperCase()}
     </div>
+    {/if}
 
     <div class="terminal-body" bind:this={bodyEl}>
         <span class="terminal-text">{displayedText}</span>{#if !finished && cursorVisible}<span class="cursor">&#x2588;</span>{/if}{#if finished}<span class="cursor-done">&#x2588;</span>{/if}

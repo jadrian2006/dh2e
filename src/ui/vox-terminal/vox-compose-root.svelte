@@ -11,7 +11,7 @@
     let loadedName = $state("");
     let expandedGroups = $state(new Set<string>());
 
-    const canSend = $derived(sender.trim().length > 0 && message.trim().length > 0);
+    const canSend = $derived(message.trim().length > 0);
 
     const query = $derived(searchQuery.toLowerCase());
 
