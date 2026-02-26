@@ -36,13 +36,13 @@ class AttackResolver {
         const sys = weapon.system ?? weapon.skillSystem ?? {};
 
         // Check ammo availability for ranged weapons before proceeding
-        const clipMax = sys.clip?.max ?? 0;
-        if (clipMax > 0 && !canFire(weapon, fireMode)) {
+        const magMax = sys.magazine?.max ?? 0;
+        if (magMax > 0 && !canFire(weapon, fireMode)) {
             const modeLabel = fireMode === "single" ? "Single Shot" : fireMode === "semi" ? "Semi-Auto" : "Full Auto";
             ui.notifications.warn(game.i18n?.format("DH2E.Ammo.Insufficient", {
                 mode: modeLabel,
                 required: String(fireMode === "single" ? 1 : fireMode === "semi" ? (sys.rof?.semi ?? 2) : (sys.rof?.full ?? 4)),
-                available: String(sys.clip?.value ?? 0),
+                available: String(sys.magazine?.value ?? 0),
             }) ?? `Insufficient ammunition for ${modeLabel}.`);
             return null;
         }
@@ -126,7 +126,7 @@ class AttackResolver {
 
             // Consume ammunition for ranged weapons
             let roundsConsumed = 0;
-            if (clipMax > 0) {
+            if (magMax > 0) {
                 const ammoResult = await consumeAmmo(weapon, fireMode);
                 if (ammoResult) roundsConsumed = ammoResult.consumed;
             }
@@ -196,7 +196,7 @@ class AttackResolver {
 
         // Consume ammunition for ranged weapons (with out-of-combat confirmation)
         let roundsConsumed = 0;
-        if (clipMax > 0) {
+        if (magMax > 0) {
             const roundsNeeded = fireMode === "single" ? 1 : fireMode === "semi" ? (sys.rof?.semi ?? 2) : (sys.rof?.full ?? 4);
             let shouldConsume = true;
 
@@ -469,7 +469,7 @@ class AttackResolver {
             actorId: actor.id,
             hasAmmo: roundsConsumed > 0,
             roundsConsumed,
-            clipRemaining: sys.clip?.value ?? 0,
+            clipRemaining: sys.magazine?.value ?? 0,
         };
 
         const content = await fa.handlebars.renderTemplate(templatePath, templateData);

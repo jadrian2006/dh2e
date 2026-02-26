@@ -1,3 +1,5 @@
+import type { LoadedRoundEntry } from "@item/weapon/data.ts";
+
 export interface AmmunitionSystemSource {
     description: string;
     damageModifier: number;
@@ -11,10 +13,10 @@ export interface AmmunitionSystemSource {
     availability: string;
     /** Craftsmanship quality: poor, common, good, best */
     craftsmanship: string;
-    /** Magazine capacity (0 = loose rounds, >0 = magazine/clip container) */
+    /** Magazine capacity (0 = loose rounds, >0 = magazine container) */
     capacity: number;
-    /** Current rounds loaded in the magazine (only used when capacity > 0) */
-    loaded: number;
-    /** Name of the ammo type currently loaded in the magazine */
-    loadedAmmoName: string;
+    /** Rounds loaded in the magazine, ordered bottom-to-top (LIFO) */
+    loadedRounds: LoadedRoundEntry[];
+    /** Weapon name this magazine is designed for (empty = generic) */
+    forWeapon: string;
 }

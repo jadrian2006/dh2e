@@ -24,10 +24,13 @@ class SuppressiveFireResolver {
         const sys = weapon.system ?? {};
 
         // Expend ammo (full magazine or full-auto equivalent)
-        const clipMax = sys.clip?.max ?? 0;
-        const roundsConsumed = sys.clip?.value ?? 0;
-        if (clipMax > 0) {
-            await weapon.update({ "system.clip.value": 0 });
+        const magMax = sys.magazine?.max ?? 0;
+        const roundsConsumed = sys.magazine?.value ?? 0;
+        if (magMax > 0) {
+            await weapon.update({
+                "system.magazine.value": 0,
+                "system.loadedRounds": [],
+            });
         }
 
         // Post the suppressive fire card

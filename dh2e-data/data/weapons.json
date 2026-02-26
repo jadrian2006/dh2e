@@ -18,16 +18,19 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 0.5,
             "qualities": [],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -49,10 +52,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 3,
             "qualities": [
@@ -60,7 +59,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -82,10 +88,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 7,
             "qualities": [
@@ -94,7 +96,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -116,10 +125,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 2,
             "qualities": [
@@ -127,7 +132,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -149,10 +161,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 3,
             "qualities": [
@@ -161,7 +169,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -183,10 +198,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 3,
             "qualities": [
@@ -194,7 +205,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -216,10 +234,6 @@
                 "bonus": 1
             },
             "penetration": 1,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 4.5,
             "qualities": [
@@ -228,7 +242,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -250,10 +271,6 @@
                 "bonus": 2
             },
             "penetration": 2,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 6,
             "qualities": [
@@ -262,7 +279,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -284,10 +308,6 @@
                 "bonus": 4
             },
             "penetration": 2,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 13,
             "qualities": [
@@ -296,7 +316,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -318,10 +345,6 @@
                 "bonus": 5
             },
             "penetration": 5,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 3,
             "qualities": [
@@ -330,7 +353,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -352,10 +382,6 @@
                 "bonus": 7
             },
             "penetration": 7,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 6,
             "qualities": [
@@ -364,7 +390,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -386,10 +419,6 @@
                 "bonus": 5
             },
             "penetration": 4,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 5.5,
             "qualities": [
@@ -398,7 +427,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -420,10 +456,6 @@
                 "bonus": 0
             },
             "penetration": 9,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 13,
             "qualities": [
@@ -432,7 +464,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -454,10 +493,6 @@
                 "bonus": 0
             },
             "penetration": 2,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 3.5,
             "qualities": [
@@ -466,7 +501,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -488,10 +530,6 @@
                 "bonus": 0
             },
             "penetration": 2,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 5,
             "qualities": [
@@ -500,7 +538,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -522,16 +567,19 @@
                 "bonus": 0
             },
             "penetration": 2,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 0.5,
             "qualities": [],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -553,10 +601,6 @@
                 "bonus": 0
             },
             "penetration": 2,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 3,
             "qualities": [
@@ -564,7 +608,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -586,10 +637,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 2,
             "qualities": [
@@ -598,7 +645,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -620,10 +674,6 @@
                 "bonus": 4
             },
             "penetration": 6,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 8,
             "qualities": [
@@ -633,7 +683,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -655,10 +712,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 2.5,
             "qualities": [
@@ -666,7 +719,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -688,10 +748,6 @@
                 "bonus": 0
             },
             "penetration": 7,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 8,
             "qualities": [
@@ -701,7 +757,14 @@
             ],
             "equipped": false,
             "weaponGroup": "",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -723,10 +786,6 @@
                 "bonus": 3
             },
             "penetration": 0,
-            "clip": {
-                "value": 9,
-                "max": 9
-            },
             "reload": "Half",
             "weight": 1.5,
             "qualities": [
@@ -734,7 +793,14 @@
             ],
             "equipped": false,
             "weaponGroup": "sp",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 9,
+                "max": 9
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -756,10 +822,6 @@
                 "bonus": 3
             },
             "penetration": 0,
-            "clip": {
-                "value": 6,
-                "max": 6
-            },
             "reload": "2Full",
             "weight": 1.5,
             "qualities": [
@@ -767,7 +829,14 @@
             ],
             "equipped": false,
             "weaponGroup": "sp",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 6,
+                "max": 6
+            },
+            "loadType": "individual",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -789,10 +858,6 @@
                 "bonus": 4
             },
             "penetration": 2,
-            "clip": {
-                "value": 5,
-                "max": 5
-            },
             "reload": "2Full",
             "weight": 3,
             "qualities": [
@@ -800,7 +865,14 @@
             ],
             "equipped": false,
             "weaponGroup": "sp",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 5,
+                "max": 5
+            },
+            "loadType": "individual",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -822,16 +894,19 @@
                 "bonus": 2
             },
             "penetration": 0,
-            "clip": {
-                "value": 18,
-                "max": 18
-            },
             "reload": "Full",
             "weight": 1.5,
             "qualities": [],
             "equipped": false,
             "weaponGroup": "sp",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 18,
+                "max": 18
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -853,10 +928,6 @@
                 "bonus": 2
             },
             "penetration": 0,
-            "clip": {
-                "value": 30,
-                "max": 30
-            },
             "reload": "Half",
             "weight": 1.5,
             "qualities": [
@@ -864,7 +935,14 @@
             ],
             "equipped": false,
             "weaponGroup": "las",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 30,
+                "max": 30
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -886,10 +964,6 @@
                 "bonus": 5
             },
             "penetration": 4,
-            "clip": {
-                "value": 8,
-                "max": 8
-            },
             "reload": "Full",
             "weight": 3.5,
             "qualities": [
@@ -897,7 +971,14 @@
             ],
             "equipped": false,
             "weaponGroup": "bolt",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 8,
+                "max": 8
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -919,10 +1000,6 @@
                 "bonus": 2
             },
             "penetration": 12,
-            "clip": {
-                "value": 3,
-                "max": 3
-            },
             "reload": "Full",
             "weight": 2.5,
             "qualities": [
@@ -930,7 +1007,14 @@
             ],
             "equipped": false,
             "weaponGroup": "melta",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 3,
+                "max": 3
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -952,10 +1036,6 @@
                 "bonus": 6
             },
             "penetration": 6,
-            "clip": {
-                "value": 10,
-                "max": 10
-            },
             "reload": "3Full",
             "weight": 4,
             "qualities": [
@@ -964,7 +1044,14 @@
             ],
             "equipped": false,
             "weaponGroup": "plasma",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 10,
+                "max": 10
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -986,10 +1073,6 @@
                 "bonus": 4
             },
             "penetration": 2,
-            "clip": {
-                "value": 2,
-                "max": 2
-            },
             "reload": "2Full",
             "weight": 3.5,
             "qualities": [
@@ -998,7 +1081,14 @@
             ],
             "equipped": false,
             "weaponGroup": "flame",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 2,
+                "max": 2
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1020,16 +1110,19 @@
                 "bonus": 3
             },
             "penetration": 0,
-            "clip": {
-                "value": 30,
-                "max": 30
-            },
             "reload": "Full",
             "weight": 5,
             "qualities": [],
             "equipped": false,
             "weaponGroup": "sp",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 30,
+                "max": 30
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1051,18 +1144,21 @@
                 "bonus": 4
             },
             "penetration": 0,
-            "clip": {
-                "value": 8,
-                "max": 8
-            },
             "reload": "2Full",
             "weight": 5,
             "qualities": [
                 "Scatter"
             ],
             "equipped": false,
-            "weaponGroup": "sp",
-            "craftsmanship": "common"
+            "weaponGroup": "shotgun",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 8,
+                "max": 8
+            },
+            "loadType": "individual",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1084,10 +1180,6 @@
                 "bonus": 3
             },
             "penetration": 0,
-            "clip": {
-                "value": 5,
-                "max": 5
-            },
             "reload": "Full",
             "weight": 5,
             "qualities": [
@@ -1096,7 +1188,14 @@
             ],
             "equipped": false,
             "weaponGroup": "sp",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 5,
+                "max": 5
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1118,10 +1217,6 @@
                 "bonus": 3
             },
             "penetration": 0,
-            "clip": {
-                "value": 60,
-                "max": 60
-            },
             "reload": "Full",
             "weight": 4,
             "qualities": [
@@ -1129,7 +1224,14 @@
             ],
             "equipped": false,
             "weaponGroup": "las",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 60,
+                "max": 60
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1151,10 +1253,6 @@
                 "bonus": 3
             },
             "penetration": 1,
-            "clip": {
-                "value": 40,
-                "max": 40
-            },
             "reload": "Full",
             "weight": 4.5,
             "qualities": [
@@ -1164,7 +1262,14 @@
             ],
             "equipped": false,
             "weaponGroup": "las",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 40,
+                "max": 40
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1186,10 +1291,6 @@
                 "bonus": 5
             },
             "penetration": 4,
-            "clip": {
-                "value": 24,
-                "max": 24
-            },
             "reload": "Full",
             "weight": 7,
             "qualities": [
@@ -1197,7 +1298,14 @@
             ],
             "equipped": false,
             "weaponGroup": "bolt",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 24,
+                "max": 24
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1219,10 +1327,6 @@
                 "bonus": 4
             },
             "penetration": 2,
-            "clip": {
-                "value": 6,
-                "max": 6
-            },
             "reload": "2Full",
             "weight": 6,
             "qualities": [
@@ -1231,7 +1335,14 @@
             ],
             "equipped": false,
             "weaponGroup": "flame",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 6,
+                "max": 6
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1253,10 +1364,6 @@
                 "bonus": 4
             },
             "penetration": 12,
-            "clip": {
-                "value": 5,
-                "max": 5
-            },
             "reload": "2Full",
             "weight": 8,
             "qualities": [
@@ -1264,7 +1371,14 @@
             ],
             "equipped": false,
             "weaponGroup": "melta",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 5,
+                "max": 5
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1286,10 +1400,6 @@
                 "bonus": 7
             },
             "penetration": 6,
-            "clip": {
-                "value": 20,
-                "max": 20
-            },
             "reload": "5Full",
             "weight": 18,
             "qualities": [
@@ -1298,7 +1408,14 @@
             ],
             "equipped": false,
             "weaponGroup": "plasma",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 20,
+                "max": 20
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1320,10 +1437,6 @@
                 "bonus": 4
             },
             "penetration": 3,
-            "clip": {
-                "value": 20,
-                "max": 20
-            },
             "reload": "Full",
             "weight": 5,
             "qualities": [
@@ -1332,7 +1445,14 @@
             ],
             "equipped": false,
             "weaponGroup": "sp",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 20,
+                "max": 20
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1354,10 +1474,6 @@
                 "bonus": 5
             },
             "penetration": 4,
-            "clip": {
-                "value": 60,
-                "max": 60
-            },
             "reload": "2Full",
             "weight": 9,
             "qualities": [
@@ -1366,7 +1482,14 @@
             ],
             "equipped": false,
             "weaponGroup": "bolt",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 60,
+                "max": 60
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1388,10 +1511,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 6,
-                "max": 6
-            },
             "reload": "2Full",
             "weight": 12,
             "qualities": [
@@ -1399,7 +1518,14 @@
             ],
             "equipped": false,
             "weaponGroup": "launcher",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 6,
+                "max": 6
+            },
+            "loadType": "individual",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1421,10 +1547,6 @@
                 "bonus": 8
             },
             "penetration": 5,
-            "clip": {
-                "value": 60,
-                "max": 60
-            },
             "reload": "Full",
             "weight": 40,
             "qualities": [
@@ -1432,7 +1554,14 @@
             ],
             "equipped": false,
             "weaponGroup": "bolt",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 60,
+                "max": 60
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1454,10 +1583,6 @@
                 "bonus": 5
             },
             "penetration": 4,
-            "clip": {
-                "value": 10,
-                "max": 10
-            },
             "reload": "2Full",
             "weight": 45,
             "qualities": [
@@ -1466,7 +1591,14 @@
             ],
             "equipped": false,
             "weaponGroup": "flame",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 10,
+                "max": 10
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1488,10 +1620,6 @@
                 "bonus": 8
             },
             "penetration": 6,
-            "clip": {
-                "value": 20,
-                "max": 20
-            },
             "reload": "2Full",
             "weight": 40,
             "qualities": [
@@ -1500,7 +1628,14 @@
             ],
             "equipped": false,
             "weaponGroup": "sp",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 20,
+                "max": 20
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1522,10 +1657,6 @@
                 "bonus": 10
             },
             "penetration": 10,
-            "clip": {
-                "value": 5,
-                "max": 5
-            },
             "reload": "2Full",
             "weight": 55,
             "qualities": [
@@ -1535,7 +1666,14 @@
             ],
             "equipped": false,
             "weaponGroup": "las",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 5,
+                "max": 5
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1557,16 +1695,19 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 1,
-                "max": 1
-            },
             "reload": "Full",
             "weight": 15,
             "qualities": [],
             "equipped": false,
             "weaponGroup": "launcher",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 1,
+                "max": 1
+            },
+            "loadType": "individual",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1588,10 +1729,6 @@
                 "bonus": 10
             },
             "penetration": 2,
-            "clip": {
-                "value": 100,
-                "max": 100
-            },
             "reload": "2Full",
             "weight": 35,
             "qualities": [
@@ -1599,7 +1736,14 @@
             ],
             "equipped": false,
             "weaponGroup": "las",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 100,
+                "max": 100
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1621,10 +1765,6 @@
                 "bonus": 10
             },
             "penetration": 10,
-            "clip": {
-                "value": 16,
-                "max": 16
-            },
             "reload": "5Full",
             "weight": 40,
             "qualities": [
@@ -1635,7 +1775,14 @@
             ],
             "equipped": false,
             "weaponGroup": "plasma",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 16,
+                "max": 16
+            },
+            "loadType": "magazine",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1657,10 +1804,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 0.5,
             "qualities": [
@@ -1669,7 +1812,14 @@
             ],
             "equipped": false,
             "weaponGroup": "thrown",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1691,10 +1841,6 @@
                 "bonus": 4
             },
             "penetration": 6,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 0.5,
             "qualities": [
@@ -1702,7 +1848,14 @@
             ],
             "equipped": false,
             "weaponGroup": "thrown",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1724,10 +1877,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 0.5,
             "qualities": [
@@ -1735,7 +1884,14 @@
             ],
             "equipped": false,
             "weaponGroup": "thrown",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1757,10 +1913,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 0.5,
             "qualities": [
@@ -1768,7 +1920,14 @@
             ],
             "equipped": false,
             "weaponGroup": "thrown",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1790,10 +1949,6 @@
                 "bonus": 0
             },
             "penetration": 0,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 0.5,
             "qualities": [
@@ -1801,7 +1956,14 @@
             ],
             "equipped": false,
             "weaponGroup": "thrown",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     },
     {
@@ -1823,10 +1985,6 @@
                 "bonus": 3
             },
             "penetration": 6,
-            "clip": {
-                "value": 0,
-                "max": 0
-            },
             "reload": "",
             "weight": 0.5,
             "qualities": [
@@ -1835,7 +1993,14 @@
             ],
             "equipped": false,
             "weaponGroup": "thrown",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
         }
     }
 ]

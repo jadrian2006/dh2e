@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { WeaponDragData } from "../../../macros/types.ts";
-    import { canFire, getCompatibleAmmo, reloadWeapon, parseReloadCost } from "@combat/ammo.ts";
+    import { canFire, getCompatibleAmmo, getCompatibleMagazines, reloadWeapon, parseReloadCost } from "@combat/ammo.ts";
 
     let {
         weapons = [],
@@ -10,9 +10,9 @@
         actor: any;
     } = $props();
 
-    function ammoColor(clipValue: number, clipMax: number): string {
-        if (clipValue <= 0) return "var(--dh2e-danger, #c0392b)";
-        const pct = clipValue / clipMax;
+    function ammoColor(magValue: number, magMax: number): string {
+        if (magValue <= 0) return "var(--dh2e-danger, #c0392b)";
+        const pct = magValue / magMax;
         if (pct > 0.5) return "var(--dh2e-success, #27ae60)";
         if (pct > 0.25) return "var(--dh2e-warning, #d4a017)";
         return "var(--dh2e-danger, #c0392b)";
@@ -20,16 +20,21 @@
 
     function isDisabled(weapon: any, fireMode: string): boolean {
         const sys = weapon.system ?? {};
-        if ((sys.clip?.max ?? 0) === 0) return false;
+        if ((sys.magazine?.max ?? 0) === 0) return false;
         return !canFire(weapon, fireMode as any);
     }
 
     function showReload(weapon: any): boolean {
         const sys = weapon.system ?? {};
-        const clipMax = sys.clip?.max ?? 0;
-        if (clipMax === 0) return false;
-        if ((sys.clip?.value ?? 0) >= clipMax) return false;
-        return getCompatibleAmmo(actor, weapon).length > 0;
+        const magMax = sys.magazine?.max ?? 0;
+        if (magMax === 0) return false;
+        if ((sys.magazine?.value ?? 0) >= magMax) return false;
+        const loadType = sys.loadType ?? "magazine";
+        if (loadType === "individual") {
+            return getCompatibleAmmo(actor, weapon).length > 0;
+        }
+        // Magazine-type: check for loaded magazines or loose ammo as fallback
+        return getCompatibleMagazines(actor, weapon).length > 0 || getCompatibleAmmo(actor, weapon).length > 0;
     }
 
     function reloadTooltip(weapon: any): string {
@@ -46,27 +51,44 @@
     }
 
     async function onReload(weapon: any) {
-        const compatible = getCompatibleAmmo(actor, weapon);
-        if (compatible.length === 0) {
-            ui.notifications.warn(game.i18n?.localize("DH2E.Ammo.NoAmmo") ?? "No compatible ammunition in inventory.");
-            return;
-        }
+        const sys = weapon.system ?? {};
+        const loadType = sys.loadType ?? "magazine";
 
-        if (compatible.length > 1) {
-            const { showAmmoPicker } = await import("@combat/ammo-picker.ts");
-            await showAmmoPicker(actor, weapon, compatible);
-        } else {
-            const result = await reloadWeapon(actor, weapon, compatible[0]);
-            if (result) {
-                const msgKey = result.partial ? "DH2E.Ammo.ReloadPartial" : "DH2E.Ammo.ReloadComplete";
-                ui.notifications.info(game.i18n?.format(msgKey, {
-                    actor: actor.name,
-                    weapon: weapon.name,
-                    loaded: String(result.loaded),
-                    needed: String((weapon.system?.clip?.max ?? 0) - (weapon.system?.clip?.value ?? 0) + result.loaded),
-                    ammo: result.ammoName,
-                }) ?? `${actor.name} reloads ${weapon.name} (${result.loaded} rounds of ${result.ammoName})`);
+        if (loadType === "individual") {
+            // Individual loading — use loose ammo picker
+            const compatible = getCompatibleAmmo(actor, weapon);
+            if (compatible.length === 0) {
+                ui.notifications.warn(game.i18n?.localize("DH2E.Ammo.NoAmmo") ?? "No compatible ammunition in inventory.");
+                return;
             }
+            if (compatible.length > 1) {
+                const { showAmmoPicker } = await import("@combat/ammo-picker.ts");
+                await showAmmoPicker(actor, weapon, compatible);
+            } else {
+                const { reloadIndividual } = await import("@combat/ammo.ts");
+                const result = await reloadIndividual(actor, weapon, compatible[0]);
+                if (result) {
+                    ui.notifications.info(game.i18n?.format(result.partial ? "DH2E.Ammo.ReloadPartial" : "DH2E.Ammo.ReloadComplete", {
+                        actor: actor.name,
+                        weapon: weapon.name,
+                        loaded: String(result.loaded),
+                        needed: String((sys.magazine?.max ?? 0) - result.newMagValue + result.loaded),
+                        ammo: result.ammoName,
+                    }) ?? `${actor.name} reloads ${weapon.name} (${result.loaded} rounds of ${result.ammoName})`);
+                }
+            }
+        } else {
+            // Magazine swap
+            const magazines = getCompatibleMagazines(actor, weapon);
+            const looseAmmo = getCompatibleAmmo(actor, weapon);
+
+            if (magazines.length === 0 && looseAmmo.length === 0) {
+                ui.notifications.warn(game.i18n?.localize("DH2E.Ammo.NoMagazines") ?? "No loaded magazines available.");
+                return;
+            }
+
+            const { showAmmoPicker } = await import("@combat/ammo-picker.ts");
+            await showAmmoPicker(actor, weapon, looseAmmo);
         }
     }
 
@@ -83,8 +105,8 @@
 <div class="weapon-tray">
     {#each weapons as weapon}
         {@const sys = weapon.system ?? {}}
-        {@const clipMax = sys.clip?.max ?? 0}
-        {@const clipValue = sys.clip?.value ?? 0}
+        {@const magMax = sys.magazine?.max ?? 0}
+        {@const magValue = sys.magazine?.value ?? 0}
         <div class="weapon-btn-group" draggable="true" ondragstart={(e) => onDragStart(e, weapon)}>
             <button
                 class="weapon-btn"
@@ -111,12 +133,12 @@
                     title="Full Auto ({sys.rof.full} rounds)"
                 >F</button>
             {/if}
-            {#if clipMax > 0}
-                <span class="ammo-count" class:ammo-empty={clipValue <= 0} class:ammo-flash={clipValue <= 0} style="color: {ammoColor(clipValue, clipMax)}">
-                    {#if clipValue <= 0}
+            {#if magMax > 0}
+                <span class="ammo-count" class:ammo-empty={magValue <= 0} class:ammo-flash={magValue <= 0} style="color: {ammoColor(magValue, magMax)}">
+                    {#if magValue <= 0}
                         EMPTY
                     {:else}
-                        {clipValue}/{clipMax}
+                        {magValue}/{magMax}
                     {/if}
                 </span>
             {/if}

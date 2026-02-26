@@ -69,7 +69,8 @@ describe("SuppressiveFireResolver", () => {
                 id: "weapon1",
                 name: "Heavy Stubber",
                 system: {
-                    clip: { value: 60, max: 60 },
+                    magazine: { value: 60, max: 60 },
+                    loadedRounds: [{ name: "Solid Rounds", count: 60 }],
                 },
                 update: vi.fn(async () => {}),
             };
@@ -86,7 +87,7 @@ describe("SuppressiveFireResolver", () => {
             });
 
             // Weapon ammo should be expended (set to 0)
-            expect(mockWeapon.update).toHaveBeenCalledWith({ "system.clip.value": 0 });
+            expect(mockWeapon.update).toHaveBeenCalledWith({ "system.magazine.value": 0, "system.loadedRounds": [] });
 
             // A chat message should have been created
             expect(MockChatMessage.messages).toHaveLength(1);
@@ -102,7 +103,7 @@ describe("SuppressiveFireResolver", () => {
             const mockWeapon = {
                 id: "weapon2",
                 name: "Autocannon",
-                system: { clip: { value: 20, max: 20 } },
+                system: { magazine: { value: 20, max: 20 }, loadedRounds: [{ name: "Solid Rounds", count: 20 }] },
                 update: vi.fn(async () => {}),
             };
 
@@ -123,11 +124,11 @@ describe("SuppressiveFireResolver", () => {
             expect(msg.flags?.dh2e?.result?.targetIds).toEqual(["target1", "target2"]);
         });
 
-        it("handles weapon with no clip (max 0) gracefully", async () => {
+        it("handles weapon with no magazine (max 0) gracefully", async () => {
             const mockWeapon = {
                 id: "weapon3",
                 name: "Flamer",
-                system: { clip: { value: 0, max: 0 } },
+                system: { magazine: { value: 0, max: 0 }, loadedRounds: [] },
                 update: vi.fn(async () => {}),
             };
 
@@ -142,7 +143,7 @@ describe("SuppressiveFireResolver", () => {
                 weapon: mockWeapon as any,
             });
 
-            // With max 0, update should not be called (clipMax > 0 check)
+            // With max 0, update should not be called (magMax > 0 check)
             expect(mockWeapon.update).not.toHaveBeenCalled();
             // Chat message should still be posted
             expect(MockChatMessage.messages).toHaveLength(1);

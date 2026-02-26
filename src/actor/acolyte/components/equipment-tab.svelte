@@ -1,7 +1,7 @@
 <script lang="ts">
     import { sendItemToChat } from "../../../chat/send-to-chat.ts";
     import { performMaintenance } from "../../../item/cybernetic/maintenance.ts";
-    import { reloadWeapon, unloadWeapon, getCompatibleAmmo, loadMagazine, unloadMagazine } from "../../../combat/ammo.ts";
+    import { reloadWeapon, unloadWeapon, getCompatibleAmmo, getCompatibleMagazines, loadMagazine, unloadMagazine, totalLoaded } from "../../../combat/ammo.ts";
     import type { MaintenanceState } from "../../../item/cybernetic/data.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
@@ -173,15 +173,33 @@
     async function reloadItem(item: any) {
         const actor = ctx.actor;
         if (!actor) return;
+
+        const sys = item.system ?? {};
+        const loadType = sys.loadType ?? "magazine";
+
+        // For magazine-type: show magazine picker if available
+        if (loadType !== "individual") {
+            const magazines = getCompatibleMagazines(actor, item);
+            const looseAmmo = getCompatibleAmmo(actor, item);
+            if (magazines.length > 0 || looseAmmo.length > 1) {
+                const { showAmmoPicker } = await import("../../../combat/ammo-picker.ts");
+                await showAmmoPicker(actor, item, looseAmmo);
+                return;
+            }
+        }
+
         const result = await reloadWeapon(actor, item);
         if (result) {
-            const msg = result.partial
-                ? `Partial reload: ${result.loaded} rounds of ${result.ammoName} loaded (${result.newClipValue}/${item.system.clip.max})`
-                : `Reloaded with ${result.ammoName} (${result.newClipValue}/${item.system.clip.max})`;
+            const msg = result.magazineSwap
+                ? `Magazine swapped: ${result.ammoName} (${result.newMagValue}/${sys.magazine?.max ?? 0})`
+                : result.partial
+                    ? `Partial reload: ${result.loaded} rounds of ${result.ammoName} loaded (${result.newMagValue}/${sys.magazine?.max ?? 0})`
+                    : `Reloaded with ${result.ammoName} (${result.newMagValue}/${sys.magazine?.max ?? 0})`;
             ui.notifications?.info(msg);
         } else {
             const compatible = getCompatibleAmmo(actor, item);
-            if (compatible.length === 0) {
+            const magazines = getCompatibleMagazines(actor, item);
+            if (compatible.length === 0 && magazines.length === 0) {
                 ui.notifications?.warn("No compatible ammunition in inventory.");
             } else {
                 ui.notifications?.info("Weapon is already fully loaded.");
@@ -189,7 +207,7 @@
         }
     }
 
-    /** Unload a weapon's clip back to inventory */
+    /** Unload a weapon's magazine/rounds back to inventory */
     async function unloadItem(item: any) {
         const actor = ctx.actor;
         if (!actor) return;
@@ -197,7 +215,7 @@
         if (result) {
             ui.notifications?.info(`Unloaded ${result.unloaded} rounds of ${result.ammoName}.`);
         } else {
-            ui.notifications?.info("Weapon clip is already empty.");
+            ui.notifications?.info("Weapon is already empty.");
         }
     }
 
@@ -205,18 +223,10 @@
     async function loadMag(item: any) {
         const actor = ctx.actor;
         if (!actor) return;
-        const result = await loadMagazine(actor, item);
-        if (result) {
-            ui.notifications?.info(`Loaded ${result.loaded} rounds of ${result.ammoName} into magazine.`);
-        } else {
-            const loaded = item.system?.loaded ?? 0;
-            const capacity = item.system?.capacity ?? 0;
-            if (loaded >= capacity) {
-                ui.notifications?.info("Magazine is full.");
-            } else {
-                ui.notifications?.warn("No compatible loose ammo found.");
-            }
-        }
+
+        // Use the magazine loading dialog for detailed control
+        const { showMagazineLoader } = await import("../../../combat/ammo-loader.ts");
+        await showMagazineLoader(actor, item);
     }
 
     /** Unload rounds from a magazine back to inventory */
@@ -307,40 +317,42 @@
                 <div class="item-info">
                     <span class="item-name">{item.name}</span>
                     <span class="item-type">{item.type}</span>
-                    {#if item.type === "weapon" && (item.system?.clip?.max ?? 0) > 0}
-                        <div class="clip-row">
-                            <div class="clip-pips" title="{item.system.clip.value ?? 0} / {item.system.clip.max} rounds">
-                                {#each Array(Math.min(item.system.clip.max, 20)) as _, i}
-                                    <span class="pip" class:filled={i < (item.system.clip.value ?? 0)}></span>
+                    {#if item.type === "weapon" && (item.system?.magazine?.max ?? 0) > 0}
+                        <div class="mag-row">
+                            <div class="mag-pips" title="{item.system.magazine.value ?? 0} / {item.system.magazine.max} rounds">
+                                {#each Array(Math.min(item.system.magazine.max, 20)) as _, i}
+                                    <span class="pip" class:filled={i < (item.system.magazine.value ?? 0)}></span>
                                 {/each}
-                                {#if item.system.clip.max > 20}
-                                    <span class="pip-overflow">+{item.system.clip.max - 20}</span>
+                                {#if item.system.magazine.max > 20}
+                                    <span class="pip-overflow">+{item.system.magazine.max - 20}</span>
                                 {/if}
                             </div>
-                            {#if (item.system.clip.value ?? 0) < (item.system.clip.max ?? 0)}
+                            {#if (item.system.magazine.value ?? 0) < (item.system.magazine.max ?? 0)}
                                 <button class="reload-btn" onclick={(e) => { e.stopPropagation(); reloadItem(item); }} title="Reload">
                                     <i class="fa-solid fa-rotate-right"></i>
                                 </button>
                             {/if}
-                            {#if (item.system.clip.value ?? 0) > 0}
-                                <button class="reload-btn unload" onclick={(e) => { e.stopPropagation(); unloadItem(item); }} title="Unload clip">
+                            {#if (item.system.magazine.value ?? 0) > 0}
+                                <button class="reload-btn unload" onclick={(e) => { e.stopPropagation(); unloadItem(item); }} title={item.system.loadType === "magazine" ? "Eject magazine" : "Unload rounds"}>
                                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                 </button>
                             {/if}
                         </div>
                     {/if}
                     {#if item.type === "ammunition" && (item.system?.capacity ?? 0) > 0}
+                        {@const magRounds = item.system.loadedRounds ?? []}
+                        {@const magLoaded = totalLoaded(magRounds)}
                         <div class="mag-row">
-                            <span class="mag-count">{item.system.loaded ?? 0}/{item.system.capacity}</span>
-                            {#if item.system.loadedAmmoName}
-                                <span class="mag-type">{item.system.loadedAmmoName}</span>
+                            <span class="mag-count">{magLoaded}/{item.system.capacity}</span>
+                            {#if magRounds.length > 0}
+                                <span class="mag-type">{magRounds.map((r) => `${r.name} ×${r.count}`).join(", ")}</span>
                             {/if}
-                            {#if (item.system.loaded ?? 0) < (item.system.capacity ?? 0)}
+                            {#if magLoaded < (item.system.capacity ?? 0)}
                                 <button class="reload-btn" onclick={(e) => { e.stopPropagation(); loadMag(item); }} title="Load magazine">
                                     <i class="fa-solid fa-rotate-right"></i>
                                 </button>
                             {/if}
-                            {#if (item.system.loaded ?? 0) > 0}
+                            {#if magLoaded > 0}
                                 <button class="reload-btn unload" onclick={(e) => { e.stopPropagation(); unloadMag(item); }} title="Unload magazine">
                                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                 </button>
@@ -522,20 +534,13 @@
         text-transform: capitalize;
     }
 
-    .clip-row {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        margin-top: 1px;
-    }
-
-    .clip-pips {
+    .mag-pips {
         display: flex;
         align-items: center;
         gap: 2px;
     }
 
-    .clip-pips .pip {
+    .mag-pips .pip {
         display: inline-block;
         width: 6px;
         height: 6px;

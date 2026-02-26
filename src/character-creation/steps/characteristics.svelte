@@ -11,6 +11,7 @@
         homeworld,
         characteristics = $bindable<Record<CharacteristicAbbrev, number>>(),
         woundsRoll = $bindable<number | null>(null),
+        woundsRollCount = $bindable<number>(0),
         charRolled = $bindable<Record<string, boolean>>(),
         charRerollUsed = $bindable<boolean>(false),
         charRerolledFrom = $bindable<Record<string, number | undefined>>(),
@@ -22,6 +23,7 @@
         homeworld: HomeworldOption | null;
         characteristics: Record<CharacteristicAbbrev, number>;
         woundsRoll: number | null;
+        woundsRollCount: number;
         charRolled: Record<string, boolean>;
         charRerollUsed: boolean;
         charRerolledFrom: Record<string, number | undefined>;
@@ -178,7 +180,6 @@
     // --- Wounds rolling ---
 
     let woundsRolling = $state(false);
-    let woundsRollCount = $state(0);
     const woundsFormula = $derived(homeworld?.woundsFormula ?? null);
     const canRerollWounds = $derived(woundsRollCount > 0 && woundsRollCount <= maxWoundsRerolls);
 
@@ -195,11 +196,15 @@
         }
     }
 
-    // Reset wounds state when homeworld changes
+    // Reset wounds state only when homeworld actually changes (not on mount)
+    let prevHomeworldName: string | null | undefined = homeworld?.name;
     $effect(() => {
-        const _ = homeworld?.name;
-        woundsRoll = null;
-        woundsRollCount = 0;
+        const currentName = homeworld?.name;
+        if (prevHomeworldName !== undefined && currentName !== prevHomeworldName) {
+            woundsRoll = null;
+            woundsRollCount = 0;
+        }
+        prevHomeworldName = currentName;
     });
 
     // --- GM-Approved Reroll Threshold ---
@@ -377,10 +382,11 @@
                     {/if}
 
                     {#if hasRolled}
+                        {@const hwModTip = isPositive(key) ? " + 5" : isNegative(key) ? " - 5" : ""}
                         <span
                             class="char-value"
                             class:rerolled={wasRerolled}
-                            title={details ? `${details.die1} + ${details.die2} + ${details.base} = ${details.die1 + details.die2 + details.base}` : ""}
+                            title={details ? `${details.die1} + ${details.die2} + ${rollBase}${hwModTip} = ${details.die1 + details.die2 + details.base}` : ""}
                         >
                             {#if oldVal !== undefined}
                                 <span class="old-value">{oldVal}</span>
@@ -388,7 +394,10 @@
                             {characteristics[key]}
                         </span>
                         {#if details}
-                            <span class="roll-breakdown">{details.die1} + {details.die2} + {details.base}</span>
+                            {@const hwMod = isPositive(key) ? 5 : isNegative(key) ? -5 : 0}
+                            <span class="roll-breakdown">
+                                {details.die1} + {details.die2} + {rollBase}{#if hwMod > 0} + {hwMod}{:else if hwMod < 0} - {Math.abs(hwMod)}{/if}
+                            </span>
                         {/if}
 
                         {#if pickingReroll}

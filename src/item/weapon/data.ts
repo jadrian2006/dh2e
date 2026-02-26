@@ -5,6 +5,15 @@ import type { RuleElementSource } from "@rules/rule-element/base.ts";
 const WEAPON_GROUPS = ["bolt", "las", "sp", "flame", "melta", "plasma", "shotgun", "launcher", "crossbow", "bow", "needler"] as const;
 type WeaponGroup = typeof WEAPON_GROUPS[number];
 
+/** A stack of rounds loaded in a weapon or magazine */
+interface LoadedRoundEntry {
+    name: string;
+    count: number;
+}
+
+/** Weapon load types */
+type LoadType = "magazine" | "individual" | "";
+
 export interface WeaponSystemSource {
     description: string;
     class: WeaponClass;
@@ -20,8 +29,8 @@ export interface WeaponSystemSource {
         bonus: number;     // flat bonus added to roll (often SB or 0)
     };
     penetration: number;
-    clip: {
-        value: number;     // current ammo
+    magazine: {
+        value: number;     // current total rounds (sum of loadedRounds counts)
         max: number;       // magazine capacity (0 = unlimited/melee)
     };
     reload: string;        // e.g., "Full", "Half", "2Full"
@@ -30,6 +39,12 @@ export interface WeaponSystemSource {
     equipped: boolean;
     /** UUID of loaded ammunition item (empty = no special ammo) */
     loadedAmmoId: string;
+    /** How this weapon loads: "magazine" = swap detachable mag, "individual" = load rounds, "" = melee/thrown */
+    loadType: LoadType;
+    /** Name of the inserted magazine item (for ejection reconstruction) */
+    loadedMagazineName: string;
+    /** Rounds currently in the weapon, ordered bottom-to-top (LIFO: last entry fires first) */
+    loadedRounds: LoadedRoundEntry[];
     /** Weapon group for ammunition compatibility (e.g., "sp", "las", "bolt") */
     weaponGroup: string;
     /** Progress toward multi-turn reloads (0 = not reloading) */
@@ -43,4 +58,4 @@ export interface WeaponSystemSource {
 }
 
 export { WEAPON_GROUPS };
-export type { WeaponGroup };
+export type { WeaponGroup, LoadedRoundEntry, LoadType };

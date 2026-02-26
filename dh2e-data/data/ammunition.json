@@ -13,7 +13,10 @@
             "weight": 0.5,
             "weaponGroup": "sp",
             "availability": "Common",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -30,7 +33,10 @@
             "weight": 0.3,
             "weaponGroup": "las",
             "availability": "Common",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -47,7 +53,10 @@
             "weight": 1,
             "weaponGroup": "bolt",
             "availability": "Rare",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -64,7 +73,10 @@
             "weight": 2,
             "weaponGroup": "flame",
             "availability": "Average",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -81,7 +93,10 @@
             "weight": 1.5,
             "weaponGroup": "melta",
             "availability": "Rare",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -98,7 +113,10 @@
             "weight": 1,
             "weaponGroup": "plasma",
             "availability": "Rare",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -115,7 +133,10 @@
             "weight": 0.5,
             "weaponGroup": "shotgun",
             "availability": "Common",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -132,7 +153,10 @@
             "weight": 0.5,
             "weaponGroup": "launcher",
             "availability": "Scarce",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -149,7 +173,10 @@
             "weight": 0.5,
             "weaponGroup": "sp",
             "availability": "Scarce",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -168,7 +195,10 @@
             "weight": 0.5,
             "weaponGroup": "sp",
             "availability": "Scarce",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -185,7 +215,10 @@
             "weight": 0.3,
             "weaponGroup": "las",
             "availability": "Rare",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -204,7 +237,10 @@
             "weight": 0.5,
             "weaponGroup": "shotgun",
             "availability": "Rare",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -221,7 +257,10 @@
             "weight": 0.5,
             "weaponGroup": "sp",
             "availability": "Average",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -240,7 +279,10 @@
             "weight": 0.5,
             "weaponGroup": "",
             "availability": "Very Rare",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -259,7 +301,10 @@
             "weight": 1,
             "weaponGroup": "bolt",
             "availability": "Very Rare",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -278,7 +323,10 @@
             "weight": 0.5,
             "weaponGroup": "sp",
             "availability": "Rare",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
         }
     },
     {
@@ -297,7 +345,470 @@
             "weight": 0.5,
             "weaponGroup": "plasma",
             "availability": "Very Rare",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
+        }
+    },
+    {
+        "name": "Stub Automatic Magazine",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable magazine for the Stub Automatic. Capacity: 9 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "sp",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 9,
+            "loadedRounds": [],
+            "forWeapon": "Stub Automatic"
+        }
+    },
+    {
+        "name": "Autopistol Magazine",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable magazine for the Autopistol. Capacity: 18 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "sp",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 18,
+            "loadedRounds": [],
+            "forWeapon": "Autopistol"
+        }
+    },
+    {
+        "name": "Autogun Magazine",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable magazine for the Autogun. Capacity: 30 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "sp",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 30,
+            "loadedRounds": [],
+            "forWeapon": "Autogun"
+        }
+    },
+    {
+        "name": "Hunting Rifle Magazine",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable magazine for the Hunting Rifle. Capacity: 5 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "sp",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 5,
+            "loadedRounds": [],
+            "forWeapon": "Hunting Rifle"
+        }
+    },
+    {
+        "name": "Sniper Rifle Magazine",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable magazine for the Sniper Rifle. Capacity: 20 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "sp",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 20,
+            "loadedRounds": [],
+            "forWeapon": "Sniper Rifle"
+        }
+    },
+    {
+        "name": "Autocannon Drum",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable magazine for the Autocannon. Capacity: 20 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "sp",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 20,
+            "loadedRounds": [],
+            "forWeapon": "Autocannon"
+        }
+    },
+    {
+        "name": "Laspistol Power Pack",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable power pack for the Laspistol. Capacity: 30 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "las",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 30,
+            "loadedRounds": [],
+            "forWeapon": "Laspistol"
+        }
+    },
+    {
+        "name": "Lasgun Power Pack",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable power pack for the Lasgun. Capacity: 60 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "las",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 60,
+            "loadedRounds": [],
+            "forWeapon": "Lasgun"
+        }
+    },
+    {
+        "name": "Long Las Power Pack",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable power pack for the Long Las. Capacity: 40 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "las",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 40,
+            "loadedRounds": [],
+            "forWeapon": "Long Las"
+        }
+    },
+    {
+        "name": "Lascannon Power Cell",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable power pack for the Lascannon. Capacity: 5 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "las",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 5,
+            "loadedRounds": [],
+            "forWeapon": "Lascannon"
+        }
+    },
+    {
+        "name": "Multi-Laser Power Cell",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable power pack for the Multi-Laser. Capacity: 100 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "las",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 100,
+            "loadedRounds": [],
+            "forWeapon": "Multi-Laser"
+        }
+    },
+    {
+        "name": "Bolt Pistol Magazine",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable magazine for the Bolt Pistol. Capacity: 8 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "bolt",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 8,
+            "loadedRounds": [],
+            "forWeapon": "Bolt Pistol"
+        }
+    },
+    {
+        "name": "Boltgun Magazine",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable magazine for the Boltgun. Capacity: 24 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "bolt",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 24,
+            "loadedRounds": [],
+            "forWeapon": "Boltgun"
+        }
+    },
+    {
+        "name": "Storm Bolter Drum",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable magazine for the Storm Bolter. Capacity: 60 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "bolt",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 60,
+            "loadedRounds": [],
+            "forWeapon": "Storm Bolter"
+        }
+    },
+    {
+        "name": "Heavy Bolter Belt Box",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable magazine for the Heavy Bolter. Capacity: 60 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "bolt",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 60,
+            "loadedRounds": [],
+            "forWeapon": "Heavy Bolter"
+        }
+    },
+    {
+        "name": "Hand Flamer Canister",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable fuel canister for the Hand Flamer. Capacity: 2 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "flame",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 2,
+            "loadedRounds": [],
+            "forWeapon": "Hand Flamer"
+        }
+    },
+    {
+        "name": "Flamer Canister",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable fuel canister for the Flamer. Capacity: 6 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "flame",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 6,
+            "loadedRounds": [],
+            "forWeapon": "Flamer"
+        }
+    },
+    {
+        "name": "Heavy Flamer Canister",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable fuel canister for the Heavy Flamer. Capacity: 10 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "flame",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 10,
+            "loadedRounds": [],
+            "forWeapon": "Heavy Flamer"
+        }
+    },
+    {
+        "name": "Inferno Pistol Canister",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable fuel canister for the Inferno Pistol. Capacity: 3 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "melta",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 3,
+            "loadedRounds": [],
+            "forWeapon": "Inferno Pistol"
+        }
+    },
+    {
+        "name": "Meltagun Canister",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable fuel canister for the Meltagun. Capacity: 5 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "melta",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 5,
+            "loadedRounds": [],
+            "forWeapon": "Meltagun"
+        }
+    },
+    {
+        "name": "Plasma Pistol Flask",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable containment flask for the Plasma Pistol. Capacity: 10 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "plasma",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 10,
+            "loadedRounds": [],
+            "forWeapon": "Plasma Pistol"
+        }
+    },
+    {
+        "name": "Plasma Gun Flask",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable containment flask for the Plasma Gun. Capacity: 20 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "plasma",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 20,
+            "loadedRounds": [],
+            "forWeapon": "Plasma Gun"
+        }
+    },
+    {
+        "name": "Plasma Cannon Flask",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A detachable containment flask for the Plasma Cannon. Capacity: 16 rounds.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "plasma",
+            "availability": "Common",
+            "craftsmanship": "common",
+            "capacity": 16,
+            "loadedRounds": [],
+            "forWeapon": "Plasma Cannon"
         }
     }
 ]

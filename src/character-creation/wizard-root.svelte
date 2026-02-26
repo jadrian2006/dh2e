@@ -33,6 +33,7 @@
     let role = $state<RoleOption | null>(null);
     let divination = $state<DivinationResult | null>(null);
     let woundsRoll = $state<number | null>(null);
+    let woundsRollCount = $state(0);
 
     // Gear choices state (for background "or" equipment)
     let gearChoices = $state<Record<number, string>>({});
@@ -133,6 +134,7 @@
                 {homeworld}
                 bind:characteristics
                 bind:woundsRoll
+                bind:woundsRollCount
                 bind:charRolled
                 bind:charRerollUsed
                 bind:charRerolledFrom

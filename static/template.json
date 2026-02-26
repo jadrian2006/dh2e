@@ -133,12 +133,15 @@
             "rof": { "single": true, "semi": 0, "full": 0 },
             "damage": { "formula": "1d10", "type": "impact", "bonus": 0 },
             "penetration": 0,
-            "clip": { "value": 0, "max": 0 },
+            "magazine": { "value": 0, "max": 0 },
             "reload": "",
             "weight": 0,
             "qualities": [],
             "equipped": false,
             "loadedAmmoId": "",
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
             "weaponGroup": "",
             "reloadProgress": 0,
             "rules": [],
@@ -245,8 +248,8 @@
             "availability": "Common",
             "craftsmanship": "common",
             "capacity": 0,
-            "loaded": 0,
-            "loadedAmmoName": ""
+            "loadedRounds": [],
+            "forWeapon": ""
         },
         "cybernetic": {
             "description": "",

@@ -606,36 +606,94 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             await this.#actor.createEmbeddedDocuments("Item", itemsToCreate);
         }
 
-        // Pre-load ranged weapons and grant one spare magazine of standard ammo
+        // Pre-load ranged weapons and grant 2 spare magazines (or loose rounds for individual-loaders)
         {
+            const STANDARD_AMMO: Record<string, string> = {
+                sp: "Solid Rounds",
+                las: "Charge Pack",
+                bolt: "Bolt Shells",
+                flame: "Promethium",
+                melta: "Melta Fuel",
+                plasma: "Plasma",
+                shotgun: "Shotgun Shells",
+                launcher: "Frag Grenades (Launcher)",
+            };
+
             const createdWeapons = this.#actor.items.filter((i: any) =>
-                i.type === "weapon" && (i.system?.clip?.max ?? 0) > 0,
+                i.type === "weapon" && (i.system?.magazine?.max ?? 0) > 0,
             );
             const ammoItemsToCreate: Record<string, unknown>[] = [];
+
             for (const w of createdWeapons) {
                 const sys = (w as any).system ?? {};
-                const clipMax = sys.clip?.max ?? 0;
-                // Pre-load the weapon (set clip.value = clip.max)
-                if (sys.clip?.value !== clipMax) {
-                    await w.update({ "system.clip.value": clipMax });
-                }
-                // Grant standard ammo matching the weapon's group
+                const magMax = sys.magazine?.max ?? 0;
                 const wGroup = sys.weaponGroup ?? "";
-                if (wGroup) {
-                    const ammoPack = game.packs?.get("dh2e-data.ammunition");
-                    if (ammoPack) {
-                        const ammoIndex = await ammoPack.getIndex();
-                        const ammoDocuments = await ammoPack.getDocuments();
-                        // Find standard (non-specialty) ammo for this group
-                        const stdAmmo = ammoDocuments.find((a: any) => {
-                            const as = a.system ?? {};
-                            return as.weaponGroup === wGroup && as.damageModifier === 0 && as.penetrationModifier === 0;
-                        });
-                        if (stdAmmo) {
-                            const obj = (stdAmmo as any).toObject();
-                            delete obj._id;
-                            obj.system.quantity = clipMax; // 1 spare magazine
-                            ammoItemsToCreate.push(obj);
+                const loadType = sys.loadType ?? "magazine";
+                const stdAmmoName = STANDARD_AMMO[wGroup] ?? "Rounds";
+
+                // Pre-load the weapon
+                if (sys.magazine?.value !== magMax) {
+                    await w.update({
+                        "system.magazine.value": magMax,
+                        "system.loadedRounds": [{ name: stdAmmoName, count: magMax }],
+                    });
+                }
+
+                if (loadType === "individual") {
+                    // Individual-loading weapons: grant 3× magazine.max loose rounds
+                    if (wGroup) {
+                        const ammoPack = game.packs?.get("dh2e-data.ammunition");
+                        if (ammoPack) {
+                            const ammoDocuments = await ammoPack.getDocuments();
+                            const stdAmmo = ammoDocuments.find((a: any) => {
+                                const as = a.system ?? {};
+                                return as.weaponGroup === wGroup
+                                    && (as.capacity ?? 0) === 0
+                                    && as.damageModifier === 0
+                                    && as.penetrationModifier === 0;
+                            });
+                            if (stdAmmo) {
+                                const obj = (stdAmmo as any).toObject();
+                                delete obj._id;
+                                obj.system.quantity = magMax * 3;
+                                ammoItemsToCreate.push(obj);
+                            }
+                        }
+                    }
+                } else {
+                    // Magazine-type weapons: grant 2 spare pre-loaded magazines
+                    if (wGroup) {
+                        const ammoPack = game.packs?.get("dh2e-data.ammunition");
+                        if (ammoPack) {
+                            const ammoDocuments = await ammoPack.getDocuments();
+                            // Find matching magazine (forWeapon === weapon name)
+                            const magTemplate = ammoDocuments.find((a: any) => {
+                                const as = a.system ?? {};
+                                return (as.capacity ?? 0) > 0 && (as.forWeapon === w.name);
+                            });
+                            if (magTemplate) {
+                                for (let n = 0; n < 2; n++) {
+                                    const obj = (magTemplate as any).toObject();
+                                    delete obj._id;
+                                    obj.system.loadedRounds = [{ name: stdAmmoName, count: obj.system.capacity }];
+                                    ammoItemsToCreate.push(obj);
+                                }
+                            } else {
+                                // Fallback: grant loose rounds if no magazine template found
+                                const stdAmmo = ammoDocuments.find((a: any) => {
+                                    const as = a.system ?? {};
+                                    return as.weaponGroup === wGroup
+                                        && (as.capacity ?? 0) === 0
+                                        && as.damageModifier === 0
+                                        && as.penetrationModifier === 0;
+                                });
+                                if (stdAmmo) {
+                                    const obj = (stdAmmo as any).toObject();
+                                    delete obj._id;
+                                    obj.system.quantity = magMax * 2;
+                                    ammoItemsToCreate.push(obj);
+                                }
+                            }
                         }
                     }
                 }
