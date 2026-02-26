@@ -2,6 +2,7 @@ import { executeSkillUseRoll } from "@item/skill/roll-skill-use.ts";
 import { CANONICAL_SKILL_USES, CANONICAL_SKILL_CHARS } from "@item/skill/uses.ts";
 import { CheckDH2e } from "@check/check.ts";
 import { AttackResolver } from "@combat/attack.ts";
+import { MaintenanceDialog } from "@item/cybernetic/maintenance-dialog.ts";
 
 /**
  * Resolve the current actor for macro execution.
@@ -92,6 +93,35 @@ export async function rollWeapon(weaponId: string): Promise<void> {
     }
 
     await AttackResolver.resolve({ actor, weapon, fireMode: "single" });
+}
+
+/**
+ * Open the cybernetic maintenance dialog.
+ * With a targeted token → chirurgeon mode (maintain target's cybernetics).
+ * No target → self-maintenance on the resolved actor.
+ */
+export async function maintainCybernetics(): Promise<void> {
+    const actor = resolveActor();
+    if (!actor) {
+        ui.notifications.warn(
+            (game as any).i18n?.localize?.("DH2E.Macro.NoActor")
+                ?? "No actor found. Assign a character or select a token.",
+        );
+        return;
+    }
+
+    // Check for targeted token → chirurgeon mode
+    const targets = (game as any).user?.targets;
+    const targetToken = targets?.size > 0 ? targets.values().next().value : null;
+    const targetActor = targetToken?.actor ?? null;
+
+    if (targetActor && targetActor.id !== actor.id) {
+        // Chirurgeon mode: maintain target's cybernetics, attributed to actor
+        await MaintenanceDialog.open(targetActor, actor);
+    } else {
+        // Self-maintenance
+        await MaintenanceDialog.open(actor);
+    }
 }
 
 /**

@@ -1,5 +1,7 @@
 <script lang="ts">
     import { sendItemToChat } from "../../../chat/send-to-chat.ts";
+    import { performMaintenance } from "../../../item/cybernetic/maintenance.ts";
+    import type { MaintenanceState } from "../../../item/cybernetic/data.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
@@ -43,8 +45,38 @@
     }
 
     async function toggleInstalled(item: any) {
-        const sys = item.system ?? {};
-        await item.update({ "system.installed": !sys.installed });
+        if (item.toggleInstalled) {
+            await item.toggleInstalled();
+        } else {
+            const sys = item.system ?? {};
+            await item.update({ "system.installed": !sys.installed });
+        }
+    }
+
+    async function maintainCybernetic(item: any) {
+        const actor = ctx.actor;
+        if (!actor) return;
+        await performMaintenance(actor, [item]);
+    }
+
+    function getMaintenanceIcon(state: MaintenanceState): string {
+        switch (state) {
+            case "normal": return "fa-solid fa-circle-check";
+            case "minorMalfunction": return "fa-solid fa-triangle-exclamation";
+            case "degraded": return "fa-solid fa-exclamation-circle";
+            case "totalFailure": return "fa-solid fa-circle-xmark";
+            default: return "fa-solid fa-circle-question";
+        }
+    }
+
+    function getMaintenanceColor(state: MaintenanceState): string {
+        switch (state) {
+            case "normal": return "#6c6";
+            case "minorMalfunction": return "#cc6";
+            case "degraded": return "#c86";
+            case "totalFailure": return "#c44";
+            default: return "#888";
+        }
     }
 
     async function deleteItem(item: any) {
@@ -106,7 +138,12 @@
 
     <div class="item-list">
         {#each allItems() as item}
-            <div class="item-row" class:equipped={item.system?.equipped}>
+            {@const cyberState = item.type === "cybernetic" ? (item.maintenanceState ?? "normal") as MaintenanceState : null}
+            <div
+                class="item-row"
+                class:equipped={item.system?.equipped}
+                class:cyber-failure={cyberState === "totalFailure"}
+            >
                 <button class="fav-star" onclick={() => toggleFavorite(item)} title="Favorite">
                     <i class={item.getFlag?.("dh2e", "favorite") ? "fa-solid fa-star" : "fa-regular fa-star"}></i>
                 </button>
@@ -128,6 +165,22 @@
                         {item.system?.equipped ? "E" : "—"}
                     </button>
                 {:else if item.type === "cybernetic"}
+                    {#if item.system?.installed && cyberState}
+                        <span
+                            class="cyber-state-icon"
+                            style="color: {getMaintenanceColor(cyberState)}"
+                            title={game.i18n.localize(`DH2E.Cybernetic.State.${cyberState}`)}
+                        >
+                            <i class={getMaintenanceIcon(cyberState)}></i>
+                        </span>
+                        <button
+                            class="maintain-btn"
+                            onclick={(e) => { e.stopPropagation(); maintainCybernetic(item); }}
+                            title={game.i18n.localize("DH2E.Cybernetic.Maintenance.Button")}
+                        >
+                            <i class="fa-solid fa-wrench"></i>
+                        </button>
+                    {/if}
                     <button
                         class="install-btn"
                         class:installed={item.system?.installed}
@@ -307,6 +360,39 @@
             color: #6c6;
             border-color: #4a6a4a;
         }
+    }
+
+    .cyber-state-icon {
+        font-size: 0.7rem;
+        width: 1rem;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .maintain-btn {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: none;
+        background: transparent;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        font-size: 0.65rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        opacity: 0;
+        transition: opacity 0.15s;
+
+        .item-row:hover & { opacity: 0.7; }
+        &:hover { opacity: 1 !important; color: var(--dh2e-gold, #c8a84e); }
+    }
+
+    .cyber-failure {
+        opacity: 0.5;
+        border-left: 2px solid var(--dh2e-red-bright, #d44) !important;
     }
 
     .chat-btn {

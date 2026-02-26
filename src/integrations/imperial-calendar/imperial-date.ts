@@ -75,6 +75,11 @@ class ImperialDateUtil {
         return ImperialDateUtil.daysRemaining(current, deadline) < 0;
     }
 
+    /** Compute days elapsed between a past date and a current date (alias for arithmetic clarity) */
+    static daysElapsed(from: ImperialDate, to: ImperialDate): number {
+        return ImperialDateUtil.#toAbsoluteDay(to) - ImperialDateUtil.#toAbsoluteDay(from);
+    }
+
     /** Compare two dates: negative if a < b, 0 if equal, positive if a > b */
     static compareDates(a: ImperialDate, b: ImperialDate): number {
         return ImperialDateUtil.#toAbsoluteDay(a) - ImperialDateUtil.#toAbsoluteDay(b);

@@ -236,7 +236,8 @@
             "rules": [],
             "installed": false,
             "weight": 0,
-            "availability": "Scarce"
+            "availability": "Scarce",
+            "lastMaintenanceDate": null
         },
         "objective": {
             "description": "",

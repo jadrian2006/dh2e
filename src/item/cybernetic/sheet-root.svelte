@@ -1,8 +1,50 @@
 <script lang="ts">
     import RuleElementEditor from "@rules/rule-element/rule-element-editor.svelte";
+    import { performMaintenance } from "./maintenance.ts";
+    import type { MaintenanceState } from "./data.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
     const sys = $derived(ctx.system ?? {});
+    const maintenanceState = $derived(
+        (ctx.item?.maintenanceState ?? "normal") as MaintenanceState,
+    );
+    const showBanner = $derived(sys.installed === true);
+
+    function getBannerColor(state: MaintenanceState): string {
+        switch (state) {
+            case "normal": return "#1a3020";
+            case "minorMalfunction": return "#2e2a10";
+            case "degraded": return "#2e2010";
+            case "totalFailure": return "#3a1515";
+            default: return "#1a3020";
+        }
+    }
+
+    function getBannerBorder(state: MaintenanceState): string {
+        switch (state) {
+            case "normal": return "#4a6a4a";
+            case "minorMalfunction": return "#8a8a3a";
+            case "degraded": return "#8a6a3a";
+            case "totalFailure": return "#8a3a3a";
+            default: return "#4a6a4a";
+        }
+    }
+
+    function getBannerTextColor(state: MaintenanceState): string {
+        switch (state) {
+            case "normal": return "#6c6";
+            case "minorMalfunction": return "#cc6";
+            case "degraded": return "#c86";
+            case "totalFailure": return "#c44";
+            default: return "#6c6";
+        }
+    }
+
+    async function doMaintain() {
+        const actor = ctx.item?.actor;
+        if (!actor) return;
+        await performMaintenance(actor, [ctx.item]);
+    }
 
     const locationOptions = [
         { value: "head", label: "Head" },
@@ -37,6 +79,21 @@
             </div>
         </div>
     </header>
+
+    {#if showBanner}
+        <div
+            class="maintenance-banner"
+            style="background: {getBannerColor(maintenanceState)}; border-color: {getBannerBorder(maintenanceState)}; color: {getBannerTextColor(maintenanceState)}"
+        >
+            <span class="banner-label">
+                {game.i18n.localize(`DH2E.Cybernetic.State.${maintenanceState}`)}
+            </span>
+            <button class="banner-maintain-btn" onclick={doMaintain}>
+                <i class="fa-solid fa-wrench"></i>
+                {game.i18n.localize("DH2E.Cybernetic.Maintenance.Button")}
+            </button>
+        </div>
+    {/if}
 
     <section class="sheet-body">
         <div class="form-grid">
@@ -103,7 +160,7 @@
                     class="install-toggle"
                     class:installed={sys.installed}
                     disabled={!ctx.editable}
-                    onclick={() => updateField("system.installed", !sys.installed)}
+                    onclick={() => ctx.item?.toggleInstalled?.() ?? updateField("system.installed", !sys.installed)}
                 >
                     {sys.installed ? "Installed" : "Not Installed"}
                 </button>
@@ -202,6 +259,41 @@
         background: #3a2020;
         color: #c66;
         border: 1px solid #6a4a4a;
+    }
+
+    .maintenance-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-md, 0.75rem);
+        border-bottom: 1px solid;
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .banner-label {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-xs, 0.25rem);
+    }
+
+    .banner-maintain-btn {
+        padding: 2px var(--dh2e-space-sm, 0.5rem);
+        border: 1px solid currentColor;
+        border-radius: var(--dh2e-radius-sm, 3px);
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font-size: var(--dh2e-text-xs, 0.7rem);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.8;
+
+        &:hover { opacity: 1; background: rgba(255,255,255,0.05); }
+
+        i { margin-right: 0.25rem; }
     }
 
     .sheet-body {

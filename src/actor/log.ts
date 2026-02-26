@@ -3,14 +3,14 @@ import type { XPTransaction } from "../advancement/types.ts";
 const FLAG_KEY = "actorLog";
 const LEGACY_KEY = "xpLedger";
 
-type LogEntryType = "xp-award" | "xp-spend" | "gm-grant";
+type LogEntryType = "xp-award" | "xp-spend" | "gm-grant" | "maintenance";
 
 interface LogEntry {
     timestamp: number;
     type: LogEntryType;
     label: string;
     detail?: string;
-    amount: number;
+    amount?: number;
     who?: string;
 }
 

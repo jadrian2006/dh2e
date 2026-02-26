@@ -126,10 +126,9 @@ class AcolyteDH2e extends ActorDH2e {
     /** Iterate all owned items, instantiate their REs, and call onPrepareData */
     protected _processRuleElements(): void {
         for (const item of this.items) {
-            // Skip uninstalled cybernetics — their REs should not contribute
+            // Skip non-functional cybernetics (uninstalled or total failure)
             if (item.type === "cybernetic") {
-                const sys = item.system as any;
-                if (!sys.installed) continue;
+                if (!(item as any).isFunctional) continue;
             }
 
             const rules = (item.system as any)?.rules as RuleElementSource[] | undefined;

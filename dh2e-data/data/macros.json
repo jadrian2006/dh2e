@@ -28,5 +28,13 @@
         "flags": {
             "dh2e": { "gmOnly": true }
         }
+    },
+    {
+        "name": "Maintain Cybernetics",
+        "type": "script",
+        "img": "icons/svg/gear.svg",
+        "command": "game.dh2e.maintainCybernetics();",
+        "scope": "global",
+        "flags": {}
     }
 ]

@@ -1,7 +1,7 @@
 import type { MigrationBase, MigrationResult } from "./types.ts";
 
 /** Current schema version — bump when adding new migrations */
-const LATEST_SCHEMA = "0.5.0";
+const LATEST_SCHEMA = "0.6.0";
 
 /**
  * Compares two semver strings. Returns:

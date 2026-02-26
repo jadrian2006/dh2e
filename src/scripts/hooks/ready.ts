@@ -14,8 +14,9 @@ import { RequisitionRequestDialog } from "../../requisition/requisition-request-
 import { DSNIntegration } from "../../integrations/dice-so-nice/dsn-themes.ts";
 import { RulerOverlay } from "../../integrations/ruler/ruler-overlay.ts";
 import { DeadlineNotifier } from "../../integrations/imperial-calendar/deadline-notifier.ts";
+import { CyberneticMaintenanceNotifier } from "../../integrations/imperial-calendar/maintenance-notifier.ts";
 import { registerHotbarDrop } from "../../macros/hotbar-drop.ts";
-import { rollSkillUse, rollWeapon, rollSkill } from "../../macros/api.ts";
+import { rollSkillUse, rollWeapon, rollSkill, maintainCybernetics } from "../../macros/api.ts";
 import { ActionsGrid } from "../../ui/actions-grid/actions-grid.ts";
 import { VoxComposeDialog } from "../../ui/vox-terminal/vox-compose-dialog.ts";
 import { VoxTerminalPopup } from "../../ui/vox-terminal/vox-terminal-popup.ts";
@@ -50,6 +51,7 @@ export class Ready {
             (game as any).dh2e.rollSkillUse = rollSkillUse;
             (game as any).dh2e.rollWeapon = rollWeapon;
             (game as any).dh2e.rollSkill = rollSkill;
+            (game as any).dh2e.maintainCybernetics = maintainCybernetics;
 
             (game as any).dh2e.actionsGrid = () => ActionsGrid.open();
             (game as any).dh2e.voxTerminal = () => VoxComposeDialog.open();
@@ -78,6 +80,9 @@ export class Ready {
                 },
                 configurable: true,
             });
+
+            // Populate cybernetic maintenance state cache (after warband is available)
+            CyberneticMaintenanceNotifier.populateCache();
 
             // Check for ready requisitions on startup (GM only)
             Ready.#checkReadyRequisitions();
@@ -131,6 +136,10 @@ export class Ready {
             Hooks.once("diceSoNiceReady", (dice3d: any) => DSNIntegration.registerThemes(dice3d));
             RulerOverlay.init();
             DeadlineNotifier.init();
+            CyberneticMaintenanceNotifier.init();
+
+            // Backfill installed cybernetics that lack maintenance dates (GM only)
+            await Ready.#backfillCyberneticDates();
 
             // FX Master weather presets API + scene control
             (game as any).dh2e.weatherPresets = () => {
@@ -193,6 +202,35 @@ export class Ready {
             // Initialize combat HUD
             CombatHUD.init();
         });
+    }
+
+    /**
+     * Backfill installed cybernetics that have null lastMaintenanceDate.
+     * Sets them to the warband's current date so they don't immediately show "Total Failure".
+     */
+    static async #backfillCyberneticDates(): Promise<void> {
+        const g = game as any;
+        if (!g.user?.isGM) return;
+
+        const warband = g.dh2e?.warband;
+        const currentDate = warband?.system?.chronicle?.currentDate;
+        if (!currentDate) return;
+
+        for (const actor of g.actors ?? []) {
+            if (actor.type !== "acolyte" && actor.type !== "npc") continue;
+
+            for (const item of actor.items ?? []) {
+                if (item.type !== "cybernetic") continue;
+                if (!item.system?.installed) continue;
+                if (item.system.lastMaintenanceDate != null) continue;
+
+                try {
+                    await item.update({ "system.lastMaintenanceDate": currentDate });
+                } catch (e) {
+                    console.warn(`DH2E | Failed to backfill maintenance date for "${item.name}" on "${actor.name}"`, e);
+                }
+            }
+        }
     }
 
     /** Register system socket for GM roll requests and elite approval */
