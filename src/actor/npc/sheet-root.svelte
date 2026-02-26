@@ -1,11 +1,13 @@
 <script lang="ts">
     import FullView from "./components/full-view.svelte";
     import CompactView from "./components/compact-view.svelte";
+    import LootView from "./components/loot-view.svelte";
     import ErrorBoundary from "../../ui/error-boundary.svelte";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
     let compactMode = $state(ctx.compactMode ?? false);
+    const lootMode = $derived(ctx.lootMode ?? false);
 
     function toggleView() {
         compactMode = !compactMode;
@@ -13,11 +15,16 @@
     }
 </script>
 
-<div class="npc-sheet">
+<div class="npc-sheet" class:loot-mode={lootMode}>
     <header class="sheet-header">
-        <img src={ctx.img} alt={ctx.name} class="profile-img" />
+        <div class="profile-wrapper">
+            <img src={ctx.img} alt={ctx.name} class="profile-img" />
+            {#if lootMode}
+                <i class="fa-solid fa-skull skull-badge"></i>
+            {/if}
+        </div>
         <div class="header-info">
-            {#if ctx.editable}
+            {#if ctx.editable && !lootMode}
                 <input
                     class="actor-name-input"
                     type="text"
@@ -27,18 +34,24 @@
             {:else}
                 <h1 class="actor-name">{ctx.name}</h1>
             {/if}
-            <div class="header-meta">
-                <span class="wounds-inline">W: {ctx.system?.wounds?.value ?? 0}/{ctx.system?.wounds?.max ?? 0}</span>
-            </div>
+            {#if !lootMode}
+                <div class="header-meta">
+                    <span class="wounds-inline">W: {ctx.system?.wounds?.value ?? 0}/{ctx.system?.wounds?.max ?? 0}</span>
+                </div>
+            {/if}
         </div>
-        <button class="view-toggle" onclick={toggleView} title={compactMode ? "Full View" : "Compact View"}>
-            <i class={compactMode ? "fa-solid fa-expand" : "fa-solid fa-compress"}></i>
-        </button>
+        {#if !lootMode}
+            <button class="view-toggle" onclick={toggleView} title={compactMode ? "Full View" : "Compact View"}>
+                <i class={compactMode ? "fa-solid fa-expand" : "fa-solid fa-compress"}></i>
+            </button>
+        {/if}
     </header>
 
     <section class="sheet-body">
-        <ErrorBoundary label={compactMode ? "NPC Compact View" : "NPC Full View"}>
-            {#if compactMode}
+        <ErrorBoundary label={lootMode ? "NPC Loot View" : compactMode ? "NPC Compact View" : "NPC Full View"}>
+            {#if lootMode}
+                <LootView {ctx} />
+            {:else if compactMode}
                 <CompactView {ctx} />
             {:else}
                 <FullView {ctx} />
@@ -64,13 +77,33 @@
         border-bottom: 1px solid var(--dh2e-gold-muted, #7a6a3e);
     }
 
+    .profile-wrapper {
+        position: relative;
+        flex-shrink: 0;
+    }
+
     .profile-img {
         width: 48px;
         height: 48px;
         border-radius: var(--dh2e-radius-sm, 3px);
         object-fit: cover;
         border: 1px solid var(--dh2e-border, #4a4a55);
-        flex-shrink: 0;
+    }
+
+    .skull-badge {
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+        font-size: 0.7rem;
+        color: var(--dh2e-danger, #c0392b);
+        background: var(--dh2e-bg-mid, #2e2e35);
+        border-radius: 50%;
+        padding: 2px;
+    }
+
+    .loot-mode .profile-img {
+        opacity: 0.7;
+        filter: grayscale(40%);
     }
 
     .header-info {

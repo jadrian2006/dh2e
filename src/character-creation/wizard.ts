@@ -9,7 +9,7 @@ import { getCompendiumTable } from "@util/index.ts";
 
 const DATA_BASE = "modules/dh2e-data/data/creation";
 const CHAR_KEYS = new Set<string>(["ws", "bs", "s", "t", "ag", "int", "per", "wp", "fel"]);
-const EQUIPMENT_PACKS = ["dh2e-data.weapons", "dh2e-data.armour", "dh2e-data.gear"];
+const EQUIPMENT_PACKS = ["dh2e-data.weapons", "dh2e-data.armour", "dh2e-data.gear", "dh2e-data.cybernetics", "dh2e-data.ammunition"];
 const ORIGIN_PACKS = {
     homeworlds: "dh2e-data.homeworlds",
     backgrounds: "dh2e-data.backgrounds",

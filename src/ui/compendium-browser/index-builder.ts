@@ -85,6 +85,10 @@ export async function buildCompendiumIndex(): Promise<CompendiumIndex> {
         if (pack.metadata.packageType === "world" && !isHomebrew) continue;
 
         const documentName = pack.documentName ?? "Item";
+
+        // Only index Item and Macro packs — skip JournalEntry, Scene, etc.
+        if (documentName !== "Item" && documentName !== "Macro") continue;
+
         const indexFields = [
             "system.availability", "system.class", "system.damageType",
             "system.weight", "system.tier", "system.characteristic",
@@ -113,11 +117,15 @@ export async function buildCompendiumIndex(): Promise<CompendiumIndex> {
             // Privacy gate: non-GM users cannot see private homebrew items
             if (isHomebrew && visibility === "private" && !isGM) continue;
 
+            // Normalize macro type: Foundry stores "script" but we display "macro"
+            const rawType = entry.type ?? "unknown";
+            const normalizedType = documentName === "Macro" ? "macro" : rawType;
+
             const ie: IndexEntry = {
                 uuid: `Compendium.${pack.collection}.${entry._id}`,
                 name: entry.name ?? "Unknown",
                 img: (entry as any).img ?? "icons/svg/item-bag.svg",
-                type: entry.type ?? "unknown",
+                type: normalizedType,
                 pack: pack.metadata.label ?? pack.collection,
                 documentName,
                 isHomebrew,

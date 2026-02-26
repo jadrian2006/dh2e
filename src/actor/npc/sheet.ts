@@ -24,6 +24,13 @@ class NpcSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
         return this.document.name;
     }
 
+    /** Players cannot edit defeated NPCs — loot mode is read-only */
+    override get isEditable(): boolean {
+        const actor = this.document as any;
+        if (!game.user?.isGM && actor.system?.defeated === true) return false;
+        return super.isEditable;
+    }
+
     protected override async _prepareContext(
         options: fa.ApplicationRenderOptions,
     ): Promise<SvelteApplicationRenderContext> {
@@ -35,6 +42,15 @@ class NpcSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
             this.#compactMode = getSetting<boolean>("compactNpcSheet");
         }
 
+        const isGM = game.user?.isGM ?? false;
+        const isDefeated = system?.defeated === true;
+        const lootMode = !isGM && isDefeated;
+
+        // Resize to smaller window in loot mode
+        if (lootMode) {
+            this.setPosition({ width: 420, height: 500 });
+        }
+
         return {
             ctx: {
                 actor,
@@ -42,6 +58,7 @@ class NpcSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 img: actor.img,
                 system,
                 editable: this.isEditable,
+                lootMode,
                 compactMode: this.#compactMode,
                 setCompactMode: (mode: boolean) => { this.#compactMode = mode; },
                 items: {
@@ -57,6 +74,7 @@ class NpcSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                     malignancies: actor.items.filter((i: Item) => i.type === "malignancy"),
                     mentalDisorders: actor.items.filter((i: Item) => i.type === "mental-disorder"),
                     cybernetics: actor.items.filter((i: Item) => i.type === "cybernetic"),
+                    ammunition: actor.items.filter((i: Item) => i.type === "ammunition"),
                 },
             },
         };

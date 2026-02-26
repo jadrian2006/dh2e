@@ -22,6 +22,10 @@ class NpcDH2e extends ActorDH2e {
         for (const token of this.getActiveTokens()) {
             await token.document?.update({ overlayEffect: "icons/svg/skull.svg" });
         }
+        // Grant loot permissions to players (GM client only)
+        if ((game as any).user?.isGM) {
+            await this.#grantLootPermissions();
+        }
     }
 
     /** Restore this NPC to alive state (GM toggle) */
@@ -30,6 +34,45 @@ class NpcDH2e extends ActorDH2e {
         for (const token of this.getActiveTokens()) {
             await token.document?.update({ overlayEffect: "" });
         }
+        // Revoke loot permissions (GM client only)
+        if ((game as any).user?.isGM) {
+            await this.#revokeLootPermissions();
+        }
+    }
+
+    /** Grant OWNER permission to all active non-GM players for looting */
+    async #grantLootPermissions(): Promise<void> {
+        // Only grant if at least one token is visible (not hidden/dark)
+        const hasVisibleToken = this.getActiveTokens().some(
+            (t) => !t.document?.hidden,
+        );
+        if (!hasVisibleToken) return;
+
+        const g = game as any;
+        const ownership: Record<string, number> = { ...this.ownership };
+        for (const user of g.users ?? []) {
+            if (user.isGM || !user.active) continue;
+            ownership[user.id] = 3; // OWNER
+        }
+        await this.update({ ownership });
+    }
+
+    /** Revoke player loot permissions, keeping only GM entries */
+    async #revokeLootPermissions(): Promise<void> {
+        const g = game as any;
+        const ownership: Record<string, number> = {};
+        for (const [userId, level] of Object.entries(this.ownership ?? {})) {
+            if (userId === "default") {
+                ownership[userId] = level as number;
+                continue;
+            }
+            const user = g.users?.get(userId);
+            if (user?.isGM) {
+                ownership[userId] = level as number;
+            }
+            // Non-GM entries are dropped (revoked)
+        }
+        await this.update({ ownership });
     }
 
     override prepareBaseData(): void {

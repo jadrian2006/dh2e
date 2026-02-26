@@ -58,6 +58,21 @@
         Object.fromEntries(charOrder.map(k => [k, 25])) as Record<CharacteristicAbbrev, number>,
     );
 
+    // Roll persistence state — survives step navigation
+    let charRolled = $state<Record<string, boolean>>(
+        Object.fromEntries(charOrder.map(k => [k, false])) as Record<string, boolean>,
+    );
+    let charRerollUsed = $state(false);
+    let charRerolledFrom = $state<Record<string, number | undefined>>(
+        Object.fromEntries(charOrder.map(k => [k, undefined])) as Record<string, number | undefined>,
+    );
+    let charRerollTarget = $state<CharacteristicAbbrev | null>(null);
+
+    /** Per-characteristic roll breakdown for tooltip: { die1, die2, base } */
+    let charRollDetails = $state<Record<string, { die1: number; die2: number; base: number } | null>>(
+        Object.fromEntries(charOrder.map(k => [k, null])) as Record<string, { die1: number; die2: number; base: number } | null>,
+    );
+
     // Dynamic step labels — insert Advancement step if startingXP > 0
     const showAdvancement = $derived(startingXP > 0);
     const stepLabels = $derived([
@@ -118,6 +133,11 @@
                 {homeworld}
                 bind:characteristics
                 bind:woundsRoll
+                bind:charRolled
+                bind:charRerollUsed
+                bind:charRerolledFrom
+                bind:charRerollTarget
+                bind:charRollDetails
                 maxWoundsRerolls={getSetting<number>("woundsRerolls")}
             />
         {:else if showAdvancement && step === 5}

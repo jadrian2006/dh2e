@@ -243,7 +243,10 @@
             "weight": 0,
             "weaponGroup": "",
             "availability": "Common",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "capacity": 0,
+            "loaded": 0,
+            "loadedAmmoName": ""
         },
         "cybernetic": {
             "description": "",

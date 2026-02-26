@@ -2,7 +2,7 @@
     import type { BackgroundOption, CreationData } from "../types.ts";
     import { splitOrChoices, parseEquipment, findInPacks } from "../wizard.ts";
 
-    const EQUIPMENT_PACKS = ["dh2e-data.weapons", "dh2e-data.armour", "dh2e-data.gear"];
+    const EQUIPMENT_PACKS = ["dh2e-data.weapons", "dh2e-data.armour", "dh2e-data.gear", "dh2e-data.cybernetics", "dh2e-data.ammunition"];
 
     async function previewGear(text: string) {
         const { name } = parseEquipment(text);

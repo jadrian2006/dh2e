@@ -1,6 +1,7 @@
 <script lang="ts">
     import { sendItemToChat } from "../../../chat/send-to-chat.ts";
     import { performMaintenance } from "../../../item/cybernetic/maintenance.ts";
+    import { reloadWeapon, unloadWeapon, getCompatibleAmmo, loadMagazine, unloadMagazine } from "../../../combat/ammo.ts";
     import type { MaintenanceState } from "../../../item/cybernetic/data.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
@@ -99,32 +100,44 @@
         const qty = item.system?.quantity ?? 1;
         if (qty <= 1) return;
 
-        const content = `<form><div class="form-group"><label>${game.i18n?.localize("DH2E.Item.Split.Prompt") ?? "How many to split off?"}</label><input type="number" name="amount" value="1" min="1" max="${qty - 1}" autofocus /></div></form>`;
+        const splitAmount = await new Promise<number | null>((resolve) => {
+            const content = `<form><div class="form-group"><label>${game.i18n?.localize("DH2E.Item.Split.Prompt") ?? "How many to split off?"}</label><input type="number" name="amount" value="1" min="1" max="${qty - 1}" autofocus /></div></form>`;
 
-        const result = await (DialogV2 as any).prompt({
-            window: { title: game.i18n?.localize("DH2E.Item.Split.Title") ?? "Split Stack" },
-            content,
-            ok: {
-                label: game.i18n?.localize("DH2E.Item.Split.Button") ?? "Split",
-                callback: (event: Event, button: HTMLElement, dialog: HTMLElement) => {
-                    const input = dialog.querySelector("input[name='amount']") as HTMLInputElement;
-                    return parseInt(input?.value ?? "0", 10);
-                },
-            },
+            new fa.api.DialogV2({
+                window: { title: game.i18n?.localize("DH2E.Item.Split.Title") ?? "Split Stack" },
+                content,
+                buttons: [
+                    {
+                        action: "split",
+                        label: game.i18n?.localize("DH2E.Item.Split.Button") ?? "Split",
+                        default: true,
+                        callback: (_event: any, _button: any, dialog: HTMLElement) => {
+                            const input = dialog.querySelector("input[name='amount']") as HTMLInputElement;
+                            resolve(parseInt(input?.value ?? "0", 10));
+                        },
+                    },
+                    {
+                        action: "cancel",
+                        label: game.i18n?.localize("Cancel") ?? "Cancel",
+                        callback: () => resolve(null),
+                    },
+                ],
+                position: { width: 300 },
+            }).render(true);
         });
 
-        if (!result || result <= 0 || result >= qty) return;
+        if (!splitAmount || splitAmount <= 0 || splitAmount >= qty) return;
 
         const actor = ctx.actor;
         if (!actor) return;
 
         // Reduce original stack
-        await item.update({ "system.quantity": qty - result });
+        await item.update({ "system.quantity": qty - splitAmount });
 
         // Create new stack
         const newData = item.toObject();
         delete newData._id;
-        newData.system.quantity = result;
+        newData.system.quantity = splitAmount;
         await actor.createEmbeddedDocuments("Item", [newData]);
     }
 
@@ -153,6 +166,68 @@
         await item.update({ "system.quantity": totalQty });
         if (toDelete.length > 0) {
             await actor.deleteEmbeddedDocuments("Item", toDelete);
+        }
+    }
+
+    /** Reload a weapon from inventory ammo */
+    async function reloadItem(item: any) {
+        const actor = ctx.actor;
+        if (!actor) return;
+        const result = await reloadWeapon(actor, item);
+        if (result) {
+            const msg = result.partial
+                ? `Partial reload: ${result.loaded} rounds of ${result.ammoName} loaded (${result.newClipValue}/${item.system.clip.max})`
+                : `Reloaded with ${result.ammoName} (${result.newClipValue}/${item.system.clip.max})`;
+            ui.notifications?.info(msg);
+        } else {
+            const compatible = getCompatibleAmmo(actor, item);
+            if (compatible.length === 0) {
+                ui.notifications?.warn("No compatible ammunition in inventory.");
+            } else {
+                ui.notifications?.info("Weapon is already fully loaded.");
+            }
+        }
+    }
+
+    /** Unload a weapon's clip back to inventory */
+    async function unloadItem(item: any) {
+        const actor = ctx.actor;
+        if (!actor) return;
+        const result = await unloadWeapon(actor, item);
+        if (result) {
+            ui.notifications?.info(`Unloaded ${result.unloaded} rounds of ${result.ammoName}.`);
+        } else {
+            ui.notifications?.info("Weapon clip is already empty.");
+        }
+    }
+
+    /** Load loose ammo into a magazine */
+    async function loadMag(item: any) {
+        const actor = ctx.actor;
+        if (!actor) return;
+        const result = await loadMagazine(actor, item);
+        if (result) {
+            ui.notifications?.info(`Loaded ${result.loaded} rounds of ${result.ammoName} into magazine.`);
+        } else {
+            const loaded = item.system?.loaded ?? 0;
+            const capacity = item.system?.capacity ?? 0;
+            if (loaded >= capacity) {
+                ui.notifications?.info("Magazine is full.");
+            } else {
+                ui.notifications?.warn("No compatible loose ammo found.");
+            }
+        }
+    }
+
+    /** Unload rounds from a magazine back to inventory */
+    async function unloadMag(item: any) {
+        const actor = ctx.actor;
+        if (!actor) return;
+        const result = await unloadMagazine(actor, item);
+        if (result) {
+            ui.notifications?.info(`Extracted ${result.unloaded} rounds of ${result.ammoName} from magazine.`);
+        } else {
+            ui.notifications?.info("Magazine is already empty.");
         }
     }
 
@@ -233,12 +308,42 @@
                     <span class="item-name">{item.name}</span>
                     <span class="item-type">{item.type}</span>
                     {#if item.type === "weapon" && (item.system?.clip?.max ?? 0) > 0}
-                        <div class="clip-pips" title="{item.system.clip.value ?? 0} / {item.system.clip.max} rounds">
-                            {#each Array(Math.min(item.system.clip.max, 20)) as _, i}
-                                <span class="pip" class:filled={i < (item.system.clip.value ?? 0)}></span>
-                            {/each}
-                            {#if item.system.clip.max > 20}
-                                <span class="pip-overflow">+{item.system.clip.max - 20}</span>
+                        <div class="clip-row">
+                            <div class="clip-pips" title="{item.system.clip.value ?? 0} / {item.system.clip.max} rounds">
+                                {#each Array(Math.min(item.system.clip.max, 20)) as _, i}
+                                    <span class="pip" class:filled={i < (item.system.clip.value ?? 0)}></span>
+                                {/each}
+                                {#if item.system.clip.max > 20}
+                                    <span class="pip-overflow">+{item.system.clip.max - 20}</span>
+                                {/if}
+                            </div>
+                            {#if (item.system.clip.value ?? 0) < (item.system.clip.max ?? 0)}
+                                <button class="reload-btn" onclick={(e) => { e.stopPropagation(); reloadItem(item); }} title="Reload">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                </button>
+                            {/if}
+                            {#if (item.system.clip.value ?? 0) > 0}
+                                <button class="reload-btn unload" onclick={(e) => { e.stopPropagation(); unloadItem(item); }} title="Unload clip">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                </button>
+                            {/if}
+                        </div>
+                    {/if}
+                    {#if item.type === "ammunition" && (item.system?.capacity ?? 0) > 0}
+                        <div class="mag-row">
+                            <span class="mag-count">{item.system.loaded ?? 0}/{item.system.capacity}</span>
+                            {#if item.system.loadedAmmoName}
+                                <span class="mag-type">{item.system.loadedAmmoName}</span>
+                            {/if}
+                            {#if (item.system.loaded ?? 0) < (item.system.capacity ?? 0)}
+                                <button class="reload-btn" onclick={(e) => { e.stopPropagation(); loadMag(item); }} title="Load magazine">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                </button>
+                            {/if}
+                            {#if (item.system.loaded ?? 0) > 0}
+                                <button class="reload-btn unload" onclick={(e) => { e.stopPropagation(); unloadMag(item); }} title="Unload magazine">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                </button>
                             {/if}
                         </div>
                     {/if}
@@ -417,11 +522,17 @@
         text-transform: capitalize;
     }
 
+    .clip-row {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 1px;
+    }
+
     .clip-pips {
         display: flex;
         align-items: center;
         gap: 2px;
-        margin-top: 1px;
     }
 
     .clip-pips .pip {
@@ -441,6 +552,50 @@
         font-size: 0.5rem;
         color: var(--dh2e-text-secondary, #a0a0a8);
         margin-left: 2px;
+    }
+
+    .reload-btn {
+        width: 1rem;
+        height: 1rem;
+        border: none;
+        background: transparent;
+        color: var(--dh2e-gold-muted, #8a7a3e);
+        cursor: pointer;
+        font-size: 0.55rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        opacity: 0;
+        transition: opacity 0.15s;
+
+        .item-row:hover & { opacity: 0.6; }
+        &:hover { opacity: 1 !important; color: var(--dh2e-gold, #c8a84e); }
+        &.unload:hover { color: var(--dh2e-red-bright, #d44); }
+    }
+
+    .mag-row {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 1px;
+    }
+
+    .mag-count {
+        font-size: 0.6rem;
+        font-weight: 700;
+        color: var(--dh2e-gold-muted, #8a7a3e);
+        font-family: monospace;
+    }
+
+    .mag-type {
+        font-size: 0.5rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-style: italic;
+        max-width: 8rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .item-qty {

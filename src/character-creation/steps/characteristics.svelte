@@ -1,6 +1,8 @@
 <script lang="ts">
     import type { CharacteristicAbbrev } from "../../actor/types.ts";
     import type { HomeworldOption } from "../types.ts";
+    import { getSetting } from "../../ui/settings/settings.ts";
+    import { onMount, onDestroy } from "svelte";
 
     type CharGenMethod = "rolled" | "rolled25" | "points";
 
@@ -9,12 +11,22 @@
         homeworld,
         characteristics = $bindable<Record<CharacteristicAbbrev, number>>(),
         woundsRoll = $bindable<number | null>(null),
+        charRolled = $bindable<Record<string, boolean>>(),
+        charRerollUsed = $bindable<boolean>(false),
+        charRerolledFrom = $bindable<Record<string, number | undefined>>(),
+        charRerollTarget = $bindable<CharacteristicAbbrev | null>(null),
+        charRollDetails = $bindable<Record<string, { die1: number; die2: number; base: number } | null>>(),
         maxWoundsRerolls,
     }: {
         method: CharGenMethod;
         homeworld: HomeworldOption | null;
         characteristics: Record<CharacteristicAbbrev, number>;
         woundsRoll: number | null;
+        charRolled: Record<string, boolean>;
+        charRerollUsed: boolean;
+        charRerolledFrom: Record<string, number | undefined>;
+        charRerollTarget: CharacteristicAbbrev | null;
+        charRollDetails: Record<string, { die1: number; die2: number; base: number } | null>;
         maxWoundsRerolls: number;
     } = $props();
 
@@ -31,17 +43,9 @@
     const pointsCap = 40;
     const totalPoints = 60;
 
-    // --- Rolled mode state ---
+    // --- Rolled mode state (persisted in wizard-root via bindable props) ---
 
-    /** Which characteristics have been rolled */
-    let rolled = $state<Set<CharacteristicAbbrev>>(new Set());
-    /** Previous value before re-roll (for struck-through display) */
-    let rerolledFrom = $state<Partial<Record<CharacteristicAbbrev, number>>>({});
-    /** Whether the single re-roll has been used */
-    let rerollUsed = $state(false);
-    /** Which characteristic is being targeted for re-roll */
-    let rerollTarget = $state<CharacteristicAbbrev | null>(null);
-    /** Whether we're in "pick a characteristic to re-roll" mode */
+    /** Whether we're in "pick a characteristic to re-roll" mode (local, doesn't need persistence) */
     let pickingReroll = $state(false);
 
     // --- Point allocation state ---
@@ -74,11 +78,16 @@
 
     // --- Rolling logic ---
 
-    function rollFormula(key: CharacteristicAbbrev): string {
+    /** Compute the base modifier for a characteristic (rollBase +/- homeworld bonus) */
+    function rollBaseFor(key: CharacteristicAbbrev): number {
         let base = rollBase;
         if (isPositive(key)) base += 5;
         if (isNegative(key)) base -= 5;
-        return `2d10+${base}`;
+        return base;
+    }
+
+    function rollFormula(key: CharacteristicAbbrev): string {
+        return `2d10+${rollBaseFor(key)}`;
     }
 
     async function rollOne(key: CharacteristicAbbrev): Promise<void> {
@@ -88,13 +97,19 @@
         let value = roll.total!;
         if (method === "rolled25") value = Math.min(value, rollCap);
         characteristics[key] = value;
-        rolled.add(key);
-        rolled = new Set(rolled); // trigger reactivity
+        charRolled[key] = true;
+        charRolled = { ...charRolled }; // trigger reactivity
+
+        // Store roll breakdown for tooltip
+        const dice = (roll.dice?.[0]?.results ?? []).map((r: any) => r.result);
+        const base = rollBaseFor(key);
+        charRollDetails[key] = { die1: dice[0] ?? 0, die2: dice[1] ?? 0, base };
+        charRollDetails = { ...charRollDetails };
     }
 
     async function rollAll(): Promise<void> {
         for (const key of charOrder) {
-            if (!rolled.has(key)) {
+            if (!charRolled[key]) {
                 await rollOne(key);
             }
         }
@@ -105,24 +120,30 @@
     }
 
     async function executeReroll(key: CharacteristicAbbrev): Promise<void> {
-        rerolledFrom[key] = characteristics[key];
-        rerolledFrom = { ...rerolledFrom }; // trigger reactivity
+        charRerolledFrom[key] = characteristics[key];
+        charRerolledFrom = { ...charRerolledFrom }; // trigger reactivity
         const formula = rollFormula(key);
         const roll = new Roll(formula);
         await roll.evaluate();
         let value = roll.total!;
         if (method === "rolled25") value = Math.min(value, rollCap);
         characteristics[key] = value;
-        rerollUsed = true;
-        rerollTarget = key;
+        charRerollUsed = true;
+        charRerollTarget = key;
         pickingReroll = false;
+
+        // Update roll breakdown for tooltip
+        const dice = (roll.dice?.[0]?.results ?? []).map((r: any) => r.result);
+        const base = rollBaseFor(key);
+        charRollDetails[key] = { die1: dice[0] ?? 0, die2: dice[1] ?? 0, base };
+        charRollDetails = { ...charRollDetails };
     }
 
     function cancelReroll(): void {
         pickingReroll = false;
     }
 
-    const allRolled = $derived(charOrder.every(k => rolled.has(k)));
+    const allRolled = $derived(charOrder.every(k => charRolled[k]));
 
     // --- Point allocation logic ---
 
@@ -180,6 +201,98 @@
         woundsRoll = null;
         woundsRollCount = 0;
     });
+
+    // --- GM-Approved Reroll Threshold ---
+
+    const rerollThreshold = getSetting<number>("charGenRerollThreshold") ?? 89;
+
+    /** Sum of dice-only values (without base) across all characteristics */
+    const diceOnlyTotal = $derived(() => {
+        if (!allRolled) return 0;
+        return charOrder.reduce((sum, k) => {
+            const d = charRollDetails[k];
+            if (!d) return sum;
+            return sum + d.die1 + d.die2;
+        }, 0);
+    });
+
+    const isBelowThreshold = $derived(
+        isRolled && allRolled && rerollThreshold > 0 && diceOnlyTotal() < rerollThreshold,
+    );
+
+    /** Whether a GM reroll request has been sent and we're waiting */
+    let rerollRequestPending = $state(false);
+    /** Whether a GM-approved reroll has been granted */
+    let gmRerollGranted = $state<"full" | "single" | null>(null);
+
+    function requestGMReroll() {
+        const g = game as any;
+        if (g.user?.isGM) {
+            // GM is also the player — auto-approve full reroll
+            gmRerollGranted = "full";
+            rerollRequestPending = false;
+            return;
+        }
+
+        rerollRequestPending = true;
+
+        // Build breakdown from roll details
+        const breakdown: Record<string, { die1: number; die2: number; base: number }> = {};
+        for (const k of charOrder) {
+            const d = charRollDetails[k];
+            if (d) breakdown[k] = { ...d };
+        }
+
+        g.socket.emit(`system.${SYSTEM_ID}`, {
+            type: "chargenRerollRequest",
+            payload: {
+                requesterId: g.user?.id,
+                requesterName: g.user?.name ?? "Unknown",
+                actorName: "New Character",
+                diceTotal: diceOnlyTotal(),
+                threshold: rerollThreshold,
+                breakdown,
+            },
+        });
+    }
+
+    async function executeGMReroll(mode: "full" | "single") {
+        if (mode === "full") {
+            // Reset ALL rolls and re-roll everything
+            for (const k of charOrder) {
+                charRolled[k] = false;
+                charRollDetails[k] = null;
+            }
+            charRolled = { ...charRolled };
+            charRollDetails = { ...charRollDetails };
+            charRerollUsed = false;
+            charRerolledFrom = Object.fromEntries(charOrder.map(k => [k, undefined])) as Record<string, number | undefined>;
+            charRerollTarget = null;
+            gmRerollGranted = null;
+            // Roll all fresh
+            await rollAll();
+        } else if (mode === "single") {
+            // Grant one more reroll (reset rerollUsed so player can pick one)
+            charRerollUsed = false;
+            gmRerollGranted = null;
+        }
+    }
+
+    // Listen for GM response via custom events
+    function onRerollResponse(e: Event) {
+        const detail = (e as CustomEvent).detail;
+        rerollRequestPending = false;
+        if (detail.approved) {
+            gmRerollGranted = detail.mode;
+        }
+    }
+
+    onMount(() => {
+        document.addEventListener("dh2e:chargenRerollResponse", onRerollResponse);
+    });
+    onDestroy(() => {
+        document.removeEventListener("dh2e:chargenRerollResponse", onRerollResponse);
+    });
 </script>
 
 <div class="step-content">
@@ -231,23 +344,24 @@
             {#if !allRolled}
                 <button class="btn roll-all-btn" type="button" onclick={rollAll}>Roll All</button>
             {/if}
-            {#if allRolled && !rerollUsed && !pickingReroll}
+            {#if allRolled && !charRerollUsed && !pickingReroll}
                 <button class="btn reroll-btn" type="button" onclick={startReroll}>Re-roll</button>
             {/if}
             {#if pickingReroll}
                 <span class="reroll-prompt">Pick a characteristic to re-roll</span>
                 <button class="btn cancel-reroll-btn" type="button" onclick={cancelReroll}>Cancel</button>
             {/if}
-            {#if rerollUsed}
+            {#if charRerollUsed}
                 <span class="reroll-used">Re-roll used</span>
             {/if}
         </div>
 
         <div class="char-grid">
             {#each charOrder as key}
-                {@const hasRolled = rolled.has(key)}
-                {@const oldVal = rerolledFrom[key]}
-                {@const wasRerolled = rerollTarget === key}
+                {@const hasRolled = charRolled[key]}
+                {@const oldVal = charRerolledFrom[key]}
+                {@const wasRerolled = charRerollTarget === key}
+                {@const details = charRollDetails[key]}
                 <div
                     class="char-cell"
                     class:positive={isPositive(key)}
@@ -263,12 +377,19 @@
                     {/if}
 
                     {#if hasRolled}
-                        <span class="char-value" class:rerolled={wasRerolled}>
+                        <span
+                            class="char-value"
+                            class:rerolled={wasRerolled}
+                            title={details ? `${details.die1} + ${details.die2} + ${details.base} = ${details.die1 + details.die2 + details.base}` : ""}
+                        >
                             {#if oldVal !== undefined}
                                 <span class="old-value">{oldVal}</span>
                             {/if}
                             {characteristics[key]}
                         </span>
+                        {#if details}
+                            <span class="roll-breakdown">{details.die1} + {details.die2} + {details.base}</span>
+                        {/if}
 
                         {#if pickingReroll}
                             <button
@@ -345,7 +466,35 @@
     <div class="char-total">
         <span class="total-label">Total</span>
         <span class="total-value">{charTotal}</span>
+        {#if isRolled && allRolled}
+            <span class="dice-total">(Dice: {diceOnlyTotal()})</span>
+        {/if}
     </div>
+
+    <!-- GM Reroll Threshold -->
+    {#if isBelowThreshold && !gmRerollGranted}
+        <div class="threshold-warning">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Dice total ({diceOnlyTotal()}) is below threshold ({rerollThreshold}). You may request a GM-approved reroll.</span>
+            {#if rerollRequestPending}
+                <span class="pending-label"><i class="fa-solid fa-spinner fa-spin"></i> Awaiting GM approval...</span>
+            {:else}
+                <button class="btn request-reroll-btn" type="button" onclick={requestGMReroll}>
+                    Request GM Reroll
+                </button>
+            {/if}
+        </div>
+    {/if}
+
+    {#if gmRerollGranted}
+        <div class="reroll-granted">
+            <i class="fa-solid fa-check-circle"></i>
+            <span>GM approved a {gmRerollGranted} reroll!</span>
+            <button class="btn apply-reroll-btn" type="button" onclick={() => executeGMReroll(gmRerollGranted!)}>
+                Apply {gmRerollGranted === "full" ? "Full" : "Single"} Reroll
+            </button>
+        </div>
+    {/if}
 </div>
 
 <style lang="scss">
@@ -472,6 +621,13 @@
         color: var(--dh2e-text-secondary, #a0a0a8);
         text-decoration: line-through;
         margin-right: 4px;
+    }
+
+    .roll-breakdown {
+        font-size: 0.55rem;
+        font-family: monospace;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        opacity: 0.7;
     }
 
     .roll-one-btn {
@@ -647,6 +803,64 @@
         font-size: 0.7rem;
         color: var(--dh2e-text-secondary, #a0a0a8);
         font-style: italic;
+    }
+
+    .dice-total {
+        font-size: 0.65rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-style: italic;
+    }
+
+    .threshold-warning {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-sm, 0.5rem);
+        padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-sm, 0.5rem);
+        background: rgba(204, 160, 50, 0.1);
+        border: 1px solid var(--dh2e-gold-dark, #9c7a28);
+        border-radius: 3px;
+        font-size: 0.7rem;
+        color: var(--dh2e-gold, #c8a84e);
+
+        i { flex-shrink: 0; }
+    }
+
+    .pending-label {
+        font-style: italic;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        i { margin-right: 4px; }
+    }
+
+    .request-reroll-btn {
+        flex-shrink: 0;
+        background: var(--dh2e-gold-dark, #9c7a28);
+        color: var(--dh2e-bg-darkest, #111114);
+        border-color: var(--dh2e-gold, #c8a84e);
+        font-weight: 700;
+        &:hover { background: var(--dh2e-gold, #c8a84e); }
+    }
+
+    .reroll-granted {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-sm, 0.5rem);
+        padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-sm, 0.5rem);
+        background: rgba(68, 170, 136, 0.1);
+        border: 1px solid var(--dh2e-success, #4a8);
+        border-radius: 3px;
+        font-size: 0.7rem;
+        color: var(--dh2e-success, #4a8);
+
+        i { flex-shrink: 0; }
+    }
+
+    .apply-reroll-btn {
+        flex-shrink: 0;
+        background: var(--dh2e-success, #4a8);
+        color: #fff;
+        border-color: var(--dh2e-success, #4a8);
+        font-weight: 700;
+        &:hover { background: #3a7; }
     }
 
     /* Common button base */

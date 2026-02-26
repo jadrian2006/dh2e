@@ -121,6 +121,17 @@ const SETTINGS: SettingDefinition[] = [
     },
 
     {
+        key: "charGenRerollThreshold",
+        category: "automation",
+        name: "DH2E.Settings.CharGenRerollThreshold.Name",
+        hint: "DH2E.Settings.CharGenRerollThreshold.Hint",
+        scope: "world",
+        config: true,
+        type: Number,
+        default: 89,
+        range: { min: 0, max: 120, step: 1 },
+    },
+    {
         key: "automatePhenomena",
         category: "automation",
         name: "DH2E.Settings.AutomatePhenomena.Name",
@@ -164,6 +175,16 @@ const SETTINGS: SettingDefinition[] = [
             inquisitorGM: "DH2E.Settings.WarbandInventoryAccess.InquisitorGM",
             gmOnly: "DH2E.Settings.WarbandInventoryAccess.GMOnly",
         },
+    },
+    {
+        key: "allowSilentTrades",
+        category: "automation",
+        name: "DH2E.Settings.AllowSilentTrades.Name",
+        hint: "DH2E.Settings.AllowSilentTrades.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
     },
     {
         key: "blockUntrainedSkillUses",

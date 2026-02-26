@@ -394,7 +394,7 @@ export class Ready {
             } else if (data.type === "tradeAccepted") {
                 // GM executes the transfer
                 if (g.user?.isGM) {
-                    executeTransfer(data.payload.sourceActorId, data.payload.targetActorId, data.payload.itemId);
+                    executeTransfer(data.payload.sourceActorId, data.payload.targetActorId, data.payload.itemId, { silent: data.payload.silent ?? false });
                     ui.notifications.info(
                         game.i18n.format("DH2E.Trade.Accepted", {
                             receiver: data.payload.receiverName,
@@ -410,6 +410,27 @@ export class Ready {
                         item: data.payload.itemName,
                     }),
                 );
+            } else if (data.type === "chargenRerollRequest") {
+                // GM receives player's chargen reroll request
+                if (g.user?.isGM) {
+                    Ready.#handleChargenRerollRequest(data.payload);
+                }
+            } else if (data.type === "chargenRerollApproved") {
+                // Player receives GM approval
+                if (g.user?.id === data.payload.requesterId) {
+                    Ready.#handleChargenRerollApproved(data.payload);
+                }
+            } else if (data.type === "chargenRerollDenied") {
+                // Player receives GM denial
+                if (g.user?.id === data.payload.requesterId) {
+                    ui.notifications?.info(
+                        g.i18n?.localize("DH2E.Chargen.Reroll.Denied") ?? "GM denied the reroll request.",
+                    );
+                    // Dispatch custom event for the wizard to pick up
+                    document.dispatchEvent(new CustomEvent("dh2e:chargenRerollResponse", {
+                        detail: { approved: false },
+                    }));
+                }
             }
         });
     }
@@ -560,6 +581,95 @@ export class Ready {
         ui.notifications.warn(
             game.i18n.format("DH2E.Requisition.Denied", { name: payload.itemName }),
         );
+    }
+
+    /** GM receives chargen reroll request — show approval dialog */
+    static #handleChargenRerollRequest(payload: {
+        requesterId: string;
+        requesterName: string;
+        actorName: string;
+        diceTotal: number;
+        threshold: number;
+        breakdown: Record<string, { die1: number; die2: number; base: number }>;
+    }): void {
+        const g = game as any;
+        const charNames: Record<string, string> = {
+            ws: "WS", bs: "BS", s: "S", t: "T", ag: "Ag",
+            int: "Int", per: "Per", wp: "WP", fel: "Fel",
+        };
+
+        const rows = Object.entries(payload.breakdown)
+            .map(([key, d]) => `<tr><td>${charNames[key] ?? key}</td><td>${d.die1}</td><td>${d.die2}</td><td>${d.base}</td><td>${d.die1 + d.die2 + d.base}</td></tr>`)
+            .join("");
+
+        const content = `
+            <div style="padding: 0.5rem;">
+                <p><strong>${payload.requesterName}</strong> (${payload.actorName}) requests a reroll.</p>
+                <p>Dice total: <strong>${payload.diceTotal}</strong> (threshold: ${payload.threshold})</p>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.75rem; margin: 0.5rem 0;">
+                    <thead><tr style="border-bottom: 1px solid #555;">
+                        <th style="text-align: left;">Char</th><th>Die 1</th><th>Die 2</th><th>Base</th><th>Total</th>
+                    </tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            </div>
+        `;
+
+        new fa.api.DialogV2({
+            window: {
+                title: g.i18n?.localize("DH2E.Chargen.Reroll.RequestTitle") ?? "Reroll Request",
+                icon: "fa-solid fa-dice",
+            },
+            content,
+            buttons: [
+                {
+                    action: "full",
+                    label: g.i18n?.localize("DH2E.Chargen.Reroll.ApproveAll") ?? "Full Reroll",
+                    default: true,
+                    callback: () => {
+                        g.socket.emit(`system.${SYSTEM_ID}`, {
+                            type: "chargenRerollApproved",
+                            payload: { requesterId: payload.requesterId, mode: "full" },
+                        });
+                    },
+                },
+                {
+                    action: "single",
+                    label: g.i18n?.localize("DH2E.Chargen.Reroll.ApproveSingle") ?? "Single Reroll",
+                    callback: () => {
+                        g.socket.emit(`system.${SYSTEM_ID}`, {
+                            type: "chargenRerollApproved",
+                            payload: { requesterId: payload.requesterId, mode: "single" },
+                        });
+                    },
+                },
+                {
+                    action: "deny",
+                    label: g.i18n?.localize("DH2E.Chargen.Reroll.Deny") ?? "Deny",
+                    callback: () => {
+                        g.socket.emit(`system.${SYSTEM_ID}`, {
+                            type: "chargenRerollDenied",
+                            payload: { requesterId: payload.requesterId },
+                        });
+                    },
+                },
+            ],
+            position: { width: 420 },
+        }).render(true);
+    }
+
+    /** Player receives chargen reroll approval — dispatch custom event for wizard to pick up */
+    static #handleChargenRerollApproved(payload: {
+        requesterId: string;
+        mode: "full" | "single";
+    }): void {
+        const g = game as any;
+        ui.notifications?.info(
+            g.i18n?.format("DH2E.Chargen.Reroll.Approved", { type: payload.mode }) ?? `GM approved a ${payload.mode} reroll.`,
+        );
+        document.dispatchEvent(new CustomEvent("dh2e:chargenRerollResponse", {
+            detail: { approved: true, mode: payload.mode },
+        }));
     }
 
     /** Check for pending requisitions that are ready for delivery (GM only) */

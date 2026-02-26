@@ -167,12 +167,162 @@ function parseReloadCost(reloadStr: string): ReloadCost {
     return { actionType: "full", count: 1 };
 }
 
+/**
+ * Unload a weapon's clip back into the actor's inventory as loose ammo.
+ * Creates a new ammo item (or adds to existing) matching the loaded type.
+ */
+async function unloadWeapon(actor: any, weapon: any): Promise<{ unloaded: number; ammoName: string } | null> {
+    const sys = weapon.system ?? {};
+    const clipValue = sys.clip?.value ?? 0;
+    if (clipValue <= 0) return null;
+
+    const loadedAmmoId = sys.loadedAmmoId ?? "";
+
+    // Find the ammo template from the loaded ID or from compatible ammo
+    let ammoName = "Rounds";
+    let matchingAmmo: any = null;
+
+    if (loadedAmmoId) {
+        matchingAmmo = actor.items.get(loadedAmmoId);
+    }
+    if (!matchingAmmo) {
+        // Find any compatible ammo to use as template
+        const compatible = getCompatibleAmmo(actor, weapon);
+        matchingAmmo = compatible[0] ?? null;
+    }
+
+    if (matchingAmmo) {
+        ammoName = matchingAmmo.name;
+        // Add rounds back to the existing ammo stack
+        const currentQty = matchingAmmo.system?.quantity ?? 0;
+        await matchingAmmo.update({ "system.quantity": currentQty + clipValue });
+    } else {
+        // No ammo item found — create a generic ammo item
+        const weaponGroup = sys.weaponGroup ?? "";
+        await actor.createEmbeddedDocuments("Item", [{
+            name: ammoName,
+            type: "ammunition",
+            system: {
+                quantity: clipValue,
+                weaponGroup,
+            },
+        }]);
+    }
+
+    // Empty the weapon clip
+    await weapon.update({
+        "system.clip.value": 0,
+        "system.loadedAmmoId": "",
+    });
+
+    return { unloaded: clipValue, ammoName };
+}
+
+/**
+ * Load loose ammo rounds into a magazine/clip item.
+ * The magazine must have capacity > 0.
+ */
+async function loadMagazine(actor: any, magazine: any, ammoItem?: any): Promise<{ loaded: number; ammoName: string } | null> {
+    const sys = magazine.system ?? {};
+    const capacity = sys.capacity ?? 0;
+    const currentLoaded = sys.loaded ?? 0;
+    if (capacity <= 0 || currentLoaded >= capacity) return null;
+
+    const roundsNeeded = capacity - currentLoaded;
+    const magGroup = sys.weaponGroup ?? "";
+
+    // Find compatible loose ammo (not magazines)
+    if (!ammoItem) {
+        const loose = actor.items.filter((i: any) => {
+            if (i.type !== "ammunition") return false;
+            if (i.id === magazine.id) return false;
+            if ((i.system?.capacity ?? 0) > 0) return false; // skip other magazines
+            if ((i.system?.quantity ?? 0) <= 0) return false;
+            const aGroup = i.system?.weaponGroup ?? "";
+            return aGroup === magGroup || aGroup === "";
+        });
+        // Prefer matching the currently loaded type
+        const loadedName = sys.loadedAmmoName ?? "";
+        if (loadedName) {
+            ammoItem = loose.find((a: any) => a.name === loadedName);
+        }
+        if (!ammoItem) ammoItem = loose[0];
+    }
+
+    if (!ammoItem) return null;
+
+    const ammoQty = ammoItem.system?.quantity ?? 0;
+    if (ammoQty <= 0) return null;
+
+    const loaded = Math.min(roundsNeeded, ammoQty);
+    const newLoaded = currentLoaded + loaded;
+    const newAmmoQty = ammoQty - loaded;
+
+    // Update magazine
+    await magazine.update({
+        "system.loaded": newLoaded,
+        "system.loadedAmmoName": ammoItem.name,
+    });
+
+    // Update or delete loose ammo
+    if (newAmmoQty <= 0) {
+        await actor.deleteEmbeddedDocuments("Item", [ammoItem.id]);
+    } else {
+        await ammoItem.update({ "system.quantity": newAmmoQty });
+    }
+
+    return { loaded, ammoName: ammoItem.name };
+}
+
+/**
+ * Unload a magazine — extract loaded rounds back to inventory as loose ammo.
+ */
+async function unloadMagazine(actor: any, magazine: any): Promise<{ unloaded: number; ammoName: string } | null> {
+    const sys = magazine.system ?? {};
+    const currentLoaded = sys.loaded ?? 0;
+    if (currentLoaded <= 0) return null;
+
+    const loadedAmmoName = sys.loadedAmmoName ?? "Rounds";
+
+    // Find existing loose ammo of the same name
+    const existing = actor.items.find((i: any) =>
+        i.type === "ammunition" && i.name === loadedAmmoName && i.id !== magazine.id && (i.system?.capacity ?? 0) === 0,
+    );
+
+    if (existing) {
+        const qty = existing.system?.quantity ?? 0;
+        await existing.update({ "system.quantity": qty + currentLoaded });
+    } else {
+        // Create new loose ammo stack
+        const magGroup = sys.weaponGroup ?? "";
+        await actor.createEmbeddedDocuments("Item", [{
+            name: loadedAmmoName,
+            type: "ammunition",
+            system: {
+                quantity: currentLoaded,
+                weaponGroup: magGroup,
+            },
+        }]);
+    }
+
+    // Empty the magazine
+    await magazine.update({
+        "system.loaded": 0,
+        "system.loadedAmmoName": "",
+    });
+
+    return { unloaded: currentLoaded, ammoName: loadedAmmoName };
+}
+
 export {
     canFire,
     consumeAmmo,
     recoverAmmo,
     getCompatibleAmmo,
     reloadWeapon,
+    unloadWeapon,
+    loadMagazine,
+    unloadMagazine,
     parseReloadCost,
 };
 export type { ConsumeResult, ReloadResult, ReloadCost };

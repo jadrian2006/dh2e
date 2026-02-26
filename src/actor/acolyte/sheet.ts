@@ -243,12 +243,24 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
         const itemData = item.toObject();
         const itemType = itemData.type as string;
 
-        // Cross-actor drop → item trade
+        // Same-actor drop → ignore (not a transfer or new item)
         const sourceActor = (item as any).parent;
-        if (sourceActor && sourceActor.id !== actor.id && sourceActor.isOwner) {
-            // Direct transfer for warband, trade dialog for other actors
-            await sendTradeOffer(sourceActor.id, actor.id!, (item as any).id);
+        if (sourceActor && sourceActor.id === actor.id) return;
+
+        // Cross-actor drop: looting from a defeated NPC corpse
+        if (sourceActor && sourceActor.type === "npc" && sourceActor.system?.defeated === true) {
+            await this.#lootFromCorpse(sourceActor, item, actor);
             return;
+        }
+
+        // Cross-actor drop → item trade (player-to-player or warband only)
+        if (sourceActor && sourceActor.id !== actor.id && sourceActor.isOwner) {
+            const isWarband = sourceActor.type === "warband" || actor.type === "warband";
+            const isPlayerToPlayer = sourceActor.type === "acolyte" && actor.type === "acolyte";
+            if (isWarband || isPlayerToPlayer) {
+                await sendTradeOffer(sourceActor.id, actor.id!, (item as any).id);
+                return;
+            }
         }
 
         // Enforce singleton for origin items
@@ -267,6 +279,65 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
         }
 
         await actor.createEmbeddedDocuments("Item", [itemData]);
+    }
+
+    /** Loot an item from a defeated NPC corpse — always public */
+    async #lootFromCorpse(sourceActor: any, item: any, targetActor: AcolyteDH2e): Promise<void> {
+        const g = game as any;
+
+        // Guard: NPC must have at least one visible token
+        const hasVisibleToken = sourceActor.getActiveTokens?.().some(
+            (t: any) => !t.document?.hidden,
+        );
+        if (!hasVisibleToken) {
+            ui.notifications?.warn(
+                g.i18n?.localize("DH2E.Loot.NpcNotVisible") ?? "This NPC is not visible — cannot loot.",
+            );
+            return;
+        }
+
+        // Guard: hidden items can't be looted
+        if (item.getFlag?.("dh2e", "hidden")) return;
+
+        // Prepare item data — unequip transferred items
+        const itemData = item.toObject();
+        delete itemData._id;
+        if (itemData.system?.equipped !== undefined) {
+            itemData.system.equipped = false;
+        }
+
+        // Transfer: create on target, delete from source
+        await targetActor.createEmbeddedDocuments("Item", [itemData]);
+        await sourceActor.deleteEmbeddedDocuments("Item", [item.id]);
+
+        // Post always-public chat card
+        const itemName = item.name ?? "Unknown Item";
+        const itemImg = item.img ?? "icons/svg/item-bag.svg";
+
+        const content = `
+            <div class="dh2e chat-card loot-card" style="display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem;">
+                <img src="${itemImg}" alt="" style="width: 32px; height: 32px; border-radius: 3px; border: 1px solid var(--dh2e-border, #4a4a55); flex-shrink: 0;" />
+                <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 0.8rem; font-weight: 700; color: var(--dh2e-danger, #c0392b);">
+                        <i class="fa-solid fa-skull" style="margin-right: 0.25rem;"></i>
+                        ${g.i18n?.localize("DH2E.Loot.CorpseLoot") ?? "Corpse Looted"}
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--dh2e-text-primary, #d0cfc8);">
+                        <strong>${targetActor.name}</strong>
+                        <i class="fa-solid fa-arrow-left" style="font-size: 0.6rem; margin: 0 0.3rem; color: var(--dh2e-text-secondary, #a0a0a8);"></i>
+                        <strong>${sourceActor.name}</strong>
+                    </div>
+                    <div style="font-size: 0.7rem; color: var(--dh2e-text-secondary, #a0a0a8); margin-top: 2px;">
+                        ${itemName}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        await fd.ChatMessage.create({
+            content,
+            speaker: { alias: g.i18n?.localize("DH2E.Loot.CorpseLoot") ?? "Corpse Looted" },
+        });
     }
 }
 

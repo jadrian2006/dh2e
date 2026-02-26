@@ -12,7 +12,10 @@
     // --- Thrones management ---
     const thronesItem = $derived(() => {
         const gear: any[] = ctx.items?.gear ?? [];
-        return gear.find((i: any) => i.name === "Imperial Thrones") ?? null;
+        const treasure: any[] = ctx.items?.treasure ?? [];
+        return gear.find((i: any) => i.name === "Imperial Thrones")
+            ?? treasure.find((i: any) => i.name === "Imperial Thrones")
+            ?? null;
     });
     const thronesQty = $derived(thronesItem()?.system?.quantity ?? 0);
 
