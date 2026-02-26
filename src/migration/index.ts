@@ -13,6 +13,7 @@ import { Migration006AmmoTracking } from "./migrations/006-ammo-tracking.ts";
 import { Migration007LootSystem } from "./migrations/007-loot-system.ts";
 import { Migration008FatigueField } from "./migrations/008-fatigue-field.ts";
 import { Migration009MagazineRename } from "./migrations/009-magazine-rename.ts";
+import { Migration010CompanionsReinforcements } from "./migrations/010-companions-reinforcements.ts";
 
 MigrationRunner.register([
     new Migration001HordeType(),
@@ -24,4 +25,5 @@ MigrationRunner.register([
     new Migration007LootSystem(),
     new Migration008FatigueField(),
     new Migration009MagazineRename(),
+    new Migration010CompanionsReinforcements(),
 ]);

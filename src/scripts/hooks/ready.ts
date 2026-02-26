@@ -410,6 +410,20 @@ export class Ready {
                         item: data.payload.itemName,
                     }),
                 );
+            } else if (data.type === "rcAssigned") {
+                // Player receives RC assignment notification
+                if (g.user?.id === data.payload.userId) {
+                    ui.notifications.info(
+                        game.i18n.format("DH2E.Reinforcement.Assigned", { name: data.payload.name }),
+                    );
+                }
+            } else if (data.type === "rcRecalled") {
+                // Player receives RC recall notification
+                if (g.user?.id === data.payload.userId) {
+                    ui.notifications.warn(
+                        game.i18n.format("DH2E.Reinforcement.Recalled", { name: data.payload.name }),
+                    );
+                }
             } else if (data.type === "chargenRerollRequest") {
                 // GM receives player's chargen reroll request
                 if (g.user?.isGM) {

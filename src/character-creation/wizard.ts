@@ -129,13 +129,29 @@ function parseEquipment(text: string): { name: string; quantity: number } {
     return { name: text, quantity: 1 };
 }
 
-/** Find an item in a compendium pack by name (case-insensitive) */
+/**
+ * Alias map for equipment names that don't exactly match compendium entries.
+ * Keys are the lowercase name as it appears in background equipment lists.
+ */
+const NAME_ALIASES: Record<string, string> = {
+    "medi-kit": "medikit",
+    "dataslate": "data-slate",
+    "glow-globe": "glow-globe/stab-light",
+    "lho sticks": "lho-sticks",
+    "combat vest": "flak vest",
+};
+
+/** Find an item in a compendium pack by name (case-insensitive, with alias support) */
 async function findInPack(packId: string, name: string): Promise<any | null> {
     const pack = game.packs.get(packId);
     if (!pack) return null;
     const index = await pack.getIndex();
     const lc = name.toLowerCase();
-    const entry = index.find((e: any) => e.name.toLowerCase() === lc);
+    const alias = NAME_ALIASES[lc]?.toLowerCase();
+    const entry = index.find((e: any) => {
+        const n = e.name.toLowerCase();
+        return n === lc || (alias && n === alias);
+    });
     if (!entry) return null;
     return pack.getDocument(entry._id);
 }
@@ -397,14 +413,16 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 itemsToCreate.push(itemData);
             }
 
-            // Skills
+            // Skills — grant at advancement 1 (Known)
             for (const raw of background.skills) {
                 if (isPickOne(raw)) continue;
                 const name = resolveOr(raw);
                 if (isPickOne(name)) continue;
                 const doc = await findInPack("dh2e-data.skills", name);
                 if (doc) {
-                    itemsToCreate.push(doc.toObject());
+                    const obj = doc.toObject();
+                    obj.system.advancement = 1; // Known rank
+                    itemsToCreate.push(obj);
                 } else {
                     console.warn(`dh2e | Skill "${name}" not found in compendium`);
                 }
@@ -422,9 +440,47 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 }
             }
 
-            // Equipment
+            // Equipment — with servo-skull companion detection
             const gearChoices = (state.gearChoices ?? {}) as Record<number, string>;
+            const skipEquipmentIndices = new Set<number>();
+
+            // Pre-scan for servo-skull choices → create NPC companion instead
             for (let i = 0; i < background.equipment.length; i++) {
+                const raw = background.equipment[i];
+                const resolved = gearChoices[i] ?? resolveOr(raw);
+                const { name } = parseEquipment(resolved);
+                if (/servo[- ]?skull/i.test(name)) {
+                    skipEquipmentIndices.add(i);
+                    // Create NPC companion from compendium
+                    try {
+                        const npcPack = game.packs?.get("dh2e-data.npcs");
+                        if (npcPack) {
+                            const npcIndex = await npcPack.getIndex();
+                            const skullEntry = npcIndex.find((e: any) =>
+                                e.name.toLowerCase().includes("servo-skull") && e.name.toLowerCase().includes("utility"),
+                            );
+                            if (skullEntry) {
+                                const skullDoc = await npcPack.getDocument(skullEntry._id);
+                                if (skullDoc) {
+                                    const skullData = (skullDoc as any).toObject();
+                                    delete skullData._id;
+                                    skullData.name = `${this.#actor.name}'s Monotask Servo-skull (Utility)`;
+                                    const createdActors = await (Actor as any).createDocuments([skullData]);
+                                    if (createdActors?.[0]) {
+                                        // Will register as companion after actor is fully set up (post-update)
+                                        (state as any)._pendingCompanionId = createdActors[0].id;
+                                    }
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        console.warn("dh2e | Failed to create servo-skull companion from chargen:", e);
+                    }
+                }
+            }
+
+            for (let i = 0; i < background.equipment.length; i++) {
+                if (skipEquipmentIndices.has(i)) continue;
                 const raw = background.equipment[i];
                 const resolved = gearChoices[i] ?? resolveOr(raw);
                 const { name, quantity } = parseEquipment(resolved);
@@ -434,10 +490,30 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     if (quantity > 1 && obj.system?.quantity !== undefined) {
                         obj.system.quantity = quantity;
                     }
+                    // Auto-equip weapons and armour from chargen
+                    if (obj.type === "weapon" || obj.type === "armour") {
+                        obj.system.equipped = true;
+                    }
                     itemsToCreate.push(obj);
                 } else {
                     console.warn(`dh2e | Equipment "${name}" not found in compendium`);
                 }
+            }
+        }
+
+        // 3b. Background bonuses — special trait grants
+        if (background?.name === "Adeptus Mechanicus") {
+            const mechImplants = await findInPack("dh2e-data.cybernetics", "Mechanicus Implants");
+            if (mechImplants) {
+                const obj = mechImplants.toObject();
+                obj.system.installed = true;
+                // Set maintenance date so it doesn't start in total failure
+                const warband = (game as any).dh2e?.warband;
+                const warbandDate = warband?.system?.chronicle?.currentDate ?? null;
+                if (warbandDate) {
+                    obj.system.lastMaintenanceDate = warbandDate;
+                }
+                itemsToCreate.push(obj);
             }
         }
 
@@ -587,15 +663,11 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             const grantThrones = g.settings?.get(SYSTEM_ID, "grantStartingThrones") ?? true;
             const thronesQty = g.settings?.get(SYSTEM_ID, "startingThrones") ?? 50;
             if (grantThrones && thronesQty > 0) {
-                const thronesPack = g.packs?.get("dh2e-data.gear");
-                if (thronesPack) {
-                    const docs = await thronesPack.getDocuments();
-                    const thronesItem = docs.find((d: any) => d.name === "Imperial Thrones");
-                    if (thronesItem) {
-                        const data = (thronesItem as any).toObject();
-                        data.system.quantity = thronesQty;
-                        itemsToCreate.push(data);
-                    }
+                const thronesDoc = await findInPacks(["dh2e-data.gear", "dh2e-data.treasure"], "Imperial Thrones");
+                if (thronesDoc) {
+                    const data = thronesDoc.toObject();
+                    data.system.quantity = thronesQty;
+                    itemsToCreate.push(data);
                 }
             }
         }
@@ -641,58 +713,40 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
                 if (loadType === "individual") {
                     // Individual-loading weapons: grant 3× magazine.max loose rounds
-                    if (wGroup) {
-                        const ammoPack = game.packs?.get("dh2e-data.ammunition");
-                        if (ammoPack) {
-                            const ammoDocuments = await ammoPack.getDocuments();
-                            const stdAmmo = ammoDocuments.find((a: any) => {
-                                const as = a.system ?? {};
-                                return as.weaponGroup === wGroup
-                                    && (as.capacity ?? 0) === 0
-                                    && as.damageModifier === 0
-                                    && as.penetrationModifier === 0;
-                            });
-                            if (stdAmmo) {
-                                const obj = (stdAmmo as any).toObject();
-                                delete obj._id;
-                                obj.system.quantity = magMax * 3;
-                                ammoItemsToCreate.push(obj);
-                            }
+                    if (stdAmmoName !== "Rounds") {
+                        const stdAmmo = await findInPack("dh2e-data.ammunition", stdAmmoName);
+                        if (stdAmmo) {
+                            const obj = stdAmmo.toObject();
+                            delete obj._id;
+                            obj.system.quantity = magMax * 3;
+                            ammoItemsToCreate.push(obj);
                         }
                     }
                 } else {
                     // Magazine-type weapons: grant 2 spare pre-loaded magazines
-                    if (wGroup) {
-                        const ammoPack = game.packs?.get("dh2e-data.ammunition");
-                        if (ammoPack) {
-                            const ammoDocuments = await ammoPack.getDocuments();
-                            // Find matching magazine (forWeapon === weapon name)
-                            const magTemplate = ammoDocuments.find((a: any) => {
-                                const as = a.system ?? {};
-                                return (as.capacity ?? 0) > 0 && (as.forWeapon === w.name);
-                            });
-                            if (magTemplate) {
-                                for (let n = 0; n < 2; n++) {
-                                    const obj = (magTemplate as any).toObject();
-                                    delete obj._id;
-                                    obj.system.loadedRounds = [{ name: stdAmmoName, count: obj.system.capacity }];
-                                    ammoItemsToCreate.push(obj);
-                                }
-                            } else {
-                                // Fallback: grant loose rounds if no magazine template found
-                                const stdAmmo = ammoDocuments.find((a: any) => {
-                                    const as = a.system ?? {};
-                                    return as.weaponGroup === wGroup
-                                        && (as.capacity ?? 0) === 0
-                                        && as.damageModifier === 0
-                                        && as.penetrationModifier === 0;
-                                });
-                                if (stdAmmo) {
-                                    const obj = (stdAmmo as any).toObject();
-                                    delete obj._id;
-                                    obj.system.quantity = magMax * 2;
-                                    ammoItemsToCreate.push(obj);
-                                }
+                    const ammoPack = game.packs?.get("dh2e-data.ammunition");
+                    if (ammoPack) {
+                        const ammoDocuments = await ammoPack.getDocuments();
+                        // Find matching magazine (forWeapon === weapon name)
+                        const magTemplate = ammoDocuments.find((a: any) => {
+                            const as = a.system ?? {};
+                            return (as.capacity ?? 0) > 0 && (as.forWeapon === w.name);
+                        });
+                        if (magTemplate) {
+                            for (let n = 0; n < 1; n++) {
+                                const obj = (magTemplate as any).toObject();
+                                delete obj._id;
+                                obj.system.loadedRounds = [{ name: stdAmmoName, count: obj.system.capacity }];
+                                ammoItemsToCreate.push(obj);
+                            }
+                        } else if (stdAmmoName !== "Rounds") {
+                            // Fallback: grant loose rounds by name if no magazine template found
+                            const stdAmmo = await findInPack("dh2e-data.ammunition", stdAmmoName);
+                            if (stdAmmo) {
+                                const obj = stdAmmo.toObject();
+                                delete obj._id;
+                                obj.system.quantity = magMax * 2;
+                                ammoItemsToCreate.push(obj);
                             }
                         }
                     }
@@ -734,6 +788,16 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 amount: -p.cost,
                 who: "Character Creation",
             });
+        }
+
+        // Register servo-skull companion if created during chargen
+        const pendingCompanionId = (state as any)._pendingCompanionId;
+        if (pendingCompanionId) {
+            const g = game as any;
+            const npcActor = g.actors?.get(pendingCompanionId);
+            if (npcActor && (this.#actor as any).addCompanion) {
+                await (this.#actor as any).addCompanion(npcActor, "follow");
+            }
         }
 
         ui.notifications.info(`${this.#actor.name} creation complete!`);

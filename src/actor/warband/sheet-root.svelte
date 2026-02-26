@@ -8,6 +8,7 @@
     import InventoryTab from "./components/inventory-tab.svelte";
     import PendingRequisitions from "./components/pending-requisitions.svelte";
     import ChronicleTab from "./components/chronicle-tab.svelte";
+    import ReinforcementsTab from "./components/reinforcements-tab.svelte";
     import TabGroup from "../../sheet/components/tab-group.svelte";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
@@ -22,6 +23,7 @@
         { id: "overview", label: "Overview", icon: "fa-solid fa-chart-bar" },
         { id: "skills", label: "Skills", icon: "fa-solid fa-book" },
         { id: "inventory", label: "Inventory", icon: "fa-solid fa-warehouse" },
+        { id: "reinforcements", label: "Reinforcements", icon: "fa-solid fa-users-gear" },
         { id: "objectives", label: "Objectives", icon: "fa-solid fa-scroll" },
         { id: "chronicle", label: "Chronicle", icon: "fa-solid fa-clock-rotate-left" },
     ];
@@ -82,6 +84,8 @@
             {:else if activeTab === "inventory"}
                 <InventoryTab {ctx} />
                 <PendingRequisitions {ctx} />
+            {:else if activeTab === "reinforcements"}
+                <ReinforcementsTab {ctx} />
             {:else if activeTab === "objectives"}
                 <ObjectivesTab
                     objectives={ctx.objectives ?? []}

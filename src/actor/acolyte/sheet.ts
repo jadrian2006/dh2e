@@ -28,6 +28,9 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
     /** Persisted tab state — survives Svelte remounts */
     #activeTab = "summary";
 
+    /** Persisted equipment sub-tab — survives re-renders */
+    #equipmentCategory = "all";
+
     /** View mode: "full" | "compact" | "combat" */
     #viewMode: string = getSetting<string>("defaultSheetViewMode") || "full";
 
@@ -96,8 +99,26 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                         this.render(true);
                     }
                 },
+                // Companion cards
+                companionCards: (actor.system.resolvedCompanions ?? []).map((c: any) => {
+                    const w = c.system?.wounds ?? { value: 0, max: 0 };
+                    const entry = (actor.system.companions ?? []).find((e: any) => e.actorId === c.id);
+                    return {
+                        actorId: c.id,
+                        name: c.name ?? "Unknown",
+                        img: c.img ?? "",
+                        wounds: { value: w.value, max: w.max },
+                        woundPct: w.max > 0 ? (w.value / w.max) * 100 : 0,
+                        behavior: entry?.behavior ?? "follow",
+                    };
+                }),
+                setCompanionBehavior: (actorId: string, behavior: string) =>
+                    actor.setCompanionBehavior(actorId, behavior as any),
+                removeCompanion: (actorId: string) => actor.removeCompanion(actorId),
                 activeTab: this.#activeTab,
                 setActiveTab: (tab: string) => { this.#activeTab = tab; },
+                equipmentCategory: this.#equipmentCategory,
+                setEquipmentCategory: (cat: string) => { this.#equipmentCategory = cat; },
                 viewMode: this.#viewMode,
                 setViewMode: (mode: string) => {
                     this.#viewMode = mode;
@@ -220,6 +241,18 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
             } catch {
                 return;
             }
+        }
+
+        // Handle NPC Actor drops → add as companion
+        if (data.type === "Actor") {
+            let droppedActor: any = null;
+            if (data.uuid) {
+                droppedActor = await fromUuid(data.uuid as string);
+            }
+            if (droppedActor?.type === "npc") {
+                await actor.addCompanion(droppedActor);
+            }
+            return;
         }
 
         if (!data || data.type !== "Item") return;

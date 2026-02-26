@@ -85,11 +85,62 @@ export class Init {
             // Register status effects for token overlays
             CONFIG.statusEffects = DH2E_STATUS_EFFECTS;
 
+            // Thematic turn marker — gold imperial ring instead of default orange d20
+            if ((CONFIG as any).Combat?.turnMarker) {
+                (CONFIG as any).Combat.turnMarker.path = `systems/${SYSTEM_ID}/ui/turn-marker.svg`;
+            }
+
             // Lock token rotation for non-vehicle actors (vehicles need facing for armour zones)
+            // Also enforce one-token-per-scene for companion & reinforcement NPCs
             Hooks.on("preCreateToken", (token: any) => {
                 const actorType = token.actor?.type;
                 if (actorType && actorType !== "vehicle") {
                     token.updateSource({ lockRotation: true });
+                }
+
+                // Companion / Reinforcement uniqueness enforcement
+                if (actorType === "npc" && token.actor?.id) {
+                    const actorId = token.actor.id;
+                    const g = game as any;
+
+                    // Check if this NPC is a companion or reinforcement
+                    let isManaged = false;
+
+                    // Check acolyte companions
+                    for (const a of g.actors ?? []) {
+                        if (a.type !== "acolyte") continue;
+                        const companions = a.system?.companions ?? a._source?.system?.companions ?? [];
+                        if (companions.some((c: any) => c.actorId === actorId)) {
+                            isManaged = true;
+                            break;
+                        }
+                    }
+
+                    // Check warband reinforcements
+                    if (!isManaged) {
+                        const warband = g.dh2e?.warband;
+                        if (warband) {
+                            const reinforcements = warband.system?.reinforcements ?? warband._source?.system?.reinforcements ?? [];
+                            if (reinforcements.some((r: any) => r.actorId === actorId)) {
+                                isManaged = true;
+                            }
+                        }
+                    }
+
+                    // If managed, enforce one-per-scene
+                    if (isManaged) {
+                        const scene = token.parent;
+                        const existing = scene?.tokens?.find(
+                            (t: any) => t.actorId === actorId && t.id !== token.id,
+                        );
+                        if (existing) {
+                            ui.notifications?.warn(
+                                g.i18n?.localize("DH2E.Companion.AlreadyOnScene")
+                                    ?? "This companion already has a token on this scene.",
+                            );
+                            return false;
+                        }
+                    }
                 }
             });
 

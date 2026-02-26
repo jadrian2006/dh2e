@@ -4,7 +4,7 @@ import type { WarbandDH2e } from "./document.ts";
 import type { AcolyteDH2e } from "@actor/acolyte/document.ts";
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 import type { ObjectiveDH2e } from "@item/objective/document.ts";
-import type { PendingRequisition, ChronicleEntry, ObjectiveDeadline } from "./data.ts";
+import type { PendingRequisition, ChronicleEntry, ObjectiveDeadline, ReinforcementEntry } from "./data.ts";
 import { ImperialDateUtil } from "../../integrations/imperial-calendar/imperial-date.ts";
 import SheetRoot from "./sheet-root.svelte";
 
@@ -237,6 +237,18 @@ class WarbandSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 pendingItems,
                 deliverRequisition: (id: string, target: "player" | "warband") =>
                     (actor as any).deliverRequisition(id, target),
+                // Reinforcements
+                reinforcementCards: (actor.system?.resolvedReinforcements ?? []).map((rc: any) => ({
+                    actorId: rc.actorId,
+                    name: rc.actor?.name ?? rc.name ?? "Unknown",
+                    img: rc.actor?.img ?? "",
+                    controllerName: rc.controllerName ?? "",
+                    notes: rc.notes ?? "",
+                })),
+                assignRCController: (actorId: string, userId: string) =>
+                    (actor as any).assignRCController(actorId, userId),
+                removeReinforcement: (actorId: string) =>
+                    (actor as any).removeReinforcement(actorId),
                 // Chronicle
                 chronicle,
                 onAdvanceDay: (days: number) => actor.advanceImperialDate(days),
@@ -316,6 +328,15 @@ class WarbandSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
         if (inqSection) {
             if (droppedActor.type === "acolyte" || droppedActor.type === "npc") {
                 await warband.setInquisitor(droppedActor);
+                return;
+            }
+        }
+
+        // Check if dropped on the reinforcements section
+        const rcSection = target?.closest?.("[data-drop-target='reinforcements']");
+        if (rcSection) {
+            if (droppedActor.type === "npc") {
+                await warband.addReinforcement(droppedActor);
                 return;
             }
         }

@@ -396,7 +396,7 @@
                         {#if details}
                             {@const hwMod = isPositive(key) ? 5 : isNegative(key) ? -5 : 0}
                             <span class="roll-breakdown">
-                                {details.die1} + {details.die2} + {rollBase}{#if hwMod > 0} + {hwMod}{:else if hwMod < 0} - {Math.abs(hwMod)}{/if}
+                                {details.die1} + {details.die2} + {rollBase}{#if hwMod > 0}{" "}+ {hwMod}{:else if hwMod < 0}{" "}- {Math.abs(hwMod)}{/if}
                             </span>
                         {/if}
 

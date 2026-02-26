@@ -1316,5 +1316,23 @@
     "DH2E.Fatigue.Threshold": "Fatigue Threshold (TB + WPB)",
     "DH2E.Fatigue.Unconscious": "{name} collapses from exhaustion!",
     "DH2E.Condition.Effect.OnFire": "{name} is On Fire! Takes {damage} Energy damage ({wounds} after TB) and gains 1 Fatigue.",
-    "DH2E.Condition.Effect.Bleeding": "{name} is Bleeding! Gains 1 Fatigue from blood loss."
+    "DH2E.Condition.Effect.Bleeding": "{name} is Bleeding! Gains 1 Fatigue from blood loss.",
+
+    "DH2E.Companion.Title": "Companions",
+    "DH2E.Companion.Empty": "No companions assigned.",
+    "DH2E.Companion.Follow": "Follow",
+    "DH2E.Companion.Stay": "Stay",
+    "DH2E.Companion.Guard": "Guard",
+    "DH2E.Companion.Remove": "Remove Companion",
+    "DH2E.Companion.Added": "{name} assigned as companion.",
+    "DH2E.Companion.AlreadyOnScene": "This companion already has a token on this scene.",
+
+    "DH2E.Reinforcement.Title": "Reinforcements",
+    "DH2E.Reinforcement.Empty": "No reinforcements staged.",
+    "DH2E.Reinforcement.Unassigned": "Unassigned",
+    "DH2E.Reinforcement.Assign": "Assign Controller",
+    "DH2E.Reinforcement.Remove": "Remove Reinforcement",
+    "DH2E.Reinforcement.Assigned": "{name} has been assigned to your control.",
+    "DH2E.Reinforcement.Recalled": "{name} has been recalled from your control.",
+    "DH2E.Reinforcement.Notes": "Notes"
 }

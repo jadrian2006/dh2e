@@ -6,6 +6,7 @@
     import TalentsTab from "./components/talents-tab.svelte";
     import PowersTab from "./components/powers-tab.svelte";
     import CombatTab from "./components/combat-tab.svelte";
+    import CompanionsSection from "./components/companions-section.svelte";
     import EquipmentTab from "./components/equipment-tab.svelte";
     import NotesTab from "./components/notes-tab.svelte";
     import VoxTab from "./components/vox-tab.svelte";
@@ -114,6 +115,7 @@
                     <PowersTab {ctx} />
                 {:else if activeTab === "combat"}
                     <CombatTab {ctx} />
+                    <CompanionsSection {ctx} />
                 {:else if activeTab === "equipment"}
                     <EquipmentTab {ctx} />
                 {:else if activeTab === "notes"}

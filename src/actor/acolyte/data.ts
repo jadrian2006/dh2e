@@ -1,4 +1,11 @@
 import type { CharacteristicAbbrev, HitLocationKey } from "@actor/types.ts";
+import type { NpcDH2e } from "@actor/npc/document.ts";
+
+/** Companion entry stored on acolyte */
+export interface CompanionEntry {
+    actorId: string;
+    behavior: "follow" | "stay" | "guard";
+}
 
 /** A single characteristic's source data (stored in DB) */
 export interface CharacteristicSource {
@@ -43,6 +50,7 @@ export interface AcolyteSystemSource {
     };
     aptitudes: string[];
     eliteAdvances: string[];
+    companions: CompanionEntry[];
     armour: ArmourByLocation;
     details: {
         homeworld: string;
@@ -85,4 +93,5 @@ export interface AcolyteSystemData extends Omit<AcolyteSystemSource, "characteri
     };
     movement: MovementData;
     encumbrance: EncumbranceData;
+    resolvedCompanions: NpcDH2e[];
 }

@@ -3,10 +3,12 @@ import type {
     WarbandSystemData,
     WarbandMemberSource,
     InquisitorSource,
+    ReinforcementEntry,
     PendingRequisition,
     ChronicleEntry,
     ObjectiveDeadline,
 } from "./data.ts";
+import type { NpcDH2e } from "@actor/npc/document.ts";
 import { ImperialDateUtil, type ImperialDate } from "../../integrations/imperial-calendar/imperial-date.ts";
 import type { AcolyteDH2e } from "@actor/acolyte/document.ts";
 
@@ -51,6 +53,20 @@ class WarbandDH2e extends ActorDH2e {
             }
         }
         (this.system as WarbandSystemData).resolvedInquisitor = resolvedInquisitor;
+
+        // Resolve reinforcement entries → live actor references
+        const reinforcements = (this._source.system as any)?.reinforcements as ReinforcementEntry[] ?? [];
+        const g = game as any;
+        const resolvedReinforcements = reinforcements.map(entry => {
+            const actor = g.actors?.get(entry.actorId) as NpcDH2e | null;
+            const controllerUser = entry.controllerId ? g.users?.get(entry.controllerId) : null;
+            return {
+                ...entry,
+                actor: actor?.type === "npc" ? actor : null,
+                controllerName: controllerUser?.name ?? "",
+            };
+        });
+        (this.system as WarbandSystemData).resolvedReinforcements = resolvedReinforcements;
     }
 
     /** Set the Inquisitor slot to a given actor (acolyte or NPC) */
@@ -106,6 +122,113 @@ class WarbandDH2e extends ActorDH2e {
         const current = this._source.system?.members as WarbandMemberSource[] ?? [];
         const filtered = current.filter(m => !removeSet.has(m.uuid));
         await this.update({ "system.members": filtered });
+    }
+
+    // ─── Reinforcements ───────────────────────────────────────
+
+    /** Add an NPC as a reinforcement character (deduplicates) */
+    async addReinforcement(npcActor: ActorDH2e, controllerId?: string, notes?: string): Promise<void> {
+        if (npcActor.type !== "npc") return;
+
+        const current: ReinforcementEntry[] = (this._source.system as any)?.reinforcements ?? [];
+        if (current.some(r => r.actorId === npcActor.id)) return;
+
+        const entry: ReinforcementEntry = {
+            actorId: npcActor.id!,
+            controllerId: controllerId ?? "",
+            name: npcActor.name ?? "",
+            notes: notes ?? "",
+        };
+        await this.update({ "system.reinforcements": [...current, entry] });
+
+        if (controllerId) {
+            await this.#grantRCPermission(npcActor, controllerId);
+        }
+    }
+
+    /** Remove a reinforcement by actor ID */
+    async removeReinforcement(actorId: string): Promise<void> {
+        const current: ReinforcementEntry[] = (this._source.system as any)?.reinforcements ?? [];
+        const entry = current.find(r => r.actorId === actorId);
+        const filtered = current.filter(r => r.actorId !== actorId);
+        await this.update({ "system.reinforcements": filtered });
+
+        // Revoke permissions
+        const g = game as any;
+        const npc = g.actors?.get(actorId);
+        if (npc) {
+            await this.#revokeRCPermission(npc);
+        }
+
+        // Notify controller
+        if (entry?.controllerId) {
+            g.socket?.emit(`system.${SYSTEM_ID}`, {
+                type: "rcRecalled",
+                payload: {
+                    userId: entry.controllerId,
+                    name: entry.name,
+                },
+            });
+        }
+    }
+
+    /** Assign a player as controller of a reinforcement */
+    async assignRCController(actorId: string, userId: string): Promise<void> {
+        const current: ReinforcementEntry[] = (this._source.system as any)?.reinforcements ?? [];
+        const entry = current.find(r => r.actorId === actorId);
+        if (!entry) return;
+
+        // Revoke old controller if changing
+        if (entry.controllerId && entry.controllerId !== userId) {
+            const g = game as any;
+            const npc = g.actors?.get(actorId);
+            if (npc) await this.#revokeRCPermission(npc);
+        }
+
+        const updated = current.map(r =>
+            r.actorId === actorId ? { ...r, controllerId: userId } : r,
+        );
+        await this.update({ "system.reinforcements": updated });
+
+        // Grant OWNER to new controller
+        const g = game as any;
+        const npc = g.actors?.get(actorId);
+        if (npc) {
+            await this.#grantRCPermission(npc, userId);
+        }
+
+        // Notify player
+        g.socket?.emit(`system.${SYSTEM_ID}`, {
+            type: "rcAssigned",
+            payload: {
+                userId,
+                name: entry.name,
+            },
+        });
+    }
+
+    /** Grant OWNER permission on an NPC to a user */
+    async #grantRCPermission(npc: ActorDH2e, userId: string): Promise<void> {
+        const ownership: Record<string, number> = { ...npc.ownership };
+        ownership[userId] = 3; // OWNER
+        await npc.update({ ownership });
+    }
+
+    /** Revoke all non-GM ownership on an NPC */
+    async #revokeRCPermission(npc: ActorDH2e): Promise<void> {
+        const g = game as any;
+        const ownership: Record<string, number> = {};
+        for (const [uid, level] of Object.entries(npc.ownership ?? {})) {
+            if (uid === "default") {
+                ownership[uid] = level as number;
+                continue;
+            }
+            const user = g.users?.get(uid);
+            if (user?.isGM) {
+                ownership[uid] = level as number;
+            }
+        }
+        await npc.update({ ownership });
     }
 
     // ─── Pending Requisitions ────────────────────────────────

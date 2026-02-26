@@ -1,10 +1,19 @@
 import type { AcolyteDH2e } from "@actor/acolyte/document.ts";
 import type { ActorDH2e } from "@actor/base.ts";
+import type { NpcDH2e } from "@actor/npc/document.ts";
 import type { ImperialDate } from "../../integrations/imperial-calendar/imperial-date.ts";
 
 /** A single warband member entry (stored in DB) */
 export interface WarbandMemberSource {
     uuid: string;
+}
+
+/** A reinforcement character entry (stored in DB) */
+export interface ReinforcementEntry {
+    actorId: string;
+    controllerId: string;
+    name: string;
+    notes: string;
 }
 
 /** Inquisitor slot source data (stored in DB) */
@@ -79,6 +88,7 @@ export interface ChronicleData {
 /** Warband system source data (stored in DB) */
 export interface WarbandSystemSource {
     members: WarbandMemberSource[];
+    reinforcements: ReinforcementEntry[];
     inquisitor: InquisitorSource;
     pendingRequisitions: PendingRequisition[];
     chronicle: ChronicleData;
@@ -92,4 +102,5 @@ export interface WarbandSystemSource {
 export interface WarbandSystemData extends WarbandSystemSource {
     resolvedMembers: AcolyteDH2e[];
     resolvedInquisitor: ActorDH2e | null;
+    resolvedReinforcements: (ReinforcementEntry & { actor: NpcDH2e | null; controllerName: string })[];
 }

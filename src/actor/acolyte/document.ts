@@ -1,6 +1,7 @@
 import { ActorDH2e } from "@actor/base.ts";
 import type { CharacteristicAbbrev, HitLocationKey } from "@actor/types.ts";
-import type { AcolyteSystemData, AcolyteSystemSource, CharacteristicData } from "./data.ts";
+import type { AcolyteSystemData, AcolyteSystemSource, CharacteristicData, CompanionEntry } from "./data.ts";
+import type { NpcDH2e } from "@actor/npc/document.ts";
 import { createSynthetics } from "@rules/synthetics.ts";
 import { instantiateRuleElement } from "@rules/rule-element/registry.ts";
 import type { RuleElementSource } from "@rules/rule-element/base.ts";
@@ -59,6 +60,17 @@ class AcolyteDH2e extends ActorDH2e {
 
         // Calculate available XP
         (system.xp as AcolyteSystemData["xp"]).available = system.xp.total - system.xp.spent;
+
+        // Resolve companion actor IDs → live actor references
+        const companions = (this._source.system as unknown as AcolyteSystemSource).companions ?? [];
+        const resolved: NpcDH2e[] = [];
+        for (const entry of companions) {
+            const actor = (game as any).actors?.get(entry.actorId) as NpcDH2e | null;
+            if (actor && actor.type === "npc") {
+                resolved.push(actor);
+            }
+        }
+        (this.system as AcolyteSystemData).resolvedCompanions = resolved;
     }
 
     override prepareDerivedData(): void {
@@ -192,6 +204,53 @@ class AcolyteDH2e extends ActorDH2e {
                 }
             }
         }
+    }
+
+    // ─── Companion Management ──────────────────────────────
+
+    /** Add an NPC as a companion (deduplicates) */
+    async addCompanion(npcActor: ActorDH2e, behavior: CompanionEntry["behavior"] = "follow"): Promise<void> {
+        if (npcActor.type !== "npc") return;
+
+        const current: CompanionEntry[] = (this._source.system as unknown as AcolyteSystemSource).companions ?? [];
+        if (current.some(c => c.actorId === npcActor.id)) {
+            ui.notifications?.info(game.i18n?.format("DH2E.Companion.Added", { name: npcActor.name ?? "" }) ?? `${npcActor.name} is already a companion.`);
+            return;
+        }
+
+        const entry: CompanionEntry = { actorId: npcActor.id!, behavior };
+        await this.update({ "system.companions": [...current, entry] });
+
+        // Grant OWNER permission to the owning player
+        const g = game as any;
+        const ownerUser = g.users?.find((u: any) => !u.isGM && u.character?.id === this.id);
+        if (ownerUser) {
+            const ownership: Record<string, number> = { ...npcActor.ownership };
+            ownership[ownerUser.id] = 3; // OWNER
+            await npcActor.update({ ownership });
+        }
+
+        ui.notifications?.info(game.i18n?.format("DH2E.Companion.Added", { name: npcActor.name ?? "" }) ?? `${npcActor.name} assigned as companion.`);
+    }
+
+    /** Remove a companion by actor ID */
+    async removeCompanion(actorId: string): Promise<void> {
+        const current: CompanionEntry[] = (this._source.system as unknown as AcolyteSystemSource).companions ?? [];
+        const filtered = current.filter(c => c.actorId !== actorId);
+        await this.update({ "system.companions": filtered });
+    }
+
+    /** Update a companion's behavior directive */
+    async setCompanionBehavior(actorId: string, behavior: CompanionEntry["behavior"]): Promise<void> {
+        const current: CompanionEntry[] = (this._source.system as unknown as AcolyteSystemSource).companions ?? [];
+        const updated = current.map(c => c.actorId === actorId ? { ...c, behavior } : c);
+        await this.update({ "system.companions": updated });
+    }
+
+    /** Get a companion's current behavior */
+    getCompanionBehavior(actorId: string): CompanionEntry["behavior"] | null {
+        const current: CompanionEntry[] = (this._source.system as unknown as AcolyteSystemSource).companions ?? [];
+        return current.find(c => c.actorId === actorId)?.behavior ?? null;
     }
 
     /**

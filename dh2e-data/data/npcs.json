@@ -12350,5 +12350,597 @@
                 }
             }
         ]
+    },
+    {
+        "name": "Combat Servitor",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 25,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 15,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 20,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 20,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 5,
+                    "advances": 0
+                }
+            },
+            "wounds": {
+                "value": 16,
+                "max": 16
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
+            "fatigue": 0,
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
+            "aptitudes": [],
+            "armour": {
+                "head": 10,
+                "rightArm": 10,
+                "leftArm": 10,
+                "body": 10,
+                "rightLeg": 10,
+                "leftLeg": 10
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Servitor",
+                "divination": "",
+                "notes": "A lobotomised human augmented with combat implants. Combat Servitors are heavy assault units, purpose-built for close-quarters killing. They obey simple verbal commands from their master and fight with tireless, mechanical precision. They cannot think independently and require direction. Traits: Machine (4). Requires master commands to act — without orders, stays in place."
+            }
+        },
+        "items": [
+            {
+                "name": "Implanted Heavy Stubber",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/default-icons/weapon.svg",
+                "system": {
+                    "description": "Arm-mounted heavy stubber, permanently implanted.",
+                    "class": "heavy",
+                    "range": 100,
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 8
+                    },
+                    "damage": {
+                        "formula": "1d10+4",
+                        "type": "impact",
+                        "bonus": 0
+                    },
+                    "penetration": 3,
+                    "magazine": {
+                        "value": 80,
+                        "max": 80
+                    },
+                    "reload": "2 Full",
+                    "weight": 0,
+                    "qualities": [
+                        {
+                            "name": "Reliable"
+                        }
+                    ],
+                    "equipped": true,
+                    "loadedAmmoId": "",
+                    "loadType": "magazine",
+                    "loadedMagazineName": "",
+                    "loadedRounds": [
+                        {
+                            "name": "Solid Rounds",
+                            "count": 80
+                        }
+                    ],
+                    "weaponGroup": "sp",
+                    "reloadProgress": 0,
+                    "rules": [],
+                    "availability": "Scarce",
+                    "craftsmanship": "common"
+                }
+            },
+            {
+                "name": "Implanted Chainaxe",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/default-icons/weapon.svg",
+                "system": {
+                    "description": "Arm-mounted chainaxe, permanently implanted.",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": {
+                        "single": true,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+4",
+                        "type": "rending",
+                        "bonus": 0
+                    },
+                    "penetration": 2,
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
+                    "reload": "",
+                    "weight": 0,
+                    "qualities": [
+                        {
+                            "name": "Tearing"
+                        }
+                    ],
+                    "equipped": true,
+                    "loadedAmmoId": "",
+                    "loadType": "",
+                    "loadedMagazineName": "",
+                    "loadedRounds": [],
+                    "weaponGroup": "chain",
+                    "reloadProgress": 0,
+                    "rules": [],
+                    "availability": "Scarce",
+                    "craftsmanship": "common"
+                }
+            },
+            {
+                "name": "Machine (4)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "The creature is partly mechanical. It does not breathe, is immune to vacuum, and reduces all damage by its rating (after armour and Toughness). Critical damage results are reduced in severity by the rating. Machine creatures are immune to mind-affecting powers and effects.",
+                    "rules": [
+                        {
+                            "key": "FlatModifier",
+                            "selector": "armour:all",
+                            "value": 4,
+                            "label": "Machine (4)"
+                        },
+                        {
+                            "key": "RollOption",
+                            "option": "trait:machine"
+                        }
+                    ],
+                    "hasRating": true,
+                    "rating": 4,
+                    "category": "mechanical"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Gun Servitor",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 20,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 10,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 25,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 15,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 5,
+                    "advances": 0
+                }
+            },
+            "wounds": {
+                "value": 12,
+                "max": 12
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
+            "fatigue": 0,
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
+            "aptitudes": [],
+            "armour": {
+                "head": 8,
+                "rightArm": 8,
+                "leftArm": 8,
+                "body": 8,
+                "rightLeg": 8,
+                "leftLeg": 8
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Servitor",
+                "divination": "",
+                "notes": "A lobotomised human augmented with ranged weapon systems. Gun Servitors specialise in suppressive fire and area denial. They are common aboard warships, in Mechanicus facilities, and as bodyguards for high-ranking Tech-Priests. Like all servitors, they require master commands to act. Traits: Machine (3)."
+            }
+        },
+        "items": [
+            {
+                "name": "Implanted Multi-laser",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/default-icons/weapon.svg",
+                "system": {
+                    "description": "Shoulder-mounted multi-laser array, permanently implanted.",
+                    "class": "heavy",
+                    "range": 150,
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 5
+                    },
+                    "damage": {
+                        "formula": "2d10+5",
+                        "type": "energy",
+                        "bonus": 0
+                    },
+                    "penetration": 2,
+                    "magazine": {
+                        "value": 60,
+                        "max": 60
+                    },
+                    "reload": "2 Full",
+                    "weight": 0,
+                    "qualities": [
+                        {
+                            "name": "Reliable"
+                        }
+                    ],
+                    "equipped": true,
+                    "loadedAmmoId": "",
+                    "loadType": "magazine",
+                    "loadedMagazineName": "",
+                    "loadedRounds": [
+                        {
+                            "name": "Charge Pack",
+                            "count": 60
+                        }
+                    ],
+                    "weaponGroup": "las",
+                    "reloadProgress": 0,
+                    "rules": [],
+                    "availability": "Very Rare",
+                    "craftsmanship": "common"
+                }
+            },
+            {
+                "name": "Machine (3)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "The creature is partly mechanical. It does not breathe, is immune to vacuum, and reduces all damage by its rating (after armour and Toughness). Critical damage results are reduced in severity by the rating. Machine creatures are immune to mind-affecting powers and effects.",
+                    "rules": [
+                        {
+                            "key": "FlatModifier",
+                            "selector": "armour:all",
+                            "value": 3,
+                            "label": "Machine (3)"
+                        },
+                        {
+                            "key": "RollOption",
+                            "option": "trait:machine"
+                        }
+                    ],
+                    "hasRating": true,
+                    "rating": 3,
+                    "category": "mechanical"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Monotask Servo-skull (Utility)",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": {
+                    "base": 1,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 1,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 10,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 15,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 15,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 25,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 20,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 1,
+                    "advances": 0
+                }
+            },
+            "wounds": {
+                "value": 4,
+                "max": 4
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
+            "fatigue": 0,
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Servitor",
+                "divination": "",
+                "notes": "A human skull fitted with an anti-gravity motor and basic cogitator. Utility servo-skulls carry tools such as lumen-globes, data-thief augers, and recording devices. They are common attendants to Tech-Priests and Administratum officials. Servo-skulls hover at shoulder height and respond to simple vox commands. They are extremely fragile in combat. Traits: Machine (1), Flier (6), Size (Puny). Grants +10 to specific skill tests depending on loadout (lumen, auger, medicae, etc.)."
+            }
+        },
+        "items": [
+            {
+                "name": "Machine (1)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "The creature is partly mechanical. It does not breathe, is immune to vacuum, and reduces all damage by its rating (after armour and Toughness).",
+                    "rules": [
+                        {
+                            "key": "FlatModifier",
+                            "selector": "armour:all",
+                            "value": 1,
+                            "label": "Machine (1)"
+                        },
+                        {
+                            "key": "RollOption",
+                            "option": "trait:machine"
+                        }
+                    ],
+                    "hasRating": true,
+                    "rating": 1,
+                    "category": "mechanical"
+                }
+            },
+            {
+                "name": "Flier (6)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "The creature can fly. Its flying speed is noted as its AB equivalent for movement calculations.",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 6,
+                    "category": "movement"
+                }
+            },
+            {
+                "name": "Size (Puny)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "The creature is tiny, about the size of a human fist or skull. -20 to hit it at range, +20 to Stealth tests.",
+                    "rules": [],
+                    "hasRating": false,
+                    "rating": 0,
+                    "category": "physical"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Monotask Servo-skull (Laud Hailer)",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": {
+                    "base": 1,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 1,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 10,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 15,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 15,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 25,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 20,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 1,
+                    "advances": 0
+                }
+            },
+            "wounds": {
+                "value": 4,
+                "max": 4
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
+            "fatigue": 0,
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Servitor",
+                "divination": "",
+                "notes": "A human skull fitted with an anti-gravity motor and a powerful vox-caster. Laud Hailer servo-skulls broadcast Imperial hymns, proclamations, and the words of their master across wide areas. They are favoured by Ecclesiarchy preachers and Commissars for inspiring the faithful and terrifying the enemy. Traits: Machine (1), Flier (6), Size (Puny). Grants +10 to Command and Intimidate tests when broadcasting."
+            }
+        },
+        "items": [
+            {
+                "name": "Machine (1)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "The creature is partly mechanical. It does not breathe, is immune to vacuum, and reduces all damage by its rating (after armour and Toughness).",
+                    "rules": [
+                        {
+                            "key": "FlatModifier",
+                            "selector": "armour:all",
+                            "value": 1,
+                            "label": "Machine (1)"
+                        },
+                        {
+                            "key": "RollOption",
+                            "option": "trait:machine"
+                        }
+                    ],
+                    "hasRating": true,
+                    "rating": 1,
+                    "category": "mechanical"
+                }
+            },
+            {
+                "name": "Flier (6)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "The creature can fly. Its flying speed is noted as its AB equivalent for movement calculations.",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 6,
+                    "category": "movement"
+                }
+            },
+            {
+                "name": "Size (Puny)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "The creature is tiny, about the size of a human fist or skull. -20 to hit it at range, +20 to Stealth tests.",
+                    "rules": [],
+                    "hasRating": false,
+                    "rating": 0,
+                    "category": "physical"
+                }
+            }
+        ]
     }
 ]

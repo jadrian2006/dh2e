@@ -22,6 +22,7 @@
             "xp": { "total": 0, "spent": 0 },
             "aptitudes": [],
             "eliteAdvances": [],
+            "companions": [],
             "armour": {
                 "head": 0,
                 "rightArm": 0,
@@ -107,6 +108,7 @@
         },
         "warband": {
             "members": [],
+            "reinforcements": [],
             "inquisitor": { "uuid": "" },
             "pendingRequisitions": [],
             "chronicle": {
