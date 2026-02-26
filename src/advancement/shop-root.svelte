@@ -63,9 +63,13 @@
             <span class="xp-chip available">Available <strong>{ctx.xpAvailable ?? 0}</strong></span>
         </div>
         <div class="aptitude-badges">
+            <span class="apt-label">Aptitudes:</span>
             {#each (ctx.aptitudes ?? []) as apt}
                 <span class="apt-badge">{apt}</span>
             {/each}
+            {#if (ctx.aptitudes ?? []).length === 0}
+                <span class="apt-none">None — assign via Character Creation</span>
+            {/if}
         </div>
     </header>
 
@@ -118,6 +122,9 @@
                         {/if}
                     </span>
                     <span class="row-sublabel">{opt.sublabel}</span>
+                    {#if opt.aptitudes?.length}
+                        <span class="row-apts">{opt.aptitudes.join(", ")}</span>
+                    {/if}
                     {#if opt.prerequisites}
                         <span class="row-prereqs" class:prereqs-unmet={!opt.prereqsMet}>
                             {#if !opt.prereqsMet}
@@ -209,6 +216,13 @@
         gap: 4px;
         justify-content: center;
     }
+    .apt-label {
+        font-size: 0.6rem;
+        color: var(--dh2e-text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-weight: 600;
+    }
     .apt-badge {
         font-size: 0.6rem;
         background: var(--dh2e-bg-mid);
@@ -218,6 +232,12 @@
         color: var(--dh2e-text-secondary);
         text-transform: uppercase;
         letter-spacing: 0.03em;
+    }
+    .apt-none {
+        font-size: 0.6rem;
+        color: var(--dh2e-text-secondary);
+        font-style: italic;
+        opacity: 0.6;
     }
 
     /* Filters */
@@ -341,6 +361,10 @@
     .row-sublabel {
         font-size: var(--dh2e-text-xs);
         color: var(--dh2e-text-secondary);
+    }
+    .row-apts {
+        font-size: 0.6rem;
+        color: var(--dh2e-gold-muted);
     }
     .row-prereqs {
         font-size: 0.6rem;

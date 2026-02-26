@@ -16,10 +16,32 @@
         item?.sheet?.render(true);
     }
 
-    async function saveField(field: string, value: string) {
+    /** Pending field saves — batched to avoid re-render killing focus on Tab */
+    let pendingUpdates: Record<string, string> = {};
+    let saveTimer: ReturnType<typeof setTimeout> | null = null;
+
+    function saveField(field: string, value: string) {
         const actor = ctx.actor;
         if (!actor || !ctx.editable) return;
-        await actor.update({ [`system.details.${field}`]: value });
+        pendingUpdates[`system.details.${field}`] = value;
+        if (saveTimer) clearTimeout(saveTimer);
+        saveTimer = setTimeout(async () => {
+            const updates = pendingUpdates;
+            pendingUpdates = {};
+            saveTimer = null;
+            // Capture which field currently has focus before the re-render
+            const focusedField = (document.activeElement as HTMLElement)?.dataset?.field;
+            await actor.update(updates);
+            // Restore focus after Svelte remount
+            if (focusedField) {
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        const el = document.querySelector<HTMLElement>(`[data-field="${focusedField}"]`);
+                        el?.focus();
+                    });
+                });
+            }
+        }, 150);
     }
 
     /** Show bonus description in a tooltip popover */
@@ -110,8 +132,9 @@
             <label class="fluff-field small">
                 <span class="fluff-label">Age</span>
                 {#if ctx.editable}
-                    <input type="text" value={details.age ?? ""}
-                        onblur={(e) => saveField("age", e.currentTarget.value)} />
+                    <input type="text" value={details.age ?? ""} data-field="age"
+                        onblur={(e) => saveField("age", e.currentTarget.value)}
+                        onkeydown={(e) => { if (e.key === "Enter") e.currentTarget.blur(); }} />
                 {:else}
                     <span class="fluff-value">{details.age || "—"}</span>
                 {/if}
@@ -119,8 +142,9 @@
             <label class="fluff-field small">
                 <span class="fluff-label">Sex</span>
                 {#if ctx.editable}
-                    <input type="text" value={details.sex ?? ""}
-                        onblur={(e) => saveField("sex", e.currentTarget.value)} />
+                    <input type="text" value={details.sex ?? ""} data-field="sex"
+                        onblur={(e) => saveField("sex", e.currentTarget.value)}
+                        onkeydown={(e) => { if (e.key === "Enter") e.currentTarget.blur(); }} />
                 {:else}
                     <span class="fluff-value">{details.sex || "—"}</span>
                 {/if}
@@ -128,8 +152,9 @@
             <label class="fluff-field small">
                 <span class="fluff-label">Height</span>
                 {#if ctx.editable}
-                    <input type="text" value={details.height ?? ""}
-                        onblur={(e) => saveField("height", e.currentTarget.value)} />
+                    <input type="text" value={details.height ?? ""} data-field="height"
+                        onblur={(e) => saveField("height", e.currentTarget.value)}
+                        onkeydown={(e) => { if (e.key === "Enter") e.currentTarget.blur(); }} />
                 {:else}
                     <span class="fluff-value">{details.height || "—"}</span>
                 {/if}
@@ -137,8 +162,9 @@
             <label class="fluff-field small">
                 <span class="fluff-label">Weight</span>
                 {#if ctx.editable}
-                    <input type="text" value={details.weight ?? ""}
-                        onblur={(e) => saveField("weight", e.currentTarget.value)} />
+                    <input type="text" value={details.weight ?? ""} data-field="weight"
+                        onblur={(e) => saveField("weight", e.currentTarget.value)}
+                        onkeydown={(e) => { if (e.key === "Enter") e.currentTarget.blur(); }} />
                 {:else}
                     <span class="fluff-value">{details.weight || "—"}</span>
                 {/if}
@@ -148,8 +174,9 @@
         <label class="fluff-field wide">
             <span class="fluff-label">Appearance</span>
             {#if ctx.editable}
-                <textarea rows="3"
+                <textarea rows="3" data-field="appearance"
                     onblur={(e) => saveField("appearance", e.currentTarget.value)}
+                    onkeydown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); e.currentTarget.blur(); } }}
                 >{details.appearance ?? ""}</textarea>
             {:else}
                 <div class="fluff-value">{details.appearance || "—"}</div>
@@ -159,8 +186,9 @@
         <label class="fluff-field wide">
             <span class="fluff-label">Biography</span>
             {#if ctx.editable}
-                <textarea rows="5"
+                <textarea rows="5" data-field="biography"
                     onblur={(e) => saveField("biography", e.currentTarget.value)}
+                    onkeydown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); e.currentTarget.blur(); } }}
                 >{details.biography ?? ""}</textarea>
             {:else}
                 <div class="fluff-value">{details.biography || "—"}</div>

@@ -31,10 +31,6 @@ class ObjectiveSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) 
                 fail: () => item.fail(),
                 reactivate: () => item.reactivate(),
                 updateField: (path: string, value: unknown) => item.update({ [path]: value }),
-                sendViaVox: async () => {
-                    const { VoxComposeDialog } = await import("@ui/vox-terminal/vox-compose-dialog.ts");
-                    VoxComposeDialog.openWithItem(item.uuid);
-                },
                 isGM: (game as any).user?.isGM ?? false,
             },
         };

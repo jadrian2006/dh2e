@@ -8,7 +8,10 @@
             "tier": 1,
             "aptitudes": ["Weapon Skill", "Ballistic Skill"],
             "prerequisites": "Ag 30",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:ambidextrous" }
+            ]
         }
     },
     {
@@ -20,7 +23,10 @@
             "tier": 1,
             "aptitudes": ["Perception", "Fieldcraft"],
             "prerequisites": "Per 30",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:blind-fighting" }
+            ]
         }
     },
     {
@@ -32,7 +38,11 @@
             "tier": 1,
             "aptitudes": ["Agility", "Fieldcraft"],
             "prerequisites": "Ag 30",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:acrobatics", "value": 20, "label": "Catfall", "source": "talent", "predicate": ["action:jump"] },
+                { "key": "RollOption", "option": "talent:catfall" }
+            ]
         }
     },
     {
@@ -44,7 +54,10 @@
             "tier": 1,
             "aptitudes": ["General", "Social"],
             "prerequisites": "Fel 30",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:clues-from-the-crowds" }
+            ]
         }
     },
     {
@@ -56,7 +69,10 @@
             "tier": 1,
             "aptitudes": ["Willpower", "Defence"],
             "prerequisites": "WP 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:die-hard" }
+            ]
         }
     },
     {
@@ -68,7 +84,10 @@
             "tier": 1,
             "aptitudes": ["Weapon Skill", "Defence"],
             "prerequisites": "Ag 30",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:disarm" }
+            ]
         }
     },
     {
@@ -80,7 +99,10 @@
             "tier": 1,
             "aptitudes": ["General", "Offence"],
             "prerequisites": "None",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:double-team" }
+            ]
         }
     },
     {
@@ -92,7 +114,13 @@
             "tier": 1,
             "aptitudes": ["General", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": -10, "label": "Enemy (Chaos Cults)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": -10, "label": "Enemy (Chaos Cults)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": -10, "label": "Enemy (Chaos Cults)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": -10, "label": "Enemy (Chaos Cults)", "source": "talent" }
+            ]
         }
     },
     {
@@ -104,7 +132,13 @@
             "tier": 1,
             "aptitudes": ["General", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": -10, "label": "Enemy (Mutants)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": -10, "label": "Enemy (Mutants)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": -10, "label": "Enemy (Mutants)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": -10, "label": "Enemy (Mutants)", "source": "talent" }
+            ]
         }
     },
     {
@@ -116,7 +150,13 @@
             "tier": 1,
             "aptitudes": ["General", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": -10, "label": "Enemy (Recidivists)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": -10, "label": "Enemy (Recidivists)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": -10, "label": "Enemy (Recidivists)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": -10, "label": "Enemy (Recidivists)", "source": "talent" }
+            ]
         }
     },
     {
@@ -128,7 +168,13 @@
             "tier": 1,
             "aptitudes": ["General", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": -10, "label": "Enemy (Xenos)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": -10, "label": "Enemy (Xenos)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": -10, "label": "Enemy (Xenos)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": -10, "label": "Enemy (Xenos)", "source": "talent" }
+            ]
         }
     },
     {
@@ -140,7 +186,13 @@
             "tier": 1,
             "aptitudes": ["General", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": -10, "label": "Enemy (The Mechanicum)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": -10, "label": "Enemy (The Mechanicum)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": -10, "label": "Enemy (The Mechanicum)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": -10, "label": "Enemy (The Mechanicum)", "source": "talent" }
+            ]
         }
     },
     {
@@ -152,7 +204,13 @@
             "tier": 1,
             "aptitudes": ["General", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": -10, "label": "Enemy (Ecclesiarchy)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": -10, "label": "Enemy (Ecclesiarchy)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": -10, "label": "Enemy (Ecclesiarchy)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": -10, "label": "Enemy (Ecclesiarchy)", "source": "talent" }
+            ]
         }
     },
     {
@@ -164,7 +222,10 @@
             "tier": 1,
             "aptitudes": ["Willpower", "Tech"],
             "prerequisites": "Ferric Lure Implants, Mechanicus Implants",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:ferric-summons" }
+            ]
         }
     },
     {
@@ -176,7 +237,10 @@
             "tier": 1,
             "aptitudes": ["Strength", "Offence"],
             "prerequisites": "None",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:frenzy" }
+            ]
         }
     },
     {
@@ -188,7 +252,10 @@
             "tier": 1,
             "aptitudes": ["Toughness", "Defence"],
             "prerequisites": "T 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:iron-jaw" }
+            ]
         }
     },
     {
@@ -200,7 +267,10 @@
             "tier": 1,
             "aptitudes": ["Willpower", "Defence"],
             "prerequisites": "WP 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:jaded" }
+            ]
         }
     },
     {
@@ -212,7 +282,10 @@
             "tier": 1,
             "aptitudes": ["Perception", "Social"],
             "prerequisites": "Int 35",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:keen-intuition" }
+            ]
         }
     },
     {
@@ -224,7 +297,10 @@
             "tier": 1,
             "aptitudes": ["Agility", "General"],
             "prerequisites": "Ag 30",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:leap-up" }
+            ]
         }
     },
     {
@@ -236,7 +312,10 @@
             "tier": 1,
             "aptitudes": ["Perception", "Offence"],
             "prerequisites": "Per 30",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:nowhere-to-hide" }
+            ]
         }
     },
     {
@@ -248,7 +327,13 @@
             "tier": 1,
             "aptitudes": ["Fellowship", "Social"],
             "prerequisites": "Fel 30",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Administratum)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Administratum)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Administratum)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": 10, "label": "Peer (Administratum)", "source": "talent" }
+            ]
         }
     },
     {
@@ -260,7 +345,13 @@
             "tier": 1,
             "aptitudes": ["Fellowship", "Social"],
             "prerequisites": "Fel 30",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Adeptus Arbites)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Adeptus Arbites)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Adeptus Arbites)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": 10, "label": "Peer (Adeptus Arbites)", "source": "talent" }
+            ]
         }
     },
     {
@@ -272,7 +363,13 @@
             "tier": 1,
             "aptitudes": ["Fellowship", "Social"],
             "prerequisites": "Fel 30",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Adeptus Mechanicus)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Adeptus Mechanicus)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Adeptus Mechanicus)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": 10, "label": "Peer (Adeptus Mechanicus)", "source": "talent" }
+            ]
         }
     },
     {
@@ -284,7 +381,13 @@
             "tier": 1,
             "aptitudes": ["Fellowship", "Social"],
             "prerequisites": "Fel 30",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Astropaths)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Astropaths)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Astropaths)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": 10, "label": "Peer (Astropaths)", "source": "talent" }
+            ]
         }
     },
     {
@@ -296,7 +399,13 @@
             "tier": 1,
             "aptitudes": ["Fellowship", "Social"],
             "prerequisites": "Fel 30",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Ecclesiarchy)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Ecclesiarchy)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Ecclesiarchy)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": 10, "label": "Peer (Ecclesiarchy)", "source": "talent" }
+            ]
         }
     },
     {
@@ -308,7 +417,13 @@
             "tier": 1,
             "aptitudes": ["Fellowship", "Social"],
             "prerequisites": "Fel 30",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Imperial Guard)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Imperial Guard)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Imperial Guard)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": 10, "label": "Peer (Imperial Guard)", "source": "talent" }
+            ]
         }
     },
     {
@@ -320,7 +435,13 @@
             "tier": 1,
             "aptitudes": ["Fellowship", "Social"],
             "prerequisites": "Fel 30",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Imperial Navy)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Imperial Navy)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Imperial Navy)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": 10, "label": "Peer (Imperial Navy)", "source": "talent" }
+            ]
         }
     },
     {
@@ -332,7 +453,13 @@
             "tier": 1,
             "aptitudes": ["Fellowship", "Social"],
             "prerequisites": "Fel 30",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Inquisition)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Inquisition)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Inquisition)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": 10, "label": "Peer (Inquisition)", "source": "talent" }
+            ]
         }
     },
     {
@@ -344,7 +471,13 @@
             "tier": 1,
             "aptitudes": ["Fellowship", "Social"],
             "prerequisites": "Fel 30",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Nobility)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Nobility)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Nobility)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": 10, "label": "Peer (Nobility)", "source": "talent" }
+            ]
         }
     },
     {
@@ -356,7 +489,13 @@
             "tier": 1,
             "aptitudes": ["Fellowship", "Social"],
             "prerequisites": "Fel 30",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Underworld)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Underworld)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Underworld)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": 10, "label": "Peer (Underworld)", "source": "talent" }
+            ]
         }
     },
     {
@@ -368,7 +507,10 @@
             "tier": 1,
             "aptitudes": ["Agility", "Finesse"],
             "prerequisites": "None",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:quick-draw" }
+            ]
         }
     },
     {
@@ -380,7 +522,10 @@
             "tier": 1,
             "aptitudes": ["Agility", "Fieldcraft"],
             "prerequisites": "None",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:rapid-reload" }
+            ]
         }
     },
     {
@@ -392,7 +537,10 @@
             "tier": 1,
             "aptitudes": ["Toughness", "Defence"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:resistance:cold" }
+            ]
         }
     },
     {
@@ -404,7 +552,10 @@
             "tier": 1,
             "aptitudes": ["Toughness", "Defence"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "characteristic:wp", "value": 10, "label": "Resistance (Fear)", "source": "talent", "predicate": ["check:fear"] }
+            ]
         }
     },
     {
@@ -416,7 +567,10 @@
             "tier": 1,
             "aptitudes": ["Toughness", "Defence"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:resistance:heat" }
+            ]
         }
     },
     {
@@ -428,7 +582,10 @@
             "tier": 1,
             "aptitudes": ["Toughness", "Defence"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "characteristic:t", "value": 10, "label": "Resistance (Poisons)", "source": "talent", "predicate": ["check:toxic"] }
+            ]
         }
     },
     {
@@ -440,7 +597,10 @@
             "tier": 1,
             "aptitudes": ["Toughness", "Defence"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "characteristic:wp", "value": 10, "label": "Resistance (Psychic Powers)", "source": "talent", "predicate": ["check:opposed:psychic"] }
+            ]
         }
     },
     {
@@ -452,7 +612,10 @@
             "tier": 1,
             "aptitudes": ["Toughness", "Defence"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:resistance:radiation" }
+            ]
         }
     },
     {
@@ -464,7 +627,10 @@
             "tier": 1,
             "aptitudes": ["Toughness", "General"],
             "prerequisites": "None",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:sound-constitution" }
+            ]
         }
     },
     {
@@ -476,7 +642,10 @@
             "tier": 1,
             "aptitudes": ["Weapon Skill", "Offence"],
             "prerequisites": "None",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:takedown" }
+            ]
         }
     },
     {
@@ -488,7 +657,10 @@
             "tier": 1,
             "aptitudes": ["Intelligence", "Tech"],
             "prerequisites": "Int 30",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:technical-knock" }
+            ]
         }
     },
     {
@@ -500,7 +672,10 @@
             "tier": 1,
             "aptitudes": ["Perception", "Psyker"],
             "prerequisites": "Psy Rating, Psyniscience, Per 30",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:warp-sense" }
+            ]
         }
     },
     {
@@ -512,7 +687,10 @@
             "tier": 1,
             "aptitudes": ["Intelligence", "Tech"],
             "prerequisites": "Tech-Use +10, Int 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:weapon-tech" }
+            ]
         }
     },
     {
@@ -524,7 +702,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:bolt" }
+            ]
         }
     },
     {
@@ -536,7 +717,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:chain" }
+            ]
         }
     },
     {
@@ -548,7 +732,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:flame" }
+            ]
         }
     },
     {
@@ -560,7 +747,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:heavy" }
+            ]
         }
     },
     {
@@ -572,7 +762,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:las" }
+            ]
         }
     },
     {
@@ -584,7 +777,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:launcher" }
+            ]
         }
     },
     {
@@ -596,7 +792,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:low-tech" }
+            ]
         }
     },
     {
@@ -608,7 +807,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:melta" }
+            ]
         }
     },
     {
@@ -620,7 +822,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:plasma" }
+            ]
         }
     },
     {
@@ -632,7 +837,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:power" }
+            ]
         }
     },
     {
@@ -644,7 +852,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:shock" }
+            ]
         }
     },
     {
@@ -656,7 +867,10 @@
             "tier": 1,
             "aptitudes": ["General", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:solid-projectile" }
+            ]
         }
     },
     {
@@ -668,7 +882,10 @@
             "tier": 2,
             "aptitudes": ["Intelligence", "Tech"],
             "prerequisites": "Int 35, Tech-Use, Trade (Armourer)",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:armour-monger" }
+            ]
         }
     },
     {
@@ -680,7 +897,10 @@
             "tier": 2,
             "aptitudes": ["Strength", "Defence"],
             "prerequisites": "Frenzy",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:battle-rage" }
+            ]
         }
     },
     {
@@ -692,7 +912,10 @@
             "tier": 2,
             "aptitudes": ["Strength", "Offence"],
             "prerequisites": "S 45",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:bulging-biceps" }
+            ]
         }
     },
     {
@@ -704,7 +927,10 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Defence"],
             "prerequisites": "WS 30",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:combat-master" }
+            ]
         }
     },
     {
@@ -716,7 +942,11 @@
             "tier": 2,
             "aptitudes": ["Perception", "Defence"],
             "prerequisites": "Int 35, Awareness +10",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "AttributeOverride", "domain": "initiative", "characteristic": "int", "label": "Constant Vigilance (Int)" },
+                { "key": "RollOption", "option": "talent:constant-vigilance" }
+            ]
         }
     },
     {
@@ -728,7 +958,11 @@
             "tier": 2,
             "aptitudes": ["Perception", "Defence"],
             "prerequisites": "Per 35, Awareness +10",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "AttributeOverride", "domain": "initiative", "characteristic": "per", "label": "Constant Vigilance (Per)" },
+                { "key": "RollOption", "option": "talent:constant-vigilance" }
+            ]
         }
     },
     {
@@ -740,7 +974,10 @@
             "tier": 2,
             "aptitudes": ["Fellowship", "Leadership"],
             "prerequisites": "Cover-Up, Int 35",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "AttributeOverride", "domain": "requisition", "characteristic": "fel", "label": "Contact Network" }
+            ]
         }
     },
     {
@@ -752,7 +989,10 @@
             "tier": 2,
             "aptitudes": ["Intelligence", "Social"],
             "prerequisites": "Clues from the Crowds, S 40 or WP 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:interrogation", "value": 10, "label": "Coordinated Interrogation", "source": "talent" }
+            ]
         }
     },
     {
@@ -764,7 +1004,10 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Defence"],
             "prerequisites": "WS 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:counter-attack" }
+            ]
         }
     },
     {
@@ -776,7 +1019,10 @@
             "tier": 2,
             "aptitudes": ["Intelligence", "Knowledge"],
             "prerequisites": "Int 35",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:cover-up" }
+            ]
         }
     },
     {
@@ -788,7 +1034,10 @@
             "tier": 2,
             "aptitudes": ["Willpower", "Defence"],
             "prerequisites": "WP 35",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "AttributeOverride", "domain": "skill:dodge", "characteristic": "wp", "predicate": ["origin:psychic"], "label": "Deny the Witch" }
+            ]
         }
     },
     {
@@ -800,7 +1049,10 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Offence"],
             "prerequisites": "WS 35",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:devastating-assault" }
+            ]
         }
     },
     {
@@ -812,7 +1064,10 @@
             "tier": 2,
             "aptitudes": ["Finesse", "Offence"],
             "prerequisites": "Two-Weapon Wielder",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:double-tap" }
+            ]
         }
     },
     {
@@ -824,7 +1079,10 @@
             "tier": 2,
             "aptitudes": ["Intelligence", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:needle-pistol" }
+            ]
         }
     },
     {
@@ -836,7 +1094,10 @@
             "tier": 2,
             "aptitudes": ["Intelligence", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:needle-rifle" }
+            ]
         }
     },
     {
@@ -848,7 +1109,10 @@
             "tier": 2,
             "aptitudes": ["Intelligence", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:web-pistol" }
+            ]
         }
     },
     {
@@ -860,7 +1124,10 @@
             "tier": 2,
             "aptitudes": ["Intelligence", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "weapon-training:webber" }
+            ]
         }
     },
     {
@@ -872,7 +1139,10 @@
             "tier": 2,
             "aptitudes": ["Fellowship", "Social"],
             "prerequisites": "Clues from the Crowds, Fel 35",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "AttributeOverride", "domain": "skill:stealth:shadow", "characteristic": "fel", "predicate": ["environment:crowd"], "label": "Face in a Crowd" }
+            ]
         }
     },
     {
@@ -884,7 +1154,10 @@
             "tier": 2,
             "aptitudes": ["Agility", "Defence"],
             "prerequisites": "Ag 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:hard-target" }
+            ]
         }
     },
     {
@@ -896,7 +1169,10 @@
             "tier": 2,
             "aptitudes": ["Toughness", "Defence"],
             "prerequisites": "T 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:hardy" }
+            ]
         }
     },
     {
@@ -908,7 +1184,11 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "attack:melee", "value": 10, "label": "Hatred (Chaos Space Marines)", "source": "talent" },
+                { "key": "RollOption", "option": "talent:hatred:chaos-space-marines" }
+            ]
         }
     },
     {
@@ -920,7 +1200,11 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "attack:melee", "value": 10, "label": "Hatred (Daemons)", "source": "talent" },
+                { "key": "RollOption", "option": "talent:hatred:daemons" }
+            ]
         }
     },
     {
@@ -932,7 +1216,11 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "attack:melee", "value": 10, "label": "Hatred (Mutants)", "source": "talent" },
+                { "key": "RollOption", "option": "talent:hatred:mutants" }
+            ]
         }
     },
     {
@@ -944,7 +1232,11 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "attack:melee", "value": 10, "label": "Hatred (Psykers)", "source": "talent" },
+                { "key": "RollOption", "option": "talent:hatred:psykers" }
+            ]
         }
     },
     {
@@ -956,7 +1248,11 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "attack:melee", "value": 10, "label": "Hatred (Xenos)", "source": "talent" },
+                { "key": "RollOption", "option": "talent:hatred:xenos" }
+            ]
         }
     },
     {
@@ -968,7 +1264,11 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Social"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "attack:melee", "value": 10, "label": "Hatred (Heretics)", "source": "talent" },
+                { "key": "RollOption", "option": "talent:hatred:heretics" }
+            ]
         }
     },
     {
@@ -980,7 +1280,10 @@
             "tier": 2,
             "aptitudes": ["Ballistic Skill", "Finesse"],
             "prerequisites": "BS 40, Ag 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:hip-shooting" }
+            ]
         }
     },
     {
@@ -992,7 +1295,10 @@
             "tier": 2,
             "aptitudes": ["Ballistic Skill", "Finesse"],
             "prerequisites": "BS 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:independent-targeting" }
+            ]
         }
     },
     {
@@ -1004,7 +1310,10 @@
             "tier": 2,
             "aptitudes": ["Ballistic Skill", "Finesse"],
             "prerequisites": "BS 40, Per 35",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:inescapable-attack:ranged" }
+            ]
         }
     },
     {
@@ -1016,7 +1325,10 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Finesse"],
             "prerequisites": "WS 40, Per 35",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:inescapable-attack:melee" }
+            ]
         }
     },
     {
@@ -1028,7 +1340,10 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Offence"],
             "prerequisites": "WS 50",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:killing-strike" }
+            ]
         }
     },
     {
@@ -1040,7 +1355,10 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Tech"],
             "prerequisites": "Luminen Capacitors, Mechanicus Implants",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:luminen-shock" }
+            ]
         }
     },
     {
@@ -1052,7 +1370,10 @@
             "tier": 2,
             "aptitudes": ["Intelligence", "Tech"],
             "prerequisites": "Maglev Coils, Mechanicus Implants",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:maglev-transcendence" }
+            ]
         }
     },
     {
@@ -1064,7 +1385,10 @@
             "tier": 2,
             "aptitudes": ["Ballistic Skill", "Finesse"],
             "prerequisites": "BS 35",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:marksman" }
+            ]
         }
     },
     {
@@ -1076,7 +1400,10 @@
             "tier": 2,
             "aptitudes": ["Intelligence", "Tech"],
             "prerequisites": "Mechanicus Implants",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:mechadendrite-use:weapon" }
+            ]
         }
     },
     {
@@ -1088,7 +1415,10 @@
             "tier": 2,
             "aptitudes": ["Intelligence", "Tech"],
             "prerequisites": "Mechanicus Implants",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:mechadendrite-use:utility" }
+            ]
         }
     },
     {
@@ -1100,7 +1430,10 @@
             "tier": 2,
             "aptitudes": ["Ballistic Skill", "Finesse"],
             "prerequisites": "BS 40",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:precision-killer:ranged" }
+            ]
         }
     },
     {
@@ -1112,7 +1445,10 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Finesse"],
             "prerequisites": "WS 40",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:precision-killer:melee" }
+            ]
         }
     },
     {
@@ -1124,7 +1460,10 @@
             "tier": 2,
             "aptitudes": ["Toughness", "Tech"],
             "prerequisites": "Autosanguine Implants, Mechanicus Implants",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:prosanguine" }
+            ]
         }
     },
     {
@@ -1136,7 +1475,10 @@
             "tier": 2,
             "aptitudes": ["Willpower", "Defence"],
             "prerequisites": "WP 30, Resistance (Psychic Powers)",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:strong-minded" }
+            ]
         }
     },
     {
@@ -1148,7 +1490,10 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Finesse"],
             "prerequisites": "WS 30",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:swift-attack" }
+            ]
         }
     },
     {
@@ -1160,7 +1505,10 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:two-weapon-wielder:melee" }
+            ]
         }
     },
     {
@@ -1172,7 +1520,10 @@
             "tier": 2,
             "aptitudes": ["Ballistic Skill", "Finesse"],
             "prerequisites": "None",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:two-weapon-wielder:ranged" }
+            ]
         }
     },
     {
@@ -1184,7 +1535,10 @@
             "tier": 2,
             "aptitudes": ["Strength", "Offence"],
             "prerequisites": "Ambidextrous, Ag 35, WS 35",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:unarmed-specialist" }
+            ]
         }
     },
     {
@@ -1196,7 +1550,10 @@
             "tier": 2,
             "aptitudes": ["Willpower", "Psyker"],
             "prerequisites": "Psy Rating, Strong Minded, WP 50",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:warp-conduit" }
+            ]
         }
     },
     {
@@ -1208,7 +1565,10 @@
             "tier": 2,
             "aptitudes": ["Weapon Skill", "Finesse"],
             "prerequisites": "WS 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:whirlwind-of-death" }
+            ]
         }
     },
     {
@@ -1220,7 +1580,10 @@
             "tier": 3,
             "aptitudes": ["Willpower", "Defence"],
             "prerequisites": "Jaded, Resistance (Fear), WP 45",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "AdjustDegree", "amount": "actor:system.characteristics.wp.bonus", "predicate": [{ "or": ["check:fear", "check:pinning"] }], "label": "Adamantium Faith" }
+            ]
         }
     },
     {
@@ -1232,7 +1595,10 @@
             "tier": 3,
             "aptitudes": ["Weapon Skill", "Fieldcraft"],
             "prerequisites": "Ag 40, Acrobatics",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:assassin-strike" }
+            ]
         }
     },
     {
@@ -1244,7 +1610,10 @@
             "tier": 3,
             "aptitudes": ["Willpower", "Psyker"],
             "prerequisites": "Psy Rating, Strong Minded, WP 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:bastion-of-iron-will" }
+            ]
         }
     },
     {
@@ -1256,7 +1625,10 @@
             "tier": 3,
             "aptitudes": ["Weapon Skill", "Finesse"],
             "prerequisites": "WS 30, Weapon Training (any melee)",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:blademaster" }
+            ]
         }
     },
     {
@@ -1268,7 +1640,10 @@
             "tier": 3,
             "aptitudes": ["Weapon Skill", "Offence"],
             "prerequisites": "WS 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "ActorValue", "domain": "damage:melee", "path": "system.characteristics.ws.bonus", "transform": "half-ceil", "label": "Crushing Blow", "source": "talent" }
+            ]
         }
     },
     {
@@ -1280,7 +1655,10 @@
             "tier": 3,
             "aptitudes": ["Perception", "Finesse"],
             "prerequisites": "BS 45",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:deathdealer:ranged" }
+            ]
         }
     },
     {
@@ -1292,7 +1670,10 @@
             "tier": 3,
             "aptitudes": ["Perception", "Finesse"],
             "prerequisites": "WS 45",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:deathdealer:melee" }
+            ]
         }
     },
     {
@@ -1304,7 +1685,10 @@
             "tier": 3,
             "aptitudes": ["Intelligence", "Finesse"],
             "prerequisites": "Coordinated Interrogation, Fel 50",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:delicate-interrogation" }
+            ]
         }
     },
     {
@@ -1316,7 +1700,10 @@
             "tier": 3,
             "aptitudes": ["Ballistic Skill", "Offence"],
             "prerequisites": "BS 50",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:eye-of-vengeance" }
+            ]
         }
     },
     {
@@ -1328,7 +1715,10 @@
             "tier": 3,
             "aptitudes": ["Willpower", "Psyker"],
             "prerequisites": "WP 35",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:favoured-by-the-warp" }
+            ]
         }
     },
     {
@@ -1340,7 +1730,10 @@
             "tier": 3,
             "aptitudes": ["Perception", "Knowledge"],
             "prerequisites": "Contact Network, Coordinated Interrogation, Int 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:flash-of-insight" }
+            ]
         }
     },
     {
@@ -1352,7 +1745,10 @@
             "tier": 3,
             "aptitudes": ["Fellowship", "Leadership"],
             "prerequisites": "Fel 40, WP 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:halo-of-command" }
+            ]
         }
     },
     {
@@ -1364,7 +1760,10 @@
             "tier": 3,
             "aptitudes": ["Strength", "Offence"],
             "prerequisites": "Crushing Blow",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:hammer-blow" }
+            ]
         }
     },
     {
@@ -1376,7 +1775,11 @@
             "tier": 3,
             "aptitudes": ["Intelligence", "Knowledge"],
             "prerequisites": "Int 40, Lore (any one)",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "AdjustDegree", "amount": 1, "predicate": ["check:lore"], "label": "Infused Knowledge" },
+                { "key": "RollOption", "option": "talent:infused-knowledge" }
+            ]
         }
     },
     {
@@ -1388,7 +1791,10 @@
             "tier": 3,
             "aptitudes": ["Weapon Skill", "Finesse"],
             "prerequisites": "Swift Attack",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:lightning-attack" }
+            ]
         }
     },
     {
@@ -1400,7 +1806,10 @@
             "tier": 3,
             "aptitudes": ["Ballistic Skill", "Tech"],
             "prerequisites": "Luminen Shock, Luminen Capacitors, Mechanicus Implants",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:luminen-blast" }
+            ]
         }
     },
     {
@@ -1412,7 +1821,10 @@
             "tier": 3,
             "aptitudes": ["Intelligence", "Knowledge"],
             "prerequisites": "Rank 4 in selected skill",
-            "specialist": true
+            "specialist": true,
+            "rules": [
+                { "key": "RollOption", "option": "talent:mastery" }
+            ]
         }
     },
     {
@@ -1424,7 +1836,10 @@
             "tier": 3,
             "aptitudes": ["Ballistic Skill", "Offence"],
             "prerequisites": "BS 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "ActorValue", "domain": "damage:ranged", "path": "system.characteristics.bs.bonus", "transform": "half-ceil", "label": "Mighty Shot", "source": "talent" }
+            ]
         }
     },
     {
@@ -1436,7 +1851,10 @@
             "tier": 3,
             "aptitudes": ["Toughness", "Defence"],
             "prerequisites": "WP 50, T 50",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:never-die" }
+            ]
         }
     },
     {
@@ -1448,7 +1866,10 @@
             "tier": 3,
             "aptitudes": ["Agility", "Offence"],
             "prerequisites": "WS 40, Ag 50",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:preternatural-speed" }
+            ]
         }
     },
     {
@@ -1460,7 +1881,10 @@
             "tier": 3,
             "aptitudes": ["Agility", "Fieldcraft"],
             "prerequisites": "None",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:sprint" }
+            ]
         }
     },
     {
@@ -1472,7 +1896,10 @@
             "tier": 3,
             "aptitudes": ["Agility", "Defence"],
             "prerequisites": "Ag 40, Dodge or Parry",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:step-aside" }
+            ]
         }
     },
     {
@@ -1484,7 +1911,10 @@
             "tier": 3,
             "aptitudes": ["Intelligence", "Fieldcraft"],
             "prerequisites": "Medicae rank 2",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:medicae", "value": 20, "label": "Superior Chirurgeon", "source": "talent" }
+            ]
         }
     },
     {
@@ -1496,7 +1926,10 @@
             "tier": 3,
             "aptitudes": ["Ballistic Skill", "Finesse"],
             "prerequisites": "BS 50",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:target-selection" }
+            ]
         }
     },
     {
@@ -1508,7 +1941,10 @@
             "tier": 3,
             "aptitudes": ["Strength", "Offence"],
             "prerequisites": "S 50",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:thunder-charge" }
+            ]
         }
     },
     {
@@ -1520,7 +1956,10 @@
             "tier": 3,
             "aptitudes": ["Toughness", "Defence"],
             "prerequisites": "T 40",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:true-grit" }
+            ]
         }
     },
     {
@@ -1532,7 +1971,10 @@
             "tier": 3,
             "aptitudes": ["Finesse", "Offence"],
             "prerequisites": "Ag 45, Ambidextrous, BS 40 or WS 40, Two-Weapon Wielder (Melee), Two-Weapon Wielder (Ranged)",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:two-weapon-master" }
+            ]
         }
     },
     {
@@ -1544,7 +1986,10 @@
             "tier": 3,
             "aptitudes": ["Willpower", "Psyker"],
             "prerequisites": "Psy Rating, Strong Minded, WP 50",
-            "specialist": false
+            "specialist": false,
+            "rules": [
+                { "key": "RollOption", "option": "talent:warp-lock" }
+            ]
         }
     },
     {

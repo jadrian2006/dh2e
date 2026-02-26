@@ -11,6 +11,14 @@
     let searchQuery = $state("");
     let loadedName = $state("");
     let expandedGroups = $state(new Set<string>());
+    let sourceUuid: string | undefined = $state(undefined);
+
+    // Targeting state
+    let targetSelected: Record<string, boolean> = $state({});
+    const targetIds = $derived(
+        Object.entries(targetSelected).filter(([, v]) => v).map(([k]) => k)
+    );
+    const players: { userId: string; userName: string }[] = ctx.players ?? [];
 
     const canSend = $derived(message.trim().length > 0);
 
@@ -47,6 +55,7 @@
         if (result.sender) sender = result.sender;
         if (result.message) message = result.message;
         messageHtml = result.html ?? "";
+        sourceUuid = result.sourceUuid ?? undefined;
         loadedName = result.name ?? "";
         showPicker = false;
         searchQuery = "";
@@ -62,6 +71,8 @@
             html: messageHtml || undefined,
             speed,
             timestamp: Date.now(),
+            sourceUuid: sourceUuid || undefined,
+            targetUserIds: targetIds.length > 0 ? targetIds : undefined,
         };
         ctx.onSend?.(payload);
     }
@@ -148,6 +159,31 @@
         </select>
     </div>
 
+    {#if players.length > 0}
+        <div class="field-row">
+            <label class="field-label">{game.i18n.localize("DH2E.Vox.Recipients")}</label>
+            <div class="recipients-list">
+                {#each players as player (player.userId)}
+                    <label class="recipient-check">
+                        <input
+                            type="checkbox"
+                            checked={targetSelected[player.userId] ?? false}
+                            onchange={(e) => {
+                                targetSelected[player.userId] = (e.target as HTMLInputElement).checked;
+                            }}
+                        />
+                        <span class="recipient-name">{player.userName}</span>
+                    </label>
+                {/each}
+            </div>
+            <span class="recipient-hint">
+                {targetIds.length === 0
+                    ? game.i18n.localize("DH2E.Vox.AllPlayers")
+                    : game.i18n.localize("DH2E.Vox.Targeted")}
+            </span>
+        </div>
+    {/if}
+
     <button class="transmit-btn" disabled={!canSend} onclick={doSend}>
         {game.i18n.localize("DH2E.Vox.Transmit")}
     </button>
@@ -217,6 +253,32 @@
             opacity: 0.4;
             cursor: not-allowed;
         }
+    }
+
+    /* Recipients styles */
+    .recipients-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--dh2e-space-xxs, 0.125rem);
+    }
+
+    .recipient-check {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-xs, 0.25rem);
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        color: var(--dh2e-text-primary, #d0cfc8);
+        cursor: pointer;
+
+        input[type="checkbox"] {
+            accent-color: var(--dh2e-gold, #c8a84e);
+        }
+    }
+
+    .recipient-hint {
+        font-size: var(--dh2e-text-xs, 0.7rem);
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-style: italic;
     }
 
     /* Item picker styles */

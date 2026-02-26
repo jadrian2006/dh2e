@@ -4,6 +4,7 @@ import { AdvancementShop } from "../../advancement/shop.ts";
 import { getSetting } from "../../ui/settings/settings.ts";
 import { FocusPowerResolver } from "@psychic/focus-power.ts";
 import { FocusPowerDialog } from "@psychic/focus-dialog.ts";
+import { getVoxLog, deleteVoxEntry, convertToObjective } from "../../ui/vox-terminal/vox-log.ts";
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 import type { AcolyteDH2e } from "./document.ts";
 import type { ObjectiveDH2e } from "@item/objective/document.ts";
@@ -80,6 +81,19 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 openShop: () => AdvancementShop.open(actor),
                 openRequisitionDialog: () => this.#openRequisitionDialog(),
                 usePower: (power: Item) => this.#usePower(actor, power),
+                voxLog: getVoxLog(actor as unknown as Actor),
+                deleteVoxEntry: async (entryId: string) => {
+                    await deleteVoxEntry(actor as unknown as Actor, entryId);
+                    this.render(true);
+                },
+                convertVoxToObjective: async (entryId: string) => {
+                    const log = getVoxLog(actor as unknown as Actor);
+                    const entry = log.find((e) => e.id === entryId);
+                    if (entry) {
+                        await convertToObjective(actor as unknown as Actor, entry);
+                        this.render(true);
+                    }
+                },
                 activeTab: this.#activeTab,
                 setActiveTab: (tab: string) => { this.#activeTab = tab; },
                 viewMode: this.#viewMode,

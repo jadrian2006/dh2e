@@ -14,11 +14,6 @@
             <h1 class="item-name">{ctx.name}</h1>
             <span class="item-type">{type}</span>
         </div>
-        {#if ctx.isGM && sys.description}
-            <button class="header-vox-btn" onclick={ctx.sendViaVox} title={game.i18n.localize("DH2E.Vox.SendViaVox")}>
-                <i class="fa-solid fa-tower-broadcast"></i>
-            </button>
-        {/if}
     </header>
 
     <section class="sheet-body">
@@ -259,23 +254,6 @@
         flex: 1;
     }
 
-    .header-vox-btn {
-        background: none;
-        border: 1px solid var(--dh2e-border, #4a4a55);
-        border-radius: var(--dh2e-radius-sm, 3px);
-        color: var(--dh2e-text-secondary, #a0a0a8);
-        cursor: pointer;
-        padding: 4px 8px;
-        font-size: 0.85rem;
-        align-self: center;
-        transition: color 0.15s, border-color 0.15s;
-        flex-shrink: 0;
-
-        &:hover {
-            color: #33ff33;
-            border-color: #33ff33;
-        }
-    }
 
     .item-name {
         margin: 0;

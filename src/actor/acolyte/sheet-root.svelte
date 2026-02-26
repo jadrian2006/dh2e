@@ -8,6 +8,7 @@
     import CombatTab from "./components/combat-tab.svelte";
     import EquipmentTab from "./components/equipment-tab.svelte";
     import NotesTab from "./components/notes-tab.svelte";
+    import VoxTab from "./components/vox-tab.svelte";
     import LogTab from "./components/log-tab.svelte";
     import CompactView from "./components/compact-view.svelte";
     import CombatView from "./components/combat-view.svelte";
@@ -41,6 +42,7 @@
         { id: "combat", label: "Combat", icon: "fa-solid fa-crosshairs" },
         { id: "equipment", label: "Equipment", icon: "fa-solid fa-suitcase" },
         { id: "notes", label: "Notes", icon: "fa-solid fa-pen-fancy" },
+        { id: "vox", label: "Vox Log", icon: "fa-solid fa-tower-broadcast" },
         { id: "log", label: "Log", icon: "fa-solid fa-clock-rotate-left" },
     ]);
 
@@ -116,6 +118,8 @@
                     <EquipmentTab {ctx} />
                 {:else if activeTab === "notes"}
                     <NotesTab {ctx} />
+                {:else if activeTab === "vox"}
+                    <VoxTab {ctx} />
                 {:else if activeTab === "log"}
                     <LogTab {ctx} />
                 {/if}

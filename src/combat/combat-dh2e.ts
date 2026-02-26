@@ -1,11 +1,32 @@
+import type { DH2eSynthetics } from "@rules/synthetics.ts";
+
 /**
  * Custom Combat document for DH2E.
  *
- * - Initiative formula: 1d10 + Agility Bonus
+ * - Initiative formula: 1d10 + Agility Bonus (or overridden by AttributeOverride)
  * - nextTurn: resets combatant actions, decrements condition durations
  * - Custom sorting: descending initiative, ties broken by Agility
  */
 class CombatDH2e extends Combat {
+    /** Override initiative formula per-combatant based on AttributeOverride REs */
+    override _getInitiativeFormula(combatant: Combatant): string {
+        const actor = combatant.actor as any;
+        const synthetics = actor?.synthetics as DH2eSynthetics | undefined;
+
+        if (synthetics) {
+            const override = synthetics.attributeOverrides.find(o => o.domain === "initiative");
+            if (override) {
+                const bonus = actor.system?.characteristics?.[override.characteristic]?.bonus ?? 0;
+                // Constant Vigilance: roll 2d10kh (keep highest)
+                const hasCV = synthetics.rollOptions.has("talent:constant-vigilance");
+                const dice = hasCV ? "2d10kh" : "1d10";
+                return `${dice} + ${bonus}`;
+            }
+        }
+
+        return CONFIG.Combat.initiative?.formula ?? "1d10 + @characteristics.ag.bonus";
+    }
+
     /** Advance to the next turn, resetting actions and decrementing conditions */
     override async nextTurn(): Promise<this> {
         // Get the combatant whose turn is ending

@@ -8,6 +8,8 @@ import { ResistanceRE } from "./resistance.ts";
 import { AdjustToughnessRE } from "./adjust-toughness.ts";
 import { ChoiceSetRE } from "./choice-set.ts";
 import { VFXOverrideRE } from "./vfx-override.ts";
+import { ActorValueRE } from "./actor-value.ts";
+import { AttributeOverrideRE } from "./attribute-override.ts";
 
 /** Map of RE key strings to their constructor classes */
 const RE_REGISTRY: Record<string, typeof RuleElementDH2e> = {
@@ -20,6 +22,8 @@ const RE_REGISTRY: Record<string, typeof RuleElementDH2e> = {
     AdjustToughness: AdjustToughnessRE,
     ChoiceSet: ChoiceSetRE,
     VFXOverride: VFXOverrideRE,
+    ActorValue: ActorValueRE,
+    AttributeOverride: AttributeOverrideRE,
 };
 
 /**

@@ -145,11 +145,46 @@ export class Ready {
                     icon: "fa-solid fa-tower-broadcast",
                     label: game.i18n.localize("DH2E.Vox.SendViaVox"),
                     onclick: () => {
-                        // Send the currently viewed page, not the whole journal
-                        const pageId = sheet.pageIndex !== undefined
-                            ? sheet.document?.pages?.contents?.[sheet.pageIndex]?.uuid
-                            : null;
-                        const uuid = pageId ?? sheet.document?.uuid;
+                        // Detect the currently viewed page (try multiple V13 strategies)
+                        const doc = sheet.document;
+                        const pages = doc?.pages?.contents ?? [];
+                        let pageUuid: string | null = null;
+
+                        // Strategy 1: pageIndex (V12 pattern)
+                        if (typeof sheet.pageIndex === "number" && pages[sheet.pageIndex]) {
+                            pageUuid = pages[sheet.pageIndex].uuid;
+                        }
+
+                        // Strategy 2: V13 internal page id properties
+                        if (!pageUuid) {
+                            const pid = sheet._currentPageId ?? sheet.pageId ?? sheet._pageId;
+                            if (pid) {
+                                const p = doc?.pages?.get(pid);
+                                if (p) pageUuid = p.uuid;
+                            }
+                        }
+
+                        // Strategy 3: DOM — active page in sidebar
+                        if (!pageUuid && sheet.element) {
+                            try {
+                                const active = sheet.element.querySelector(
+                                    "[data-page-id].active, .page-node.active, .journal-entry-page.active"
+                                );
+                                const pid = active?.dataset?.pageId;
+                                if (pid) {
+                                    const p = doc?.pages?.get(pid);
+                                    if (p) pageUuid = p.uuid;
+                                }
+                            } catch { /* DOM access failed, continue */ }
+                        }
+
+                        // Fallback: first text page (never send all pages)
+                        if (!pageUuid && pages.length > 0) {
+                            const textPage = pages.find((p: any) => p.type === "text") ?? pages[0];
+                            pageUuid = textPage?.uuid ?? null;
+                        }
+
+                        const uuid = pageUuid ?? doc?.uuid;
                         if (uuid) VoxComposeDialog.openWithItem(uuid);
                     },
                 });
@@ -193,7 +228,7 @@ export class Ready {
             } else if (data.type === "requisitionDenied") {
                 Ready.#handleRequisitionDenied(data.payload);
             } else if (data.type === "voxTerminal") {
-                VoxTerminalPopup.show(data.payload);
+                Ready.#handleVoxTerminal(data.payload);
             } else if (data.type === "gmGrantFlavor") {
                 // Player receives GM grant flavor text popup
                 Ready.#handleGMGrantFlavor(data.payload);
@@ -259,6 +294,28 @@ export class Ready {
                 title: payload.title,
             }),
         );
+    }
+
+    /** Handle incoming vox transmission — target filter, popup, and log storage */
+    static async #handleVoxTerminal(payload: any): Promise<void> {
+        const g = game as any;
+        const userId = g.user?.id;
+
+        // GM sent the message — they already saw it (or chose not to). Skip.
+        if (g.user?.isGM) return;
+
+        // Targeting check: if targetUserIds is set, only show to listed users
+        if (payload.targetUserIds?.length > 0 && !payload.targetUserIds.includes(userId)) return;
+
+        // Show the popup
+        VoxTerminalPopup.show(payload);
+
+        // Store in the player's assigned character's Vox log
+        const actor = g.user?.character;
+        if (actor) {
+            const { storeVoxEntry } = await import("../../ui/vox-terminal/vox-log.ts");
+            await storeVoxEntry(actor, payload);
+        }
     }
 
     /** Handle roll declined notification (GM side) */

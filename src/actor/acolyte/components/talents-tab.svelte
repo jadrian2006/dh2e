@@ -49,6 +49,9 @@
                 {#each talents as talent}
                     <div class="talent-row">
                         <span class="tier-badge">{tierLabels[tier]}</span>
+                        <button class="chat-btn" onclick={(e) => { e.stopPropagation(); sendItemToChat(talent); }} title="Send to Chat">
+                            <i class="fa-solid fa-comment"></i>
+                        </button>
                         <div class="talent-info" onclick={() => editTalent(talent)} role="button" tabindex="0" onkeydown={(e) => { if (e.key === "Enter") editTalent(talent); }} title="View details">
                             <span class="talent-name">{talent.name}</span>
                             {#if talent.system?.prerequisites}
@@ -58,9 +61,6 @@
                                 <span class="talent-apts">{talent.system.aptitudes.join(", ")}</span>
                             {/if}
                         </div>
-                        <button class="chat-btn" onclick={(e) => { e.stopPropagation(); sendItemToChat(talent); }} title="Send to Chat">
-                            <i class="fa-solid fa-comment"></i>
-                        </button>
                         {#if ctx.editable}
                             <button class="delete-btn" onclick={() => deleteTalent(talent)} title="Delete">&times;</button>
                         {/if}

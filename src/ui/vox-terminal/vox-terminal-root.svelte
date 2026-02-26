@@ -12,36 +12,78 @@
     let animationsOn = true;
     try { animationsOn = getSetting<boolean>("enableAnimations"); } catch { /* default true */ }
 
+    // --- Shared state ---
+    let finished = $state(!animationsOn);
+
     // --- Plain text typewriter mode ---
     let charIndex = $state(animationsOn && !isRichMode ? 0 : fullMessage.length);
-    let finished = $state(!animationsOn || isRichMode);
     const displayedText = $derived(fullMessage.slice(0, charIndex));
 
     $effect(() => {
         if (isRichMode || charIndex >= fullMessage.length) {
-            finished = true;
+            if (!isRichMode) finished = true;
             return;
         }
         const timer = setTimeout(() => { charIndex++; }, 1000 / charsPerSecond);
         return () => clearTimeout(timer);
     });
 
-    // --- Rich HTML decode animation ---
+    // --- Rich HTML printer-reveal mode ---
+    // Phase 0 = "DECODING...", Phase 1 = printing (progressive height reveal), Phase 2 = done
     let decodePhase = $state(animationsOn && isRichMode ? 0 : 2);
-    // Phase 0 = "DECODING", Phase 1 = reveal, Phase 2 = done
+    let revealHeight = $state(0);
+    let htmlContentEl: HTMLElement | undefined = $state();
 
+    // Printer speed: pixels per second (maps from chars/sec setting)
+    // Slow = readable pace, Normal = brisk, Fast = quick scan
+    const pxPerSecond = charsPerSecond <= 30 ? 25 : charsPerSecond <= 50 ? 55 : 120;
+
+    // Phase 0 → Phase 1 transition (decode label for 1.5s)
     $effect(() => {
-        if (!isRichMode || !animationsOn) return;
-        if (decodePhase === 0) {
-            // Show "DECODING..." for 1.5 seconds
-            const timer = setTimeout(() => { decodePhase = 1; }, 1500);
-            return () => clearTimeout(timer);
+        if (!isRichMode || !animationsOn || decodePhase !== 0) return;
+        const timer = setTimeout(() => { decodePhase = 1; }, 1500);
+        return () => clearTimeout(timer);
+    });
+
+    // Pause/resume state for printer reveal
+    let paused = $state(false);
+    let pausedAtHeight = 0;
+    let pauseStartTime = 0;
+    let totalPausedMs = 0;
+
+    // Phase 1: printer reveal animation via requestAnimationFrame
+    $effect(() => {
+        if (!isRichMode || !animationsOn || decodePhase !== 1 || !htmlContentEl) return;
+
+        const targetHeight = htmlContentEl.scrollHeight;
+        if (targetHeight === 0) return;
+
+        const startTime = performance.now();
+        totalPausedMs = 0;
+        let active = true;
+
+        function tick() {
+            if (!active) return;
+            if (paused) {
+                // Keep looping but don't advance
+                requestAnimationFrame(tick);
+                return;
+            }
+            const elapsed = performance.now() - startTime - totalPausedMs;
+            const h = elapsed * pxPerSecond / 1000;
+
+            if (h >= targetHeight) {
+                revealHeight = targetHeight + 20;
+                finished = true;
+                decodePhase = 2;
+                return;
+            }
+            revealHeight = h;
+            requestAnimationFrame(tick);
         }
-        if (decodePhase === 1) {
-            // Brief delay then show content
-            const timer = setTimeout(() => { decodePhase = 2; finished = true; }, 300);
-            return () => clearTimeout(timer);
-        }
+
+        requestAnimationFrame(tick);
+        return () => { active = false; };
     });
 
     // Blinking cursor (typewriter mode only)
@@ -56,14 +98,40 @@
     let bodyEl: HTMLElement | undefined = $state();
     $effect(() => {
         void charIndex;
-        void decodePhase;
+        void revealHeight;
         if (bodyEl) bodyEl.scrollTop = bodyEl.scrollHeight;
     });
 
+    function handleClick(e: MouseEvent) {
+        // Shift+click or already finished: skip to end
+        if (e.shiftKey || finished) {
+            skipToEnd();
+            return;
+        }
+        // For rich mode: toggle pause/resume
+        if (isRichMode && decodePhase === 1) {
+            if (paused) {
+                // Resume — account for pause duration
+                totalPausedMs += performance.now() - pauseStartTime;
+                paused = false;
+            } else {
+                // Pause
+                pausedAtHeight = revealHeight;
+                pauseStartTime = performance.now();
+                paused = true;
+            }
+            return;
+        }
+        // For plain text or decode phase: skip to end
+        skipToEnd();
+    }
+
     function skipToEnd() {
         if (!finished) {
+            paused = false;
             if (isRichMode) {
                 decodePhase = 2;
+                revealHeight = (htmlContentEl?.scrollHeight ?? 99999) + 20;
             } else {
                 charIndex = fullMessage.length;
             }
@@ -74,7 +142,7 @@
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="vox-terminal-display" onclick={skipToEnd}>
+<div class="vox-terminal-display" onclick={handleClick}>
     <div class="scanlines"></div>
 
     <div class="terminal-header">
@@ -90,17 +158,22 @@
 
     <div class="terminal-body" bind:this={bodyEl}>
         {#if isRichMode}
-            <!-- Rich HTML document mode -->
+            <!-- Rich HTML printer-reveal mode -->
             {#if decodePhase === 0}
                 <div class="decode-status">
                     <i class="fa-solid fa-lock"></i>
                     DECODING ENCRYPTED TRANSMISSION...
                 </div>
-            {:else if decodePhase >= 1}
-                <div class="terminal-html" class:reveal={decodePhase >= 2}>
+            {/if}
+            <div
+                class="printer-clip"
+                class:printing={decodePhase === 1}
+                style="height: {decodePhase >= 2 ? 'auto' : revealHeight + 'px'}"
+            >
+                <div class="terminal-html" bind:this={htmlContentEl}>
                     {@html fullHtml}
                 </div>
-            {/if}
+            </div>
         {:else}
             <!-- Plain text typewriter mode -->
             <span class="terminal-text">{displayedText}</span>{#if !finished && cursorVisible}<span class="cursor">&#x2588;</span>{/if}{#if finished}<span class="cursor-done">&#x2588;</span>{/if}
@@ -109,11 +182,15 @@
 
     <div class="terminal-footer">
         {#if finished}
-            <button class="dismiss-btn" onclick={() => ctx.onDismiss?.()}>
+            <button class="dismiss-btn" onclick={(e) => { e.stopPropagation(); ctx.onDismiss?.(); }}>
                 {game.i18n.localize("DH2E.Vox.Dismiss")}
             </button>
+        {:else if paused}
+            <span class="skip-hint paused-hint">
+                <i class="fa-solid fa-pause fa-xs"></i> PAUSED — CLICK TO RESUME · SHIFT+CLICK TO REVEAL ALL
+            </span>
         {:else}
-            <span class="skip-hint">{game.i18n.localize("DH2E.Vox.ClickToSkip")}</span>
+            <span class="skip-hint">CLICK TO PAUSE · SHIFT+CLICK TO REVEAL ALL</span>
         {/if}
     </div>
 </div>
@@ -203,7 +280,7 @@
         scrollbar-color: rgba(51, 255, 51, 0.4) transparent;
 
         /* Only apply pre-wrap to non-HTML mode */
-        &:not(:has(.terminal-html)) {
+        &:not(:has(.printer-clip)) {
             white-space: pre-wrap;
         }
     }
@@ -212,7 +289,7 @@
         /* Inherits CRT styling */
     }
 
-    /* Rich HTML document styles */
+    /* Rich HTML decode status */
     .decode-status {
         text-align: center;
         padding: 2rem 1rem;
@@ -228,16 +305,27 @@
         }
     }
 
-    .terminal-html {
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.5s ease, transform 0.5s ease;
+    /* Printer-reveal clip container */
+    .printer-clip {
+        overflow: hidden;
+        position: relative;
 
-        &.reveal {
-            opacity: 1;
-            transform: translateY(0);
+        /* Glowing print-head line at the bottom edge during printing */
+        &.printing::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #33ff33;
+            box-shadow: 0 0 8px #33ff33, 0 0 20px rgba(51, 255, 51, 0.5);
+            z-index: 3;
         }
+    }
 
+    /* Rich HTML document styles */
+    .terminal-html {
         // Override all text colors to CRT green
         :global(*) {
             color: #33ff33 !important;
@@ -263,17 +351,20 @@
         :global(ul) {
             margin: 0.5rem 0;
             padding-left: 1.5rem;
+            list-style-type: disc;
         }
 
         :global(ol) {
             margin: 0.5rem 0;
             padding-left: 1.5rem;
+            list-style-type: decimal;
         }
 
         :global(li) {
             margin: 0.25rem 0;
             font-size: 0.8rem;
             line-height: 1.5;
+            display: list-item;
         }
 
         :global(strong) {
@@ -355,6 +446,11 @@
         letter-spacing: 0.08em;
         opacity: 0.5;
         text-transform: uppercase;
+
+        &.paused-hint {
+            opacity: 0.8;
+            animation: blink-step 1s step-end infinite;
+        }
     }
 
     /* Override window chrome for CRT aesthetic */

@@ -31,10 +31,6 @@ class ItemSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 system: item.system,
                 editable: this.isEditable,
                 ruleEditingAllowed: getSetting<boolean>("allowRuleEditing"),
-                sendViaVox: async () => {
-                    const { VoxComposeDialog } = await import("@ui/vox-terminal/vox-compose-dialog.ts");
-                    VoxComposeDialog.openWithItem(item.uuid);
-                },
                 isGM: (game as any).user?.isGM ?? false,
             },
         };

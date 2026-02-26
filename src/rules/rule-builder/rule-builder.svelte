@@ -20,6 +20,8 @@
         { key: "Resistance", label: "Resistance", desc: "Damage reduction by type" },
         { key: "AdjustToughness", label: "Adjust Toughness", desc: "Modify effective TB for soak" },
         { key: "ChoiceSet", label: "Choice Set", desc: "Prompt user to choose from options" },
+        { key: "ActorValue", label: "Actor Value", desc: "Dynamic value from actor stats (e.g., half WSB)" },
+        { key: "AttributeOverride", label: "Attribute Override", desc: "Swap characteristic for a test domain" },
     ] as const;
 
     const DICE_MODES = [
@@ -78,6 +80,14 @@
                 break;
             case "ChoiceSet":
                 if (!rule.flag) errs.push("Flag name is required.");
+                break;
+            case "ActorValue":
+                if (!rule.domain) errs.push("Domain is required.");
+                if (!rule.path) errs.push("Actor path is required.");
+                break;
+            case "AttributeOverride":
+                if (!rule.domain) errs.push("Domain is required.");
+                if (!rule.characteristic) errs.push("Characteristic is required.");
                 break;
         }
         return errs;
@@ -245,6 +255,57 @@
                         rule.choices = (e.target as HTMLInputElement).value.split(",").map(s => s.trim()).filter(Boolean);
                     }}
                     placeholder="Athletics, Stealth, Awareness" />
+            </div>
+
+        {:else if rule.key === "ActorValue"}
+            <div class="rb-field">
+                <label class="rb-label" for="rb-domain">Domain</label>
+                <input id="rb-domain" type="text" class="rb-input" list="domain-list"
+                    bind:value={rule.domain} placeholder="damage:melee" />
+                <datalist id="domain-list">
+                    {#each COMMON_DOMAINS as d}<option value={d}></option>{/each}
+                </datalist>
+            </div>
+            <div class="rb-field">
+                <label class="rb-label" for="rb-path">Actor Path</label>
+                <input id="rb-path" type="text" class="rb-input"
+                    bind:value={rule.path} placeholder="system.characteristics.ws.bonus" />
+            </div>
+            <div class="rb-field">
+                <label class="rb-label" for="rb-transform">Transform</label>
+                <select id="rb-transform" class="rb-select" bind:value={rule.transform}>
+                    <option value="">identity (raw value)</option>
+                    <option value="half-ceil">half-ceil (round up)</option>
+                    <option value="half-floor">half-floor (round down)</option>
+                    <option value="negate">negate</option>
+                </select>
+            </div>
+            <div class="rb-field">
+                <label class="rb-label" for="rb-label">Label</label>
+                <input id="rb-label" type="text" class="rb-input"
+                    bind:value={rule.label} placeholder="Crushing Blow" />
+            </div>
+
+        {:else if rule.key === "AttributeOverride"}
+            <div class="rb-field">
+                <label class="rb-label" for="rb-domain">Domain</label>
+                <input id="rb-domain" type="text" class="rb-input"
+                    bind:value={rule.domain} placeholder="initiative" />
+            </div>
+            <div class="rb-field">
+                <label class="rb-label" for="rb-char">Characteristic</label>
+                <select id="rb-char" class="rb-select" bind:value={rule.characteristic}>
+                    <option value="">Select...</option>
+                    <option value="ws">WS</option>
+                    <option value="bs">BS</option>
+                    <option value="s">S</option>
+                    <option value="t">T</option>
+                    <option value="ag">Ag</option>
+                    <option value="int">Int</option>
+                    <option value="per">Per</option>
+                    <option value="wp">WP</option>
+                    <option value="fel">Fel</option>
+                </select>
             </div>
         {/if}
 

@@ -7,6 +7,7 @@ import { CheckDH2e } from "@check/check.ts";
 import { getQualityRuleElements } from "./weapon-qualities.ts";
 import { instantiateRuleElement } from "@rules/rule-element/registry.ts";
 import { createSynthetics, type DH2eSynthetics } from "@rules/synthetics.ts";
+import { resolveModifiers } from "@rules/modifier.ts";
 import type { RuleElementSource } from "@rules/rule-element/base.ts";
 import type { HordeDH2e } from "@actor/horde/document.ts";
 import type { VehicleDH2e } from "@actor/vehicle/document.ts";
@@ -201,6 +202,18 @@ class AttackResolver {
 
             // Add damage bonus
             rawDamage += effective.bonus;
+
+            // Collect damage modifiers from attacker synthetics (Crushing Blow, Mighty Shot, etc.)
+            const attacker = weapon.parent as Actor | undefined;
+            const attackerSynthetics = (attacker as any)?.synthetics as DH2eSynthetics | undefined;
+            if (attackerSynthetics) {
+                const damageMods = [
+                    ...(attackerSynthetics.modifiers[damageDomain] ?? []),
+                    ...(attackerSynthetics.modifiers["damage:*"] ?? []),
+                ];
+                const { total: damageBonusTotal } = resolveModifiers(damageMods, attackerSynthetics.rollOptions);
+                rawDamage += damageBonusTotal;
+            }
 
             const locationAP = getLocationAP(target, hit.location);
 

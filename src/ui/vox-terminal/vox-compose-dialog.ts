@@ -9,6 +9,10 @@ interface VoxTerminalPayload {
     html?: string;
     speed: number;
     timestamp: number;
+    /** Journal page UUID for dedup in Vox log storage */
+    sourceUuid?: string;
+    /** Target user IDs — empty/absent = broadcast to all */
+    targetUserIds?: string[];
 }
 
 interface VoxItemEntry {
@@ -106,10 +110,15 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     protected override async _prepareContext(): Promise<SvelteApplicationRenderContext> {
         const groups = await this.#loadItemGroups();
+        const g = game as any;
+        const players = g.users
+            ?.filter((u: any) => !u.isGM && u.active && u.character)
+            .map((u: any) => ({ userId: u.id, userName: u.name })) ?? [];
         return {
             ctx: {
                 onSend: (payload: VoxTerminalPayload) => this.#send(payload),
                 groups,
+                players,
                 initialSender: this.#initialSender,
                 initialMessage: this.#initialMessage,
                 initialHtml: this.#initialHtml,
@@ -124,6 +133,7 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                             message: htmlToPlainText(html),
                             html,
                             name: (doc as any).name ?? "",
+                            sourceUuid: uuid,
                         };
                     }
                     // JournalEntry: concatenate all pages — return raw HTML
@@ -143,6 +153,7 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                             message: textParts.join("\n\n"),
                             html: htmlParts.join("<hr/>"),
                             name: (doc as any).name ?? "",
+                            sourceUuid: uuid,
                         };
                     }
                     const sys = (doc as any).system ?? {};
@@ -159,37 +170,31 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     async #loadItemGroups(): Promise<VoxItemGroup[]> {
         const groups: VoxItemGroup[] = [];
         const g = game as any;
+
+        // Compendium journal packs — list individual pages
         for (const pack of g.packs ?? []) {
-            if (pack.documentName !== "Item" && pack.documentName !== "JournalEntry") continue;
-            const index = await pack.getIndex();
+            if (pack.documentName !== "JournalEntry") continue;
+            const docs = await pack.getDocuments();
             const items: VoxItemEntry[] = [];
-            for (const entry of index) {
-                const e = entry as any;
-                items.push({
-                    uuid: `Compendium.${pack.collection}.${e._id}`,
-                    name: e.name ?? "Item",
-                    img: e.img ?? "",
-                    type: e.type ?? "unknown",
-                });
+            for (const doc of docs) {
+                const pages = (doc as any).pages ?? [];
+                for (const page of pages) {
+                    items.push({
+                        uuid: page.uuid,
+                        name: pages.size > 1 || pages.length > 1
+                            ? `${(doc as any).name}: ${page.name}`
+                            : (doc as any).name ?? page.name,
+                        img: page.img || (doc as any).img || "",
+                        type: "page",
+                    });
+                }
             }
             if (items.length > 0) {
                 items.sort((a, b) => a.name.localeCompare(b.name));
                 groups.push({ label: pack.metadata.label ?? pack.collection, items });
             }
         }
-        const worldItems: VoxItemEntry[] = [];
-        for (const item of g.items ?? []) {
-            worldItems.push({
-                uuid: (item as any).uuid,
-                name: (item as any).name ?? "Item",
-                img: (item as any).img ?? "",
-                type: (item as any).type ?? "unknown",
-            });
-        }
-        if (worldItems.length > 0) {
-            worldItems.sort((a, b) => a.name.localeCompare(b.name));
-            groups.push({ label: game.i18n.localize("DH2E.Vox.WorldItems"), items: worldItems });
-        }
+
         // World journal entries — list individual pages
         const worldJournals: VoxItemEntry[] = [];
         for (const journal of g.journal ?? []) {
@@ -198,7 +203,7 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 worldJournals.push({
                     uuid: page.uuid,
                     name: `${(journal as any).name}: ${page.name}`,
-                    img: (journal as any).img ?? "",
+                    img: page.img || (journal as any).img || "",
                     type: "page",
                 });
             }
@@ -216,8 +221,10 @@ class VoxComposeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             type: "voxTerminal",
             payload,
         });
-        // Socket emit doesn't echo to sender, so show locally
-        VoxTerminalPopup.show(payload);
+        // Only show locally if broadcast (no targets) — GM doesn't need to see targeted messages
+        if (!payload.targetUserIds || payload.targetUserIds.length === 0) {
+            VoxTerminalPopup.show(payload);
+        }
         ui.notifications.info(game.i18n.localize("DH2E.Vox.Sent"));
         this.close();
     }

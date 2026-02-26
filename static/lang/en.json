@@ -1131,5 +1131,13 @@
     "DH2E.Vox.ItemLoaded": "Loaded: {name}",
     "DH2E.Vox.SendViaVox": "Send via Vox",
     "DH2E.Vox.WorldItems": "World Items",
-    "DH2E.Vox.WorldJournals": "World Journals"
+    "DH2E.Vox.WorldJournals": "World Journals",
+    "DH2E.Vox.Recipients": "Recipients",
+    "DH2E.Vox.AllPlayers": "All Players (Broadcast)",
+    "DH2E.Vox.Targeted": "Targeted Transmission",
+    "DH2E.Vox.LogEmpty": "No transmissions received.",
+    "DH2E.Vox.Delete": "Delete Transmission",
+    "DH2E.Vox.ConvertObjective": "Convert to Objective",
+    "DH2E.Vox.LogTitle": "Vox Log",
+    "DH2E.Vox.ReceivedAt": "Received: {time}"
 }

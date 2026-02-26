@@ -92,8 +92,8 @@ function validateRules(rules: RuleElementSource[]): string[] {
                 }
                 break;
             case "AdjustDegree":
-                if (typeof rule.amount !== "number") {
-                    errors.push(`${prefix}: AdjustDegree requires a numeric "amount".`);
+                if (typeof rule.amount !== "number" && typeof rule.amount !== "string") {
+                    errors.push(`${prefix}: AdjustDegree requires an "amount" (number or "actor:path").`);
                 }
                 break;
             case "GrantItem":
@@ -119,6 +119,22 @@ function validateRules(rules: RuleElementSource[]): string[] {
                     errors.push(`${prefix}: ChoiceSet requires a "flag" string.`);
                 }
                 break;
+            case "ActorValue":
+                if (typeof rule.domain !== "string") {
+                    errors.push(`${prefix}: ActorValue requires a "domain" string.`);
+                }
+                if (typeof rule.path !== "string") {
+                    errors.push(`${prefix}: ActorValue requires a "path" string.`);
+                }
+                break;
+            case "AttributeOverride":
+                if (typeof rule.domain !== "string") {
+                    errors.push(`${prefix}: AttributeOverride requires a "domain" string.`);
+                }
+                if (typeof rule.characteristic !== "string") {
+                    errors.push(`${prefix}: AttributeOverride requires a "characteristic" string.`);
+                }
+                break;
         }
     }
 
@@ -129,14 +145,16 @@ function validateRules(rules: RuleElementSource[]): string[] {
 const YAML_TEMPLATE = `# Rule Elements — YAML format
 # Each entry is a rule element that modifies the actor/item.
 # Supported types:
-#   FlatModifier  — Add a flat modifier to a domain
-#   RollOption    — Inject a roll option string
-#   DiceOverride  — Modify damage dice (Tearing, Proven, etc.)
-#   AdjustDegree  — Adjust DoS/DoF after a check
-#   GrantItem     — Auto-grant an item on creation
-#   Resistance    — Damage reduction by type
-#   AdjustToughness — Modify effective TB for damage soak
-#   ChoiceSet     — Prompt user to pick from options
+#   FlatModifier       — Add a flat modifier to a domain
+#   RollOption         — Inject a roll option string
+#   DiceOverride       — Modify damage dice (Tearing, Proven, etc.)
+#   AdjustDegree       — Adjust DoS/DoF after a check
+#   GrantItem          — Auto-grant an item on creation
+#   Resistance         — Damage reduction by type
+#   AdjustToughness    — Modify effective TB for damage soak
+#   ChoiceSet          — Prompt user to pick from options
+#   ActorValue         — Dynamic value from actor stats (e.g., half WSB)
+#   AttributeOverride  — Swap characteristic for a test domain
 #
 # Example:
 # - key: FlatModifier

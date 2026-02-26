@@ -117,11 +117,6 @@
 
         {#if ctx.editable}
             <div class="status-actions">
-                {#if ctx.isGM}
-                    <button class="action-btn vox" onclick={ctx.sendViaVox} title={game.i18n.localize("DH2E.Vox.SendViaVox")}>
-                        <i class="fa-solid fa-tower-broadcast"></i>
-                    </button>
-                {/if}
                 {#if status === "active"}
                     <button class="action-btn complete" onclick={ctx.complete}>
                         <i class="fa-solid fa-check"></i> {isParchment ? "Complete" : "CONFIRM"}

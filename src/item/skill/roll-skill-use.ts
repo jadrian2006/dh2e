@@ -1,6 +1,8 @@
 import type { SkillUse } from "./data.ts";
 import { CheckDH2e } from "@check/check.ts";
 import { ModifierDH2e } from "@rules/modifier.ts";
+import { Predicate } from "@rules/predicate.ts";
+import type { DH2eSynthetics } from "@rules/synthetics.ts";
 
 /**
  * Execute a skill use roll — shared logic used by the character sheet,
@@ -34,23 +36,42 @@ export async function executeSkillUseRoll(
     }
 
     // Resolve characteristic — use override if present, otherwise parent skill's linked char
-    const characteristic = use.characteristicOverride
+    let characteristic = use.characteristicOverride
         ?? skillSystem.linkedCharacteristic
         ?? skillItem?.linkedCharacteristic
         ?? "ws";
 
-    // Compute base target from the actor's characteristic + skill advancement bonus
+    // Build domain slug early so we can check AttributeOverrides
+    const skillName = skillItem?.name ?? "Unknown";
+    const skillSlug = skillName.toLowerCase().replace(/\s+/g, "-");
+    const domain = `skill:${skillSlug}:${use.slug}`;
+
+    // Check for AttributeOverride on this skill domain (e.g., Deny the Witch, Face in a Crowd)
     const actorSys = (actor as any).system;
+    const synthetics = (actor as any).synthetics as DH2eSynthetics | undefined;
+    if (synthetics) {
+        // Match exact domain (skill:dodge:evade) or parent domain (skill:dodge)
+        const parentDomain = `skill:${skillSlug}`;
+        const override = synthetics.attributeOverrides.find(o => {
+            if (o.domain !== domain && o.domain !== parentDomain) return false;
+            // Check predicate against actor roll options
+            if (o.predicate.length > 0) {
+                const pred = new Predicate(o.predicate);
+                return pred.test(synthetics.rollOptions);
+            }
+            return true;
+        });
+        if (override) {
+            characteristic = override.characteristic;
+        }
+    }
+
+    // Compute base target from the actor's characteristic + skill advancement bonus
     const charValue = actorSys?.characteristics?.[characteristic]?.value
         ?? actorSys?.characteristics?.[characteristic]?.base
         ?? 0;
     const advancementBonus = skillItem?.advancementBonus ?? 0;
     const baseTarget = charValue + advancementBonus;
-
-    // Build domain with three segments for parent inheritance
-    const skillName = skillItem?.name ?? "Unknown";
-    const skillSlug = skillName.toLowerCase().replace(/\s+/g, "-");
-    const domain = `skill:${skillSlug}:${use.slug}`;
 
     // Build label
     const displayName = skillItem?.displayName ?? skillName;

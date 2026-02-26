@@ -1,5 +1,6 @@
 import { CheckDH2e } from "@check/check.ts";
 import { ModifierDH2e } from "@rules/modifier.ts";
+import type { DH2eSynthetics } from "@rules/synthetics.ts";
 
 interface RequisitionContext {
     actor: Actor;
@@ -20,7 +21,17 @@ interface RequisitionContext {
 class RequisitionResolver {
     static async resolve(context: RequisitionContext): Promise<void> {
         const actor = context.actor as any;
-        const influence = actor.system?.influence ?? 25;
+        let influence = actor.system?.influence ?? 25;
+
+        // Check for AttributeOverride on requisition domain (e.g., Contact Network)
+        const synthetics = actor.synthetics as DH2eSynthetics | undefined;
+        if (synthetics) {
+            const override = synthetics.attributeOverrides.find(o => o.domain === "requisition");
+            if (override) {
+                const overrideValue = actor.system?.characteristics?.[override.characteristic]?.value ?? 0;
+                influence = Math.max(influence, overrideValue);
+            }
+        }
 
         // Look up availability modifier from config
         const availConfig = CONFIG.DH2E?.availabilityTiers?.[context.availability] as

@@ -60,6 +60,17 @@ interface ResistanceEntry {
     source: string;
 }
 
+/** Attribute override entry — swaps the characteristic used for a test domain */
+interface AttributeOverrideEntry {
+    /** Target domain, e.g. "initiative", "skill:dodge", "requisition" */
+    domain: string;
+    /** Replacement characteristic abbreviation, e.g. "int", "wp", "fel" */
+    characteristic: string;
+    /** Predicate that must pass for the override to apply */
+    predicate: string[];
+    source: string;
+}
+
 interface DH2eSynthetics {
     /** Modifiers keyed by domain string */
     modifiers: Record<string, ModifierDH2e[]>;
@@ -75,6 +86,8 @@ interface DH2eSynthetics {
     resistances: ResistanceEntry[];
     /** VFX overrides keyed by item ID */
     vfxOverrides: Record<string, VFXOverrideEntry>;
+    /** Attribute overrides that swap characteristics for test domains */
+    attributeOverrides: AttributeOverrideEntry[];
 }
 
 function createSynthetics(): DH2eSynthetics {
@@ -86,6 +99,7 @@ function createSynthetics(): DH2eSynthetics {
         toughnessAdjustments: [],
         resistances: [],
         vfxOverrides: {},
+        attributeOverrides: [],
     };
 }
 
@@ -107,4 +121,5 @@ export type {
     ToughnessAdjustment,
     ResistanceEntry,
     VFXOverrideEntry,
+    AttributeOverrideEntry,
 };
