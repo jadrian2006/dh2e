@@ -68,6 +68,16 @@ export class Init {
                 decimals: 0,
             };
 
+            // Extend compendium index with system fields needed by the Advancement Shop
+            const indexFields = (CONFIG as any).Item?.compendiumIndexFields;
+            if (indexFields instanceof Set) {
+                for (const f of [
+                    "system.aptitude", "system.aptitudes", "system.tier",
+                    "system.linkedCharacteristic", "system.specialization",
+                    "system.prerequisites", "system.cost", "system.discipline",
+                ]) indexFields.add(f);
+            }
+
             // Register status effects for token overlays
             CONFIG.statusEffects = DH2E_STATUS_EFFECTS;
 

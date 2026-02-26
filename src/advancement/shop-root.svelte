@@ -7,6 +7,10 @@
     let affordableOnly = $state(false);
     let searchText = $state("");
 
+    type SortColumn = "name" | "aptMatch";
+    let sortCol: SortColumn | null = $state(null);
+    let sortDir: "asc" | "desc" = $state("desc");
+
     const hasEliteOptions = $derived(() => {
         const opts: AdvanceOption[] = ctx.options ?? [];
         return opts.some((o) => o.category === "elite");
@@ -20,13 +24,38 @@
     const filtered = $derived(() => {
         const opts: AdvanceOption[] = ctx.options ?? [];
         const term = searchText.toLowerCase().trim();
-        return opts.filter((opt) => {
+        const result = opts.filter((opt) => {
             if (filterCategory !== "all" && opt.category !== filterCategory) return false;
             if (affordableOnly && !opt.affordable) return false;
             if (term && !opt.label.toLowerCase().includes(term) && !opt.sublabel.toLowerCase().includes(term)) return false;
             return true;
         });
+        if (sortCol) {
+            const dir = sortDir === "desc" ? -1 : 1;
+            result.sort((a, b) => {
+                if (sortCol === "aptMatch") {
+                    const diff = a.matchCount - b.matchCount;
+                    if (diff !== 0) return diff * dir;
+                    return a.label.localeCompare(b.label);
+                }
+                // "name" — alphabetical, secondary by matchCount desc
+                const nameCmp = a.label.localeCompare(b.label) * dir;
+                if (nameCmp !== 0) return nameCmp;
+                return b.matchCount - a.matchCount;
+            });
+        }
+        return result;
     });
+
+    function toggleSort(col: SortColumn) {
+        if (sortCol === col) {
+            if (sortDir === "desc") sortDir = "asc";
+            else { sortCol = null; sortDir = "desc"; }
+        } else {
+            sortCol = col;
+            sortDir = "desc";
+        }
+    }
 
     function categoryIcon(cat: AdvanceCategory): string {
         if (cat === "characteristic") return "fa-solid fa-chart-bar";
@@ -105,9 +134,19 @@
     <div class="advance-list">
         <div class="advance-header">
             <span class="hdr-icon"></span>
-            <span class="hdr-name">Advance</span>
+            <button class="hdr-name sortable" onclick={() => toggleSort("name")}>
+                Advance
+                {#if sortCol === "name"}
+                    <i class="fa-solid fa-xs" class:fa-caret-down={sortDir === "desc"} class:fa-caret-up={sortDir === "asc"}></i>
+                {/if}
+            </button>
             <span class="hdr-info"></span>
-            <span class="hdr-pips" title="Aptitude matches — each filled dot = one matching aptitude. More matches = lower XP cost.">Apt Match</span>
+            <button class="hdr-pips" onclick={() => toggleSort("aptMatch")}>
+                Apt Match
+                {#if sortCol === "aptMatch"}
+                    <i class="fa-solid fa-xs" class:fa-caret-down={sortDir === "desc"} class:fa-caret-up={sortDir === "asc"}></i>
+                {/if}
+            </button>
             <span class="hdr-cost">Cost</span>
             <span class="hdr-action"></span>
         </div>
@@ -317,9 +356,49 @@
         border-bottom: 1px solid var(--dh2e-gold-muted);
     }
     .hdr-icon { width: 20px; }
-    .hdr-name { flex: 1; }
+    .hdr-name {
+        flex: 1;
+        text-align: left;
+
+        &.sortable {
+            background: none;
+            border: none;
+            color: var(--dh2e-text-secondary);
+            font-size: var(--dh2e-text-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+
+            &:hover { color: var(--dh2e-gold); }
+
+            i { font-size: 0.55rem; }
+        }
+    }
     .hdr-info { width: 24px; }
-    .hdr-pips { width: 40px; text-align: center; cursor: help; }
+    .hdr-pips {
+        width: 55px;
+        text-align: center;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: var(--dh2e-text-secondary);
+        font-size: var(--dh2e-text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+
+        &:hover { color: var(--dh2e-gold); }
+
+        i { font-size: 0.55rem; }
+    }
     .hdr-cost { min-width: 60px; text-align: right; }
     .hdr-action { width: 70px; }
     .advance-row {
@@ -401,11 +480,13 @@
         flex-shrink: 0;
     }
     .row-pips {
+        width: 55px;
         font-size: var(--dh2e-text-sm);
         color: var(--dh2e-gold);
         letter-spacing: 2px;
         cursor: help;
         flex-shrink: 0;
+        text-align: center;
     }
     .row-cost {
         font-size: var(--dh2e-text-sm);
