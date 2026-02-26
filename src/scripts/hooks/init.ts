@@ -20,6 +20,7 @@ import { ObjectiveDH2e } from "@item/objective/document.ts";
 import { HordeDH2e } from "@actor/horde/document.ts";
 import { VehicleDH2e } from "@actor/vehicle/document.ts";
 import { WarbandDH2e } from "@actor/warband/document.ts";
+import { LootDH2e } from "@actor/loot/document.ts";
 import { DH2ECONFIG } from "@scripts/config/index.ts";
 import { DH2E_STATUS_EFFECTS } from "@scripts/config/status-effects.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
@@ -41,6 +42,7 @@ export class Init {
                 horde: HordeDH2e as unknown as typeof Actor,
                 vehicle: VehicleDH2e as unknown as typeof Actor,
                 warband: WarbandDH2e as unknown as typeof Actor,
+                loot: LootDH2e as unknown as typeof Actor,
             };
             CONFIG.DH2E.Item.documentClasses = {
                 weapon: WeaponDH2e as unknown as typeof Item,
@@ -156,6 +158,17 @@ export class Init {
                 editable: [{ key: "KeyB", modifiers: ["Control"] }],
                 onDown: () => {
                     import("../../ui/compendium-browser/browser.ts").then(m => m.CompendiumBrowser.open());
+                    return true;
+                },
+                restricted: false,
+                precedence: (CONST as any).KEYBINDING_PRECEDENCE?.NORMAL ?? 0,
+            });
+
+            game.keybindings.register(SYSTEM_ID, "openQuickSearch", {
+                name: "DH2E.Keybinding.OpenQuickSearch",
+                editable: [{ key: "Space", modifiers: ["Control"] }],
+                onDown: () => {
+                    import("../../ui/quick-search/quick-search.ts").then(m => m.QuickSearch.toggle());
                     return true;
                 },
                 restricted: false,

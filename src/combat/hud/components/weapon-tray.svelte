@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { WeaponDragData } from "../../../macros/types.ts";
+    import { canFire, getCompatibleAmmo, reloadWeapon, parseReloadCost } from "@combat/ammo.ts";
 
     let {
         weapons = [],
@@ -9,9 +10,64 @@
         actor: any;
     } = $props();
 
+    function ammoColor(clipValue: number, clipMax: number): string {
+        if (clipValue <= 0) return "var(--dh2e-danger, #c0392b)";
+        const pct = clipValue / clipMax;
+        if (pct > 0.5) return "var(--dh2e-success, #27ae60)";
+        if (pct > 0.25) return "var(--dh2e-warning, #d4a017)";
+        return "var(--dh2e-danger, #c0392b)";
+    }
+
+    function isDisabled(weapon: any, fireMode: string): boolean {
+        const sys = weapon.system ?? {};
+        if ((sys.clip?.max ?? 0) === 0) return false;
+        return !canFire(weapon, fireMode as any);
+    }
+
+    function showReload(weapon: any): boolean {
+        const sys = weapon.system ?? {};
+        const clipMax = sys.clip?.max ?? 0;
+        if (clipMax === 0) return false;
+        if ((sys.clip?.value ?? 0) >= clipMax) return false;
+        return getCompatibleAmmo(actor, weapon).length > 0;
+    }
+
+    function reloadTooltip(weapon: any): string {
+        const sys = weapon.system ?? {};
+        const cost = parseReloadCost(sys.reload ?? "");
+        const actionLabel = cost.actionType === "half" ? "Half Action" : "Full Action";
+        const countLabel = cost.count > 1 ? ` × ${cost.count}` : "";
+        return `Reload: ${actionLabel}${countLabel}`;
+    }
+
     async function attackWith(weapon: any, fireMode: string) {
         const { AttackResolver } = await import("@combat/attack.ts");
         await AttackResolver.resolve({ actor, weapon, fireMode: fireMode as any });
+    }
+
+    async function onReload(weapon: any) {
+        const compatible = getCompatibleAmmo(actor, weapon);
+        if (compatible.length === 0) {
+            ui.notifications.warn(game.i18n?.localize("DH2E.Ammo.NoAmmo") ?? "No compatible ammunition in inventory.");
+            return;
+        }
+
+        if (compatible.length > 1) {
+            const { showAmmoPicker } = await import("@combat/ammo-picker.ts");
+            await showAmmoPicker(actor, weapon, compatible);
+        } else {
+            const result = await reloadWeapon(actor, weapon, compatible[0]);
+            if (result) {
+                const msgKey = result.partial ? "DH2E.Ammo.ReloadPartial" : "DH2E.Ammo.ReloadComplete";
+                ui.notifications.info(game.i18n?.format(msgKey, {
+                    actor: actor.name,
+                    weapon: weapon.name,
+                    loaded: String(result.loaded),
+                    needed: String((weapon.system?.clip?.max ?? 0) - (weapon.system?.clip?.value ?? 0) + result.loaded),
+                    ammo: result.ammoName,
+                }) ?? `${actor.name} reloads ${weapon.name} (${result.loaded} rounds of ${result.ammoName})`);
+            }
+        }
     }
 
     function onDragStart(e: DragEvent, weapon: any) {
@@ -27,19 +83,47 @@
 <div class="weapon-tray">
     {#each weapons as weapon}
         {@const sys = weapon.system ?? {}}
+        {@const clipMax = sys.clip?.max ?? 0}
+        {@const clipValue = sys.clip?.value ?? 0}
         <div class="weapon-btn-group" draggable="true" ondragstart={(e) => onDragStart(e, weapon)}>
-            <button class="weapon-btn" onclick={() => attackWith(weapon, "single")} title="{weapon.name} — Single">
+            <button
+                class="weapon-btn"
+                class:disabled={isDisabled(weapon, "single")}
+                onclick={() => !isDisabled(weapon, "single") && attackWith(weapon, "single")}
+                title="{weapon.name} — Single"
+            >
                 <i class="fa-solid fa-crosshairs"></i>
                 <span class="weapon-label">{weapon.name}</span>
             </button>
             {#if sys.rof?.semi > 0}
-                <button class="fire-mode-btn" onclick={() => attackWith(weapon, "semi")} title="Semi-Auto">S</button>
+                <button
+                    class="fire-mode-btn"
+                    class:disabled={isDisabled(weapon, "semi")}
+                    onclick={() => !isDisabled(weapon, "semi") && attackWith(weapon, "semi")}
+                    title="Semi-Auto ({sys.rof.semi} rounds)"
+                >S</button>
             {/if}
             {#if sys.rof?.full > 0}
-                <button class="fire-mode-btn" onclick={() => attackWith(weapon, "full")} title="Full Auto">F</button>
+                <button
+                    class="fire-mode-btn"
+                    class:disabled={isDisabled(weapon, "full")}
+                    onclick={() => !isDisabled(weapon, "full") && attackWith(weapon, "full")}
+                    title="Full Auto ({sys.rof.full} rounds)"
+                >F</button>
             {/if}
-            {#if sys.clip?.max > 0}
-                <span class="ammo-count">{sys.clip?.value ?? 0}/{sys.clip?.max}</span>
+            {#if clipMax > 0}
+                <span class="ammo-count" class:ammo-empty={clipValue <= 0} class:ammo-flash={clipValue <= 0} style="color: {ammoColor(clipValue, clipMax)}">
+                    {#if clipValue <= 0}
+                        EMPTY
+                    {:else}
+                        {clipValue}/{clipMax}
+                    {/if}
+                </span>
+            {/if}
+            {#if showReload(weapon)}
+                <button class="reload-btn" onclick={() => onReload(weapon)} title={reloadTooltip(weapon)}>
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                </button>
             {/if}
         </div>
     {:else}
@@ -59,7 +143,8 @@
         color: var(--dh2e-text-primary, #d0cfc8);
         font-size: var(--dh2e-text-xs, 0.7rem);
         cursor: pointer;
-        &:hover { border-color: var(--dh2e-gold, #c8a84e); background: var(--dh2e-gold-dark, #9c7a28); color: #111; }
+        &:hover:not(.disabled) { border-color: var(--dh2e-gold, #c8a84e); background: var(--dh2e-gold-dark, #9c7a28); color: #111; }
+        &.disabled { opacity: 0.3; cursor: not-allowed; }
         i { font-size: 0.65rem; color: var(--dh2e-gold-muted, #8a7a3e); }
     }
     .weapon-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; }
@@ -70,8 +155,23 @@
         color: var(--dh2e-text-secondary, #a0a0a8);
         font-size: 0.6rem; font-weight: 700; cursor: pointer;
         display: flex; align-items: center; justify-content: center;
+        &:hover:not(.disabled) { border-color: var(--dh2e-gold-muted, #8a7a3e); color: var(--dh2e-gold, #c8a84e); }
+        &.disabled { opacity: 0.3; cursor: not-allowed; }
+    }
+    .ammo-count { font-size: 0.55rem; font-weight: 700; }
+    .ammo-flash { animation: ammo-blink 0.8s ease-in-out infinite; }
+    @keyframes ammo-blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+    }
+    .reload-btn {
+        width: 1.3rem; height: 1.3rem;
+        border: 1px solid var(--dh2e-border, #4a4a55); border-radius: 2px;
+        background: var(--dh2e-bg-darkest, #111114);
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-size: 0.55rem; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
         &:hover { border-color: var(--dh2e-gold-muted, #8a7a3e); color: var(--dh2e-gold, #c8a84e); }
     }
-    .ammo-count { font-size: 0.55rem; color: var(--dh2e-text-secondary, #a0a0a8); }
     .empty-tray { font-size: var(--dh2e-text-xs, 0.7rem); color: var(--dh2e-text-secondary, #a0a0a8); font-style: italic; }
 </style>

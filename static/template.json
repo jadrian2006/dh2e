@@ -1,6 +1,6 @@
 {
     "Actor": {
-        "types": ["acolyte", "npc", "horde", "vehicle", "warband"],
+        "types": ["acolyte", "npc", "horde", "vehicle", "warband", "loot"],
         "acolyte": {
             "characteristics": {
                 "ws":  { "base": 25, "advances": 0 },
@@ -65,6 +65,7 @@
                 "rightLeg": 0,
                 "leftLeg": 0
             },
+            "defeated": false,
             "details": {
                 "homeworld": "",
                 "background": "",
@@ -112,6 +113,13 @@
                 "deadlines": []
             },
             "details": { "name": "", "notes": "" }
+        },
+        "loot": {
+            "sections": [],
+            "salvageSkill": "awareness",
+            "salvageModifier": 0,
+            "searched": false,
+            "details": { "notes": "" }
         }
     },
     "Item": {
@@ -129,8 +137,11 @@
             "qualities": [],
             "equipped": false,
             "loadedAmmoId": "",
+            "weaponGroup": "",
+            "reloadProgress": 0,
             "rules": [],
-            "availability": "Common"
+            "availability": "Common",
+            "craftsmanship": "common"
         },
         "armour": {
             "description": "",
@@ -146,13 +157,15 @@
             "qualities": [],
             "weight": 0,
             "equipped": false,
-            "availability": "Common"
+            "availability": "Common",
+            "craftsmanship": "common"
         },
         "gear": {
             "description": "",
             "weight": 0,
             "quantity": 1,
-            "availability": "Common"
+            "availability": "Common",
+            "craftsmanship": "common"
         },
         "skill": {
             "description": "",
@@ -226,7 +239,9 @@
             "qualities": [],
             "quantity": 1,
             "weight": 0,
-            "availability": "Common"
+            "weaponGroup": "",
+            "availability": "Common",
+            "craftsmanship": "common"
         },
         "cybernetic": {
             "description": "",

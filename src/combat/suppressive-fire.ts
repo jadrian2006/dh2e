@@ -25,6 +25,7 @@ class SuppressiveFireResolver {
 
         // Expend ammo (full magazine or full-auto equivalent)
         const clipMax = sys.clip?.max ?? 0;
+        const roundsConsumed = sys.clip?.value ?? 0;
         if (clipMax > 0) {
             await weapon.update({ "system.clip.value": 0 });
         }
@@ -36,7 +37,7 @@ class SuppressiveFireResolver {
             </header>
             <div class="card-body">
                 <p class="sf-desc">Establishes a 30° kill zone. All targets in the zone must test <strong>Willpower</strong> or become <strong>Pinned</strong>.</p>
-                <p class="sf-ammo">Ammo expended: full magazine.</p>
+                <p class="sf-ammo">Ammo expended: ${roundsConsumed} rounds.</p>
                 <p class="sf-hits">Targets acting in the zone take <strong>1d5 hits</strong>.</p>
                 ${targetIds?.length ? `<div class="sf-targets">
                     <button class="btn" data-action="resolve-pinning">Roll Pinning Tests</button>
@@ -57,6 +58,11 @@ class SuppressiveFireResolver {
                         weaponName: weapon.name,
                         targetIds: targetIds ?? [],
                     },
+                    ammo: roundsConsumed > 0 ? {
+                        weaponId: weapon.id,
+                        roundsConsumed,
+                        recovered: false,
+                    } : undefined,
                 },
             },
         });

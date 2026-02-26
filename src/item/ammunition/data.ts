@@ -6,5 +6,9 @@ export interface AmmunitionSystemSource {
     qualities: string[];
     quantity: number;
     weight: number;
+    /** Weapon group this ammo is compatible with (empty = universal) */
+    weaponGroup: string;
     availability: string;
+    /** Craftsmanship quality: poor, common, good, best */
+    craftsmanship: string;
 }

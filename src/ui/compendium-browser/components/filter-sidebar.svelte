@@ -5,20 +5,33 @@
         facets,
         filters,
         onFilterChange,
+        isGM = false,
     }: {
         facets: CompendiumIndex["facets"];
         filters: Record<string, string>;
         onFilterChange: (key: string, value: string) => void;
+        isGM?: boolean;
     } = $props();
 
-    const filterGroups = [
-        { key: "type", label: "Type", options: facets.types },
-        { key: "availability", label: "Availability", options: facets.availability },
-        { key: "weaponClass", label: "Weapon Class", options: facets.weaponClass },
-        { key: "damageType", label: "Damage Type", options: facets.damageType },
-        { key: "characteristic", label: "Characteristic", options: facets.characteristic },
-        { key: "discipline", label: "Discipline", options: facets.discipline },
-    ];
+    const filterGroups = $derived(() => {
+        const groups = [];
+
+        // Source filter — GM only, rendered first
+        if (isGM && facets.source.length > 1) {
+            groups.push({ key: "source", label: "Source", options: facets.source });
+        }
+
+        groups.push(
+            { key: "type", label: "Type", options: facets.types },
+            { key: "availability", label: "Availability", options: facets.availability },
+            { key: "weaponClass", label: "Weapon Class", options: facets.weaponClass },
+            { key: "damageType", label: "Damage Type", options: facets.damageType },
+            { key: "characteristic", label: "Characteristic", options: facets.characteristic },
+            { key: "discipline", label: "Discipline", options: facets.discipline },
+        );
+
+        return groups;
+    });
 
     function handleChange(key: string, event: Event) {
         const val = (event.target as HTMLSelectElement).value;
@@ -27,7 +40,7 @@
 </script>
 
 <div class="filter-sidebar">
-    {#each filterGroups as group}
+    {#each filterGroups() as group}
         {#if group.options.length > 0}
             <div class="filter-group">
                 <label class="filter-label">{group.label}</label>

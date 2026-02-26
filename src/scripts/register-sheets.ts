@@ -20,6 +20,7 @@ import { AmmunitionSheetDH2e } from "@item/ammunition/sheet.ts";
 import { CyberneticSheetDH2e } from "@item/cybernetic/sheet.ts";
 import { ObjectiveSheetDH2e } from "@item/objective/sheet.ts";
 import { WarbandSheetDH2e } from "@actor/warband/sheet.ts";
+import { LootSheetDH2e } from "@actor/loot/sheet.ts";
 
 /** Register all actor and item sheets with Foundry */
 export function registerSheets(): void {
@@ -52,6 +53,12 @@ export function registerSheets(): void {
         types: ["warband"],
         makeDefault: true,
         label: "DH2E.Sheet.Warband",
+    });
+
+    fd.collections.Actors.registerSheet(SYSTEM_ID, LootSheetDH2e, {
+        types: ["loot"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Loot",
     });
 
     // Item sheets

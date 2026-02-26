@@ -1,17 +1,130 @@
 [
     {
-        "name": "Standard Ammunition",
+        "name": "Solid Rounds",
         "type": "ammunition",
         "img": "icons/svg/item-bag.svg",
         "system": {
-            "description": "Standard-issue ammunition for solid projectile weapons.",
+            "description": "Standard-issue solid projectile ammunition. Used in stub weapons, autoguns, and other SP firearms.",
             "damageModifier": 0,
             "damageType": "",
             "penetrationModifier": 0,
             "qualities": [],
             "quantity": 1,
             "weight": 0.5,
+            "weaponGroup": "sp",
             "availability": "Common"
+        }
+    },
+    {
+        "name": "Charge Pack",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A standard power cell for las weapons. Can be recharged from most power sources or even an open flame.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.3,
+            "weaponGroup": "las",
+            "availability": "Common"
+        }
+    },
+    {
+        "name": "Bolt Shells",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Standard mass-reactive bolt rounds. Self-propelled and designed to detonate within the target.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 1,
+            "weaponGroup": "bolt",
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Promethium Canister",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A sealed tank of refined promethium fuel for flame weapons.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 2,
+            "weaponGroup": "flame",
+            "availability": "Average"
+        }
+    },
+    {
+        "name": "Melta Canister",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A pressurised fuel canister for melta weapons containing a pyrum-petrol mix.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 1.5,
+            "weaponGroup": "melta",
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Plasma Flask",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "A containment flask of hydrogen fuel for plasma weapons. Extremely volatile.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 1,
+            "weaponGroup": "plasma",
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Shotgun Shells",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Standard solid-slug or buckshot shells for combat shotguns.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "shotgun",
+            "availability": "Common"
+        }
+    },
+    {
+        "name": "Frag Grenades (Launcher)",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Standard fragmentation grenades sized for grenade launchers and missile launchers.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": [],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "launcher",
+            "availability": "Scarce"
         }
     },
     {
@@ -26,6 +139,7 @@
             "qualities": [],
             "quantity": 1,
             "weight": 0.5,
+            "weaponGroup": "sp",
             "availability": "Scarce"
         }
     },
@@ -41,6 +155,7 @@
             "qualities": ["Tearing"],
             "quantity": 1,
             "weight": 0.5,
+            "weaponGroup": "sp",
             "availability": "Scarce"
         }
     },
@@ -56,6 +171,7 @@
             "qualities": [],
             "quantity": 1,
             "weight": 0.3,
+            "weaponGroup": "las",
             "availability": "Rare"
         }
     },
@@ -71,6 +187,7 @@
             "qualities": ["Flame"],
             "quantity": 1,
             "weight": 0.5,
+            "weaponGroup": "shotgun",
             "availability": "Rare"
         }
     },
@@ -86,6 +203,7 @@
             "qualities": [],
             "quantity": 1,
             "weight": 0.5,
+            "weaponGroup": "sp",
             "availability": "Average"
         }
     },
@@ -94,13 +212,14 @@
         "type": "ammunition",
         "img": "icons/svg/item-bag.svg",
         "system": {
-            "description": "Rounds consecrated by the Ecclesiarchy. Adds Sanctified quality.",
+            "description": "Rounds consecrated by the Ecclesiarchy. Adds Sanctified quality. Compatible with all weapon types.",
             "damageModifier": 0,
             "damageType": "",
             "penetrationModifier": 0,
             "qualities": ["Sanctified"],
             "quantity": 1,
             "weight": 0.5,
+            "weaponGroup": "",
             "availability": "Very Rare"
         }
     },
@@ -116,6 +235,7 @@
             "qualities": ["Haywire"],
             "quantity": 1,
             "weight": 1,
+            "weaponGroup": "bolt",
             "availability": "Very Rare"
         }
     },
@@ -131,6 +251,7 @@
             "qualities": ["Toxic(1)"],
             "quantity": 1,
             "weight": 0.5,
+            "weaponGroup": "sp",
             "availability": "Rare"
         }
     },
@@ -146,6 +267,7 @@
             "qualities": ["Overheats"],
             "quantity": 1,
             "weight": 0.5,
+            "weaponGroup": "plasma",
             "availability": "Very Rare"
         }
     }

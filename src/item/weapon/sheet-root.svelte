@@ -1,8 +1,10 @@
 <script lang="ts">
     import RuleElementEditor from "@rules/rule-element/rule-element-editor.svelte";
+    import { WEAPON_GROUPS } from "./data.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
     const sys = $derived(ctx.system ?? {});
+    const isRanged = $derived((sys.clip?.max ?? 0) > 0);
 </script>
 
 <div class="item-sheet weapon-sheet">
@@ -51,6 +53,17 @@
                 <span class="field-label">Clip</span>
                 <input type="number" value={sys.clip?.max ?? 0} disabled={!ctx.editable} min="0" />
             </label>
+            {#if isRanged}
+            <label class="field">
+                <span class="field-label">Weapon Group</span>
+                <select value={sys.weaponGroup ?? ""} disabled={!ctx.editable}>
+                    <option value="">— None —</option>
+                    {#each WEAPON_GROUPS as group}
+                        <option value={group}>{group.charAt(0).toUpperCase() + group.slice(1)}</option>
+                    {/each}
+                </select>
+            </label>
+            {/if}
         </div>
 
         <h3 class="section-title">Rate of Fire</h3>

@@ -8,4 +8,6 @@ export interface ArmourSystemSource {
     weight: number;
     equipped: boolean;
     availability: string;
+    /** Craftsmanship quality: poor, common, good, best */
+    craftsmanship: string;
 }

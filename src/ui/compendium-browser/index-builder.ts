@@ -3,7 +3,10 @@
  *
  * Indexes items from all packs, extracting filterable fields
  * (type, availability, weapon class, damage type, etc.)
+ * Includes homebrew pack items with visibility filtering.
  */
+
+import { HOMEBREW_PACK_COLLECTION } from "../../homebrew/homebrew-pack.ts";
 
 export interface IndexEntry {
     uuid: string;
@@ -19,6 +22,10 @@ export interface IndexEntry {
     tier?: number;
     characteristic?: string;
     discipline?: string;
+    /** Whether this entry comes from the homebrew compendium */
+    isHomebrew: boolean;
+    /** Visibility flag for homebrew items */
+    homebrewVisibility?: "public" | "private";
 }
 
 /** Full index of all compendium entries */
@@ -32,12 +39,24 @@ export interface CompendiumIndex {
         damageType: string[];
         characteristic: string[];
         discipline: string[];
+        source: string[];
     };
+}
+
+/** Module-level index cache */
+let _cachedIndex: CompendiumIndex | null = null;
+
+/** Invalidate the cached index, forcing a rebuild on next access */
+export function invalidateCompendiumIndex(): void {
+    _cachedIndex = null;
 }
 
 /** Build the compendium index from all DH2E packs */
 export async function buildCompendiumIndex(): Promise<CompendiumIndex> {
+    if (_cachedIndex) return _cachedIndex;
+
     const g = game as any;
+    const isGM = g.user?.isGM ?? false;
     const entries: IndexEntry[] = [];
 
     const facetSets = {
@@ -47,26 +66,51 @@ export async function buildCompendiumIndex(): Promise<CompendiumIndex> {
         damageType: new Set<string>(),
         characteristic: new Set<string>(),
         discipline: new Set<string>(),
+        source: new Set<string>(),
     };
 
-    // Iterate all compendium packs belonging to this system
     for (const pack of g.packs) {
+        // Skip system packs not belonging to DH2E
         if (pack.metadata.packageType === "system" && pack.metadata.packageName !== SYSTEM_ID) continue;
 
-        const index = await pack.getIndex({ fields: [
+        // Skip module packs not belonging to DH2E data modules
+        if (pack.metadata.packageType === "module" && !pack.metadata.packageName?.startsWith("dh2e")) continue;
+
+        // For world packs, only include the homebrew pack
+        const isHomebrew = pack.collection === HOMEBREW_PACK_COLLECTION;
+        if (pack.metadata.packageType === "world" && !isHomebrew) continue;
+
+        const indexFields = [
             "system.availability", "system.class", "system.damageType",
             "system.weight", "system.tier", "system.characteristic",
             "system.discipline",
-        ] });
+        ];
+
+        // Request homebrew visibility flags for the homebrew pack
+        if (isHomebrew) {
+            indexFields.push(`flags.${SYSTEM_ID}.homebrewVisibility`);
+        }
+
+        const index = await pack.getIndex({ fields: indexFields });
 
         for (const entry of index) {
             const sys = (entry as any).system ?? {};
+            const flags = (entry as any).flags?.[SYSTEM_ID] ?? {};
+            const visibility: "public" | "private" = isHomebrew
+                ? (flags.homebrewVisibility ?? "public")
+                : "public";
+
+            // Privacy gate: non-GM users cannot see private homebrew items
+            if (isHomebrew && visibility === "private" && !isGM) continue;
+
             const ie: IndexEntry = {
                 uuid: `Compendium.${pack.collection}.${entry._id}`,
                 name: entry.name ?? "Unknown",
                 img: (entry as any).img ?? "icons/svg/item-bag.svg",
                 type: entry.type ?? "unknown",
                 pack: pack.metadata.label ?? pack.collection,
+                isHomebrew,
+                homebrewVisibility: isHomebrew ? visibility : undefined,
             };
 
             if (sys.availability) {
@@ -93,11 +137,12 @@ export async function buildCompendiumIndex(): Promise<CompendiumIndex> {
             }
 
             facetSets.types.add(ie.type);
+            facetSets.source.add(isHomebrew ? "Homebrew" : "Official");
             entries.push(ie);
         }
     }
 
-    return {
+    const result: CompendiumIndex = {
         entries,
         facets: {
             types: [...facetSets.types].sort(),
@@ -106,6 +151,10 @@ export async function buildCompendiumIndex(): Promise<CompendiumIndex> {
             damageType: [...facetSets.damageType].sort(),
             characteristic: [...facetSets.characteristic].sort(),
             discipline: [...facetSets.discipline].sort(),
+            source: [...facetSets.source].sort(),
         },
     };
+
+    _cachedIndex = result;
+    return result;
 }

@@ -1,5 +1,16 @@
 [
     {
+        "name": "Imperial Thrones",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "The standard currency of the Imperium of Man. On Barovus, Thrones retain their value but are scarce — inflated by isolation and the absence of regular trade routes. Adjust quantity as Thrones are earned or spent.",
+            "weight": 0,
+            "quantity": 1,
+            "availability": "Common"
+        }
+    },
+    {
         "name": "Micro-bead",
         "type": "gear",
         "img": "systems/dh2e/icons/items/gear.svg",

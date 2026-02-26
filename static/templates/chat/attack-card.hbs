@@ -17,7 +17,16 @@
         </button>
         {{/if}}
 
+        {{#if hasAmmo}}
+        <p class="ammo-info">{{format "DH2E.Ammo.Consumed" count=roundsConsumed}} — {{format "DH2E.Ammo.Remaining" count=clipRemaining}}</p>
+        {{/if}}
+
         <div class="card-actions">
+            {{#if hasAmmo}}
+            <button class="btn recover-ammo" data-action="recover-ammo" title="{{localize "DH2E.Ammo.RecoverTooltip"}}">
+                <i class="fa-solid fa-rotate-left"></i> {{localize "DH2E.Ammo.Recover"}}
+            </button>
+            {{/if}}
             <button class="fate-btn" data-action="spend-fate" title="{{localize "DH2E.Fate.InvokeFate"}}">
                 <i class="fas fa-star"></i>
             </button>

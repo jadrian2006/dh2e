@@ -46,6 +46,11 @@ class ChatListenersDH2e {
             btn.addEventListener("click", () => GMOverrideHandler.showOverrideDialog(message));
         });
 
+        // Recover ammo button on attack cards
+        html.querySelectorAll<HTMLButtonElement>("[data-action='recover-ammo']").forEach((btn) => {
+            btn.addEventListener("click", () => ChatListenersDH2e.#onRecoverAmmo(message, btn));
+        });
+
         // Suppressive fire — resolve pinning tests
         html.querySelectorAll<HTMLButtonElement>("[data-action='resolve-pinning']").forEach((btn) => {
             btn.addEventListener("click", () => ChatListenersDH2e.#onResolvePinning(message));
@@ -375,6 +380,57 @@ class ChatListenersDH2e {
         await actor.deleteEmbeddedDocuments("Item", [latest.id!]);
         ui.notifications?.info(`Removed critical injury "${latest.name}" from ${actor.name}.`);
     }
+    /** Recover ammo from an attack (undo ammo consumption) */
+    static async #onRecoverAmmo(message: StoredDocument<ChatMessage>, btn: HTMLButtonElement): Promise<void> {
+        const flags = (message as any).flags?.[SYSTEM_ID] as Record<string, unknown> | undefined;
+        if (!flags) return;
+
+        const ammoFlags = flags.ammo as { weaponId: string; roundsConsumed: number; recovered: boolean } | undefined;
+        if (!ammoFlags) return;
+
+        if (ammoFlags.recovered) {
+            ui.notifications?.info(game.i18n?.localize("DH2E.Ammo.AlreadyRecovered") ?? "Ammunition already recovered for this attack.");
+            return;
+        }
+
+        const result = flags.result as Record<string, unknown> | undefined;
+        const actorId = result?.actorId as string;
+        const g = game as any;
+        const actor = g.actors?.get(actorId) as Actor | undefined;
+        if (!actor) {
+            ui.notifications?.warn("Could not find the attacking actor.");
+            return;
+        }
+
+        const weapon = actor.items.get(ammoFlags.weaponId) as any;
+        if (!weapon) {
+            ui.notifications?.warn("Could not find the weapon.");
+            return;
+        }
+
+        const { recoverAmmo } = await import("@combat/ammo.ts");
+        await recoverAmmo(weapon, ammoFlags.roundsConsumed);
+
+        // Mark as recovered in message flags
+        await (message as any).update({
+            [`flags.${SYSTEM_ID}.ammo.recovered`]: true,
+        });
+
+        // Disable the button visually
+        btn.disabled = true;
+        btn.style.opacity = "0.4";
+
+        // Post system note
+        const speaker = fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
+        await fd.ChatMessage.create({
+            content: `<div class="dh2e chat-card system-note"><em>${game.i18n?.format("DH2E.Ammo.Recovered", {
+                actor: actor.name,
+                count: String(ammoFlags.roundsConsumed),
+            }) ?? `${actor.name} recovered ${ammoFlags.roundsConsumed} round(s).`}</em></div>`,
+            speaker,
+        });
+    }
+
     /** Resolve pinning tests for suppressive fire targets */
     static async #onResolvePinning(message: StoredDocument<ChatMessage>): Promise<void> {
         if (!(game as any).user?.isGM) {

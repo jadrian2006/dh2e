@@ -15,6 +15,10 @@ declare global {
             requisition: () => void;
             voxTerminal: () => void;
             warband: any;
+            copyToHomebrew: (sourceUuid: string) => Promise<Item | null>;
+            homebrewPack: () => any | null;
+            createHomebrewItem: (type: string, name: string) => Promise<Item | null>;
+            quickSearch: () => void;
         };
     }
 

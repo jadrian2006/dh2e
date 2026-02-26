@@ -1,5 +1,6 @@
 <script lang="ts">
     import RuleElementEditor from "@rules/rule-element/rule-element-editor.svelte";
+    import { WEAPON_GROUPS } from "@item/weapon/data.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
     const sys = $derived(ctx.system ?? {});
@@ -95,6 +96,45 @@
                     <span class="meta-label">Quantity</span>
                     <span class="meta-value">{sys.quantity ?? 1}</span>
                 </div>
+            </div>
+
+        {:else if type === "ammunition"}
+            <div class="ammo-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Damage Mod</span>
+                    <span class="meta-value" class:bonus={sys.damageModifier > 0} class:penalty={sys.damageModifier < 0}>{sys.damageModifier > 0 ? "+" : ""}{sys.damageModifier ?? 0}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Pen Mod</span>
+                    <span class="meta-value" class:bonus={sys.penetrationModifier > 0} class:penalty={sys.penetrationModifier < 0}>{sys.penetrationModifier > 0 ? "+" : ""}{sys.penetrationModifier ?? 0}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Quantity</span>
+                    <span class="meta-value">{sys.quantity ?? 1}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Weight</span>
+                    <span class="meta-value">{sys.weight ?? 0} kg</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Weapon Group</span>
+                    {#if ctx.editable}
+                        <select value={sys.weaponGroup ?? ""}>
+                            <option value="">Universal</option>
+                            {#each WEAPON_GROUPS as group}
+                                <option value={group}>{group.charAt(0).toUpperCase() + group.slice(1)}</option>
+                            {/each}
+                        </select>
+                    {:else}
+                        <span class="meta-value">{sys.weaponGroup ? sys.weaponGroup.charAt(0).toUpperCase() + sys.weaponGroup.slice(1) : "Universal"}</span>
+                    {/if}
+                </div>
+                {#if sys.qualities?.length}
+                    <div class="meta-item" style="flex-basis: 100%">
+                        <span class="meta-label">Qualities</span>
+                        <span class="meta-value">{sys.qualities.join(", ")}</span>
+                    </div>
+                {/if}
             </div>
 
         {:else if type === "condition"}
@@ -278,7 +318,7 @@
     }
 
     .talent-meta, .skill-meta, .gear-meta, .condition-meta, .power-meta,
-    .homeworld-meta, .background-meta, .role-meta {
+    .homeworld-meta, .background-meta, .role-meta, .ammo-meta {
         display: flex;
         flex-wrap: wrap;
         gap: var(--dh2e-space-sm, 0.5rem);

@@ -1,6 +1,6 @@
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@sheet/mixin.ts";
 import BrowserRoot from "./browser-root.svelte";
-import { buildCompendiumIndex, type CompendiumIndex } from "./index-builder.ts";
+import { buildCompendiumIndex, invalidateCompendiumIndex, type CompendiumIndex } from "./index-builder.ts";
 
 /**
  * Compendium Browser — searchable, filterable compendium viewer.
@@ -56,7 +56,9 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             ctx: {
                 index: this.#index,
                 loading: this.#loading,
+                isGM: (game as any).user?.isGM ?? false,
                 rebuildIndex: async () => {
+                    invalidateCompendiumIndex();
                     this.#index = null;
                     this.#loading = false;
                     await this.render(true);

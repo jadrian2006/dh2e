@@ -581,10 +581,68 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         // Apply flat updates
         await this.#actor.update(updates);
 
+        // Grant starting Imperial Thrones if enabled
+        {
+            const g = game as any;
+            const grantThrones = g.settings?.get(SYSTEM_ID, "grantStartingThrones") ?? true;
+            const thronesQty = g.settings?.get(SYSTEM_ID, "startingThrones") ?? 50;
+            if (grantThrones && thronesQty > 0) {
+                const thronesPack = g.packs?.get("dh2e-data.gear");
+                if (thronesPack) {
+                    const docs = await thronesPack.getDocuments();
+                    const thronesItem = docs.find((d: any) => d.name === "Imperial Thrones");
+                    if (thronesItem) {
+                        const data = (thronesItem as any).toObject();
+                        data.system.quantity = thronesQty;
+                        itemsToCreate.push(data);
+                    }
+                }
+            }
+        }
+
         // Create embedded items (origin items, skills, talents, equipment)
         if (itemsToCreate.length > 0) {
             for (const item of itemsToCreate) delete (item as any)._id;
             await this.#actor.createEmbeddedDocuments("Item", itemsToCreate);
+        }
+
+        // Pre-load ranged weapons and grant one spare magazine of standard ammo
+        {
+            const createdWeapons = this.#actor.items.filter((i: any) =>
+                i.type === "weapon" && (i.system?.clip?.max ?? 0) > 0,
+            );
+            const ammoItemsToCreate: Record<string, unknown>[] = [];
+            for (const w of createdWeapons) {
+                const sys = (w as any).system ?? {};
+                const clipMax = sys.clip?.max ?? 0;
+                // Pre-load the weapon (set clip.value = clip.max)
+                if (sys.clip?.value !== clipMax) {
+                    await w.update({ "system.clip.value": clipMax });
+                }
+                // Grant standard ammo matching the weapon's group
+                const wGroup = sys.weaponGroup ?? "";
+                if (wGroup) {
+                    const ammoPack = game.packs?.get("dh2e-data.ammunition");
+                    if (ammoPack) {
+                        const ammoIndex = await ammoPack.getIndex();
+                        const ammoDocuments = await ammoPack.getDocuments();
+                        // Find standard (non-specialty) ammo for this group
+                        const stdAmmo = ammoDocuments.find((a: any) => {
+                            const as = a.system ?? {};
+                            return as.weaponGroup === wGroup && as.damageModifier === 0 && as.penetrationModifier === 0;
+                        });
+                        if (stdAmmo) {
+                            const obj = (stdAmmo as any).toObject();
+                            delete obj._id;
+                            obj.system.quantity = clipMax; // 1 spare magazine
+                            ammoItemsToCreate.push(obj);
+                        }
+                    }
+                }
+            }
+            if (ammoItemsToCreate.length > 0) {
+                await this.#actor.createEmbeddedDocuments("Item", ammoItemsToCreate);
+            }
         }
 
         // Apply skill/talent purchases that need compendium items

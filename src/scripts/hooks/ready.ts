@@ -20,6 +20,7 @@ import { rollSkillUse, rollWeapon, rollSkill, maintainCybernetics } from "../../
 import { ActionsGrid } from "../../ui/actions-grid/actions-grid.ts";
 import { VoxComposeDialog } from "../../ui/vox-terminal/vox-compose-dialog.ts";
 import { VoxTerminalPopup } from "../../ui/vox-terminal/vox-terminal-popup.ts";
+import { ensureHomebrewPack, getHomebrewPack, copyToHomebrew, createHomebrewItem } from "../../homebrew/homebrew-pack.ts";
 
 /** Hooks.once("ready") — final initialization, migrations */
 export class Ready {
@@ -55,6 +56,12 @@ export class Ready {
 
             (game as any).dh2e.actionsGrid = () => ActionsGrid.open();
             (game as any).dh2e.voxTerminal = () => VoxComposeDialog.open();
+            (game as any).dh2e.copyToHomebrew = copyToHomebrew;
+            (game as any).dh2e.homebrewPack = getHomebrewPack;
+            (game as any).dh2e.createHomebrewItem = createHomebrewItem;
+            (game as any).dh2e.quickSearch = () => {
+                import("../../ui/quick-search/quick-search.ts").then(m => m.QuickSearch.toggle());
+            };
 
             // Register hotbar drop handler for drag-to-macro
             registerHotbarDrop();
@@ -70,6 +77,9 @@ export class Ready {
 
             // Create default warband (GM only)
             await createFirstWarband();
+
+            // Ensure homebrew compendium pack exists (GM only)
+            await ensureHomebrewPack();
 
             // Expose warband getter on game.dh2e
             Object.defineProperty((game as any).dh2e, "warband", {
@@ -195,6 +205,111 @@ export class Ready {
 
                         const uuid = pageUuid ?? doc?.uuid;
                         if (uuid) VoxComposeDialog.openWithItem(uuid);
+                    },
+                });
+            });
+
+            // Loot API
+            (game as any).dh2e.lootCorpse = (npc: any) => {
+                import("../../loot/loot-corpse-dialog.ts").then(m => m.LootCorpseDialog.open(npc));
+            };
+            (game as any).dh2e.createLootFromNpc = (npc: any) => {
+                import("../../loot/templates.ts").then(m => m.createLootFromNpc(npc));
+            };
+            (game as any).dh2e.createSupplyCache = (name?: string) => {
+                import("../../loot/templates.ts").then(m => m.createSupplyCache(name));
+            };
+
+            // Token context menu for looting + searching
+            Hooks.on("getActorDirectoryEntryContext", (_html: any, options: any[]) => {
+                // "Loot Corpse" for defeated NPCs
+                options.push({
+                    name: game.i18n.localize("DH2E.Loot.LootCorpse"),
+                    icon: '<i class="fa-solid fa-sack"></i>',
+                    condition: (li: any) => {
+                        const id = li.dataset?.entryId ?? li.dataset?.documentId;
+                        const actor = (game as any).actors?.get(id);
+                        return actor?.type === "npc" && actor.system?.defeated === true;
+                    },
+                    callback: (li: any) => {
+                        const id = li.dataset?.entryId ?? li.dataset?.documentId;
+                        const actor = (game as any).actors?.get(id);
+                        if (actor) {
+                            import("../../loot/loot-corpse-dialog.ts").then(m => m.LootCorpseDialog.open(actor));
+                        }
+                    },
+                });
+
+                // "Generate Loot from NPC" for defeated NPCs (GM only)
+                options.push({
+                    name: game.i18n.localize("DH2E.Loot.QuickLootFromNpc"),
+                    icon: '<i class="fa-solid fa-boxes-stacked"></i>',
+                    condition: (li: any) => {
+                        if (!(game as any).user?.isGM) return false;
+                        const id = li.dataset?.entryId ?? li.dataset?.documentId;
+                        const actor = (game as any).actors?.get(id);
+                        return actor?.type === "npc" && actor.system?.defeated === true;
+                    },
+                    callback: (li: any) => {
+                        const id = li.dataset?.entryId ?? li.dataset?.documentId;
+                        const actor = (game as any).actors?.get(id);
+                        if (actor) {
+                            import("../../loot/templates.ts").then(m => m.createLootFromNpc(actor));
+                        }
+                    },
+                });
+
+                // "Search" for loot actors
+                options.push({
+                    name: game.i18n.localize("DH2E.Loot.SearchContainer"),
+                    icon: '<i class="fa-solid fa-magnifying-glass"></i>',
+                    condition: (li: any) => {
+                        const id = li.dataset?.entryId ?? li.dataset?.documentId;
+                        const actor = (game as any).actors?.get(id);
+                        return actor?.type === "loot";
+                    },
+                    callback: (li: any) => {
+                        const g = game as any;
+                        const id = li.dataset?.entryId ?? li.dataset?.documentId;
+                        const lootActor = g.actors?.get(id);
+                        const searcher = g.user?.character;
+                        if (lootActor && searcher) {
+                            import("../../loot/salvage-action.ts").then(m => m.performSalvage(searcher, lootActor));
+                        } else if (!searcher) {
+                            ui.notifications.warn("No character assigned to perform the search.");
+                        }
+                    },
+                });
+            });
+
+            // Hide loot actors from sidebar (like warband)
+            Hooks.on("renderActorDirectory", (_app: any, html: HTMLElement) => {
+                const list = html.querySelector(".directory-list");
+                if (!list) return;
+                for (const entry of list.querySelectorAll<HTMLElement>(".directory-item.document")) {
+                    const docId = entry.dataset.entryId ?? entry.dataset.documentId;
+                    if (!docId) continue;
+                    const actor = (game as any).actors?.get(docId);
+                    if (actor?.type === "loot") {
+                        entry.style.display = "none";
+                    }
+                }
+            });
+
+            // Compendium entry context menu — "Copy to Homebrew" (GM only)
+            Hooks.on("getCompendiumEntryContext", (_html: any, options: any[]) => {
+                if (!(game as any).user?.isGM) return;
+
+                options.push({
+                    name: game.i18n.localize("DH2E.Homebrew.CopyToHomebrew"),
+                    icon: '<i class="fa-solid fa-copy"></i>',
+                    condition: (li: any) => {
+                        const packId = li.closest("[data-pack]")?.dataset?.pack;
+                        return packId !== "world.dh2e-homebrew";
+                    },
+                    callback: async (li: any) => {
+                        const uuid = li.dataset?.uuid ?? li.dataset?.documentId;
+                        if (uuid) await copyToHomebrew(uuid);
                     },
                 });
             });

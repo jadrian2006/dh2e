@@ -3,9 +3,32 @@ import type { HitLocationKey } from "@actor/types.ts";
 import { createSynthetics } from "@rules/synthetics.ts";
 import { instantiateRuleElement } from "@rules/rule-element/registry.ts";
 import type { RuleElementSource } from "@rules/rule-element/base.ts";
+import { getSetting } from "../../ui/settings/settings.ts";
 
 /** NPC actor — shares Acolyte data structure for Phase 1 */
 class NpcDH2e extends ActorDH2e {
+    /** Whether this NPC has been defeated (0 wounds + lethal critical) */
+    get isDefeated(): boolean {
+        return (this.system as any).defeated === true;
+    }
+
+    /** Mark this NPC as defeated (GM toggle) */
+    async markDefeated(): Promise<void> {
+        await this.update({ "system.defeated": true });
+        // Apply skull overlay on tokens
+        for (const token of this.getActiveTokens()) {
+            await token.document?.update({ overlayEffect: "icons/svg/skull.svg" });
+        }
+    }
+
+    /** Restore this NPC to alive state (GM toggle) */
+    async markAlive(): Promise<void> {
+        await this.update({ "system.defeated": false });
+        for (const token of this.getActiveTokens()) {
+            await token.document?.update({ overlayEffect: "" });
+        }
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
@@ -77,8 +100,9 @@ class NpcDH2e extends ActorDH2e {
 
     /**
      * Apply damage to this NPC, with critical damage on reaching 0 wounds.
+     * @param killingDoS Degrees of success of the attack (used for loot degradation)
      */
-    async applyDamage(wounds: number, location?: HitLocationKey, damageType?: string): Promise<void> {
+    async applyDamage(wounds: number, location?: HitLocationKey, damageType?: string, killingDoS?: number): Promise<void> {
         const current = (this.system as any).wounds?.value ?? 0;
         const newValue = current - wounds;
 
@@ -100,6 +124,20 @@ class NpcDH2e extends ActorDH2e {
                 }
             } catch (e) {
                 console.error("DH2E | Failed to apply critical injury to NPC", e);
+            }
+
+            // Mark defeated and optionally degrade equipment
+            if (!this.isDefeated) {
+                await this.markDefeated();
+
+                if (getSetting<boolean>("lootDegradation") && killingDoS !== undefined) {
+                    try {
+                        const { degradeNpcEquipment } = await import("@combat/loot-degradation.ts");
+                        await degradeNpcEquipment(this, killingDoS);
+                    } catch (e) {
+                        console.error("DH2E | Failed to degrade NPC equipment", e);
+                    }
+                }
             }
         } else {
             await this.update({ "system.wounds.value": newValue });

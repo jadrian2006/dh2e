@@ -7,7 +7,7 @@
 
 interface SettingDefinition {
     key: string;
-    category: "automation" | "combat" | "display";
+    category: "automation" | "combat" | "display" | "loot";
     name: string;
     hint: string;
     scope: "world" | "client";
@@ -194,6 +194,27 @@ const SETTINGS: SettingDefinition[] = [
         config: true,
         type: Boolean,
         default: true,
+    },
+    {
+        key: "grantStartingThrones",
+        category: "automation",
+        name: "DH2E.Settings.GrantStartingThrones.Name",
+        hint: "DH2E.Settings.GrantStartingThrones.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+    },
+    {
+        key: "startingThrones",
+        category: "automation",
+        name: "DH2E.Settings.StartingThrones.Name",
+        hint: "DH2E.Settings.StartingThrones.Hint",
+        scope: "world",
+        config: true,
+        type: Number,
+        default: 50,
+        range: { min: 0, max: 500, step: 10 },
     },
 
     // Combat
@@ -420,6 +441,49 @@ const SETTINGS: SettingDefinition[] = [
         default: true,
     },
 
+    // Loot & Salvage
+    {
+        key: "lootDegradation",
+        category: "loot",
+        name: "DH2E.Settings.LootDegradation.Name",
+        hint: "DH2E.Settings.LootDegradation.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+    },
+    {
+        key: "playerLooting",
+        category: "loot",
+        name: "DH2E.Settings.PlayerLooting.Name",
+        hint: "DH2E.Settings.PlayerLooting.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+    },
+    {
+        key: "defaultSalvageSkill",
+        category: "loot",
+        name: "DH2E.Settings.DefaultSalvageSkill.Name",
+        hint: "DH2E.Settings.DefaultSalvageSkill.Hint",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "awareness",
+        choices: { awareness: "Awareness", scrutiny: "Scrutiny", inquiry: "Inquiry" },
+    },
+    {
+        key: "autoRevealSurfaceLoot",
+        category: "loot",
+        name: "DH2E.Settings.AutoRevealSurface.Name",
+        hint: "DH2E.Settings.AutoRevealSurface.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+    },
+
     // Internal (hidden)
     {
         key: "schemaVersion",
@@ -436,6 +500,16 @@ const SETTINGS: SettingDefinition[] = [
         category: "automation",
         name: "Active Warband ID",
         hint: "The actor ID of the active warband.",
+        scope: "world",
+        config: false,
+        type: String,
+        default: "",
+    },
+    {
+        key: "homebrewPackId",
+        category: "automation",
+        name: "Homebrew Pack ID",
+        hint: "Internal ID for the world-level homebrew compendium.",
         scope: "world",
         config: false,
         type: String,

@@ -13,6 +13,7 @@ import type { HordeDH2e } from "@actor/horde/document.ts";
 import type { VehicleDH2e } from "@actor/vehicle/document.ts";
 import { determineFacing } from "./vehicle-damage.ts";
 import { VFXResolver } from "../vfx/resolver.ts";
+import { consumeAmmo, canFire } from "./ammo.ts";
 
 /**
  * Resolves a full attack sequence:
@@ -30,6 +31,18 @@ class AttackResolver {
     }): Promise<AttackResult | null> {
         const { actor, weapon, fireMode } = options;
         const sys = weapon.system ?? weapon.skillSystem ?? {};
+
+        // Check ammo availability for ranged weapons before proceeding
+        const clipMax = sys.clip?.max ?? 0;
+        if (clipMax > 0 && !canFire(weapon, fireMode)) {
+            const modeLabel = fireMode === "single" ? "Single Shot" : fireMode === "semi" ? "Semi-Auto" : "Full Auto";
+            ui.notifications.warn(game.i18n?.format("DH2E.Ammo.Insufficient", {
+                mode: modeLabel,
+                required: String(fireMode === "single" ? 1 : fireMode === "semi" ? (sys.rof?.semi ?? 2) : (sys.rof?.full ?? 4)),
+                available: String(sys.clip?.value ?? 0),
+            }) ?? `Insufficient ammunition for ${modeLabel}.`);
+            return null;
+        }
 
         // Determine linked characteristic
         const isMelee = sys.class === "melee";
@@ -121,8 +134,17 @@ class AttackResolver {
             };
         }
 
+        // Consume ammunition for ranged weapons
+        let roundsConsumed = 0;
+        if (clipMax > 0) {
+            const ammoResult = await consumeAmmo(weapon, fireMode);
+            if (ammoResult) {
+                roundsConsumed = ammoResult.consumed;
+            }
+        }
+
         // Post attack card
-        await AttackResolver.#postAttackCard(attackResult, weapon, actor);
+        await AttackResolver.#postAttackCard(attackResult, weapon, actor, roundsConsumed);
 
         // Play VFX for both hits and misses
         if (VFXResolver.available) {
@@ -318,8 +340,10 @@ class AttackResolver {
         result: AttackResult,
         weapon: any,
         actor: Actor,
+        roundsConsumed: number = 0,
     ): Promise<void> {
         const templatePath = `systems/${SYSTEM_ID}/templates/chat/attack-card.hbs`;
+        const sys = weapon.system ?? {};
         const templateData = {
             success: result.success,
             degrees: result.degrees,
@@ -331,6 +355,9 @@ class AttackResolver {
             weaponName: result.weaponName,
             weaponId: weapon.id,
             actorId: actor.id,
+            hasAmmo: roundsConsumed > 0,
+            roundsConsumed,
+            clipRemaining: sys.clip?.value ?? 0,
         };
 
         const content = await fa.handlebars.renderTemplate(templatePath, templateData);
@@ -343,6 +370,11 @@ class AttackResolver {
                 [SYSTEM_ID]: {
                     type: "attack",
                     result: templateData,
+                    ammo: roundsConsumed > 0 ? {
+                        weaponId: weapon.id,
+                        roundsConsumed,
+                        recovered: false,
+                    } : undefined,
                 },
             },
         });

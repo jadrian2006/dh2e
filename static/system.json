@@ -43,6 +43,9 @@
             },
             "warband": {
                 "htmlFields": ["details.notes"]
+            },
+            "loot": {
+                "htmlFields": ["details.notes"]
             }
         },
         "Item": {

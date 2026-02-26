@@ -7,6 +7,7 @@
 
     const index: CompendiumIndex | null = ctx.index;
     const loading: boolean = ctx.loading;
+    const isGM: boolean = ctx.isGM ?? false;
 
     let searchText = $state("");
     let filters = $state<Record<string, string>>({});
@@ -43,6 +44,11 @@
                 if (key === "damageType") return e.damageType === value;
                 if (key === "characteristic") return e.characteristic === value;
                 if (key === "discipline") return e.discipline === value;
+                if (key === "source") {
+                    if (value === "Homebrew") return e.isHomebrew;
+                    if (value === "Official") return !e.isHomebrew;
+                    return true;
+                }
                 return true;
             });
         }
@@ -76,12 +82,14 @@
                 facets={index.facets}
                 {filters}
                 {onFilterChange}
+                {isGM}
             />
             <ResultGrid
                 entries={filtered()}
                 {page}
                 {pageSize}
                 onPageChange={(p) => { page = p; }}
+                {isGM}
             />
         </div>
     {:else}
