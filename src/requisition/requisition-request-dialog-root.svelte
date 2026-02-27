@@ -28,12 +28,14 @@
     } | null = $state(null);
     let rolling = $state(false);
 
-    // Derived: filtered compendium items
+    // Derived: filtered compendium items (searches name and type)
     const filteredItems = $derived(() => {
         const items = ctx.compendiumItems ?? [];
         if (!searchQuery.trim()) return items.slice(0, 50);
         const q = searchQuery.toLowerCase();
-        return items.filter((i: any) => i.name.toLowerCase().includes(q)).slice(0, 50);
+        return items.filter((i: any) =>
+            i.name.toLowerCase().includes(q) || i.type.toLowerCase().includes(q),
+        ).slice(0, 50);
     });
 
     // Derived: current item name
@@ -207,11 +209,11 @@
         <h4>{game.i18n?.localize("DH2E.Requisition.CostBreakdown") ?? "Cost Breakdown"}</h4>
         <div class="cost-row">
             <span>{game.i18n?.localize("DH2E.Requisition.BaseAvailability") ?? "Base Availability"}</span>
-            <span class="cost-value">{availTier?.label ?? "—"} ({formatMod(availMod)})</span>
+            <span class="cost-value">{availTier?.label ?? "—"}</span>
         </div>
         <div class="cost-row">
             <span>{game.i18n?.localize("DH2E.Requisition.Craftsmanship") ?? "Craftsmanship"}</span>
-            <span class="cost-value">{craftTier?.label ?? "—"} ({formatMod(craftMod)})</span>
+            <span class="cost-value">{craftTier?.label ?? "—"}</span>
         </div>
         <div class="cost-row">
             <span>{game.i18n?.localize("DH2E.Requisition.TotalModifier") ?? "Total Modifier"}</span>

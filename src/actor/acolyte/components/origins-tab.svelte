@@ -48,14 +48,9 @@
     function showBonusDescription(event: MouseEvent, title: string, description: string) {
         if (!description) return;
         const el = event.currentTarget as HTMLElement;
-        // Use Foundry's tooltip API with a DOM element so HTML renders correctly
         if (typeof game !== "undefined" && (game as any).tooltip) {
-            const content = document.createElement("div");
-            content.innerHTML = `<strong>${title}</strong><br/>${description}`;
-            (game as any).tooltip.activate(el, {
-                content,
-                direction: "DOWN",
-            });
+            const html = `<div><strong>${title}</strong><br/>${description}</div>`;
+            (game as any).tooltip.activate(el, { html, direction: "DOWN" });
         } else {
             ui.notifications?.info(`${title}: ${description}`);
         }

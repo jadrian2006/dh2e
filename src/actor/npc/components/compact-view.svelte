@@ -7,25 +7,47 @@
     const chars = $derived(ctx.system?.characteristics ?? {});
     const charKeys = ["ws", "bs", "s", "t", "ag", "int", "per", "wp", "fel"];
 
-    const skillNames = $derived(
-        (ctx.items?.skills ?? []).map((s: any) => {
-            const adv = s.system?.advancement ?? 0;
-            const suffix = adv > 0 ? ` (+${adv * 10})` : "";
-            return `${s.name}${suffix}`;
-        }).join(", ") || "None",
-    );
+    const skills = $derived(ctx.items?.skills ?? []);
+    const talents = $derived(ctx.items?.talents ?? []);
+    const traits = $derived(ctx.items?.traits ?? []);
+    const powers = $derived(ctx.items?.powers ?? []);
+    const weapons = $derived(ctx.items?.weapons ?? []);
+    const gear = $derived(ctx.items?.gear ?? []);
+    const cybernetics = $derived(ctx.items?.cybernetics ?? []);
 
-    const talentNames = $derived(
-        (ctx.items?.talents ?? []).map((t: any) => t.name).join(", ") || "None",
-    );
+    function openSheet(item: any) {
+        item.sheet?.render(true);
+    }
 
-    const traitNames = $derived(
-        (ctx.items?.traits ?? []).map((t: any) => {
-            if (t.system?.hasRating) return `${t.name} (${t.system.rating})`;
-            return t.name;
-        }).join(", ") || "None",
-    );
+    function deleteItem(item: any) {
+        item.delete();
+    }
 
+    function skillLabel(s: any): string {
+        const adv = s.system?.advancement ?? 0;
+        return adv > 0 ? `${s.name} (+${adv * 10})` : s.name;
+    }
+
+    function traitLabel(t: any): string {
+        if (t.system?.hasRating) return `${t.name} (${t.system.rating})`;
+        return t.name;
+    }
+
+    function gearLabel(g: any): string {
+        const qty = g.system?.quantity ?? 1;
+        return qty > 1 ? `${g.name} (x${qty})` : g.name;
+    }
+
+    /** Show rich tooltip for an item's description */
+    function showDescription(event: MouseEvent, item: any) {
+        const desc = item.system?.description;
+        if (!desc) return;
+        const el = event.currentTarget as HTMLElement;
+        if (typeof game !== "undefined" && (game as any).tooltip) {
+            const html = `<div style="max-width:300px"><strong>${item.name}</strong><br/>${desc}</div>`;
+            (game as any).tooltip.activate(el, { html, direction: "DOWN" });
+        }
+    }
 </script>
 
 <div class="npc-compact-view">
@@ -52,41 +74,124 @@
         </div>
     {/if}
 
-    <div class="compact-section">
-        <span class="section-label">Skills:</span>
-        <span class="section-text">{skillNames}</span>
-    </div>
+    {#if skills.length > 0}
+        <div class="compact-section">
+            <span class="section-label">Skills</span>
+            {#each skills as item}
+                <div class="item-row">
+                    <button class="item-link" onclick={() => openSheet(item)} onmouseenter={(e) => showDescription(e, item)}>{skillLabel(item)}</button>
+                    {#if ctx.editable}
+                        <button class="icon-btn" onclick={() => openSheet(item)} title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <button class="icon-btn delete" onclick={() => deleteItem(item)} title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    {/if}
+                </div>
+            {/each}
+        </div>
+    {/if}
 
-    <div class="compact-section">
-        <span class="section-label">Talents:</span>
-        <span class="section-text">{talentNames}</span>
-    </div>
+    {#if talents.length > 0}
+        <div class="compact-section">
+            <span class="section-label">Talents</span>
+            {#each talents as item}
+                <div class="item-row">
+                    <button class="item-link" onclick={() => openSheet(item)} onmouseenter={(e) => showDescription(e, item)}>{item.name}</button>
+                    {#if ctx.editable}
+                        <button class="icon-btn" onclick={() => openSheet(item)} title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <button class="icon-btn delete" onclick={() => deleteItem(item)} title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    {/if}
+                </div>
+            {/each}
+        </div>
+    {/if}
 
-    <div class="compact-section">
-        <span class="section-label">Traits:</span>
-        <span class="section-text">{traitNames}</span>
-    </div>
+    {#if traits.length > 0}
+        <div class="compact-section">
+            <span class="section-label">Traits</span>
+            {#each traits as item}
+                <div class="item-row">
+                    <button class="item-link" onclick={() => openSheet(item)} onmouseenter={(e) => showDescription(e, item)}>{traitLabel(item)}</button>
+                    {#if ctx.editable}
+                        <button class="icon-btn" onclick={() => openSheet(item)} title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <button class="icon-btn delete" onclick={() => deleteItem(item)} title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    {/if}
+                </div>
+            {/each}
+        </div>
+    {/if}
 
-    <div class="compact-section">
-        <span class="section-label">Weapons:</span>
-        {#each ctx.items?.weapons ?? [] as weapon}
-            {@const sys = weapon.system ?? {}}
-            {@const isMelee = sys.class === "melee"}
-            <div class="compact-weapon">
-                <span class="section-text">{weapon.name} ({sys.damage?.formula ?? ""}+{sys.damage?.bonus ?? 0} {sys.damage?.type ?? ""}, Pen {sys.penetration ?? 0})</span>
-                <button class="compact-attack-btn" onclick={() => AttackResolver.resolve({ actor: ctx.actor, weapon, fireMode: "single" })} title={isMelee ? "Melee Attack" : "Attack"}>
-                    <i class="fa-solid fa-crosshairs"></i>
-                </button>
-            </div>
-        {:else}
-            <span class="section-text">None</span>
-        {/each}
-    </div>
+    {#if powers.length > 0}
+        <div class="compact-section">
+            <span class="section-label">Powers</span>
+            {#each powers as item}
+                <div class="item-row">
+                    <button class="item-link" onclick={() => openSheet(item)} onmouseenter={(e) => showDescription(e, item)}>{item.name}</button>
+                    {#if item.system?.discipline}
+                        <span class="item-detail">{item.system.discipline}</span>
+                    {/if}
+                    {#if ctx.editable}
+                        <button class="icon-btn" onclick={() => openSheet(item)} title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <button class="icon-btn delete" onclick={() => deleteItem(item)} title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    {/if}
+                </div>
+            {/each}
+        </div>
+    {/if}
+
+    {#if weapons.length > 0}
+        <div class="compact-section">
+            <span class="section-label">Weapons</span>
+            {#each weapons as weapon}
+                {@const sys = weapon.system ?? {}}
+                {@const isMelee = sys.class === "melee"}
+                <div class="item-row">
+                    <button class="item-link" onclick={() => openSheet(weapon)}>{weapon.name}</button>
+                    <span class="item-detail">({sys.damage?.formula ?? ""}+{sys.damage?.bonus ?? 0} {sys.damage?.type ?? ""}, Pen {sys.penetration ?? 0})</span>
+                    <button class="compact-attack-btn" onclick={() => AttackResolver.resolve({ actor: ctx.actor, weapon, fireMode: "single" })} title={isMelee ? "Melee Attack" : "Attack"}>
+                        <i class="fa-solid fa-crosshairs"></i>
+                    </button>
+                    {#if ctx.editable}
+                        <button class="icon-btn" onclick={() => openSheet(weapon)} title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <button class="icon-btn delete" onclick={() => deleteItem(weapon)} title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    {/if}
+                </div>
+            {/each}
+        </div>
+    {/if}
+
+    {#if gear.length > 0}
+        <div class="compact-section">
+            <span class="section-label">Gear</span>
+            {#each gear as item}
+                <div class="item-row">
+                    <button class="item-link" onclick={() => openSheet(item)} onmouseenter={(e) => showDescription(e, item)}>{gearLabel(item)}</button>
+                    {#if ctx.editable}
+                        <button class="icon-btn" onclick={() => openSheet(item)} title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <button class="icon-btn delete" onclick={() => deleteItem(item)} title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    {/if}
+                </div>
+            {/each}
+        </div>
+    {/if}
+
+    {#if cybernetics.length > 0}
+        <div class="compact-section">
+            <span class="section-label">Cybernetics</span>
+            {#each cybernetics as item}
+                <div class="item-row">
+                    <button class="item-link" onclick={() => openSheet(item)} onmouseenter={(e) => showDescription(e, item)}>{item.name}</button>
+                    {#if ctx.editable}
+                        <button class="icon-btn" onclick={() => openSheet(item)} title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <button class="icon-btn delete" onclick={() => deleteItem(item)} title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    {/if}
+                </div>
+            {/each}
+        </div>
+    {/if}
 
     {#if ctx.system?.details?.notes}
         <div class="compact-section notes">
-            <span class="section-label">Notes:</span>
-            <span class="section-text">{ctx.system.details.notes}</span>
+            <span class="section-label">Notes</span>
+            <span class="notes-text">{ctx.system.details.notes}</span>
         </div>
     {/if}
 </div>
@@ -96,6 +201,7 @@
         display: flex;
         flex-direction: column;
         gap: var(--dh2e-space-sm, 0.5rem);
+        user-select: text;
     }
 
     .compact-chars {
@@ -163,20 +269,76 @@
     }
 
     .section-label {
+        display: block;
         font-weight: 700;
         color: var(--dh2e-gold-muted, #7a6a3e);
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1px;
     }
 
-    .section-text {
-        color: var(--dh2e-text-primary, #d0cfc8);
-    }
-
-    .compact-weapon {
+    .item-row {
         display: flex;
         align-items: center;
         gap: var(--dh2e-space-xs, 0.25rem);
+        padding: 1px 0;
+
+        &:hover {
+            background: var(--dh2e-bg-light, #3a3a45);
+            border-radius: var(--dh2e-radius-sm, 3px);
+        }
+    }
+
+    .item-link {
+        background: none;
+        border: none;
+        color: var(--dh2e-text-primary, #d0cfc8);
+        cursor: pointer;
+        padding: 0 2px;
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        text-align: left;
+
+        &:hover {
+            color: var(--dh2e-gold, #c8a84e);
+            text-decoration: underline;
+        }
+    }
+
+    .item-detail {
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-size: 0.7rem;
+        flex-shrink: 0;
+    }
+
+    .icon-btn {
+        width: 1.2rem;
+        height: 1.2rem;
+        border: none;
+        background: transparent;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        font-size: 0.55rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        opacity: 0;
+        border-radius: var(--dh2e-radius-sm, 3px);
+
+        .item-row:hover & {
+            opacity: 0.6;
+        }
+
+        &:hover {
+            opacity: 1 !important;
+            color: var(--dh2e-gold, #c8a84e);
+            background: var(--dh2e-bg-mid, #2e2e35);
+        }
+
+        &.delete:hover {
+            color: var(--dh2e-danger, #c0392b);
+        }
     }
 
     .compact-attack-btn {
@@ -202,11 +364,11 @@
     .notes {
         border-top: 1px solid var(--dh2e-border, #4a4a55);
         padding-top: var(--dh2e-space-sm, 0.5rem);
+    }
 
-        .section-text {
-            white-space: pre-wrap;
-            color: var(--dh2e-text-secondary, #a0a0a8);
-            font-style: italic;
-        }
+    .notes-text {
+        white-space: pre-wrap;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-style: italic;
     }
 </style>

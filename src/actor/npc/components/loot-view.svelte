@@ -98,6 +98,7 @@
         display: flex;
         flex-direction: column;
         gap: var(--dh2e-space-sm, 0.5rem);
+        user-select: text;
     }
 
     .deceased-banner {

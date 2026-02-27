@@ -1,13 +1,71 @@
 <script lang="ts">
     import type { CreationData, RoleOption } from "../types.ts";
+    import { splitOrChoices } from "../wizard.ts";
 
-    let { data, selected = $bindable<RoleOption | null>(null) }: {
+    let { data, selected = $bindable<RoleOption | null>(null), talentChoice = $bindable("") }: {
         data: CreationData;
         selected: RoleOption | null;
+        talentChoice: string;
     } = $props();
 
     const roles = $derived(data?.roles ?? []);
     const hasData = $derived(roles.length > 0);
+
+    /** Parse talent "or" options from the selected role's talent string */
+    const talentOptions = $derived(
+        selected?.talent ? splitOrChoices(selected.talent) : [],
+    );
+    const hasTalentChoice = $derived(talentOptions.length > 1);
+
+    /** Cached talent descriptions for tooltips */
+    let talentDescs: Record<string, string> = $state({});
+
+    /** Load talent descriptions from compendium when options change */
+    $effect(() => {
+        const opts = talentOptions;
+        if (opts.length <= 1) { talentDescs = {}; return; }
+        (async () => {
+            const pack = game.packs.get("dh2e-data.talents");
+            if (!pack) return;
+            const index = await pack.getIndex();
+            const descs: Record<string, string> = {};
+            for (const name of opts) {
+                const lc = name.toLowerCase();
+                const entry = (index as any).find((e: any) => e.name.toLowerCase() === lc);
+                if (entry) {
+                    const doc = await pack.getDocument(entry._id);
+                    descs[name] = (doc as any)?.system?.description ?? "";
+                }
+            }
+            talentDescs = descs;
+        })();
+    });
+
+    /** Show rich tooltip for a talent choice */
+    function showTalentTooltip(event: MouseEvent, name: string) {
+        const desc = talentDescs[name];
+        if (!desc) return;
+        const el = event.currentTarget as HTMLElement;
+        if (typeof game !== "undefined" && (game as any).tooltip) {
+            const html = `<div style="max-width:320px"><strong>${name}</strong><br/>${desc}</div>`;
+            (game as any).tooltip.activate(el, { html, direction: "DOWN" });
+        }
+    }
+
+    /** Open the talent's full item sheet from compendium */
+    async function openTalentSheet(name: string) {
+        const pack = game.packs.get("dh2e-data.talents");
+        if (!pack) { ui.notifications?.info(`Talent compendium not found.`); return; }
+        const index = await pack.getIndex();
+        const lc = name.toLowerCase();
+        const entry = (index as any).find((e: any) => e.name.toLowerCase() === lc);
+        if (entry) {
+            const doc = await pack.getDocument(entry._id);
+            (doc as any)?.sheet?.render(true);
+        } else {
+            ui.notifications?.info(`No compendium entry found for "${name}".`);
+        }
+    }
 </script>
 
 <div class="step-content">
@@ -33,16 +91,44 @@
                             <span class="tag">{apt}</span>
                         {/each}
                     </div>
-                    <div class="card-row"><span class="label">Talent:</span> {role.talent}</div>
-                    <div class="card-row bonus-row">{role.bonus}</div>
                 </button>
             {/each}
         </div>
 
-        {#if selected?.description}
+        {#if selected}
             <div class="detail-panel">
                 <h4 class="detail-name">{selected.name}</h4>
-                <p class="detail-desc">{selected.description}</p>
+
+                {#if hasTalentChoice}
+                    <div class="talent-choices">
+                        <h5 class="talent-choices-title">Choose Talent</h5>
+                        <fieldset class="talent-choice-group">
+                            {#each talentOptions as opt, oi}
+                                <label class="talent-choice-label" onmouseenter={(e) => showTalentTooltip(e, opt)}>
+                                    <input
+                                        type="radio"
+                                        name="talent-choice"
+                                        value={opt}
+                                        checked={oi === 0 ? talentChoice === "" || talentChoice === opt : talentChoice === opt}
+                                        onchange={() => {
+                                            talentChoice = opt;
+                                        }}
+                                    />
+                                    {opt}
+                                    <button class="info-btn" type="button" onclick={(e) => { e.preventDefault(); openTalentSheet(opt); }} title="View details">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </label>
+                            {/each}
+                        </fieldset>
+                    </div>
+                {:else if selected.talent}
+                    <p class="detail-talent"><strong>Talent:</strong> {selected.talent}</p>
+                {/if}
+
+                {#if selected.description}
+                    <p class="detail-desc">{selected.description}</p>
+                {/if}
                 {#if selected.bonusDescription}
                     <p class="detail-bonus"><strong>{selected.bonus}:</strong> {selected.bonusDescription}</p>
                 {/if}
@@ -94,7 +180,7 @@
 
     .card-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 0.4rem;
     }
 
@@ -133,7 +219,6 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        margin-bottom: 0.2rem;
     }
 
     .card-row {
@@ -146,7 +231,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0.2rem;
-        margin-bottom: 0.15rem;
+        margin-top: 0.1rem;
     }
 
     .tag {
@@ -158,18 +243,6 @@
         letter-spacing: 0.05em;
         color: var(--dh2e-gold, #c8a84e);
         background: rgba(200, 168, 78, 0.15);
-    }
-
-    .label {
-        color: var(--dh2e-text-secondary, #a0a0a8);
-        font-weight: 600;
-    }
-
-    .bonus-row {
-        font-style: italic;
-        color: var(--dh2e-gold-dark, #9c7a28);
-        font-size: 0.7rem;
-        margin-top: 0.1rem;
     }
 
     .detail-panel {
@@ -187,6 +260,13 @@
         margin: 0 0 0.3rem;
     }
 
+    .detail-talent {
+        font-size: 0.85rem;
+        color: var(--dh2e-text-primary, #d0cfc8);
+        line-height: 1.4;
+        margin: 0 0 0.3rem;
+    }
+
     .detail-desc {
         font-size: 0.85rem;
         color: var(--dh2e-text-secondary, #a0a0a8);
@@ -199,6 +279,59 @@
         color: var(--dh2e-text-primary, #d0cfc8);
         line-height: 1.4;
         margin: 0;
+    }
+
+    .talent-choices {
+        margin-bottom: 0.4rem;
+        border-bottom: 1px solid var(--dh2e-border, #4a4a55);
+        padding-bottom: 0.4rem;
+    }
+
+    .talent-choices-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--dh2e-gold, #c8a84e);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0 0 0.3rem;
+    }
+
+    .talent-choice-group {
+        border: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+    }
+
+    .talent-choice-label {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.8rem;
+        color: var(--dh2e-text-primary, #d0cfc8);
+        cursor: pointer;
+
+        input[type="radio"] {
+            accent-color: var(--dh2e-gold, #c8a84e);
+            margin: 0;
+        }
+    }
+
+    .info-btn {
+        background: none;
+        border: none;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        font-size: 0.7rem;
+        padding: 0 2px;
+        opacity: 0.6;
+
+        &:hover {
+            color: var(--dh2e-gold, #c8a84e);
+            opacity: 1;
+        }
     }
 
     .hint {

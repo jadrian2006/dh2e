@@ -20,6 +20,7 @@ import { AmmunitionSheetDH2e } from "@item/ammunition/sheet.ts";
 import { CyberneticSheetDH2e } from "@item/cybernetic/sheet.ts";
 import { ObjectiveSheetDH2e } from "@item/objective/sheet.ts";
 import { TreasureSheetDH2e } from "@item/treasure/sheet.ts";
+import { NoteSheetDH2e } from "@item/note/sheet.ts";
 import { WarbandSheetDH2e } from "@actor/warband/sheet.ts";
 import { LootSheetDH2e } from "@actor/loot/sheet.ts";
 
@@ -169,5 +170,11 @@ export function registerSheets(): void {
         types: ["treasure"],
         makeDefault: true,
         label: "DH2E.Sheet.Treasure",
+    });
+
+    fd.collections.Items.registerSheet(SYSTEM_ID, NoteSheetDH2e, {
+        types: ["note"],
+        makeDefault: true,
+        label: "DH2E.Sheet.Note",
     });
 }

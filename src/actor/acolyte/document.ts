@@ -7,6 +7,7 @@ import { instantiateRuleElement } from "@rules/rule-element/registry.ts";
 import type { RuleElementSource } from "@rules/rule-element/base.ts";
 import { CorruptionHandler } from "@corruption/corruption.ts";
 import { InsanityHandler } from "@insanity/insanity.ts";
+import { DivinationSessionHandler } from "@divination/session-effects.ts";
 import { getArmourCraftsmanshipBonus } from "@combat/craftsmanship.ts";
 import { ModifierDH2e } from "@rules/modifier.ts";
 
@@ -320,6 +321,8 @@ class AcolyteDH2e extends ActorDH2e {
             if (automate && newVal > oldVal) {
                 CorruptionHandler.onCorruptionChanged(this, oldVal, newVal);
             }
+            // Check divination session effects for corruption changes
+            void DivinationSessionHandler.onValueChanged(this, "corruption", oldVal, newVal);
         }
 
         if ("insanity" in sys) {
@@ -329,6 +332,15 @@ class AcolyteDH2e extends ActorDH2e {
             if (automate && newVal > oldVal) {
                 InsanityHandler.onInsanityChanged(this, oldVal, newVal);
             }
+            // Check divination session effects for insanity changes
+            void DivinationSessionHandler.onValueChanged(this, "insanity", oldVal, newVal);
+        }
+
+        if ("fatigue" in sys) {
+            const oldVal = (this._source.system as any).fatigue as number ?? 0;
+            const newVal = sys.fatigue as number;
+            // Check divination session effects for fatigue changes
+            void DivinationSessionHandler.onValueChanged(this, "fatigue", oldVal, newVal);
         }
     }
 }

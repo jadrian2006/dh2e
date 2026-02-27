@@ -17,8 +17,17 @@ class NpcSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
     /** Track compact mode — initialized from setting, persists across remounts */
     #compactMode: boolean | null = null;
 
+    /** Active tab — persists across Svelte remounts */
+    #activeTab: string = "summary";
+
+    /** Whether initial resize for compact mode has been applied */
+    #initialResizeDone = false;
+
     /** Whether native drop listeners have been attached */
     #dropListenersBound = false;
+
+    /** Deferred position — applied in _onRender when the element exists */
+    #pendingSize: { width: number; height: number } | null = null;
 
     override get title(): string {
         return this.document.name;
@@ -46,9 +55,39 @@ class NpcSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
         const isDefeated = system?.defeated === true;
         const lootMode = !isGM && isDefeated;
 
-        // Resize to smaller window in loot mode
-        if (lootMode) {
-            this.setPosition({ width: 420, height: 500 });
+        // Compute items before sizing
+        const items = {
+            weapons: actor.items.filter((i: Item) => i.type === "weapon"),
+            armour: actor.items.filter((i: Item) => i.type === "armour"),
+            gear: actor.items.filter((i: Item) => i.type === "gear"),
+            skills: actor.items.filter((i: Item) => i.type === "skill"),
+            talents: actor.items.filter((i: Item) => i.type === "talent"),
+            powers: actor.items.filter((i: Item) => i.type === "power"),
+            conditions: actor.items.filter((i: Item) => i.type === "condition"),
+            traits: actor.items.filter((i: Item) => i.type === "trait"),
+            criticalInjuries: actor.items.filter((i: Item) => i.type === "critical-injury"),
+            malignancies: actor.items.filter((i: Item) => i.type === "malignancy"),
+            mentalDisorders: actor.items.filter((i: Item) => i.type === "mental-disorder"),
+            cybernetics: actor.items.filter((i: Item) => i.type === "cybernetic"),
+            ammunition: actor.items.filter((i: Item) => i.type === "ammunition"),
+        };
+
+        // Compute desired initial size (applied in _onRender when element exists)
+        if (!lootMode && !this.#initialResizeDone) {
+            this.#initialResizeDone = true;
+            if (this.#compactMode) {
+                this.#pendingSize = { width: 500, height: 500 };
+            } else {
+                const totalItems = items.weapons.length + items.armour.length
+                    + items.skills.length + items.talents.length
+                    + items.traits.length + items.powers.length
+                    + items.gear.length + items.cybernetics.length;
+                const computed = 320 + Math.max(totalItems, 3) * 28;
+                const height = Math.min(800, Math.max(450, computed));
+                this.#pendingSize = { width: 720, height };
+            }
+        } else if (lootMode) {
+            this.#pendingSize = { width: 420, height: 500 };
         }
 
         return {
@@ -58,24 +97,17 @@ class NpcSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 img: actor.img,
                 system,
                 editable: this.isEditable,
+                isGM: (game as any).user?.isGM ?? false,
                 lootMode,
                 compactMode: this.#compactMode,
-                setCompactMode: (mode: boolean) => { this.#compactMode = mode; },
-                items: {
-                    weapons: actor.items.filter((i: Item) => i.type === "weapon"),
-                    armour: actor.items.filter((i: Item) => i.type === "armour"),
-                    gear: actor.items.filter((i: Item) => i.type === "gear"),
-                    skills: actor.items.filter((i: Item) => i.type === "skill"),
-                    talents: actor.items.filter((i: Item) => i.type === "talent"),
-                    powers: actor.items.filter((i: Item) => i.type === "power"),
-                    conditions: actor.items.filter((i: Item) => i.type === "condition"),
-                    traits: actor.items.filter((i: Item) => i.type === "trait"),
-                    criticalInjuries: actor.items.filter((i: Item) => i.type === "critical-injury"),
-                    malignancies: actor.items.filter((i: Item) => i.type === "malignancy"),
-                    mentalDisorders: actor.items.filter((i: Item) => i.type === "mental-disorder"),
-                    cybernetics: actor.items.filter((i: Item) => i.type === "cybernetic"),
-                    ammunition: actor.items.filter((i: Item) => i.type === "ammunition"),
+                activeTab: this.#activeTab,
+                setActiveTab: (tab: string) => { this.#activeTab = tab; },
+                setCompactMode: (mode: boolean) => {
+                    this.#compactMode = mode;
+                    if (mode) this.setPosition({ width: 500, height: 500 });
+                    else this.setPosition({ width: 720, height: 800 });
                 },
+                items,
             },
         };
     }
@@ -85,6 +117,12 @@ class NpcSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
         options: fa.ApplicationRenderOptions,
     ): void {
         super._onRender(context, options);
+
+        // Apply deferred sizing now that the element exists
+        if (this.#pendingSize) {
+            this.setPosition(this.#pendingSize);
+            this.#pendingSize = null;
+        }
 
         if (this.#dropListenersBound) return;
 

@@ -23,9 +23,19 @@
     const hasSingle = $derived(sys.rof?.single ?? true);
     const hasSemi = $derived((sys.rof?.semi ?? 0) > 0);
     const hasFull = $derived((sys.rof?.full ?? 0) > 0);
+    const magMax = $derived(sys.magazine?.max ?? 0);
+    const magValue = $derived(sys.magazine?.value ?? 0);
 
     function attack(mode: FireMode) {
         AttackResolver.resolve({ actor, weapon, fireMode: mode });
+    }
+
+    function ammoColor(val: number, max: number): string {
+        if (val <= 0) return "var(--dh2e-danger, #c0392b)";
+        const pct = val / max;
+        if (pct > 0.5) return "var(--dh2e-success, #27ae60)";
+        if (pct > 0.25) return "var(--dh2e-warning, #d4a017)";
+        return "var(--dh2e-danger, #c0392b)";
     }
 </script>
 
@@ -36,6 +46,21 @@
             {sys.damage?.formula ?? "1d10"}{sys.damage?.type ? ` ${sys.damage.type[0].toUpperCase()}` : ""}
             {#if sys.penetration}| Pen {sys.penetration}{/if}
         </span>
+        {#if magMax > 0}
+            <div class="weapon-ammo">
+                <div class="mag-pips" title="{magValue} / {magMax} rounds">
+                    {#each Array(Math.min(magMax, 20)) as _, i}
+                        <span class="pip" class:filled={i < magValue}></span>
+                    {/each}
+                    {#if magMax > 20}
+                        <span class="pip-overflow">+{magMax - 20}</span>
+                    {/if}
+                </div>
+                <span class="ammo-count" style="color: {ammoColor(magValue, magMax)}">
+                    {magValue}/{magMax}
+                </span>
+            </div>
+        {/if}
     </div>
     <button class="chat-btn" onclick={(e) => { e.stopPropagation(); sendItemToChat(weapon); }} title="Send to Chat">
         <i class="fa-solid fa-comment"></i>
@@ -104,6 +129,44 @@
     .weapon-details {
         font-size: var(--dh2e-text-xs, 0.7rem);
         color: var(--dh2e-text-secondary, #a0a0a8);
+    }
+
+    .weapon-ammo {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 2px;
+    }
+
+    .mag-pips {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+    }
+
+    .mag-pips .pip {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        border: 1px solid var(--dh2e-gold-muted, #8a7a3e);
+        background: transparent;
+
+        &.filled {
+            background: var(--dh2e-gold, #b49545);
+        }
+    }
+
+    .pip-overflow {
+        font-size: 0.45rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        margin-left: 1px;
+    }
+
+    .ammo-count {
+        font-size: 0.55rem;
+        font-weight: 700;
+        font-family: monospace;
     }
 
     .weapon-actions {

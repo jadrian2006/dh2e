@@ -74,6 +74,7 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                     cybernetics: actor.items.filter((i: Item) => i.type === "cybernetic"),
                     objectives: actor.items.filter((i: Item) => i.type === "objective"),
                     treasure: actor.items.filter((i: Item) => i.type === "treasure"),
+                    notes: actor.items.filter((i: Item) => i.type === "note"),
                 },
                 // Objective actions
                 addPersonalObjective: () => this.#addPersonalObjective(actor),
@@ -82,6 +83,10 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 reactivateObjective: (obj: any) => (obj as ObjectiveDH2e).reactivate(),
                 deleteObjective: (obj: any) => actor.deleteEmbeddedDocuments("Item", [obj.id]),
                 openObjective: (obj: any) => obj.sheet?.render(true),
+                // Note actions
+                addPersonalNote: () => this.#addPersonalNote(actor),
+                openNote: (note: any) => note.sheet?.render(true),
+                deleteNote: (note: any) => actor.deleteEmbeddedDocuments("Item", [note.id]),
                 openWizard: () => CreationWizard.open(actor),
                 openShop: () => AdvancementShop.open(actor),
                 openRequisitionDialog: () => this.#openRequisitionDialog(),
@@ -212,7 +217,7 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
     /** Create a personal objective inline on this actor */
     async #addPersonalObjective(actor: AcolyteDH2e): Promise<void> {
         const g = game as any;
-        await actor.createEmbeddedDocuments("Item", [{
+        const created = await actor.createEmbeddedDocuments("Item", [{
             name: "New Objective",
             type: "objective",
             img: `systems/${SYSTEM_ID}/icons/default-icons/objective.svg`,
@@ -226,6 +231,22 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 format: "parchment",
             },
         }]);
+        if (created?.[0]) (created[0] as any).sheet?.render(true);
+    }
+
+    /** Create a personal note inline on this actor */
+    async #addPersonalNote(actor: AcolyteDH2e): Promise<void> {
+        const created = await actor.createEmbeddedDocuments("Item", [{
+            name: "New Note",
+            type: "note",
+            img: `systems/${SYSTEM_ID}/icons/default-icons/note.svg`,
+            system: {
+                description: "",
+                content: "",
+                timestamp: Date.now(),
+            },
+        }]);
+        if (created?.[0]) (created[0] as any).sheet?.render(true);
     }
 
     /** Handle item drops from compendium or sidebar */

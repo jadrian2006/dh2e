@@ -266,6 +266,11 @@
     "DH2E.Sheet.PopOut": "Pop Out",
     "DH2E.Sheet.Objective": "Objective Sheet",
     "DH2E.Sheet.Treasure": "Treasure Sheet",
+    "DH2E.Sheet.Note": "Note Sheet",
+    "DH2E.Note.Title": "Note Title",
+    "DH2E.Note.PersonalNotes": "Personal Notes",
+    "DH2E.Note.Empty": "No personal notes.",
+    "DH2E.Note.FreeformNotes": "Freeform Notes",
 
     "DH2E.Settings.ModifierCap.Name": "Modifier Cap",
     "DH2E.Settings.ModifierCap.Hint": "Maximum total modifier (positive or negative) that can apply to a single roll.",

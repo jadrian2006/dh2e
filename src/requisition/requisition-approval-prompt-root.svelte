@@ -54,11 +54,11 @@
     <div class="cost-breakdown">
         <div class="cost-row">
             <span>Availability</span>
-            <span class="cost-value">{ctx.availLabel} ({formatMod(ctx.availMod)})</span>
+            <span class="cost-value">{ctx.availLabel}</span>
         </div>
         <div class="cost-row">
             <span>Craftsmanship</span>
-            <span class="cost-value">{ctx.craftLabel} ({formatMod(ctx.craftMod)})</span>
+            <span class="cost-value">{ctx.craftLabel}</span>
         </div>
         <div class="cost-row">
             <span>Character Influence</span>

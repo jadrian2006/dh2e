@@ -7,7 +7,23 @@
     async function previewGear(text: string) {
         const { name } = parseEquipment(text);
         const doc = await findInPacks(EQUIPMENT_PACKS, name);
-        if (doc) doc.sheet?.render(true);
+        if (doc) {
+            doc.sheet?.render(true);
+        } else {
+            ui.notifications?.info(`No compendium entry found for "${name}".`);
+        }
+    }
+
+    /** Show instant hover tooltip with item description from compendium */
+    function showGearTooltip(event: MouseEvent, text: string) {
+        const { name } = parseEquipment(text);
+        const desc = gearDescs[name.toLowerCase()];
+        if (!desc) return;
+        const el = event.currentTarget as HTMLElement;
+        if (typeof game !== "undefined" && (game as any).tooltip) {
+            const html = `<div style="max-width:320px"><strong>${name}</strong><br/>${desc}</div>`;
+            (game as any).tooltip.activate(el, { html, direction: "DOWN" });
+        }
     }
 
     let { data, selected = $bindable<BackgroundOption | null>(null), gearChoices = $bindable<Record<number, string>>({}) }: {
@@ -26,6 +42,32 @@
             return { index: i, raw: eq, options: opts, hasChoice: opts.length > 1 };
         }),
     );
+
+    /** Cached gear descriptions for tooltips */
+    let gearDescs: Record<string, string> = $state({});
+
+    /** Load gear descriptions when selected background changes */
+    $effect(() => {
+        const items = selected?.equipment ?? [];
+        if (items.length === 0) { gearDescs = {}; return; }
+        (async () => {
+            const descs: Record<string, string> = {};
+            for (const eq of items) {
+                const opts = splitOrChoices(eq);
+                for (const opt of opts) {
+                    const { name } = parseEquipment(opt);
+                    const lc = name.toLowerCase();
+                    if (descs[lc]) continue;
+                    const doc = await findInPacks(EQUIPMENT_PACKS, name);
+                    if (doc) {
+                        const d = (doc as any)?.system?.description ?? "";
+                        if (d) descs[lc] = typeof d === "string" ? d.replace(/<[^>]+>/g, "").slice(0, 200) : "";
+                    }
+                }
+            }
+            gearDescs = descs;
+        })();
+    });
 </script>
 
 <div class="step-content">
@@ -49,55 +91,71 @@
                     <div class="card-row tag-row">
                         <span class="tag">{bg.aptitude}</span>
                     </div>
-                    <div class="card-row"><span class="label">Skills:</span> {bg.skills.join(", ")}</div>
-                    <div class="card-row"><span class="label">Talents:</span> {bg.talents.join(", ")}</div>
-                    <div class="card-row"><span class="label">Gear:</span> {bg.equipment.join(", ")}</div>
-                    <div class="card-row bonus-row">{bg.bonus}</div>
                 </button>
             {/each}
         </div>
 
-        {#if selected?.description}
+        {#if selected}
             <div class="detail-panel">
                 <h4 class="detail-name">{selected.name}</h4>
-                <p class="detail-desc">{selected.description}</p>
+                <div class="detail-lists">
+                    <p class="detail-list"><strong>Skills:</strong> {selected.skills.join(", ")}</p>
+                    <p class="detail-list"><strong>Talents:</strong> {selected.talents.join(", ")}</p>
+                </div>
+                {#if selected.description}
+                    <p class="detail-desc">{selected.description}</p>
+                {/if}
                 {#if selected.bonusDescription}
                     <p class="detail-bonus"><strong>{selected.bonus}:</strong> {selected.bonusDescription}</p>
                 {/if}
 
-                {#if equipChoices.some(c => c.hasChoice)}
-                    <div class="gear-choices">
-                        <h5 class="gear-choices-title">Equipment Choices</h5>
+                <div class="gear-section">
+                    <h5 class="gear-section-title">Starting Equipment</h5>
+                    <div class="gear-list">
                         {#each equipChoices as choice}
                             {#if choice.hasChoice}
-                                <fieldset class="gear-choice-group">
-                                    {#each choice.options as opt, oi}
-                                        <label class="gear-choice-label">
-                                            <input
-                                                type="radio"
-                                                name="gear-choice-{choice.index}"
-                                                value={opt}
-                                                checked={oi === 0 ? !(choice.index in gearChoices) : gearChoices[choice.index] === opt}
-                                                onchange={() => {
-                                                    if (oi === 0) {
-                                                        const { [choice.index]: _, ...rest } = gearChoices;
-                                                        gearChoices = rest;
-                                                    } else {
-                                                        gearChoices = { ...gearChoices, [choice.index]: opt };
-                                                    }
-                                                }}
-                                            />
-                                            {opt}
-                                            <button class="gear-preview-btn" type="button" title="Preview item" onclick={(e) => { e.stopPropagation(); previewGear(opt); }}>
-                                                <i class="fa-solid fa-eye"></i>
-                                            </button>
-                                        </label>
-                                    {/each}
-                                </fieldset>
+                                <div class="gear-choice-card">
+                                    <span class="choice-badge">Choose One</span>
+                                    <fieldset class="gear-choice-group">
+                                        {#each choice.options as opt, oi}
+                                            {#if oi > 0}
+                                                <span class="or-divider">or</span>
+                                            {/if}
+                                            <label class="gear-choice-label" onmouseenter={(e) => showGearTooltip(e, opt)}>
+                                                <input
+                                                    type="radio"
+                                                    name="gear-choice-{choice.index}"
+                                                    value={opt}
+                                                    checked={oi === 0 ? !(choice.index in gearChoices) : gearChoices[choice.index] === opt}
+                                                    onchange={() => {
+                                                        if (oi === 0) {
+                                                            const { [choice.index]: _, ...rest } = gearChoices;
+                                                            gearChoices = rest;
+                                                        } else {
+                                                            gearChoices = { ...gearChoices, [choice.index]: opt };
+                                                        }
+                                                    }}
+                                                />
+                                                <span class="gear-name">{opt}</span>
+                                                <button class="gear-preview-btn" type="button" title="Preview item" onclick={(e) => { e.stopPropagation(); previewGear(opt); }}>
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+                                            </label>
+                                        {/each}
+                                    </fieldset>
+                                </div>
+                            {:else}
+                                <div class="gear-fixed-row" onmouseenter={(e) => showGearTooltip(e, choice.raw)}>
+                                    <i class="fa-solid fa-check gear-check"></i>
+                                    <span class="gear-name">{choice.raw}</span>
+                                    <button class="gear-preview-btn" type="button" title="Preview item" onclick={(e) => { e.stopPropagation(); previewGear(choice.raw); }}>
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
                             {/if}
                         {/each}
                     </div>
-                {/if}
+                </div>
             </div>
         {/if}
     {:else}
@@ -148,7 +206,7 @@
 
     .card-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 0.4rem;
     }
 
@@ -187,7 +245,6 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        margin-bottom: 0.2rem;
     }
 
     .card-row {
@@ -197,7 +254,7 @@
     }
 
     .tag-row {
-        margin-bottom: 0.15rem;
+        margin-top: 0.1rem;
     }
 
     .tag {
@@ -209,18 +266,6 @@
         letter-spacing: 0.05em;
         color: var(--dh2e-gold, #c8a84e);
         background: rgba(200, 168, 78, 0.15);
-    }
-
-    .label {
-        color: var(--dh2e-text-secondary, #a0a0a8);
-        font-weight: 600;
-    }
-
-    .bonus-row {
-        font-style: italic;
-        color: var(--dh2e-gold-dark, #9c7a28);
-        font-size: 0.7rem;
-        margin-top: 0.1rem;
     }
 
     .detail-panel {
@@ -238,6 +283,17 @@
         margin: 0 0 0.3rem;
     }
 
+    .detail-lists {
+        margin-bottom: 0.3rem;
+    }
+
+    .detail-list {
+        font-size: 0.8rem;
+        color: var(--dh2e-text-primary, #d0cfc8);
+        line-height: 1.4;
+        margin: 0 0 0.15rem;
+    }
+
     .detail-desc {
         font-size: 0.85rem;
         color: var(--dh2e-text-secondary, #a0a0a8);
@@ -252,6 +308,130 @@
         margin: 0;
     }
 
+    /* --- Equipment Section --- */
+
+    .gear-section {
+        margin-top: 0.5rem;
+        border-top: 1px solid var(--dh2e-border, #4a4a55);
+        padding-top: 0.5rem;
+    }
+
+    .gear-section-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--dh2e-gold, #c8a84e);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0 0 0.4rem;
+    }
+
+    .gear-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    /* Fixed equipment row */
+    .gear-fixed-row {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.25rem 0.4rem;
+        font-size: 0.8rem;
+        color: var(--dh2e-text-primary, #d0cfc8);
+        border-radius: 2px;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+    }
+
+    .gear-check {
+        font-size: 0.6rem;
+        color: var(--dh2e-gold-muted, #7a6a3e);
+        flex-shrink: 0;
+        width: 1rem;
+        text-align: center;
+    }
+
+    .gear-name {
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* Choice card */
+    .gear-choice-card {
+        position: relative;
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: 3px;
+        padding: 0.45rem 0.5rem 0.35rem;
+        background: rgba(0, 0, 0, 0.15);
+    }
+
+    .choice-badge {
+        position: absolute;
+        top: -0.5em;
+        left: 0.5rem;
+        font-size: 0.55rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--dh2e-gold-muted, #7a6a3e);
+        background: var(--dh2e-bg-mid, #2e2e35);
+        padding: 0 0.3rem;
+    }
+
+    .gear-choice-group {
+        border: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+    }
+
+    .or-divider {
+        display: block;
+        text-align: center;
+        font-size: 0.6rem;
+        font-weight: 700;
+        font-style: italic;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        letter-spacing: 0.1em;
+        padding: 0.05rem 0;
+        opacity: 0.7;
+    }
+
+    .gear-choice-label {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.8rem;
+        color: var(--dh2e-text-primary, #d0cfc8);
+        cursor: pointer;
+        padding: 0.1rem 0;
+
+        input[type="radio"] {
+            accent-color: var(--dh2e-gold, #c8a84e);
+            margin: 0;
+            flex-shrink: 0;
+        }
+    }
+
+    .gear-preview-btn {
+        background: none;
+        border: none;
+        padding: 0 0.2rem;
+        cursor: pointer;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-size: 0.7rem;
+        flex-shrink: 0;
+        margin-left: auto;
+
+        &:hover { color: var(--dh2e-gold, #c8a84e); }
+    }
+
+    /* Manual fallback */
     .hint {
         font-style: italic;
         font-size: 0.75rem;
@@ -266,54 +446,5 @@
         font-size: 0.65rem;
         color: var(--dh2e-text-secondary, #a0a0a8);
         text-transform: uppercase;
-    }
-
-    .gear-choices {
-        margin-top: 0.5rem;
-        border-top: 1px solid var(--dh2e-border, #4a4a55);
-        padding-top: 0.4rem;
-    }
-
-    .gear-choices-title {
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: var(--dh2e-gold, #c8a84e);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin: 0 0 0.3rem;
-    }
-
-    .gear-choice-group {
-        border: none;
-        padding: 0 0 0.3rem;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 0.15rem;
-    }
-
-    .gear-choice-label {
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-        font-size: 0.8rem;
-        color: var(--dh2e-text-primary, #d0cfc8);
-        cursor: pointer;
-
-        input[type="radio"] {
-            accent-color: var(--dh2e-gold, #c8a84e);
-            margin: 0;
-        }
-    }
-
-    .gear-preview-btn {
-        background: none;
-        border: none;
-        padding: 0 0.2rem;
-        cursor: pointer;
-        color: var(--dh2e-text-secondary, #a0a0a8);
-        font-size: 0.7rem;
-
-        &:hover { color: var(--dh2e-gold, #c8a84e); }
     }
 </style>

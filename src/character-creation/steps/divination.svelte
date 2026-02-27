@@ -1,20 +1,35 @@
 <script lang="ts">
     import type { CreationData, DivinationResult } from "../types.ts";
+    import { DIVINATION_EFFECTS } from "../wizard.ts";
 
-    let { data, selected = $bindable<DivinationResult | null>(null), maxRerolls = 1 }: {
+    let {
+        data,
+        selected = $bindable<DivinationResult | null>(null),
+        maxRerolls = 1,
+        rolled = $bindable<boolean>(false),
+        rollCount = $bindable<number>(0),
+        rollValue = $bindable<number | null>(null),
+        divinationChoices = $bindable<Record<number, string>>({}),
+    }: {
         data: CreationData;
         selected: DivinationResult | null;
         maxRerolls?: number;
+        rolled: boolean;
+        rollCount: number;
+        rollValue: number | null;
+        divinationChoices: Record<number, string>;
     } = $props();
 
     const divinations = $derived(data?.divinations ?? []);
     const hasData = $derived(divinations.length > 0);
-
-    let rollValue = $state<number | null>(null);
-    let rolled = $state(false);
-    let rollCount = $state(0);
     const canReroll = $derived(rollCount > 0 && rollCount <= maxRerolls);
     const rerollsRemaining = $derived(Math.max(0, maxRerolls - rollCount + 1));
+
+    /** Derive choice groups from DIVINATION_EFFECTS for the selected divination */
+    const choiceGroups = $derived(
+        selected ? (DIVINATION_EFFECTS[selected.text]?.choiceGroups ?? []) : [],
+    );
+    const hasChoices = $derived(choiceGroups.length > 0);
 
     function rollTarot() {
         const roll = Math.floor(Math.random() * 100) + 1;
@@ -59,23 +74,41 @@
                     <span class="roll-number">{rollValue}</span>
                     <blockquote class="divination-text">"{selected.text}"</blockquote>
                     <p class="divination-effect">{selected.effect}</p>
+
+                    {#if hasChoices}
+                        <div class="divination-choices">
+                            {#each choiceGroups as group, gi}
+                                <fieldset class="choice-group">
+                                    <legend class="choice-group-label">{group.label}</legend>
+                                    {#each group.options as opt, oi}
+                                        <label class="choice-label">
+                                            <input
+                                                type="radio"
+                                                name="div-choice-{gi}"
+                                                value={opt.key}
+                                                checked={oi === 0 ? !(gi in divinationChoices) : divinationChoices[gi] === opt.key}
+                                                onchange={() => {
+                                                    if (oi === 0) {
+                                                        const { [gi]: _, ...rest } = divinationChoices;
+                                                        divinationChoices = rest;
+                                                    } else {
+                                                        divinationChoices = { ...divinationChoices, [gi]: opt.key };
+                                                    }
+                                                }}
+                                            />
+                                            {opt.label}
+                                            <span class="choice-delta" class:positive={opt.delta > 0} class:negative={opt.delta < 0}>
+                                                {opt.delta > 0 ? "+" : ""}{opt.delta}
+                                            </span>
+                                        </label>
+                                    {/each}
+                                </fieldset>
+                            {/each}
+                        </div>
+                    {/if}
                 </div>
             {/if}
         </div>
-
-        <details class="divination-table">
-            <summary>View full divination table</summary>
-            <div class="table-content">
-                {#each divinations as div}
-                    {@const isActive = selected?.text === div.text}
-                    <div class="table-row" class:active={isActive}>
-                        <span class="table-roll">{div.roll[0]}–{div.roll[1]}</span>
-                        <span class="table-text">"{div.text}"</span>
-                        <span class="table-effect">{div.effect}</span>
-                    </div>
-                {/each}
-            </div>
-        </details>
     {:else}
         <div class="manual-input">
             <p class="hint">Enter divination text manually, or install the dh2e-data module for the divination table.</p>
@@ -191,53 +224,62 @@
         opacity: 0.85;
     }
 
-    .divination-table {
-        margin-top: 0.25rem;
-
-        summary {
-            font-size: 0.65rem;
-            color: var(--dh2e-text-secondary, #a0a0a8);
-            cursor: pointer;
-            text-align: center;
-
-            &:hover { color: var(--dh2e-gold, #c8a84e); }
-        }
-    }
-
-    .table-content {
+    .divination-choices {
+        width: 100%;
+        margin-top: 0.3rem;
+        border-top: 1px solid var(--dh2e-border, #4a4a55);
+        padding-top: 0.4rem;
         display: flex;
         flex-direction: column;
-        gap: 1px;
-        margin-top: 0.3rem;
+        gap: 0.3rem;
     }
 
-    .table-row {
-        display: grid;
-        grid-template-columns: 2.5rem 1fr 1fr;
-        gap: 0.3rem;
-        padding: 0.15rem 0.25rem;
-        font-size: 0.65rem;
-        background: var(--dh2e-bg-mid, #2e2e35);
+    .choice-group {
+        border: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+    }
 
-        &:nth-child(even) { background: rgba(46, 46, 53, 0.6); }
-        &.active {
-            background: rgba(200, 168, 78, 0.15);
-            border-left: 2px solid var(--dh2e-gold, #c8a84e);
+    .choice-group-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--dh2e-gold, #c8a84e);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.15rem;
+    }
+
+    .choice-label {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.8rem;
+        color: var(--dh2e-text-primary, #d0cfc8);
+        cursor: pointer;
+
+        input[type="radio"] {
+            accent-color: var(--dh2e-gold, #c8a84e);
+            margin: 0;
         }
     }
 
-    .table-roll {
-        color: var(--dh2e-text-secondary, #a0a0a8);
-        font-weight: 600;
-    }
+    .choice-delta {
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0 0.2rem;
+        border-radius: 2px;
 
-    .table-text {
-        color: var(--dh2e-text-primary, #d0cfc8);
-        font-style: italic;
-    }
-
-    .table-effect {
-        color: var(--dh2e-text-secondary, #a0a0a8);
+        &.positive {
+            color: #6c6;
+            background: rgba(102, 204, 102, 0.12);
+        }
+        &.negative {
+            color: #c66;
+            background: rgba(204, 102, 102, 0.12);
+        }
     }
 
     .hint {

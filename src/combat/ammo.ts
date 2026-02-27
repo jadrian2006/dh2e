@@ -59,7 +59,19 @@ async function consumeAmmo(weapon: any, fireMode: FireMode): Promise<ConsumeResu
     if (magMax === 0) return null; // melee/thrown — no ammo to consume
 
     const magValue = sys.magazine?.value ?? 0;
-    const loadedRounds: LoadedRoundEntry[] = sys.loadedRounds ? [...sys.loadedRounds.map((r: any) => ({ ...r }))] : [];
+    let loadedRounds: LoadedRoundEntry[] = sys.loadedRounds ? [...sys.loadedRounds.map((r: any) => ({ ...r }))] : [];
+
+    // Fallback: if magazine has rounds but loadedRounds is empty, synthesize an entry
+    // This handles weapons loaded before the loadedRounds system existed or data mismatches
+    if (loadedRounds.length === 0 && magValue > 0) {
+        const weaponGroup = sys.weaponGroup ?? "";
+        const groupNames: Record<string, string> = {
+            sp: "Solid Rounds", las: "Charge Pack", bolt: "Bolt Shells",
+            flame: "Promethium", melta: "Melta Fuel", plasma: "Plasma",
+            shotgun: "Shotgun Shells", launcher: "Frag Grenades",
+        };
+        loadedRounds = [{ name: groupNames[weaponGroup] ?? "Rounds", count: magValue }];
+    }
 
     let required: number;
     switch (fireMode) {

@@ -61,6 +61,11 @@ class ChatListenersDH2e {
             btn.addEventListener("click", () => ChatListenersDH2e.#onGrappleAction(message, btn));
         });
 
+        // Divination session effect Apply button (GM only)
+        html.querySelectorAll<HTMLButtonElement>("[data-action='apply-divination']").forEach((btn) => {
+            btn.addEventListener("click", () => ChatListenersDH2e.#onApplyDivination(message, btn));
+        });
+
         // Apply damage button
         html.querySelectorAll<HTMLButtonElement>("[data-action='apply-damage']").forEach((btn) => {
             btn.addEventListener("click", () => ChatApplyHandler.applyDamage(message));
@@ -112,73 +117,33 @@ class ChatListenersDH2e {
             return;
         }
 
-        const sys = (weapon as any).system ?? {};
-        const formula = sys.damage?.formula ?? "1d10";
-        const penetration = sys.penetration ?? 0;
-        const damageType = sys.damage?.type ?? "impact";
-        const hits = (result.hits as Array<{ locationLabel: string; location: string }>) ?? [];
-
-        // Roll damage for each hit
-        const damageRolls: Array<{ locationLabel: string; rawDamage: number; formula: string }> = [];
-
-        for (const hit of hits) {
-            const roll = new foundry.dice.Roll(formula);
-            await roll.evaluate();
-            damageRolls.push({
-                locationLabel: hit.locationLabel,
-                rawDamage: roll.total ?? 0,
-                formula,
-            });
+        // Get target — required for damage calculation (armour, TB)
+        const target = (game as any).user?.targets?.first()?.actor as Actor | undefined;
+        if (!target) {
+            ui.notifications?.warn(game.i18n?.localize("DH2E.Attack.NoTarget") ?? "No target selected. Select a target token before rolling damage.");
+            return;
         }
 
-        const totalDamage = damageRolls.reduce((sum, r) => sum + r.rawDamage, 0);
-
-        const isGM = (game as any).user?.isGM ?? false;
-
-        // Get targeted token for Apply Damage wiring
-        const target = (game as any).user?.targets?.first()?.actor as Actor | undefined;
-        const targetId = target?.id ?? null;
-
-        const templatePath = `systems/${SYSTEM_ID}/templates/chat/damage-card.hbs`;
-        const templateData = {
-            weaponName: (weapon as any).name,
-            hits: damageRolls.map((d) => ({
-                locationLabel: d.locationLabel,
-                rawDamage: d.rawDamage,
-                effectiveAP: 0,
-                penetration,
-                toughnessBonus: 0,
-                woundsDealt: d.rawDamage,
+        // Reconstruct AttackResult from stored flags
+        const hits = (result.hits as Array<{ locationLabel: string; location: string; locationRoll?: number }>) ?? [];
+        const attackResult = {
+            success: result.success as boolean ?? true,
+            degrees: result.degrees as number ?? 0,
+            roll: result.roll as number ?? 0,
+            target: result.target as number ?? 0,
+            hitCount: result.hitCount as number ?? hits.length,
+            hits: hits.map((h) => ({
+                location: (h.location ?? "body") as any,
+                locationLabel: h.locationLabel ?? "Body",
+                locationRoll: h.locationRoll ?? 0,
             })),
-            targetId,
-            applied: false,
-            fateHalved: false,
-            isGM,
+            fireMode: (result.fireMode as any) ?? "single",
+            weaponName: result.weaponName as string ?? weapon.name,
         };
 
-        const content = await fa.handlebars.renderTemplate(templatePath, templateData);
-        const speaker = fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
-
-        await fd.ChatMessage.create({
-            content,
-            speaker,
-            flags: {
-                [SYSTEM_ID]: {
-                    type: "damage",
-                    result: {
-                        actorId: actor.id,
-                        weaponName: (weapon as any).name,
-                        hits: damageRolls,
-                        totalDamage,
-                        penetration,
-                        damageType,
-                        targetId,
-                    },
-                    applied: false,
-                    fateHalved: false,
-                },
-            },
-        });
+        // Delegate to AttackResolver.rollDamage which handles armour, TB, pen, synthetics
+        const { AttackResolver } = await import("@combat/attack.ts");
+        await AttackResolver.rollDamage(attackResult, weapon, target);
     }
 
     static async #onSpendFate(event: MouseEvent): Promise<void> {
@@ -502,6 +467,12 @@ class ChatListenersDH2e {
                 }
             }
         }
+    }
+
+    /** Handle divination session effect Apply button */
+    static async #onApplyDivination(message: StoredDocument<ChatMessage>, btn: HTMLButtonElement): Promise<void> {
+        const { DivinationSessionHandler } = await import("@divination/session-effects.ts");
+        await DivinationSessionHandler.handleApply(message, btn);
     }
 
     /** Handle grapple action button clicks */

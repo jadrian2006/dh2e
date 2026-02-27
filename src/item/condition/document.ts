@@ -79,6 +79,18 @@ class ConditionDH2e extends ItemDH2e {
         } catch {
             // TMFX integration not available — no-op
         }
+
+        // JB2A/Sequencer one-shot VFX on condition apply/remove
+        try {
+            const { VFXResolver } = await import("../../vfx/resolver.ts");
+            if (VFXResolver.available) {
+                for (const token of tokens) {
+                    await VFXResolver.condition({ token, slug, applied: active });
+                }
+            }
+        } catch {
+            // VFX integration not available — no-op
+        }
     }
 }
 

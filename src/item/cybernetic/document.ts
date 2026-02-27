@@ -23,8 +23,11 @@ class CyberneticDH2e extends ItemDH2e {
         const warbandDate = CyberneticDH2e.#getWarbandDate();
         const lastMaint = this.system.lastMaintenanceDate;
 
+        // No warband date configured yet → assume normal (can't degrade without a timeline)
+        if (!warbandDate) return "normal";
+
         // Installed but never maintained → total failure
-        if (!lastMaint || !warbandDate) return "totalFailure";
+        if (!lastMaint) return "totalFailure";
 
         const elapsed = ImperialDateUtil.daysElapsed(lastMaint, warbandDate);
 

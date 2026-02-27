@@ -61,7 +61,7 @@
                 <input type="number" class="wound-edit" bind:value={woundInput}
                     autofocus
                     onblur={() => commitWounds()}
-                    onkeydown={(e) => { if (e.key === "Enter") commitWounds(); if (e.key === "Escape") editingWounds = false; }}
+                    onkeydown={(e) => { if (e.key === "Enter") { e.stopPropagation(); commitWounds(); } if (e.key === "Escape") editingWounds = false; }}
                     onclick={(e) => e.stopPropagation()}
                     min="0" max={ctx.system?.wounds?.max ?? 0} />
             {:else}

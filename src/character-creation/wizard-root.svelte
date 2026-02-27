@@ -34,9 +34,21 @@
     let divination = $state<DivinationResult | null>(null);
     let woundsRoll = $state<number | null>(null);
     let woundsRollCount = $state(0);
+    let fateRoll = $state<number | null>(null);
+
+    // Divination roll persistence — survives step navigation
+    let divinationRolled = $state(false);
+    let divinationRollCount = $state(0);
+    let divinationRollValue = $state<number | null>(null);
 
     // Gear choices state (for background "or" equipment)
     let gearChoices = $state<Record<number, string>>({});
+
+    // Role talent choice state (for "or" talent choices)
+    let talentChoice = $state("");
+
+    // Divination "or" characteristic choices — maps group index → selected option key
+    let divinationChoices = $state<Record<number, string>>({});
 
     // Advancement state
     let purchases = $state<WizardPurchase[]>([]);
@@ -46,6 +58,18 @@
     $effect(() => {
         background; // track dependency
         gearChoices = {};
+    });
+
+    // Reset talent choice when role changes
+    $effect(() => {
+        role; // track dependency
+        talentChoice = "";
+    });
+
+    // Reset divination choices when divination changes
+    $effect(() => {
+        divination; // track dependency
+        divinationChoices = {};
     });
 
     const charOrder = ["ws", "bs", "s", "t", "ag", "int", "per", "wp", "fel"] as const;
@@ -99,7 +123,10 @@
             divination,
             characteristics: { ...characteristics },
             woundsRoll,
+            fateRoll,
             gearChoices: { ...gearChoices },
+            talentChoice,
+            divinationChoices: { ...divinationChoices },
             purchases: [...purchases],
             xpSpent,
         });
@@ -125,16 +152,21 @@
         {:else if step === 1}
             <Background {data} bind:selected={background} bind:gearChoices />
         {:else if step === 2}
-            <Role {data} bind:selected={role} />
+            <Role {data} bind:selected={role} bind:talentChoice />
         {:else if step === 3}
-            <Divination {data} bind:selected={divination} maxRerolls={divinationRerolls} />
+            <Divination {data} bind:selected={divination} maxRerolls={divinationRerolls}
+                bind:rolled={divinationRolled} bind:rollCount={divinationRollCount} bind:rollValue={divinationRollValue}
+                bind:divinationChoices />
         {:else if step === 4}
             <Characteristics
                 method={charGenMethod}
                 {homeworld}
+                {divination}
+                {divinationChoices}
                 bind:characteristics
                 bind:woundsRoll
                 bind:woundsRollCount
+                bind:fateRoll
                 bind:charRolled
                 bind:charRerollUsed
                 bind:charRerolledFrom
@@ -210,16 +242,37 @@
                     </div>
                 </div>
 
-                <!-- Wounds Roll -->
-                <div class="review-wounds">
-                    <span class="review-label">Wounds</span>
-                    {#if woundsRoll !== null}
-                        <span class="review-value wounds-rolled">{woundsRoll}</span>
-                        <span class="review-detail">rolled from {homeworld?.woundsFormula ?? "?"}</span>
+                <!-- Fate & Wounds -->
+                <div class="review-vitals">
+                    {#if homeworld}
+                        {@const baseFate = homeworld.fate?.threshold ?? 2}
+                        {@const blessingTarget = homeworld.fate?.blessing ?? 10}
+                        {@const blessed = fateRoll !== null && fateRoll >= blessingTarget}
+                        <div class="review-vital">
+                            <span class="review-label">Fate</span>
+                            <span class="review-value" class:wounds-rolled={blessed}>{baseFate + (blessed ? 1 : 0)}</span>
+                            {#if fateRoll !== null}
+                                <span class="review-detail">{blessed ? "Blessed!" : "No blessing"} (rolled {fateRoll}, needed {blessingTarget}+)</span>
+                            {:else}
+                                <span class="review-detail warning">Not rolled — using base threshold</span>
+                            {/if}
+                        </div>
                     {:else}
-                        <span class="review-value">{homeworld?.wounds ?? "—"}</span>
-                        <span class="review-detail warning">Not rolled — using flat value</span>
+                        <div class="review-vital">
+                            <span class="review-label">Fate</span>
+                            <span class="review-value">2</span>
+                        </div>
                     {/if}
+                    <div class="review-vital">
+                        <span class="review-label">Wounds</span>
+                        {#if woundsRoll !== null}
+                            <span class="review-value wounds-rolled">{woundsRoll}</span>
+                            <span class="review-detail">rolled from {homeworld?.woundsFormula ?? "?"}</span>
+                        {:else}
+                            <span class="review-value">{homeworld?.wounds ?? "—"}</span>
+                            <span class="review-detail warning">Not rolled — using flat value</span>
+                        {/if}
+                    </div>
                 </div>
 
                 <!-- Advancement Purchases -->
@@ -444,7 +497,20 @@
         font-style: italic;
     }
 
-    .review-wounds, .review-purchases {
+    .review-vitals {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--dh2e-space-sm, 0.5rem);
+        margin-top: var(--dh2e-space-sm, 0.5rem);
+    }
+
+    .review-vital {
+        display: flex;
+        flex-direction: column;
+        gap: var(--dh2e-space-xxs, 0.125rem);
+    }
+
+    .review-purchases {
         display: flex;
         flex-direction: column;
         gap: var(--dh2e-space-xxs, 0.125rem);

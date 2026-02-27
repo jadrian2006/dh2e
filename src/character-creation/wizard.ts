@@ -16,48 +16,104 @@ const ORIGIN_PACKS = {
     roles: "dh2e-data.roles",
 };
 
-/**
- * Structured divination effects for automated application.
- * For "or" choices, the first option is auto-selected.
- * Narrative-only effects (session triggers, special rules) are omitted — the
- * divination text is always stored in details for reference.
- */
-const DIVINATION_EFFECTS: Record<string, {
+/** A group of mutually exclusive characteristic choices within a divination. */
+interface DivinationChoiceGroup {
+    label: string;
+    options: { label: string; key: string; delta: number }[];
+}
+
+/** Session-triggered divination effect that fires once per session */
+interface DivinationSessionEffect {
+    type: "corruption-mod" | "insanity-mod" | "fatigue-mod" | "critical-immunity" | "awareness-reroll" | "damage-reaction" | "fate-survival";
+    /** +1 or -1 for corruption/insanity/fatigue modifiers */
+    modifier?: number;
+    /** true = informational reminder only, no Apply button */
+    reminderOnly?: boolean;
+}
+
+/** Structured divination effect — supports fixed and choice-based modifiers. */
+interface DivinationEffect {
+    choiceGroups?: DivinationChoiceGroup[];
     characteristics?: Record<string, number>;
     talent?: string;
     skill?: string;
     fate?: number;
-}> = {
+    sessionEffect?: DivinationSessionEffect;
+}
+
+/**
+ * Structured divination effects for automated application.
+ * Entries with "or" choices use choiceGroups; the UI presents radio buttons.
+ * Narrative-only effects (session triggers, special rules) are omitted — the
+ * divination text is always stored in details for reference.
+ */
+const DIVINATION_EFFECTS: Record<string, DivinationEffect> = {
     "Trust in your fear.":
         { characteristics: { per: 5 } },
     "Humans must die so that humanity can endure.":
         { talent: "Jaded" },
     "The pain of the bullet is ecstasy compared to damnation.":
-        { characteristics: { ag: -3 } },
+        { characteristics: { ag: -3 }, sessionEffect: { type: "critical-immunity", reminderOnly: true } },
     "Be a boon to your allies and the bane of your enemies.":
         { talent: "Hatred" },
     "The wise learn from the deaths of others.":
-        { characteristics: { ag: 3, ws: -3 } },
+        { choiceGroups: [
+            { label: "Increase by 3", options: [
+                { label: "Agility", key: "ag", delta: 3 },
+                { label: "Intelligence", key: "int", delta: 3 },
+            ]},
+            { label: "Reduce by 3", options: [
+                { label: "Weapon Skill", key: "ws", delta: -3 },
+                { label: "Ballistic Skill", key: "bs", delta: -3 },
+            ]},
+        ]},
     "Kill the alien before it can speak its lies.":
         { talent: "Quick Draw" },
     "Truth is subjective.":
-        { characteristics: { per: 3 } },
+        { characteristics: { per: 3 }, sessionEffect: { type: "corruption-mod", modifier: 1 } },
     "Thought begets Heresy.":
-        { characteristics: { int: -3 } },
+        { characteristics: { int: -3 }, sessionEffect: { type: "corruption-mod", modifier: -1 } },
     "Heresy begets Retribution.":
-        { characteristics: { fel: 3, t: -3 } },
+        { choiceGroups: [
+            { label: "Increase by 3", options: [
+                { label: "Fellowship", key: "fel", delta: 3 },
+                { label: "Strength", key: "s", delta: 3 },
+            ]},
+            { label: "Reduce by 3", options: [
+                { label: "Toughness", key: "t", delta: -3 },
+                { label: "Willpower", key: "wp", delta: -3 },
+            ]},
+        ]},
     "If a job is worth doing, it is worth dying for.":
-        { characteristics: { t: 3, fel: -3 } },
+        { choiceGroups: [
+            { label: "Increase by 3", options: [
+                { label: "Toughness", key: "t", delta: 3 },
+                { label: "Willpower", key: "wp", delta: 3 },
+            ]},
+            { label: "Reduce by 3", options: [
+                { label: "Fellowship", key: "fel", delta: -3 },
+                { label: "Strength", key: "s", delta: -3 },
+            ]},
+        ]},
     "Violence solves everything.":
-        { characteristics: { ws: 3, ag: -3 } },
+        { choiceGroups: [
+            { label: "Increase by 3", options: [
+                { label: "Weapon Skill", key: "ws", delta: 3 },
+                { label: "Ballistic Skill", key: "bs", delta: 3 },
+            ]},
+            { label: "Reduce by 3", options: [
+                { label: "Agility", key: "ag", delta: -3 },
+                { label: "Intelligence", key: "int", delta: -3 },
+            ]},
+        ]},
     "Ignorance is a wisdom of its own.":
-        { characteristics: { per: -3 } },
+        { characteristics: { per: -3 }, sessionEffect: { type: "insanity-mod", modifier: -1 } },
     "Only the insane have strength enough to prosper.":
-        { characteristics: { wp: 3 } },
+        { characteristics: { wp: 3 }, sessionEffect: { type: "insanity-mod", modifier: 1 } },
     "A suspicious mind is a healthy mind.":
-        { characteristics: { per: 2 } },
+        { characteristics: { per: 2 }, sessionEffect: { type: "awareness-reroll", reminderOnly: true } },
     "Suffering is an unrelenting instructor.":
-        { characteristics: { t: -3 } },
+        { characteristics: { t: -3 }, sessionEffect: { type: "damage-reaction", reminderOnly: true } },
     "The only true fear is dying without your duty done.":
         { talent: "Resistance (Cold)" },
     "Innocence is an illusion.":
@@ -66,6 +122,10 @@ const DIVINATION_EFFECTS: Record<string, {
         { skill: "Dodge" },
     "There is no substitute for zeal.":
         { talent: "Clues from the Crowds" },
+    "Only in death does duty end.":
+        { sessionEffect: { type: "fatigue-mod", modifier: -1 } },
+    "Even one who has nothing can still offer his life.":
+        { sessionEffect: { type: "fate-survival", reminderOnly: true } },
     "Do not ask why you serve. Only ask how.":
         { fate: 1 },
 };
@@ -139,6 +199,9 @@ const NAME_ALIASES: Record<string, string> = {
     "glow-globe": "glow-globe/stab-light",
     "lho sticks": "lho-sticks",
     "combat vest": "flak vest",
+    "psy focus": "psy-focus",
+    "armoured bodyglove": "bodyglove",
+    "enforcer light carapace armour": "carapace armour (full)",
 };
 
 /** Find an item in a compendium pack by name (case-insensitive, with alias support) */
@@ -303,7 +366,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 .sort((a: any, b: any) => a.range[0] - b.range[0])
                 .map((r: any) => ({
                     roll: r.range as [number, number],
-                    text: r.text,
+                    text: r.name ?? "",
                     effect: r.flags?.dh2e?.effect ?? "",
                 }));
         }
@@ -356,6 +419,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const role = state.role as RoleOption | null;
         const divination = state.divination as DivinationResult | null;
         const woundsRoll = state.woundsRoll as number | null;
+        const fateRoll = state.fateRoll as number | null;
         const purchases = (state.purchases ?? []) as WizardPurchase[];
         const xpSpent = (state.xpSpent ?? 0) as number;
 
@@ -382,8 +446,11 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             }
             updates["system.influence"] = influence;
 
-            updates["system.fate.max"] = homeworld.fate.threshold;
-            updates["system.fate.value"] = homeworld.fate.threshold;
+            // Fate: base threshold + Emperor's Blessing (+1 if d10 roll met target)
+            const blessed = fateRoll !== null && fateRoll >= homeworld.fate.blessing;
+            const totalFate = homeworld.fate.threshold + (blessed ? 1 : 0);
+            updates["system.fate.max"] = totalFate;
+            updates["system.fate.value"] = totalFate;
 
             // Use rolled wounds if available, otherwise fall back to flat value
             const woundsValue = woundsRoll ?? homeworld.wounds;
@@ -451,27 +518,39 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 const { name } = parseEquipment(resolved);
                 if (/servo[- ]?skull/i.test(name)) {
                     skipEquipmentIndices.add(i);
+
+                    // Determine variant from the resolved name
+                    const isLaudHailer = /laud\s*hailer/i.test(name);
+                    const variant = isLaudHailer ? "laud hailer" : "utility";
+
                     // Create NPC companion from compendium
                     try {
                         const npcPack = game.packs?.get("dh2e-data.npcs");
-                        if (npcPack) {
-                            const npcIndex = await npcPack.getIndex();
-                            const skullEntry = npcIndex.find((e: any) =>
-                                e.name.toLowerCase().includes("servo-skull") && e.name.toLowerCase().includes("utility"),
-                            );
-                            if (skullEntry) {
-                                const skullDoc = await npcPack.getDocument(skullEntry._id);
-                                if (skullDoc) {
-                                    const skullData = (skullDoc as any).toObject();
-                                    delete skullData._id;
-                                    skullData.name = `${this.#actor.name}'s Monotask Servo-skull (Utility)`;
-                                    const createdActors = await (Actor as any).createDocuments([skullData]);
-                                    if (createdActors?.[0]) {
-                                        // Will register as companion after actor is fully set up (post-update)
-                                        (state as any)._pendingCompanionId = createdActors[0].id;
-                                    }
-                                }
-                            }
+                        if (!npcPack) {
+                            console.warn("dh2e | NPC compendium pack not found — cannot create servo-skull companion");
+                            continue;
+                        }
+                        const npcIndex = await npcPack.getIndex();
+                        const skullEntry = npcIndex.find((e: any) =>
+                            e.name.toLowerCase().includes("servo-skull") && e.name.toLowerCase().includes(variant),
+                        );
+                        if (!skullEntry) {
+                            console.warn(`dh2e | Servo-skull (${variant}) not found in NPC compendium`);
+                            continue;
+                        }
+                        const skullDoc = await npcPack.getDocument(skullEntry._id);
+                        if (!skullDoc) {
+                            console.warn(`dh2e | Failed to load servo-skull document from compendium`);
+                            continue;
+                        }
+                        const skullData = (skullDoc as any).toObject();
+                        delete skullData._id;
+                        const variantLabel = isLaudHailer ? "Laud Hailer" : "Utility";
+                        skullData.name = `${this.#actor.name}'s Monotask Servo-skull (${variantLabel})`;
+                        const createdActors = await (Actor as any).createDocuments([skullData]);
+                        if (createdActors?.[0]) {
+                            (state as any)._pendingCompanionId = createdActors[0].id;
+                            console.log(`dh2e | Created servo-skull companion: ${skullData.name}`);
                         }
                     } catch (e) {
                         console.warn("dh2e | Failed to create servo-skull companion from chargen:", e);
@@ -530,22 +609,22 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             }
 
             if (role.talent) {
-                // Try each "or" option until one is found (handles "Resistance (pick one) or Takedown")
-                const options = role.talent.split(/,?\s+or\s+/);
-                let found = false;
-                for (const opt of options) {
-                    const name = opt.trim();
-                    if (isPickOne(name)) continue;
-                    const resolved = resolveOr(name);
-                    const doc = await findInPack("dh2e-data.talents", resolved);
+                const talentChoice = (state.talentChoice as string) || "";
+                let talentName: string;
+                if (talentChoice) {
+                    talentName = resolveOr(talentChoice);
+                } else {
+                    // Default to first non-pick-one option
+                    const options = role.talent.split(/,?\s+or\s+/);
+                    talentName = resolveOr(options.find(o => !isPickOne(o.trim()))?.trim() ?? options[0].trim());
+                }
+                if (!isPickOne(talentName)) {
+                    const doc = await findInPack("dh2e-data.talents", talentName);
                     if (doc) {
                         itemsToCreate.push(doc.toObject());
-                        found = true;
-                        break;
+                    } else {
+                        console.warn(`dh2e | Role talent "${talentName}" not found in compendium`);
                     }
-                }
-                if (!found) {
-                    console.warn(`dh2e | Role talent "${role.talent}" not found in compendium`);
                 }
             }
         }
@@ -599,7 +678,21 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
             const fx = DIVINATION_EFFECTS[divination.text];
             if (fx) {
-                // Characteristic adjustments
+                // Choice-based characteristic adjustments
+                const divChoices = (state.divinationChoices ?? {}) as Record<number, string>;
+                if (fx.choiceGroups) {
+                    for (let gi = 0; gi < fx.choiceGroups.length; gi++) {
+                        const group = fx.choiceGroups[gi];
+                        const selectedKey = divChoices[gi] ?? group.options[0].key;
+                        const opt = group.options.find(o => o.key === selectedKey) ?? group.options[0];
+                        const charKey = `system.characteristics.${opt.key}.base`;
+                        const current = (updates[charKey] as number)
+                            ?? characteristics[opt.key as CharacteristicAbbrev] ?? 25;
+                        updates[charKey] = current + opt.delta;
+                    }
+                }
+
+                // Fixed characteristic adjustments
                 if (fx.characteristics) {
                     for (const [key, delta] of Object.entries(fx.characteristics)) {
                         const charKey = `system.characteristics.${key}.base`;
@@ -795,8 +888,15 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         if (pendingCompanionId) {
             const g = game as any;
             const npcActor = g.actors?.get(pendingCompanionId);
-            if (npcActor && (this.#actor as any).addCompanion) {
-                await (this.#actor as any).addCompanion(npcActor, "follow");
+            if (npcActor) {
+                try {
+                    await (this.#actor as any).addCompanion(npcActor, "follow");
+                    console.log(`dh2e | Registered ${npcActor.name} as companion of ${this.#actor.name}`);
+                } catch (e) {
+                    console.error("dh2e | Failed to register companion:", e);
+                }
+            } else {
+                console.warn(`dh2e | Pending companion actor ${pendingCompanionId} not found in game.actors`);
             }
         }
 
@@ -813,3 +913,4 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 }
 
 export { CreationWizard, DIVINATION_EFFECTS, splitOrChoices, parseEquipment, findInPacks };
+export type { DivinationEffect, DivinationChoiceGroup, DivinationSessionEffect };

@@ -4,7 +4,7 @@ import type { NpcDH2e } from "@actor/npc/document.ts";
 /** Companion entry stored on acolyte */
 export interface CompanionEntry {
     actorId: string;
-    behavior: "follow" | "stay" | "guard";
+    behavior: "follow" | "stay";
 }
 
 /** A single characteristic's source data (stored in DB) */

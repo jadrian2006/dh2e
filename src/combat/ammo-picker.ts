@@ -54,34 +54,40 @@ async function showMagazinePicker(actor: any, weapon: any, magazines: any[]): Pr
     const introText = game.i18n?.format("DH2E.Ammo.PickMagazine", { weapon: weaponName })
         ?? `Choose a magazine to insert into ${weaponName}:`;
 
-    const dialogResult = await fd.Dialog.wait({
-        title: game.i18n?.localize("DH2E.Ammo.SwapMagazine") ?? "Swap Magazine",
-        content: `<form class="dh2e ammo-picker">
-            <p>${introText}</p>
-            <div class="ammo-options">${content}</div>
-        </form>`,
-        buttons: {
-            reload: {
-                icon: '<i class="fa-solid fa-arrows-rotate"></i>',
+    let resolved = false;
+    const dialogResult = await new Promise<number | null>((resolve) => {
+        const dlg = new fa.api.DialogV2({
+            window: { title: game.i18n?.localize("DH2E.Ammo.SwapMagazine") ?? "Swap Magazine" },
+            content: `<form class="dh2e ammo-picker">
+                <p>${introText}</p>
+                <div class="ammo-options">${content}</div>
+            </form>`,
+            buttons: [{
+                action: "reload",
+                icon: "fa-solid fa-arrows-rotate",
                 label: game.i18n?.localize("DH2E.Ammo.SwapMagazine") ?? "Swap Magazine",
-                callback: (html: HTMLElement | JQuery) => {
-                    const el = html instanceof HTMLElement ? html : html[0];
-                    const checked = el.querySelector<HTMLInputElement>('input[name="mag-choice"]:checked');
-                    return checked ? parseInt(checked.value) : 0;
+                default: true,
+                callback: () => {
+                    resolved = true;
+                    const el = dlg.element;
+                    const checked = el?.querySelector<HTMLInputElement>('input[name="mag-choice"]:checked');
+                    resolve(checked ? parseInt(checked.value) : 0);
                 },
-            },
-            cancel: {
-                icon: '<i class="fas fa-times"></i>',
+            }, {
+                action: "cancel",
+                icon: "fas fa-times",
                 label: "Cancel",
-                callback: () => null,
-            },
-        },
-        default: "reload",
+                callback: () => { resolved = true; resolve(null); },
+            }],
+            close: () => { if (!resolved) resolve(null); },
+            position: { width: 360 },
+        });
+        dlg.render(true);
     });
 
     if (dialogResult === null || dialogResult === undefined) return;
 
-    const selectedMag = magazines[dialogResult as number];
+    const selectedMag = magazines[dialogResult];
     if (!selectedMag) return;
 
     const result = await reloadMagazineSwap(actor, weapon, selectedMag);
@@ -113,34 +119,40 @@ async function showLooseAmmoPicker(actor: any, weapon: any, compatible: any[]): 
     const introText = game.i18n?.format("DH2E.Ammo.PickerIntro", { weapon: weaponName })
         ?? `Choose ammunition to load into ${weaponName}:`;
 
-    const dialogResult = await fd.Dialog.wait({
-        title: game.i18n?.localize("DH2E.Ammo.PickerTitle") ?? "Select Ammunition",
-        content: `<form class="dh2e ammo-picker">
-            <p>${introText}</p>
-            <div class="ammo-options">${content}</div>
-        </form>`,
-        buttons: {
-            reload: {
-                icon: '<i class="fa-solid fa-arrows-rotate"></i>',
+    let resolved = false;
+    const dialogResult = await new Promise<number | null>((resolve) => {
+        const dlg = new fa.api.DialogV2({
+            window: { title: game.i18n?.localize("DH2E.Ammo.PickerTitle") ?? "Select Ammunition" },
+            content: `<form class="dh2e ammo-picker">
+                <p>${introText}</p>
+                <div class="ammo-options">${content}</div>
+            </form>`,
+            buttons: [{
+                action: "reload",
+                icon: "fa-solid fa-arrows-rotate",
                 label: game.i18n?.localize("DH2E.Ammo.Reload") ?? "Reload",
-                callback: (html: HTMLElement | JQuery) => {
-                    const el = html instanceof HTMLElement ? html : html[0];
-                    const checked = el.querySelector<HTMLInputElement>('input[name="ammo-choice"]:checked');
-                    return checked ? parseInt(checked.value) : 0;
+                default: true,
+                callback: () => {
+                    resolved = true;
+                    const el = dlg.element;
+                    const checked = el?.querySelector<HTMLInputElement>('input[name="ammo-choice"]:checked');
+                    resolve(checked ? parseInt(checked.value) : 0);
                 },
-            },
-            cancel: {
-                icon: '<i class="fas fa-times"></i>',
+            }, {
+                action: "cancel",
+                icon: "fas fa-times",
                 label: "Cancel",
-                callback: () => null,
-            },
-        },
-        default: "reload",
+                callback: () => { resolved = true; resolve(null); },
+            }],
+            close: () => { if (!resolved) resolve(null); },
+            position: { width: 360 },
+        });
+        dlg.render(true);
     });
 
     if (dialogResult === null || dialogResult === undefined) return;
 
-    const selectedAmmo = compatible[dialogResult as number];
+    const selectedAmmo = compatible[dialogResult];
     if (!selectedAmmo) return;
 
     const result = await reloadIndividual(actor, weapon, selectedAmmo);

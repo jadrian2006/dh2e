@@ -1,27 +1,21 @@
 <script lang="ts">
     import PersonalObjectives from "./personal-objectives.svelte";
+    import PersonalNotes from "./personal-notes.svelte";
+    import RichTextEditor from "@sheet/components/rich-text-editor.svelte";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
     const objectives = $derived(ctx.items?.objectives ?? []);
+    const notes = $derived(ctx.items?.notes ?? []);
 
-    let notesContent = $derived(ctx.system?.details?.notes ?? "");
-    let editorEl: HTMLDivElement | undefined = $state();
-
-    /** Save notes to actor */
-    async function saveNotes() {
+    /** Save freeform notes to actor */
+    async function saveFreeformNotes(html: string) {
         const actor = ctx.actor;
         if (!actor || !ctx.editable) return;
-        const current = editorEl?.innerHTML ?? notesContent;
-        if (current !== (ctx.system?.details?.notes ?? "")) {
-            await actor.update({ "system.details.notes": current });
+        if (html !== (ctx.system?.details?.notes ?? "")) {
+            await actor.update({ "system.details.notes": html });
         }
     }
-
-    // Save on unmount
-    $effect(() => {
-        return () => { saveNotes(); };
-    });
 </script>
 
 <div class="notes-tab">
@@ -37,16 +31,31 @@
         onDelete={(obj) => ctx.deleteObjective?.(obj)}
     />
 
-    {#if ctx.editable}
-        <div
-            class="notes-editor"
-            contenteditable="true"
-            bind:this={editorEl}
-            onblur={saveNotes}
-        >{@html notesContent}</div>
-    {:else}
-        <div class="notes-readonly">{@html ctx.system?.details?.notes ?? ""}</div>
-    {/if}
+    <!-- Personal Notes -->
+    <PersonalNotes
+        {notes}
+        editable={ctx.editable}
+        onAdd={() => ctx.addPersonalNote?.()}
+        onOpen={(note) => ctx.openNote?.(note)}
+        onDelete={(note) => ctx.deleteNote?.(note)}
+    />
+
+    <!-- Freeform Notes -->
+    <div class="freeform-section">
+        <h3 class="section-title">
+            <i class="fa-solid fa-pen-nib"></i>
+            Freeform Notes
+        </h3>
+        <div class="freeform-editor">
+            <RichTextEditor
+                content={ctx.system?.details?.notes ?? ""}
+                editable={ctx.editable}
+                onSave={saveFreeformNotes}
+                document={ctx.actor}
+                fieldName="system.details.notes"
+            />
+        </div>
+    </div>
 </div>
 
 <style lang="scss">
@@ -54,38 +63,31 @@
         display: flex;
         flex-direction: column;
         flex: 1;
+        gap: var(--dh2e-space-md, 0.75rem);
         min-height: 300px;
     }
 
-    .notes-editor {
+    .freeform-section {
+        display: flex;
+        flex-direction: column;
         flex: 1;
-        min-height: 300px;
-        padding: var(--dh2e-space-md, 0.75rem);
-        background: var(--dh2e-bg-mid, #2e2e35);
-        color: var(--dh2e-text-primary, #d0cfc8);
-        border: 1px solid var(--dh2e-border, #4a4a55);
-        border-radius: var(--dh2e-radius-sm, 3px);
-        font-size: var(--dh2e-text-sm, 0.8rem);
-        line-height: 1.5;
-        overflow-y: auto;
-        outline: none;
-
-        &:focus {
-            border-color: var(--dh2e-gold, #b49545);
-            box-shadow: 0 0 4px var(--dh2e-gold-dark, #7a6228);
-        }
+        gap: var(--dh2e-space-xs, 0.25rem);
     }
 
-    .notes-readonly {
+    .section-title {
+        font-family: var(--dh2e-font-header);
+        font-size: 0.8rem;
+        color: var(--dh2e-gold);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 0;
+        i { margin-right: 4px; font-size: 0.7rem; }
+    }
+
+    .freeform-editor {
         flex: 1;
-        min-height: 300px;
-        padding: var(--dh2e-space-md, 0.75rem);
-        background: var(--dh2e-bg-mid, #2e2e35);
-        color: var(--dh2e-text-primary, #d0cfc8);
-        border: 1px solid var(--dh2e-border, #4a4a55);
-        border-radius: var(--dh2e-radius-sm, 3px);
-        font-size: var(--dh2e-text-sm, 0.8rem);
-        line-height: 1.5;
-        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 200px;
     }
 </style>

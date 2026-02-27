@@ -38,13 +38,6 @@
                         <span class="stat bonus">+5 {hw.characteristicBonuses.positive.map((k: string) => charLabels[k] ?? k.toUpperCase()).join(", ")}</span>
                         <span class="stat penalty">-5 {hw.characteristicBonuses.negative.map((k: string) => charLabels[k] ?? k.toUpperCase()).join(", ")}</span>
                     </div>
-                    <div class="card-row info-row">
-                        <span>Fate {hw.fate.threshold}/{hw.fate.blessing}</span>
-                        <span>W {hw.woundsFormula ?? hw.wounds}</span>
-                        <span>{hw.aptitude}</span>
-                    </div>
-                    <div class="card-row">{hw.homeSkill}</div>
-                    <div class="card-row bonus-row">{hw.bonus}</div>
                 </button>
             {/each}
         </div>
@@ -52,6 +45,12 @@
         {#if selected}
             <div class="detail-panel">
                 <h4 class="detail-name">{selected.name}</h4>
+                <div class="detail-info">
+                    <span class="detail-tag">{selected.aptitude}</span>
+                    <span class="detail-stat" title="Base Fate Threshold. Roll for Emperor's Blessing on the Characteristics step.">Fate {selected.fate.threshold}</span>
+                    <span class="detail-stat">Wounds {selected.woundsFormula ?? selected.wounds}</span>
+                </div>
+                <p class="detail-skill"><strong>Home Skill:</strong> {selected.homeSkill}</p>
                 {#if selected.description}
                     <p class="detail-desc">{selected.description}</p>
                 {/if}
@@ -109,7 +108,7 @@
 
     .card-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 6px;
     }
 
@@ -177,18 +176,6 @@
         }
     }
 
-    .info-row {
-        display: flex;
-        gap: 0.5rem;
-        color: var(--dh2e-text-secondary, #a0a0a8);
-    }
-
-    .bonus-row {
-        font-style: italic;
-        color: var(--dh2e-gold-dark, #9c7a28);
-        font-size: 0.7rem;
-    }
-
     .detail-panel {
         background: var(--dh2e-bg-mid, #2e2e35);
         border: 1px solid var(--dh2e-gold-dark, #9c7a28);
@@ -201,6 +188,36 @@
         color: var(--dh2e-gold, #c8a84e);
         font-size: 1rem;
         text-transform: uppercase;
+        margin: 0 0 4px;
+    }
+
+    .detail-info {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        margin-bottom: 0.4rem;
+    }
+
+    .detail-tag {
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 0.05rem 0.3rem;
+        border-radius: 2px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--dh2e-gold, #c8a84e);
+        background: rgba(200, 168, 78, 0.15);
+    }
+
+    .detail-stat {
+        font-size: 0.75rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+    }
+
+    .detail-skill {
+        font-size: 0.85rem;
+        color: var(--dh2e-text-primary, #d0cfc8);
+        line-height: 1.4;
         margin: 0 0 4px;
     }
 

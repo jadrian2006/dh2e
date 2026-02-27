@@ -49,7 +49,9 @@
             "@requisition": ["./src/requisition/index.ts"],
             "@requisition/*": ["./src/requisition/*"],
             "@migration": ["./src/migration/index.ts"],
-            "@migration/*": ["./src/migration/*"]
+            "@migration/*": ["./src/migration/*"],
+            "@divination/*": ["./src/divination/*"],
+            "@character-creation/*": ["./src/character-creation/*"]
         }
     },
     "include": [

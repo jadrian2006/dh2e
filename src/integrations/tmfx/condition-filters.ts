@@ -192,6 +192,19 @@ const CONDITION_FILTERS: Record<string, TMFXFilterParam[]> = {
         saturation: 0.1,
         contrast: 0.7,
     }],
+
+    "frenzied": [{
+        filterType: "glow",
+        filterId: fid("frenzied"),
+        color: 0xcc3300,
+        outerStrength: 3,
+        innerStrength: 1,
+        padding: 10,
+        animated: {
+            outerStrength: { active: true, animType: "cosOscillation", loopDuration: 800, val1: 2, val2: 4 },
+            color: { active: true, animType: "colorOscillation", loopDuration: 2000, val1: 0xcc3300, val2: 0xff6600 },
+        },
+    }],
 };
 
 export { CONDITION_FILTERS };

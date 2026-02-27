@@ -1,5 +1,5 @@
 /** Item type identifiers */
-export type ItemType = "weapon" | "armour" | "gear" | "skill" | "talent" | "condition" | "power" | "homeworld" | "background" | "role" | "trait" | "critical-injury" | "malignancy" | "mental-disorder" | "ammunition" | "cybernetic" | "objective";
+export type ItemType = "weapon" | "armour" | "gear" | "skill" | "talent" | "condition" | "power" | "homeworld" | "background" | "role" | "trait" | "critical-injury" | "malignancy" | "mental-disorder" | "ammunition" | "cybernetic" | "objective" | "treasure" | "note";
 
 /** Base item class for all DH2E item types */
 class ItemDH2e extends Item {

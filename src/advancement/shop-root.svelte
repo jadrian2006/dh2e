@@ -180,7 +180,11 @@
                 {:else}
                     <span class="info-btn-spacer"></span>
                 {/if}
-                <span class="row-pips" title={matchTooltip(opt)}>{matchPips(opt.matchCount)}</span>
+                {#if opt.aptitudes.length > 0}
+                    <span class="row-pips" title={matchTooltip(opt)}>{matchPips(opt.matchCount)}</span>
+                {:else}
+                    <span class="row-pips"></span>
+                {/if}
                 <span class="row-cost" class:affordable={opt.affordable} class:too-expensive={!opt.affordable && !opt.alreadyMaxed}>
                     {#if opt.alreadyMaxed}
                         <span class="max-badge">MAX</span>

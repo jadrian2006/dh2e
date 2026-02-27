@@ -362,5 +362,23 @@
             "weight": 0,
             "availability": "Very Rare"
         }
+    },
+    {
+        "name": "Mechanicus Implants",
+        "type": "cybernetic",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
+        "system": {
+            "description": "The standard suite of implants granted to all inducted members of the Adeptus Mechanicus. Includes an Electro-graft (interface port in the palm), Electoo Inductors (subcutaneous circuits), Respirator Unit (implanted lung filter), Cyber-mantle (spinal column mount for additional mechadendrites), Potentia Coil (internal power source), and Cranial Circuitry (basic cogitator implants). The character is treated as having the Machine trait (1) for purposes of interaction with technology.",
+            "location": "Body",
+            "type": "trait",
+            "grade": "common",
+            "rules": [
+                { "key": "RollOption", "option": "trait:mechanicus-implants", "label": "Mechanicus Implants" },
+                { "key": "FlatModifier", "domain": "skill:tech-use", "value": 10, "label": "Mechanicus Implants (Electro-graft)", "source": "equipment", "predicate": ["action:connected"] }
+            ],
+            "installed": true,
+            "weight": 0,
+            "availability": "Common"
+        }
     }
 ]

@@ -330,6 +330,26 @@
         }
     },
     {
+        "name": "Silver Rounds",
+        "type": "ammunition",
+        "img": "icons/svg/item-bag.svg",
+        "system": {
+            "description": "Solid projectile rounds cast or coated in consecrated silver. Effective against Warp-touched entities and Daemons. Compatible with all SP weapons.",
+            "damageModifier": 0,
+            "damageType": "",
+            "penetrationModifier": 0,
+            "qualities": ["Sanctified"],
+            "quantity": 1,
+            "weight": 0.5,
+            "weaponGroup": "sp",
+            "availability": "Rare",
+            "craftsmanship": "common",
+            "loadedRounds": [],
+            "forWeapon": "",
+            "capacity": 0
+        }
+    },
+    {
         "name": "Overcharge Pack",
         "type": "ammunition",
         "img": "icons/svg/item-bag.svg",

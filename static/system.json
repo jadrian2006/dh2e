@@ -102,6 +102,9 @@
             },
             "treasure": {
                 "htmlFields": ["description"]
+            },
+            "note": {
+                "htmlFields": ["content"]
             }
         }
     }

@@ -3,7 +3,7 @@
         "name": "Adeptus Administratum",
         "skills": [
             "Commerce or Medicae",
-            "Common Lore (Adeptus Administratum)",
+            "Common Lore (Administratum)",
             "Linguistics (High Gothic)",
             "Logic",
             "Scholastic Lore (pick one)"
@@ -98,7 +98,7 @@
         "skills": [
             "Charm",
             "Command",
-            "Common Lore (Adeptus Ministorum)",
+            "Common Lore (Ecclesiarchy)",
             "Inquiry or Scrutiny",
             "Linguistics (High Gothic)"
         ],

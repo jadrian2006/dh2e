@@ -280,7 +280,7 @@ const SETTINGS: SettingDefinition[] = [
         scope: "client",
         config: true,
         type: Boolean,
-        default: false,
+        default: true,
     },
     {
         key: "npcDefaultCompact",

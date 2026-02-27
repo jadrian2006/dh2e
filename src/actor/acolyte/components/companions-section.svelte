@@ -13,6 +13,15 @@
         const value = (event.target as HTMLSelectElement).value;
         await ctx.setCompanionBehavior?.(actorId, value);
     }
+
+    function onDragStart(event: DragEvent, comp: any) {
+        const actor = (game as any).actors?.get(comp.actorId);
+        if (!actor || !event.dataTransfer) return;
+        event.dataTransfer.setData("text/plain", JSON.stringify({
+            type: "Actor",
+            uuid: actor.uuid,
+        }));
+    }
 </script>
 
 <section class="companions-section">
@@ -29,6 +38,9 @@
                         class="companion-portrait"
                         src={comp.img}
                         alt={comp.name}
+                        draggable="true"
+                        ondragstart={(e) => onDragStart(e, comp)}
+                        title="Drag to canvas to place token"
                     />
                     <div class="companion-info">
                         <div class="companion-name">
@@ -62,7 +74,6 @@
                         >
                             <option value="follow">{game.i18n?.localize("DH2E.Companion.Follow") ?? "Follow"}</option>
                             <option value="stay">{game.i18n?.localize("DH2E.Companion.Stay") ?? "Stay"}</option>
-                            <option value="guard">{game.i18n?.localize("DH2E.Companion.Guard") ?? "Guard"}</option>
                         </select>
                         {#if isGM}
                             <button
@@ -124,6 +135,9 @@
         border: 1px solid var(--dh2e-border, #4a4a55);
         object-fit: cover;
         flex-shrink: 0;
+        cursor: grab;
+
+        &:active { cursor: grabbing; }
     }
 
     .companion-info {

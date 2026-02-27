@@ -49,6 +49,9 @@ class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         Hooks.on("deleteCombat", () => CombatHUD.instance.hide());
         Hooks.on("updateCombat", () => CombatHUD.#debouncedRender());
         Hooks.on("updateActor", () => CombatHUD.#debouncedRender());
+        Hooks.on("updateItem", () => CombatHUD.#debouncedRender());
+        Hooks.on("createItem", () => CombatHUD.#debouncedRender());
+        Hooks.on("deleteItem", () => CombatHUD.#debouncedRender());
         Hooks.on("targetToken", () => CombatHUD.#debouncedRender());
     }
 

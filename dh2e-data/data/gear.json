@@ -1,14 +1,14 @@
 [
     {
         "name": "Imperial Thrones",
-        "type": "gear",
+        "type": "treasure",
         "img": "systems/dh2e/icons/items/gear.svg",
         "system": {
             "description": "The standard currency of the Imperium of Man. On Barovus, Thrones retain their value but are scarce — inflated by isolation and the absence of regular trade routes. Adjust quantity as Thrones are earned or spent.",
+            "value": 1,
             "weight": 0,
             "quantity": 1,
-            "availability": "Common",
-            "craftsmanship": "common"
+            "category": "currency"
         }
     },
     {
@@ -449,6 +449,166 @@
             "weight": 0,
             "quantity": 1,
             "craftsmanship": "common"
+        }
+    },
+    {
+        "name": "Imperial Robes",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "Heavy layered robes in the style of the Adeptus Terra, often bearing the insignia of the wearer's organisation. Standard attire for Administratum adepts, Tech-Priests, and Ministorum clergy.",
+            "weight": 2,
+            "quantity": 1,
+            "craftsmanship": "common"
+        }
+    },
+    {
+        "name": "Autoquill",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A servo-assisted writing device that can automatically transcribe dictated speech or copy documents at high speed. Essential equipment for Administratum scribes.",
+            "weight": 0,
+            "quantity": 1,
+            "craftsmanship": "common"
+        }
+    },
+    {
+        "name": "Monotask Servo-skull (Utility)",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A floating skull-drone fitted with utility mechadendrites, a lamp pack, and basic manipulator tools. Can carry small objects, illuminate areas, and perform simple tasks as directed.",
+            "weight": 2,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "availability": "Scarce"
+        }
+    },
+    {
+        "name": "Monotask Servo-skull (Laud Hailer)",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A floating skull-drone fitted with a powerful vox-caster that can broadcast the bearer's voice over a wide area. Used by Ministorum preachers and Imperial commanders to address large crowds.",
+            "weight": 2,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "availability": "Scarce"
+        }
+    },
+    {
+        "name": "Optical Mechadendrite",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A mechanical tendril fitted with advanced optical sensors including magnification, thermal, and auspex capabilities. Mounted on the back or shoulder of a Tech-Priest. Grants +10 to Awareness and Search tests involving sight.",
+            "weight": 3,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "availability": "Rare"
+        }
+    },
+    {
+        "name": "Injector",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A hand-held or wrist-mounted drug delivery device. Can administer doses of drugs, stimms, or poisons as a Half Action.",
+            "weight": 0.5,
+            "quantity": 1,
+            "craftsmanship": "common"
+        }
+    },
+    {
+        "name": "Extended Magazine",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "Modifies a ranged weapon's receiver to accept extended-capacity magazines in addition to standard ones. The weapon can use both normal and extended magazines interchangeably.\n\nInstallation requires a successful Ordinary (+10) Tech-Use test and takes 1d5 hours. Only one Extended Magazine modification can be fitted to a weapon.\n\n<strong>Solid Projectile:</strong> A widened magazine well with a dual-slot receiver, accommodating the longer extended box magazines.\n<strong>Las:</strong> An auxiliary power coupling spliced into the weapon's charge circuit, drawing from higher-capacity power packs.\n<strong>Bolt:</strong> A reinforced feed mechanism and expanded canister housing to handle the heavier extended bolt drums.\n<strong>Flame/Melta:</strong> An additional fuel line connection with a secondary valve, supporting the larger extended fuel canisters.\n<strong>Plasma:</strong> An enhanced capacitor bank wired into the weapon's containment field, interfacing with extended plasma flasks.",
+            "weight": 0.5,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "availability": "Average",
+            "category": "weapon-upgrade"
+        }
+    },
+    {
+        "name": "Red-Dot Laser Sight",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A compact laser sight mounted on a ranged weapon. Grants +10 to BS tests when firing a single shot. Only one sight upgrade may be fitted to a weapon at a time.",
+            "weight": 0.5,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "availability": "Scarce",
+            "category": "weapon-upgrade"
+        }
+    },
+    {
+        "name": "Silencer",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A suppressor fitted to a solid projectile weapon. Tests to hear shots are made at -20. Only fits SP weapons. Ineffective on weapons with the Scatter quality.",
+            "weight": 0.5,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "availability": "Average",
+            "category": "weapon-upgrade"
+        }
+    },
+    {
+        "name": "Telescopic Sight",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "An optical scope for accurate long-range fire. Grants an additional +10 to BS tests when using the Aim action. Only one sight upgrade may be fitted to a weapon at a time.",
+            "weight": 0.5,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "availability": "Scarce",
+            "category": "weapon-upgrade"
+        }
+    },
+    {
+        "name": "Fire Selector",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "Allows a weapon's magazine to carry up to three different ammunition types simultaneously. The wielder may switch between types as a Free Action at the start of their turn.",
+            "weight": 0.5,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "availability": "Very Rare",
+            "category": "weapon-upgrade"
+        }
+    },
+    {
+        "name": "Mono Upgrade",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "Re-edges a bladed melee weapon at the molecular level, granting it exceptional sharpness. Adds +2 Penetration to a Low-Tech melee weapon's attacks.",
+            "weight": 0,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "availability": "Scarce",
+            "category": "weapon-upgrade"
+        }
+    },
+    {
+        "name": "Melee Attachment",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A bayonet or chain-blade fitted to a Basic ranged weapon. The weapon can be used in melee as a spear (1d10+1 R, Pen 0, Primitive). Attaching or detaching takes a Full Action.",
+            "weight": 1,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "availability": "Average",
+            "category": "weapon-upgrade"
         }
     }
 ]

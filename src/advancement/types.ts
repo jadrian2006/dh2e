@@ -38,6 +38,8 @@ export interface AdvanceOption {
     needsApproval?: boolean;
     /** True while waiting for GM response to an approval request */
     pendingApproval?: boolean;
+    /** Item description text for display in advancement UI */
+    description?: string;
 }
 
 export interface XPTransaction {

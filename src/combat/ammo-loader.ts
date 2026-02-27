@@ -62,38 +62,46 @@ async function showMagazineLoader(actor: any, magazine: any): Promise<void> {
         ${rows}
     </form>`;
 
-    const result = await fd.Dialog.wait({
-        title: game.i18n?.format("DH2E.Ammo.LoadMagazineTitle", { magazine: magazine.name })
-            ?? `Load ${magazine.name}`,
-        content: dialogContent,
-        buttons: {
-            load: {
-                icon: '<i class="fa-solid fa-arrow-down"></i>',
+    let resolved = false;
+    const result = await new Promise<Array<{ idx: number; count: number }> | null>((resolve) => {
+        const dlg = new fa.api.DialogV2({
+            window: {
+                title: game.i18n?.format("DH2E.Ammo.LoadMagazineTitle", { magazine: magazine.name })
+                    ?? `Load ${magazine.name}`,
+            },
+            content: dialogContent,
+            buttons: [{
+                action: "load",
+                icon: "fa-solid fa-arrow-down",
                 label: game.i18n?.localize("DH2E.Ammo.LoadButton") ?? "Load",
-                callback: (html: HTMLElement | JQuery) => {
-                    const el = html instanceof HTMLElement ? html : html[0];
-                    const inputs = el.querySelectorAll<HTMLInputElement>("input[type='number']");
+                default: true,
+                callback: () => {
+                    resolved = true;
+                    const el = dlg.element;
+                    const inputs = el?.querySelectorAll<HTMLInputElement>("input[type='number']") ?? [];
                     const loads: Array<{ idx: number; count: number }> = [];
                     inputs.forEach((input) => {
                         const idx = parseInt(input.dataset.idx ?? "0");
                         const count = parseInt(input.value) || 0;
                         if (count > 0) loads.push({ idx, count });
                     });
-                    return loads;
+                    resolve(loads);
                 },
-            },
-            cancel: {
-                icon: '<i class="fas fa-times"></i>',
+            }, {
+                action: "cancel",
+                icon: "fas fa-times",
                 label: "Cancel",
-                callback: () => null,
-            },
-        },
-        default: "load",
+                callback: () => { resolved = true; resolve(null); },
+            }],
+            close: () => { if (!resolved) resolve(null); },
+            position: { width: 380 },
+        });
+        dlg.render(true);
     });
 
-    if (!result || (result as any[]).length === 0) return;
+    if (!result || result.length === 0) return;
 
-    const loads = (result as Array<{ idx: number; count: number }>).map((l) => ({
+    const loads = result.map((l) => ({
         ammoItem: looseAmmo[l.idx],
         count: l.count,
     })).filter((l) => l.ammoItem && l.count > 0);

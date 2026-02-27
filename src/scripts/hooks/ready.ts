@@ -5,7 +5,8 @@ import { RollRequestPrompt } from "../../ui/roll-request-prompt.ts";
 import { EliteApprovalPrompt } from "../../ui/elite-approval-prompt.ts";
 import { AdvancementShop } from "../../advancement/shop.ts";
 import { GMGrantDialog } from "../../ui/gm-grant-dialog.ts";
-import { MigrationRunner } from "@migration/runner.ts";
+import { GMAdjustDialog } from "../../ui/gm-adjust-dialog.ts";
+import { MigrationRunner } from "@migration/index.ts";
 import { CombatHUD } from "@combat/hud/combat-hud.ts";
 import { CompendiumBrowser } from "../../ui/compendium-browser/browser.ts";
 import { createFirstWarband } from "@actor/warband/helpers.ts";
@@ -34,6 +35,7 @@ export class Ready {
             (game as any).dh2e.requestRoll = () => RollRequestDialog.open();
             (game as any).dh2e.compendiumBrowser = CompendiumBrowser;
             (game as any).dh2e.grantAdvance = () => GMGrantDialog.open();
+            (game as any).dh2e.adjustCharacter = () => GMAdjustDialog.open();
             (game as any).dh2e.assignObjective = () => {
                 const warband = (game as any).dh2e?.warband;
                 if (warband) {

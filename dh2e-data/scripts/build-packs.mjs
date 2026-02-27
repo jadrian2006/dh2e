@@ -296,7 +296,7 @@ async function buildTablePack() {
             const result = {
                 _id: resultId,
                 type: 0, // RESULT_TYPES.TEXT
-                text: entry.title ?? entry.text ?? "",
+                name: entry.title ?? entry.text ?? "",
                 range: [range.min, range.max],
                 weight: 1,
                 drawn: false,

@@ -94,10 +94,16 @@ const LOCATION_LABELS: Record<string, string> = {
 /**
  * Get the total armour points at a given location for an actor.
  *
- * Sums AP from all equipped armour items covering that location.
- * Supports armour layering (multiple pieces covering the same location).
+ * Uses the actor's prepared armour data (aggregated during prepareDerivedData),
+ * which includes craftsmanship bonuses and synthetic modifiers.
+ * Falls back to manual item scan if prepared data isn't available.
  */
 function getLocationAP(actor: Actor, location: HitLocationKey): number {
+    // Use prepared armour data (includes craftsmanship + synthetics)
+    const preparedAP = (actor as any).system?.armour?.[location];
+    if (typeof preparedAP === "number") return preparedAP;
+
+    // Fallback: scan equipped armour items directly
     const items = (actor as any).items;
     if (!items) return 0;
 

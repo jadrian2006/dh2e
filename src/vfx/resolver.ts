@@ -7,7 +7,7 @@
  */
 
 import { getSetting } from "../ui/settings/settings.ts";
-import { WEAPON_EFFECTS, PSYCHIC_EFFECTS, DAMAGE_EFFECTS } from "./effect-map.ts";
+import { WEAPON_EFFECTS, PSYCHIC_EFFECTS, DAMAGE_EFFECTS, CONDITION_EFFECTS } from "./effect-map.ts";
 
 type VFXIntensity = "minimal" | "normal" | "full";
 
@@ -245,6 +245,32 @@ class VFXResolver {
                 seq.wait(80);
             }
         }
+
+        await seq.play();
+    }
+
+    /** Play a one-shot VFX when a condition is applied or removed */
+    static async condition(opts: {
+        token: any;
+        slug: string;
+        applied: boolean;
+    }): Promise<void> {
+        if (!VFXResolver.available) return;
+
+        const Sequence = VFXResolver.#getSequence();
+        if (!Sequence) return;
+
+        const fx = CONDITION_EFFECTS[opts.slug];
+        const path = opts.applied ? fx?.apply : fx?.remove;
+        if (!path) return;
+
+        const seq = new Sequence();
+        seq.effect()
+            .file(path)
+            .atLocation(opts.token)
+            .scaleToObject(1.5)
+            .fadeIn(200)
+            .fadeOut(300);
 
         await seq.play();
     }

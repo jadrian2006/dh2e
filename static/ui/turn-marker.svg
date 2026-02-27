@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8c84a"/>
+      <stop offset="50%" stop-color="#c8a84e"/>
+      <stop offset="100%" stop-color="#a08030"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Outer ring -->
+  <circle cx="128" cy="128" r="120" fill="none" stroke="url(#gold)" stroke-width="4" opacity="0.9" filter="url(#glow)"/>
+  <!-- Inner ring -->
+  <circle cx="128" cy="128" r="112" fill="none" stroke="url(#gold)" stroke-width="1.5" opacity="0.5"/>
+  <!-- Cardinal pips — Imperial cross motif -->
+  <circle cx="128" cy="6" r="4" fill="#c8a84e" opacity="0.9"/>
+  <circle cx="250" cy="128" r="4" fill="#c8a84e" opacity="0.9"/>
+  <circle cx="128" cy="250" r="4" fill="#c8a84e" opacity="0.9"/>
+  <circle cx="6" cy="128" r="4" fill="#c8a84e" opacity="0.9"/>
+  <!-- Diagonal accent marks -->
+  <line x1="38" y1="38" x2="48" y2="48" stroke="#c8a84e" stroke-width="2" opacity="0.6"/>
+  <line x1="218" y1="38" x2="208" y2="48" stroke="#c8a84e" stroke-width="2" opacity="0.6"/>
+  <line x1="218" y1="218" x2="208" y2="208" stroke="#c8a84e" stroke-width="2" opacity="0.6"/>
+  <line x1="38" y1="218" x2="48" y2="208" stroke="#c8a84e" stroke-width="2" opacity="0.6"/>
+</svg>

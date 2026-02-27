@@ -13,6 +13,14 @@
         compactMode = !compactMode;
         ctx.setCompactMode?.(compactMode);
     }
+
+    /** Commit wound value change */
+    function onWoundsChange(e: Event) {
+        const input = e.target as HTMLInputElement;
+        const max = ctx.system?.wounds?.max ?? 0;
+        const val = Math.max(0, Math.min(max, parseInt(input.value) || 0));
+        ctx.actor?.update({ "system.wounds.value": val });
+    }
 </script>
 
 <div class="npc-sheet" class:loot-mode={lootMode}>
@@ -36,7 +44,16 @@
             {/if}
             {#if !lootMode}
                 <div class="header-meta">
-                    <span class="wounds-inline">W: {ctx.system?.wounds?.value ?? 0}/{ctx.system?.wounds?.max ?? 0}</span>
+                    {#if ctx.editable}
+                        <span class="wounds-inline">W:
+                            <input type="number" class="wound-edit"
+                                value={ctx.system?.wounds?.value ?? 0}
+                                onchange={onWoundsChange}
+                                min="0" max={ctx.system?.wounds?.max ?? 0} />/{ctx.system?.wounds?.max ?? 0}
+                        </span>
+                    {:else}
+                        <span class="wounds-inline">W: {ctx.system?.wounds?.value ?? 0}/{ctx.system?.wounds?.max ?? 0}</span>
+                    {/if}
                 </div>
             {/if}
         </div>
@@ -116,6 +133,8 @@
         font-size: 1.2rem;
         font-family: var(--dh2e-font-header, serif);
         color: var(--dh2e-text-primary, #d0cfc8);
+        user-select: text;
+        cursor: text;
     }
 
     .actor-name-input {
@@ -139,6 +158,26 @@
 
     .wounds-inline {
         font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+    }
+
+    .wound-edit {
+        width: 2.2rem;
+        background: var(--dh2e-bg-dark, #1a1a22);
+        color: var(--dh2e-text-primary, #d0cfc8);
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        text-align: center;
+        font-size: var(--dh2e-text-xs, 0.7rem);
+        font-weight: 700;
+        padding: 1px 2px;
+        outline: none;
+
+        &:focus {
+            border-color: var(--dh2e-gold, #c8a84e);
+        }
     }
 
     .view-toggle {

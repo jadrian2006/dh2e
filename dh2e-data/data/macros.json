@@ -36,5 +36,15 @@
         "command": "game.dh2e.maintainCybernetics();",
         "scope": "global",
         "flags": {}
+    },
+    {
+        "name": "Adjust Character",
+        "type": "script",
+        "img": "icons/svg/aura.svg",
+        "command": "game.dh2e.adjustCharacter();",
+        "scope": "global",
+        "flags": {
+            "dh2e": { "gmOnly": true }
+        }
     }
 ]

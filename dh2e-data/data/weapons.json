@@ -180,6 +180,43 @@
         }
     },
     {
+        "name": "Whip",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A long, braided leather lash used to entangle and punish. Common among slavers, beast handlers, and penal overseers across the Imperium.",
+            "class": "melee",
+            "range": 3,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10",
+                "type": "rending",
+                "bonus": 1
+            },
+            "penetration": 0,
+            "reload": "",
+            "weight": 2,
+            "qualities": [
+                "Flexible",
+                "Snare (2)"
+            ],
+            "equipped": false,
+            "weaponGroup": "",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
+        }
+    },
+    {
         "name": "Shield",
         "type": "weapon",
         "img": "systems/dh2e/icons/items/weapon.svg",

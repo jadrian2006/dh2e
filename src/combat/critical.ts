@@ -96,6 +96,18 @@ async function applyCriticalInjury(
     entry: CriticalEntry,
     location: HitLocationKey,
 ): Promise<void> {
+    // Check for divination critical immunity reminder
+    try {
+        const { DivinationSessionHandler } = await import("@divination/session-effects.ts");
+        const result = DivinationSessionHandler.checkForEffect(actor as any, "critical");
+        if (result && !DivinationSessionHandler.isUsedThisSession(actor, result.effect.type)) {
+            await DivinationSessionHandler.postReminder(actor as any, result.divText, result.effect);
+            await DivinationSessionHandler.markUsed(actor, result.effect.type);
+        }
+    } catch {
+        // Divination module not available
+    }
+
     // Create critical-injury item on the actor
     const itemData = {
         name: entry.title,

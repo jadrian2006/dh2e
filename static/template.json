@@ -74,7 +74,8 @@
                 "background": "",
                 "role": "",
                 "divination": "",
-                "notes": ""
+                "notes": "",
+                "gmNotes": ""
             }
         },
         "horde": {
@@ -127,7 +128,7 @@
         }
     },
     "Item": {
-        "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic", "objective", "homeworld", "background", "role", "treasure"],
+        "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic", "objective", "homeworld", "background", "role", "treasure", "note"],
         "weapon": {
             "description": "",
             "class": "melee",
@@ -306,6 +307,11 @@
             "weight": 0,
             "quantity": 1,
             "category": "valuable"
+        },
+        "note": {
+            "description": "",
+            "content": "",
+            "timestamp": 0
         }
     }
 }
