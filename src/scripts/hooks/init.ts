@@ -28,6 +28,7 @@ import { DH2E_STATUS_EFFECTS } from "@scripts/config/status-effects.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { preloadTemplates } from "@scripts/register-templates.ts";
 import { registerAllSettings } from "../../ui/settings/settings.ts";
+import { registerEnrichers } from "../../enrichers/enrichers.ts";
 
 /** Hooks.once("init") — set config, register settings, preload templates */
 export class Init {
@@ -153,6 +154,9 @@ export class Init {
 
             // Register game settings
             registerAllSettings();
+
+            // Register text enrichers (@Condition, @Check, @Damage)
+            registerEnrichers();
 
             // Register keybindings
             game.keybindings.register(SYSTEM_ID, "toggleWarbandSheet", {

@@ -1,0 +1,56 @@
+// DH2E Text Enricher Styles
+// Condition badges, inline check links, inline damage links
+
+.dh2e-enricher {
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+
+    // Condition badge — gold imperial styling
+    &.condition-link {
+        color: var(--dh2e-gold);
+        font-weight: 600;
+        border-bottom: 1px dotted var(--dh2e-gold-muted);
+
+        &:hover {
+            color: var(--dh2e-gold-bright);
+            border-bottom-style: solid;
+        }
+    }
+
+    // Inline check link — blue for skill/characteristic tests
+    &.inline-check {
+        color: #8cb4e0;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &::before {
+            content: "\f6cf";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.25em;
+            font-size: 0.75em;
+        }
+    }
+
+    // Inline damage link — red-ish for damage rolls
+    &.inline-damage {
+        color: #e0a08c;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &::before {
+            content: "\f6cf";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.25em;
+            font-size: 0.75em;
+        }
+    }
+}

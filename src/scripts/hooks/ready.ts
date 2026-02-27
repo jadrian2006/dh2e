@@ -23,12 +23,16 @@ import { VoxComposeDialog } from "../../ui/vox-terminal/vox-compose-dialog.ts";
 import { VoxTerminalPopup } from "../../ui/vox-terminal/vox-terminal-popup.ts";
 import { ensureHomebrewPack, getHomebrewPack, copyToHomebrew, createHomebrewItem } from "../../homebrew/homebrew-pack.ts";
 import { showTradePrompt, executeTransfer } from "../../trade/item-trade.ts";
+import { activateEnricherListeners } from "../../enrichers/enrichers.ts";
 
 /** Hooks.once("ready") — final initialization, migrations */
 export class Ready {
     static listen(): void {
         Hooks.once("ready", async () => {
             ChatListenersDH2e.listen();
+
+            // Activate global click handlers for text enricher links
+            activateEnricherListeners();
 
             // Expose API on game.dh2e
             (game as any).dh2e.awardXP = () => XPAwardDialog.open();

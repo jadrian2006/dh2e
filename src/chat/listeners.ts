@@ -91,6 +91,30 @@ class ChatListenersDH2e {
             });
         });
 
+        // Inline enricher: condition link
+        html.querySelectorAll<HTMLAnchorElement>(".dh2e-enricher.condition-link").forEach((link) => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                ChatListenersDH2e.#onConditionLink(link);
+            });
+        });
+
+        // Inline enricher: check link
+        html.querySelectorAll<HTMLAnchorElement>("[data-action='inline-check']").forEach((link) => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                ChatListenersDH2e.#onInlineCheck(link);
+            });
+        });
+
+        // Inline enricher: damage link
+        html.querySelectorAll<HTMLAnchorElement>("[data-action='inline-damage']").forEach((link) => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                ChatListenersDH2e.#onInlineDamage(link);
+            });
+        });
+
         // Item card action buttons (send-to-chat)
         html.querySelectorAll<HTMLButtonElement>(".item-card .card-action-btn").forEach((btn) => {
             btn.addEventListener("click", () => ChatListenersDH2e.#onItemCardAction(message, btn));
@@ -473,6 +497,137 @@ class ChatListenersDH2e {
     static async #onApplyDivination(message: StoredDocument<ChatMessage>, btn: HTMLButtonElement): Promise<void> {
         const { DivinationSessionHandler } = await import("@divination/session-effects.ts");
         await DivinationSessionHandler.handleApply(message, btn);
+    }
+
+    /** Open a condition item sheet from an enricher link */
+    static async #onConditionLink(link: HTMLAnchorElement): Promise<void> {
+        const uuid = link.dataset.uuid;
+        if (uuid) {
+            const doc = await fromUuid(uuid);
+            if (doc) {
+                (doc as any).sheet?.render(true);
+                return;
+            }
+        }
+
+        // Fallback: look up by slug in compendium
+        const slug = link.dataset.slug;
+        if (!slug) return;
+
+        const g = game as any;
+        const pack = g.packs?.get("dh2e-data.conditions");
+        if (!pack) return;
+
+        const index = await pack.getIndex();
+        const entry = index.find((e: any) => {
+            const name = e.name?.toLowerCase().replace(/\s+/g, "-");
+            return name === slug;
+        });
+        if (entry) {
+            const doc = await pack.getDocument(entry._id);
+            (doc as any)?.sheet?.render(true);
+        }
+    }
+
+    /** Roll a check from an inline enricher link */
+    static async #onInlineCheck(link: HTMLAnchorElement): Promise<void> {
+        const { CheckDH2e } = await import("@check/check.ts");
+        const { CANONICAL_SKILL_CHARS } = await import("@item/skill/uses.ts");
+
+        const typePart = link.dataset.type;
+        if (!typePart) return;
+
+        // Resolve actor
+        const g = game as any;
+        const actor = g.user?.character
+            ?? canvas?.tokens?.controlled?.[0]?.actor
+            ?? null;
+
+        if (!actor) {
+            ui.notifications?.warn(
+                g.i18n?.localize("DH2E.Enricher.NoActor")
+                    ?? "Select a token or assign a character to roll.",
+            );
+            return;
+        }
+
+        const mod = parseInt(link.dataset.mod ?? "0", 10) || 0;
+        const lowerType = typePart.toLowerCase();
+
+        // Characteristic abbreviations
+        const charAbbrevs = new Set(["ws", "bs", "s", "t", "ag", "int", "per", "wp", "fel"]);
+
+        if (charAbbrevs.has(lowerType)) {
+            // Characteristic check
+            const charKey = lowerType as any;
+            const charValue = (actor as any).system?.characteristics?.[charKey]?.value
+                ?? (actor as any).system?.characteristics?.[charKey]?.base
+                ?? 0;
+            const charConfig = (CONFIG as any).DH2E?.characteristics?.[charKey];
+            const charLabel = charConfig?.label
+                ? (g.i18n?.localize(charConfig.label) ?? typePart)
+                : typePart;
+
+            await CheckDH2e.roll({
+                actor,
+                characteristic: charKey,
+                baseTarget: charValue + mod,
+                label: `${charLabel} Test`,
+                domain: `characteristic:${charKey}`,
+            });
+        } else {
+            // Skill check
+            const skillItem = (actor as any).items?.find(
+                (i: Item) => i.type === "skill" && i.name === typePart,
+            );
+
+            if (skillItem) {
+                const sys = skillItem.skillSystem ?? skillItem.system ?? {};
+                await CheckDH2e.roll({
+                    actor,
+                    characteristic: sys.linkedCharacteristic ?? "ws",
+                    baseTarget: (skillItem.totalTarget ?? 0) + mod,
+                    label: `${skillItem.displayName ?? skillItem.name} Test`,
+                    domain: `skill:${typePart.toLowerCase().replace(/\s+/g, "-")}`,
+                    skillDescription: sys.description ?? "",
+                });
+            } else {
+                // Synthesize from canonical data
+                const linkedChar = CANONICAL_SKILL_CHARS[typePart] ?? "ws";
+                const charValue = (actor as any).system?.characteristics?.[linkedChar]?.value
+                    ?? (actor as any).system?.characteristics?.[linkedChar]?.base
+                    ?? 0;
+                await CheckDH2e.roll({
+                    actor,
+                    characteristic: linkedChar,
+                    baseTarget: charValue + mod,
+                    label: `${typePart} Test`,
+                    domain: `skill:${typePart.toLowerCase().replace(/\s+/g, "-")}`,
+                    untrained: true,
+                });
+            }
+        }
+    }
+
+    /** Roll damage from an inline enricher link */
+    static async #onInlineDamage(link: HTMLAnchorElement): Promise<void> {
+        const formula = link.dataset.formula;
+        if (!formula) return;
+
+        try {
+            const roll = new foundry.dice.Roll(formula);
+            await roll.evaluate();
+
+            const label = link.textContent ?? formula;
+            const speaker = fd.ChatMessage.getSpeaker?.() ?? {};
+            await roll.toMessage({
+                speaker,
+                flavor: `<strong>${label}</strong>`,
+            });
+        } catch (e) {
+            console.error("DH2E | Inline damage roll failed:", e);
+            ui.notifications?.error(`Invalid damage formula: ${formula}`);
+        }
     }
 
     /** Handle grapple action button clicks */

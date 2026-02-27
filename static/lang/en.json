@@ -1354,5 +1354,10 @@
     "DH2E.Reinforcement.Remove": "Remove Reinforcement",
     "DH2E.Reinforcement.Assigned": "{name} has been assigned to your control.",
     "DH2E.Reinforcement.Recalled": "{name} has been recalled from your control.",
-    "DH2E.Reinforcement.Notes": "Notes"
+    "DH2E.Reinforcement.Notes": "Notes",
+
+    "DH2E.Enricher.NoActor": "Select a token or assign a character to roll.",
+    "DH2E.Enricher.UnknownCondition": "Unknown condition: {slug}",
+    "DH2E.Enricher.CheckLabel": "{name} Test",
+    "DH2E.Enricher.CheckLabelMod": "{name} Test ({mod})"
 }
