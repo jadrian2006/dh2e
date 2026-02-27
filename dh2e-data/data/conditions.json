@@ -251,5 +251,20 @@
             ],
             "remainingRounds": 0
         }
+    },
+    {
+        "name": "Surprised",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/surprised.svg",
+        "system": {
+            "description": "Caught off-guard. Cannot act this round. Attackers gain +3 DoS on WS and BS tests.",
+            "slug": "surprised",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:surprised", "label": "Surprised" }
+            ],
+            "remainingRounds": 0
+        }
     }
 ]

@@ -46,5 +46,15 @@
         "flags": {
             "dh2e": { "gmOnly": true }
         }
+    },
+    {
+        "name": "Check Surprised",
+        "type": "script",
+        "img": "systems/dh2e/icons/conditions/surprised.svg",
+        "command": "game.dh2e.checkSurprised();",
+        "scope": "global",
+        "flags": {
+            "dh2e": { "gmOnly": true }
+        }
     }
 ]

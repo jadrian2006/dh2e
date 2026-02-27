@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <g fill="#ffffff" stroke="none">
+    <!-- Exclamation mark -->
+    <rect x="232" y="100" width="48" height="220" rx="8"/>
+    <circle cx="256" cy="380" r="30"/>
+    <!-- Alert lines radiating outward -->
+    <rect x="80" y="140" width="60" height="12" rx="4" transform="rotate(-15 110 146)"/>
+    <rect x="372" y="140" width="60" height="12" rx="4" transform="rotate(15 402 146)"/>
+    <rect x="60" y="240" width="50" height="12" rx="4"/>
+    <rect x="402" y="240" width="50" height="12" rx="4"/>
+  </g>
+</svg>

@@ -39,9 +39,14 @@
             {:else}
                 <h2 class="note-title">{ctx.name}</h2>
             {/if}
-            {#if sys.timestamp}
-                <span class="note-date">{formatDate(sys.timestamp)}</span>
-            {/if}
+            <div class="note-date-row">
+                {#if sys.timestamp}
+                    <span class="note-date">{formatDate(sys.timestamp)}</span>
+                {/if}
+                {#if sys.gameDate}
+                    <span class="note-game-date">{sys.gameDate}</span>
+                {/if}
+            </div>
         </div>
     </header>
 
@@ -114,9 +119,22 @@
         text-overflow: ellipsis;
     }
 
+    .note-date-row {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-sm, 0.5rem);
+    }
+
     .note-date {
         font-size: 0.65rem;
         color: var(--dh2e-text-secondary, #a0a0a8);
+        letter-spacing: 0.03em;
+    }
+
+    .note-game-date {
+        font-size: 0.65rem;
+        color: var(--dh2e-gold-dark, #7a6228);
+        font-family: var(--dh2e-font-header, serif);
         letter-spacing: 0.03em;
     }
 

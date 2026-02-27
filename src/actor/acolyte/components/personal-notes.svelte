@@ -7,6 +7,7 @@
         onDelete: (note: any) => void;
     } = $props();
 
+    /** Sorted newest first by timestamp */
     const sorted = $derived(
         [...notes].sort((a, b) => (b.system?.timestamp ?? 0) - (a.system?.timestamp ?? 0)),
     );
@@ -32,32 +33,39 @@
         {/if}
     </div>
 
-    {#if sorted.length === 0}
-        <p class="empty">No personal notes.</p>
-    {:else}
-        <div class="notes-list">
-            {#each sorted as note (note.id)}
-                <div class="note-item">
-                    <img class="note-icon" src={note.img} alt="" width="20" height="20" />
-                    <span
-                        class="note-name"
-                        role="button"
-                        tabindex="0"
-                        onclick={() => onOpen(note)}
-                        onkeydown={(e) => { if (e.key === 'Enter') onOpen(note); }}
-                    >
-                        {note.name ?? "Untitled"}
-                    </span>
-                    <span class="note-date">{formatDate(note.system?.timestamp)}</span>
-                    {#if editable}
-                        <button class="tiny-btn delete" title="Delete" onclick={() => onDelete(note)}>
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    {/if}
-                </div>
-            {/each}
-        </div>
-    {/if}
+    <div class="notes-box">
+        {#if sorted.length === 0}
+            <p class="empty">No personal notes.</p>
+        {:else}
+            <div class="notes-list">
+                {#each sorted as note (note.id)}
+                    <div class="note-item">
+                        <img class="note-icon" src={note.img} alt="" width="20" height="20" />
+                        <span
+                            class="note-name"
+                            role="button"
+                            tabindex="0"
+                            onclick={() => onOpen(note)}
+                            onkeydown={(e) => { if (e.key === 'Enter') onOpen(note); }}
+                        >
+                            {note.name ?? "Untitled"}
+                        </span>
+                        <span class="note-dates">
+                            <span class="note-date">{formatDate(note.system?.timestamp)}</span>
+                            {#if note.system?.gameDate}
+                                <span class="note-game-date">{note.system.gameDate}</span>
+                            {/if}
+                        </span>
+                        {#if editable}
+                            <button class="tiny-btn delete" title="Delete" onclick={() => onDelete(note)}>
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        {/if}
+                    </div>
+                {/each}
+            </div>
+        {/if}
+    </div>
 </div>
 
 <style lang="scss">
@@ -91,11 +99,19 @@
         transition: all 0.15s;
         &:hover { background: var(--dh2e-gold-dark); color: var(--dh2e-bg-darkest); }
     }
+    .notes-box {
+        max-height: 160px;
+        overflow-y: auto;
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        background: var(--dh2e-bg-mid, #2e2e35);
+        padding: 2px 4px;
+    }
     .empty {
         font-size: 0.75rem;
         color: var(--dh2e-text-secondary);
         font-style: italic;
-        margin: 0;
+        margin: 4px 0;
     }
     .notes-list {
         display: flex;
@@ -107,6 +123,7 @@
         gap: var(--dh2e-space-xs);
         padding: 3px 0;
         border-bottom: 1px solid var(--dh2e-border);
+        &:last-child { border-bottom: none; }
     }
     .note-icon {
         flex-shrink: 0;
@@ -123,10 +140,22 @@
         text-overflow: ellipsis;
         &:hover { color: var(--dh2e-gold); }
     }
+    .note-dates {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        flex-shrink: 0;
+        gap: 1px;
+    }
     .note-date {
         font-size: 0.65rem;
         color: var(--dh2e-text-secondary);
-        flex-shrink: 0;
+    }
+    .note-game-date {
+        font-size: 0.6rem;
+        color: var(--dh2e-gold-dark, #7a6228);
+        font-family: var(--dh2e-font-header);
+        letter-spacing: 0.03em;
     }
     .tiny-btn {
         background: none;

@@ -236,6 +236,12 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
 
     /** Create a personal note inline on this actor */
     async #addPersonalNote(actor: AcolyteDH2e): Promise<void> {
+        // Pull game date from the warband chronicle if available
+        const g = game as any;
+        const warband = g.dh2e?.warband;
+        const cd = warband?.system?.chronicle?.currentDate;
+        const gameDate = cd ? `${cd.day}.${cd.year}.M${cd.millennium}` : "";
+
         const created = await actor.createEmbeddedDocuments("Item", [{
             name: "New Note",
             type: "note",
@@ -244,6 +250,7 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
                 description: "",
                 content: "",
                 timestamp: Date.now(),
+                gameDate,
             },
         }]);
         if (created?.[0]) (created[0] as any).sheet?.render(true);

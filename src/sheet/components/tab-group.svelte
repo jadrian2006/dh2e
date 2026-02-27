@@ -13,6 +13,7 @@
 <nav class="tab-group">
     {#each tabs as tab}
         <button
+            type="button"
             class="tab-btn"
             class:active={activeTab === tab.id}
             onclick={() => selectTab(tab.id)}

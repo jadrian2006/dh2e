@@ -633,6 +633,7 @@
     "DH2E.Condition.Status.Toxic": "Toxic",
     "DH2E.Condition.Status.Feared": "Feared",
     "DH2E.Condition.Status.Frenzied": "Frenzied",
+    "DH2E.Condition.Status.Surprised": "Surprised",
 
     "DH2E.GMOverride.Title": "GM Override",
     "DH2E.GMOverride.AdjustDoS": "Adjust Degrees",
@@ -1134,6 +1135,20 @@
     "DH2E.Macro.NoActor": "No actor found. Assign a character or select a token.",
     "DH2E.Macro.WeaponNotFound": "Weapon not found on the current actor.",
     "DH2E.Macro.UnknownSkillUse": "Unknown skill use.",
+
+    "DH2E.Surprised.DialogTitle": "Check Surprised",
+    "DH2E.Surprised.DifficultyLabel": "Difficulty Modifier",
+    "DH2E.Surprised.DifficultyHint": "(e.g. -20 for well-planned ambush)",
+    "DH2E.Surprised.CombatantsLabel": "Combatants to Test",
+    "DH2E.Surprised.RollButton": "Roll Awareness",
+    "DH2E.Surprised.RollLabel": "Awareness Test",
+    "DH2E.Surprised.GMOnly": "Only the GM can run surprise checks.",
+    "DH2E.Surprised.NoCombat": "No active combat encounter.",
+    "DH2E.Surprised.Skipped": "is Surprised and cannot act.",
+    "DH2E.Surprised.SummaryTitle": "Surprise Round!",
+    "DH2E.Surprised.SurprisedLabel": "Surprised:",
+    "DH2E.Surprised.AlertLabel": "Alert:",
+    "DH2E.Surprised.None": "None",
 
     "DH2E.Settings.CombatHUDPosition.Name": "Combat HUD Position",
     "DH2E.Settings.CombatHUDPosition.Hint": "Where to display the compact combat HUD panel.",

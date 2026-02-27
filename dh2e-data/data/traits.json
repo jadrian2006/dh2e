@@ -20,7 +20,8 @@
             "rules": [],
             "hasRating": false,
             "rating": 0,
-            "category": "mental"
+            "category": "mental",
+            "immunities": ["Fear", "Pinning"]
         }
     },
     {
@@ -174,7 +175,8 @@
             "rules": [],
             "hasRating": false,
             "rating": 0,
-            "category": "warp"
+            "category": "warp",
+            "immunities": ["Fear", "Pinning", "Insanity", "Mind-affecting"]
         }
     },
     {
@@ -210,7 +212,8 @@
             ],
             "hasRating": true,
             "rating": 2,
-            "category": "physical"
+            "category": "physical",
+            "immunities": ["Stunning", "Poison", "Disease", "Vacuum"]
         }
     },
     {
@@ -420,7 +423,8 @@
             "rules": [],
             "hasRating": false,
             "rating": 0,
-            "category": "warp"
+            "category": "warp",
+            "immunities": ["Critical Effects", "Blood Loss", "Fatigue"]
         }
     },
     {
@@ -473,7 +477,8 @@
             "rules": [],
             "hasRating": false,
             "rating": 0,
-            "category": "warp"
+            "category": "warp",
+            "immunities": ["Blood Loss", "Stunning", "Fatigue"]
         }
     },
     {
@@ -486,6 +491,96 @@
             "hasRating": false,
             "rating": 0,
             "category": "warp"
+        }
+    },
+    {
+        "name": "Unnatural Strength",
+        "type": "trait",
+        "img": "systems/dh2e/icons/default-icons/trait.svg",
+        "system": {
+            "description": "The creature's Strength is unnaturally enhanced. It adds its rating to its Strength Bonus for the purposes of determining melee damage and carrying capacity.",
+            "rules": [
+                {
+                    "key": "FlatModifier",
+                    "domain": "bonus:s",
+                    "value": "rating",
+                    "label": "Unnatural Strength",
+                    "source": "trait"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "trait:unnatural-strength"
+                }
+            ],
+            "hasRating": true,
+            "rating": 3,
+            "category": "physical"
+        }
+    },
+    {
+        "name": "Unnatural Toughness",
+        "type": "trait",
+        "img": "systems/dh2e/icons/default-icons/trait.svg",
+        "system": {
+            "description": "The creature's Toughness is unnaturally enhanced. It adds its rating to its Toughness Bonus for the purposes of determining damage reduction.",
+            "rules": [
+                {
+                    "key": "FlatModifier",
+                    "domain": "bonus:t",
+                    "value": "rating",
+                    "label": "Unnatural Toughness",
+                    "source": "trait"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "trait:unnatural-toughness"
+                }
+            ],
+            "hasRating": true,
+            "rating": 3,
+            "category": "physical"
+        }
+    },
+    {
+        "name": "Unnatural Agility",
+        "type": "trait",
+        "img": "systems/dh2e/icons/default-icons/trait.svg",
+        "system": {
+            "description": "The creature's Agility is unnaturally enhanced. It adds its rating to its Agility Bonus for the purposes of determining movement rates and Initiative.",
+            "rules": [
+                {
+                    "key": "FlatModifier",
+                    "domain": "bonus:ag",
+                    "value": "rating",
+                    "label": "Unnatural Agility",
+                    "source": "trait"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "trait:unnatural-agility"
+                }
+            ],
+            "hasRating": true,
+            "rating": 3,
+            "category": "physical"
+        }
+    },
+    {
+        "name": "Fearless",
+        "type": "trait",
+        "img": "systems/dh2e/icons/default-icons/trait.svg",
+        "system": {
+            "description": "The creature is utterly without fear. It is immune to Fear and Pinning effects and never needs to test for either.",
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "option": "trait:fearless"
+                }
+            ],
+            "hasRating": false,
+            "rating": 0,
+            "category": "mental",
+            "immunities": ["Fear", "Pinning"]
         }
     }
 ]

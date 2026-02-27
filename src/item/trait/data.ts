@@ -6,4 +6,5 @@ export interface TraitSystemSource {
     hasRating: boolean;
     rating: number;
     category: string;
+    immunities: string[];
 }

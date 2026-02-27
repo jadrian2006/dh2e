@@ -5,6 +5,7 @@ export interface NoteSystemData {
     description: string;
     content: string;
     timestamp: number;
+    gameDate: string;
 }
 
 /** Note item — personal journal entries and field reports */

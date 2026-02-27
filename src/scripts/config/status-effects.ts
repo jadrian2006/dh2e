@@ -92,6 +92,11 @@ const DH2E_STATUS_EFFECTS: DH2EStatusEffect[] = [
         label: "DH2E.Condition.Status.Frenzied",
         icon: "systems/dh2e/icons/conditions/frenzied.svg",
     },
+    {
+        id: "surprised",
+        label: "DH2E.Condition.Status.Surprised",
+        icon: "systems/dh2e/icons/conditions/surprised.svg",
+    },
 ];
 
 export { DH2E_STATUS_EFFECTS };

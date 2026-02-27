@@ -58,7 +58,7 @@
             {/if}
         </div>
         {#if !lootMode}
-            <button class="view-toggle" onclick={toggleView} title={compactMode ? "Full View" : "Compact View"}>
+            <button type="button" class="view-toggle" onclick={toggleView} title={compactMode ? "Full View" : "Compact View"}>
                 <i class={compactMode ? "fa-solid fa-expand" : "fa-solid fa-compress"}></i>
             </button>
         {/if}

@@ -109,6 +109,14 @@
         const text = tmp.textContent ?? tmp.innerText ?? "";
         return text.length > max ? text.slice(0, max) + "..." : text;
     }
+
+    /** Aggregate deduplicated immunities from all trait items */
+    const immunities = $derived(
+        [...new Set(
+            (ctx.items?.traits ?? [])
+                .flatMap((t: any) => t.system?.immunities ?? []),
+        )].sort(),
+    );
 </script>
 
 <div class="npc-full-view">
@@ -140,6 +148,15 @@
         <div class="condition-strip">
             {#each ctx.items.conditions as cond}
                 <span class="condition-tag" title={cond.name}>{cond.name}</span>
+            {/each}
+        </div>
+    {/if}
+
+    {#if immunities.length > 0}
+        <div class="immunity-strip">
+            <span class="immunity-label">Immune:</span>
+            {#each immunities as imm}
+                <span class="immunity-tag">{imm}</span>
             {/each}
         </div>
     {/if}
@@ -362,6 +379,31 @@
         background: var(--dh2e-red-dim, #4a2020);
         border-radius: 3px;
         color: var(--dh2e-red-bright, #d44);
+    }
+
+    .immunity-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--dh2e-space-xs, 0.25rem);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .immunity-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        color: var(--dh2e-gold, #c8a84e);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .immunity-tag {
+        font-size: 0.65rem;
+        padding: 1px 6px;
+        background: rgba(200, 168, 78, 0.12);
+        border: 1px solid rgba(200, 168, 78, 0.3);
+        border-radius: 3px;
+        color: var(--dh2e-gold, #c8a84e);
     }
 
     .tab-content {

@@ -114,8 +114,8 @@
                 content,
                 buttons: [
                     { action: "split", label: game.i18n?.localize("DH2E.Item.Split.Button") ?? "Split", default: true,
-                      callback: (_event: any, _button: any, dialog: HTMLElement) => {
-                        const input = dialog.querySelector("input[name='amount']") as HTMLInputElement;
+                      callback: (_event: any, button: HTMLButtonElement) => {
+                        const input = button.form?.elements.namedItem("amount") as HTMLInputElement;
                         resolve(parseInt(input?.value ?? "0", 10));
                     }},
                     { action: "cancel", label: game.i18n?.localize("Cancel") ?? "Cancel", callback: () => resolve(null) },

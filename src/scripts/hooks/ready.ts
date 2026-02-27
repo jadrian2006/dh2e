@@ -17,7 +17,7 @@ import { RulerOverlay } from "../../integrations/ruler/ruler-overlay.ts";
 import { DeadlineNotifier } from "../../integrations/imperial-calendar/deadline-notifier.ts";
 import { CyberneticMaintenanceNotifier } from "../../integrations/imperial-calendar/maintenance-notifier.ts";
 import { registerHotbarDrop } from "../../macros/hotbar-drop.ts";
-import { rollSkillUse, rollWeapon, rollSkill, maintainCybernetics } from "../../macros/api.ts";
+import { rollSkillUse, rollWeapon, rollSkill, maintainCybernetics, checkSurprised } from "../../macros/api.ts";
 import { ActionsGrid } from "../../ui/actions-grid/actions-grid.ts";
 import { VoxComposeDialog } from "../../ui/vox-terminal/vox-compose-dialog.ts";
 import { VoxTerminalPopup } from "../../ui/vox-terminal/vox-terminal-popup.ts";
@@ -56,6 +56,7 @@ export class Ready {
             (game as any).dh2e.rollWeapon = rollWeapon;
             (game as any).dh2e.rollSkill = rollSkill;
             (game as any).dh2e.maintainCybernetics = maintainCybernetics;
+            (game as any).dh2e.checkSurprised = checkSurprised;
 
             (game as any).dh2e.actionsGrid = () => ActionsGrid.open();
             (game as any).dh2e.voxTerminal = () => VoxComposeDialog.open();

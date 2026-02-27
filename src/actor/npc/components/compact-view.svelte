@@ -38,6 +38,13 @@
         return qty > 1 ? `${g.name} (x${qty})` : g.name;
     }
 
+    /** Aggregate deduplicated immunities from all trait items */
+    const immunities = $derived(
+        [...new Set(
+            traits.flatMap((t: any) => t.system?.immunities ?? []),
+        )].sort(),
+    );
+
     /** Show rich tooltip for an item's description */
     function showDescription(event: MouseEvent, item: any) {
         const desc = item.system?.description;
@@ -70,6 +77,15 @@
         <div class="compact-conditions">
             {#each ctx.items.conditions as cond}
                 <span class="condition-tag">{cond.name}{#if cond.system?.remainingRounds > 0} ({cond.system.remainingRounds}){/if}</span>
+            {/each}
+        </div>
+    {/if}
+
+    {#if immunities.length > 0}
+        <div class="compact-immunities">
+            <span class="immunity-label">Immune:</span>
+            {#each immunities as imm}
+                <span class="immunity-tag">{imm}</span>
             {/each}
         </div>
     {/if}
@@ -107,15 +123,16 @@
     {#if traits.length > 0}
         <div class="compact-section">
             <span class="section-label">Traits</span>
-            {#each traits as item}
-                <div class="item-row">
-                    <button class="item-link" onclick={() => openSheet(item)} onmouseenter={(e) => showDescription(e, item)}>{traitLabel(item)}</button>
-                    {#if ctx.editable}
-                        <button class="icon-btn" onclick={() => openSheet(item)} title="Edit"><i class="fa-solid fa-pen"></i></button>
-                        <button class="icon-btn delete" onclick={() => deleteItem(item)} title="Delete"><i class="fa-solid fa-trash"></i></button>
-                    {/if}
-                </div>
-            {/each}
+            <div class="trait-pills">
+                {#each traits as item}
+                    <button class="trait-pill" type="button" onclick={() => openSheet(item)} onmouseenter={(e) => showDescription(e, item)}>
+                        {traitLabel(item)}
+                        {#if ctx.editable}
+                            <span class="pill-delete" onclick={(e) => { e.stopPropagation(); deleteItem(item); }} role="button" tabindex="0" onkeydown={(e) => { if (e.key === "Enter") { e.stopPropagation(); deleteItem(item); } }} title="Remove"><i class="fa-solid fa-xmark"></i></span>
+                        {/if}
+                    </button>
+                {/each}
+            </div>
         </div>
     {/if}
 
@@ -263,6 +280,31 @@
         color: var(--dh2e-red-bright, #d44);
     }
 
+    .compact-immunities {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--dh2e-space-xs, 0.25rem);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .immunity-label {
+        font-size: 0.6rem;
+        font-weight: 700;
+        color: var(--dh2e-gold, #c8a84e);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .immunity-tag {
+        font-size: 0.6rem;
+        padding: 1px 5px;
+        background: rgba(200, 168, 78, 0.12);
+        border: 1px solid rgba(200, 168, 78, 0.3);
+        border-radius: 3px;
+        color: var(--dh2e-gold, #c8a84e);
+    }
+
     .compact-section {
         font-size: var(--dh2e-text-sm, 0.8rem);
         line-height: 1.3;
@@ -358,6 +400,43 @@
         &:hover {
             border-color: var(--dh2e-gold, #c8a84e);
             color: var(--dh2e-gold, #c8a84e);
+        }
+    }
+
+    .trait-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--dh2e-space-xs, 0.25rem);
+    }
+
+    .trait-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 8px;
+        font-size: var(--dh2e-text-xs, 0.7rem);
+        font-family: var(--dh2e-font-header, serif);
+        color: var(--dh2e-text-primary, #d0cfc8);
+        background: var(--dh2e-bg-light, #3a3a45);
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: border-color 0.15s, background 0.15s;
+
+        &:hover {
+            border-color: var(--dh2e-gold, #c8a84e);
+            background: var(--dh2e-bg-mid, #2e2e35);
+        }
+    }
+
+    .pill-delete {
+        font-size: 0.55rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        margin-left: 2px;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--dh2e-red-bright, #d44);
         }
     }
 

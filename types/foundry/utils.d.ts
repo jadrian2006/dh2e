@@ -64,28 +64,27 @@ declare class FilePicker {
     static upload(source: string, target: string, file: File, options?: Record<string, unknown>): Promise<unknown>;
 }
 
-// ProseMirror
-declare class ProseMirrorEditor {
-    readonly view: any;
-    destroy(): void;
-    isDirty(): boolean;
-    static create(
-        target: HTMLElement,
-        content?: string,
-        options?: {
-            document?: any;
-            fieldName?: string;
-            plugins?: Record<string, any>;
-        },
-    ): Promise<ProseMirrorEditor>;
-}
-
+// ProseMirror (V13 namespaced API)
 declare namespace foundry {
+    namespace applications {
+        namespace ux {
+            class ProseMirrorEditor {
+                readonly view: any;
+                destroy(): void;
+                isDirty(): boolean;
+                static create(
+                    target: HTMLElement,
+                    content?: string,
+                    options?: {
+                        document?: any;
+                        fieldName?: string;
+                        plugins?: Record<string, any>;
+                    },
+                ): Promise<foundry.applications.ux.ProseMirrorEditor>;
+            }
+        }
+    }
     namespace prosemirror {
-        const ProseMirrorMenu: {
-            build(schema: any, options?: { destroyOnSave?: boolean; onSave?: () => void }): Record<string, any>;
-        };
-        const defaultSchema: any;
         const dom: {
             serializeString(content: any, schema?: any): string;
         };

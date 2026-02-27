@@ -7,12 +7,15 @@
 
 // Pause overlay — DH themed
 #pause {
-    // Override Foundry's default pause with our background
-    background-image: url("/systems/dh2e/icons/aquila.svg") !important;
-    background-size: 200px 200px !important;
-    background-repeat: no-repeat !important;
-    background-position: center 35% !important;
-    background-color: rgba(10, 10, 14, 0.85) !important;
+    background-color: rgba(10, 10, 14, 0.88) !important;
+
+    // Replace Foundry's default pause icon (d20) with the Imperial Aquila
+    img {
+        content: url("/systems/dh2e/icons/aquila.svg") !important;
+        width: 200px !important;
+        height: auto !important;
+        filter: drop-shadow(0 0 20px rgba(200, 168, 78, 0.25));
+    }
 
     figcaption {
         font-family: "Cinzel", "Palatino Linotype", "Book Antiqua", serif;

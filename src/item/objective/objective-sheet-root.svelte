@@ -1,6 +1,13 @@
 <script lang="ts">
+    import RichTextEditor from "@sheet/components/rich-text-editor.svelte";
+
     let { ctx }: { ctx: Record<string, any> } = $props();
     const sys = $derived(ctx.system ?? {});
+
+    async function saveDescription(html: string) {
+        if (!ctx.item || !ctx.editable) return;
+        await ctx.item.update({ "system.description": html });
+    }
     const format = $derived(sys.format ?? "parchment");
     const status = $derived(sys.status ?? "active");
     const isParchment = $derived(format === "parchment");
@@ -62,16 +69,13 @@
     </div>
 
     <div class="card-body">
-        {#if ctx.editable}
-            <textarea
-                class="description-input"
-                placeholder="Describe the objective..."
-                value={sys.description ?? ""}
-                onchange={(e) => ctx.updateField?.("system.description", (e.target as HTMLTextAreaElement).value)}
-            ></textarea>
-        {:else}
-            <div class="description-text">{sys.description || "No details provided."}</div>
-        {/if}
+        <RichTextEditor
+            content={sys.description ?? ""}
+            editable={ctx.editable}
+            onSave={saveDescription}
+            document={ctx.item}
+            fieldName="system.description"
+        />
     </div>
 
     <div class="card-meta">
@@ -167,16 +171,10 @@
     }
     .card-body {
         flex: 1;
+        display: flex;
+        flex-direction: column;
         padding: var(--dh2e-space-sm) var(--dh2e-space-md);
-        overflow-y: auto;
-    }
-    .description-input {
-        width: 100%;
-        height: 100%;
-        min-height: 80px;
-        resize: vertical;
-        border-radius: var(--dh2e-radius-sm);
-        padding: var(--dh2e-space-sm);
+        overflow: hidden;
     }
     .card-meta {
         display: flex;
@@ -276,12 +274,6 @@
             border-radius: 4px;
             margin: 0 var(--dh2e-space-sm);
         }
-        .description-input {
-            background: rgba(255, 250, 230, 0.5);
-            border: 1px solid #c8b888;
-            color: #2a1f0e;
-            font-family: var(--dh2e-font-header, serif);
-        }
         .description-text {
             font-size: 0.85rem;
             line-height: 1.6;
@@ -355,13 +347,6 @@
             background: rgba(0, 20, 0, 0.5);
             border-radius: 2px;
             margin: 0 var(--dh2e-space-sm);
-        }
-        .description-input {
-            background: rgba(0, 20, 0, 0.6);
-            border: 1px solid #1a3a1a;
-            color: #33ff33;
-            font-family: "Courier New", monospace;
-            text-shadow: 0 0 2px rgba(51, 255, 51, 0.3);
         }
         .description-text {
             font-size: 0.8rem;

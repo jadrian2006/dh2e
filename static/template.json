@@ -214,7 +214,8 @@
             "rules": [],
             "hasRating": false,
             "rating": 0,
-            "category": ""
+            "category": "",
+            "immunities": []
         },
         "critical-injury": {
             "description": "",
@@ -311,7 +312,8 @@
         "note": {
             "description": "",
             "content": "",
-            "timestamp": 0
+            "timestamp": 0,
+            "gameDate": ""
         }
     }
 }

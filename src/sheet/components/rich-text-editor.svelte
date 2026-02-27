@@ -13,41 +13,36 @@
         fieldName?: string;
     } = $props();
 
-    let containerEl: HTMLDivElement | undefined = $state();
-    let editor: ProseMirrorEditor | null = $state(null);
+    let editorWrapperEl: HTMLDivElement | undefined = $state();
+    let editorContentEl: HTMLDivElement | undefined = $state();
+    let editor: foundry.applications.ux.ProseMirrorEditor | null = $state(null);
+    let showToolbar = $state(false);
 
     /** Extract HTML from the current editor state */
     function extractHTML(): string {
         if (!editor) return content;
         try {
-            const doc = editor.view?.state?.doc;
-            if (doc && foundry.prosemirror?.dom?.serializeString) {
-                return foundry.prosemirror.dom.serializeString(doc);
+            const editorDoc = editor.view?.state?.doc;
+            if (editorDoc && foundry.prosemirror?.dom?.serializeString) {
+                return foundry.prosemirror.dom.serializeString(editorDoc);
             }
         } catch { /* fallback below */ }
         // Fallback: grab innerHTML from ProseMirror content div
-        const pmEl = containerEl?.querySelector(".ProseMirror");
+        const pmEl = editorWrapperEl?.querySelector(".ProseMirror");
         return pmEl?.innerHTML ?? content;
     }
 
     $effect(() => {
-        if (!editable || !containerEl) return;
+        if (!editable || !editorContentEl) return;
 
         let destroyed = false;
-        let instance: ProseMirrorEditor | null = null;
+        let instance: foundry.applications.ux.ProseMirrorEditor | null = null;
 
-        const schema = foundry.prosemirror?.defaultSchema;
-        const plugins: Record<string, any> = {};
-        if (schema && foundry.prosemirror?.ProseMirrorMenu?.build) {
-            plugins.menu = foundry.prosemirror.ProseMirrorMenu.build(schema, {
-                destroyOnSave: false,
-            });
-        }
-
-        ProseMirrorEditor.create(containerEl, content, {
+        // Mount on the inner .editor-content div — Foundry's menu plugin
+        // will find the .editor ancestor and structure the toolbar there.
+        foundry.applications.ux.ProseMirrorEditor.create(editorContentEl, content, {
             document: doc,
             fieldName,
-            plugins,
         }).then((ed) => {
             if (destroyed) {
                 ed.destroy();
@@ -71,7 +66,16 @@
 </script>
 
 {#if editable}
-    <div class="rich-text-editor" bind:this={containerEl}></div>
+    <div class="editor prosemirror rich-text-editor" class:toolbar-hidden={!showToolbar} bind:this={editorWrapperEl}>
+        <button
+            class="toolbar-toggle"
+            title={showToolbar ? "Hide formatting" : "Show formatting"}
+            onclick={() => showToolbar = !showToolbar}
+        >
+            <i class="fa-solid fa-pen-fancy"></i>
+        </button>
+        <div class="editor-content" bind:this={editorContentEl}></div>
+    </div>
 {:else}
     <div class="rich-text-readonly">{@html content}</div>
 {/if}
@@ -85,82 +89,76 @@
         background: var(--dh2e-bg-mid, #2e2e35);
         border: 1px solid var(--dh2e-border, #4a4a55);
         border-radius: var(--dh2e-radius-sm, 3px);
-        overflow: hidden;
+        position: relative;
     }
 
-    /* ProseMirror toolbar overrides — one selector per :global() */
-    :global(.rich-text-editor .editor-toolbar) {
-        background: var(--dh2e-bg-darkest, #1a1a22);
-        border-bottom: 1px solid var(--dh2e-border, #4a4a55);
-        padding: 2px 4px;
-        flex-shrink: 0;
-    }
-
-    :global(.rich-text-editor .editor-toolbar button) {
-        color: var(--dh2e-text-secondary, #a0a0a8);
+    .toolbar-toggle {
+        position: absolute;
+        top: 3px;
+        right: 4px;
+        z-index: 5;
         background: none;
-        border: 1px solid transparent;
-        border-radius: 2px;
-        padding: 2px 4px;
+        border: none;
         cursor: pointer;
-        font-size: 0.75rem;
+        font-size: 0.65rem;
+        padding: 2px 4px;
+        border-radius: 2px;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        opacity: 0.5;
+        transition: opacity 0.15s, color 0.15s;
+
+        &:hover {
+            opacity: 1;
+            color: var(--dh2e-gold, #b49545);
+        }
     }
 
-    :global(.rich-text-editor .editor-toolbar button:hover) {
-        color: var(--dh2e-gold, #b49545);
-        border-color: var(--dh2e-border, #4a4a55);
+    /* Hide toolbar when toggled off */
+    :global(.toolbar-hidden menu.editor-menu) {
+        display: none !important;
     }
 
-    :global(.rich-text-editor .editor-toolbar button.active) {
-        color: var(--dh2e-gold, #b49545);
-        background: var(--dh2e-bg-mid, #2e2e35);
+    /* Compact toolbar sizing */
+    :global(.rich-text-editor menu.editor-menu) {
+        padding: 3px 4px;
+        gap: 2px;
+        border-radius: 3px;
     }
 
-    :global(.rich-text-editor .ProseMirror) {
-        flex: 1;
-        padding: var(--dh2e-space-sm, 0.5rem);
+    :global(.rich-text-editor menu.editor-menu button) {
+        --menu-height: 22px;
+        height: 22px;
+        line-height: 22px;
+        padding: 0 4px;
+        font-size: 0.7rem;
+    }
+
+    :global(.rich-text-editor menu.editor-menu .pm-dropdown) {
+        font-size: 0.7rem;
+        gap: 2px;
+    }
+
+    :global(.rich-text-editor menu.editor-menu .pm-dropdown i.fa-chevron-down) {
+        font-size: 0.5rem;
+    }
+
+    /* Grimdark theme overrides for ProseMirror content */
+    :global(.rich-text-editor .editor-content) {
         color: var(--dh2e-text-primary, #d0cfc8);
         font-size: var(--dh2e-text-sm, 0.8rem);
         line-height: 1.5;
-        outline: none;
-        overflow-y: auto;
-        min-height: 80px;
     }
 
-    :global(.rich-text-editor .ProseMirror:focus) {
-        box-shadow: inset 0 0 4px var(--dh2e-gold-dark, #7a6228);
-    }
-
-    :global(.rich-text-editor .ProseMirror p) {
-        margin: 0 0 0.4em;
-    }
-
-    :global(.rich-text-editor .ProseMirror h1) {
-        font-size: 1.2rem;
+    :global(.rich-text-editor .editor-content h1) {
         color: var(--dh2e-gold, #b49545);
-        margin: 0.6em 0 0.3em;
     }
 
-    :global(.rich-text-editor .ProseMirror h2) {
-        font-size: 1rem;
+    :global(.rich-text-editor .editor-content h2) {
         color: var(--dh2e-gold, #b49545);
-        margin: 0.5em 0 0.25em;
     }
 
-    :global(.rich-text-editor .ProseMirror h3) {
-        font-size: 0.9rem;
+    :global(.rich-text-editor .editor-content h3) {
         color: var(--dh2e-gold, #b49545);
-        margin: 0.4em 0 0.2em;
-    }
-
-    :global(.rich-text-editor .ProseMirror ul) {
-        padding-left: 1.2em;
-        margin: 0.3em 0;
-    }
-
-    :global(.rich-text-editor .ProseMirror ol) {
-        padding-left: 1.2em;
-        margin: 0.3em 0;
     }
 
     .rich-text-readonly {

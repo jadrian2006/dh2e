@@ -19,6 +19,17 @@
         s === "active" ? "active"
         : s === "completed" ? "completed"
         : "failed";
+
+    /** Sort: active first (newest first), then completed/failed (newest first) */
+    const statusOrder: Record<string, number> = { active: 0, completed: 1, failed: 1 };
+    const sorted = $derived(
+        [...objectives].sort((a, b) => {
+            const sa = statusOrder[a.system?.status ?? "active"] ?? 0;
+            const sb = statusOrder[b.system?.status ?? "active"] ?? 0;
+            if (sa !== sb) return sa - sb;
+            return (b.system?.timestamp ?? 0) - (a.system?.timestamp ?? 0);
+        }),
+    );
 </script>
 
 <div class="personal-objectives">
@@ -34,11 +45,12 @@
         {/if}
     </div>
 
-    {#if objectives.length === 0}
+    <div class="objectives-box">
+    {#if sorted.length === 0}
         <p class="empty">No personal objectives.</p>
     {:else}
         <div class="objectives-list">
-            {#each objectives as obj (obj.id)}
+            {#each sorted as obj (obj.id)}
                 {@const sys = obj.system ?? {}}
                 {@const status = sys.status ?? "active"}
                 <div class="objective-item status-{status}">
@@ -78,6 +90,7 @@
             {/each}
         </div>
     {/if}
+    </div>
 </div>
 
 <style lang="scss">
@@ -111,11 +124,19 @@
         transition: all 0.15s;
         &:hover { background: var(--dh2e-gold-dark); color: var(--dh2e-bg-darkest); }
     }
+    .objectives-box {
+        max-height: 160px;
+        overflow-y: auto;
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        background: var(--dh2e-bg-mid, #2e2e35);
+        padding: 2px 4px;
+    }
     .empty {
         font-size: 0.75rem;
         color: var(--dh2e-text-secondary);
         font-style: italic;
-        margin: 0;
+        margin: 4px 0;
     }
     .objectives-list {
         display: flex;
@@ -127,6 +148,7 @@
         gap: var(--dh2e-space-xs);
         padding: 3px 0;
         border-bottom: 1px solid var(--dh2e-border);
+        &:last-child { border-bottom: none; }
 
         &.status-completed { opacity: 0.6; }
         &.status-failed { opacity: 0.5; }

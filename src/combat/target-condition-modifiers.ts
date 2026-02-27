@@ -71,6 +71,14 @@ function getTargetConditionBonuses(targetActor: Actor, isMelee: boolean): Target
         }
     }
 
+    // Surprised: +30 WS, +30 BS (+3 DoS equivalent)
+    if (conditions.has("surprised")) {
+        modifiers.push(
+            { key: "FlatModifier", domain: "attack:melee", value: 30, label: "Target Surprised (+3 DoS)", source: "situational" },
+            { key: "FlatModifier", domain: "attack:ranged", value: 30, label: "Target Surprised (+3 DoS)", source: "situational" },
+        );
+    }
+
     // Grappled: +20 WS, +20 BS (from third parties attacking into grapple)
     if (conditions.has("grappled")) {
         modifiers.push(

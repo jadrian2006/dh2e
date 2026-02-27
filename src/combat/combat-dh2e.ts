@@ -66,7 +66,12 @@ class CombatDH2e extends Combat {
             }
         }
 
-        return super.nextTurn() as Promise<this>;
+        const result = await super.nextTurn() as this;
+
+        // After advancing: skip surprised combatants
+        await CombatDH2e.#handleSurprised(this);
+
+        return result;
     }
 
     /** Sort combatants by initiative (descending), then Agility bonus as tiebreaker */
@@ -136,6 +141,30 @@ class CombatDH2e extends Combat {
                 flags: { [SYSTEM_ID]: { type: "condition-effect", condition: "bleeding" } },
             });
         }
+    }
+
+    /** Skip surprised combatants: post chat card, delete condition, advance turn */
+    static async #handleSurprised(combat: CombatDH2e): Promise<void> {
+        const current = combat.combatant;
+        const actor = current?.actor;
+        if (!actor) return;
+
+        const surprised = actor.items.find(
+            (i: Item) => i.type === "condition" && (i.system as any)?.slug === "surprised",
+        );
+        if (!surprised) return;
+
+        const g = game as any;
+        await fd.ChatMessage.create({
+            content: `<div class="dh2e-condition-effect">
+                <strong>${actor.name}</strong> ${g.i18n?.localize("DH2E.Surprised.Skipped") ?? "is Surprised and cannot act."}
+            </div>`,
+            speaker: fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name },
+            flags: { [SYSTEM_ID]: { type: "condition-effect", condition: "surprised" } },
+        });
+
+        await surprised.delete();
+        await combat.nextTurn();
     }
 
     /** Decrement remainingRounds on all conditions, auto-delete expired ones */

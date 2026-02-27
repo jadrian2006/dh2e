@@ -88,9 +88,8 @@ export class Init {
             CONFIG.statusEffects = DH2E_STATUS_EFFECTS;
 
             // Thematic turn marker — gold imperial ring instead of default orange d20
-            if ((CONFIG as any).Combat?.turnMarker) {
-                (CONFIG as any).Combat.turnMarker.path = `systems/${SYSTEM_ID}/ui/turn-marker.svg`;
-            }
+            // V13: turnMarker is managed by CombatConfiguration, set via game settings in ready hook
+            Init.#configureTurnMarker();
 
             // Lock token rotation for non-vehicle actors (vehicles need facing for armour zones)
             // Also enforce one-token-per-scene for companion & reinforcement NPCs
@@ -229,6 +228,49 @@ export class Init {
                 restricted: false,
                 precedence: (CONST as any).KEYBINDING_PRECEDENCE?.NORMAL ?? 0,
             });
+        });
+    }
+
+    /** Configure the combat turn marker to use our gold imperial ring */
+    static #configureTurnMarker(): void {
+        const markerPath = `systems/${SYSTEM_ID}/ui/turn-marker.svg`;
+
+        // Strategy 1: Direct CONFIG mutation (try both property names)
+        try {
+            const tm = (CONFIG as any).Combat?.turnMarker;
+            if (tm && typeof tm === "object") {
+                tm.path = markerPath;
+                tm.src = markerPath;
+            }
+        } catch { /* read-only, fall through */ }
+
+        // Strategy 2: Set via game settings once ready (V13 CombatConfiguration)
+        // V13 has a type inconsistency: CombatConfigurationData uses "path",
+        // but ClientSettingsMap default uses "src". Set both to be safe.
+        Hooks.once("ready", async () => {
+            const g = game as any;
+            if (!g.user?.isGM) return;
+            try {
+                const config = g.settings?.get("core", "combatTrackerConfig") as any ?? {};
+                const existing = config?.turnMarker ?? {};
+                const currentSrc = existing.path ?? existing.src ?? "";
+                // Only override Foundry defaults, not user-customized paths
+                if (!currentSrc || currentSrc.includes("icons/") || currentSrc.includes("combat")) {
+                    await g.settings.set("core", "combatTrackerConfig", {
+                        ...config,
+                        turnMarker: {
+                            enabled: true,
+                            path: markerPath,
+                            src: markerPath,
+                            animation: existing.animation ?? "default",
+                            disposition: existing.disposition ?? "all",
+                        },
+                    });
+                    console.log("DH2E | Turn marker set to", markerPath);
+                }
+            } catch (e) {
+                console.warn("DH2E | Could not set turn marker path:", e);
+            }
         });
     }
 }

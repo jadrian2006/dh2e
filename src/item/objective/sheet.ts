@@ -6,7 +6,7 @@ import SheetRoot from "./objective-sheet-root.svelte";
 class ObjectiveSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
     static override DEFAULT_OPTIONS = fu.mergeObject(super.DEFAULT_OPTIONS, {
         classes: ["dh2e", "sheet", "item", "objective", "mission-card"],
-        position: { width: 440, height: 380 },
+        position: { width: 520, height: 500 },
         window: { resizable: true },
     });
 
