@@ -209,6 +209,14 @@ function SvelteApplicationMixin<
         }
 
         /**
+         * Prevent Foundry from disabling form controls on read-only sheets.
+         * DocumentSheetV2._onRender calls _toggleDisabled(true) when !isEditable,
+         * which sets disabled=true on every button/input in the form — killing
+         * our Svelte tab buttons. We manage editability via ctx.editable instead.
+         */
+        _toggleDisabled(_disabled: boolean): void {}
+
+        /**
          * When a sheet is popped out to a new window, that window won't have
          * the system's CSS variables or styles. Copy all <link> and <style>
          * elements from the main document's <head> into the popout's <head>.
