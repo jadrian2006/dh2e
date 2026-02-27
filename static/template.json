@@ -131,6 +131,7 @@
         "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic", "objective", "homeworld", "background", "role", "treasure", "note"],
         "weapon": {
             "description": "",
+            "source": "",
             "class": "melee",
             "range": 0,
             "rof": { "single": true, "semi": 0, "full": 0 },
@@ -153,6 +154,7 @@
         },
         "armour": {
             "description": "",
+            "source": "",
             "locations": {
                 "head": 0,
                 "rightArm": 0,
@@ -170,6 +172,7 @@
         },
         "gear": {
             "description": "",
+            "source": "",
             "weight": 0,
             "quantity": 1,
             "availability": "Common",
@@ -177,6 +180,7 @@
         },
         "skill": {
             "description": "",
+            "source": "",
             "linkedCharacteristic": "ws",
             "advancement": 0,
             "isSpecialist": false,
@@ -185,6 +189,7 @@
         },
         "talent": {
             "description": "",
+            "source": "",
             "tier": 1,
             "aptitudes": [],
             "prerequisites": "",
@@ -192,6 +197,7 @@
         },
         "condition": {
             "description": "",
+            "source": "",
             "slug": "",
             "duration": "",
             "stackable": false,
@@ -200,6 +206,7 @@
         },
         "power": {
             "description": "",
+            "source": "",
             "discipline": "",
             "cost": 200,
             "focusTest": "wp",
@@ -211,6 +218,7 @@
         },
         "trait": {
             "description": "",
+            "source": "",
             "rules": [],
             "hasRating": false,
             "rating": 0,
@@ -219,6 +227,7 @@
         },
         "critical-injury": {
             "description": "",
+            "source": "",
             "location": "",
             "damageType": "",
             "severity": 1,
@@ -229,12 +238,14 @@
         },
         "malignancy": {
             "description": "",
+            "source": "",
             "threshold": 0,
             "rules": [],
             "visible": true
         },
         "mental-disorder": {
             "description": "",
+            "source": "",
             "threshold": 0,
             "severity": "minor",
             "rules": [],
@@ -242,6 +253,7 @@
         },
         "ammunition": {
             "description": "",
+            "source": "",
             "damageModifier": 0,
             "damageType": "",
             "penetrationModifier": 0,
@@ -257,6 +269,7 @@
         },
         "cybernetic": {
             "description": "",
+            "source": "",
             "location": "",
             "type": "replacement",
             "grade": "common",
@@ -268,6 +281,7 @@
         },
         "objective": {
             "description": "",
+            "source": "",
             "status": "active",
             "assignedBy": "",
             "timestamp": 0,
@@ -277,6 +291,7 @@
         },
         "homeworld": {
             "description": "",
+            "source": "",
             "characteristicBonuses": { "positive": [], "negative": [] },
             "fate": { "threshold": 2, "blessing": 1 },
             "woundsFormula": "8+1d5",
@@ -287,6 +302,7 @@
         },
         "background": {
             "description": "",
+            "source": "",
             "skills": [],
             "talents": [],
             "equipment": [],
@@ -296,6 +312,7 @@
         },
         "role": {
             "description": "",
+            "source": "",
             "aptitudes": [],
             "talent": "",
             "eliteAdvances": [],
@@ -304,6 +321,7 @@
         },
         "treasure": {
             "description": "",
+            "source": "",
             "value": 0,
             "weight": 0,
             "quantity": 1,
@@ -311,6 +329,7 @@
         },
         "note": {
             "description": "",
+            "source": "",
             "content": "",
             "timestamp": 0,
             "gameDate": ""

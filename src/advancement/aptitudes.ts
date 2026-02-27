@@ -39,7 +39,7 @@ export async function loadXPCostData(): Promise<XPCostData> {
     if (_cached) return _cached;
 
     try {
-        const resp = await fetch("modules/dh2e-data/data/advancement/xp-costs.json");
+        const resp = await fetch(`systems/${SYSTEM_ID}/data/advancement/xp-costs.json`);
         if (resp.ok) {
             _cached = (await resp.json()) as XPCostData;
             return _cached;
@@ -48,7 +48,7 @@ export async function loadXPCostData(): Promise<XPCostData> {
         // Fall through to fallback
     }
 
-    console.warn("DH2E | xp-costs.json not found in data module, using hardcoded fallback");
+    console.warn("DH2E | xp-costs.json not found in system data, using hardcoded fallback");
     _cached = FALLBACK_COSTS;
     return _cached;
 }

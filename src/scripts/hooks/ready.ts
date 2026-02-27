@@ -24,6 +24,8 @@ import { VoxTerminalPopup } from "../../ui/vox-terminal/vox-terminal-popup.ts";
 import { ensureHomebrewPack, getHomebrewPack, copyToHomebrew, createHomebrewItem } from "../../homebrew/homebrew-pack.ts";
 import { showTradePrompt, executeTransfer } from "../../trade/item-trade.ts";
 import { activateEnricherListeners } from "../../enrichers/enrichers.ts";
+import { initConditionsRegistry } from "@item/condition/conditions-registry.ts";
+import { invalidatePackCache } from "@util/pack-discovery.ts";
 
 /** Hooks.once("ready") — final initialization, migrations */
 export class Ready {
@@ -31,8 +33,15 @@ export class Ready {
         Hooks.once("ready", async () => {
             ChatListenersDH2e.listen();
 
+            // Initialize core conditions registry (system-level, no module dependency)
+            await initConditionsRegistry();
+
             // Activate global click handlers for text enricher links
             activateEnricherListeners();
+
+            // Invalidate pack discovery cache when modules change
+            Hooks.on("updateModule" as any, () => invalidatePackCache());
+            Hooks.on("activateModule" as any, () => invalidatePackCache());
 
             // Expose API on game.dh2e
             (game as any).dh2e.awardXP = () => XPAwardDialog.open();

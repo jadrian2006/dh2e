@@ -499,33 +499,22 @@ class ChatListenersDH2e {
         await DivinationSessionHandler.handleApply(message, btn);
     }
 
-    /** Open a condition item sheet from an enricher link */
+    /** Show condition details from the core conditions registry */
     static async #onConditionLink(link: HTMLAnchorElement): Promise<void> {
-        const uuid = link.dataset.uuid;
-        if (uuid) {
-            const doc = await fromUuid(uuid);
-            if (doc) {
-                (doc as any).sheet?.render(true);
-                return;
-            }
-        }
-
-        // Fallback: look up by slug in compendium
         const slug = link.dataset.slug;
         if (!slug) return;
 
-        const g = game as any;
-        const pack = g.packs?.get("dh2e-data.conditions");
-        if (!pack) return;
+        const { getConditionBySlug } = await import("@item/condition/conditions-registry.ts");
+        const condition = getConditionBySlug(slug);
+        if (!condition) return;
 
-        const index = await pack.getIndex();
-        const entry = index.find((e: any) => {
-            const name = e.name?.toLowerCase().replace(/\s+/g, "-");
-            return name === slug;
-        });
-        if (entry) {
-            const doc = await pack.getDocument(entry._id);
-            (doc as any)?.sheet?.render(true);
+        // Show tooltip with condition details
+        const g = game as any;
+        if (g.tooltip && link) {
+            const html = `<div style="max-width:320px"><strong>${condition.name}</strong><br/>${condition.description}</div>`;
+            g.tooltip.activate(link, { html, direction: "DOWN" });
+        } else {
+            ui.notifications?.info(`${condition.name}: ${condition.description}`);
         }
     }
 

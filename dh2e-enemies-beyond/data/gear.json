@@ -1,0 +1,98 @@
+[
+    {
+        "name": "Banishing Rod",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "Made of darkened iron slabs enscrolled with hallowed parchment and curled purity seals, banishing rods calm the Warp. Psykers within 5 metres cannot push psychic powers, and reduce Psychic Phenomena rolls by -20. Characters with the Daemonic trait treat this area as treacherous environment. When used in an exorcism, each rod grants a +5 bonus to the Daemonic Mastery test.",
+            "weight": 8,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Consecrated Scrolls",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "Soaked in sacred oils and covered in illuminated texts of devotion. Before making a Focus Power test, a character possessing one of these scrolls may burn a single one as a Free Action (destroying it). Should the user have to roll on the Psychic Phenomena table, he may re-roll the result.",
+            "weight": 1,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Empyrean Brain Mine",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "Created using forbidden technologies found on a ghost world, these objects latch onto a victim's body and send disruptive energies directly into the brain. A brain mine must be attached through a successful Grapple action. At the start of each turn for 3 rounds, the target must make a Hard (-20) Agility test; failure means no actions that round. The mine deals 1d10+5 Rending damage if forcibly removed.",
+            "weight": 1,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Psyocculum",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "An arcane assemblage of strange lenses and aetheric scryers that tracks the Warp signatures of psykers and Daemons. As a Half Action, the wearer makes a Challenging (+10) Awareness test to detect psykers and characters with the Daemonic trait, gaining +10 BS against them. Imposes -20 to all other sight-based tests. Causes 1 Fatigue for every 5 minutes of use beyond the first minute.",
+            "weight": 1.5,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Icon of the Just",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A proud, glowing symbol of Inquisitorial might, each Icon of the Just projects a personal force field with a protection rating of 55. Contains holy wards that repel Warpspawn—opponents with the Daemonic trait suffer a -10 penalty to attack tests and Focus Power tests against the wearer.",
+            "weight": 0.5,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Pentagramatic Wards",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "One of the Ordo Malleus's most closely guarded secrets. Armour upgrade. Whenever a character with the Daemonic or Warp Instability trait becomes engaged in melee with the wearer or begins his turn engaged, that character must make a Hard (-20) Willpower test. Failure causes 1d5 Energy damage per degree of failure (ignoring armour and Toughness bonus). If the character scores 4+ degrees of success, the ward shatters permanently.",
+            "weight": 0,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Sacred Incense Burner",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "Armour upgrade. Filled with blessed herbs and spices. Setting it aflame requires a Half Action and it burns for 1 hour. While alight, any creature with the Daemonic trait within 3 metres suffers a -10 penalty to Weapon Skill tests and a -10 penalty to Warp Instability tests.",
+            "weight": 3,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Unguents of Warding",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "Armour upgrade. Working the unguents onto armour takes roughly one hour per hit location. Requires a Hard (-20) Scholastic Lore (Occult) or Forbidden Lore (Imperial Creed) test for each location. For each treated location, the armour grants +5 bonus to resist Fear from Daemons and to resist psychic powers. Effects last one month.",
+            "weight": 0,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-beyond"
+        }
+    }
+]

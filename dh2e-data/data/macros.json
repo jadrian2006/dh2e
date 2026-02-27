@@ -32,7 +32,7 @@
     {
         "name": "Maintain Cybernetics",
         "type": "script",
-        "img": "icons/svg/gear.svg",
+        "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
         "command": "game.dh2e.maintainCybernetics();",
         "scope": "global",
         "flags": {}

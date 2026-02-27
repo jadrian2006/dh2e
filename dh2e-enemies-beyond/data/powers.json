@@ -1,0 +1,322 @@
+[
+    {
+        "name": "Psychic Communion",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Establishing a psychic link with his allies, the psyker ensures that they act in concert, the better to deliver righteous judgement on the Emperor's foes. The psyker selects a number of allies up to psy rating within range. While the power persists, the psyker and his affected allies add +2 to their Initiative.",
+            "discipline": "Sanctic Daemonology",
+            "cost": 100,
+            "prerequisites": "Perception 35",
+            "focusTest": "Willpower",
+            "focusModifier": 10,
+            "range": "10 metres x psy rating",
+            "sustained": "Free Action",
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Word of the Emperor",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker speaks with the very voice of the Emperor, causing his enemies to cringe in pain and terror. Whilst the power remains in effect, whenever a character within range takes an Attack action targeting the psyker, the attacker must pass a Challenging (+0) Willpower test or suffer a -5 penalty to his attack roll for each degree of failure.",
+            "discipline": "Sanctic Daemonology",
+            "cost": 200,
+            "prerequisites": "Fellowship 30",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "10 metres x psy rating",
+            "sustained": "Half Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Exorcism",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Bolstering his ritual with psychic current, the psyker prepares to exorcise a Daemon. The psyker selects a single target character with the Daemonic trait, which opposes the power with a Willpower test. If the psyker wins the opposed test, the character suffers Willpower damage equal to the user's psy rating for each degree of success on the psyker's test.",
+            "discipline": "Sanctic Daemonology",
+            "cost": 200,
+            "prerequisites": "Willpower 40",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "5 metres x psy rating",
+            "sustained": "Half Action",
+            "action": "Full Action",
+            "subtype": "Attack, Concentration",
+            "opposed": true,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Purge Soul",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Using the corruption in his target's soul as kindling, the psyker ignites an inner fire, burning away the target's tainted soul. The target suffers 1 point of Energy damage per degree of success on the test, plus an amount equal to the target's Corruption bonus, ignoring armour and Toughness bonus.",
+            "discipline": "Sanctic Daemonology",
+            "cost": 200,
+            "prerequisites": "Willpower 35",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "10 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": true,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Banishment",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Speaking words of banishment, the psyker draws on his faith and reaches out to sever the cords tying a Daemon to reality. The targeted Daemon must immediately make a Willpower test, with a -5 penalty for each degree of success on the Focus Power test. The target suffers 1 point of Energy damage per degree of failure on the test, ignoring Toughness bonus and armour. If this would deal damage equal to or in excess of the target's remaining wounds, it is immediately cast back into the Warp.",
+            "discipline": "Sanctic Daemonology",
+            "cost": 300,
+            "prerequisites": "Psy rating 3",
+            "focusTest": "Willpower",
+            "focusModifier": -20,
+            "range": "10 metres x psy rating",
+            "sustained": false,
+            "action": "Full Action",
+            "subtype": "Attack, Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Cleansing Flame",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker projects his purity in a great gout of holy flames. The azure fires burn hotter than any mundane flame, blazing with the righteousness of the Emperor. When a character is set on fire by this power, the damage he suffers from the flames counts as having the Sanctified quality.",
+            "discipline": "Sanctic Daemonology",
+            "cost": 300,
+            "prerequisites": "Psy rating 4",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "5 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Hammerhand",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Imbuing his muscles with psychic force, the psyker brings down the wrath of the Emperor of Mankind in powerful strikes. The psyker selects a number of allies within range equal to his psy rating (which may include the psyker). While the power persists, the affected characters gain the Unnatural Strength (X) trait where X is equal to the user's psy rating, or increases their existing trait's value by 4.",
+            "discipline": "Sanctic Daemonology",
+            "cost": 300,
+            "prerequisites": "Psy rating 3",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "5 metres x psy rating",
+            "sustained": "Free Action",
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Sanctuary",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker summons a barrier of holy force, pushing back the Daemon and deflecting the blows of heretics. Each affected character benefits from a force field with a protection rating of 5 x PR and no overload chance. In addition, Daemons must pass a Challenging (+0) Willpower test in order to move toward an affected character.",
+            "discipline": "Sanctic Daemonology",
+            "cost": 400,
+            "prerequisites": "Willpower 45",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "10 metres x psy rating",
+            "sustained": "Half Action",
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Holocaust",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker ignites his very soul in a devastating conflagration that washes out from him in all directions. Each round the psyker sustains Holocaust, he emits a psychic blast centred on himself. He is not affected by the blast, but each turn the psyker sustains the power he suffers 1d10+psy rating Energy damage, ignoring armour and Toughness bonus.",
+            "discipline": "Sanctic Daemonology",
+            "cost": 500,
+            "prerequisites": "Psy rating 5",
+            "focusTest": "Willpower",
+            "focusModifier": -20,
+            "range": "Self",
+            "sustained": "Full Action",
+            "action": "Full Action",
+            "subtype": "Attack, Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Summoning",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Drawing on his Warp-born powers, the psyker weakens the veil twixt reality and the Immaterium. As long as this power is sustained, the psyker gains a bonus of +10 x psy rating to Forbidden Lore (Daemonology) tests made to summon Daemons.",
+            "discipline": "Malefic Daemonology",
+            "cost": 50,
+            "prerequisites": "Willpower 35",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "Self",
+            "sustained": "Free Action",
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Dark Flame",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Drawing on his own corruption, the psyker projects a gout of dark Warp-fire. Any character who suffers damage from Dark Flame must succeed at an Easy (+30) Willpower test or gain 1 Corruption point for each degree of failure.",
+            "discipline": "Malefic Daemonology",
+            "cost": 100,
+            "prerequisites": "10 Corruption points",
+            "focusTest": "Willpower",
+            "focusModifier": 0,
+            "range": "5 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Cursed Earth",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker calls forth crackling tendrils of dark energy to imbue an area of ground with the power of the Warp. While the power is sustained, Daemons standing within this area increase the value of their Daemonic trait by half psy rating and receive a bonus of +5 x psy rating to Warp Instability tests. In addition, psychic powers used within the affected area add +10 to Focus Power tests.",
+            "discipline": "Malefic Daemonology",
+            "cost": 100,
+            "prerequisites": "Willpower 40",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "1 metre x psy rating",
+            "sustained": "Free Action",
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Incursion",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Not content with merely summoning Daemons forth into reality, the psyker bends his unnatural powers toward the cowing of these unholy entities. As long as this power remains in effect, the psyker gains a bonus to his Daemonic Mastery tests of +10 x psy rating.",
+            "discipline": "Malefic Daemonology",
+            "cost": 100,
+            "prerequisites": "Willpower 45",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "Self",
+            "sustained": "Free Action",
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Sacrifice",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker uses the flesh and blood of a willing or unwilling victim to fuel his dark powers. This power can only be used if the psyker has inflicted damage on a target since the beginning of the previous round. If the Focus Power test succeeds, the psyker gains a +5 bonus to his next Focus Power test for each point of damage inflicted (after reductions). This bonus must be used within 1 hour.",
+            "discipline": "Malefic Daemonology",
+            "cost": 100,
+            "prerequisites": "Willpower 45",
+            "focusTest": "Willpower",
+            "focusModifier": 10,
+            "range": "Self",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Infernal Gaze",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker opens his soul to the Warp, his eyes reflecting a dark vision of the Realm of Chaos. This power affects all characters within range and line of sight who do not possess the Daemonic trait. Any character who fails the opposed Willpower test suffers Energy damage equal to the user's psy rating plus Corruption bonus, ignoring armour and Toughness bonus, and gains Insanity points and Corruption points equal to half the user's psy rating.",
+            "discipline": "Malefic Daemonology",
+            "cost": 200,
+            "prerequisites": "15 Corruption points, Willpower 45",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "5 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack, Concentration",
+            "opposed": true,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Possession",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "Confident in his own strength of will, the psyker allows a minor Warp beast to temporarily enter his flesh. While the power is sustained, the psyker gains the Daemonic (X) and Unnatural Strength (X) traits, where X equals half his psy rating, as well as the Deadly Natural Weapons trait. The psyker must succeed at a Challenging (+0) Willpower test each round or enter a Frenzied state.",
+            "discipline": "Malefic Daemonology",
+            "cost": 200,
+            "prerequisites": "20 Corruption points",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "Self",
+            "sustained": "Free Action",
+            "action": "Full Action",
+            "subtype": "Concentration",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    }
+]

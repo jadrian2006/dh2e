@@ -33,7 +33,12 @@
                     type="button"
                     onclick={() => { selected = hw; }}
                 >
-                    <div class="card-header">{hw.name}</div>
+                    <div class="card-header">
+                        {hw.name}
+                        {#if hw.source && hw.source !== "core-rulebook"}
+                            <span class="source-badge">{game.i18n?.localize(`DH2E.Source.${hw.source}`) ?? hw.source}</span>
+                        {/if}
+                    </div>
                     <div class="card-row stats-row">
                         <span class="stat bonus">+5 {hw.characteristicBonuses.positive.map((k: string) => charLabels[k] ?? k.toUpperCase()).join(", ")}</span>
                         <span class="stat penalty">-5 {hw.characteristicBonuses.negative.map((k: string) => charLabels[k] ?? k.toUpperCase()).join(", ")}</span>
@@ -147,6 +152,22 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
+        display: flex;
+        align-items: baseline;
+        gap: 0.4rem;
+    }
+
+    .source-badge {
+        font-family: var(--dh2e-font-body, sans-serif);
+        font-size: 0.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #b0a0d0;
+        background: rgba(140, 120, 180, 0.15);
+        padding: 1px 4px;
+        border-radius: 2px;
+        white-space: nowrap;
     }
 
     .card-row {

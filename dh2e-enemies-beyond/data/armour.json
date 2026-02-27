@@ -1,0 +1,46 @@
+[
+    {
+        "name": "Heavy Power Armour",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Granted to but a few outside of the elite Adeptus Astartes and the Adepta Sororitas, power armour has been a part of the Imperium since the Emperor's conquest of Terra. Heavy power armour grants the wearer the Auto-Stabilised and Unnatural Strength (1) trait, increases the value of his Size (X) trait by 1. When used with the detachable helmet, it is environmentally sealed with its own oxygen supply and vox-caster systems. Its power supply can operate for 2d5 hours before recharging.",
+            "locations": {
+                "head": 8,
+                "rightArm": 8,
+                "leftArm": 8,
+                "body": 8,
+                "rightLeg": 8,
+                "leftLeg": 8
+            },
+            "maxAgility": 35,
+            "qualities": [],
+            "weight": 65,
+            "equipped": false,
+            "craftsmanship": "common",
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Obsidian Plate",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Extremely heavy and seemingly primitive, obsidian plate armour dulls the effects of psychic powers. A character wearing this armour gains the Resistance (Psychic Powers) talent, or an additional +10 to tests to resist psychic powers if the character already has this talent. Obsidian plate counts its listed Armour points as triple against hits inflicted by Psychic Bolts. A psyker wearing obsidian plate cannot push his psychic powers, and reduces his psy-rating by 3 (to a minimum of 1).",
+            "locations": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 6,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 35,
+            "qualities": [],
+            "weight": 35,
+            "equipped": false,
+            "craftsmanship": "common",
+            "source": "enemies-beyond"
+        }
+    }
+]

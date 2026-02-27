@@ -1,0 +1,30 @@
+{
+    "characteristicAptitudes": {
+        "ws":  ["Weapon Skill", "Offence"],
+        "bs":  ["Ballistic Skill", "Finesse"],
+        "s":   ["Strength", "Offence"],
+        "t":   ["Toughness", "Defence"],
+        "ag":  ["Agility", "Finesse"],
+        "int": ["Intelligence", "Knowledge"],
+        "per": ["Perception", "Fieldcraft"],
+        "wp":  ["Willpower", "Psyker"],
+        "fel": ["Fellowship", "Social"]
+    },
+    "characteristicCosts": [
+        [100, 250, 500],
+        [250, 500, 750],
+        [500, 750, 1000],
+        [750, 1000, 1500]
+    ],
+    "skillCosts": [
+        [100, 200, 300],
+        [200, 400, 600],
+        [300, 600, 900],
+        [400, 800, 1200]
+    ],
+    "talentCosts": [
+        [200, 300, 600],
+        [300, 450, 900],
+        [400, 600, 1200]
+    ]
+}

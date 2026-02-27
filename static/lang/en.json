@@ -1359,5 +1359,15 @@
     "DH2E.Enricher.NoActor": "Select a token or assign a character to roll.",
     "DH2E.Enricher.UnknownCondition": "Unknown condition: {slug}",
     "DH2E.Enricher.CheckLabel": "{name} Test",
-    "DH2E.Enricher.CheckLabelMod": "{name} Test ({mod})"
+    "DH2E.Enricher.CheckLabelMod": "{name} Test ({mod})",
+
+    "DH2E.Source.Label": "Source",
+    "DH2E.Source.core-rulebook": "Core Rulebook",
+    "DH2E.Source.enemies-beyond": "Enemies Beyond",
+    "DH2E.Source.enemies-within": "Enemies Within",
+    "DH2E.Source.enemies-without": "Enemies Without",
+    "DH2E.Source.forgotten-gods": "Forgotten Gods",
+    "DH2E.Source.gm-kit": "GM Kit",
+    "DH2E.Source.homebrew": "Homebrew",
+    "DH2E.Source.unknown": "Unknown"
 }

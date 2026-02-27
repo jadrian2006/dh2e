@@ -1,0 +1,717 @@
+[
+    {
+        "name": "Bloodletter",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": {
+                    "base": 50,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 12,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 42,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 42,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 34,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 14,
+                    "advances": 0
+                }
+            },
+            "wounds": {
+                "value": 22,
+                "max": 22
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
+            "aptitudes": [],
+            "armour": {
+                "head": 3,
+                "rightArm": 3,
+                "leftArm": 3,
+                "body": 7,
+                "rightLeg": 5,
+                "leftLeg": 5
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "Muscular and possessed of an unmatched rage, Bloodletters make up the bulk of Khorne's forces. Unlike other daemonic rabble, Bloodletters march to war in distinct ranks under banners dripping with gore. They are the Warp's preeminent foot soldiers, and fall upon mortal armies like an unrelenting tide of blood. Traits: Baneful Presence (10), Berserk Charge, Blood for the Blood God, Daemonic (4), Dark-sight, Fear (2), From Beyond, Size (5), Unnatural Strength (3), Unnatural Willpower (2), Warp Instability. Growing Rage: Each time a Bloodletter kills with its Hellblade, the weapon gains +2 damage for subsequent rounds (cumulative, lasts until end of encounter)."
+            },
+            "source": "enemies-beyond"
+        },
+        "items": [
+            {
+                "name": "Hellblade",
+                "type": "weapon",
+                "system": {
+                    "description": "A terrible sword that glows with runes of slaughter.",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": {
+                        "single": true,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+16",
+                        "type": "rending",
+                        "bonus": 0
+                    },
+                    "penetration": 10,
+                    "weight": 10,
+                    "qualities": [
+                        "Balanced",
+                        "Power Field"
+                    ],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Athletics",
+                "type": "skill",
+                "system": {
+                    "description": "",
+                    "specialization": "",
+                    "advancement": 1,
+                    "characteristic": "s",
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Awareness",
+                "type": "skill",
+                "system": {
+                    "description": "",
+                    "specialization": "",
+                    "advancement": 1,
+                    "characteristic": "per",
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Dodge",
+                "type": "skill",
+                "system": {
+                    "description": "",
+                    "specialization": "",
+                    "advancement": 1,
+                    "characteristic": "ag",
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Forbidden Lore",
+                "type": "skill",
+                "system": {
+                    "description": "",
+                    "specialization": "Daemonology",
+                    "advancement": 1,
+                    "characteristic": "int",
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Intimidate",
+                "type": "skill",
+                "system": {
+                    "description": "",
+                    "specialization": "",
+                    "advancement": 2,
+                    "characteristic": "s",
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Parry",
+                "type": "skill",
+                "system": {
+                    "description": "",
+                    "specialization": "",
+                    "advancement": 3,
+                    "characteristic": "ws",
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "system": {
+                    "description": "",
+                    "specialization": "",
+                    "advancement": 1,
+                    "characteristic": "per",
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Battle Rage",
+                "type": "talent",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Blademaster",
+                "type": "talent",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Combat Master",
+                "type": "talent",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Crushing Blow",
+                "type": "talent",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Frenzy",
+                "type": "talent",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "enemies-beyond"
+                }
+            },
+            {
+                "name": "Swift Attack",
+                "type": "talent",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "enemies-beyond"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Daemonette",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": {
+                    "base": 45,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 10,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 50,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 55,
+                    "advances": 0
+                }
+            },
+            "wounds": {
+                "value": 18,
+                "max": 18
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "Lithe, beguiling creatures that serve the Dark Prince of Chaos, Daemonettes are unnaturally fast and graceful. Their clawed hands and sinuous movements belie their deadly nature. Traits: Baneful Presence (10), Daemonic (3), Dark-sight, Deadly Natural Weapons, Fear (2), From Beyond, Graceful Killer, Siren's Call, Size (4), Unnatural Agility (3), Warp Instability."
+            },
+            "source": "enemies-beyond"
+        },
+        "items": [
+            {
+                "name": "Piercing Claws",
+                "type": "weapon",
+                "system": {
+                    "description": "The razor-sharp claws of a Daemonette.",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": {
+                        "single": true,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+8",
+                        "type": "rending",
+                        "bonus": 0
+                    },
+                    "penetration": 6,
+                    "weight": 0,
+                    "qualities": [
+                        "Razor Sharp",
+                        "Tearing"
+                    ],
+                    "equipped": true,
+                    "weaponGroup": "natural",
+                    "craftsmanship": "common",
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
+                    "source": "enemies-beyond"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Plaguebearer",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 10,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 55,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 20,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 25,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 10,
+                    "advances": 0
+                }
+            },
+            "wounds": {
+                "value": 25,
+                "max": 25
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "Shambling horrors of rot and decay, Plaguebearers are the foot soldiers of Nurgle. Each counts the diseases of the universe, and their touch brings pestilence and death. Traits: Baneful Presence (10), Daemonic (4), Dark-sight, Fear (2), From Beyond, Plague Ridden, Shrouded in Flies, Size (5), Toxic (3), Unnatural Toughness (4), Warp Instability."
+            },
+            "source": "enemies-beyond"
+        },
+        "items": [
+            {
+                "name": "Plague Sword",
+                "type": "weapon",
+                "system": {
+                    "description": "A corroded blade dripping with infection.",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": {
+                        "single": true,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+10",
+                        "type": "rending",
+                        "bonus": 0
+                    },
+                    "penetration": 4,
+                    "weight": 6,
+                    "qualities": [
+                        "Toxic (3)",
+                        "Felling (1)"
+                    ],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
+                    "source": "enemies-beyond"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Horror of Tzeentch",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": {
+                    "base": 25,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 50,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 15,
+                    "advances": 0
+                }
+            },
+            "wounds": {
+                "value": 20,
+                "max": 20
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "Horrors of Tzeentch are gibbering, multi-coloured creatures of ever-shifting form. They are the most numerous of Tzeentch's daemonic servants. As powerful psykers, they hurl bolts of Warp fire at their foes. Traits: Baneful Presence (10), Daemonic (3), Dark-sight, Fear (2), From Beyond, Master of Sorcery, Psyker (PR 4), Size (4), Unnatural Willpower (3), Warp Flicker, Warp Instability."
+            },
+            "source": "enemies-beyond"
+        },
+        "items": [
+            {
+                "name": "Warp Flames",
+                "type": "weapon",
+                "system": {
+                    "description": "Bolts of multi-coloured Warp fire.",
+                    "class": "ranged",
+                    "range": 30,
+                    "rof": {
+                        "single": true,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "2d10+4",
+                        "type": "energy",
+                        "bonus": 0
+                    },
+                    "penetration": 4,
+                    "weight": 0,
+                    "qualities": [
+                        "Flame",
+                        "Warp Weapon"
+                    ],
+                    "equipped": true,
+                    "weaponGroup": "natural",
+                    "craftsmanship": "common",
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
+                    "source": "enemies-beyond"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Flesh Hound of Khorne",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": {
+                    "base": 45,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 0,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 45,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 45,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 15,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 10,
+                    "advances": 0
+                }
+            },
+            "wounds": {
+                "value": 18,
+                "max": 18
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
+            "aptitudes": [],
+            "armour": {
+                "head": 4,
+                "rightArm": 4,
+                "leftArm": 4,
+                "body": 6,
+                "rightLeg": 4,
+                "leftLeg": 4
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "notes": "Flesh Hounds are tireless hunters and trackers, running their prey to ground with supernatural persistence. Once a Flesh Hound has the scent of its quarry, nothing short of death can stop it. Traits: Baneful Presence (5), Berserk Charge, Blood for the Blood God, Daemonic (3), Dark-sight, Deadly Natural Weapons, Fear (1), From Beyond, Quadruped, Size (4), Sprint, Unnatural Strength (2), Warp Instability. Collar of Khorne: Psykers within 3m reduce psy rating by 2."
+            },
+            "source": "enemies-beyond"
+        },
+        "items": [
+            {
+                "name": "Fangs and Claws",
+                "type": "weapon",
+                "system": {
+                    "description": "Brass-tipped fangs and razor-sharp claws.",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": {
+                        "single": true,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+10",
+                        "type": "rending",
+                        "bonus": 0
+                    },
+                    "penetration": 3,
+                    "weight": 0,
+                    "qualities": [
+                        "Razor Sharp",
+                        "Tearing"
+                    ],
+                    "equipped": true,
+                    "weaponGroup": "natural",
+                    "craftsmanship": "common",
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
+                    "source": "enemies-beyond"
+                }
+            }
+        ]
+    }
+]

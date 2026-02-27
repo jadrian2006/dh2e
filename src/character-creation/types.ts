@@ -23,6 +23,8 @@ interface HomeworldOption {
     bonus: string;
     /** Bonus ability description */
     bonusDescription: string;
+    /** Source book identifier (e.g., "core-rulebook", "enemies-beyond") */
+    source?: string;
     /** Carries the full compendium item data for embedding on actor */
     _itemData?: Record<string, unknown>;
 }
@@ -43,6 +45,8 @@ interface BackgroundOption {
     bonus: string;
     /** Bonus ability description */
     bonusDescription: string;
+    /** Source book identifier (e.g., "core-rulebook", "enemies-beyond") */
+    source?: string;
     /** Carries the full compendium item data for embedding on actor */
     _itemData?: Record<string, unknown>;
 }
@@ -61,6 +65,8 @@ interface RoleOption {
     bonus: string;
     /** Bonus ability description */
     bonusDescription: string;
+    /** Source book identifier (e.g., "core-rulebook", "enemies-beyond") */
+    source?: string;
     /** Carries the full compendium item data for embedding on actor */
     _itemData?: Record<string, unknown>;
 }

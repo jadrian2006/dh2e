@@ -1,0 +1,131 @@
+{
+    "id": "dh2e-enemies-beyond",
+    "title": "DH2E - Enemies Beyond Data",
+    "description": "Compendium data for Dark Heresy 2nd Edition: Enemies Beyond supplement. Contains new homeworlds, backgrounds, roles, talents, weapons, armour, gear, psychic powers, traits, and NPCs from the Enemies Beyond sourcebook. FOR PERSONAL USE ONLY.",
+    "version": "0.1.0",
+    "compatibility": {
+        "minimum": "13.348",
+        "verified": "13.351",
+        "maximum": "13"
+    },
+    "authors": [
+        {
+            "name": "jadrian2006"
+        }
+    ],
+    "relationships": {
+        "systems": [
+            {
+                "id": "dh2e",
+                "type": "system",
+                "compatibility": {
+                    "minimum": "0.1.0"
+                }
+            }
+        ]
+    },
+    "packFolders": [
+        {
+            "name": "EB Equipment",
+            "color": "#6a5aae",
+            "packs": ["weapons", "armour", "gear"]
+        },
+        {
+            "name": "EB Character",
+            "color": "#6a5aae",
+            "packs": ["talents", "powers", "traits"]
+        },
+        {
+            "name": "EB Creation",
+            "color": "#6a5aae",
+            "packs": ["homeworlds", "backgrounds", "roles"]
+        },
+        {
+            "name": "EB Actors",
+            "color": "#6a5aae",
+            "packs": ["npcs"]
+        }
+    ],
+    "packs": [
+        {
+            "name": "homeworlds",
+            "label": "EB Homeworlds",
+            "path": "packs/homeworlds",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "backgrounds",
+            "label": "EB Backgrounds",
+            "path": "packs/backgrounds",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "roles",
+            "label": "EB Roles",
+            "path": "packs/roles",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "talents",
+            "label": "EB Talents",
+            "path": "packs/talents",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "weapons",
+            "label": "EB Weapons",
+            "path": "packs/weapons",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "armour",
+            "label": "EB Armour",
+            "path": "packs/armour",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "gear",
+            "label": "EB Gear",
+            "path": "packs/gear",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "powers",
+            "label": "EB Psychic Powers",
+            "path": "packs/powers",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "traits",
+            "label": "EB Traits",
+            "path": "packs/traits",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "npcs",
+            "label": "EB NPCs",
+            "path": "packs/npcs",
+            "type": "Actor",
+            "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        }
+    ]
+}

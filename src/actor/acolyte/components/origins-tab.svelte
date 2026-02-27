@@ -94,22 +94,18 @@
             }
         }
 
-        // Try the compendium
-        const packName = type === "skill" ? "dh2e-data.skills"
-            : type === "talent" ? "dh2e-data.talents"
-            : type === "weapon" ? "dh2e-data.weapons"
-            : type === "gear" ? "dh2e-data.gear"
-            : type === "armour" ? "dh2e-data.armour"
-            : null;
-        if (packName) {
-            const pack = game.packs?.get(packName);
-            if (pack) {
-                const entry = pack.index.find((e: any) => e.name === cleanName);
-                if (entry) {
-                    const doc = await pack.getDocument(entry._id);
-                    (doc as any)?.sheet?.render(true);
-                    return;
-                }
+        // Try all dh2e module compendium packs
+        const { findInAllPacks } = await import("@util/pack-discovery.ts");
+        const typeMap: Record<string, string> = {
+            skill: "skills", talent: "talents", weapon: "weapons",
+            gear: "gear", armour: "armour",
+        };
+        const packType = typeMap[type];
+        if (packType) {
+            const doc = await findInAllPacks(packType as any, cleanName);
+            if (doc) {
+                (doc as any)?.sheet?.render(true);
+                return;
             }
         }
 

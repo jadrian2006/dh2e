@@ -1,0 +1,256 @@
+[
+    {
+        "name": "Bodyguard",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte has trained to protect his allies or superiors, prepared to even throw himself in the way of a bolt shell or whirring chain blade if necessary. After an enemy makes a successful attack against an ally, the character may use a Reaction to move up to his Half Move distance in order to interpose himself between the attacker and target. The attack is then resolved against the character instead of the original target. In the case of a melee attack, the character may also attempt to Parry the attack as part of his Reaction.",
+            "tier": 1,
+            "aptitudes": [
+                "Agility",
+                "Defence"
+            ],
+            "prerequisites": "Ag 35",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Bulwark of Faith",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte's faith is both a shield and a weapon. So filled with righteous fervour is he that Daemons recoil from the blinding light of his faith, their unholy forms sundered. When the character passes a Fear test caused by a Daemon, the Daemon suffers 1 Energy damage ignoring armour and Toughness bonus for each degree of success on the Fear test.",
+            "tier": 2,
+            "aptitudes": [
+                "Defence",
+                "Willpower"
+            ],
+            "prerequisites": "WP 45, Iron Faith",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Daemonhunter",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Through years of experience and countless encounters that would blast the sanity and soul of a lesser man, the Acolyte has honed his abilities to uncover and destroy the Daemon wherever it may be found. The Acolyte may re-roll failed Awareness and Psyniscience tests to detect the presence of Daemons. In addition, his attacks against Daemons gain the Proven (3) quality.",
+            "tier": 2,
+            "aptitudes": [
+                "Offence",
+                "Willpower"
+            ],
+            "prerequisites": "Forbidden Lore (Daemonology), WP 40",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Daemonic Disruption",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Untouchable's very presence is anathema to Daemons, and only the strongest can threaten him. Whenever a creature with the Warp Instability trait makes a successful attack test against this character, it must immediately test for Warp Instability after resolving the attack.",
+            "tier": 3,
+            "aptitudes": [
+                "Willpower"
+            ],
+            "prerequisites": "Bane of the Daemon, WP 50, Untouchable elite advance",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Daemonologist",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte is practiced in the dark arts, and knowledgeable in the strengths and vulnerabilities of Warp creatures. When the character takes the Focus Power action and the target of the psychic power is a Daemon, he gains a +10 bonus to the Focus Power test. At the GM's discretion, this bonus may apply to other tests, such as rituals to summon or bind a Daemon.",
+            "tier": 2,
+            "aptitudes": [
+                "Psyker",
+                "Willpower"
+            ],
+            "prerequisites": "Psy rating 3, WP 45, Forbidden Lore (Daemonology)",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Dark Soul",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Whether through devotion to the Emperor, sheer willpower, single-minded dedication to his duty, or the blessing of some dark power, the Acolyte's internal corruption remains outwardly invisible. When the character would test to gain a mutation as a result of increasing Corruption, he may choose to automatically pass the test. If he does, he also gains a Malignancy and increases his Corruption total by 1d10.",
+            "tier": 3,
+            "aptitudes": [
+                "Toughness",
+                "Willpower"
+            ],
+            "prerequisites": "Hardened Soul, 20 Corruption points",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Hardened Soul",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte knows that he must sacrifice his own salvation in order to safeguard humanity, but that he must resist the corruption for as long as possible. Whenever the character would gain Corruption points, he may reduce the amount gained by half (rounded up) and gain Insanity points equal to the amount reduced.",
+            "tier": 2,
+            "aptitudes": [
+                "Defence",
+                "Willpower"
+            ],
+            "prerequisites": "WP 35, 10 Corruption points",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Inspiring Aura",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte's strength of will inspires those under his command and his comrades in equal measure. The character can affect allies of any kind—not only subordinates—with the Terrify special use for the Command skill. This need not represent threats and intimidation, but might represent inspiring words, encouragement, or sheer steadfastness in the face of terrifying foes.",
+            "tier": 2,
+            "aptitudes": [
+                "Leadership",
+                "Willpower"
+            ],
+            "prerequisites": "Halo of Command",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Instrument of His Will",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte strikes down daemonic foes with holy fury, his blows landing as if guided by the hand of the Emperor Himself. After making a successful attack against a Daemon (this can include striking it with a psychic power), the character may spend a Fate point to increase the damage of the first hit he inflicts as part of that attack by an amount equal to twice his Willpower bonus. This additional damage ignores armour and Toughness bonus.",
+            "tier": 3,
+            "aptitudes": [
+                "Offence",
+                "Willpower"
+            ],
+            "prerequisites": "WP 50",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Iron Faith",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte's faith is as unyielding as plasteel, and it protects him against the unnatural aura of the daemonic. The character is immune to the effects of the Baneful Presence trait.",
+            "tier": 3,
+            "aptitudes": [
+                "Defence",
+                "Willpower"
+            ],
+            "prerequisites": "Iron Resolve",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Iron Resolve",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte is inured to the terrors of both combat and the Warp. After failing a Fear or Pinning test, the character can re-roll the test with a -10 modifier.",
+            "tier": 2,
+            "aptitudes": [
+                "Defence",
+                "Willpower"
+            ],
+            "prerequisites": "Resistance (Fear), Jaded",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "One-on-One",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte is a master of single combat. When fighting a single enemy in melee combat, the character scores extra degrees of success on successful Weapon Skill tests equal to half of his Weapon Skill bonus (rounded down).",
+            "tier": 2,
+            "aptitudes": [
+                "Finesse",
+                "Weapon Skill"
+            ],
+            "prerequisites": "WS 40",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Rites of Banishment",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "In battle against the daemonic, the Acolyte ceaselessly intones sacred rites and invocations against the Daemon. Once per round as a Half Action, the character may speak the litanies and invocations to disrupt Daemons. Until the beginning of his next turn, Daemons within a distance equal to twice the character's Willpower bonus in metres suffer a -10 penalty to Willpower tests.",
+            "tier": 2,
+            "aptitudes": [
+                "Offence",
+                "Willpower"
+            ],
+            "prerequisites": "Common Lore (Imperial Creed) +10 or Forbidden Lore (Daemonology)",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Sanctic Purity",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Sanctic Daemonology is often considered the most pure of psychic disciplines. When the character triggers Psychic Phenomena when manifesting a power from the Sanctic Daemonology discipline, he may spend a Fate point in order to negate the result entirely.",
+            "tier": 3,
+            "aptitudes": [
+                "Psyker",
+                "Willpower"
+            ],
+            "prerequisites": "Daemonologist, Favoured by the Warp, WP 50",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Shield Wall",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte is a master of the art of weapon-and-shield combat. When armed with a shield, the character can re-roll one failed Evasion test to Parry an attack per round.",
+            "tier": 3,
+            "aptitudes": [
+                "Defence",
+                "Weapon Skill"
+            ],
+            "prerequisites": "Ambidextrous, WS 40",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
+    }
+]

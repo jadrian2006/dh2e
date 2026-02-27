@@ -107,12 +107,11 @@
     // Build talent options from compendium — loaded async
     let talentIndex = $state<any[]>([]);
 
-    // Load talent index with system fields on mount
+    // Load talent index with system fields on mount — scan all dh2e modules
     $effect(() => {
-        const talentPack = (globalThis as any).game?.packs?.get("dh2e-data.talents");
-        if (!talentPack) return;
-        talentPack.getIndex({ fields: ["system.tier", "system.aptitudes", "system.description"] }).then((idx: any) => {
-            talentIndex = [...idx];
+        import("@util/pack-discovery.ts").then(async ({ getAllIndexesOfType }) => {
+            const entries = await getAllIndexesOfType("talents");
+            talentIndex = entries;
         });
     });
 
@@ -146,7 +145,7 @@
                 alreadyMaxed: false,
                 prereqsMet: true,
                 prereqsUnmet: [],
-                compendiumUuid: `Compendium.dh2e-data.talents.${meta._id}`,
+                compendiumUuid: meta.uuid ?? `Compendium.${meta.packId}.${meta._id}`,
                 description: sys.description ?? "",
             });
         }

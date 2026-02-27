@@ -87,43 +87,49 @@ class GMGrantDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             for (const item of actor.items) {
                 if (item.type === "talent") ownedNames.add(item.name.toLowerCase());
             }
-            const pack = g.packs?.get("dh2e-data.talents");
-            if (!pack) return [];
+            const { getPacksOfType } = await import("@util/pack-discovery.ts");
             const items: GrantableItem[] = [];
-            for (const entry of pack.index) {
-                const meta = entry as any;
-                if (ownedNames.has(meta.name.toLowerCase())) continue;
-                const tier = meta.system?.tier ?? 1;
-                items.push({ id: meta.name, name: meta.name, sublabel: `Tier ${tier}` });
+            for (const packId of getPacksOfType("talents")) {
+                const pack = g.packs?.get(packId);
+                if (!pack) continue;
+                for (const entry of pack.index) {
+                    const meta = entry as any;
+                    if (ownedNames.has(meta.name.toLowerCase())) continue;
+                    const tier = meta.system?.tier ?? 1;
+                    items.push({ id: meta.name, name: meta.name, sublabel: `Tier ${tier}` });
+                }
             }
             items.sort((a, b) => a.name.localeCompare(b.name));
             return items;
         }
 
         if (type === "skill") {
-            const pack = g.packs?.get("dh2e-data.skills");
-            if (!pack) return [];
+            const { getPacksOfType: getSkillPacks } = await import("@util/pack-discovery.ts");
             const items: GrantableItem[] = [];
-            for (const entry of pack.index) {
-                const meta = entry as any;
-                const sys = meta.system ?? {};
-                const spec: string = sys.specialization ?? "";
-                const name = spec ? `${meta.name} (${spec})` : meta.name;
+            for (const packId of getSkillPacks("skills")) {
+                const pack = g.packs?.get(packId);
+                if (!pack) continue;
+                for (const entry of pack.index) {
+                    const meta = entry as any;
+                    const sys = meta.system ?? {};
+                    const spec: string = sys.specialization ?? "";
+                    const name = spec ? `${meta.name} (${spec})` : meta.name;
 
-                // Check current advancement on actor
-                const existing = actor.items.find((i: Item) => {
-                    if (i.type !== "skill") return false;
-                    const iSys = i.system as any;
-                    const iSpec = iSys.specialization ?? "";
-                    if (spec) return i.name.toLowerCase() === meta.name.toLowerCase() && iSpec.toLowerCase() === spec.toLowerCase();
-                    return i.name.toLowerCase() === meta.name.toLowerCase() && !iSpec;
-                });
-                const advancement: number = existing ? ((existing.system as any).advancement ?? 0) : 0;
-                if (advancement >= 4) continue;
+                    // Check current advancement on actor
+                    const existing = actor.items.find((i: Item) => {
+                        if (i.type !== "skill") return false;
+                        const iSys = i.system as any;
+                        const iSpec = iSys.specialization ?? "";
+                        if (spec) return i.name.toLowerCase() === meta.name.toLowerCase() && iSpec.toLowerCase() === spec.toLowerCase();
+                        return i.name.toLowerCase() === meta.name.toLowerCase() && !iSpec;
+                    });
+                    const advancement: number = existing ? ((existing.system as any).advancement ?? 0) : 0;
+                    if (advancement >= 4) continue;
 
-                const rankNames = ["Known", "Trained (+10)", "Experienced (+20)", "Veteran (+30)"];
-                const sublabel = existing ? `→ ${rankNames[advancement]}` : "→ Known";
-                items.push({ id: name, name, sublabel });
+                    const rankNames = ["Known", "Trained (+10)", "Experienced (+20)", "Veteran (+30)"];
+                    const sublabel = existing ? `→ ${rankNames[advancement]}` : "→ Known";
+                    items.push({ id: name, name, sublabel });
+                }
             }
             items.sort((a, b) => a.name.localeCompare(b.name));
             return items;

@@ -901,6 +901,7 @@
         display: flex;
         flex-direction: column;
         gap: var(--dh2e-space-xs, 0.25rem);
+        min-height: 0;
     }
 
     .section-label {
@@ -914,8 +915,10 @@
 
     .vital-body {
         display: flex;
+        flex: 1;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         gap: 2px;
         padding: var(--dh2e-space-xs, 0.25rem);
         background: var(--dh2e-bg-mid, #2e2e35);

@@ -25,15 +25,11 @@
         const opts = talentOptions;
         if (opts.length <= 1) { talentDescs = {}; return; }
         (async () => {
-            const pack = game.packs.get("dh2e-data.talents");
-            if (!pack) return;
-            const index = await pack.getIndex();
+            const { findInAllPacks } = await import("@util/pack-discovery.ts");
             const descs: Record<string, string> = {};
             for (const name of opts) {
-                const lc = name.toLowerCase();
-                const entry = (index as any).find((e: any) => e.name.toLowerCase() === lc);
-                if (entry) {
-                    const doc = await pack.getDocument(entry._id);
+                const doc = await findInAllPacks("talents", name);
+                if (doc) {
                     descs[name] = (doc as any)?.system?.description ?? "";
                 }
             }
@@ -54,13 +50,9 @@
 
     /** Open the talent's full item sheet from compendium */
     async function openTalentSheet(name: string) {
-        const pack = game.packs.get("dh2e-data.talents");
-        if (!pack) { ui.notifications?.info(`Talent compendium not found.`); return; }
-        const index = await pack.getIndex();
-        const lc = name.toLowerCase();
-        const entry = (index as any).find((e: any) => e.name.toLowerCase() === lc);
-        if (entry) {
-            const doc = await pack.getDocument(entry._id);
+        const { findInAllPacks } = await import("@util/pack-discovery.ts");
+        const doc = await findInAllPacks("talents", name);
+        if (doc) {
             (doc as any)?.sheet?.render(true);
         } else {
             ui.notifications?.info(`No compendium entry found for "${name}".`);
@@ -85,7 +77,12 @@
                     type="button"
                     onclick={() => { selected = role; }}
                 >
-                    <div class="card-header">{role.name}</div>
+                    <div class="card-header">
+                        {role.name}
+                        {#if role.source && role.source !== "core-rulebook"}
+                            <span class="source-badge">{game.i18n?.localize(`DH2E.Source.${role.source}`) ?? role.source}</span>
+                        {/if}
+                    </div>
                     <div class="card-row tag-row">
                         {#each role.aptitudes as apt}
                             <span class="tag">{apt}</span>
@@ -219,6 +216,22 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
+        display: flex;
+        align-items: baseline;
+        gap: 0.4rem;
+    }
+
+    .source-badge {
+        font-family: var(--dh2e-font-body, sans-serif);
+        font-size: 0.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #b0a0d0;
+        background: rgba(140, 120, 180, 0.15);
+        padding: 1px 4px;
+        border-radius: 2px;
+        white-space: nowrap;
     }
 
     .card-row {

@@ -6,15 +6,17 @@ import { recordTransaction } from "../advancement/xp-ledger.ts";
 import { appendLog } from "@actor/log.ts";
 import { getSetting } from "../ui/settings/settings.ts";
 import { getCompendiumTable } from "@util/index.ts";
+import {
+    getAllDocumentsOfType,
+    findInAllPacks,
+    findInMultipleTypes,
+    getPacksOfType,
+    getCreationDataPaths,
+    type PackType,
+} from "@util/pack-discovery.ts";
 
-const DATA_BASE = "modules/dh2e-data/data/creation";
 const CHAR_KEYS = new Set<string>(["ws", "bs", "s", "t", "ag", "int", "per", "wp", "fel"]);
-const EQUIPMENT_PACKS = ["dh2e-data.weapons", "dh2e-data.armour", "dh2e-data.gear", "dh2e-data.cybernetics", "dh2e-data.ammunition"];
-const ORIGIN_PACKS = {
-    homeworlds: "dh2e-data.homeworlds",
-    backgrounds: "dh2e-data.backgrounds",
-    roles: "dh2e-data.roles",
-};
+const EQUIPMENT_TYPES: PackType[] = ["weapons", "armour", "gear", "cybernetics", "ammunition"];
 
 /** A group of mutually exclusive characteristic choices within a divination. */
 interface DivinationChoiceGroup {
@@ -204,7 +206,7 @@ const NAME_ALIASES: Record<string, string> = {
     "enforcer light carapace armour": "carapace armour (full)",
 };
 
-/** Find an item in a compendium pack by name (case-insensitive, with alias support) */
+/** Find an item in compendium packs by name (case-insensitive, with alias support) */
 async function findInPack(packId: string, name: string): Promise<any | null> {
     const pack = game.packs.get(packId);
     if (!pack) return null;
@@ -219,10 +221,28 @@ async function findInPack(packId: string, name: string): Promise<any | null> {
     return pack.getDocument(entry._id);
 }
 
-/** Search multiple packs for an item by name */
-async function findInPacks(packIds: string[], name: string): Promise<any | null> {
-    for (const id of packIds) {
-        const doc = await findInPack(id, name);
+/** Search all packs of a given type for an item by name, with alias support */
+async function findInPackType(type: PackType, name: string): Promise<any | null> {
+    const lc = name.toLowerCase();
+    const alias = NAME_ALIASES[lc]?.toLowerCase();
+
+    for (const packId of getPacksOfType(type)) {
+        const pack = game.packs.get(packId);
+        if (!pack) continue;
+        const index = await pack.getIndex();
+        const entry = index.find((e: any) => {
+            const n = e.name.toLowerCase();
+            return n === lc || (alias && n === alias);
+        });
+        if (entry) return pack.getDocument(entry._id);
+    }
+    return null;
+}
+
+/** Search multiple pack types for an item by name, with alias support */
+async function findInPacks(packTypes: PackType[], name: string): Promise<any | null> {
+    for (const type of packTypes) {
+        const doc = await findInPackType(type, name);
         if (doc) return doc;
     }
     return null;
@@ -236,7 +256,7 @@ async function findInPacks(packIds: string[], name: string): Promise<any | null>
  * Character creation wizard — multi-step guided or manual creation.
  *
  * Steps: 1) Homeworld → 2) Background → 3) Role → 4) Divination → 5) Characteristics → 6) Review
- * Loads option data from the dh2e-data module when available.
+ * Loads option data from any active dh2e-compatible data modules.
  * Falls back to manual text entry when the module is not installed.
  *
  * All UI state (step, selections) lives inside the Svelte component tree.
@@ -283,14 +303,13 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         let roles: RoleOption[] = [];
         let divinations: DivinationResult[] = [];
 
-        // Try compendium packs first
-        const hwPack = game.packs?.get(ORIGIN_PACKS.homeworlds);
-        const bgPack = game.packs?.get(ORIGIN_PACKS.backgrounds);
-        const rlPack = game.packs?.get(ORIGIN_PACKS.roles);
+        // Try compendium packs first — discover from all dh2e modules
+        const hwDocs = await getAllDocumentsOfType("homeworlds");
+        const bgDocs = await getAllDocumentsOfType("backgrounds");
+        const rlDocs = await getAllDocumentsOfType("roles");
 
-        if (hwPack) {
-            const docs = await hwPack.getDocuments();
-            homeworlds = docs.map((doc: any) => {
+        if (hwDocs.length > 0) {
+            homeworlds = hwDocs.map((doc: any) => {
                 const sys = doc.system ?? {};
                 return {
                     name: doc.name,
@@ -303,14 +322,14 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     homeSkill: sys.homeSkill ?? "",
                     bonus: sys.bonus ?? "",
                     bonusDescription: sys.bonusDescription ?? "",
+                    source: sys.source ?? "",
                     _itemData: doc.toObject(),
                 } as HomeworldOption;
             });
         }
 
-        if (bgPack) {
-            const docs = await bgPack.getDocuments();
-            backgrounds = docs.map((doc: any) => {
+        if (bgDocs.length > 0) {
+            backgrounds = bgDocs.map((doc: any) => {
                 const sys = doc.system ?? {};
                 return {
                     name: doc.name,
@@ -321,14 +340,14 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     aptitude: sys.aptitude ?? "",
                     bonus: sys.bonus ?? "",
                     bonusDescription: sys.bonusDescription ?? "",
+                    source: sys.source ?? "",
                     _itemData: doc.toObject(),
                 } as BackgroundOption;
             });
         }
 
-        if (rlPack) {
-            const docs = await rlPack.getDocuments();
-            roles = docs.map((doc: any) => {
+        if (rlDocs.length > 0) {
+            roles = rlDocs.map((doc: any) => {
                 const sys = doc.system ?? {};
                 return {
                     name: doc.name,
@@ -338,24 +357,28 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     eliteAdvances: sys.eliteAdvances ?? undefined,
                     bonus: sys.bonus ?? "",
                     bonusDescription: sys.bonusDescription ?? "",
+                    source: sys.source ?? "",
                     _itemData: doc.toObject(),
                 } as RoleOption;
             });
         }
 
-        // Fall back to JSON files if compendiums not available
+        // Fall back to JSON files if compendiums not available — scan all dh2e module paths
         if (homeworlds.length === 0 || backgrounds.length === 0 || roles.length === 0) {
-            try {
-                const [hwJson, bgJson, rlJson] = await Promise.all([
-                    homeworlds.length === 0 ? fu.fetchJsonWithTimeout(`${DATA_BASE}/homeworlds.json`) : Promise.resolve(null),
-                    backgrounds.length === 0 ? fu.fetchJsonWithTimeout(`${DATA_BASE}/backgrounds.json`) : Promise.resolve(null),
-                    roles.length === 0 ? fu.fetchJsonWithTimeout(`${DATA_BASE}/roles.json`) : Promise.resolve(null),
-                ]);
-                if (hwJson) homeworlds = hwJson as HomeworldOption[];
-                if (bgJson) backgrounds = bgJson as BackgroundOption[];
-                if (rlJson) roles = rlJson as RoleOption[];
-            } catch {
-                // No data available — wizard will show manual input
+            const creationPaths = getCreationDataPaths();
+            for (const basePath of creationPaths) {
+                try {
+                    const [hwJson, bgJson, rlJson] = await Promise.all([
+                        homeworlds.length === 0 ? fu.fetchJsonWithTimeout(`${basePath}/homeworlds.json`) : Promise.resolve(null),
+                        backgrounds.length === 0 ? fu.fetchJsonWithTimeout(`${basePath}/backgrounds.json`) : Promise.resolve(null),
+                        roles.length === 0 ? fu.fetchJsonWithTimeout(`${basePath}/roles.json`) : Promise.resolve(null),
+                    ]);
+                    if (hwJson) homeworlds = homeworlds.concat(hwJson as HomeworldOption[]);
+                    if (bgJson) backgrounds = backgrounds.concat(bgJson as BackgroundOption[]);
+                    if (rlJson) roles = roles.concat(rlJson as RoleOption[]);
+                } catch {
+                    // This module doesn't have creation data — skip
+                }
             }
         }
 
@@ -371,12 +394,15 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 }));
         }
 
-        // Fallback to JSON
+        // Fallback to JSON — scan all dh2e module paths
         if (divinations.length === 0) {
-            try {
-                divinations = await fu.fetchJsonWithTimeout(`${DATA_BASE}/divinations.json`) as DivinationResult[];
-            } catch {
-                divinations = [];
+            for (const basePath of getCreationDataPaths()) {
+                try {
+                    const data = await fu.fetchJsonWithTimeout(`${basePath}/divinations.json`) as DivinationResult[];
+                    divinations = divinations.concat(data);
+                } catch {
+                    // This module doesn't have divination data
+                }
             }
         }
 
@@ -485,7 +511,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 if (isPickOne(raw)) continue;
                 const name = resolveOr(raw);
                 if (isPickOne(name)) continue;
-                const doc = await findInPack("dh2e-data.skills", name);
+                const doc = await findInPackType("skills", name);
                 if (doc) {
                     const obj = doc.toObject();
                     obj.system.advancement = 1; // Known rank
@@ -499,7 +525,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             for (const raw of background.talents) {
                 const name = resolveOr(raw);
                 if (isPickOne(name)) continue;
-                const doc = await findInPack("dh2e-data.talents", name);
+                const doc = await findInPackType("talents", name);
                 if (doc) {
                     itemsToCreate.push(doc.toObject());
                 } else {
@@ -523,18 +549,26 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     const isLaudHailer = /laud\s*hailer/i.test(name);
                     const variant = isLaudHailer ? "laud hailer" : "utility";
 
-                    // Create NPC companion from compendium
+                    // Create NPC companion from compendium (scan all dh2e modules)
                     try {
-                        const npcPack = game.packs?.get("dh2e-data.npcs");
-                        if (!npcPack) {
+                        const npcPackIds = getPacksOfType("npcs");
+                        if (npcPackIds.length === 0) {
                             console.warn("dh2e | NPC compendium pack not found — cannot create servo-skull companion");
                             continue;
                         }
-                        const npcIndex = await npcPack.getIndex();
-                        const skullEntry = npcIndex.find((e: any) =>
-                            e.name.toLowerCase().includes("servo-skull") && e.name.toLowerCase().includes(variant),
-                        );
-                        if (!skullEntry) {
+                        // Search across all NPC packs
+                        let skullEntry: any = null;
+                        let npcPack: any = null;
+                        for (const pid of npcPackIds) {
+                            npcPack = game.packs.get(pid);
+                            if (!npcPack) continue;
+                            const npcIndex = await npcPack.getIndex();
+                            skullEntry = npcIndex.find((e: any) =>
+                                e.name.toLowerCase().includes("servo-skull") && e.name.toLowerCase().includes(variant),
+                            );
+                            if (skullEntry) break;
+                        }
+                        if (!skullEntry || !npcPack) {
                             console.warn(`dh2e | Servo-skull (${variant}) not found in NPC compendium`);
                             continue;
                         }
@@ -563,7 +597,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 const raw = background.equipment[i];
                 const resolved = gearChoices[i] ?? resolveOr(raw);
                 const { name, quantity } = parseEquipment(resolved);
-                const doc = await findInPacks(EQUIPMENT_PACKS, name);
+                const doc = await findInPacks(EQUIPMENT_TYPES, name);
                 if (doc) {
                     const obj = doc.toObject();
                     if (quantity > 1 && obj.system?.quantity !== undefined) {
@@ -582,7 +616,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
         // 3b. Background bonuses — special trait grants
         if (background?.name === "Adeptus Mechanicus") {
-            const mechImplants = await findInPack("dh2e-data.cybernetics", "Mechanicus Implants");
+            const mechImplants = await findInPackType("cybernetics", "Mechanicus Implants");
             if (mechImplants) {
                 const obj = mechImplants.toObject();
                 obj.system.installed = true;
@@ -619,7 +653,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     talentName = resolveOr(options.find(o => !isPickOne(o.trim()))?.trim() ?? options[0].trim());
                 }
                 if (!isPickOne(talentName)) {
-                    const doc = await findInPack("dh2e-data.talents", talentName);
+                    const doc = await findInPackType("talents", talentName);
                     if (doc) {
                         itemsToCreate.push(doc.toObject());
                     } else {
@@ -637,7 +671,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     // Grant Psyker aptitude
                     aptitudes.push("Psyker");
                     // Grant Psy Rating talent (tier 1)
-                    const prDoc = await findInPack("dh2e-data.talents", "Psy Rating");
+                    const prDoc = await findInPackType("talents", "Psy Rating");
                     if (prDoc) {
                         const prData = prDoc.toObject();
                         prData.system.tier = 1;
@@ -711,7 +745,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
                 // Talent grant
                 if (fx.talent) {
-                    const doc = await findInPack("dh2e-data.talents", fx.talent);
+                    const doc = await findInPackType("talents", fx.talent);
                     if (doc) {
                         itemsToCreate.push(doc.toObject());
                     } else {
@@ -721,7 +755,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
                 // Skill grant
                 if (fx.skill) {
-                    const doc = await findInPack("dh2e-data.skills", fx.skill);
+                    const doc = await findInPackType("skills", fx.skill);
                     if (doc) {
                         itemsToCreate.push(doc.toObject());
                     } else {
@@ -756,7 +790,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             const grantThrones = g.settings?.get(SYSTEM_ID, "grantStartingThrones") ?? true;
             const thronesQty = g.settings?.get(SYSTEM_ID, "startingThrones") ?? 50;
             if (grantThrones && thronesQty > 0) {
-                const thronesDoc = await findInPacks(["dh2e-data.gear", "dh2e-data.treasure"], "Imperial Thrones");
+                const thronesDoc = await findInPacks(["gear", "treasure"], "Imperial Thrones");
                 if (thronesDoc) {
                     const data = thronesDoc.toObject();
                     data.system.quantity = thronesQty;
@@ -807,7 +841,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 if (loadType === "individual") {
                     // Individual-loading weapons: grant 3× magazine.max loose rounds
                     if (stdAmmoName !== "Rounds") {
-                        const stdAmmo = await findInPack("dh2e-data.ammunition", stdAmmoName);
+                        const stdAmmo = await findInPackType("ammunition", stdAmmoName);
                         if (stdAmmo) {
                             const obj = stdAmmo.toObject();
                             delete obj._id;
@@ -817,9 +851,8 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     }
                 } else {
                     // Magazine-type weapons: grant 2 spare pre-loaded magazines
-                    const ammoPack = game.packs?.get("dh2e-data.ammunition");
-                    if (ammoPack) {
-                        const ammoDocuments = await ammoPack.getDocuments();
+                    const ammoDocuments = await getAllDocumentsOfType("ammunition");
+                    if (ammoDocuments.length > 0) {
                         // Find matching magazine (forWeapon === weapon name)
                         const magTemplate = ammoDocuments.find((a: any) => {
                             const as = a.system ?? {};
@@ -834,7 +867,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                             }
                         } else if (stdAmmoName !== "Rounds") {
                             // Fallback: grant loose rounds by name if no magazine template found
-                            const stdAmmo = await findInPack("dh2e-data.ammunition", stdAmmoName);
+                            const stdAmmo = await findInPackType("ammunition", stdAmmoName);
                             if (stdAmmo) {
                                 const obj = stdAmmo.toObject();
                                 delete obj._id;

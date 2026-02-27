@@ -1,0 +1,586 @@
+[
+    {
+        "name": "Psycannon",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "Seen only in the hands of influential Daemonhunters, psycannons fire explosive shells tipped with Truesilver. Capable of smashing through psychic defences, each shell contains a small latticework of psycho-conductive fibres that allow the user to channel some of his own psychic power into each bolt. Psycannons have integral suspensor technology, granting the wielder the Auto-Stabilised trait while in use, and are always of at least Good craftsmanship. They ignore all protective benefits granted by psychic powers and inflict +2 additional damage for every point of the wielder's psy rating.",
+            "class": "ranged",
+            "range": 120,
+            "rof": {
+                "single": false,
+                "semi": 2,
+                "full": 5
+            },
+            "damage": {
+                "formula": "2d10+5",
+                "type": "explosive",
+                "bonus": 0
+            },
+            "penetration": 5,
+            "reload": "3 Full",
+            "weight": 20,
+            "qualities": [
+                "Daemonbane",
+                "Reliable",
+                "Tearing"
+            ],
+            "equipped": false,
+            "weaponGroup": "bolt",
+            "craftsmanship": "good",
+            "magazine": {
+                "value": 40,
+                "max": 40
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Incinerator",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "Usually gifted to Ordo Malleus Inquisitors of rare skill, incinerators use psychically impregnated promethium that burns mortal flesh and unholy skin with equal ferocity. An Incinerator ignores any protective benefits granted by psychic powers, and targets in its area of effect suffer a -10 penalty on Agility tests to avoid the flames for each point of the wielder's psy rating.",
+            "class": "ranged",
+            "range": 30,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10+6",
+                "type": "energy",
+                "bonus": 0
+            },
+            "penetration": 6,
+            "reload": "2 Full",
+            "weight": 3,
+            "qualities": [
+                "Daemonbane",
+                "Flame",
+                "Spray"
+            ],
+            "equipped": false,
+            "weaponGroup": "flame",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 10,
+                "max": 10
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Hellrifle",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "Extremely effective weapons frowned upon by more Puritanical Inquisitors, hellrifles are intricate weapons that fire impossibly sharp shards of an unknown material. Speculated to be daemonic in origin, the true nature of this ammunition remains a mystery to the Adeptus Mechanicus.",
+            "class": "ranged",
+            "range": 300,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10+4",
+                "type": "rending",
+                "bonus": 0
+            },
+            "penetration": 4,
+            "reload": "",
+            "weight": 10,
+            "qualities": [
+                "Felling (2)"
+            ],
+            "equipped": false,
+            "weaponGroup": "exotic",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Silverseine Launcher",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A specialist class of weapon designed to subdue and capture Daemons, silverseine launchers fire sheets of wiring laced with Truesilver. The nets painfully eat away at daemonic flesh and help banish them back to the Warp. Silverseine launchers double their Snare value against characters with the Daemonic trait. Any such adversary trapped in a silverseine net must also test for Warp Instability at the start of each round.",
+            "class": "ranged",
+            "range": 60,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10",
+                "type": "impact",
+                "bonus": 0
+            },
+            "penetration": 0,
+            "reload": "2 Full",
+            "weight": 25,
+            "qualities": [
+                "Blast (4)",
+                "Reliable",
+                "Sanctified",
+                "Snare (2)"
+            ],
+            "equipped": false,
+            "weaponGroup": "exotic",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 1,
+                "max": 1
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Abyssal Charge",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "An insidious device made from standard explosives and material touched by the daemonic, each abyssal charge retains a splinter of Warp energy, enough to corrupt that which it does not kill.",
+            "class": "ranged",
+            "range": 0,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10+4",
+                "type": "explosive",
+                "bonus": 0
+            },
+            "penetration": 4,
+            "reload": "",
+            "weight": 0.5,
+            "qualities": [
+                "Blast (3)",
+                "Crippling (2)",
+                "Tainted"
+            ],
+            "equipped": false,
+            "weaponGroup": "thrown",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 1,
+                "max": 1
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Argent Globe",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "Ordo Malleus agents often use these perfect spheres of gleaming silver against groups of daemonic foes. Against mortal targets the sudden blast of Truesilver filaments wounds like a frag grenade, but against Warpspawn the consecrated blast leaves even the mightiest Daemon smouldering in agony.",
+            "class": "ranged",
+            "range": 0,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "2d10",
+                "type": "explosive",
+                "bonus": 0
+            },
+            "penetration": 2,
+            "reload": "",
+            "weight": 0.5,
+            "qualities": [
+                "Blast (3)",
+                "Crippling (3)",
+                "Sanctified"
+            ],
+            "equipped": false,
+            "weaponGroup": "thrown",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 1,
+                "max": 1
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "\"Ironfaith\" Incense Grenade",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "Filled with vials of blessed waters and purified ashes of Askellon's saints, these grenades burst open with thick clouds of fragrant incense. Whenever a character suffers a hit from this grenade, enters its smoke, or begins his turn within the smoke, he suffers Energy damage equal to his Corruption bonus or his Daemonic (X) trait (whichever is higher), ignoring armour and Toughness bonus.",
+            "class": "ranged",
+            "range": 0,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10",
+                "type": "explosive",
+                "bonus": 0
+            },
+            "penetration": 0,
+            "reload": "",
+            "weight": 0.5,
+            "qualities": [
+                "Daemonbane",
+                "Sanctified",
+                "Smoke (3)"
+            ],
+            "equipped": false,
+            "weaponGroup": "thrown",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 1,
+                "max": 1
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Psyk-Out Grenade",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "These grenades disperse a cloud of psi-refractive particles that disrupt a psyker's connection to the Warp. Whenever a character with the Psyker trait suffers a hit, enters its smoke, or begins his turn within the smoke, he must make a Very Hard (-30) Willpower test or have his psy rating temporarily reduced by 1 for every degree of failure. If the character fails by two or more degrees, he must also roll on the Psychic Phenomena table.",
+            "class": "ranged",
+            "range": 0,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10",
+                "type": "explosive",
+                "bonus": 0
+            },
+            "penetration": 0,
+            "reload": "",
+            "weight": 1,
+            "qualities": [
+                "Blast (3)",
+                "Smoke (3)"
+            ],
+            "equipped": false,
+            "weaponGroup": "thrown",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 1,
+                "max": 1
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Force Hammer",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A common item for those of the Ordo Malleus possessing psychic powers, these weapons allow an Inquisitor or Acolyte to smite Daemons with the purest of energies. A force hammer requires two hands to use, unless the wielder has a Strength bonus of 5 or higher.",
+            "class": "melee",
+            "range": 0,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "2d10",
+                "type": "rending",
+                "bonus": 0
+            },
+            "penetration": 0,
+            "reload": "",
+            "weight": 10,
+            "qualities": [
+                "Force",
+                "Unbalanced"
+            ],
+            "equipped": false,
+            "weaponGroup": "force",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Nemesis Daemon Hammer",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "No single weapon encapsulates the Ordo Malleus quite like the nemesis hammer. Each handcrafted weapon is unique, displaying fine artistry and destructive brutality in equal share. Consecrated and warded in complex rituals that take years to complete, it is anathema to the daemonic. A nemesis hammer is a one-handed weapon, but when used with two hands it gains the Concussive (X) quality, where X equals the user's psy rating.",
+            "class": "melee",
+            "range": 0,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "2d10+1",
+                "type": "energy",
+                "bonus": 0
+            },
+            "penetration": 8,
+            "reload": "",
+            "weight": 10,
+            "qualities": [
+                "Daemonbane",
+                "Force",
+                "Power Field",
+                "Unwieldy"
+            ],
+            "equipped": false,
+            "weaponGroup": "force",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Thunder Hammer",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "Thunder hammers incorporate large capacitors that constantly build a charge that is violently released on impact. As the symbol of the Ordo Malleus, thunder hammers are more than just weapons—they are a badge of office. A thunder hammer is a one-handed weapon, but it inflicts an additional +2 damage when used with two hands.",
+            "class": "melee",
+            "range": 0,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "2d10+4",
+                "type": "energy",
+                "bonus": 0
+            },
+            "penetration": 10,
+            "reload": "",
+            "weight": 16,
+            "qualities": [
+                "Concussive (2)",
+                "Power Field",
+                "Unwieldy"
+            ],
+            "equipped": false,
+            "weaponGroup": "power",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Ordo Malleus Power Glaive",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "Whilst the hammer may be the symbol of the Ordo Malleus, its agents must stand ready to face a variety of foes. The power glaive features an elegant silver blade and a haft warded against the corrupting influence of the Warp. An Ordo Malleus power glaive grants the wielder an additional +10 bonus to Parry tests, and is a two-handed weapon.",
+            "class": "melee",
+            "range": 3,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10+8",
+                "type": "energy",
+                "bonus": 0
+            },
+            "penetration": 5,
+            "reload": "",
+            "weight": 4.5,
+            "qualities": [
+                "Balanced",
+                "Power Field",
+                "Proven (4)",
+                "Sanctified"
+            ],
+            "equipped": false,
+            "weaponGroup": "power",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Power Shield",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "When encased in a power field, these large shields offer excellent protection against attacks that would rip apart mundane armours. A power shield adds 4 Armour points to the wearer's Body and the Arm holding the shield.",
+            "class": "melee",
+            "range": 0,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10",
+                "type": "energy",
+                "bonus": 0
+            },
+            "penetration": 1,
+            "reload": "",
+            "weight": 6,
+            "qualities": [
+                "Defensive",
+                "Power Field"
+            ],
+            "equipped": false,
+            "weaponGroup": "power",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Stealth Claw",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A weapon easily hidden inside robes or heavy sleeves, the stealth claw allows Acolytes to stay well armed without alerting enemies. A stealth claw has the Compact modification. When a character successfully inflicts a hit as part of an All Out Attack action using a stealth claw, he inflicts additional damage equal to his psy rating.",
+            "class": "melee",
+            "range": 0,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10+4",
+                "type": "rending",
+                "bonus": 0
+            },
+            "penetration": 4,
+            "reload": "",
+            "weight": 1.5,
+            "qualities": [
+                "Felling (2)",
+                "Razor Sharp",
+                "Sanctified"
+            ],
+            "equipped": false,
+            "weaponGroup": "low-tech",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    },
+    {
+        "name": "Wailing Trident",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A weapon used against the largest of daemonic entities, a wailing trident is a sanctified rod of steel coated in Truesilver etchings. It is used in melee combat but can also be hurled at foes. Once embedded in a Daemon's flesh, the sanctified metal excruciates the unholy creature. A wailing trident is a two-handed weapon.",
+            "class": "melee",
+            "range": 6,
+            "rof": {
+                "single": true,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10+8",
+                "type": "rending",
+                "bonus": 0
+            },
+            "penetration": 4,
+            "reload": "",
+            "weight": 9,
+            "qualities": [
+                "Balanced",
+                "Crippling (3)",
+                "Felling (3)",
+                "Sanctified"
+            ],
+            "equipped": false,
+            "weaponGroup": "low-tech",
+            "craftsmanship": "common",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
+    }
+]

@@ -58,25 +58,18 @@ export async function executeElitePurchase(
 
     await actor.update(updates);
 
-    // Apply instant talents
+    // Apply instant talents (scan all dh2e modules)
     if (advDef.instant.talents) {
+        const { findInAllPacks } = await import("@util/pack-discovery.ts");
         for (const talentName of advDef.instant.talents) {
             const existing = actor.items.find(
                 (i: Item) => i.type === "talent" && i.name.toLowerCase() === talentName.toLowerCase(),
             );
             if (existing) continue;
 
-            const talentPack = game.packs?.get("dh2e-data.talents");
-            if (talentPack) {
-                const idx = (await talentPack.getIndex()).find(
-                    (e: any) => e.name.toLowerCase() === talentName.toLowerCase(),
-                );
-                if (idx) {
-                    const doc = await talentPack.getDocument(idx._id);
-                    if (doc) {
-                        await actor.createEmbeddedDocuments("Item", [(doc as any).toObject()]);
-                    }
-                }
+            const doc = await findInAllPacks("talents", talentName);
+            if (doc) {
+                await actor.createEmbeddedDocuments("Item", [(doc as any).toObject()]);
             }
         }
     }
@@ -138,15 +131,8 @@ export async function grantTalent(
         return;
     }
 
-    const talentPack = game.packs?.get("dh2e-data.talents");
-    if (!talentPack) return;
-
-    const idx = (await talentPack.getIndex()).find(
-        (e: any) => e.name.toLowerCase() === talentName.toLowerCase(),
-    );
-    if (!idx) return;
-
-    const doc = await talentPack.getDocument(idx._id);
+    const { findInAllPacks } = await import("@util/pack-discovery.ts");
+    const doc = await findInAllPacks("talents", talentName);
     if (!doc) return;
 
     await actor.createEmbeddedDocuments("Item", [(doc as any).toObject()]);
@@ -193,16 +179,9 @@ export async function grantSkill(
         }
         await existingSkill.update({ "system.advancement": advancement + 1 });
     } else {
-        // Add from compendium
-        const skillPack = game.packs?.get("dh2e-data.skills");
-        if (!skillPack) return;
-
-        const idx = (await skillPack.getIndex()).find(
-            (e: any) => e.name.toLowerCase() === skillName.toLowerCase(),
-        );
-        if (!idx) return;
-
-        const doc = await skillPack.getDocument(idx._id);
+        // Add from compendium (scan all dh2e modules)
+        const { findInAllPacks } = await import("@util/pack-discovery.ts");
+        const doc = await findInAllPacks("skills", skillName);
         if (!doc) return;
 
         const data = (doc as any).toObject();

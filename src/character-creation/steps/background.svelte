@@ -2,11 +2,9 @@
     import type { BackgroundOption, CreationData } from "../types.ts";
     import { splitOrChoices, parseEquipment, findInPacks } from "../wizard.ts";
 
-    const EQUIPMENT_PACKS = ["dh2e-data.weapons", "dh2e-data.armour", "dh2e-data.gear", "dh2e-data.cybernetics", "dh2e-data.ammunition"];
-
     async function previewGear(text: string) {
         const { name } = parseEquipment(text);
-        const doc = await findInPacks(EQUIPMENT_PACKS, name);
+        const doc = await findInPacks(["weapons", "armour", "gear", "cybernetics", "ammunition"], name);
         if (doc) {
             doc.sheet?.render(true);
         } else {
@@ -58,7 +56,7 @@
                     const { name } = parseEquipment(opt);
                     const lc = name.toLowerCase();
                     if (descs[lc]) continue;
-                    const doc = await findInPacks(EQUIPMENT_PACKS, name);
+                    const doc = await findInPacks(["weapons", "armour", "gear", "cybernetics", "ammunition"], name);
                     if (doc) {
                         const d = (doc as any)?.system?.description ?? "";
                         if (d) descs[lc] = typeof d === "string" ? d.replace(/<[^>]+>/g, "").slice(0, 200) : "";
@@ -87,7 +85,12 @@
                     type="button"
                     onclick={() => { selected = bg; }}
                 >
-                    <div class="card-header">{bg.name}</div>
+                    <div class="card-header">
+                        {bg.name}
+                        {#if bg.source && bg.source !== "core-rulebook"}
+                            <span class="source-badge">{game.i18n?.localize(`DH2E.Source.${bg.source}`) ?? bg.source}</span>
+                        {/if}
+                    </div>
                     <div class="card-row tag-row">
                         <span class="tag">{bg.aptitude}</span>
                     </div>
@@ -245,6 +248,22 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
+        display: flex;
+        align-items: baseline;
+        gap: 0.4rem;
+    }
+
+    .source-badge {
+        font-family: var(--dh2e-font-body, sans-serif);
+        font-size: 0.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #b0a0d0;
+        background: rgba(140, 120, 180, 0.15);
+        padding: 1px 4px;
+        border-radius: 2px;
+        white-space: nowrap;
     }
 
     .card-row {

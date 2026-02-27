@@ -1,15 +1,14 @@
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 import { CANONICAL_SKILL_CHARS } from "@item/skill/uses.ts";
+import { getConditionBySlug, getAllConditions, type ConditionData } from "@item/condition/conditions-registry.ts";
 
 /**
- * Cached condition data from the dh2e-data.conditions compendium.
- * Populated lazily on first enrichCondition call.
+ * Cached condition data — populated lazily from the conditions registry.
  */
 const conditionCache = new Map<string, {
     name: string;
     description: string;
     img: string;
-    uuid: string;
 }>();
 let conditionCacheReady = false;
 
@@ -40,31 +39,17 @@ export function registerEnrichers(): void {
     );
 }
 
-/** Populate the condition cache from the compendium index */
-async function ensureConditionCache(): Promise<void> {
+/** Populate the condition cache from the core conditions registry */
+function ensureConditionCache(): void {
     if (conditionCacheReady) return;
     conditionCacheReady = true;
 
-    try {
-        const g = game as any;
-        const pack = g.packs?.get("dh2e-data.conditions");
-        if (!pack) return;
-
-        const index = await pack.getIndex({ fields: ["system.description", "system.slug"] });
-        for (const entry of index) {
-            const slug = (entry as any).system?.slug
-                ?? entry.name?.toLowerCase().replace(/\s+/g, "-")
-                ?? "";
-            if (!slug) continue;
-            conditionCache.set(slug, {
-                name: entry.name ?? slug,
-                description: (entry as any).system?.description ?? "",
-                img: entry.img ?? `systems/dh2e/icons/conditions/${slug}.svg`,
-                uuid: `Compendium.dh2e-data.conditions.${entry._id}`,
-            });
-        }
-    } catch (e) {
-        console.warn("DH2E | Could not populate condition cache for enrichers", e);
+    for (const cond of getAllConditions()) {
+        conditionCache.set(cond.slug, {
+            name: cond.name,
+            description: cond.description,
+            img: cond.img,
+        });
     }
 }
 
@@ -89,7 +74,6 @@ function enrichCondition(
     const a = document.createElement("a");
     a.className = "dh2e-enricher condition-link";
     a.dataset.slug = slug;
-    if (cached?.uuid) a.dataset.uuid = cached.uuid;
     if (cached?.description) a.dataset.tooltip = cached.description;
     a.draggable = false;
     a.textContent = label;
@@ -196,32 +180,21 @@ export function activateEnricherListeners(): void {
     });
 }
 
-/** Open condition sheet from enricher link */
+/** Show condition details from the core registry */
 async function onConditionClick(link: HTMLAnchorElement): Promise<void> {
-    const uuid = link.dataset.uuid;
-    if (uuid) {
-        const doc = await fromUuid(uuid);
-        if (doc) {
-            (doc as any).sheet?.render(true);
-            return;
-        }
-    }
-
     const slug = link.dataset.slug;
     if (!slug) return;
 
-    const g = game as any;
-    const pack = g.packs?.get("dh2e-data.conditions");
-    if (!pack) return;
+    const condition = getConditionBySlug(slug);
+    if (!condition) return;
 
-    const index = await pack.getIndex();
-    const entry = index.find((e: any) => {
-        const name = e.name?.toLowerCase().replace(/\s+/g, "-");
-        return name === slug;
-    });
-    if (entry) {
-        const doc = await pack.getDocument(entry._id);
-        (doc as any)?.sheet?.render(true);
+    // Show a tooltip-style dialog with the condition details
+    const g = game as any;
+    if (g.tooltip && link) {
+        const html = `<div style="max-width:320px"><strong>${condition.name}</strong><br/>${condition.description}</div>`;
+        g.tooltip.activate(link, { html, direction: "DOWN" });
+    } else {
+        ui.notifications?.info(`${condition.name}: ${condition.description}`);
     }
 }
 

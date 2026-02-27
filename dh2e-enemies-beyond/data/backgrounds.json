@@ -1,0 +1,35 @@
+[
+    {
+        "name": "Exorcised",
+        "type": "background",
+        "img": "systems/dh2e/icons/default-icons/background.svg",
+        "system": {
+            "description": "Forever tainted in body and soul by their unholy experience; possessing unique knowledge of the Enemy Beyond, they make for excellent—if never fully trusted—servants of the Inquisition. A mortal possessed by a Daemon is torment made flesh. Freed from the shackles of subservience to a Daemonic master, the Exorcised often finds himself bound by lifelong service to a new cause.",
+            "skills": [
+                "Awareness",
+                "Deceive or Inquiry",
+                "Dodge",
+                "Forbidden Lore (Daemonology)",
+                "Intimidate or Scrutiny"
+            ],
+            "talents": [
+                "Hatred (Daemons)",
+                "Weapon Training (Solid Projectile, Chain)"
+            ],
+            "equipment": [
+                "Autopistol or stub revolver",
+                "shotgun",
+                "chainblade",
+                "Imperial robes",
+                "3 doses of obscura or tranq",
+                "disguise kit or excruciator kit",
+                "rebreather",
+                "stablight or glow-globe"
+            ],
+            "aptitude": "Defence or Knowledge",
+            "bonus": "Touched by a Daemon",
+            "bonusDescription": "An Exorcised character counts his Insanity bonus as 2 higher for purposes of avoiding Fear tests. Additionally, he can never again become possessed by the same Daemon that once possessed him.",
+            "source": "enemies-beyond"
+        }
+    }
+]

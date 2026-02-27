@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Crusader",
+        "aptitudes": [
+            "Knowledge",
+            "Offence",
+            "Strength",
+            "Toughness",
+            "Willpower"
+        ],
+        "talent": "Bodyguard or Deny the Witch",
+        "bonus": "Smite the Unholy",
+        "bonusDescription": "In addition to the normal uses of Fate points, a Crusader character can also spend a Fate Point to automatically pass a Fear test with a number of degrees of success equal to his Willpower bonus. In addition, whenever he inflicts a hit with a melee attack against a target with the Fear (X) trait, he inflicts X additional damage and counts his weapon's penetration as being X higher.",
+        "description": "Righteous warriors who battle the Daemon and heretic in single combat with blessed blade and power sword; they guard their allies with faith and shield, standing firm against the unholy tide. Against the predations of the Daemon, faith is the ultimate bulwark. Crusaders are stalwart defenders against the denizens of the Warp, righteous warriors who battle against the unholy with sword and shield."
+    }
+]

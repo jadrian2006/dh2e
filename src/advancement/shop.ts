@@ -15,6 +15,7 @@ import { appendLog } from "@actor/log.ts";
 import { checkPrerequisites, hasEliteAdvance } from "./prerequisites.ts";
 import { executeElitePurchase, type EliteAdvanceDef } from "./elite-purchase.ts";
 import type { AdvanceOption, XPCostData, XPTransaction } from "./types.ts";
+import { getPacksOfType, buildCompendiumUuid } from "@util/pack-discovery.ts";
 import ShopRoot from "./shop-root.svelte";
 
 const CHAR_KEYS: CharacteristicAbbrev[] = ["ws", "bs", "s", "t", "ag", "int", "per", "wp", "fel"];
@@ -224,7 +225,7 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             });
         }
 
-        // --- Skills (compendium — not yet on actor) ---
+        // --- Skills (compendium — not yet on actor, scan all dh2e modules) ---
         const ownedSkillKeys = new Set<string>();
         for (const item of actor.items) {
             if (item.type !== "skill") continue;
@@ -233,8 +234,9 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             ownedSkillKeys.add(spec ? `${item.name}|||${spec}` : item.name);
         }
 
-        const skillPack = game.packs?.get("dh2e-data.skills");
-        if (skillPack) {
+        for (const packId of getPacksOfType("skills")) {
+            const skillPack = game.packs?.get(packId);
+            if (!skillPack) continue;
             for (const entry of skillPack.index) {
                 const meta = entry as any;
                 const sys = meta.system ?? {};
@@ -264,19 +266,20 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     alreadyMaxed: false,
                     prereqsMet: true,
                     prereqsUnmet: [],
-                    compendiumUuid: `Compendium.dh2e-data.skills.${meta._id}`,
+                    compendiumUuid: buildCompendiumUuid(packId, meta._id),
                 });
             }
         }
 
-        // --- Talents (compendium — exclude owned) ---
+        // --- Talents (compendium — exclude owned, scan all dh2e modules) ---
         const ownedTalentNames = new Set<string>();
         for (const item of actor.items) {
             if (item.type === "talent") ownedTalentNames.add(item.name);
         }
 
-        const talentPack = game.packs?.get("dh2e-data.talents");
-        if (talentPack) {
+        for (const packId of getPacksOfType("talents")) {
+            const talentPack = game.packs?.get(packId);
+            if (!talentPack) continue;
             for (const entry of talentPack.index) {
                 const meta = entry as any;
                 if (ownedTalentNames.has(meta.name)) continue;
@@ -309,7 +312,7 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     prerequisites: prereqStr,
                     prereqsMet: prereqResult.met,
                     prereqsUnmet: prereqResult.unmet,
-                    compendiumUuid: `Compendium.dh2e-data.talents.${meta._id}`,
+                    compendiumUuid: buildCompendiumUuid(packId, meta._id),
                 });
             }
         }
@@ -373,8 +376,9 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 if (item.type === "power") ownedPowerNames.add(item.name);
             }
 
-            const powerPack = game.packs?.get("dh2e-data.powers");
-            if (powerPack) {
+            for (const packId of getPacksOfType("powers")) {
+                const powerPack = game.packs?.get(packId);
+                if (!powerPack) continue;
                 for (const entry of powerPack.index) {
                     const meta = entry as any;
                     if (ownedPowerNames.has(meta.name)) continue;
@@ -400,7 +404,7 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                         alreadyMaxed: false,
                         prereqsMet: true,
                         prereqsUnmet: [],
-                        compendiumUuid: `Compendium.dh2e-data.powers.${meta._id}`,
+                        compendiumUuid: buildCompendiumUuid(packId, meta._id),
                     });
                 }
             }

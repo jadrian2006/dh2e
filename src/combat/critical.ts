@@ -1,4 +1,5 @@
 import type { HitLocationKey } from "@actor/types.ts";
+import { createConditionItemData } from "@item/condition/conditions-registry.ts";
 
 /** A single entry from the critical damage table */
 interface CriticalEntry {
@@ -23,22 +24,16 @@ interface CriticalPenalty {
 let criticalTable: CriticalEntry[] | null = null;
 
 /**
- * Load the critical damage table from the dh2e-data module.
+ * Load the critical damage table from the system's static data.
  * Caches the result in memory after first load.
  */
 async function loadCriticalTable(): Promise<CriticalEntry[]> {
     if (criticalTable) return criticalTable;
 
     try {
-        const response = await fetch(`modules/dh2e-data/data/tables/critical-damage.json`);
-        if (!response.ok) {
-            console.warn("DH2E | Could not load critical damage table from module, trying system path");
-            const fallback = await fetch(`systems/dh2e/data/tables/critical-damage.json`);
-            if (!fallback.ok) throw new Error("Critical table not found");
-            criticalTable = await fallback.json();
-        } else {
-            criticalTable = await response.json();
-        }
+        const response = await fetch(`systems/${SYSTEM_ID}/data/tables/critical-damage.json`);
+        if (!response.ok) throw new Error("Critical table not found");
+        criticalTable = await response.json();
     } catch (e) {
         console.error("DH2E | Failed to load critical damage table", e);
         criticalTable = [];
@@ -160,60 +155,17 @@ async function applyConditionBySlug(actor: Actor, slug: string): Promise<void> {
         return;
     }
 
-    // Source from compendium for full rules data
-    const conditionData = await getConditionFromCompendium(conditionSlug, remainingRounds);
+    // Source from core conditions registry for full rules data
+    const conditionData = getConditionFromCompendium(conditionSlug, remainingRounds);
     await actor.createEmbeddedDocuments("Item", [conditionData]);
 }
 
-/** Look up a condition from the dh2e-data.conditions compendium, falling back to inline creation */
-async function getConditionFromCompendium(
+/** Look up a condition from the core conditions registry, with fallback */
+function getConditionFromCompendium(
     slug: string,
     remainingRounds: number = 0,
-): Promise<Record<string, unknown>> {
-    try {
-        const g = game as any;
-        const pack = g.packs?.get("dh2e-data.conditions");
-        if (pack) {
-            const index = await pack.getIndex();
-            const entry = index.find((e: any) => {
-                // Match by converting name to slug form
-                const name = e.name?.toLowerCase().replace(/\s+/g, "-");
-                return name === slug;
-            });
-            if (entry) {
-                const doc = await pack.getDocument(entry._id);
-                if (doc) {
-                    const source = doc.toObject();
-                    // Strip _id so a new embedded document is created
-                    delete source._id;
-                    // Override remaining rounds from duration suffix
-                    if (remainingRounds > 0) {
-                        source.system.remainingRounds = remainingRounds;
-                        source.system.duration = `${remainingRounds} rounds`;
-                    }
-                    return source;
-                }
-            }
-        }
-    } catch (e) {
-        console.warn("DH2E | Could not load condition from compendium, using fallback", e);
-    }
-
-    // Fallback: inline condition creation (no rules)
-    const titleName = slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-    return {
-        name: titleName,
-        type: "condition",
-        img: `systems/dh2e/icons/conditions/${slug}.svg`,
-        system: {
-            description: "Applied by critical injury",
-            slug,
-            duration: remainingRounds > 0 ? `${remainingRounds} rounds` : "",
-            stackable: false,
-            rules: [],
-            remainingRounds,
-        },
-    };
+): Record<string, unknown> {
+    return createConditionItemData(slug, remainingRounds);
 }
 
 /** Post a critical damage chat card */

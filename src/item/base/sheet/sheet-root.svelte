@@ -13,7 +13,14 @@
         <img src={ctx.img} alt={ctx.name} class="item-img" />
         <div class="header-info">
             <h1 class="item-name">{ctx.name}</h1>
-            <span class="item-type">{type}</span>
+            <div class="header-meta">
+                <span class="item-type">{type}</span>
+                {#if sys.source}
+                    <span class="source-badge" data-source={sys.source}>
+                        {game.i18n?.localize(`DH2E.Source.${sys.source}`) ?? sys.source}
+                    </span>
+                {/if}
+            </div>
         </div>
     </header>
 
@@ -302,10 +309,27 @@
         color: var(--dh2e-gold, #c8a84e);
     }
 
+    .header-meta {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-sm, 0.5rem);
+    }
+
     .item-type {
         font-size: var(--dh2e-text-sm, 0.8rem);
         text-transform: capitalize;
         color: var(--dh2e-text-secondary, #a0a0a8);
+    }
+
+    .source-badge {
+        font-size: 0.6rem;
+        padding: 1px 6px;
+        border-radius: 2px;
+        background: rgba(200, 168, 78, 0.1);
+        color: var(--dh2e-gold-dark, #9c7a28);
+        border: 1px solid rgba(200, 168, 78, 0.2);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
     }
 
     .sheet-body {
