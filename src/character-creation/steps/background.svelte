@@ -250,6 +250,7 @@
         letter-spacing: 0.05em;
         display: flex;
         align-items: baseline;
+        justify-content: space-between;
         gap: 0.4rem;
     }
 

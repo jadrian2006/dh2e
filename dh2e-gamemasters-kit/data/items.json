@@ -1,0 +1,110 @@
+[
+    {
+        "name": "Investigate the Deaths in Gallowsway",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Proceed to Charnel House 17 in the Gallowsway district and investigate the mass murder scene. Examine the bodies, the xenos artefact fragment, and the body of Darnis Fayne. Determine the nature and origin of the killings, and why so many of the corpses appear to have been dead far longer than the murders suggest.</p>",
+            "source": "gamemasters-kit",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Navigate Red Walk Territory",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Follow the body trade trail from the Fayne Mortuarius downhive through the Purity Gate into Gantry. Navigate the dangerous territory of the Red Walk gang and their leader Vornas Crimson. Gain information about the Blessed Flesh cult's hideout location, either through alliance, coercion, or the blood sports of the Knife Lock arena.</p>",
+            "source": "gamemasters-kit",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Infiltrate the Blessed Flesh Cult",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Locate and infiltrate the Blessed Flesh cult's hidden lair in the Underhive&mdash;a massive archeotech construction platform rising from the toxic sump-river. Approach through stealth, force, or guile to reach Ferrue Fayne before he can complete his summoning ritual.</p>",
+            "source": "gamemasters-kit",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Confront Ferrue Fayne",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Confront and defeat the heretic psyker Ferrue Fayne, leader of the Blessed Flesh cult. Recover or destroy the xenos artefact that amplifies his psychic powers. If the artefact is removed, his Psy Rating drops from 4 to 3 and the summoning ritual fails.</p>",
+            "source": "gamemasters-kit",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Banish the Herald of Nurgle",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>If the summoning ritual succeeds, the Herald of Nurgle Aynthrexes tears through the veil. Banish or destroy the daemon before it can fully anchor itself in reality and lead Ferrue's army of animated dead across Hive Desoleum.</p>",
+            "source": "gamemasters-kit",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Xenos Artefact",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "<p>A strange, asymmetrical device painful to look upon, of clearly non-human manufacture and potentially millions of years old. It greatly enhances psychic connection to the Warp and grants the wielder the power to animate dead flesh.</p><p>While in possession of the artefact, a psyker increases their Psy Rating by 1 and can use psychic powers to reanimate corpses. However, proximity to the artefact causes feelings of unease and mild nausea. Characters who handle the artefact unprotected must pass a <strong>Challenging (+0) Willpower</strong> test or gain 1 Corruption point.</p><p>The artefact is a key piece of evidence and should be recovered for the Inquisitor.</p>",
+            "weight": 2,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "gamemasters-kit"
+        }
+    },
+    {
+        "name": "Force Staff",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "<p>A staff imbued with psychic circuitry that channels the wielder's psychic might into devastating strikes. Only a character with a Psy Rating can use this weapon's special abilities.</p>",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": false, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10+PR+SB", "type": "energy", "bonus": 0 },
+            "penetration": 0,
+            "magazine": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 2,
+            "qualities": ["Force"],
+            "equipped": false,
+            "weaponGroup": "force",
+            "craftsmanship": "common",
+            "source": "gamemasters-kit"
+        }
+    }
+]

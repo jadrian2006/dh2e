@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Adepta Sororitas",
+        "skills": [
+            "Athletics",
+            "Charm or Intimidate",
+            "Common Lore (Adepta Sororitas)",
+            "Linguistics (High Gothic)",
+            "Medicae or Parry"
+        ],
+        "talents": [
+            "Weapon Training (Flame or Las, Chain)"
+        ],
+        "equipment": [
+            "Hand flamer or laspistol",
+            "Chainblade",
+            "Armoured bodyglove",
+            "Chrono",
+            "Dataslate",
+            "Stablight",
+            "Micro-bead"
+        ],
+        "aptitude": "Offence or Social",
+        "bonus": "Incorruptible Devotion",
+        "bonusDescription": "Whenever an Adepta Sororitas character would gain 1 or more Corruption Points, she gains that many Insanity Points minus 1 (to a minimum of 0) instead.",
+        "description": "Legends say that in the final moments of the Reign of Blood, Alicia Dominica, leader of the warrior Daughters of the Emperor, stood before the Golden Throne with a select few trusted of her order. There they received the Light of the Emperor, filling them with terrible purpose to defy the tyrant who had taken control of the Ecclesiarchy. The all-female Daughters were deemed exempt from the Decree Passive, and became the Orders Militant of the Adepta Sororitas—a powerful presence to ensure the will of the Ecclesiarchy was enacted faithfully. The fierce devotion of the Sisters to their Emperor has ended many a threat from within the Imperium since those dark days. No heretic can stand against their zeal in enacting the judgement of the Ecclesiarchy, but the Sisters have also grown into a number of Non-Militant Orders devoted to the healing arts, communications, and diplomacy. In all ways, though, they are supremely loyal to the Emperor, utterly incorruptible and ready to purge all heresies with hymns and fire."
+    },
+    {
+        "name": "Mutant",
+        "skills": [
+            "Acrobatics or Athletics",
+            "Awareness",
+            "Deceive or Intimidate",
+            "Forbidden Lore (Mutants)",
+            "Survival"
+        ],
+        "talents": [
+            "Weapon Training (Low-Tech, Solid Projectile)"
+        ],
+        "equipment": [
+            "Shotgun or Stub Revolver and Great Weapon",
+            "Grapnel and Line",
+            "Heavy Leathers",
+            "Combat Vest",
+            "2 doses of Stimm"
+        ],
+        "aptitude": "Fieldcraft or Offence",
+        "bonus": "Twisted Flesh",
+        "bonusDescription": "A Mutant character can always choose to fail any test associated with resisting malignancy or mutation. Whenever he would gain a malignancy, he may roll on Table 8-16: Mutations to gain a mutation instead. A Mutant character begins play with 10 Corruption points and rolls 5d10 on Table 8-16: Mutations to determine a starting mutation.",
+        "description": "For all but the most privileged of Imperial citizens, there is little hope for anything but lives of misery and death. The difficulties presented by the insurmountable constraints of station and birthplace, and the punishing cruelties of disease, xenos raiders, and endless war are enough to sap the will of most men, but there are wretches who have been pushed deeper into the well of hopelessness. Afflicted by abhorrent deformities of the flesh, mutants are denied even the comparative paradise of drudgery as forge workers or faceless soldiers. Marked by inhuman deformity, they are shunned by those around them at best, branded as living vessels of corruption and destroyed at worst."
+    }
+]

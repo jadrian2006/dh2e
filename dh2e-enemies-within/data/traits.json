@@ -1,0 +1,15 @@
+[
+    {
+        "name": "Mindlock",
+        "type": "trait",
+        "img": "systems/dh2e/icons/default-icons/trait.svg",
+        "system": {
+            "description": "The creature is controlled by a pacifier helm or similar device that keeps it docile and able to follow only simple commands. While under the control of its pacifier, it cannot attack or use any combat abilities. It can be activated or deactivated by specific trigger words, transforming it into a killing machine or returning it to a passive state.",
+            "rules": [],
+            "hasRating": false,
+            "rating": 0,
+            "category": "mental",
+            "source": "enemies-within"
+        }
+    }
+]

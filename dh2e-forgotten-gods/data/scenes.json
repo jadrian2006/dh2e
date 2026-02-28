@@ -1,0 +1,182 @@
+[
+    {
+        "name": "Gallowsway Crime Scene",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 3000,
+        "height": 2000,
+        "initial": { "x": 1500, "y": 1000, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 1,
+                "description": "Lower hive lifter bay and mortuarium. Dim lighting from failing lumen-strips. Chemical preservative smell, corroded metal surfaces. Three examination slabs with bodies."
+            }
+        }
+    },
+    {
+        "name": "Gantry — Red Walk Territory",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 4000,
+        "height": 2000,
+        "initial": { "x": 2000, "y": 1000, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 1,
+                "description": "Underhive settlement built on rusted gantries and catwalks. Red Walk gang territory marked by crimson graffiti. Multiple levels connected by precarious walkways. Poor lighting, heavy shadows."
+            }
+        }
+    },
+    {
+        "name": "Desoleum Wastes",
+        "background": { "src": null },
+        "grid": { "type": 2, "size": 100, "distance": 10, "units": "ft" },
+        "width": 5000,
+        "height": 4000,
+        "initial": { "x": 2500, "y": 2000, "scale": 0.75 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 1,
+                "description": "Open desert wasteland beyond the hive walls. Rust-coloured sand and jagged metal outcroppings. Harsh sun, scouring winds. Scattered ruins and Gwydrae nomad camps visible in the distance."
+            }
+        }
+    },
+    {
+        "name": "Smuggler Camp",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 3000,
+        "height": 3000,
+        "initial": { "x": 1500, "y": 1500, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 1,
+                "description": "Trade Sable base camp hidden among Viator desert crawlers. Makeshift shelters, cargo containers, and hidden tunnels. Hresk's command crawler at centre. Iyathson held prisoner in a locked cargo bay."
+            }
+        }
+    },
+    {
+        "name": "Oath Unspoken — Main Deck",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 5000,
+        "height": 3000,
+        "initial": { "x": 2500, "y": 1500, "scale": 0.75 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 2,
+                "description": "Grand cruiser pilgrim deck. Vast cathedral-like corridors, market quarter, pilgrim berthing areas. Thousands of passengers. Devotional script etched into every surface. Flickering lumen-globes and incense smoke."
+            }
+        }
+    },
+    {
+        "name": "Oath Unspoken — Corpse-Holds",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 3000,
+        "height": 2000,
+        "initial": { "x": 1500, "y": 1000, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 2,
+                "description": "Deep storage decks where the dead are kept in stasis for burial on Thaur. Cold, dark, and eerily quiet. Rows of sealed coffins and burial containers. Secret cult meeting place for the Children of the Inheritance."
+            }
+        }
+    },
+    {
+        "name": "Oath Unspoken — Bridge",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 4000,
+        "height": 2500,
+        "initial": { "x": 2000, "y": 1250, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 2,
+                "description": "Command bridge of the Oath Unspoken. Lord-Captain Anzaforr's throne at centre. Banks of cogitator stations and sensor arrays. Massive viewport overlooking the void. Battle set-piece location during the cultist assault."
+            }
+        }
+    },
+    {
+        "name": "Port Restful — Thaur Surface",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 4000,
+        "height": 3000,
+        "initial": { "x": 2000, "y": 1500, "scale": 0.75 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 3,
+                "description": "Landing area on the shrine world of Thaur. Bone-white architecture. Mournful Guard checkpoints. Streams of pilgrims flowing toward the ossuaries. Grey sky, constant thin drizzle."
+            }
+        }
+    },
+    {
+        "name": "House of Pyre",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 3000,
+        "height": 2500,
+        "initial": { "x": 1500, "y": 1250, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 3,
+                "description": "Lord Governor Jeronius Pyre's compound. Imposing bone-white walls, heavily guarded by the Mournful Guard. Elaborate mourning decorations and religious iconography. Detention cells in the lower levels."
+            }
+        }
+    },
+    {
+        "name": "Forest of Thaur",
+        "background": { "src": null },
+        "grid": { "type": 2, "size": 100, "distance": 10, "units": "ft" },
+        "width": 5000,
+        "height": 4000,
+        "initial": { "x": 2500, "y": 2000, "scale": 0.75 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 3,
+                "description": "Dense, overgrown forest growing from bone-rich soil. Skeletal remains protrude from the earth. Perpetual grey twilight under the canopy. Hidden paths lead to deeper ossuaries. Mournful Guard patrols."
+            }
+        }
+    },
+    {
+        "name": "The Great Ossuaria",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 4000,
+        "height": 4000,
+        "initial": { "x": 2000, "y": 2000, "scale": 0.75 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 3,
+                "description": "Massive underground chambers filled with millions of skeletal remains arranged in elaborate devotional patterns. Imperial Gothic architecture. Ossuarian Custodians guard the sacred spaces. Hidden passages lead deeper."
+            }
+        }
+    },
+    {
+        "name": "The Catacombs — Chamber of Izumat",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 4000,
+        "height": 3000,
+        "initial": { "x": 2000, "y": 1500, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 3,
+                "description": "Alien architecture deep beneath Thaur. Crystalline formations pulse with sickly light. The ritual circle at the centre burns with warp energy. Disturbingly organic walls that shift and breathe. Final boss encounter location."
+            }
+        }
+    }
+]

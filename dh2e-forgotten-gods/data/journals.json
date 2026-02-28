@@ -1,0 +1,362 @@
+[
+  {
+    "name": "Adventure Overview",
+    "img": "icons/svg/book.svg",
+    "pages": [
+      {
+        "name": "Synopsis",
+        "type": "text",
+        "text": {
+          "content": "<h2>Forgotten Gods</h2>\n<p><strong>Forgotten Gods</strong> is a three-chapter adventure that takes the Acolytes from the depths of Hive Desoleum to the shrine world of Thaur, where they must stop an ancient Daemon Prince from returning to the material realm.</p>\n<h2>Chapter I: Standing in the Shadow</h2>\n<p>The Acolytes are called to investigate a series of murders in Hive Desoleum's lower reaches. The victims bear strange xenos markings, and the trail leads through the underhive and into the Desoleum Wastes. There, the Acolytes uncover the <strong>Trade Sable</strong>, a smuggling operation moving xenos artefacts connected to the mysterious <strong>Children of the Inheritance</strong> cult. Evidence points to the shrine world of Thaur as the source of the artefacts.</p>\n<h2>Chapter II: To the World of Bone</h2>\n<p>The Acolytes board the Rogue Trader vessel <strong>Oath Unspoken</strong>, a grand cruiser carrying thousands of pilgrims to the shrine world of Thaur for the Festival of Bones. Among the pilgrims, Inheritor cultists work in secret. The Acolytes must investigate the cult's presence, navigate shipboard politics with the enigmatic Lord-Captain Anzaforr, and ultimately defend the vessel when the Inheritors launch a violent bid to seize control.</p>\n<h2>Chapter III: Nightmares Remembered</h2>\n<p>Upon arrival at Thaur, the Acolytes face immediate resistance from the paranoid Lord Governor, <strong>Jeronius Pyre</strong>. Escaping his custody, they must navigate the planet's ancient forests and the vast <strong>Great Ossuaria</strong>&mdash;underground chambers holding millions of the Imperial dead. Beneath these human-built crypts lie alien tunnels where the cult leader <strong>Carolus Renthear</strong> prepares a ritual to resurrect the Daemon Prince <strong>Suvfaeras</strong>. The Acolytes must stop the ritual before an ancient evil walks again.</p>",
+          "format": 1
+        },
+        "sort": 100000
+      },
+      {
+        "name": "GM Notes",
+        "type": "text",
+        "text": {
+          "content": "<h2>GM Notes</h2>\n<p><strong>Forgotten Gods</strong> is the third act in the <strong>Desoleum trilogy</strong>, following <em>Dark Pursuits</em> and <em>Desolation of the Dead</em>. However, it can be run as a standalone adventure with minimal adjustment.</p>\n<h2>Key Themes</h2>\n<ul>\n<li><strong>Xenos Corruption:</strong> The artefacts at the heart of the conspiracy are of alien origin, and their influence corrupts all who handle them. The line between Imperial relic and xenos abomination is deliberately blurred.</li>\n<li><strong>Religious Fanaticism:</strong> The Children of the Inheritance believe they serve a forgotten aspect of the God-Emperor. Their devotion is genuine, even as it leads them into damnation.</li>\n<li><strong>Ancient Evil:</strong> Suvfaeras&mdash;known to the cult as Izumat, the Remembered God&mdash;is a Daemon Prince who predates the Imperium's presence on Thaur. The xenos artefacts scattered through the catacombs are pieces of its prison and its power.</li>\n</ul>\n<h2>The Children of the Inheritance</h2>\n<p>The cult worships Suvfaeras under the name <strong>Izumat</strong>, believing it to be a forgotten saint or aspect of the Emperor. They use xenos artefacts recovered from Thaur's deepest catacombs as objects of devotion, not understanding that each artefact is a conduit for the Daemon Prince's influence. Their sacred text, the <em>Propheticum Inheritus Benedictus</em>, is a corrupted liturgy that contains the ritual for Suvfaeras's resurrection.</p>\n<h2>Starting Characters</h2>\n<p>It is recommended that starting characters have <strong>2000&ndash;3000 XP</strong>. Characters with less experience may find the later encounters extremely challenging, particularly the climactic confrontation in Chapter III. If running as a standalone, consider granting additional starting equipment appropriate to the threat level.</p>\n<h2>Connecting to Previous Adventures</h2>\n<p>If the Acolytes played through <em>Dark Pursuits</em> and <em>Desolation of the Dead</em>, they will already have encountered elements of the Trade Sable network and may have heard rumours of the Children of the Inheritance. References to previous events should be woven into NPC dialogue and discovered documents where appropriate.</p>",
+          "format": 1
+        },
+        "sort": 200000
+      },
+      {
+        "name": "Replacement Characters",
+        "type": "text",
+        "text": {
+          "content": "<h2>Replacement Characters</h2>\n<p>Character death is a real possibility in <strong>Forgotten Gods</strong>, particularly during the major combat encounters. The following guidelines provide natural entry points for replacement characters at each chapter of the adventure.</p>\n<h2>Chapter I: The Trade Sable Camp</h2>\n<p>New characters can be introduced as <strong>prisoners rescued from the Trade Sable camp</strong> in the Desoleum Wastes. They may be fellow Acolytes who were captured while independently investigating the smuggling network, or Imperial citizens who stumbled upon the operation and were taken prisoner. This provides an immediate shared enemy and reason to cooperate.</p>\n<h2>Chapter II: Fellow Pilgrims</h2>\n<p>The Oath Unspoken carries thousands of passengers. New characters can be introduced as <strong>fellow pilgrims</strong> aboard the vessel&mdash;perhaps Acolytes from another cell who have been tracking the Inheritors from a different angle, or skilled individuals who attract the party's attention through their actions during the shipboard crisis. The close quarters of the ship make chance encounters natural.</p>\n<h2>Chapter III: Mournful Guard Defectors</h2>\n<p>On Thaur, new characters can join as <strong>Mournful Guard defectors</strong>&mdash;members of the Lord Governor's personal soldiers who have become aware of the cult's activities and broken from Pyre's command to oppose them. Alternatively, they may be Ossuarian Custodians who have discovered the alien tunnels beneath their sacred charges and seek outside help.</p>",
+          "format": 1
+        },
+        "sort": 300000
+      }
+    ]
+  },
+  {
+    "name": "Chapter I: Standing in the Shadow",
+    "img": "icons/svg/book.svg",
+    "pages": [
+      {
+        "name": "Crime Scene",
+        "type": "text",
+        "text": {
+          "content": "<h2>Crime Scene</h2>\n<p>The adventure begins in the lower reaches of Hive Desoleum, in the grim district known as <strong>Gallowsway</strong>. The Acolytes are summoned by their Inquisitor to investigate a series of murders that the local Sanctionary forces cannot explain.</p>\n<p><strong>Oath-Captain Nils</strong>, a weathered veteran of the Desoleum Sanctionaries, meets the Acolytes at the Mortuarium in Gallowsway Station. He has secured three bodies that bear markings unlike anything in the Sanctionary archives.</p>\n<blockquote class=\"read-aloud\">\n<p>The lifter bay reeks of chemical preservative and old blood. Three bodies lie on corroded metal slabs, each bearing strange burns in geometric patterns across their flesh. Oath-Captain Nils stands over them, data-slate in hand.</p>\n</blockquote>\n<p>Nils is professional and thorough. He briefs the Acolytes on what he knows:</p>\n<ul>\n<li>The bodies were discovered in Lifter Bay 7-Sigma, an abandoned cargo area in lower Gallowsway.</li>\n<li>All three victims died from severe energy burns of unknown origin.</li>\n<li>The geometric patterns on their flesh match no known Imperial weapon signature.</li>\n<li>Preliminary identification links at least one victim to known Trade Sable smuggling operatives.</li>\n<li>Nils suspects <strong>xenos involvement</strong> and has requested Inquisitorial assistance.</li>\n</ul>\n<p>The Oath-Captain will cooperate fully with the Acolytes but warns them that Gallowsway is dangerous territory, and the <strong>Red Walk gang</strong> has been unusually active in recent weeks.</p>",
+          "format": 1
+        },
+        "sort": 100000
+      },
+      {
+        "name": "Bodies and Questions",
+        "type": "text",
+        "text": {
+          "content": "<h2>Bodies and Questions</h2>\n<p>Detailed examination of the victims and the crime scene reveals a web of clues connecting the murders to a larger smuggling operation and, ultimately, to something far more dangerous.</p>\n<h2>Examining the Bodies</h2>\n<p>A <strong>Medicae</strong> test reveals the following:</p>\n<ul>\n<li>The energy burns penetrate deep into the tissue, suggesting sustained exposure rather than a single discharge.</li>\n<li>The geometric patterns are too precise to be accidental&mdash;they appear to have been <em>inscribed</em> by the energy source.</li>\n<li>Trace residue on the skin shows signs of <strong>warp-tainted energy exposure</strong>, a finding that should alarm any character with knowledge of the Immaterium.</li>\n<li>One victim has a concealed sub-dermal data-chip embedded in the forearm.</li>\n</ul>\n<h2>The Crime Scene</h2>\n<p>An <strong>Awareness</strong> test at Lifter Bay 7-Sigma uncovers:</p>\n<ul>\n<li>Fragments of a shattered xenos artefact&mdash;crystalline shards that faintly pulse with residual energy.</li>\n<li>Cargo manifests on a damaged data-slate referencing trade routes to destinations outside Desoleum.</li>\n<li>Scorch marks on the walls consistent with the same energy that killed the victims.</li>\n</ul>\n<h2>Making Inquiries</h2>\n<p>An <strong>Inquiry</strong> test in the surrounding district reveals:</p>\n<ul>\n<li>The victims were known associates of a smuggler called <strong>\"Hresk\"</strong>&mdash;a name spoken in whispers.</li>\n<li>Hresk operates out of the Desoleum Wastes, beyond the hive walls.</li>\n<li>The Trade Sable network has been moving unusual cargo recently&mdash;not the typical narcotics and weapons, but sealed containers that no one is allowed to open.</li>\n<li>Several locals have gone missing after showing interest in the Trade Sable's new merchandise.</li>\n</ul>",
+          "format": 1
+        },
+        "sort": 200000
+      },
+      {
+        "name": "Following the Trail",
+        "type": "text",
+        "text": {
+          "content": "<h2>Following the Trail</h2>\n<p>The trail from the crime scene leads deeper into the underhive, through territory controlled by the <strong>Red Walk gang</strong>. The Acolytes must pass through their domain to reach the routes leading out of the hive and into the Desoleum Wastes.</p>\n<h2>Red Walk Territory</h2>\n<p>The Red Walk gang controls a significant section of Gallowsway's lower levels. Their territory is marked by crimson paint splashed across walls and floors&mdash;hence the name. The gang's leader, <strong>Vornas Crimson</strong>, is a pragmatic criminal who values profit over violence but will not tolerate disrespect.</p>\n<p>The Acolytes have several options for traversing Red Walk territory:</p>\n<ul>\n<li><strong>Negotiation:</strong> Vornas Crimson will grant passage in exchange for a favour or payment. He has his own grudge against Hresk and the Trade Sable, who have been encroaching on his smuggling routes. A successful <strong>Charm</strong> or <strong>Commerce</strong> test can secure passage and even limited cooperation.</li>\n<li><strong>Intimidation:</strong> Displaying Inquisitorial authority or superior firepower may cow the gang into compliance, but this approach burns bridges and may result in ambushes later.</li>\n<li><strong>Combat:</strong> Fighting through Red Walk territory is possible but costly. The gang has numbers and knows the terrain.</li>\n<li><strong>Alternative Routes:</strong> Deeper hive passages exist that bypass Red Walk territory entirely, but these routes are more dangerous&mdash;unstable structures, toxic atmospheres, and worse things lurk in the deeper levels.</li>\n</ul>\n<h2>Information from Vornas</h2>\n<p>If the Acolytes earn Vornas Crimson's cooperation, he can provide valuable intelligence:</p>\n<ul>\n<li>Hresk operates from a mobile camp in the Wastes, using <strong>Viator desert crawlers</strong> as cover.</li>\n<li>The Trade Sable have been hiring additional muscle&mdash;something has them nervous.</li>\n<li>A Tech-Priest was seen being taken to the camp as a prisoner several weeks ago.</li>\n</ul>",
+          "format": 1
+        },
+        "sort": 300000
+      },
+      {
+        "name": "Into the Wastes",
+        "type": "text",
+        "text": {
+          "content": "<h2>Into the Wastes</h2>\n<p>Beyond the final hive checkpoint, the <strong>Desoleum Wastes</strong> stretch to the horizon&mdash;a hostile expanse of rust-coloured sand, toxic dust storms, and the skeletal remains of ancient industry.</p>\n<blockquote class=\"read-aloud\">\n<p>Past the final checkpoint, the Desoleum Wastes unfold&mdash;an endless expanse of rust-coloured sand and jagged metal outcroppings. The wind carries a dry heat that burns exposed skin.</p>\n</blockquote>\n<h2>Traversing the Wastes</h2>\n<p>The journey to the Trade Sable camp takes several days on foot, less with a vehicle. The Wastes present multiple hazards:</p>\n<ul>\n<li><strong>Environmental:</strong> Extreme heat during the day, freezing temperatures at night. Toxic dust storms can reduce visibility to nothing and damage equipment. Characters without protective gear suffer Fatigue.</li>\n<li><strong>Navigation:</strong> The featureless terrain makes navigation difficult. A failed <strong>Navigate (Surface)</strong> test adds days to the journey and increases resource consumption.</li>\n<li><strong>Dehydration:</strong> Water is scarce. Characters must ration carefully or find hidden water sources.</li>\n</ul>\n<h2>Gwydrae Nomads</h2>\n<p>The <strong>Gwydrae</strong> are nomadic scavengers who wander the Wastes, surviving on what the hive discards. They are wary of outsiders but not inherently hostile. A Gwydrae band may offer guidance to the Trade Sable camp in exchange for trade goods, particularly medical supplies or clean water. They know the Wastes intimately and can warn of hazards ahead.</p>\n<h2>Waste Creatures</h2>\n<p>The Desoleum Wastes harbour dangerous wildlife, including the <strong>Kreaytex</strong>&mdash;predatory creatures adapted to the toxic environment. A Kreaytex attack during a dust storm is a particularly deadly combination. The creatures hunt in packs and are drawn to vibrations in the sand.</p>",
+          "format": 1
+        },
+        "sort": 400000
+      },
+      {
+        "name": "The Camp",
+        "type": "text",
+        "text": {
+          "content": "<h2>The Camp</h2>\n<p>The Trade Sable smuggler camp is concealed within a cluster of <strong>Viator desert crawlers</strong>&mdash;massive tracked vehicles designed for long-range waste traversal. The camp is mobile, making it difficult to locate, but the trail of clues leads the Acolytes to its current position among a formation of corroded metal spires.</p>\n<h2>Camp Layout</h2>\n<p>The camp consists of four Viator crawlers arranged in a defensive formation:</p>\n<ul>\n<li><strong>Command Crawler:</strong> <strong>Golsken Hresk's</strong> personal vehicle. Contains his quarters, communications equipment, and a secured cargo hold with xenos artefacts.</li>\n<li><strong>Barracks Crawler:</strong> Houses the Trade Sable's hired guards&mdash;approximately 20 armed mercenaries.</li>\n<li><strong>Cargo Crawler:</strong> Contains the bulk of the smuggled goods, including sealed containers of xenos artefacts destined for transport off-world.</li>\n<li><strong>Prison Crawler:</strong> Holds prisoners, including <strong>Tech-Priest Iyathson</strong>, who was captured while investigating the artefacts independently.</li>\n</ul>\n<h2>Approaching the Camp</h2>\n<p>The Acolytes have several options:</p>\n<ul>\n<li><strong>Stealth Infiltration:</strong> The dust storms and metal spires provide cover for a stealthy approach. A successful <strong>Stealth</strong> test allows the Acolytes to reach the camp undetected. The prison crawler is the least guarded.</li>\n<li><strong>Direct Assault:</strong> A frontal attack is possible but faces 20 armed mercenaries plus Hresk's personal bodyguards. The crawlers provide significant cover for the defenders.</li>\n<li><strong>Negotiation:</strong> Hresk is a businessman first. If the Acolytes can offer something he values&mdash;or threaten something he fears&mdash;he may negotiate. However, he will not willingly surrender his cargo.</li>\n</ul>\n<h2>Tech-Priest Iyathson</h2>\n<p>If rescued, <strong>Iyathson</strong> provides crucial intelligence. The Tech-Priest was studying the artefacts and determined they are of <strong>xenos origin</strong>&mdash;not human manufacture. The energy signatures match nothing in the Mechanicus archives. Iyathson believes the artefacts are fragments of a larger construct and that more exist on Thaur.</p>",
+          "format": 1
+        },
+        "sort": 500000
+      },
+      {
+        "name": "More than Smugglers",
+        "type": "text",
+        "text": {
+          "content": "<h2>More than Smugglers</h2>\n<p>Whether through interrogation of Hresk, examination of the cargo, or Iyathson's testimony, the Acolytes discover that the Trade Sable operation is merely the surface layer of a far deeper conspiracy.</p>\n<h2>The Artefacts</h2>\n<p>The xenos artefacts are <strong>crystalline fragments</strong> that pulse with faint, unsettling energy. They are warm to the touch and seem to respond to proximity&mdash;bringing two fragments close together causes them to resonate. Extended exposure causes disturbing dreams and faint whispers at the edge of hearing.</p>\n<ul>\n<li>The artefacts originate from deep beneath the surface of the shrine world <strong>Thaur</strong>.</li>\n<li>They were excavated from tunnels below the Great Ossuaria&mdash;tunnels that predate the Imperium's presence on the planet.</li>\n<li>The <strong>Children of the Inheritance</strong> cult has been funding the excavation and smuggling operation.</li>\n</ul>\n<h2>The Children of the Inheritance</h2>\n<p>Hresk knows little about the cult beyond his business dealings, but he can confirm:</p>\n<ul>\n<li>The cult's agents are embedded among the <strong>pilgrims travelling to Thaur</strong> for the Festival of Bones.</li>\n<li>A significant cult cell is aboard the Rogue Trader vessel <strong>Oath Unspoken</strong>, which departs Desoleum's orbital port within days.</li>\n<li>The cult is collecting the artefacts for a specific purpose&mdash;something they call <strong>\"the Remembering.\"</strong></li>\n<li>Their leader on Thaur is a man named <strong>Carolus Renthear</strong>.</li>\n</ul>\n<h2>Next Steps</h2>\n<p>The evidence points clearly to the Oath Unspoken and Thaur. The Acolytes must board the vessel before it departs and continue their investigation among the pilgrims. Time is short&mdash;the ship leaves within days, and the Festival of Bones will not wait.</p>",
+          "format": 1
+        },
+        "sort": 600000
+      },
+      {
+        "name": "Departure",
+        "type": "text",
+        "text": {
+          "content": "<h2>Departure</h2>\n<p>The Acolytes must make their way to Desoleum's <strong>orbital port</strong> and secure passage aboard the <strong>Oath Unspoken</strong>. The massive vessel of <strong>Lord-Captain Aristide Anzaforr</strong> is one of the largest ships to visit Desoleum, carrying thousands of pilgrims bound for the shrine world of Thaur and the Festival of Bones.</p>\n<h2>Boarding the Oath Unspoken</h2>\n<p>Securing passage can be accomplished through several means:</p>\n<ul>\n<li><strong>Inquisitorial Authority:</strong> Displaying the Inquisitorial rosette guarantees passage but alerts anyone watching for Imperial agents. This significantly reduces the party's <strong>Subtlety</strong>.</li>\n<li><strong>Forged Pilgrim Papers:</strong> A <strong>Deceive</strong> or <strong>Tech-Use</strong> test to create convincing pilgrim documentation. Maintains cover but limits access to certain areas of the ship.</li>\n<li><strong>Purchased Passage:</strong> Standard fare for pilgrim-class passage. Provides anonymity but cramped conditions.</li>\n<li><strong>Merchant Cover:</strong> Posing as traders or merchants grants better quarters and access to the Market Quarter.</li>\n</ul>\n<blockquote class=\"read-aloud\">\n<p>The Oath Unspoken fills the viewport&mdash;a grand cruiser of impossible scale, its hull etched with devotional script visible even from the shuttle approach.</p>\n</blockquote>\n<p>As the shuttle docks, the Acolytes join a stream of pilgrims, traders, and crew filing through the entry ports. The air inside smells of incense, recycled atmosphere, and the press of thousands of bodies. Servo-skulls drift overhead, recording arrivals. Somewhere aboard this vessel, the Children of the Inheritance wait.</p>",
+          "format": 1
+        },
+        "sort": 700000
+      },
+      {
+        "name": "Chapter I Rewards",
+        "type": "text",
+        "text": {
+          "content": "<h2>Chapter I Rewards</h2>\n<h2>Experience Points</h2>\n<p>Recommended XP award for Chapter I: <strong>400&ndash;600 XP</strong>, distributed as follows:</p>\n<ul>\n<li><strong>Solving the Murders (100 XP):</strong> Identifying the cause of death and the xenos connection.</li>\n<li><strong>Navigating the Underhive (50&ndash;100 XP):</strong> Successfully traversing Red Walk territory, with bonus XP for diplomatic solutions.</li>\n<li><strong>Surviving the Wastes (50&ndash;100 XP):</strong> Reaching the Trade Sable camp through the Desoleum Wastes.</li>\n<li><strong>Breaking the Smuggling Ring (100&ndash;150 XP):</strong> Disrupting the Trade Sable operation and recovering evidence.</li>\n<li><strong>Rescuing Iyathson (50 XP):</strong> Freeing the Tech-Priest from captivity.</li>\n<li><strong>Roleplaying (50&ndash;100 XP):</strong> Good characterisation, creative problem-solving, and teamwork.</li>\n</ul>\n<h2>Influence</h2>\n<ul>\n<li><strong>+1 Influence:</strong> For solving the murders and reporting to Oath-Captain Nils.</li>\n<li><strong>+1 Influence:</strong> For dismantling the Trade Sable camp.</li>\n<li><strong>+1 Influence:</strong> For rescuing Tech-Priest Iyathson (may also grant future Mechanicus contacts).</li>\n</ul>\n<h2>Contacts and Enemies</h2>\n<ul>\n<li><strong>Peer (Sanctionaries):</strong> If the Acolytes worked closely with Oath-Captain Nils and kept him informed.</li>\n<li><strong>Enemy (Trade Sable):</strong> If Hresk survived and escaped, the Trade Sable network will remember the Acolytes.</li>\n<li><strong>Ally (Vornas Crimson):</strong> If the Acolytes negotiated peacefully with the Red Walk gang, Vornas may prove a useful contact in future Desoleum adventures.</li>\n</ul>\n<h2>Subtlety Adjustments</h2>\n<ul>\n<li><strong>-5 Subtlety:</strong> If the Acolytes used open Inquisitorial authority in Gallowsway.</li>\n<li><strong>-10 Subtlety:</strong> If the assault on the Trade Sable camp was loud and destructive.</li>\n<li><strong>+5 Subtlety:</strong> If the Acolytes maintained cover throughout the chapter.</li>\n</ul>",
+          "format": 1
+        },
+        "sort": 800000
+      }
+    ]
+  },
+  {
+    "name": "Chapter II: To the World of Bone",
+    "img": "icons/svg/book.svg",
+    "pages": [
+      {
+        "name": "The Oath Unspoken",
+        "type": "text",
+        "text": {
+          "content": "<h2>The Oath Unspoken</h2>\n<p>The <strong>Oath Unspoken</strong> is a grand cruiser of the <strong>Anzaforr Dynasty</strong>, a vessel of impossible scale that serves as warship, cathedral, and city in one. It carries thousands of pilgrims to the shrine world of Thaur for the <strong>Festival of Bones</strong>, an event that occurs once every generation.</p>\n<h2>Key Locations</h2>\n<ul>\n<li><strong>The Bridge:</strong> Lord-Captain Anzaforr's domain. Access is restricted to senior officers and invited guests. The bridge is a vast chamber of brass and glass, dominated by a command throne overlooking a massive viewport.</li>\n<li><strong>Cathedral of the Wanderer:</strong> A full-sized Imperial cathedral built into the ship's dorsal superstructure. Preacher Lazarun conducts daily services for the pilgrims. The cathedral is a place of genuine devotion&mdash;but also a place where the Inheritors recruit.</li>\n<li><strong>Pilgrim Decks:</strong> Sprawling lower decks crammed with thousands of pilgrims. Conditions are poor&mdash;overcrowded, poorly ventilated, and dimly lit. Disease and petty crime are constant concerns. The Inheritors hide among the masses here.</li>\n<li><strong>Market Quarter:</strong> A bustling commercial district on the mid-decks where merchants, traders, and opportunists sell everything from sacred relics to forbidden substances. Jarrad Cincayde operates here.</li>\n<li><strong>Corpse-Holds:</strong> Deep in the ship's belly, these refrigerated holds carry the bodies of the wealthy dead, bound for interment on Thaur. The Inheritors use the corpse-holds for their secret rituals&mdash;few visit the dead willingly.</li>\n<li><strong>Armsmen Barracks:</strong> Commander Hessiial's domain. The ship's armsmen maintain order aboard the vessel. Hessiial is competent and suspicious of outsiders.</li>\n</ul>",
+          "format": 1
+        },
+        "sort": 100000
+      },
+      {
+        "name": "Aboard the Ship",
+        "type": "text",
+        "text": {
+          "content": "<h2>Aboard the Ship</h2>\n<p>The first days aboard the Oath Unspoken are an opportunity for the Acolytes to explore the vessel, establish contacts, and begin their investigation into the Children of the Inheritance's presence among the pilgrims.</p>\n<h2>Lord-Captain Anzaforr</h2>\n<p><strong>Aristide Anzaforr</strong> is the master of the Oath Unspoken and scion of a Rogue Trader dynasty with centuries of history. He is charming, cultured, and dangerous. If the Acolytes reveal their Inquisitorial status, he may grant them an audience&mdash;Rogue Traders understand the value of Inquisitorial favour, even as they resent Inquisitorial authority.</p>\n<h2>Key NPCs</h2>\n<ul>\n<li><strong>Commander Hessiial:</strong> Head of the ship's armsmen. Professional, suspicious, and loyal to Anzaforr. She can be a valuable ally if convinced the Acolytes are not a threat to the ship, but she will not tolerate anyone undermining her authority.</li>\n<li><strong>Morrinoe:</strong> A mysterious <strong>Eldar Ranger</strong> travelling aboard the vessel for reasons of her own. She is aware of the danger that awaits on Thaur and may offer cryptic warnings. Her presence is known to Anzaforr, who has his own arrangement with her.</li>\n<li><strong>Preacher Lazarun:</strong> The ship's primary cleric, a passionate orator who leads the pilgrim services. Genuinely devout and potentially useful in identifying cult activity, though his zeal may cause problems.</li>\n<li><strong>Confessor Graves:</strong> A more sombre and thoughtful priest who hears confessions in the lower decks. He has heard troubling whispers from some pilgrims and may share his concerns with the Acolytes.</li>\n</ul>",
+          "format": 1
+        },
+        "sort": 200000
+      },
+      {
+        "name": "Amongst the Pilgrims",
+        "type": "text",
+        "text": {
+          "content": "<h2>Amongst the Pilgrims</h2>\n<p>The Children of the Inheritance have embedded agents throughout the pilgrim population. Identifying them requires patience, subtlety, and careful social investigation.</p>\n<h2>Signs of the Inheritors</h2>\n<p>The cult members are careful, but certain signs betray their affiliation to an observant investigator:</p>\n<ul>\n<li><strong>Bone-chip tokens:</strong> Small carved chips of bone worn as pendants or carried in pouches. Each bears a geometric symbol matching the patterns found on the murder victims in Desoleum.</li>\n<li><strong>Whispered prayers:</strong> Inheritors offer quiet prayers to <strong>\"the Remembered God\"</strong> or <strong>\"Izumat\"</strong> rather than the Emperor. These prayers are often disguised within standard Imperial liturgy.</li>\n<li><strong>Nervous behaviour:</strong> Cult members become visibly anxious when questioned about Thaur, the Festival of Bones, or their reasons for pilgrimage. A <strong>Scrutiny</strong> test reveals deception.</li>\n<li><strong>Secret meetings:</strong> Small groups gathering in quiet corners of the pilgrim decks, falling silent when approached.</li>\n</ul>\n<h2>Investigation Tests</h2>\n<ul>\n<li><strong>Charm:</strong> Befriending pilgrims to learn who is acting strangely or meeting in secret.</li>\n<li><strong>Inquiry:</strong> Asking direct questions about unusual behaviour, new religious movements, or bone-chip tokens.</li>\n<li><strong>Scrutiny:</strong> Observing crowds for cult members, reading body language during conversations, detecting lies.</li>\n<li><strong>Forbidden Lore (Cults):</strong> Recognising the cult's practices and symbology from known patterns of heretical worship.</li>\n</ul>\n<p>Each successful test reveals a piece of the puzzle. Multiple successes over several days paint a clear picture of the cult's presence and lead the Acolytes toward their leader aboard the ship.</p>",
+          "format": 1
+        },
+        "sort": 300000
+      },
+      {
+        "name": "Market Day",
+        "type": "text",
+        "text": {
+          "content": "<h2>Market Day</h2>\n<p>The Oath Unspoken's <strong>Market Quarter</strong> is a vibrant, chaotic district where merchants and traders hawk their wares to pilgrims, crew, and anyone with coin. Regular market days see the quarter packed with stalls and makeshift shops.</p>\n<h2>Trade Opportunities</h2>\n<p>The Market Quarter offers a wide range of goods, from the mundane to the extraordinary:</p>\n<ul>\n<li><strong>Pilgrim Supplies:</strong> Devotional items, prayer beads, votive candles, preserved saints' relics (of dubious authenticity).</li>\n<li><strong>Equipment:</strong> Weapons, armour, tools, and survival gear&mdash;at inflated shipboard prices.</li>\n<li><strong>Narcotics:</strong> <strong>Jarrad Cincayde</strong> operates a barely-concealed narcotics trade. He offers partnership opportunities to anyone who looks capable of muscle work. His operation may intersect with the Inheritors.</li>\n<li><strong>Curiosities:</strong> Unusual items from across the Askellon Sector. Some merchants sell items that skirt the boundaries of legality&mdash;xenos curios, unsanctioned texts, and stranger things.</li>\n</ul>\n<h2>Inheritor Activity</h2>\n<p>The cult uses market days as cover for their own transactions. Inheritor agents may be observed:</p>\n<ul>\n<li>Purchasing specific items&mdash;bone dust, ritual candles, particular herbs&mdash;in quantities that suggest organised activity.</li>\n<li>Attempting to acquire or steal items that match the xenos artefact energy signature.</li>\n<li>Meeting with Cincayde's people, suggesting a narcotics-for-services arrangement.</li>\n</ul>\n<p>An observant Acolyte may notice these patterns with a successful <strong>Awareness</strong> or <strong>Scrutiny</strong> test, providing another thread in the investigation.</p>",
+          "format": 1
+        },
+        "sort": 400000
+      },
+      {
+        "name": "Whispers and Lies",
+        "type": "text",
+        "text": {
+          "content": "<h2>Whispers and Lies</h2>\n<p>As the voyage progresses, the cult's presence becomes increasingly difficult to conceal. Events escalate as the Inheritors grow bolder&mdash;or more desperate.</p>\n<h2>Praesul Parathas Hayne</h2>\n<p>The leader of the Inheritor cell aboard the Oath Unspoken is <strong>Praesul Parathas Hayne</strong>, a charismatic demagogue who has been converting pilgrims to the cult for years. Hayne is intelligent, ruthless, and genuinely believes in the Remembered God. He commands approximately 30 devoted followers aboard the ship, with dozens more sympathisers.</p>\n<h2>Secret Rituals</h2>\n<p>The Inheritors conduct their rituals in the <strong>corpse-holds</strong>&mdash;the refrigerated chambers deep in the ship where the bodies of the wealthy dead are stored for interment on Thaur. Few crew members visit the holds willingly, making them ideal for clandestine gatherings.</p>\n<ul>\n<li>The rituals involve chanting from the <em>Propheticum Inheritus Benedictus</em>, burning bone-dust incense, and exposing the participants to xenos artefact fragments.</li>\n<li>The artefacts cause those present to experience shared visions of Thaur's catacombs and a presence stirring beneath the bones.</li>\n<li>Discovering a ritual in progress provides concrete evidence of the cult's heretical nature.</li>\n</ul>\n<h2>Morrinoe's Warning</h2>\n<p>If the Acolytes have made contact with the Eldar ranger <strong>Morrinoe</strong>, she may approach them with a cryptic warning:</p>\n<ul>\n<li>She refers to Thaur as a <strong>\"cage world\"</strong>&mdash;a planet where something was imprisoned long ago.</li>\n<li>She warns that the artefacts are not tools but <strong>\"fingers\"</strong>&mdash;extensions of the imprisoned entity's will.</li>\n<li>She will not explain her own reasons for travelling to Thaur, but implies she has faced this threat before.</li>\n</ul>",
+          "format": 1
+        },
+        "sort": 500000
+      },
+      {
+        "name": "Dinner with the Lord-Captain",
+        "type": "text",
+        "text": {
+          "content": "<h2>Dinner with the Lord-Captain</h2>\n<p>At some point during the voyage, <strong>Lord-Captain Aristide Anzaforr</strong> invites the Acolytes to dine at his personal table. This is a high-stakes social encounter that can shape the rest of the adventure.</p>\n<h2>The Setting</h2>\n<p>Anzaforr's private dining chamber is opulent beyond anything found on most Imperial worlds&mdash;real wood furniture, crystal glassware, and food prepared from genuine ingredients rather than corpse-starch or synthetic protein. The room is designed to impress and intimidate in equal measure.</p>\n<h2>The Guest List</h2>\n<p>In addition to the Acolytes, other guests may include:</p>\n<ul>\n<li><strong>Commander Hessiial</strong>&mdash;observing the Acolytes on Anzaforr's behalf.</li>\n<li><strong>Preacher Lazarun</strong>&mdash;representing the spiritual authority aboard the ship.</li>\n<li><strong>Jarrad Cincayde</strong>&mdash;a surprising guest, suggesting Anzaforr tolerates or profits from the narcotics trade.</li>\n<li><strong>A senior Inheritor</strong>&mdash;possibly Hayne himself, operating under a false identity. A <strong>Scrutiny</strong> test may reveal their discomfort or deception.</li>\n</ul>\n<h2>Anzaforr's Agenda</h2>\n<p>The Lord-Captain is charming but calculating. His true interests include:</p>\n<ul>\n<li><strong>Thaur's treasures:</strong> Anzaforr knows that Thaur's catacombs contain valuable relics and artefacts. He intends to acquire some for his dynasty, regardless of their origin.</li>\n<li><strong>The Acolytes' purpose:</strong> He wants to determine why Inquisitorial agents are aboard his ship and whether they pose a threat to his plans.</li>\n<li><strong>Leverage:</strong> Information is currency. Anzaforr will trade intelligence for favours and vice versa.</li>\n</ul>\n<p>This is a scene rich in social manoeuvring. <strong>Charm</strong>, <strong>Deceive</strong>, and <strong>Scrutiny</strong> tests determine how much the Acolytes learn&mdash;and how much they reveal.</p>",
+          "format": 1
+        },
+        "sort": 600000
+      },
+      {
+        "name": "Battle for the Oath Unspoken",
+        "type": "text",
+        "text": {
+          "content": "<h2>Battle for the Oath Unspoken</h2>\n<p>As the Oath Unspoken nears Thaur, the Inheritors launch their strike. Whether provoked by the Acolytes' investigation or acting on a predetermined timetable, the cult attempts to seize control of critical ship systems or eliminate the Acolytes before arrival.</p>\n<h2>The Attack</h2>\n<p>The Inheritors strike simultaneously across multiple locations:</p>\n<ul>\n<li><strong>Pilgrim Decks:</strong> Cult members incite a riot among the pilgrims, creating chaos and diverting the armsmen.</li>\n<li><strong>Corpse-Holds:</strong> A ritual is begun to activate all xenos artefacts aboard the ship simultaneously, creating a wave of psychic disturbance.</li>\n<li><strong>Bridge Approach:</strong> A kill-team moves to assassinate or capture Lord-Captain Anzaforr.</li>\n<li><strong>Engine Decks:</strong> Saboteurs attempt to disable the ship's engines, stranding it in the void.</li>\n</ul>\n<h2>The Battle</h2>\n<p>This is a major combat set-piece that may span multiple ship locations. The Acolytes must choose where to focus their efforts:</p>\n<ul>\n<li>Defending the bridge earns Anzaforr's lasting gratitude.</li>\n<li>Stopping the ritual in the corpse-holds prevents a psychic catastrophe.</li>\n<li>Protecting the engines ensures the ship reaches Thaur.</li>\n<li>Quelling the riot saves pilgrim lives but may allow other objectives to fall.</li>\n</ul>\n<h2>Possible Allies</h2>\n<ul>\n<li><strong>Commander Hessiial's armsmen</strong> fight to maintain order but are stretched thin.</li>\n<li><strong>Morrinoe</strong> may intervene at a critical moment, her alien combat skills turning the tide.</li>\n<li><strong>Confessor Graves</strong> rallies loyal pilgrims against the rioters.</li>\n</ul>\n<p>The outcome of the battle determines the state of the ship as it arrives at Thaur&mdash;and how many allies the Acolytes have for the trials ahead.</p>",
+          "format": 1
+        },
+        "sort": 700000
+      },
+      {
+        "name": "Chapter II Rewards",
+        "type": "text",
+        "text": {
+          "content": "<h2>Chapter II Rewards</h2>\n<h2>Experience Points</h2>\n<p>Recommended XP award for Chapter II: <strong>400&ndash;600 XP</strong>, distributed as follows:</p>\n<ul>\n<li><strong>Identifying the Inheritors (100 XP):</strong> Uncovering the cult's presence aboard the ship through investigation.</li>\n<li><strong>Social Encounters (50&ndash;100 XP):</strong> Successfully navigating the dinner with Anzaforr and other social scenes.</li>\n<li><strong>Discovering the Rituals (50&ndash;100 XP):</strong> Finding and documenting the cult's activities in the corpse-holds.</li>\n<li><strong>Battle for the Oath Unspoken (100&ndash;200 XP):</strong> Based on objectives achieved during the shipboard battle.</li>\n<li><strong>Roleplaying (50&ndash;100 XP):</strong> Good characterisation, creative solutions, and teamwork.</li>\n</ul>\n<h2>Influence</h2>\n<ul>\n<li><strong>+1 Influence:</strong> For earning Lord-Captain Anzaforr's favour through the dinner scene or battle.</li>\n<li><strong>+1 Influence:</strong> For successfully identifying and disrupting the Inheritor cell.</li>\n<li><strong>+1 Influence:</strong> For defending the ship during the battle, particularly if civilian casualties were minimised.</li>\n</ul>\n<h2>Contacts and Enemies</h2>\n<ul>\n<li><strong>Peer (Rogue Traders):</strong> If the Acolytes earned Anzaforr's respect and cooperation.</li>\n<li><strong>Enemy (Children of the Inheritance):</strong> The cult now considers the Acolytes a primary threat. Surviving Inheritors will alert their brethren on Thaur.</li>\n<li><strong>Contact (Morrinoe):</strong> If the Acolytes treated the Eldar ranger with respect, her relationship may have future implications in subsequent adventures.</li>\n</ul>",
+          "format": 1
+        },
+        "sort": 800000
+      }
+    ]
+  },
+  {
+    "name": "Chapter III: Nightmares Remembered",
+    "img": "icons/svg/book.svg",
+    "pages": [
+      {
+        "name": "Thaur Overview",
+        "type": "text",
+        "text": {
+          "content": "<h2>Thaur Overview</h2>\n<p><strong>Thaur</strong> is a shrine world in the Askellon Sector&mdash;a planet of bone. Its entire surface is dominated by ossuaries, crypts, and mausoleums containing the remains of billions of Imperial dead, interred over millennia. The planet exists as a monument to mortality and faith, drawing pilgrims from across the sector.</p>\n<h2>The Festival of Bones</h2>\n<p>The <strong>Festival of Bones</strong> is Thaur's greatest religious event, occurring once per generation. Millions of pilgrims descend upon the planet to honour the dead, inter new remains, and participate in elaborate funerary rites. During the Festival, the planet's population swells from two billion to over two and a half billion.</p>\n<h2>Key Locations</h2>\n<ul>\n<li><strong>Port Restful:</strong> The planet's primary spaceport, built from the bones of ancient voidships. During the Festival, it operates at maximum capacity, processing thousands of arrivals daily.</li>\n<li><strong>The House of Pyre:</strong> The Lord Governor's palace, constructed from black stone and bone. <strong>Jeronius Pyre</strong>, Lord of the Wake, rules Thaur from this imposing fortress.</li>\n<li><strong>The Great Ossuaria:</strong> Vast underground chambers containing millions of skeletal remains arranged in elaborate devotional patterns. The largest and most sacred of Thaur's burial sites, guarded by the <strong>Ossuarian Custodians</strong>.</li>\n<li><strong>The Catacombs:</strong> Beneath the human-built ossuaries lie tunnels of unknown origin. The architecture transitions from Imperial Gothic to something alien and organic. The Children of the Inheritance have found passages here leading to the <strong>Chamber of Izumat</strong>.</li>\n</ul>",
+          "format": 1
+        },
+        "sort": 100000
+      },
+      {
+        "name": "Guests of the Lord Governor",
+        "type": "text",
+        "text": {
+          "content": "<h2>Guests of the Lord Governor</h2>\n<p>Upon arrival at Thaur, the Acolytes face an unexpected obstacle: <strong>Jeronius Pyre</strong>, Lord of the Wake and Governor of Thaur, has ordered the detention of all off-world agents and outsiders suspected of ulterior motives. The Acolytes are arrested by the <strong>Mournful Guard</strong>&mdash;Pyre's personal soldiers&mdash;and brought before the Lord Governor.</p>\n<h2>Jeronius Pyre</h2>\n<p>Pyre is not a villain. He is a <strong>paranoid and protective ruler</strong> who takes his stewardship of Thaur's dead seriously. He has received reports of outsiders desecrating the ossuaries and suspects Inquisitorial agents of planning to seize sacred relics. His hostility stems from fear, not malice.</p>\n<ul>\n<li>Pyre can be reasoned with through <strong>Charm</strong> or <strong>Intimidation</strong>, though the latter risks making a permanent enemy.</li>\n<li>Presenting evidence of the Inheritor cult may convince him to cooperate, though he will be reluctant to believe that heresy festers on his sacred world.</li>\n<li>If all else fails, the Acolytes must <strong>escape</strong> from the House of Pyre&mdash;a challenging but achievable task given the chaos of the Festival.</li>\n</ul>\n<h2>The Mournful Guard</h2>\n<p>Pyre's soldiers are well-equipped and fanatically loyal. They wear bone-white armour and carry weapons etched with funerary prayers. Fighting them is possible but inadvisable&mdash;they are not the enemy, and killing Imperial soldiers will have consequences.</p>\n<p>Some Mournful Guard officers have noticed strange activity in the deeper ossuaries and may be sympathetic to the Acolytes' cause if approached correctly.</p>",
+          "format": 1
+        },
+        "sort": 200000
+      },
+      {
+        "name": "Into the Forest",
+        "type": "text",
+        "text": {
+          "content": "<h2>Into the Forest</h2>\n<p>Whether released by Pyre or escaped from his custody, the Acolytes must travel through Thaur's ancient forests to reach the deeper ossuaries where the Inheritors are conducting their operations.</p>\n<blockquote class=\"read-aloud\">\n<p>The trees of Thaur grow from soil thick with the dust of the ancient dead. Bones protrude from the earth like pale roots, and the canopy above filters light into a perpetual grey twilight.</p>\n</blockquote>\n<h2>The Forest</h2>\n<p>Thaur's forests are unlike any natural woodland. The trees grow from soil saturated with millennia of human remains, and the effect is profoundly unsettling:</p>\n<ul>\n<li>Bones and skull fragments protrude from the earth at every step.</li>\n<li>The trees themselves have a pale, almost skeletal quality, their bark smooth and white.</li>\n<li>Sound carries strangely&mdash;whispers seem to come from all directions, though they may be nothing more than wind through bone.</li>\n</ul>\n<h2>Hazards</h2>\n<ul>\n<li><strong>Mournful Guard Patrols:</strong> Pyre's soldiers patrol the forests, particularly during the Festival. Avoiding them requires <strong>Stealth</strong> tests or creative diversions.</li>\n<li><strong>Wild Creatures:</strong> Thaur's fauna has adapted to the bone-rich environment. Predatory creatures lurk among the ossuary trees, drawn by the scent of living flesh.</li>\n<li><strong>Environmental:</strong> The forest floor is treacherous&mdash;hidden sinkholes lead to collapsed burial chambers, and the bone-dust soil can give way without warning.</li>\n<li><strong>Psychic Disturbance:</strong> Characters with psychic abilities may experience visions or hear voices as they approach the deeper ossuaries. The warp is thin here, worn away by centuries of death and devotion.</li>\n</ul>",
+          "format": 1
+        },
+        "sort": 300000
+      },
+      {
+        "name": "The Great Ossuaria",
+        "type": "text",
+        "text": {
+          "content": "<h2>The Great Ossuaria</h2>\n<p>The <strong>Great Ossuaria</strong> are Thaur's most sacred burial chambers&mdash;vast underground spaces containing millions of skeletal remains arranged in elaborate devotional patterns that span entire walls and ceilings. The effect is simultaneously beautiful and deeply disturbing.</p>\n<h2>The Chambers</h2>\n<p>The ossuaria consist of dozens of interconnected chambers, each dedicated to a different era or category of the dead:</p>\n<ul>\n<li><strong>The Hall of Martyrs:</strong> Remains of those who died in service to the Emperor, arranged in patterns depicting famous battles.</li>\n<li><strong>The Bone Gardens:</strong> Artistic arrangements of skulls and bones forming intricate floral patterns across walls and ceilings.</li>\n<li><strong>The Whispering Gallery:</strong> A chamber where the acoustics cause even the faintest sound to echo endlessly&mdash;pilgrims come here to whisper prayers to their dead.</li>\n<li><strong>The Deep Vaults:</strong> The oldest chambers, dating back millennia, where the bones are black with age and the arrangements follow patterns that predate current Imperial aesthetics.</li>\n</ul>\n<h2>The Ossuarian Custodians</h2>\n<p>The <strong>Ossuarian Custodians</strong> are a monastic order dedicated to maintaining the Great Ossuaria. They live underground permanently, tending the bones of the dead with reverent care. They are knowledgeable about the layout of the ossuaria and suspicious of anyone who ventures too deep.</p>\n<h2>Hidden Passages</h2>\n<p>Below the deepest human-built chambers, <strong>hidden passages</strong> lead into tunnels of clearly alien construction. The transition is unmistakable&mdash;Imperial Gothic stonework gives way to smooth, organic curves of unknown material. Finding these passages requires careful exploration and successful <strong>Awareness</strong> or <strong>Search</strong> tests. The Inheritors have already found at least one entrance.</p>",
+          "format": 1
+        },
+        "sort": 400000
+      },
+      {
+        "name": "Navigating the Catacombs",
+        "type": "text",
+        "text": {
+          "content": "<h2>Navigating the Catacombs</h2>\n<p>Below the human-built ossuaries, the <strong>alien catacombs</strong> stretch into the planet's depths. The architecture here is profoundly wrong&mdash;smooth, organic tunnels that seem to pulse faintly with residual energy, their surfaces marked with the same geometric patterns found on the xenos artefacts.</p>\n<h2>The Alien Architecture</h2>\n<p>The catacombs were not built by human hands. Their origin is unknown, but they predate the Imperium's presence on Thaur by millennia&mdash;perhaps longer. Key features include:</p>\n<ul>\n<li><strong>Organic Walls:</strong> The tunnel surfaces are smooth and warm to the touch, resembling bone or chitin more than stone. They curve in ways that defy conventional architecture.</li>\n<li><strong>Geometric Markings:</strong> The same patterns found on the artefacts and the murder victims are carved into the walls, glowing faintly in the darkness.</li>\n<li><strong>Resonance:</strong> Any xenos artefacts carried by the Acolytes begin to resonate more strongly, growing warmer and pulsing with light. They seem to point deeper into the tunnels.</li>\n<li><strong>Psychic Pressure:</strong> All characters feel an increasing sense of dread. Psykers experience vivid hallucinations and must test <strong>Willpower</strong> to maintain focus.</li>\n</ul>\n<h2>Inheritor Signs</h2>\n<p>The Children of the Inheritance have been using these tunnels for years. Signs of their passage include:</p>\n<ul>\n<li>Ritual markings in blood and bone-dust at tunnel intersections.</li>\n<li>Discarded supplies and camping equipment.</li>\n<li>Bodies of cult members who succumbed to the catacombs' dangers&mdash;some bearing expressions of ecstasy, others of absolute terror.</li>\n<li>Guards posted at key junctions, increasingly fanatical as the Acolytes approach the Chamber of Izumat.</li>\n</ul>",
+          "format": 1
+        },
+        "sort": 500000
+      },
+      {
+        "name": "The Remembered God",
+        "type": "text",
+        "text": {
+          "content": "<h2>The Remembered God</h2>\n<p>At the heart of the alien catacombs lies the <strong>Chamber of Izumat</strong>&mdash;a vast space that dwarfs even the largest of the Great Ossuaria above. Here, <strong>Carolus Renthear</strong>, the supreme leader of the Children of the Inheritance, conducts the final ritual to resurrect the Daemon Prince <strong>Suvfaeras</strong>.</p>\n<blockquote class=\"read-aloud\">\n<p>The chamber is vast beyond reason, its walls lined with crystalline formations that pulse with sickly light. At its centre, Renthear stands within a circle of burning artefacts, arms raised, voice rising in a language that hurts to hear.</p>\n</blockquote>\n<h2>Carolus Renthear</h2>\n<p><strong>Renthear</strong> is a true believer&mdash;a former Imperial scholar who discovered the <em>Propheticum Inheritus Benedictus</em> and became convinced that Izumat was a forgotten aspect of the God-Emperor. Years of exposure to the artefacts have driven him mad, but his madness has a terrible clarity. He has spent decades gathering the artefacts, building the cult, and preparing for this moment.</p>\n<h2>The Ritual</h2>\n<p>The ritual uses the accumulated xenos artefacts as <strong>focal points</strong>, channelling warp energy through the crystalline formations in the chamber walls. The artefacts burn with increasing intensity as the ritual progresses:</p>\n<ul>\n<li><strong>Stage 1:</strong> The artefacts ignite and the chamber fills with blinding light. Psychic characters feel a vast presence stirring.</li>\n<li><strong>Stage 2:</strong> The crystalline walls begin to crack and bleed luminous fluid. The geometric patterns writhe and shift. Reality warps at the edges of the chamber.</li>\n<li><strong>Stage 3:</strong> If not interrupted, <strong>Suvfaeras manifests</strong>&mdash;a towering horror of light and malice, the Daemon Prince fully incarnate in the material realm.</li>\n</ul>\n<p>The Acolytes arrive during Stage 1 or early Stage 2, depending on how quickly they navigated the catacombs.</p>",
+          "format": 1
+        },
+        "sort": 600000
+      },
+      {
+        "name": "Stopping the Ritual",
+        "type": "text",
+        "text": {
+          "content": "<h2>Stopping the Ritual</h2>\n<p>The Acolytes have multiple options for intervening in the ritual. The approach they choose determines the nature and difficulty of the climactic encounter.</p>\n<h2>Methods of Intervention</h2>\n<ul>\n<li><strong>Disrupt the Ritual Circle:</strong> Breaking the circle of artefacts interrupts the energy flow. This requires physically reaching the circle past Renthear's guards and the warp-distorted environment. A successful <strong>Tech-Use</strong> or <strong>Forbidden Lore (Warp)</strong> test identifies the weakest point in the circle.</li>\n<li><strong>Destroy the Artefacts:</strong> The artefacts can be destroyed, but each destruction releases a burst of warp energy that deals damage to everyone nearby. Destroying enough artefacts collapses the ritual entirely.</li>\n<li><strong>Kill Renthear:</strong> The ritual requires Renthear's concentration. Killing or incapacitating him disrupts the process, but the accumulated energy may discharge catastrophically.</li>\n<li><strong>Face Suvfaeras:</strong> If the ritual completes, the Daemon Prince manifests. This is the most dangerous outcome but not necessarily fatal&mdash;Suvfaeras is weakened by incomplete resurrection and can be banished through destruction of the remaining artefacts.</li>\n</ul>\n<h2>The Final Battle</h2>\n<p>If <strong>Suvfaeras manifests</strong>, the Acolytes face a devastating opponent:</p>\n<ul>\n<li>The Daemon Prince can <strong>reclaim artefacts</strong> to heal its wounds and grow stronger.</li>\n<li>It commands warp energy that warps the environment, creating hazards throughout the chamber.</li>\n<li>Cult members fight fanatically to protect their god, even as many are consumed by the very power they worship.</li>\n<li>The chamber itself may begin to <strong>collapse</strong> as the alien architecture reacts to the manifestation, adding a time pressure to the encounter.</li>\n</ul>\n<p>Victory requires destroying the artefacts that anchor Suvfaeras to reality. Without them, the Daemon Prince cannot maintain its physical form and is banished back to the Immaterium.</p>",
+          "format": 1
+        },
+        "sort": 650000
+      },
+      {
+        "name": "Conclusion & Aftermath",
+        "type": "text",
+        "text": {
+          "content": "<h2>Conclusion &amp; Aftermath</h2>\n<p>With the ritual disrupted and Suvfaeras banished or prevented from manifesting, the immediate crisis is over. But the implications of what the Acolytes have discovered extend far beyond this single adventure.</p>\n<h2>Immediate Aftermath</h2>\n<ul>\n<li><strong>The Catacombs:</strong> The alien tunnels remain, and with them the knowledge that something ancient and terrible lies beneath Thaur's surface. The Inquisition will need to determine how to secure the site.</li>\n<li><strong>The Cult:</strong> With Renthear dead or captured, the Children of the Inheritance are broken&mdash;but cells may survive elsewhere in the Askellon Sector, unaware of their leader's fate.</li>\n<li><strong>Thaur:</strong> Lord Governor Pyre must reckon with the fact that heresy festered beneath his sacred world. His reaction depends on how the Acolytes treated him&mdash;cooperation may lead to gratitude, while antagonism breeds resentment.</li>\n<li><strong>The Anzaforr Dynasty:</strong> Lord-Captain Anzaforr's interest in Thaur's treasures remains. Whether he becomes an ally or a problem depends on the Acolytes' relationship with him.</li>\n</ul>\n<h2>Experience Points</h2>\n<p>Recommended XP award for Chapter III: <strong>500&ndash;800 XP</strong>, distributed based on objectives achieved, enemies defeated, and roleplaying quality.</p>\n<p><strong>Total Adventure XP: 1300&ndash;2000 XP</strong></p>\n<h2>Final Influence</h2>\n<ul>\n<li><strong>+1&ndash;3 Influence:</strong> Based on the overall outcome&mdash;preventing the Daemon Prince's manifestation, minimising casualties, and securing the catacombs.</li>\n<li><strong>+1 Influence:</strong> For maintaining positive relations with Lord Governor Pyre.</li>\n<li><strong>+1 Influence:</strong> For a detailed report to the Inquisitor on the xenos threat beneath Thaur.</li>\n</ul>\n<h2>Loose Threads</h2>\n<p>The adventure concludes, but questions remain for future stories: What created the alien catacombs? Are there other \"cage worlds\" like Thaur? What is Morrinoe's true interest in the Daemon Prince? And somewhere in the Askellon Sector, the remaining Children of the Inheritance continue to whisper the name of their Remembered God.</p>",
+          "format": 1
+        },
+        "sort": 700000
+      }
+    ]
+  },
+  {
+    "name": "Handouts",
+    "img": "icons/svg/book.svg",
+    "pages": [
+      {
+        "name": "Oath-Captain Nils' Report",
+        "type": "text",
+        "text": {
+          "content": "<h2>Sanctionary Report</h2>\n<p><strong>SANCTIONARY REPORT &mdash; CASE REF: GW-4471-M</strong></p>\n<p><strong>Reporting Officer:</strong> Oath-Captain K. Nils<br><strong>Station:</strong> Gallowsway Precinct, Hive Desoleum<br><strong>Date Filed:</strong> 3.481.816.M41</p>\n<h2>Summary</h2>\n<p>Three unidentified deceased found in Lifter Bay 7-Sigma, Gallowsway District. Bodies discovered by maintenance servitor during routine sweep.</p>\n<h2>Findings</h2>\n<ul>\n<li><strong>Cause of death:</strong> Severe energy burns of unknown origin, covering approximately 40% of body surface area on each victim.</li>\n<li><strong>Distinguishing marks:</strong> Geometric patterns consistent with no known Imperial technology. Patterns appear deliberately inscribed rather than resultant from random energy discharge.</li>\n<li><strong>Identification:</strong> Victim 1 tentatively identified as Drav Koln, known associate of Trade Sable smuggling network. Victims 2 and 3 remain unidentified. Gene-prints submitted for cross-reference.</li>\n<li><strong>Scene evidence:</strong> Fragments of unknown crystalline material recovered. Faint residual energy signatures detected by auspex. No conventional weapon discharge residue present.</li>\n</ul>\n<h2>Assessment</h2>\n<p>Possible xenos involvement. Energy signatures and material composition do not match any weapon or device in Sanctionary archives. This officer lacks the expertise and authority to investigate further.</p>\n<p><strong>Request Inquisitorial assistance.</strong></p>\n<p><em>Oath-Captain K. Nils</em><br><em>Gallowsway Precinct</em></p>",
+          "format": 1
+        },
+        "sort": 100000
+      },
+      {
+        "name": "Data-slate Transcript",
+        "type": "text",
+        "text": {
+          "content": "<h2>Data-slate Transcript</h2>\n<p><strong>VID-RECORD TRANSCRIPT &mdash; RECOVERED UNIT</strong><br><strong>Classification:</strong> Trade Sable Cargo Manifest<br><strong>Recovery Location:</strong> Lifter Bay 7-Sigma, Gallowsway<br><strong>Transcription Authority:</strong> Sanctionary Tech-Adept Hallas</p>\n<h2>Manifest Contents</h2>\n<p><strong>Origin:</strong> Thaur subsurface excavation site Theta-7</p>\n<p><strong>Contents:</strong></p>\n<ul>\n<li>14 artefact fragments (classification pending)</li>\n<li>3 sealed containers (contents unknown &mdash; DO NOT OPEN)</li>\n<li>1 crystalline matrix (active energy signature detected)</li>\n</ul>\n<p><strong>Destination:</strong> Desoleum via Oath Unspoken</p>\n<p><strong>Handler:</strong> Hresk</p>\n<h2>Annotations</h2>\n<p><em>[Handwritten notation, partially illegible]</em></p>\n<p>\"All items to bypass standard Customs inspection. Arrangement with Port Authority confirmed. Payment rendered. DO NOT declare crystalline matrix &mdash; energy signature will trigger auspex sweep. Transport in lead-lined case ONLY.\"</p>\n<p><em>[Second notation, different hand]</em></p>\n<p>\"Praesul says these are the last from Theta-7. Next shipment from deeper site. More powerful. The Remembered God stirs. &mdash; H.\"</p>",
+          "format": 1
+        },
+        "sort": 200000
+      },
+      {
+        "name": "Cult Texts",
+        "type": "text",
+        "text": {
+          "content": "<h2>Propheticum Inheritus Benedictus</h2>\n<p><strong>From the Propheticum Inheritus Benedictus</strong><br><em>Chapter IX, Verse 34</em></p>\n<blockquote>\n<p>\"And the Remembered God shall stir in the bones of the faithful. His name, once spoken in ages past, shall echo again through the chambers of the dead. Izumat rises. Izumat reclaims. Through the vessels of bone and through the blood of sacrifice, the Prince of the Immaterium returns to flesh.\"</p>\n</blockquote>\n<p><em>Chapter IX, Verse 35</em></p>\n<blockquote>\n<p>\"Gather unto Him the shards of His prison, for each fragment is a finger of His will. Where the shards burn, there His gaze falls. Where the faithful gather, there His voice is heard. In the deepest dark, where the bones of worlds are laid bare, there shall He rise and reclaim what was taken.\"</p>\n</blockquote>\n<p><em>Chapter IX, Verse 41</em></p>\n<blockquote>\n<p>\"Fear not the fire of His awakening, for it is the fire of inheritance. We are the Children. We are the inheritors of His truth. When the false light of the corpse-throne gutters and fails, it is Izumat who shall remember, and Izumat who shall endure.\"</p>\n</blockquote>\n<p><em>[Inquisitorial notation: This text is classified Hereticus Extremis. Possession is punishable by death. The entity referred to as \"Izumat\" has been identified as the Daemon Prince Suvfaeras. All copies are to be destroyed upon recovery.]</em></p>",
+          "format": 1
+        },
+        "sort": 300000
+      },
+      {
+        "name": "Thaur Planetary Data",
+        "type": "text",
+        "text": {
+          "content": "<h2>Administratum Planetary Survey</h2>\n<p><strong>ADMINISTRATUM PLANETARY SURVEY</strong></p>\n<ul>\n<li><strong>Designation:</strong> Thaur</li>\n<li><strong>Classification:</strong> Shrine World</li>\n<li><strong>Sector:</strong> Askellon</li>\n<li><strong>Subsector:</strong> Pellucida</li>\n<li><strong>Population:</strong> ~2 billion (permanent), +500 million (festival peak)</li>\n<li><strong>Government:</strong> Theocratic &mdash; Lord of the Wake</li>\n<li><strong>Current Governor:</strong> Jeronius Pyre, Lord of the Wake</li>\n<li><strong>Primary Industry:</strong> Funerary services, religious tourism</li>\n<li><strong>Secondary Industry:</strong> Bone-craft, devotional art, relic authentication</li>\n<li><strong>Tithe Grade:</strong> Exactis Tertia</li>\n</ul>\n<h2>Planetary Features</h2>\n<ul>\n<li><strong>Surface:</strong> Dominated by ossuaries and crypts dating to M33. Approximately 60% of the planetary surface is dedicated to funerary infrastructure.</li>\n<li><strong>Biosphere:</strong> Temperate forests interspersed with ossuary complexes. Native fauna adapted to bone-rich environment.</li>\n<li><strong>Deep Subsurface:</strong> Anomalies detected by orbital auspex survey. Nature unknown. Administratum has classified further investigation as low priority.</li>\n</ul>\n<h2>Notable Events</h2>\n<ul>\n<li><strong>Festival of Bones:</strong> Generational religious event drawing millions of pilgrims. Next scheduled occurrence: current cycle.</li>\n<li><strong>Mournful Guard:</strong> Planetary defence force specialising in close-quarters combat within ossuary environments. Approximately 50,000 active personnel.</li>\n</ul>\n<p><em>[Survey compiled: 7.312.791.M41 &mdash; Administratum Clericus Tertius Voss]</em></p>",
+          "format": 1
+        },
+        "sort": 400000
+      }
+    ]
+  },
+  {
+    "name": "Vox Transmissions",
+    "img": "icons/svg/book.svg",
+    "pages": [
+      {
+        "name": "Inquisitor's Briefing",
+        "type": "text",
+        "text": {
+          "content": "<p>Acolytes. A matter of grave concern has arisen in Hive Desoleum. Sanctionary forces have discovered bodies bearing xenos markings in the lower hive. This may connect to the smuggling networks we have been monitoring. Proceed to the Gallowsway District and make contact with Oath-Captain Nils. Determine the nature of these markings and trace their origin. Trust no one. The Emperor Protects.</p>",
+          "format": 1
+        },
+        "flags": {
+          "dh2e": {
+            "voxReady": true,
+            "voxSender": "Inquisitor"
+          }
+        },
+        "sort": 100000
+      },
+      {
+        "name": "Oath-Captain's Report",
+        "type": "text",
+        "text": {
+          "content": "<p>This is Oath-Captain Nils, Desoleum Sanctionaries. The scene is worse than initial reports suggested. Three dead, all connected to known Trade Sable operatives. Whatever killed them left energy patterns my cogitators cannot identify. I have secured the bodies at the Mortuarium, Gallowsway Station. Come prepared&mdash;the lower hive is not welcoming to outsiders, and the Red Walk gang has been unusually active. Nils out.</p>",
+          "format": 1
+        },
+        "flags": {
+          "dh2e": {
+            "voxReady": true,
+            "voxSender": "Oath-Captain Nils"
+          }
+        },
+        "sort": 200000
+      },
+      {
+        "name": "Warning from Morrinoe",
+        "type": "text",
+        "text": {
+          "content": "<p>Mon-keigh. You pursue shadows, but the shadow you seek has teeth. The thing beneath the bones of your dead world is not dead&mdash;it remembers, and it hungers. The artefacts you chase are its fingers, reaching from the dark. Destroy them if you can. If you cannot&hellip; then the bones of Thaur will have new company. This warning is my debt repaid. We shall not speak again.</p>",
+          "format": 1
+        },
+        "flags": {
+          "dh2e": {
+            "voxReady": true,
+            "voxSender": "Morrinoe"
+          }
+        },
+        "sort": 300000
+      }
+    ]
+  }
+]

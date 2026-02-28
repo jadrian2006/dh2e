@@ -1,0 +1,182 @@
+[
+    {
+        "name": "Adventure Overview",
+        "img": "icons/svg/book.svg",
+        "pages": [
+            {
+                "name": "Synopsis",
+                "type": "text",
+                "text": {
+                    "content": "<h2>Dark Pursuits</h2>\n<p><strong>Dark Pursuits</strong> is an introductory three-part adventure that thrusts the Acolytes into the centre of a complex web of trade in proscribed xenos objects. Faced with the immediate threat of a particularly dangerous cargo, the Acolytes must stop the prospective buyer from laying his hands on it before they can worry about tracing the source.</p>\n<h2>Part I: City of Lies</h2>\n<p>The Acolytes investigate a lesser noble named <strong>Lans Guljian</strong>, whose erratic behaviour has drawn the Inquisitor's attention. They discover Guljian has been driven insane by a xenos artefact&mdash;a black orb that floods the mind with alien visions. Tracing the orb's source leads to the <strong>Babyfaces</strong>, a Cloudboy gang operating out of the Screaming Wheel cantina, and ultimately to <strong>Zax Holthane</strong>, a Sable Trader dealing in forbidden goods from a hideout in Three Stakes' Rest.</p>\n<h2>Part II: Beneath the Sky</h2>\n<p>Clues lead the Acolytes to <strong>Port Gyre</strong>, a massive voidport outside Hive Desoleum. They discover corruption among the port authorities and trace doctored shipping records to <strong>Prefect Gaius Anteshern</strong>. An incoming shuttle&mdash;Arvus Lighter 341 Beta-Sky&mdash;carries the most dangerous cargo yet: a bound <strong>Daemonhost</strong> destined for the arch-heretek <strong>Somnius Halbrel</strong>. Whether the shuttle lands or is destroyed, the Daemonhost <strong>Suvfaeras</strong> breaks free and escapes into the tunnels beneath the port.</p>\n<h2>Part III: Hunting Damnation</h2>\n<p>With a Daemonhost loose in the voidport's deep tunnels, the Acolytes must race against both time and the arch-heretek Halbrel to hunt down Suvfaeras before it regains its full strength. The pursuit leads through the Underport&mdash;vast warrens of abandoned tunnels, shanty towns, and prowling dangers&mdash;culminating in a three-way battle between the Acolytes, the Daemonhost, and Halbrel's forces.</p>",
+                    "format": 1
+                },
+                "sort": 100000
+            },
+            {
+                "name": "GM Notes",
+                "type": "text",
+                "text": {
+                    "content": "<h2>GM Notes</h2>\n<p><strong>Dark Pursuits</strong> is the first act of the <strong>Desoleum trilogy</strong>, followed by <em>Desolation of the Dead</em> (Game Master's Kit) and <em>Forgotten Gods</em>. It introduces the Faceless Trade, the Trade Sable, and establishes key recurring characters including Somnius Halbrel.</p>\n<h2>Key Themes</h2>\n<ul>\n<li><strong>The Faceless Trade:</strong> A vast network of loosely affiliated criminal cartels dealing in proscribed items&mdash;xenos relics, dismal texts, Warp-tainted objects. The adventure only illuminates a sliver of this heresy.</li>\n<li><strong>Corruption at Every Level:</strong> From dissolute Apex nobles to crooked port officials, the rot pervades Hive Desoleum's social fabric.</li>\n<li><strong>Escalating Horror:</strong> The adventure builds from a mundane investigation into a confrontation with one of the most terrifying entities in the 41st Millennium&mdash;a Daemonhost.</li>\n</ul>\n<h2>Connections to Other Adventures</h2>\n<p>The xenos artefacts in this adventure connect to the broader mystery that threads through the trilogy. The Trade Sable's operations, Halbrel's research, and the xenos relics binding Suvfaeras all point toward the dead race whose artefacts are surfacing across the sector.</p>\n<p><strong>Important:</strong> Halbrel should survive this adventure to appear in future scenarios. His Touched by the Fates (3) trait allows him to burn Fate to escape certain death.</p>\n<h2>Starting Characters</h2>\n<p>Recommended starting XP: <strong>0&ndash;500 XP</strong>. This is an introductory adventure. For more experienced characters, increase the number of enemies and consider using Suvfaeras's full-strength profile.</p>",
+                    "format": 1
+                },
+                "sort": 200000
+            }
+        ]
+    },
+    {
+        "name": "Part I: City of Lies",
+        "img": "icons/svg/book.svg",
+        "pages": [
+            {
+                "name": "Hesentanz Manor",
+                "type": "text",
+                "text": {
+                    "content": "<h2>The Fall of the House of Guljian</h2>\n<p>The Guljian family is a shadow of its former glory. <strong>Lans Guljian</strong> resides in <strong>Hesentanz Manor</strong>, a formerly opulent manse at the lowest level of the Apex. For many weeks he has rarely been seen outside, has refused visits from friends and associates, and his family is concerned about great sums of money being diverted to unknown purposes. He has been sighted descending into the Main Hive and, when seen in public, appears dishevelled and unkempt.</p>\n<h2>Hesentanz Manor</h2>\n<p>The manse has seen better days&mdash;crumbling stonework and tarnished plasteel show neglect. The doors are unlocked; a surprised servant in House Guljian livery meets the Acolytes. The servant begins with <strong>Disposition 30</strong> and does not wish to deal with visitors. <strong>Sank Strenwell</strong>, Guljian's oath-bound bodyguard, watches from the second floor landing and attacks if the Acolytes draw weapons (use the Bounty Hunter profile, page 384).</p>\n<h2>Guljian's Fate</h2>\n<p>In his study on the third floor, the Acolytes find Guljian in a scene of madness: he has clawed at his own face and dug out his own eyes. The sight calls for a <strong>Fear (1)</strong> test. A xenos artefact&mdash;a perfectly smooth black orb&mdash;sits on his desk. Through questioning (<strong>Disposition 25, Unhinged Personality</strong>) or searching the study, the Acolytes can learn that Guljian obtained the orb from &ldquo;the pale child&rdquo; at the &ldquo;wheel that wails&rdquo;&mdash;references to the <strong>Babyfaces</strong> gang and the <strong>Screaming Wheel</strong> cantina.</p>",
+                    "format": 1
+                },
+                "sort": 100000
+            },
+            {
+                "name": "The Screaming Wheel & Three Stakes' Rest",
+                "type": "text",
+                "text": {
+                    "content": "<h2>The Screaming Wheel</h2>\n<p>A lower Main Hive cantina catering to gangers and toughs, the Screaming Wheel sits in <strong>Babyfaces</strong> territory. Three or more Babyfaces sit at a wooden table. <strong>Skinner (Eldric Havofast)</strong> is their de facto leader. They begin with <strong>Disposition 40</strong>. Through deception or interrogation, the Acolytes can learn their supplier is <strong>Zax Holthane</strong>, who operates out of <strong>Three Stakes' Rest</strong>.</p>\n<p>If the Acolytes reveal themselves as Inquisitorial agents, the Babyfaces attempt to flee. A fight in the cantina is dangerous&mdash;other patrons flee, creating &minus;10 penalties to combat actions, and stray shots may hit bystanders.</p>\n<h2>Three Stakes' Rest</h2>\n<p>A decaying area of forlorn habs and structurally unsound passages, where <strong>Zax Holthane</strong> has set up a base. He has a dozen men in all. All access points are laced with well-hidden screamers (<strong>Hard (&minus;20) Awareness</strong>, 4+ DoS to spot them all).</p>\n<h2>The Manufactorum</h2>\n<p>An abandoned manufactorum used for storage. Searching reveals doses of obscura, counterfeit artwork, xenos statuary, and&mdash;on a <strong>Challenging (+0) Awareness</strong> test&mdash;a small box containing a <strong>mummified alien hand</strong> with three clawed fingers. Crates bear the seal of the Port Gyre Auctoriate, linking Holthane to the port.</p>\n<h2>Meeting Holthane</h2>\n<p>Holthane begins with <strong>Disposition 35, Confident personality</strong>. He is willing to deal but attacks at the slightest provocation. If combat goes against him, he flees toward Port Gyre. If captured, he reveals (<strong>Disposition 15, Submissive</strong>) that he receives contraband through Gyre Voidport and his next delivery is imminent.</p>",
+                    "format": 1
+                },
+                "sort": 200000
+            }
+        ]
+    },
+    {
+        "name": "Part II: Beneath the Sky",
+        "img": "icons/svg/book.svg",
+        "pages": [
+            {
+                "name": "Port Gyre",
+                "type": "text",
+                "text": {
+                    "content": "<h2>Port Gyre</h2>\n<p>A massive voidport servicing Hive Desoleum. Its ranks of scribes and accountors are riven with moral decay. Key locations include:</p>\n<ul>\n<li><strong>Checkpoints:</strong> Sanctionaries garrison entrances. Passing through under real identities decreases Subtlety by 1d5&minus;1.</li>\n<li><strong>Landing Platforms:</strong> Various sizes and elevations. Small officios house representatives of the Consortium and merchant houses.</li>\n<li><strong>Loading Tunnels:</strong> Kilometres of interconnecting passages beneath the port, descending deeper than most dare to tread.</li>\n<li><strong>Warehouses:</strong> Combat servitors and private security guard Consortium storage.</li>\n<li><strong>Officio Auctoriate Porteus:</strong> Central records building. Thousands of scribes and officials manage port operations.</li>\n</ul>\n<h2>Prefect Gaius Anteshern</h2>\n<p>Both Holthane and Halbrel have bribed <strong>Prefect Anteshern</strong> to manipulate shuttle records, obscuring the origin of <strong>Arvus Lighter 341 Beta-Sky</strong>. Anteshern is addicted to obscura and has <strong>Disposition 30, Submissive personality</strong> (use the Scribe profile). He can reveal the shuttle's next arrival time. If he suspects discovery, he attempts to flee through a soot-stained window and along a narrow ledge.</p>",
+                    "format": 1
+                },
+                "sort": 100000
+            },
+            {
+                "name": "The Delivery",
+                "type": "text",
+                "text": {
+                    "content": "<h2>The Delivery</h2>\n<p>Arvus Lighter 341 Beta-Sky descends to <strong>Platform Tertius-9</strong>. Its cargo includes the most dangerous item yet: a bound <strong>Daemonhost</strong> in a stasis pod, guarded by four rogue psykers. <strong>Somnius Halbrel</strong> is observing.</p>\n<h3>Betrayal!</h3>\n<p>If Halbrel suspects the Acolytes are onto him, he remotely triggers the lighter's destruction (each Acolyte within 6m suffers <strong>2d10 Explosive, Concussive (3)</strong>). Otherwise, make a Subtlety test (&minus;20 if the Acolytes have been overt). Even if the shuttle isn't destroyed, the Daemonhost eventually breaks free.</p>\n<h3>Bring It Down!</h3>\n<p>The Acolytes may attempt to shoot down the lighter using port defence guns (<strong>Difficult (&minus;10) Command</strong> test). The wreckage causes collateral damage and decreases Subtlety by 1d10+2.</p>\n<h3>Hellish Cargo</h3>\n<p>However events play out, the Daemonhost <strong>Suvfaeras</strong> breaks free of its stasis prison and escapes into the tunnels beneath the port. Witnessing its release calls for a <strong>Fear (3)</strong> test. Suvfaeras ignores the Acolytes initially, fleeing to hide and recover its strength in the Underport.</p>\n<h3>341 Beta-Sky</h3>\n<p>Examining the lighter reveals cargo including Eldar talismans, stone tablets with xenos writing, and navigation records pointing to <strong>Kappex Orbital Station</strong> as the shuttle's point of origin. The stasis pod bears xenos charms and rune-inscribed silver chains&mdash;shattered from the Daemonhost's escape.</p>",
+                    "format": 1
+                },
+                "sort": 200000
+            }
+        ]
+    },
+    {
+        "name": "Part III: Hunting Damnation",
+        "img": "icons/svg/book.svg",
+        "pages": [
+            {
+                "name": "The Deep Tunnels",
+                "type": "text",
+                "text": {
+                    "content": "<h2>The Deep Tunnels (The Underport)</h2>\n<p>Vast warrens of interconnecting passages, chambers, and storage depots beneath Port Gyre. Many corridors are without power; flickering lumen-globes or torches dimly illuminate others. The Acolytes may pass desiccated corpses, collapsed tunnels, and shanty towns populated by descendants of stranded voidsmen.</p>\n<h2>Pursuing the Daemonhost</h2>\n<p>Methods for tracking Suvfaeras:</p>\n<ul>\n<li><strong>Psyker:</strong> <strong>Challenging (+0) Psyniscience</strong> to sense lingering Warp-taint.</li>\n<li><strong>Non-psyker:</strong> <strong>Difficult (&minus;10) Awareness</strong> (hoarfrost, burnt flesh smell, inhuman screams). +10 with Forbidden Lore (Daemonology).</li>\n<li><strong>Trail of destruction:</strong> Follow the corpses of labourers, smouldering merchant caravans, and scorched gangers.</li>\n</ul>\n<h2>Optional Encounter: Ambush!</h2>\n<p>Filthy, misshapen men in ragged uniforms leap from cover&mdash;stranded voidsmen or oathless outcasts. Use the Dreg profile (page 394), 1 threat level below the group's average.</p>\n<h2>The Buyer</h2>\n<p><strong>Somnius Halbrel</strong> is also hunting the Daemonhost with an aetheroscope (substitutes Tech-Use for Psyniscience). His party includes 3 combat servitors, 5 hired lasguns, and 2 Cult Mechanicus adepts. He carries the <strong>Ex Perditio</strong>, a proscribed tome containing the creature's True Name and binding rites.</p>",
+                    "format": 1
+                },
+                "sort": 100000
+            },
+            {
+                "name": "The Reckoning",
+                "type": "text",
+                "text": {
+                    "content": "<h2>The Reckoning</h2>\n<p>The warband confronts the Daemonhost in a three-way battle with Suvfaeras and Halbrel's forces. After 4&ndash;5 rounds, Halbrel and his surviving force arrive (adjust as needed). He has half his party attack the warband while the rest attack Suvfaeras, attempting to recite the binding rites from the Ex Perditio.</p>\n<p>Suvfaeras is as intelligent as it is evil. It may circle back, lie in wait, attack and retreat. The GM should use screams, tearing metal, drops in temperature, and inhuman whispers to build tension. Each sighting calls for a <strong>Fear</strong> test as the Daemonhost twists into new shapes.</p>\n<h2>Outcomes</h2>\n<ul>\n<li><strong>Suvfaeras destroyed:</strong> A great victory. Numerous unanswered questions remain about the Daemonhost's origin and the xenos relics binding it.</li>\n<li><strong>Suvfaeras escapes:</strong> A loose Daemonhost near Hive Desoleum is a grave concern. The Acolytes may invoke authority to establish a cordon, or even destroy Port Gyre through orbital bombardment (Subtlety drops to 0).</li>\n<li><strong>Halbrel escapes:</strong> The GM should ensure this happens. He can burn Fate to survive. His appearance in future adventures should feel like a persistent threat.</li>\n<li><strong>Halbrel captures Suvfaeras:</strong> The worst outcome. Pursuing Halbrel and his bound Daemonhost becomes the Acolytes' urgent priority.</li>\n</ul>\n<h2>Rewards</h2>\n<p><strong>300&ndash;450 XP</strong> per session. Destroying Suvfaeras grants <strong>+3 Influence</strong> per Acolyte involved. Destroying Port Gyre grants <strong>Enemy (Consortium)</strong>. Wounding a Babyface's head grants <strong>Enemy (Cloudboys)</strong>.</p>",
+                    "format": 1
+                },
+                "sort": 200000
+            }
+        ]
+    },
+    {
+        "name": "Handouts",
+        "img": "icons/svg/book.svg",
+        "pages": [
+            {
+                "name": "Guljian's Journal",
+                "type": "text",
+                "text": {
+                    "content": "<h2>Guljian's Journal &mdash; Selected Entries</h2>\n<p><em>Recovered from the study of Hesentanz Manor</em></p>\n<p><strong>Three months ago:</strong> I have acquired a most remarkable object through the good offices of certain acquaintances in the lower hive. A perfectly black orb, smooth as polished obsidian but heavier, colder. It sits upon my desk and I cannot look away. There is something within, I am certain of it. Shapes. Patterns. A language I almost understand.</p>\n<p><strong>Two months ago:</strong> The visions grow clearer. Vast palaces of bone and shadow, towers reaching into a sky of impossible colours. I see them when I close my eyes and sometimes when they are open. Strenwell grows concerned but what does he know of such wonders? I have sent the servants away. They are not worthy to be near such a thing.</p>\n<p><strong>Recent entries:</strong> <em>The handwriting deteriorates rapidly. The last few entries are undated.</em></p>\n<p>Lost palaces... forgotten gods... towers of bone... the sky is wrong, the sky is always wrong... they built such things, such <em>beautiful</em> things, before we crawled from the mud... I can hear them singing... the orb shows me everything... I cannot make it stop... I DO NOT WANT IT TO STOP</p>\n<p><em>The remaining pages are filled with crude renderings of unidentifiable alien symbols and rough sketches of bizarre alien landscapes. A crumpled piece of parchment under the desk notes the location of the Screaming Wheel, with a note about &ldquo;conducting business.&rdquo;</em></p>",
+                    "format": 1
+                },
+                "sort": 100000
+            },
+            {
+                "name": "Port Gyre Cargo Manifests",
+                "type": "text",
+                "text": {
+                    "content": "<h2>Port Gyre Cargo Manifests</h2>\n<p><em>Recovered from Holthane's office in Three Stakes' Rest and/or the Officio Auctoriate Porteus</em></p>\n<h3>Arvus Lighter 341 Beta-Sky</h3>\n<p><strong>Registered Origin:</strong> Various cargo vessels (records doctored by Prefect Anteshern)</p>\n<p><strong>Actual Origin:</strong> Kappex Orbital Station</p>\n<p><strong>Landing Pad:</strong> Platform Tertius-9</p>\n<p><strong>Recorded Cargo:</strong> Agricultural supplies, textiles, machine parts (false manifest)</p>\n<p><strong>Actual Cargo:</strong> Xenos artefacts, proscribed texts, and one stasis-bound entity of extreme hazard classification</p>\n<h3>Prior Landings</h3>\n<p>Records show at least half a dozen shuttle landings at different Port Gyre landing pads over the past year, each falsely attributed to a different Warp-capable voidship. The pattern reveals that whoever controls the shuttle uses Kappex Orbital as a transfer point to obscure the cargo's true origin.</p>\n<h3>Associated Names</h3>\n<p>Documents include names of several nobles and merchants who have purchased goods through the Trade Sable, including the late <strong>Lans Guljian</strong>.</p>",
+                    "format": 1
+                },
+                "sort": 200000
+            }
+        ]
+    },
+    {
+        "name": "Vox Transmissions",
+        "img": "icons/svg/book.svg",
+        "pages": [
+            {
+                "name": "Vox: Inquisitor's Briefing",
+                "type": "text",
+                "text": {
+                    "content": "<p>Hive Desoleum holds many heresies and horrors, and you are gathered here for but one of them. There are increasing reports of horrible deaths within the hive's upper levels, with odd items of a possible xenos or archaeotech nature found with each corpse. Fellow nobles have related these were preceded with bouts of erratic and troublesome behaviour, and worry that a hive noble named Lans Guljian has exhibited many of the same behaviours.</p>\n<p>You are tasked with the Emperor's Work: to investigate the deaths and possible connections to any illicit artefacts, determine if they are potential dangers of a wider nature, and terminate their distribution. Recover and contain any items uncovered, lest they corrupt others.</p>\n<p>Carry the Emperor's Light with you throughout the hive, for there is little proper illumination to be found in this festering, ancient edifice. Desoleum teeters on the blade's edge of damnation, and one further heresy could topple the entire hive into the abyss.</p>",
+                    "format": 1
+                },
+                "flags": {
+                    "dh2e": {
+                        "voxReady": true,
+                        "voxSender": "The Inquisitor"
+                    }
+                },
+                "sort": 100000
+            },
+            {
+                "name": "Vox: Halbrel's Vox-Log",
+                "type": "text",
+                "text": {
+                    "content": "<p>There is data in the aether that a unique item is available, one I calculate will be ideal for my experiments. Nothing can be allowed to interfere with its procurement.</p>\n<p>The specimen is bound using a combination of standard occult methodology and xenos-origin restraints. This hybrid approach is unprecedented in my research. The implications for human-xenos hybridisation are extraordinary. I must have it.</p>\n<p>My merchandise was not delivered as contracted. This is unacceptable. The specimen has escaped, but it is weakened. I will retrieve it myself. Those who dared interfere with my work&mdash;should this continue and impact my other deliveries, a more definitive response will become necessary.</p>",
+                    "format": 1
+                },
+                "flags": {
+                    "dh2e": {
+                        "voxReady": true,
+                        "voxSender": "Intercepted Transmission // Somnius Halbrel"
+                    }
+                },
+                "sort": 200000
+            }
+        ]
+    },
+    {
+        "name": "Conclusions & Follow-Up",
+        "img": "icons/svg/book.svg",
+        "pages": [
+            {
+                "name": "Follow-Up Adventures",
+                "type": "text",
+                "text": {
+                    "content": "<h2>Follow-Up Adventures</h2>\n<h3>The Daemonhost</h3>\n<p>If Suvfaeras escapes, it is likely to hunt down those who bound it. The Acolytes could follow it back to a major source of Faceless Trade smuggling. Tracing its origin leads to <strong>Kappex Orbital</strong> and the smugglers' true masters.</p>\n<h3>The Heretek</h3>\n<p>Whether Halbrel absconds with the Daemonhost or not, he should survive and escape. Tracking him leads to future adventures. If he burned Fate to survive, his unexpected return makes for a dramatic twist.</p>\n<h3>Idle Hands</h3>\n<p>Guljian was far from the only noble involved in the Trade Sable. The Acolytes could return to the Apex to investigate further nobles, or confront the Babyfaces to find other buyers. This could span all levels of Hive Desoleum.</p>\n<h3>Artefacts</h3>\n<p>At the adventure's end, the Acolytes likely possess two xenos relics&mdash;the black orb and the mummified alien hand. Searching for their source leads in an entirely different direction from the Daemonhost trail. <strong>Kappex Orbital</strong> provided transport for many traders, opening a vast web of smuggling and heresy.</p>\n<h3>Connection to Desolation of the Dead</h3>\n<p>The xenos artefact trade connects to the Blessed Flesh cult in the Gallowsway. Ferrue Fayne has had dealings with the Trade Sable, and some NPCs from Dark Pursuits might have passed his name to the Acolytes. The Desoleum trilogy continues with <em>Desolation of the Dead</em> (Game Master's Kit).</p>",
+                    "format": 1
+                },
+                "sort": 100000
+            },
+            {
+                "name": "Rewards Summary",
+                "type": "text",
+                "text": {
+                    "content": "<h2>Rewards Summary</h2>\n<h3>Experience Points</h3>\n<p><strong>300&ndash;450 XP per session</strong>, depending on the Acolytes' actions and progress.</p>\n<h3>Influence</h3>\n<p>Each Acolyte involved in destroying the Daemonhost Suvfaeras gains <strong>+3 Influence</strong>.</p>\n<h3>Talents &amp; Enemies</h3>\n<ul>\n<li><strong>Enemy (Consortium):</strong> Gained by any Acolyte involved in the destruction of Port Gyre.</li>\n<li><strong>Enemy (House Guljian)</strong> or <strong>Enemy (Apex Nobility):</strong> Gained if the Acolytes approach Guljian's manor violently.</li>\n<li><strong>Peer (House Guljian)</strong> or <strong>Peer (Apex Nobility):</strong> Gained if the Acolytes are especially discreet and helpful.</li>\n<li><strong>Enemy (Cloudboys):</strong> Gained by any Acolyte who inflicts a wound on a Babyface's head.</li>\n<li><strong>Scholastic Lore (Port Gyre):</strong> Gained by Acolytes who spend extensive time investigating Port Gyre.</li>\n</ul>\n<h3>Subtlety</h3>\n<p>Maintaining cover throughout the adventure increases Subtlety by at least <strong>1d10</strong>. If Subtlety drops below 20, attempts to operate secretly when returning to the hive become very difficult.</p>",
+                    "format": 1
+                },
+                "sort": 200000
+            }
+        ]
+    }
+]

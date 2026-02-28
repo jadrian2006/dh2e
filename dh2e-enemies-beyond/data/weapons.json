@@ -582,5 +582,43 @@
             "loadedRounds": [],
             "source": "enemies-beyond"
         }
+    },
+    {
+        "name": "Chainblade",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "A compact chain weapon favoured by those who must travel light or conceal their arms. Smaller than a chainsword, its whirring teeth still make short work of flesh and bone.",
+            "class": "melee",
+            "range": 0,
+            "rof": {
+                "single": false,
+                "semi": 0,
+                "full": 0
+            },
+            "damage": {
+                "formula": "1d10+2",
+                "type": "rending",
+                "bonus": 0
+            },
+            "penetration": 2,
+            "reload": "",
+            "weight": 3,
+            "qualities": [
+                "Tearing"
+            ],
+            "equipped": false,
+            "weaponGroup": "chain",
+            "craftsmanship": "common",
+            "availability": "Average",
+            "magazine": {
+                "value": 0,
+                "max": 0
+            },
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": [],
+            "source": "enemies-beyond"
+        }
     }
 ]

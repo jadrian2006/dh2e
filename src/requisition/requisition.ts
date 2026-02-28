@@ -73,7 +73,12 @@ class RequisitionResolver {
 
         // On failure with 3+ DoF, lose 1 Influence
         if (!checkResult.dos.success && checkResult.dos.degrees >= 3) {
-            const newInfluence = Math.max(0, influence - 1);
+            let loss = 1;
+            // Highborn: Breeding Counts — reduce influence loss by 1 (to a minimum reduction of 1)
+            if ((actor as any).synthetics?.rollOptions?.has("self:homeworld:breeding-counts")) {
+                loss = Math.max(1, loss - 1);
+            }
+            const newInfluence = Math.max(0, influence - loss);
             await actor.update({ "system.influence": newInfluence });
         }
 

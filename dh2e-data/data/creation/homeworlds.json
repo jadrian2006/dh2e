@@ -23,6 +23,7 @@
         "wounds": 8,
         "aptitude": "Intelligence",
         "homeSkill": "",
+        "talents": ["Technical Knock or Weapon-Tech"],
         "bonus": "Omnissiah's Chosen",
         "bonusDescription": "A forge world character starts with either the Technical Knock or the Weapon-Tech talent.",
         "description": "Skilled with machinery and commonly using the most advanced forms of technology known to the Imperium; surrounded with sanctified technology and often granted cybernetically augmented bodies, they manifest the Omnissiah's blessings."
@@ -79,6 +80,7 @@
         "wounds": 7,
         "aptitude": "Intelligence",
         "homeSkill": "",
+        "talents": ["Strong Minded"],
         "bonus": "Child of the Dark",
         "bonusDescription": "A voidborn character starts with the Strong Minded talent, and gains a +30 bonus to tests for moving in a zero gravity environment.",
         "description": "Solar nomads and planetary outcasts living out lives in the inky blackness between worlds; touched by celestial winds and their closeness to the Warp, they are often shunned by all but their own kind."

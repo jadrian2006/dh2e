@@ -203,6 +203,28 @@
         }
     },
     {
+        "name": "Peer (Criminal Cartels)",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The character has good standing with criminal organisations. He gains a +10 bonus to Fellowship tests when interacting with those in the criminal underworld, and can more easily acquire goods and services through illicit channels.",
+            "tier": 1,
+            "aptitudes": [
+                "Fellowship",
+                "Social"
+            ],
+            "prerequisites": "",
+            "specialist": true,
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Criminal Cartels)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Criminal Cartels)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Criminal Cartels)", "source": "talent" },
+                { "key": "FlatModifier", "domain": "skill:deceive", "value": 10, "label": "Peer (Criminal Cartels)", "source": "talent" }
+            ],
+            "source": "enemies-beyond"
+        }
+    },
+    {
         "name": "Rites of Banishment",
         "type": "talent",
         "img": "systems/dh2e/icons/items/talent.svg",

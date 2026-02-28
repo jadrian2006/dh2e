@@ -1,0 +1,268 @@
+[
+    {
+        "name": "Aegis of Contempt",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Inquisitor wards his mind and soul to withstand the influence of the Archenemy of Mankind. Just as his Acolytes help him to guard Mankind against such damnation, so does he guard them, strengthening their resolve with benedictions of hatred and cleansing prayers. Whenever this character or an ally within 10 metres gains Corruption, reduce the amount gained by 1 to a minimum of 0. In addition, an ally within 10 metres can spend a Fate point to gain 0 Corruption instead. These effects do not stack when there are multiple characters with this talent within range.",
+            "tier": 3,
+            "aptitudes": ["Defence", "Leadership"],
+            "prerequisites": "Shared Destiny, Shield of Contempt, Hatred (any)",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Divine Protection",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Those who hunt the witch and mutant often prefer to use cleansing fire to purify their unclean enemies. As if to further demonstrate the cleansing power of flame, some such blessed warriors even use flamers and similar weapons when their allies are in the line of fire, yet miraculously leave them unaffected. If a supposed ally does succumb to the flames, surely that is only evidence of concealed heresy. When the Acolyte attacks using a weapon with the Spray quality, it only strikes enemies within the area of effect; the attack does not harm allies.",
+            "tier": 3,
+            "aptitudes": ["Ballistic Skill", "Finesse"],
+            "prerequisites": "BS 45, WP 35",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Flagellant",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte knows that pain is cleansing, and regularly mortifies his own flesh to atone for his sins. As a Full Action, the character can inflict some suitable punishment on his own body, suffering 1d5-2 levels of Fatigue (to a minimum of 1). He then gains a +10 bonus on Willpower tests to resist Fear, Pinning, psychic powers, or suffering Corruption, for one hour or until the end of the current encounter. If the Acolyte also possesses the Frenzy talent, he can enter a Frenzied state as a Free Action while under the effects of this talent.",
+            "tier": 1,
+            "aptitudes": ["Offence", "Toughness"],
+            "prerequisites": "WP 30",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Into the Jaws of Hell",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Inquisitor's strength of conviction and faith in the Emperor—or perhaps the fear of his retribution—inspire those at his side to fight on, even in the face of overwhelming odds and the terrors of the galaxy. Servants and allies within 10 metres can subtract the Inquisitor's Fellowship bonus from their degrees of failure on a failed Fear or Pinning test, so long as the Inquisitor passes the test. If this reduces the degrees of failure to 0 or less, a character counts as having passed the test with 1 degree of success. The effects of this talent apply to Acolytes in the Inquisitor's warband and to other servants of the Imperium fighting under the Inquisitor's orders, as well as others at the GM's discretion.",
+            "tier": 3,
+            "aptitudes": ["Leadership", "Willpower"],
+            "prerequisites": "Adamantium Faith, Halo of Command, Will of the Inquisitor",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Indomitable Conviction",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "An Inquisitor must often share a part of his burden of knowledge and understanding with those who serve alongside him. Although some Acolytes might succumb to madness and despair, those who undergo such mental trials with their sanity intact come out stronger for it. An Inquisitor can also benefit from such an experience, drawing strength from his comrades and renewing his faith in his duty to Mankind. Whenever this character or an ally within 10 metres gains Insanity, reduce the amount gained by 1. In addition, an ally within 10 metres can spend a Fate point to gain 0 Insanity instead. These effects do not stack when there are multiple characters with this talent within range.",
+            "tier": 3,
+            "aptitudes": ["Leadership", "Willpower"],
+            "prerequisites": "Shared Destiny, Strength through Conviction, Resistance (Fear), Jaded",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Mounted Warrior",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Hard-won experience fighting from the saddle or seat of a vehicle has trained the Acolyte to adjust for the motion of mounted combat, moving with the vehicle instead of fighting against it. When a character purchases this talent, he selects the specialisation that matches the characteristic prerequisite and aptitude used in purchase. He then reduces any penalty for making corresponding attacks (Melee or Ranged) from a moving vehicle or mount by 10 for each time the talent has been purchased in that specialisation. This applies to both ordinary attack actions and vehicle combat actions, such as Hit and Run.",
+            "tier": 1,
+            "aptitudes": ["Weapon Skill or Ballistic Skill", "Offence"],
+            "prerequisites": "Rank 2 (Trained) in any Operate skill or Rank 2 (Trained) in Survival skill, BS 30 or WS 30",
+            "specialist": true,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Penitent Psyker",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Psykers are hated and shunned throughout the Imperium, and even those psykers who serve the Emperor often struggle with their curse. Whether a rogue psyker taken under an Inquisitor's wing or a sanctioned psyker whose faith condemns his abilities, such an individual might develop the ability to act as a kind of psychic lightning rod, sacrificing his own flesh in order to protect his allies from the Warp-spawned powers of the witch and wyrd. When the psyker or an ally within 10 metres becomes the target of a psychic power, the psyker may voluntarily suffer any number of levels of Fatigue. Each level of Fatigue suffered grants the target a +10 bonus on any Opposed test to resist the power or Evasion test to avoid its effects. If the target's test to resist or avoid the power results in a roll of doubles, the psyker generates Psychic Phenomena, just as if he had used the Focus Power action.",
+            "tier": 2,
+            "aptitudes": ["Psyker", "Defence"],
+            "prerequisites": "Psy rating, Strong Minded, WP 40",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Purity of Hatred",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Acolyte has honed his hatred to a razor's edge, pure and unsullied by mercy or doubt. When facing the object of his hatred, whether it be the witch, mutant, heretic, or traitor, the Acolyte is an instrument of the Emperor's Will, despatching His judgement upon the enemies of humanity as if guided by His very hand. When selecting this talent, the character chooses one specific group for which he possesses the Hatred talent. Against opponents of this group, the Acolyte's attacks gain the Vengeful (9) quality. If the Acolyte's weapon or attacks already possess this quality, decrease the value by one (to a minimum of 1).",
+            "tier": 2,
+            "aptitudes": ["Offence", "Willpower"],
+            "prerequisites": "Hatred (Any)",
+            "specialist": true,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Tainted Psyker",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Though all psykers draw their power from the Warp, the Scholastica Psykana teaches that the Warp is something to fear. Some psykers ignore these warnings, whether wyrds who escaped the Black Ships, scholars of malefic lore, or even sanctioned psykers fallen from grace. Such tainted psykers embrace the true potential the Warp offers, and even heed its denizens' whispered promises of greater power. When making a Focus Power test, the character may gain a number of Corruption points up to his psy rating. For each point he gains in this way, he gains a +10 bonus to the Focus Power test but adds +5 to rolls on Table 6-2: Psychic Phenomena.",
+            "tier": 2,
+            "aptitudes": ["Knowledge", "Psyker"],
+            "prerequisites": "Psy rating, Psyniscience Rank 2 (Trained), 10 Corruption points",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Witch Finder",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "In order to root out the witch, wyrd, and sorcerer, an Inquisitor or Acolyte must be able to detect and follow the sign and spoor of the psyker. Although some are themselves psykers, or employ the services of such, others train their own senses and mind to detect even the subtlest traces of psychic activity. The character counts as possessing the Psyniscience skill at Rank 1 (Known), even though he is not a psyker. Note that he cannot spend experience to gain additional ranks in the skill.",
+            "tier": 2,
+            "aptitudes": ["Knowledge", "Perception"],
+            "prerequisites": "Forbidden Lore (Psykers) Rank 2 (Trained), WP 45",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Blessed Martyrdom",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "Battle Sisters fight with the firm conviction that their souls are secure, protected eternally by the Emperor. Whenever this character burns Fate threshold to survive a mortal blow, each other friendly character who witnesses her miraculous survival regains 1 spent Fate point. When this character dies in battle, each other friendly character who witnesses her glorious demise regains all spent Fate points. Sister of Battle elite advance only.",
+            "tier": 2,
+            "aptitudes": ["Leadership", "Willpower"],
+            "prerequisites": "Ceaseless Crusader, Shielding Faith, Sister of Battle elite advance",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Ceaseless Crusader",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "When faced with the enemies of the Imperium, the Sisters of Battle have been known to display inhuman endurance, pursuing their enemies tirelessly. As a free action, this character may spend a Fate point to ignore the effects of Fatigue until the end of the encounter. When she does so, each other friendly character within 30 metres removes 1 level of Fatigue. Sister of Battle elite advance only.",
+            "tier": 1,
+            "aptitudes": ["Leadership", "Willpower"],
+            "prerequisites": "WP 45, Sister of Battle elite advance",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Cleanse with Fire",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "It is the charge of the Adepta Sororitas to scourge the wicked, and some take to this task with a terrifying efficacy, charring their heretical enemies with deadly flame weapons and scattering the ash underfoot. When attacking with a weapon with the Flame quality, this character can re-roll any results lower than her Willpower bonus on damage rolls. Sister of Battle elite advance only.",
+            "tier": 2,
+            "aptitudes": ["Willpower", "Offence"],
+            "prerequisites": "BS 40, Sister of Battle elite advance",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Divine Vengeance",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The might of the Sisters of Battle lies not only in their martial prowess, but also in the sacred dread they evoke in all who bear witness to their crusades. The first time in each combat that this character inflicts Righteous Fury upon an enemy, she regains 1 spent Fate point. Sister of Battle elite advance only.",
+            "tier": 2,
+            "aptitudes": ["Ballistic Skill", "Offence"],
+            "prerequisites": "Cleanse with Fire, BS 45, Sister of Battle elite advance",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Emperor's Guidance",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Battle Sister beseeches the Emperor to guide her strikes, finding the gap in even the strongest of armour. As a Free Action, this character may spend a Fate point to increase the penetration of her weapon by her Insanity bonus until the end of her next turn. Sister of Battle elite advance only.",
+            "tier": 2,
+            "aptitudes": ["Willpower", "Offence"],
+            "prerequisites": "Insanity 25, Furious Zeal, Sister of Battle elite advance",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Furious Zeal",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Sister of Battle wields her faith as she would a blade, slashing through all impediments to deliver the Emperor's Justice. This character adds her Insanity bonus to damage she inflicts with melee attacks against targets included in one or more of her Hatred talents. Sister of Battle elite advance only.",
+            "tier": 1,
+            "aptitudes": ["Weapon Skill", "Offence"],
+            "prerequisites": "Insanity 10, Hatred (Any One), Sister of Battle elite advance",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Shielding Faith",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The warriors of the Adepta Sororitas are well-known for being warded against the power of the witch, for their faith in the Emperor blasts through sorcery just as their holy bolters pierce flesh and bone. When using the Deny the Witch talent to make an Evasion reaction against a psychic power, this character may spend a Fate point to automatically pass the test with a number of degrees of success equal to her Willpower bonus. If she does so, the psyker must make a Fear test against a Fear rating of 1. Sister of Battle elite advance only.",
+            "tier": 1,
+            "aptitudes": ["Willpower", "Defence"],
+            "prerequisites": "Deny the Witch, Sister of Battle elite advance",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Spirit of the Martyr",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "The Battle Sister asks for the protection of the Emperor, that she might shrug off hideous strikes long enough to bring down justice on His foes. As a free action, this character may spend a Fate point to gain additional Armour points on all locations equal to her Insanity bonus until the end of her next turn. Sister of Battle elite advance only.",
+            "tier": 2,
+            "aptitudes": ["Willpower", "Defence"],
+            "prerequisites": "Insanity 20, Furious Zeal, Sister of Battle elite advance",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Zealot's Passion",
+        "type": "talent",
+        "img": "systems/dh2e/icons/items/talent.svg",
+        "system": {
+            "description": "As they are filled with mercy for the Emperor's chosen, the Sisters of Battle hold in equal measure hatred for His foes. As a Free Action, this character may spend a Fate point and choose a foe. Until the end of the encounter, she and each of her allies within ten times her Willpower bonus in metres count as possessing the Hatred talent against that kind of enemy. Sister of Battle elite advance only.",
+            "tier": 3,
+            "aptitudes": ["Fellowship", "Offence"],
+            "prerequisites": "Fel 35, Spirit of the Martyr, Sister of Battle elite advance",
+            "specialist": false,
+            "rules": [],
+            "source": "enemies-within"
+        }
+    }
+]

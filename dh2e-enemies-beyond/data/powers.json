@@ -318,5 +318,25 @@
             "rules": [],
             "source": "enemies-beyond"
         }
+    },
+    {
+        "name": "Nurgle's Rot",
+        "type": "power",
+        "img": "systems/dh2e/icons/items/power.svg",
+        "system": {
+            "description": "The psyker focuses his mind on the generosity of Grandfather Nurgle, drawing forth from the Warp a great gift of disease to share with those around him. A noxious and unnatural slime splashes across all those nearby, infecting them with the galaxy's most perfect malady. All characters within range (excluding Daemons of Nurgle and those sufficiently devoted to the Plague God) must make a Toughness test. Each target that fails the test immediately suffers 2 x PR Strength damage and 2 x PR Toughness damage. If this results in a character's death, the character is reborn after 2d5 rounds as a Plaguebearer.",
+            "discipline": "Malefic Daemonology",
+            "cost": 200,
+            "prerequisites": "Psy rating 3",
+            "focusTest": "Willpower",
+            "focusModifier": -10,
+            "range": "2 metres x psy rating",
+            "sustained": false,
+            "action": "Half Action",
+            "subtype": "Attack",
+            "opposed": false,
+            "rules": [],
+            "source": "enemies-beyond"
+        }
     }
 ]

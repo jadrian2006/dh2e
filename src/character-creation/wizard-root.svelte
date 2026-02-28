@@ -35,6 +35,7 @@
     let woundsRoll = $state<number | null>(null);
     let woundsRollCount = $state(0);
     let fateRoll = $state<number | null>(null);
+    let corruptionRoll = $state<number | null>(null);
 
     // Divination roll persistence — survives step navigation
     let divinationRolled = $state(false);
@@ -43,6 +44,9 @@
 
     // Gear choices state (for background "or" equipment)
     let gearChoices = $state<Record<number, string>>({});
+
+    // Homeworld talent choice state (for "or" talent choices, e.g., Forge World)
+    let homeworldTalentChoice = $state("");
 
     // Role talent choice state (for "or" talent choices)
     let talentChoice = $state("");
@@ -53,6 +57,12 @@
     // Advancement state
     let purchases = $state<WizardPurchase[]>([]);
     let xpSpent = $state(0);
+
+    // Reset homeworld talent choice when homeworld changes
+    $effect(() => {
+        homeworld; // track dependency
+        homeworldTalentChoice = "";
+    });
 
     // Reset gear choices when background changes
     $effect(() => {
@@ -124,7 +134,9 @@
             characteristics: { ...characteristics },
             woundsRoll,
             fateRoll,
+            corruptionRoll,
             gearChoices: { ...gearChoices },
+            homeworldTalentChoice,
             talentChoice,
             divinationChoices: { ...divinationChoices },
             purchases: [...purchases],
@@ -148,7 +160,7 @@
 
     <div class="wizard-body">
         {#if step === 0}
-            <Homeworld {data} bind:selected={homeworld} />
+            <Homeworld {data} bind:selected={homeworld} bind:talentChoice={homeworldTalentChoice} />
         {:else if step === 1}
             <Background {data} bind:selected={background} bind:gearChoices />
         {:else if step === 2}
@@ -167,6 +179,7 @@
                 bind:woundsRoll
                 bind:woundsRollCount
                 bind:fateRoll
+                bind:corruptionRoll
                 bind:charRolled
                 bind:charRerollUsed
                 bind:charRerolledFrom

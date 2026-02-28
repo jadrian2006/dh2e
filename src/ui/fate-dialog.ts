@@ -88,6 +88,21 @@ class FateDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             return false;
         }
         await actor.update({ "system.fate.value": sys.fate.value - 1 });
+
+        // Shrine World: Faith in the Creed — roll 1d10, on a 1 the fate point is not consumed
+        if ((actor as any).synthetics?.rollOptions?.has("self:homeworld:faith-in-the-creed")) {
+            const roll = new Roll("1d10");
+            await roll.evaluate();
+            const result = roll.total ?? 0;
+            if (result === 1) {
+                // Refund the fate point
+                await actor.update({ "system.fate.value": sys.fate.value });
+                ui.notifications.info(`Faith in the Creed! Rolled ${result} — fate point preserved by the Emperor's grace!`);
+            } else {
+                ui.notifications.info(`Faith in the Creed: rolled ${result} (needed 1).`);
+            }
+        }
+
         return true;
     }
 

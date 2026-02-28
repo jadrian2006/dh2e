@@ -1,11 +1,10 @@
 <script lang="ts">
-    import { calculateArmourByLocation } from "../../../item/armour/helpers.ts";
     import type { HitLocationKey } from "../../../actor/types.ts";
 
     let { ctx, role = "", background = "" }: { ctx: Record<string, any>; role?: string; background?: string } = $props();
 
     const VALID_ROLES = new Set([
-        "assassin", "chirurgeon", "desperado", "hierophant",
+        "assassin", "chirurgeon", "crusader", "desperado", "hierophant",
         "mystic", "sage", "seeker", "warrior",
     ]);
 
@@ -30,13 +29,16 @@
         return `systems/dh2e/icons/silhouettes/${roleSlug}.svg`;
     });
 
-    const armourByLocation = $derived(() => {
-        const armourItems = ctx.items?.armour ?? [];
-        return calculateArmourByLocation(armourItems);
-    });
-
+    /** Read armour from actor's derived data (includes equipped armour + cybernetic modifiers) */
     function ap(key: HitLocationKey): number {
-        return armourByLocation()[key] ?? 0;
+        return ctx.system?.armour?.[key] ?? 0;
+    }
+
+    /** Build tooltip text showing armour source breakdown for a location */
+    function apTooltip(key: HitLocationKey): string {
+        const sources: { label: string; value: number }[] = ctx.system?.armourSources?.[key] ?? [];
+        if (sources.length === 0) return "No armour";
+        return sources.map(s => `${s.label}: ${s.value}`).join("\n");
     }
 </script>
 
@@ -50,34 +52,40 @@
             preserveAspectRatio="xMidYMid meet"
         />
 
-        <!-- AP value badges -->
+        <!-- AP value badges (hover for source breakdown) -->
         <!-- Head -->
         <g class="ap-badge" class:protected={ap("head") > 0}>
+            <title>{apTooltip("head")}</title>
             <circle cx="100" cy="32" r="14" />
             <text x="100" y="37">{ap("head")}</text>
         </g>
         <!-- Body -->
         <g class="ap-badge" class:protected={ap("body") > 0}>
+            <title>{apTooltip("body")}</title>
             <circle cx="100" cy="112" r="14" />
             <text x="100" y="117">{ap("body")}</text>
         </g>
         <!-- Right Arm (viewer's left) -->
         <g class="ap-badge" class:protected={ap("rightArm") > 0}>
+            <title>{apTooltip("rightArm")}</title>
             <circle cx="44" cy="110" r="14" />
             <text x="44" y="115">{ap("rightArm")}</text>
         </g>
         <!-- Left Arm (viewer's right) -->
         <g class="ap-badge" class:protected={ap("leftArm") > 0}>
+            <title>{apTooltip("leftArm")}</title>
             <circle cx="156" cy="110" r="14" />
             <text x="156" y="115">{ap("leftArm")}</text>
         </g>
         <!-- Right Leg (viewer's left) -->
         <g class="ap-badge" class:protected={ap("rightLeg") > 0}>
+            <title>{apTooltip("rightLeg")}</title>
             <circle cx="80" cy="248" r="14" />
             <text x="80" y="253">{ap("rightLeg")}</text>
         </g>
         <!-- Left Leg (viewer's right) -->
         <g class="ap-badge" class:protected={ap("leftLeg") > 0}>
+            <title>{apTooltip("leftLeg")}</title>
             <circle cx="120" cy="248" r="14" />
             <text x="120" y="253">{ap("leftLeg")}</text>
         </g>
@@ -105,6 +113,8 @@
     }
 
     .ap-badge {
+        cursor: help;
+
         circle {
             fill: var(--dh2e-bg-light, #3a3a45);
             stroke: var(--dh2e-border, #4a4a55);

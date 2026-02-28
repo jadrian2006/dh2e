@@ -1,0 +1,228 @@
+[
+    {
+        "name": "Investigate the Crime Scene",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Proceed to the Gallowsway District in Hive Desoleum and investigate the crime scene where three bodies were found bearing strange xenos markings. Make contact with Oath-Captain Nils and determine the nature and origin of the marks.</p>",
+            "source": "forgotten-gods",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Track the Smugglers Through the Underhive",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Follow the trail of the xenos artefacts through the underhive. Navigate Red Walk gang territory and trace the smuggling network to its source. The trail leads through dangerous territory controlled by Vornas Crimson.</p>",
+            "source": "forgotten-gods",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Cross the Desoleum Wastes",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Traverse the hostile Desoleum Wastes beyond the hive walls to reach the Trade Sable smuggler camp. Survive encounters with Gwydrae nomads, waste predators, and the unforgiving desert environment.</p>",
+            "source": "forgotten-gods",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Board the Oath Unspoken",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Secure passage aboard the Rogue Trader vessel Oath Unspoken, commanded by Lord-Captain Aristide Anzaforr. The ship carries thousands of pilgrims to the shrine world of Thaur, and evidence suggests the smuggling conspiracy extends aboard.</p>",
+            "source": "forgotten-gods",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Uncover the Cult Aboard the Oath Unspoken",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Investigate the Children of the Inheritance cult's presence among the pilgrims. Identify their leader, Praesul Parathas Hayne, and determine their plan before the ship reaches Thaur. Look for bone-chip tokens, whispered prayers to the Remembered God, and secret rituals in the corpse-holds.</p>",
+            "source": "forgotten-gods",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Defend the Oath Unspoken",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>The Children of the Inheritance launch their attack aboard the Oath Unspoken. Defend the ship alongside the Anzaforr Armsmen, rally allies, and repel the cultist assault across multiple decks.</p>",
+            "source": "forgotten-gods",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Escape Lord Pyre's Custody",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Jeronius Pyre, Lord of the Wake and ruler of Thaur, has detained the warband. Outsiders are unwelcome during the Festival of Bones. Negotiate release, intimidate the Lord Governor, or escape captivity to continue the mission.</p>",
+            "source": "forgotten-gods",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Navigate the Catacombs of Thaur",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Descend through the Great Ossuaria into the alien tunnels beneath Thaur's surface. Navigate the shifting architecture from Imperial Gothic crypts to disturbing organic passages. Find the path to the Chamber of Izumat before the Children of the Inheritance complete their ritual.</p>",
+            "source": "forgotten-gods",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Stop the Resurrection Ritual",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Carolus Renthear leads the Children of the Inheritance in a ritual to resurrect the Daemon Prince Suvfaeras using accumulated xenos artefacts. Disrupt the ritual circle, destroy the artefacts, or eliminate Renthear before the entity known as Izumat can be restored to the material world.</p>",
+            "source": "forgotten-gods",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Banish Daemon Prince Suvfaeras",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>If the ritual succeeds, the Daemon Prince Suvfaeras manifests in the Chamber of Izumat. This ancient Warp entity is devastatingly powerful. Destroy the remaining xenos artefacts to weaken it, coordinate attacks with allies, and banish the Daemon Prince back to the Immaterium before it can escape the catacombs.</p>",
+            "source": "forgotten-gods",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Xenos Artefact Fragment",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "<p>A shard of smooth, black material that seems to absorb light. Its surface is warm to the touch and covered in geometric patterns that shift when viewed from different angles. Prolonged contact causes disturbing whispers at the edge of hearing. These fragments are pieces of a larger whole, connected to the ancient entity known as Izumat.</p><p><strong>Special:</strong> Carrying a fragment imposes a -10 penalty on Willpower tests to resist Fear and Corruption. A character holding a fragment when Suvfaeras manifests must pass a Challenging (+0) Willpower test or be Stunned for 1 round.</p>",
+            "source": "forgotten-gods",
+            "weight": 0.5,
+            "quantity": 1,
+            "availability": "Near Unique",
+            "craftsmanship": "common"
+        }
+    },
+    {
+        "name": "Aduroglaive",
+        "type": "weapon",
+        "img": "systems/dh2e/icons/items/weapon.svg",
+        "system": {
+            "description": "<p>The signature weapon of the Ossuarian Custodians of Thaur. This heavy polearm features a broad blade with an integrated promethium reservoir that coats the cutting edge in sacred fire. The Custodians use these weapons to guard the Great Ossuaria from tomb robbers and heretics.</p><p><strong>Righteous Blaze:</strong> Once per encounter, after normal damage is inflicted, the weapon can deal an additional 1d10+5 Energy damage that ignores armour. The weapon then loses the Flame quality until repaired (1 day).</p>",
+            "source": "forgotten-gods",
+            "class": "melee",
+            "range": 0,
+            "rof": { "single": false, "semi": 0, "full": 0 },
+            "damage": { "formula": "1d10+7", "type": "rending", "bonus": 0 },
+            "penetration": 2,
+            "magazine": { "value": 0, "max": 0 },
+            "reload": "",
+            "weight": 7,
+            "qualities": ["Felling (2)", "Flame", "Unbalanced"],
+            "equipped": false,
+            "weaponGroup": "low-tech",
+            "craftsmanship": "common",
+            "loadType": "",
+            "loadedMagazineName": "",
+            "loadedRounds": []
+        }
+    },
+    {
+        "name": "Censer of Mourning",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "<p>One of the most powerful talismans of office on Thaur, carried by the Lord of the Wake. This ornate censer is fashioned from bone and precious metals, perpetually wreathed in fragrant incense smoke. It serves as both a symbol of authority and a powerful protective device.</p><p><strong>Special:</strong> Grants a +20 bonus to Social skill tests directed at loyal Thaur natives. Contains a hidden force field generator that functions as a Best quality conversion field (50% chance to negate a hit, overloads on 01-10 and ceases to function for 1d5 rounds).</p>",
+            "source": "forgotten-gods",
+            "weight": 2,
+            "quantity": 1,
+            "availability": "Near Unique",
+            "craftsmanship": "best"
+        }
+    },
+    {
+        "name": "Ritual Scroll of Izumat",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "<p>A brittle scroll inscribed with blasphemous text in a mixture of High Gothic and an unknown xenos script. It details the ritual required to awaken the Daemon Prince Suvfaeras from its imprisonment beneath Thaur. Reading the scroll requires a Challenging (+0) Forbidden Lore (Daemonology) test and inflicts 1d5 Corruption points.</p><p><strong>Special:</strong> If destroyed during the ritual, the ritual's progress is reduced by one stage. Renthear carries a copy but the original is kept at the ritual site.</p>",
+            "source": "forgotten-gods",
+            "weight": 0.5,
+            "quantity": 1,
+            "availability": "Near Unique",
+            "craftsmanship": "common"
+        }
+    },
+    {
+        "name": "Blood of Izumat",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "<p>A viscous, iridescent liquid contained in a sealed crystal phial. This substance is of xenos origin, recovered from deep within Thaur's catacombs. It pulses with a faint inner light and is warm to the touch. The Children of the Inheritance use it as a sacramental substance in their rituals.</p><p><strong>Special:</strong> Contact with exposed skin inflicts 1d10 Energy damage (ignoring armour) and 1d5 Corruption points. If poured on a xenos artefact fragment, the fragment activates and begins emitting a low hum audible to psykers within 100 metres. The Blood is a key component of the resurrection ritual.</p>",
+            "source": "forgotten-gods",
+            "weight": 0.5,
+            "quantity": 1,
+            "availability": "Near Unique",
+            "craftsmanship": "common"
+        }
+    }
+]

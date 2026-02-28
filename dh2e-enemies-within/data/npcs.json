@@ -1,0 +1,1146 @@
+[
+    {
+        "name": "Furimancer",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 48, "advances": 0 },
+                "bs": { "base": 36, "advances": 0 },
+                "s": { "base": 43, "advances": 0 },
+                "t": { "base": 44, "advances": 0 },
+                "ag": { "base": 42, "advances": 0 },
+                "int": { "base": 41, "advances": 0 },
+                "per": { "base": 49, "advances": 0 },
+                "wp": { "base": 57, "advances": 0 },
+                "fel": { "base": 44, "advances": 0 }
+            },
+            "wounds": { "value": 19, "max": 19 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 36,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 2,
+                "rightLeg": 2,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "Hrax",
+                "background": "",
+                "role": "Master",
+                "divination": "",
+                "notes": "Sorcerers devoted to the Hraxian god Charganal. Traits: Psyker (PR 3), Touched by the Fates (2). Skills: Acrobatics, Command +10, Forbidden Lore (Psyker, Warp), Intimidate +20, Linguistics (Clan Dialect) +10, Psyniscience +20, Survival +10. Talents: Jaded, Swift Attack. Psychic Powers: Smite, Foreboding, Prescience, Assail. Chosen of Charganal: As a Half Action, suffer 1d5 Energy damage (ignoring Armour and Toughness bonus) to count psy rating as double for next Focus Power test. Must immediately roll on Psychic Phenomena table, adding +10."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Profaned Great Axe",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "2d10+7", "type": "rending", "bonus": 0 },
+                    "penetration": 5,
+                    "weight": 7,
+                    "qualities": ["Force", "Unbalanced"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Aurelian Janissary",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 41, "advances": 0 },
+                "bs": { "base": 37, "advances": 0 },
+                "s": { "base": 42, "advances": 0 },
+                "t": { "base": 40, "advances": 0 },
+                "ag": { "base": 41, "advances": 0 },
+                "int": { "base": 27, "advances": 0 },
+                "per": { "base": 38, "advances": 0 },
+                "wp": { "base": 38, "advances": 0 },
+                "fel": { "base": 33, "advances": 0 }
+            },
+            "wounds": { "value": 15, "max": 15 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 5,
+                "rightArm": 5,
+                "leftArm": 5,
+                "body": 5,
+                "rightLeg": 5,
+                "leftLeg": 5
+            },
+            "details": {
+                "homeworld": "Hrax",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "Zealous mounted warriors sworn to Warlord Talvrak. Skills: Athletics, Awareness, Command, Linguistics (Clan Dialect) +10, Parry +10, Survival. Talents: Die Hard, Resistance (Fear). Blessed Armour: After suffering damage for the first time each encounter, counts armour on all locations as 2 higher until start of next turn."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Crossbow",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "ranged",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "weight": 3,
+                    "qualities": ["Primitive (7)"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 1, "max": 1 },
+                    "source": "enemies-within"
+                }
+            },
+            {
+                "name": "Aurellian Redblade",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 },
+                    "penetration": 1,
+                    "weight": 4,
+                    "qualities": ["Balanced"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Vornae Mount",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 },
+                "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 34, "advances": 0 },
+                "t": { "base": 43, "advances": 0 },
+                "ag": { "base": 42, "advances": 0 },
+                "int": { "base": 28, "advances": 0 },
+                "per": { "base": 42, "advances": 0 },
+                "wp": { "base": 31, "advances": 0 },
+                "fel": { "base": 2, "advances": 0 }
+            },
+            "wounds": { "value": 15, "max": 15 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 2,
+                "rightArm": 2,
+                "leftArm": 2,
+                "body": 2,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "Hrax",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "notes": "Ferocious predatory mounts used by Hraxian warriors. Traits: Deadly Natural Weapons, Quadruped, Size (5), Sonar Sense, Unnatural Agility (1). Skills: Acrobatics, Awareness +10, Dodge. Talents: Step Aside, Takedown."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Venomous Fangs",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+3", "type": "impact", "bonus": 0 },
+                    "penetration": 2,
+                    "weight": 0,
+                    "qualities": ["Toxic (2)"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Skreiga Clan Cultist",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 39, "advances": 0 },
+                "bs": { "base": 35, "advances": 0 },
+                "s": { "base": 41, "advances": 0 },
+                "t": { "base": 42, "advances": 0 },
+                "ag": { "base": 38, "advances": 0 },
+                "int": { "base": 25, "advances": 0 },
+                "per": { "base": 39, "advances": 0 },
+                "wp": { "base": 31, "advances": 0 },
+                "fel": { "base": 28, "advances": 0 }
+            },
+            "wounds": { "value": 9, "max": 9 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 2,
+                "body": 2,
+                "rightLeg": 2,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "Hrax",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "notes": "Heretical clansmen devoted to the old ways and the god Charganal. Skills: Athletics, Dodge, Intimidate, Linguistics (Clan Dialect) +10, Navigate (Surface), Survival. Talents: Frenzy, Jaded. Sadistic Surge: When the cultist inflicts damage with an attack, he gains +10 to his next attack test. Looters of the Dead: Some arm with looted Imperial weapons but cannot reload them."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Arquebus",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "ranged",
+                    "range": 45,
+                    "rof": { "single": true, "semi": 0, "full": 0 },
+                    "damage": { "formula": "2d10", "type": "impact", "bonus": 0 },
+                    "penetration": 2,
+                    "weight": 8,
+                    "qualities": ["Concussive (1)", "Inaccurate", "Unreliable"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 1, "max": 1 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Tooth Taker",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 45, "advances": 0 },
+                "bs": { "base": 39, "advances": 0 },
+                "s": { "base": 42, "advances": 0 },
+                "t": { "base": 44, "advances": 0 },
+                "ag": { "base": 48, "advances": 0 },
+                "int": { "base": 35, "advances": 0 },
+                "per": { "base": 41, "advances": 0 },
+                "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 26, "advances": 0 }
+            },
+            "wounds": { "value": 16, "max": 16 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 3,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "Hrax",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "Skilled hunters who collect trophy teeth from fallen foes. Skills: Athletics, Awareness +10, Dodge +10, Intimidate, Linguistics (Clan Dialect) +10, Navigate (Surface) +10, Parry, Stealth, Survival +20. Talents: Combat Master, Devastating Assault, Hard Target, Iron Jaw, Quick Draw, Resistance (Fear). Vicious Strike: Melee attacks gain +1 damage and +1 penetration per degree of success."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Musket",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "ranged",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+3", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "weight": 7,
+                    "qualities": ["Inaccurate", "Primitive (8)", "Unreliable"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 1, "max": 1 },
+                    "source": "enemies-within"
+                }
+            },
+            {
+                "name": "Heavy Hunting Dagger",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 5,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d5+5", "type": "rending", "bonus": 1 },
+                    "penetration": 1,
+                    "weight": 2,
+                    "qualities": ["Balanced", "Thrown"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Compliancer",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 38, "advances": 0 },
+                "bs": { "base": 41, "advances": 0 },
+                "s": { "base": 38, "advances": 0 },
+                "t": { "base": 41, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 },
+                "int": { "base": 28, "advances": 0 },
+                "per": { "base": 38, "advances": 0 },
+                "wp": { "base": 30, "advances": 0 },
+                "fel": { "base": 34, "advances": 0 }
+            },
+            "wounds": { "value": 11, "max": 11 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 3,
+                "rightArm": 3,
+                "leftArm": 3,
+                "body": 3,
+                "rightLeg": 3,
+                "leftLeg": 3
+            },
+            "details": {
+                "homeworld": "Kalto",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "notes": "Corrupt dock enforcers of Kalto's Metothine Gate. Skills: Athletics, Dodge, Intimidate +10, Operate (Void), Tech-Use +10. Talents: Rapid Reload, Takedown. Sucker Punch: Melee hits on Surprised Size (5) or less targets force a Hard Strength test or be knocked Prone."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Shotgun",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "ranged",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "weight": 5,
+                    "qualities": ["Scatter"],
+                    "equipped": true,
+                    "weaponGroup": "solid-projectile",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 8, "max": 8 },
+                    "source": "enemies-within"
+                }
+            },
+            {
+                "name": "Shock Truncheon",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+3", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "weight": 2,
+                    "qualities": ["Shocking"],
+                    "equipped": true,
+                    "weaponGroup": "shock",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Vigilance Servitor",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 47, "advances": 0 },
+                "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 40, "advances": 0 },
+                "t": { "base": 40, "advances": 0 },
+                "ag": { "base": 41, "advances": 0 },
+                "int": { "base": 16, "advances": 0 },
+                "per": { "base": 41, "advances": 0 },
+                "wp": { "base": 20, "advances": 0 },
+                "fel": { "base": 5, "advances": 0 }
+            },
+            "wounds": { "value": 16, "max": 16 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 3,
+                "rightArm": 3,
+                "leftArm": 3,
+                "body": 3,
+                "rightLeg": 3,
+                "leftLeg": 3
+            },
+            "details": {
+                "homeworld": "Kalto",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "Cybernetic killing machines with stimm injectors. Traits: Dark-sight, Machine (3), Mind Lock, Unnatural Strength (2), Unnatural Toughness (2). Skills: Acrobatics, Athletics, Awareness +10, Dodge, Stealth. Talents: Ambidextrous, Dual Weapon Wielder, Sprint, Swift Attack. Laxity Begets Heresy: Ignores all effects of Fatigue except death."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Implanted Mono-Talons",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+9", "type": "rending", "bonus": 3 },
+                    "penetration": 2,
+                    "weight": 6,
+                    "qualities": [],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            },
+            {
+                "name": "Implanted Neural Whip",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+6", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "weight": 3,
+                    "qualities": ["Shocking"],
+                    "equipped": true,
+                    "weaponGroup": "shock",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Tendrallid Thrall",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 38, "advances": 0 },
+                "bs": { "base": 31, "advances": 0 },
+                "s": { "base": 38, "advances": 0 },
+                "t": { "base": 42, "advances": 0 },
+                "ag": { "base": 34, "advances": 0 },
+                "int": { "base": 24, "advances": 0 },
+                "per": { "base": 34, "advances": 0 },
+                "wp": { "base": 33, "advances": 0 },
+                "fel": { "base": 29, "advances": 0 }
+            },
+            "wounds": { "value": 13, "max": 13 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 2,
+                "body": 2,
+                "rightLeg": 2,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "Kalto",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "notes": "Feral degenerates addicted to boneweed. Skills: Intimidate. Talents: Frenzy. Ravaged Mind: Can activate Frenzy as a Free Action."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Harvest Sickle",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+3", "type": "rending", "bonus": 0 },
+                    "penetration": 1,
+                    "weight": 1,
+                    "qualities": [],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Bloodborne Auguras",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 48, "advances": 0 },
+                "bs": { "base": 31, "advances": 0 },
+                "s": { "base": 43, "advances": 0 },
+                "t": { "base": 47, "advances": 0 },
+                "ag": { "base": 38, "advances": 0 },
+                "int": { "base": 36, "advances": 0 },
+                "per": { "base": 42, "advances": 0 },
+                "wp": { "base": 45, "advances": 0 },
+                "fel": { "base": 38, "advances": 0 }
+            },
+            "wounds": { "value": 20, "max": 20 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 22,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 2,
+                "rightArm": 3,
+                "leftArm": 2,
+                "body": 4,
+                "rightLeg": 3,
+                "leftLeg": 2
+            },
+            "details": {
+                "homeworld": "Kalto",
+                "background": "",
+                "role": "Master",
+                "divination": "",
+                "notes": "Boneweed-consumed monstrosities. Traits: Fear (1), Natural Armour (2), Touched by the Fates (1). Skills: Athletics, Command +10, Intimidate +10, Parry +10, Survival +10. Talents: Ambidextrous, Battle Rage, Die Hard, Frenzy, Two Weapon Wielder. Visions of Carnage: Characters within 15m must pass WP test or become Frenzied, attacking nearest target."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Chainaxe",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+8", "type": "rending", "bonus": 4 },
+                    "penetration": 2,
+                    "weight": 13,
+                    "qualities": ["Tearing", "Unbalanced"],
+                    "equipped": true,
+                    "weaponGroup": "chain",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Deep Guard Enforcer",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 39, "advances": 0 },
+                "bs": { "base": 34, "advances": 0 },
+                "s": { "base": 32, "advances": 0 },
+                "t": { "base": 38, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 },
+                "int": { "base": 28, "advances": 0 },
+                "per": { "base": 30, "advances": 0 },
+                "wp": { "base": 29, "advances": 0 },
+                "fel": { "base": 27, "advances": 0 }
+            },
+            "wounds": { "value": 12, "max": 12 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 5,
+                "rightArm": 4,
+                "leftArm": 4,
+                "body": 4,
+                "rightLeg": 4,
+                "leftLeg": 4
+            },
+            "details": {
+                "homeworld": "Pellenne",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "Anti-mutant enforcers of Pellenne. Skills: Athletics, Awareness, Forbidden Lore (Mutants) +10, Dodge, Intimidate. Talents: Enemy (Mutants), Hatred (Mutants), Takedown. Mutant Executioner: Once per round, killing a mutant grants an immediate Half Action to attack another mutant."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Las Carbine",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "ranged",
+                    "range": 75,
+                    "rof": { "single": true, "semi": 2, "full": 0 },
+                    "damage": { "formula": "1d10+3", "type": "energy", "bonus": 0 },
+                    "penetration": 0,
+                    "weight": 2.5,
+                    "qualities": ["Reliable"],
+                    "equipped": true,
+                    "weaponGroup": "las",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 60, "max": 60 },
+                    "source": "enemies-within"
+                }
+            },
+            {
+                "name": "Studded Iron Club",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+4", "type": "impact", "bonus": 1 },
+                    "penetration": 0,
+                    "weight": 3,
+                    "qualities": ["Primitive (7)"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Spiral Pit Mutant",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 45, "advances": 0 },
+                "bs": { "base": 31, "advances": 0 },
+                "s": { "base": 38, "advances": 0 },
+                "t": { "base": 40, "advances": 0 },
+                "ag": { "base": 37, "advances": 0 },
+                "int": { "base": 38, "advances": 0 },
+                "per": { "base": 40, "advances": 0 },
+                "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 28, "advances": 0 }
+            },
+            "wounds": { "value": 12, "max": 12 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 1,
+                "leftArm": 1,
+                "body": 1,
+                "rightLeg": 1,
+                "leftLeg": 1
+            },
+            "details": {
+                "homeworld": "Pellenne",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "notes": "Ancient tribal mutants from Pellenne's deepest tunnels. Traits: Dark-sight, Natural Weapons (Horns), Unnatural Strength (1), Unnatural Agility (1). Skills: Stealth +20, Survival +20. Talents: Resistance (Radiation). The Darkest Pits: Cannot get lost underground, automatically passes navigation tests below the surface."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Femurspur",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+6", "type": "rending", "bonus": 2 },
+                    "penetration": 0,
+                    "weight": 3,
+                    "qualities": ["Primitive (8)", "Unbalanced"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Luminous Psyker",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 28, "advances": 0 },
+                "bs": { "base": 29, "advances": 0 },
+                "s": { "base": 31, "advances": 0 },
+                "t": { "base": 31, "advances": 0 },
+                "ag": { "base": 36, "advances": 0 },
+                "int": { "base": 41, "advances": 0 },
+                "per": { "base": 40, "advances": 0 },
+                "wp": { "base": 48, "advances": 0 },
+                "fel": { "base": 25, "advances": 0 }
+            },
+            "wounds": { "value": 14, "max": 14 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 2,
+                "leftArm": 2,
+                "body": 2,
+                "rightLeg": 2,
+                "leftLeg": 2
+            },
+            "details": {
+                "homeworld": "Port Aquila",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "Unsanctioned psykers on the Illuminated Pathway. Traits: Psyker (PR 2). Skills: Awareness +10, Deceive, Dodge, Forbidden Lore (Psykers), Psyniscience, Stealth. Talents: Warp Sense. Psychic Powers: Any 3 from a single discipline. Psychic Bloodhound: Half Action before Psyniscience grants +20."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Force Dagger",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d5+6", "type": "rending", "bonus": 1 },
+                    "penetration": 5,
+                    "weight": 2,
+                    "qualities": ["Force"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Karkinaxi",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 37, "advances": 0 },
+                "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 39, "advances": 0 },
+                "t": { "base": 45, "advances": 0 },
+                "ag": { "base": 31, "advances": 0 },
+                "int": { "base": 28, "advances": 0 },
+                "per": { "base": 30, "advances": 0 },
+                "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 0, "advances": 0 }
+            },
+            "wounds": { "value": 18, "max": 18 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 2,
+                "rightArm": 2,
+                "leftArm": 2,
+                "body": 2,
+                "rightLeg": 2,
+                "leftLeg": 2
+            },
+            "details": {
+                "homeworld": "Rund",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "Giant aquatic scorpion-like creature. Traits: Amphibious, Dark-sight, Deadly Natural Weapons, Multiple Arms (6), Natural Armour (2), Size (5), Unnatural Senses (50). Skills: Athletics +10, Dodge, Stealth +20. Drowner: Always grapples in water, inflicts 2 Fatigue on success and pulls target 1d5m deeper."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Fanged Mandibles",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+5", "type": "impact", "bonus": 2 },
+                    "penetration": 0,
+                    "weight": 0,
+                    "qualities": [],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Ebon Sentinel",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 48, "advances": 0 },
+                "bs": { "base": 42, "advances": 0 },
+                "s": { "base": 42, "advances": 0 },
+                "t": { "base": 50, "advances": 0 },
+                "ag": { "base": 31, "advances": 0 },
+                "int": { "base": 35, "advances": 0 },
+                "per": { "base": 32, "advances": 0 },
+                "wp": { "base": 25, "advances": 0 },
+                "fel": { "base": 13, "advances": 0 }
+            },
+            "wounds": { "value": 18, "max": 18 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 8,
+                "rightArm": 8,
+                "leftArm": 8,
+                "body": 8,
+                "rightLeg": 8,
+                "leftLeg": 8
+            },
+            "details": {
+                "homeworld": "Selvanus Binary",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "Imposing bodyguards of Selvanus Binary with skull-faced masks. Traits: Machine (2), Sturdy, Unnatural Strength (1). Skills: Awareness +10, Dodge +10, Linguistics (Low Gothic), Parry, Scrutiny +10, Security, Tech-Use. Talents: Ambidextrous, Iron Jaw, Jaded, Rapid Reload, Strong Minded, Two-Weapon Master, Two-Weapon Wielder, Unarmed Specialist. Fearsome Visage: Enemies must pass Fear (1) test before melee attacks."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Sentinel Plasma Rifle",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "ranged",
+                    "range": 120,
+                    "rof": { "single": true, "semi": 5, "full": 10 },
+                    "damage": { "formula": "1d10+5", "type": "energy", "bonus": 0 },
+                    "penetration": 3,
+                    "weight": 20,
+                    "qualities": ["Reliable"],
+                    "equipped": true,
+                    "weaponGroup": "plasma",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 40, "max": 40 },
+                    "source": "enemies-within"
+                }
+            },
+            {
+                "name": "Power Hand Axe",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 5,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+10", "type": "energy", "bonus": 5 },
+                    "penetration": 4,
+                    "weight": 3,
+                    "qualities": ["Power Field", "Thrown"],
+                    "equipped": true,
+                    "weaponGroup": "power",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Purveyor of Discord",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 43, "advances": 0 },
+                "bs": { "base": 46, "advances": 0 },
+                "s": { "base": 36, "advances": 0 },
+                "t": { "base": 39, "advances": 0 },
+                "ag": { "base": 41, "advances": 0 },
+                "int": { "base": 45, "advances": 0 },
+                "per": { "base": 44, "advances": 0 },
+                "wp": { "base": 46, "advances": 0 },
+                "fel": { "base": 46, "advances": 0 }
+            },
+            "wounds": { "value": 19, "max": 19 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 47,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 2,
+                "rightArm": 4,
+                "leftArm": 4,
+                "body": 4,
+                "rightLeg": 4,
+                "leftLeg": 4
+            },
+            "details": {
+                "homeworld": "Snope's World",
+                "background": "",
+                "role": "Master",
+                "divination": "",
+                "notes": "Insidious cult leaders spreading damnation. Traits: Touched by the Fates (2). Skills: Awareness +10, Command +10, Charm +10, Deceive +20, Dodge, Forbidden Lore (Warp) +10, Parry. Talents: Jaded, Peer (Heretical Cults), Resistance (Psychic Powers), Strong Minded. Disparaging Whispers: Full Action Opposed Deceive vs WP; losers can only take 1 Half Action next turn."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Bolt Pistol",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "ranged",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 2, "full": 0 },
+                    "damage": { "formula": "1d10+5", "type": "explosive", "bonus": 0 },
+                    "penetration": 4,
+                    "weight": 3.5,
+                    "qualities": ["Tearing"],
+                    "equipped": true,
+                    "weaponGroup": "bolt",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 8, "max": 8 },
+                    "source": "enemies-within"
+                }
+            },
+            {
+                "name": "Chainsword",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+5", "type": "rending", "bonus": 2 },
+                    "penetration": 2,
+                    "weight": 6,
+                    "qualities": ["Balanced", "Tearing"],
+                    "equipped": true,
+                    "weaponGroup": "chain",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 0, "max": 0 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Bastion Deputy",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 25, "advances": 0 },
+                "bs": { "base": 35, "advances": 0 },
+                "s": { "base": 30, "advances": 0 },
+                "t": { "base": 35, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 },
+                "int": { "base": 30, "advances": 0 },
+                "per": { "base": 30, "advances": 0 },
+                "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 30, "advances": 0 }
+            },
+            "wounds": { "value": 11, "max": 11 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 1,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 3,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "Temperance",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "notes": "Frontier law enforcers of Temperance. Skills: Athletics +10, Awareness, Interrogation. Talents: Quick Draw, Takedown. I Aid the Law: +10 WS when operating with an Arbitrator."
+            },
+            "source": "enemies-within"
+        },
+        "items": [
+            {
+                "name": "Shotgun",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "ranged",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "weight": 5,
+                    "qualities": ["Scatter"],
+                    "equipped": true,
+                    "weaponGroup": "solid-projectile",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 8, "max": 8 },
+                    "source": "enemies-within"
+                }
+            },
+            {
+                "name": "Hand Flamer",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "class": "ranged",
+                    "range": 10,
+                    "rof": { "single": true, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+4", "type": "energy", "bonus": 0 },
+                    "penetration": 2,
+                    "weight": 3.5,
+                    "qualities": ["Flame", "Spray"],
+                    "equipped": false,
+                    "weaponGroup": "flame",
+                    "craftsmanship": "common",
+                    "magazine": { "value": 2, "max": 2 },
+                    "source": "enemies-within"
+                }
+            }
+        ]
+    }
+]

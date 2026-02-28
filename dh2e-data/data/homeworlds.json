@@ -15,7 +15,10 @@
             "homeSkill": "",
             "bonus": "The Old Ways",
             "bonusDescription": "In the hands of a feral world character, any Low-Tech weapon loses the Primitive quality (if it had it) and gains the Proven (3) quality.",
-            "recommendedBackgrounds": ["Adeptus Arbites", "Adeptus Astra Telepathica", "Imperial Guard", "Outcast"]
+            "recommendedBackgrounds": ["Adeptus Arbites", "Adeptus Astra Telepathica", "Imperial Guard", "Outcast"],
+            "rules": [
+                { "key": "RollOption", "option": "self:homeworld:the-old-ways" }
+            ]
         }
     },
     {
@@ -53,7 +56,10 @@
             "homeSkill": "",
             "bonus": "Breeding Counts",
             "bonusDescription": "Any time a highborn character would reduce his Influence, he reduces it by 1 less (to a minimum reduction of 1).",
-            "recommendedBackgrounds": ["Adeptus Administratum", "Adeptus Ministorum", "Imperial Guard", "Outcast"]
+            "recommendedBackgrounds": ["Adeptus Administratum", "Adeptus Ministorum", "Imperial Guard", "Outcast"],
+            "rules": [
+                { "key": "RollOption", "option": "self:homeworld:breeding-counts" }
+            ]
         }
     },
     {
@@ -72,7 +78,11 @@
             "homeSkill": "",
             "bonus": "Teeming Masses in Metal Mountains",
             "bonusDescription": "A hive world character ignores crowds for purposes of movement, treating them as open terrain. When in enclosed spaces, he also gains a +20 bonus to Navigate (Surface) tests.",
-            "recommendedBackgrounds": ["Adeptus Arbites", "Adeptus Mechanicus", "Imperial Guard", "Outcast"]
+            "recommendedBackgrounds": ["Adeptus Arbites", "Adeptus Mechanicus", "Imperial Guard", "Outcast"],
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:navigate-(surface)", "value": 20, "label": "Teeming Masses (Enclosed)", "source": "homeworld" },
+                { "key": "RollOption", "option": "self:homeworld:teeming-masses" }
+            ]
         }
     },
     {
@@ -91,7 +101,10 @@
             "homeSkill": "",
             "bonus": "Faith in the Creed",
             "bonusDescription": "Whenever a shrine world character spends a Fate point, he rolls 1d10. On a result of 1, the character's total number of Fate points is not reduced.",
-            "recommendedBackgrounds": ["Adeptus Administratum", "Adeptus Ministorum", "Adeptus Astra Telepathica"]
+            "recommendedBackgrounds": ["Adeptus Administratum", "Adeptus Ministorum", "Adeptus Astra Telepathica"],
+            "rules": [
+                { "key": "RollOption", "option": "self:homeworld:faith-in-the-creed" }
+            ]
         }
     },
     {
@@ -110,7 +123,11 @@
             "homeSkill": "",
             "bonus": "Child of the Dark",
             "bonusDescription": "A voidborn character starts with the Strong Minded talent, and gains a +30 bonus to tests for moving in a zero gravity environment.",
-            "recommendedBackgrounds": ["Adeptus Astra Telepathica", "Adeptus Mechanicus", "Imperial Guard", "Outcast"]
+            "recommendedBackgrounds": ["Adeptus Astra Telepathica", "Adeptus Mechanicus", "Imperial Guard", "Outcast"],
+            "rules": [
+                { "key": "FlatModifier", "domain": "skill:athletics", "value": 30, "label": "Child of the Dark (Zero-G)", "source": "homeworld" },
+                { "key": "RollOption", "option": "self:homeworld:child-of-the-dark" }
+            ]
         }
     }
 ]

@@ -94,5 +94,17 @@
             "craftsmanship": "common",
             "source": "enemies-beyond"
         }
+    },
+    {
+        "name": "Disguise Kit",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A collection of wigs, cosmetics, prosthetics, and other items useful for changing one's appearance. Grants a +10 bonus to Deceive tests made to disguise oneself.",
+            "weight": 1,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-beyond"
+        }
     }
 ]

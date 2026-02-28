@@ -159,7 +159,12 @@ class RequisitionRequestDialog extends SvelteApplicationMixin(fa.api.Application
         // Check for Influence loss (3+ DoF on failure)
         const influenceLost = !success && degrees >= 3;
         if (influenceLost) {
-            const newInfluence = Math.max(0, influence - 1);
+            let loss = 1;
+            // Highborn: Breeding Counts — reduce influence loss by 1 (to a minimum reduction of 1)
+            if ((this.#actor as any).synthetics?.rollOptions?.has("self:homeworld:breeding-counts")) {
+                loss = Math.max(1, loss - 1);
+            }
+            const newInfluence = Math.max(0, influence - loss);
             await (this.#actor as any).update({ "system.influence": newInfluence });
         }
 

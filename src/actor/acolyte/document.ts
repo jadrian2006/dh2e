@@ -77,8 +77,17 @@ class AcolyteDH2e extends ActorDH2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        // Calculate per-location armour totals from equipped items (including craftsmanship)
+        // Calculate per-location armour: highest worn armour at each location (RAW: no stacking)
         const armour: Record<string, number> = { head: 0, rightArm: 0, leftArm: 0, body: 0, rightLeg: 0, leftLeg: 0 };
+        const armourSources: Record<string, { label: string; value: number }[]> = {
+            head: [], rightArm: [], leftArm: [], body: [], rightLeg: [], leftLeg: [],
+        };
+        // Track best worn armour per location (only highest counts)
+        const bestWorn: Record<string, { name: string; value: number }> = {
+            head: { name: "", value: 0 }, rightArm: { name: "", value: 0 },
+            leftArm: { name: "", value: 0 }, body: { name: "", value: 0 },
+            rightLeg: { name: "", value: 0 }, leftLeg: { name: "", value: 0 },
+        };
         for (const item of this.items) {
             if (item.type !== "armour") continue;
             const sys = item.system as any;
@@ -87,8 +96,17 @@ class AcolyteDH2e extends ActorDH2e {
             for (const loc of Object.keys(armour)) {
                 const baseAP = sys.locations?.[loc] ?? 0;
                 if (baseAP > 0 || craftBonus > 0) {
-                    armour[loc] += Math.max(0, baseAP + craftBonus);
+                    const val = Math.max(0, baseAP + craftBonus);
+                    if (val > bestWorn[loc].value) {
+                        bestWorn[loc] = { name: item.name!, value: val };
+                    }
                 }
+            }
+        }
+        for (const loc of Object.keys(armour)) {
+            if (bestWorn[loc].value > 0) {
+                armour[loc] = bestWorn[loc].value;
+                armourSources[loc].push({ label: bestWorn[loc].name, value: bestWorn[loc].value });
             }
         }
         (this.system as any).armour = armour;
@@ -157,16 +175,16 @@ class AcolyteDH2e extends ActorDH2e {
             }
         }
 
-        // Apply armour:all modifiers (Natural Armour, Machine, etc.)
+        // Apply armour:all modifiers (Natural Armour, Machine, etc.) — additive
         const armourMods = this.synthetics.modifiers["armour:all"] ?? [];
-        if (armourMods.length > 0) {
-            const bonus = armourMods.reduce((sum, m) => sum + m.value, 0);
+        for (const m of armourMods) {
             for (const loc of Object.keys(armour)) {
-                armour[loc] += bonus;
+                armour[loc] += m.value;
+                armourSources[loc].push({ label: m.label, value: m.value });
             }
         }
 
-        // Apply per-location armour modifiers (cybernetics: Cranial Armour, Subskin Armour, etc.)
+        // Apply per-location armour modifiers (cybernetics, etc.) — additive
         const locationKeys: Record<string, string> = {
             head: "armour:head",
             rightArm: "armour:rightArm",
@@ -177,10 +195,13 @@ class AcolyteDH2e extends ActorDH2e {
         };
         for (const [loc, domain] of Object.entries(locationKeys)) {
             const locMods = this.synthetics.modifiers[domain] ?? [];
-            if (locMods.length > 0) {
-                armour[loc] += locMods.reduce((sum, m) => sum + m.value, 0);
+            for (const m of locMods) {
+                armour[loc] += m.value;
+                armourSources[loc].push({ label: m.label, value: m.value });
             }
         }
+
+        (this.system as any).armourSources = armourSources;
     }
 
     /** Iterate all owned items, instantiate their REs, and call onPrepareData */

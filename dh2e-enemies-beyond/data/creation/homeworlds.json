@@ -17,6 +17,8 @@
         "wounds": 7,
         "aptitude": "Willpower",
         "homeSkill": "",
+        "skills": ["Psyniscience"],
+        "startingCorruption": "1d10+5",
         "bonus": "Touched by the Warp",
         "bonusDescription": "A Daemon world native begins with one Rank in the Psyniscience skill. Should he gain this skill again in a later step of character creation, he instead gains one additional Rank in the skill. Note that he cannot purchase more Ranks of this skill unless he acquires the Psyker aptitude. This character also begins with 1d10+5 Corruption points.",
         "description": "Citizens of the Imperium hail from all manner of dangerous planets and locations, but none rival the horrors of Daemon worlds. Chaos rules in these locations, and creatures of the Warp roam twisted landscapes made of nightmare and insanity. Those who live there are often reduced to amusing prey or tortured slaves for the Ruinous Powers, and survival is more than just staying alive—it is also a struggle to stay human."
@@ -39,6 +41,8 @@
         "wounds": 10,
         "aptitude": "Toughness",
         "homeSkill": "",
+        "skills": ["Common Lore (Underworld)", "Scrutiny"],
+        "talents": ["Peer (Criminal Cartels)"],
         "bonus": "Finger on the Pulse",
         "bonusDescription": "One survives a penal colony by instinctively knowing who is in charge and who is a threat. A penal colony character begins with one Rank in the Common Lore (Underworld) and Scrutiny skills, and starts with the Peer (Criminal Cartels) talent.",
         "description": "Holding the dregs of society and the most dangerous of criminals, these planets serve as little more than holding pens for bitterness, hatred, and violence, but stand ready as future tools for the Imperium's hands. Life on many penal colonies is extremely regimented and heavily monitored. Those who survive and emerge from this environment stronger and more defined are often the kind needed by both Inquisitors and the Imperial Guard."

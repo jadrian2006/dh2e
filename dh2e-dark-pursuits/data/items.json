@@ -1,0 +1,101 @@
+[
+    {
+        "name": "Investigate Lans Guljian",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Investigate the erratic behaviour of the lesser noble Lans Guljian. Visit Hesentanz Manor in the Apex, examine the circumstances of his madness, and determine the source of the xenos artefact&mdash;the black orb&mdash;that has driven him insane. Recover the orb and follow any leads to its supplier.</p>",
+            "source": "core-rulebook",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Find Zax Holthane",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Trace the xenos artefact trade from the Babyfaces gang at the Screaming Wheel cantina to their supplier, the Sable Trader <strong>Zax Holthane</strong>, operating out of Three Stakes' Rest. Capture or interrogate Holthane to discover the source of the smuggled goods and the details of incoming shipments.</p>",
+            "source": "core-rulebook",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Investigate Port Gyre",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Proceed to Port Gyre and investigate the corruption within the port authority. Identify the official responsible for doctoring shuttle landing records&mdash;Prefect Gaius Anteshern&mdash;and determine the time and location of the next incoming smuggler's shuttle.</p>",
+            "source": "core-rulebook",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Intercept the Shipment",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>Intercept Arvus Lighter 341 Beta-Sky at Landing Platform Tertius-9. Whether by shooting it down, boarding it on arrival, or observing covertly, prevent the delivery of proscribed cargo to the arch-heretek Somnius Halbrel. Recover or destroy all xenos artefacts aboard.</p>",
+            "source": "core-rulebook",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Hunt the Daemonhost",
+        "type": "objective",
+        "img": "systems/dh2e/icons/items/objective.svg",
+        "system": {
+            "description": "<p>The Daemonhost Suvfaeras has escaped into the deep tunnels beneath Port Gyre. Track it through the Underport before it regains full strength, while contending with the arch-heretek Halbrel's forces who pursue it for their own vile purposes. Destroy or banish the Daemonhost at all costs.</p>",
+            "source": "core-rulebook",
+            "status": "active",
+            "assignedBy": "",
+            "timestamp": 0,
+            "completedTimestamp": 0,
+            "scope": "warband",
+            "format": "parchment"
+        }
+    },
+    {
+        "name": "Black Orb",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "<p>A perfectly smooth black orb, heavy and cold to the touch, about the size of a clenched fist. It never rolls&mdash;when placed on a slanted surface, it slides, but its orientation never changes. Of clearly xenos origin and potentially millions of years old.</p><p>After carrying the orb for a few hours, the bearer experiences visions of a vast and barren alien landscape, studded with massive and bizarre structures. This requires a <strong>Fear (1)</strong> test. Visions repeat at irregular intervals and continue as long as the bearer is in proximity to the orb. A psyker can sense the stink of the Warp on a <strong>Routine (+20) Psyniscience</strong> test.</p><p>The orb is extremely dangerous and should be recovered for the Inquisitor.</p>",
+            "weight": 1,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "core-rulebook"
+        }
+    },
+    {
+        "name": "Mummified Alien Hand",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "<p>A small box of black metal containing what appears to be the mummified hand of an alien creature, with three clawed fingers. Found hidden beneath a floor grate in Holthane's manufactorum.</p><p>The hand is of no obvious function but is clearly of xenos origin, linking Holthane to the Trade Sable. If brought within half a metre of the black orb from Guljian's study, the hand twitches slightly.</p><p>The hand should be recovered and turned over to the Inquisitor for examination.</p>",
+            "weight": 0.5,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "core-rulebook"
+        }
+    }
+]

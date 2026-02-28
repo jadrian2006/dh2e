@@ -1,0 +1,68 @@
+[
+    {
+        "name": "Adepta Sororitas Power Armour",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Sacred power armour worn by the Sisters of Battle. Grants Unnatural Strength (1), and the wearer always counts as braced. Unlike Space Marine power armour, it does not increase the wearer's Size. Adepta Sororitas background only.",
+            "locations": {
+                "head": 7,
+                "rightArm": 7,
+                "leftArm": 7,
+                "body": 7,
+                "rightLeg": 7,
+                "leftLeg": 7
+            },
+            "maxAgility": 50,
+            "qualities": [],
+            "weight": 35,
+            "equipped": false,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Praetor Armour",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Advanced carapace armour with integral respirator, comm-link, photo-visor, targeter, recoil suppression sleeves, and magnetic harness (holds 1 basic weapon). Non-Adeptus Mechanicus wearers gain Enemy (Adeptus Mechanicus).",
+            "locations": {
+                "head": 6,
+                "rightArm": 6,
+                "leftArm": 6,
+                "body": 6,
+                "rightLeg": 6,
+                "leftLeg": 6
+            },
+            "maxAgility": 50,
+            "qualities": [],
+            "weight": 16,
+            "equipped": false,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Mouldsuit",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "An environmental suit with triple-redundant filtration. The wearer is immune to mind-mould effects (unless a Psyker), gains +40 to Toughness tests against harmful gasses, and +10 against extreme temperatures and fire. The integral rebreather lasts 5 hours. Can be worn over armour. The suit loses its filtering properties if the wearer takes 5 or more damage from a single attack.",
+            "locations": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "maxAgility": 40,
+            "qualities": [],
+            "weight": 10,
+            "equipped": false,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    }
+]

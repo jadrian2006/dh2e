@@ -10,17 +10,18 @@
         ],
         "talents": [
             "Hatred (Daemons)",
-            "Weapon Training (Solid Projectile, Chain)"
+            "Weapon Training (Solid Projectile)",
+            "Weapon Training (Chain)"
         ],
         "equipment": [
-            "Autopistol or stub revolver",
-            "shotgun",
-            "chainblade",
-            "Imperial robes",
-            "3 doses of obscura or tranq",
-            "disguise kit or excruciator kit",
-            "rebreather",
-            "stablight or glow-globe"
+            "Autopistol or Stub Revolver",
+            "Shotgun",
+            "Chainblade",
+            "Imperial Robes",
+            "3 doses of Obscura or Tranq",
+            "Disguise Kit or Excruciator Kit",
+            "Rebreather",
+            "Glow-globe/Stab-light"
         ],
         "aptitude": "Defence or Knowledge",
         "bonus": "Touched by a Daemon",

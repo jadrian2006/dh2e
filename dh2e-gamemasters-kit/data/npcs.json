@@ -1,0 +1,1203 @@
+[
+    {
+        "name": "Ferrue Fayne, the Pestifex",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 38, "advances": 0 },
+                "bs": { "base": 30, "advances": 0 },
+                "s": { "base": 35, "advances": 0 },
+                "t": { "base": 41, "advances": 0 },
+                "ag": { "base": 31, "advances": 0 },
+                "int": { "base": 42, "advances": 0 },
+                "per": { "base": 47, "advances": 0 },
+                "wp": { "base": 52, "advances": 0 },
+                "fel": { "base": 39, "advances": 0 }
+            },
+            "wounds": { "value": 23, "max": 23 },
+            "fate": { "value": 2, "max": 2 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 41,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 2,
+                "leftArm": 2,
+                "body": 2,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Master",
+                "divination": "",
+                "notes": "<p>Obsessed with power, the middle of the Fayne brothers has latched onto using mysterious xenos artefacts to bolster his own splinter cult, the Blessed Flesh. With his younger brother dead and his elder brother Tormus seemingly ignoring him, Ferrue is ready to launch a major ritual that could bring the hive to its knees.</p><p><strong>Psy Rating:</strong> 4 (3 when he does not possess the xenos artefact).</p><p><strong>Psychic Powers:</strong> Endurance, Enfeeble, Life Leech, Nurgle's Rot.</p>"
+            },
+            "source": "gamemasters-kit"
+        },
+        "items": [
+            {
+                "name": "Stub Revolver",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "ranged",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+3", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 6, "max": 6 },
+                    "reload": "2Full",
+                    "weight": 1.5,
+                    "qualities": ["Reliable"],
+                    "equipped": true,
+                    "weaponGroup": "solid-projectile",
+                    "craftsmanship": "common",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Force Staff",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+PR+SB", "type": "energy", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 2,
+                    "qualities": ["Force"],
+                    "equipped": true,
+                    "weaponGroup": "force",
+                    "craftsmanship": "common",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "fel",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Deceive",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "fel",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Dodge",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "ag",
+                    "advances": 0,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Awareness",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "per",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Psyniscience",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "per",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Bastion of Iron Will",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Deceptive",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Resistance (Disease)",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": true,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Resistance (Psychic Powers)",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": true,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Strong Minded",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Psyker",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "Psy Rating 4 (3 without xenos artefact).",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 4,
+                    "category": "warp",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Touched by the Fates (2)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 2,
+                    "category": "mental",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Unnatural Toughness (2)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 2,
+                    "category": "physical",
+                    "source": "gamemasters-kit"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Animated Corpses",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 25, "advances": 0 },
+                "bs": { "base": 0, "advances": 0 },
+                "s": { "base": 33, "advances": 0 },
+                "t": { "base": 41, "advances": 0 },
+                "ag": { "base": 21, "advances": 0 },
+                "int": { "base": 4, "advances": 0 },
+                "per": { "base": 12, "advances": 0 },
+                "wp": { "base": 15, "advances": 0 },
+                "fel": { "base": 0, "advances": 0 }
+            },
+            "wounds": { "value": 7, "max": 7 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "notes": "<p>Underhive tales are already spreading about the maggot-men, though many hold them as the result of too many bottles of sump-sweat. Ferrue's minor animations having been successful, he is now ready to unleash hordes of these shambling dead across the hive starting with its lower reaches.</p><p><strong>Mindless:</strong> Animated Corpses cannot be reasoned with, intimidated, or affected by Fellowship-based tests. They follow simple commands from their creator and attack all others on sight.</p>"
+            },
+            "source": "gamemasters-kit"
+        },
+        "items": [
+            {
+                "name": "Rusted Blades",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d5+SB", "type": "rending", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 1,
+                    "qualities": [],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "poor",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "From Beyond",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": false,
+                    "rating": 0,
+                    "category": "warp",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Fear (1)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 1,
+                    "category": "mental",
+                    "source": "gamemasters-kit"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Oath-Captain Kaytian Nils",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 41, "advances": 0 },
+                "bs": { "base": 44, "advances": 0 },
+                "s": { "base": 33, "advances": 0 },
+                "t": { "base": 39, "advances": 0 },
+                "ag": { "base": 32, "advances": 0 },
+                "int": { "base": 36, "advances": 0 },
+                "per": { "base": 38, "advances": 0 },
+                "wp": { "base": 36, "advances": 0 },
+                "fel": { "base": 28, "advances": 0 }
+            },
+            "wounds": { "value": 12, "max": 12 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 4,
+                "rightArm": 4,
+                "leftArm": 4,
+                "body": 4,
+                "rightLeg": 4,
+                "leftLeg": 4
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "<p>Tough and determined, Kaytian Nils knows her latest posting to the Gallowsway is possibly a punishment for her prosecutions against several crooked (but connected) merchants in the Main Hive. The recent mass killing is beyond her scope, though, and if she can see it resolved, it could mean a better posting&mdash;or at least a better smelling one.</p><p><strong>Dispassionate:</strong> All skill tests made to socially interact with the Sanctionary suffer a &minus;20 penalty.</p>"
+            },
+            "source": "gamemasters-kit"
+        },
+        "items": [
+            {
+                "name": "Shotgun",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "ranged",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 8, "max": 8 },
+                    "reload": "2Full",
+                    "weight": 5,
+                    "qualities": ["Scatter"],
+                    "equipped": true,
+                    "weaponGroup": "solid-projectile",
+                    "craftsmanship": "common",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Shock Maul",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+3+SB", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 2.5,
+                    "qualities": ["Shocking"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Awareness",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "per",
+                    "advances": 20,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Common Lore (Underworld)",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "int",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Inquiry",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "fel",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Interrogation",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "wp",
+                    "advances": 0,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Navigate (Surface)",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "int",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Scrutiny",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "per",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Tech-Use",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "int",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Die Hard",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Disarm",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Iron Jaw",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Keen Intuition",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Takedown",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Vornas Crimson, Gang Leader",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 49, "advances": 0 },
+                "bs": { "base": 33, "advances": 0 },
+                "s": { "base": 36, "advances": 0 },
+                "t": { "base": 41, "advances": 0 },
+                "ag": { "base": 33, "advances": 0 },
+                "int": { "base": 32, "advances": 0 },
+                "per": { "base": 38, "advances": 0 },
+                "wp": { "base": 30, "advances": 0 },
+                "fel": { "base": 33, "advances": 0 }
+            },
+            "wounds": { "value": 13, "max": 13 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 3,
+                "leftArm": 3,
+                "body": 4,
+                "rightLeg": 3,
+                "leftLeg": 3
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "notes": "<p>Like all Fleshcutters, Vornas is enamoured of bladed weapons. His wit is equally cutting, and he relishes his rule over Gantry and the many blood sports it offers. It is slowly becoming less enthralling, however, and he feels after one final victory it might be time to move on to a fresh area.</p><p><strong>Battlefield Coordination:</strong> Once per round, as a Half Action, Vornas can make an Ordinary (+10) Command test to coordinate the efforts of his allies. If he succeeds, up to 3 allies in line of sight and earshot can immediately make an out-of-turn Move action (taken as a Half Action).</p>"
+            },
+            "source": "gamemasters-kit"
+        },
+        "items": [
+            {
+                "name": "Bolt Pistol",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "ranged",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 2, "full": 0 },
+                    "damage": { "formula": "1d10+5", "type": "explosive", "bonus": 0 },
+                    "penetration": 4,
+                    "magazine": { "value": 8, "max": 8 },
+                    "reload": "1Full",
+                    "weight": 3.5,
+                    "qualities": ["Tearing"],
+                    "equipped": true,
+                    "weaponGroup": "bolt",
+                    "craftsmanship": "common",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Power Sword",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+5+SB", "type": "energy", "bonus": 0 },
+                    "penetration": 5,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 3,
+                    "qualities": ["Balanced", "Power Field"],
+                    "equipped": true,
+                    "weaponGroup": "power",
+                    "craftsmanship": "common",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Athletics",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "s",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Charm",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "fel",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "fel",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Common Lore (Underworld)",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "int",
+                    "advances": 20,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Intimidate",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "s",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Blind Fighting",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Combat Master",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Halo of Command",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Jaded",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Precision Killer (Weapon Skill)",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": true,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Red Walk Gangers",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 44, "advances": 0 },
+                "bs": { "base": 21, "advances": 0 },
+                "s": { "base": 33, "advances": 0 },
+                "t": { "base": 28, "advances": 0 },
+                "ag": { "base": 33, "advances": 0 },
+                "int": { "base": 26, "advances": 0 },
+                "per": { "base": 30, "advances": 0 },
+                "wp": { "base": 27, "advances": 0 },
+                "fel": { "base": 33, "advances": 0 }
+            },
+            "wounds": { "value": 6, "max": 6 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 3,
+                "leftArm": 3,
+                "body": 3,
+                "rightLeg": 3,
+                "leftLeg": 3
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "notes": "<p>Fleshcutters all, the members of the Red Walk live for bladed combat. Little do they know, they are about to face the greatest battle of their lives.</p><p><strong>Crimson's Cutters:</strong> At the GM's discretion, some of these gangers can be armed with chainaxes or chainswords.</p>"
+            },
+            "source": "gamemasters-kit"
+        },
+        "items": [
+            {
+                "name": "Sword",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+SB", "type": "rending", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 3,
+                    "qualities": ["Balanced"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Acrobatics",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "ag",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Intimidate",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "s",
+                    "advances": 10,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Combat Master",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Aynthrexes, Herald of Nurgle",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 61, "advances": 0 },
+                "bs": { "base": 33, "advances": 0 },
+                "s": { "base": 58, "advances": 0 },
+                "t": { "base": 70, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 },
+                "int": { "base": 51, "advances": 0 },
+                "per": { "base": 42, "advances": 0 },
+                "wp": { "base": 51, "advances": 0 },
+                "fel": { "base": 17, "advances": 0 }
+            },
+            "wounds": { "value": 37, "max": 37 },
+            "fate": { "value": 2, "max": 2 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 0,
+                "leftArm": 0,
+                "body": 0,
+                "rightLeg": 0,
+                "leftLeg": 0
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Master",
+                "divination": "",
+                "notes": "<p>Aynthrexes hears the Warp-ripples of Ferrue's call, and eagerly looks forward to sharing Father Nurgle's delights with mortals across Hive Desoleum. With each soul he devours, he gains in pestilent strength.</p><p><strong>Newly Summoned:</strong> Aynthrexes is fresh from the Warp, and so his power levels are lower than a fully-strengthened Herald. The GM should feel free to adjust his powers if desired to properly challenge the Acolytes and their allies.</p><p><strong>Embodiment of Decay:</strong> Mere exposure to Aynthrexes' presence can rust and degrade even the strongest materials. While within 10 metres of the Herald, all equipment, weaponry, and armour functions as though it were Poor craftsmanship, regardless of its actual craftsmanship.</p><p><strong>Nauseating:</strong> A character who fails a Fear test against Aynthrexes does not roll on Table 8&ndash;11: Shock. Instead, the character is Stunned for one round per degree of failure, as he doubles over and retches uncontrollably. The character still suffers all other effects of failing a Fear test, such as possibly gaining Insanity points. If the character succeeds on the Fear test, he suffers one level of Fatigue.</p><p><strong>Psychic Powers:</strong> Enfeeble, Haemorrhage, Iron Arm, Life Leech, Nurgle's Rot.</p>"
+            },
+            "source": "gamemasters-kit"
+        },
+        "items": [
+            {
+                "name": "Boneclub",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "A massive club formed from fused bone and corroded metal, dripping with foul ichor.",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+17+SB", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 18,
+                    "qualities": ["Corrosive", "Toxic (3)"],
+                    "equipped": true,
+                    "weaponGroup": "low-tech",
+                    "craftsmanship": "common",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Athletics",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "ag",
+                    "advances": 20,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Psyniscience",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "description": "",
+                    "characteristic": "per",
+                    "advances": 20,
+                    "aptitude": "",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Combat Master",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Iron Jaw",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 1,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Killing Strike",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "True Grit",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Thunder Charge",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "",
+                    "tier": 2,
+                    "aptitudes": [],
+                    "prerequisites": "",
+                    "specialist": false,
+                    "rules": [],
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Baneful Presence (20)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 20,
+                    "category": "warp",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Daemonic (4)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 4,
+                    "category": "warp",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Fear (3)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 3,
+                    "category": "mental",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "From Beyond",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": false,
+                    "rating": 0,
+                    "category": "warp",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Nauseating",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "A character who fails a Fear test against this creature does not roll on Table 8-11: Shock. Instead, the character is Stunned for one round per degree of failure. If the character succeeds on the Fear test, he suffers one level of Fatigue.",
+                    "rules": [],
+                    "hasRating": false,
+                    "rating": 0,
+                    "category": "physical",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Psyker",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 5,
+                    "category": "warp",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Size (5)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 5,
+                    "category": "physical",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Touched by the Fates (2)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 2,
+                    "category": "mental",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Unnatural Strength (3)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 3,
+                    "category": "physical",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Unnatural Toughness (3)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 3,
+                    "category": "physical",
+                    "source": "gamemasters-kit"
+                }
+            },
+            {
+                "name": "Unnatural Willpower (2)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/default-icons/trait.svg",
+                "system": {
+                    "description": "",
+                    "rules": [],
+                    "hasRating": true,
+                    "rating": 2,
+                    "category": "mental",
+                    "source": "gamemasters-kit"
+                }
+            }
+        ]
+    }
+]

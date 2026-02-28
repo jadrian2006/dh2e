@@ -1,0 +1,92 @@
+[
+    {
+        "name": "Hesentanz Manor",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 3000,
+        "height": 3000,
+        "initial": { "x": 1500, "y": 1500, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 1,
+                "description": "The crumbling manse of the Guljian family at the lowest level of the Apex. Three storeys of faded opulence — dust-covered paintings, verdigris-coated brass sculptures, tinted lamps. Guljian's study on the third floor is the scene of horror: scattered books, overturned furniture, and the black orb sitting atop the desk."
+            }
+        }
+    },
+    {
+        "name": "The Screaming Wheel",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 2000,
+        "height": 2000,
+        "initial": { "x": 1000, "y": 1000, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 1,
+                "description": "A rough, windowless cantina in the lower Main Hive. Accessible from a less-than-sturdy gantry, with a rusted ladder leading up to a wide thoroughfare twenty metres above. Inside: weak glow-globes, chemical lumen-signs, stale lho-smoke, pounding music from a tinny vox system. The Babyfaces hold court at a table in the back."
+            }
+        }
+    },
+    {
+        "name": "Holthane's Manufactorum",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 4000,
+        "height": 3000,
+        "initial": { "x": 2000, "y": 1500, "scale": 0.75 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 1,
+                "description": "An abandoned manufactorum in Three Stakes' Rest, ready to collapse at any moment. No functioning lights — rusted equipment and machinery of all shapes creates a maze. Crates and lockers of illicit goods, precarious catwalks criss-crossing above, portable lamps casting stark shadows. A volatile promethium tank lurks among the dead machinery."
+            }
+        }
+    },
+    {
+        "name": "Landing Platform Tertius-9",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 4000,
+        "height": 3000,
+        "initial": { "x": 2000, "y": 1500, "scale": 0.75 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 2,
+                "description": "An open landing platform at Port Gyre, scorched by centuries of orbital jets. The Arvus Lighter 341 Beta-Sky descends here. Cargo lifts lead down to the loading tunnels beneath. Massive floodlamps illuminate the platform, casting flickering shadows. Warning flashes and engine flares from other pads light the perpetual smog."
+            }
+        }
+    },
+    {
+        "name": "The Underport",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 4000,
+        "height": 4000,
+        "initial": { "x": 2000, "y": 2000, "scale": 0.5 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 3,
+                "description": "The deep tunnels beneath Port Gyre — vast warrens of interconnecting passages, chambers, lifts, and storage depots long since abandoned. Many corridors without power, others dimly lit by flickering lumen-globes or unknown torches. Dripping liquids, distant animalistic screams, millennia of rust and corrosion. Desiccated corpses, collapsed tunnels, and shanty towns of stranded voidsmen descendants."
+            }
+        }
+    },
+    {
+        "name": "Final Battle Chamber",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 3000,
+        "height": 3000,
+        "initial": { "x": 1500, "y": 1500, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 3,
+                "description": "A vast chamber deep in the Underport where the three-way battle between the Acolytes, Suvfaeras, and Halbrel's forces takes place. Ancient crates and machine parts provide cover. Crumbling hatchways and bottomless cracks in the flooring offer escape routes. The Daemonhost's presence warps reality — hoarfrost on the walls, the smell of burnt flesh, Warp-light in its terrible eyes."
+            }
+        }
+    }
+]

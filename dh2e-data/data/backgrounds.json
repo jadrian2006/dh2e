@@ -7,7 +7,7 @@
             "description": "The great bureaucracy of tithes and tallies that holds the Imperium together and keeps it running; they keep the lore, histories, and secrets of a million worlds so that the Imperium might prosper.",
             "skills": [
                 "Commerce or Medicae",
-                "Common Lore (Adeptus Administratum)",
+                "Common Lore (Administratum)",
                 "Linguistics (High Gothic)",
                 "Logic",
                 "Scholastic Lore (pick one)"
@@ -63,7 +63,7 @@
                 "Awareness",
                 "Common Lore (Adeptus Astra Telepathica)",
                 "Deceive or Interrogation",
-                "Forbidden Lore (the Warp)",
+                "Forbidden Lore (The Warp)",
                 "Psyniscience or Scrutiny"
             ],
             "talents": [
@@ -118,7 +118,7 @@
             "skills": [
                 "Charm",
                 "Command",
-                "Common Lore (Adeptus Ministorum)",
+                "Common Lore (Ecclesiarchy)",
                 "Inquiry or Scrutiny",
                 "Linguistics (High Gothic)"
             ],

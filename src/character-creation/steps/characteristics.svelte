@@ -16,6 +16,7 @@
         woundsRoll = $bindable<number | null>(null),
         woundsRollCount = $bindable<number>(0),
         fateRoll = $bindable<number | null>(null),
+        corruptionRoll = $bindable<number | null>(null),
         charRolled = $bindable<Record<string, boolean>>(),
         charRerollUsed = $bindable<boolean>(false),
         charRerolledFrom = $bindable<Record<string, number | undefined>>(),
@@ -31,6 +32,7 @@
         woundsRoll: number | null;
         woundsRollCount: number;
         fateRoll: number | null;
+        corruptionRoll: number | null;
         charRolled: Record<string, boolean>;
         charRerollUsed: boolean;
         charRerolledFrom: Record<string, number | undefined>;
@@ -261,7 +263,24 @@
         }
     }
 
-    // Reset wounds & fate state only when homeworld actually changes (not on mount)
+    // --- Starting Corruption rolling (Daemon World: 1d10+5) ---
+
+    const hasCorruptionRoll = $derived(!!homeworld?.startingCorruption);
+    let corruptionRolling = $state(false);
+
+    async function rollCorruption() {
+        if (corruptionRoll !== null || !homeworld?.startingCorruption) return;
+        corruptionRolling = true;
+        try {
+            const roll = new Roll(homeworld.startingCorruption);
+            await roll.evaluate();
+            corruptionRoll = roll.total ?? 0;
+        } finally {
+            corruptionRolling = false;
+        }
+    }
+
+    // Reset wounds, fate & corruption state only when homeworld actually changes (not on mount)
     let prevHomeworldName: string | null | undefined = homeworld?.name;
     $effect(() => {
         const currentName = homeworld?.name;
@@ -269,6 +288,7 @@
             woundsRoll = null;
             woundsRollCount = 0;
             fateRoll = null;
+            corruptionRoll = null;
         }
         prevHomeworldName = currentName;
     });
@@ -423,6 +443,27 @@
                 {/if}
             </div>
         </div>
+
+        <!-- Starting Corruption (Daemon World only) -->
+        {#if hasCorruptionRoll}
+            <div class="vital-col corruption">
+                <h4 class="section-label">Starting Corruption</h4>
+                <div class="vital-body">
+                    {#if corruptionRoll !== null}
+                        <span class="vital-value corruption-val">{corruptionRoll}</span>
+                        <span class="vital-sub">{homeworld?.startingCorruption}</span>
+                        <span class="vital-detail">Corruption Points</span>
+                    {:else}
+                        <span class="vital-value dim">?</span>
+                        <span class="vital-sub">{homeworld?.startingCorruption}</span>
+                        <button class="btn roll-vital-btn corruption-btn" type="button"
+                            onclick={rollCorruption} disabled={corruptionRolling}>
+                            Roll Corruption
+                        </button>
+                    {/if}
+                </div>
+            </div>
+        {/if}
     </div>
 
     {#if isRolled}
@@ -920,7 +961,8 @@
         align-items: center;
         justify-content: center;
         gap: 2px;
-        padding: var(--dh2e-space-xs, 0.25rem);
+        min-height: 5.5rem;
+        padding: var(--dh2e-space-sm, 0.5rem) var(--dh2e-space-xs, 0.25rem);
         background: var(--dh2e-bg-mid, #2e2e35);
         border: 1px solid var(--dh2e-border, #4a4a55);
         border-radius: 3px;
@@ -963,6 +1005,17 @@
         font-weight: 700;
         &:hover { background: var(--dh2e-gold, #c8a84e); }
         &:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        &.corruption-btn {
+            background: #6a2a3a;
+            border-color: #9a4a5a;
+            color: #e0d0d0;
+            &:hover { background: #8a3a4a; }
+        }
+    }
+
+    .corruption-val {
+        color: #d04060 !important;
     }
 
     .dice-total {

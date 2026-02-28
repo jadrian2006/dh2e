@@ -1,0 +1,92 @@
+[
+    {
+        "name": "Charnel House 17",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 3000,
+        "height": 2000,
+        "initial": { "x": 1500, "y": 1000, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 1,
+                "description": "A crumbling Carrion Guild warehouse in the Gallowsway, bearing a façade of huge weathered faces. Within, rows of stone slabs bear the dead. The crime scene occupies the main hall — seventeen bodies in a tangle, many weeks old despite the recent murders. Dim lumen-strips, chemical preservative smell, corroded metal surfaces."
+            }
+        }
+    },
+    {
+        "name": "The Drains",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 4000,
+        "height": 2000,
+        "initial": { "x": 2000, "y": 1000, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 1,
+                "description": "Ancient drainage tunnels beneath the Gallowsway. Dark, cramped, and foul-smelling. Used by bonepickers, scavengers, and the Blessed Flesh cult to transport stolen corpses. Without a light source, –30 to Perception-based tests. Occasional vermin and mutant creatures."
+            }
+        }
+    },
+    {
+        "name": "Gantry Settlement",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 4000,
+        "height": 3000,
+        "initial": { "x": 2000, "y": 1500, "scale": 0.75 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 2,
+                "description": "A rogue settlement built on rusted gantries and catwalks above the sump-river. Red Walk gang territory marked by crimson graffiti. Multiple levels connected by precarious walkways. The Knife Lock pit arena occupies the central platform. Poor lighting, heavy shadows, the constant drip of condensation."
+            }
+        }
+    },
+    {
+        "name": "The Red Sky Ship",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 3000,
+        "height": 2000,
+        "initial": { "x": 1500, "y": 1000, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 2,
+                "description": "Vornas Crimson's headquarters — a decommissioned cargo hauler suspended above the sump-river by rusted chains. Interior has been converted into a gang hall with trophy weapons on the walls, a crude command table, and living quarters. Red-painted metal surfaces throughout."
+            }
+        }
+    },
+    {
+        "name": "Blessed Flesh Hideout",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 4000,
+        "height": 3000,
+        "initial": { "x": 2000, "y": 1500, "scale": 0.75 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 3,
+                "description": "The Blessed Flesh cult's lair hidden within a massive archeotech construction platform rising from the toxic sump-river. Multiple levels connected by corroded staircases. Vats of preservative chemicals, reanimation chambers, and cages of animated corpses. Pervasive smell of decay and chemical preservatives."
+            }
+        }
+    },
+    {
+        "name": "Summoning Chamber",
+        "background": { "src": null },
+        "grid": { "type": 1, "size": 100, "distance": 5, "units": "ft" },
+        "width": 3000,
+        "height": 3000,
+        "initial": { "x": 1500, "y": 1500, "scale": 1 },
+        "environment": {},
+        "flags": {
+            "dh2e": {
+                "chapter": 3,
+                "description": "The heart of the Blessed Flesh lair. A vast circular chamber with the xenos artefact mounted on a corroded altar at its centre. Ritual circles inscribed on the floor in a mixture of blood and chemical preservatives. Green-tinged warp light pulses from the artefact. When the summoning begins, reality fractures and the walls weep with corruption."
+            }
+        }
+    }
+]

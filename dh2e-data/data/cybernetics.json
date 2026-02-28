@@ -4,12 +4,14 @@
         "type": "cybernetic",
         "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
         "system": {
-            "description": "A mechanical replacement for a lost arm. Common models restore normal function, while higher-quality versions can enhance Strength. Best-craftsmanship bionic arms grant +10 to Strength tests made with that arm.",
+            "description": "A mechanical replacement for a lost arm. Common models restore normal function, while higher-quality versions can enhance Strength. Best-craftsmanship bionic arms grant +10 to Strength tests made with that arm. Provides 2 AP to the replaced arm location.",
             "location": "Arm",
             "type": "replacement",
             "grade": "common",
             "rules": [
-                { "key": "RollOption", "option": "cybernetic:bionic-arm", "label": "Bionic Arm" }
+                { "key": "RollOption", "option": "cybernetic:bionic-arm", "label": "Bionic Arm" },
+                { "key": "FlatModifier", "domain": "armour:rightArm", "value": 2, "label": "Bionic Arm", "source": "equipment" },
+                { "key": "FlatModifier", "domain": "armour:leftArm", "value": 2, "label": "Bionic Arm", "source": "equipment" }
             ],
             "installed": false,
             "weight": 4,
@@ -21,12 +23,14 @@
         "type": "cybernetic",
         "img": "systems/dh2e/icons/default-icons/cybernetic.svg",
         "system": {
-            "description": "A mechanical replacement for a lost leg. Common models restore normal movement, while higher-quality versions can improve Agility-based movement. Best-craftsmanship bionic legs grant +10 to Agility tests involving movement.",
+            "description": "A mechanical replacement for a lost leg. Common models restore normal movement, while higher-quality versions can improve Agility-based movement. Best-craftsmanship bionic legs grant +10 to Agility tests involving movement. Provides 2 AP to the replaced leg location.",
             "location": "Leg",
             "type": "replacement",
             "grade": "common",
             "rules": [
-                { "key": "RollOption", "option": "cybernetic:bionic-leg", "label": "Bionic Leg" }
+                { "key": "RollOption", "option": "cybernetic:bionic-leg", "label": "Bionic Leg" },
+                { "key": "FlatModifier", "domain": "armour:rightLeg", "value": 2, "label": "Bionic Leg", "source": "equipment" },
+                { "key": "FlatModifier", "domain": "armour:leftLeg", "value": 2, "label": "Bionic Leg", "source": "equipment" }
             ],
             "installed": false,
             "weight": 5,

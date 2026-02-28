@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320">
+  <!-- Crusader: iron halo, massive pauldrons, power armour, imposing stance -->
+  <g fill="#1a1a22" stroke="none">
+    <!-- Iron Halo (spiked ring behind head) -->
+    <circle cx="100" cy="22" r="18" fill="none" stroke="#1a1a22" stroke-width="3"/>
+    <!-- Halo spikes -->
+    <polygon points="100,0 97,8 103,8"/>
+    <polygon points="118,10 114,16 118,18"/>
+    <polygon points="82,10 86,16 82,18"/>
+    <polygon points="115,22 112,28 118,28"/>
+    <polygon points="85,22 88,28 82,28"/>
+    <polygon points="112,34 108,36 114,38"/>
+    <polygon points="88,34 92,36 86,38"/>
+    <!-- Central top spike (taller) -->
+    <polygon points="100,-4 96,6 104,6"/>
+
+    <!-- Helmet (rounded, heavy) -->
+    <path d="M82 18 Q78 24 78 34 Q78 46 84 50 Q92 56 100 56 Q108 56 116 50 Q122 46 122 34 Q122 24 118 18 Q112 12 100 12 Q88 12 82 18Z"/>
+    <!-- Visor grille -->
+    <rect x="86" y="34" width="28" height="5" rx="2" fill="#0d0d14"/>
+    <rect x="86" y="41" width="28" height="2" rx="1" fill="#0d0d14"/>
+
+    <!-- Thick gorget/neck -->
+    <path d="M88 54 L86 62 Q92 66 100 66 Q108 66 114 62 L112 54Z"/>
+
+    <!-- Massive pauldrons — left (viewer's right) -->
+    <path d="M120 60 Q138 56 156 58 Q168 60 170 70 Q170 82 160 88 Q148 92 132 86 Q122 80 120 72Z"/>
+    <!-- Pauldron spikes left -->
+    <polygon points="156,54 152,62 158,64"/>
+    <polygon points="166,58 162,66 168,68"/>
+    <polygon points="148,54 146,62 150,62"/>
+
+    <!-- Massive pauldrons — right (viewer's left) -->
+    <path d="M80 60 Q62 56 44 58 Q32 60 30 70 Q30 82 40 88 Q52 92 68 86 Q78 80 80 72Z"/>
+    <!-- Pauldron spikes right -->
+    <polygon points="44,54 48,62 42,64"/>
+    <polygon points="34,58 38,66 32,68"/>
+    <polygon points="52,54 54,62 50,62"/>
+
+    <!-- Broad armoured torso -->
+    <path d="M68 66 Q62 80 60 100 Q58 120 60 140 Q62 156 80 164 L120 164 Q138 156 140 140 Q142 120 140 100 Q138 80 132 66 Q120 62 100 62 Q80 62 68 66Z"/>
+
+    <!-- Imperial Aquila on chest (simplified eagle wings + skull) -->
+    <g fill="#0d0d14" opacity="0.4">
+      <!-- Eagle wings -->
+      <path d="M76 96 Q84 88 100 86 Q116 88 124 96 Q116 94 100 92 Q84 94 76 96Z"/>
+      <path d="M78 100 Q86 94 100 92 Q114 94 122 100 Q114 98 100 96 Q86 98 78 100Z"/>
+      <!-- Skull center -->
+      <circle cx="100" cy="96" r="4"/>
+    </g>
+
+    <!-- Belt line -->
+    <rect x="72" y="158" width="56" height="8" rx="2"/>
+    <!-- Belt buckle -->
+    <rect x="94" y="156" width="12" height="12" rx="2" fill="#0d0d14"/>
+    <!-- Belt pouches -->
+    <rect x="74" y="160" width="8" height="10" rx="1"/>
+    <rect x="118" y="160" width="8" height="10" rx="1"/>
+
+    <!-- Right Arm (viewer's left, hand on hip) -->
+    <path d="M68 72 Q52 84 42 100 Q36 116 38 136 Q40 148 46 152 Q52 150 52 142 Q52 126 50 112 Q54 96 64 84Z"/>
+    <!-- Right forearm/gauntlet -->
+    <path d="M46 136 Q42 146 44 156 Q46 162 52 160 Q56 156 54 148 Q52 140 50 136Z"/>
+
+    <!-- Left Arm (viewer's right, holding weapon) -->
+    <path d="M132 72 Q148 84 158 100 Q164 116 162 136 Q160 148 154 152 Q148 150 148 142 Q148 126 150 112 Q146 96 136 84Z"/>
+    <!-- Left forearm/gauntlet -->
+    <path d="M154 136 Q158 146 156 156 Q154 162 148 160 Q144 156 146 148 Q148 140 150 136Z"/>
+
+    <!-- Weapon (sword held downward, left hand) -->
+    <rect x="150" y="148" width="4" height="56" rx="1"/>
+    <!-- Sword crossguard -->
+    <rect x="146" y="146" width="12" height="4" rx="1"/>
+    <!-- Sword pommel -->
+    <circle cx="152" cy="144" r="3"/>
+
+    <!-- Left Leg (viewer's right, wide stance) -->
+    <path d="M106 164 Q112 190 116 220 Q118 244 120 268 Q122 284 120 296 Q118 308 112 312 Q106 310 108 296 Q108 278 106 258 Q104 232 102 210 Q100 190 100 172Z"/>
+    <!-- Left knee guard -->
+    <path d="M112 232 Q120 228 122 236 Q120 244 112 242Z"/>
+    <!-- Left boot -->
+    <path d="M106 296 Q102 306 104 312 Q108 318 118 318 Q126 316 126 310 Q124 304 120 298Z"/>
+
+    <!-- Right Leg (viewer's left, wide stance) -->
+    <path d="M94 164 Q88 190 84 220 Q82 244 80 268 Q78 284 80 296 Q82 308 88 312 Q94 310 92 296 Q92 278 94 258 Q96 232 98 210 Q100 190 100 172Z"/>
+    <!-- Right knee guard -->
+    <path d="M88 232 Q80 228 78 236 Q80 244 88 242Z"/>
+    <!-- Right boot -->
+    <path d="M94 296 Q98 306 96 312 Q92 318 82 318 Q74 316 74 310 Q76 304 80 298Z"/>
+  </g>
+</svg>

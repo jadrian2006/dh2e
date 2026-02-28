@@ -492,6 +492,47 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 delete (itemData as any)._id;
                 itemsToCreate.push(itemData);
             }
+
+            // Homeworld bonus skills — grant at advancement 1 (Known)
+            for (const skillName of homeworld.skills ?? []) {
+                if (isPickOne(skillName)) continue;
+                const doc = await findInPackType("skills", skillName);
+                if (doc) {
+                    const obj = doc.toObject();
+                    obj.system.advancement = 1; // Known rank
+                    itemsToCreate.push(obj);
+                } else {
+                    console.warn(`dh2e | Homeworld skill "${skillName}" not found in compendium`);
+                }
+            }
+
+            // Homeworld bonus talents (e.g., Forge World: Technical Knock or Weapon-Tech)
+            const hwTalentChoice = (state.homeworldTalentChoice as string) || "";
+            for (const raw of homeworld.talents ?? []) {
+                const options = splitOrChoices(raw);
+                let talentName: string;
+                if (options.length > 1 && hwTalentChoice) {
+                    talentName = hwTalentChoice;
+                } else {
+                    // Single talent or no choice made — use first option
+                    talentName = resolveOr(options[0].trim());
+                }
+                if (isPickOne(talentName)) continue;
+                const doc = await findInPackType("talents", talentName);
+                if (doc) {
+                    itemsToCreate.push(doc.toObject());
+                } else {
+                    console.warn(`dh2e | Homeworld talent "${talentName}" not found in compendium`);
+                }
+            }
+
+            // Homeworld corruption (e.g., Daemon World: 1d10+5)
+            if (homeworld.startingCorruption) {
+                const corruptionRoll = state.corruptionRoll as number | null;
+                if (corruptionRoll !== null) {
+                    updates["system.corruption"] = corruptionRoll;
+                }
+            }
         }
 
         // 3. Background — skills, talents, equipment

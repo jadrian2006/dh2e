@@ -1,0 +1,123 @@
+{
+    "id": "dh2e-enemies-within",
+    "title": "DH2E - Enemies Within Data",
+    "description": "Compendium data for Dark Heresy 2nd Edition: Enemies Within supplement. Contains new homeworlds, backgrounds, roles, talents, weapons, armour, gear, traits, and NPCs from the Enemies Within sourcebook. FOR PERSONAL USE ONLY.",
+    "version": "0.1.0",
+    "compatibility": {
+        "minimum": "13.348",
+        "verified": "13.351",
+        "maximum": "13"
+    },
+    "authors": [
+        {
+            "name": "jadrian2006"
+        }
+    ],
+    "relationships": {
+        "systems": [
+            {
+                "id": "dh2e",
+                "type": "system",
+                "compatibility": {
+                    "minimum": "0.1.0"
+                }
+            }
+        ]
+    },
+    "packFolders": [
+        {
+            "name": "EW Equipment",
+            "color": "#8b6914",
+            "packs": ["weapons", "armour", "gear"]
+        },
+        {
+            "name": "EW Character",
+            "color": "#8b6914",
+            "packs": ["talents", "traits"]
+        },
+        {
+            "name": "EW Creation",
+            "color": "#8b6914",
+            "packs": ["homeworlds", "backgrounds", "roles"]
+        },
+        {
+            "name": "EW Actors",
+            "color": "#8b6914",
+            "packs": ["npcs"]
+        }
+    ],
+    "packs": [
+        {
+            "name": "homeworlds",
+            "label": "EW Homeworlds",
+            "path": "packs/homeworlds",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "backgrounds",
+            "label": "EW Backgrounds",
+            "path": "packs/backgrounds",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "roles",
+            "label": "EW Roles",
+            "path": "packs/roles",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "talents",
+            "label": "EW Talents",
+            "path": "packs/talents",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "weapons",
+            "label": "EW Weapons",
+            "path": "packs/weapons",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "armour",
+            "label": "EW Armour",
+            "path": "packs/armour",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "gear",
+            "label": "EW Gear",
+            "path": "packs/gear",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "traits",
+            "label": "EW Traits",
+            "path": "packs/traits",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "npcs",
+            "label": "EW NPCs",
+            "path": "packs/npcs",
+            "type": "Actor",
+            "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        }
+    ]
+}

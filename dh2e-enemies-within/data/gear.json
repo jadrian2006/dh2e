@@ -1,0 +1,170 @@
+[
+    {
+        "name": "Rosarius",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A holy symbol of the Ecclesiarchy that contains a powerful conversion field generator with a protection rating of 50. Allies with line of sight gain +10 to Fear and Pinning tests; this bonus is lost if the wearer dies or takes Critical damage. Only usable by Adeptus Ministorum, Adepta Sororitas, or Inquisitor elite advance characters.",
+            "weight": 0.6,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Field Wall Generator",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "Creates a linear force field between generators, 1.5m high and up to 8m long. Acts as cover with a protection rating of 65; only body parts behind the wall gain protection. If a section overloads, only that portion shuts down.",
+            "weight": 18,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Adamantine Chainguard",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "An armour upgrade. When an enemy melee attack roll ends in 1, the attacker's weapon is destroyed (unless it has the Power Field, Warp Weapon quality, or is otherwise immune). Imposes a -5 penalty to Max Agility. Adds 4kg to armour weight.",
+            "weight": 4,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Auto-Senses",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "An armour upgrade for power armour only. Grants +5 BS bonus and +10 to Awareness tests (Sight and Hearing). Requires a helmet. Adds 2kg to armour weight.",
+            "weight": 2,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Brazier of Saint Roberto",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A sacred brazier that can be mounted on armour, a helmet, or a backpack. Half Action to light; burns for 2 hours. Acts as a glow-globe and grants +30 to Charm and Command tests, +10 to Intimidate tests, but imposes -40 to Stealth tests. If the wearer is knocked Prone while lit, they must pass an Ordinary Agility test or catch fire.",
+            "weight": 10,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Ceramite Plating",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "An armour upgrade for carapace and power armour only. Grants +3 AP against Flame, Melta, and heat-based attacks. Adds 2kg to armour weight.",
+            "weight": 2,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Devotional Iconography",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "An armour upgrade. Grants +10 to Command tests against Imperial faithful, but imposes -10 to Fellowship tests against non-Imperial-loyal characters. Adds 1kg to armour weight.",
+            "weight": 1,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Hexagrammatic Wards",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "An armour upgrade for carapace and power armour only. Grants +20 to resist psychic attacks and manipulation. Armour points are doubled against psychic attack hits. The Warp Weapon quality does NOT ignore this armour's AP.",
+            "weight": 0,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Psychotroke Grenade",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A grenade that releases hallucinogenic chemicals over a wide area. Targets within the Blast (3) radius must resist Hallucinogenic (4) effects. Range SBx3.",
+            "weight": 1,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Psyk-Out Grenade",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A rare grenade containing anti-psychic compounds. Deals 1d10 Explosive damage with Blast (3). Also creates a Smoke (3) cloud. Particularly effective against psykers and daemons. Range SBx3.",
+            "weight": 1,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Rad Grenade",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A grenade that releases a burst of lethal radiation. Deals 1d10 Energy damage with Blast (2). Targets may suffer lingering radiation effects. Range SBx3.",
+            "weight": 1,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Spore Bomb",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "A biological weapon that releases a cloud of choking spores over a large area with Blast (5). Does not deal direct damage but can incapacitate targets within the cloud. Range SBx3.",
+            "weight": 2,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Tears of the Emperor",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "An extremely rare holy grenade said to contain the crystallised tears of a martyred saint. Deals 1d10 Explosive damage with Blast (2) and the Sanctified quality. Particularly devastating against daemonic and Warp-touched entities. Range SBx3.",
+            "weight": 0,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    },
+    {
+        "name": "Whitefire Grenade",
+        "type": "gear",
+        "img": "systems/dh2e/icons/items/gear.svg",
+        "system": {
+            "description": "An incendiary grenade that releases a blinding white phosphorus-like substance. Deals 1d10+4 Explosive damage with Pen 3, Blast (3), Corrosive, Flame, Smoke (5), and Toxic (2) qualities. Range SBx3.",
+            "weight": 1,
+            "quantity": 1,
+            "craftsmanship": "common",
+            "source": "enemies-within"
+        }
+    }
+]

@@ -1,0 +1,77 @@
+{
+    "id": "dh2e-forgotten-gods",
+    "title": "DH2E - Forgotten Gods Adventure",
+    "description": "Complete adventure module for DH2E: Forgotten Gods. Contains NPCs, journal entries, objectives, scenes, and an Adventure compendium for one-click import. FOR PERSONAL USE ONLY.",
+    "version": "0.1.0",
+    "compatibility": {
+        "minimum": "13.348",
+        "verified": "13.351",
+        "maximum": "13"
+    },
+    "authors": [
+        { "name": "jadrian2006" }
+    ],
+    "relationships": {
+        "systems": [
+            {
+                "id": "dh2e",
+                "type": "system",
+                "compatibility": { "minimum": "0.1.0" }
+            }
+        ]
+    },
+    "packFolders": [
+        {
+            "name": "FG Adventure",
+            "color": "#8b2500",
+            "packs": ["adventure"]
+        },
+        {
+            "name": "FG Reference",
+            "color": "#8b2500",
+            "packs": ["npcs", "journals", "items", "scenes"]
+        }
+    ],
+    "packs": [
+        {
+            "name": "npcs",
+            "label": "FG NPCs",
+            "path": "packs/npcs",
+            "type": "Actor",
+            "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "journals",
+            "label": "FG Journals",
+            "path": "packs/journals",
+            "type": "JournalEntry",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "items",
+            "label": "FG Items",
+            "path": "packs/items",
+            "type": "Item",
+            "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "scenes",
+            "label": "FG Scenes",
+            "path": "packs/scenes",
+            "type": "Scene",
+            "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        },
+        {
+            "name": "adventure",
+            "label": "Forgotten Gods",
+            "path": "packs/adventure",
+            "type": "Adventure",
+            "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" },
+            "system": "dh2e"
+        }
+    ]
+}

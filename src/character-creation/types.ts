@@ -19,6 +19,12 @@ interface HomeworldOption {
     aptitude: string;
     /** Home skill granted */
     homeSkill: string;
+    /** Talent names granted by homeworld bonus (may contain "or" choices) */
+    talents?: string[];
+    /** Skill names granted by homeworld bonus */
+    skills?: string[];
+    /** Starting corruption formula (e.g., "1d10+5" for Daemon World) */
+    startingCorruption?: string;
     /** Bonus ability name */
     bonus: string;
     /** Bonus ability description */

@@ -1,0 +1,1052 @@
+[
+    {
+        "name": "The Daemonhost Suvfaeras",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 52, "advances": 0 },
+                "bs": { "base": 35, "advances": 0 },
+                "s": { "base": 55, "advances": 0 },
+                "t": { "base": 45, "advances": 0 },
+                "ag": { "base": 18, "advances": 0 },
+                "int": { "base": 53, "advances": 0 },
+                "per": { "base": 45, "advances": 0 },
+                "wp": { "base": 55, "advances": 0 },
+                "fel": { "base": 15, "advances": 0 }
+            },
+            "wounds": { "value": 33, "max": 33 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 7,
+                "rightArm": 7,
+                "leftArm": 7,
+                "body": 7,
+                "rightLeg": 7,
+                "leftLeg": 7
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Master",
+                "divination": "",
+                "description": "<p><strong>The Daemonhost Suvfaeras</strong> is a foul and unholy thing, the very existence of which defies nature. Added to the silver chains and occult brands that bind its host body, charms and talismans of xenos origin adorn its blasphemous form. It is impossible to say if these objects were intended for such use or the heretics that bound Suvfaeras repurposed them.</p><p>Upon escaping its stasis prison, Suvfaeras is initially weakened, perhaps an after-effect of the psychic choir that kept him subdued. Ever spiteful and bloodthirsty, its first act was to slaughter its wardens. Now, it prowls the undertunnels, slowly regaining its strength and plotting against its captors.</p><p><strong>Newly Born:</strong> The profile given represents the weakened state in which the Acolytes encounter it. If desired, the GM can increase Suvfaeras's characteristics by at least +10, increase his Daemonic trait to 4, and add +1 to his psy rating.</p>",
+                "source": "core-rulebook"
+            }
+        },
+        "items": [
+            {
+                "name": "Claws",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "<p>Long talons that seem to rip into reality with each grasp.</p>",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+2+SB", "type": "impact", "bonus": 0 },
+                    "penetration": 2,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 0,
+                    "qualities": ["Crippling (3)"],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Psyniscience",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "per",
+                    "advances": 30,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Furious Assault",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character may make a second All Out Attack action as a Free Action if the first was successful.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Thunder Charge",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>When the character makes a Charge, enemies in the path must pass a Challenging (+0) Strength test or be knocked Prone.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Warp Sense",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character can use Psyniscience as a Free Action.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Baneful Presence (20)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>All characters within 20 metres of this creature suffer a &minus;10 penalty to Willpower tests.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Daemonic (3)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>This creature is a denizen of the Warp, or is imbued with the power of the Warp. It has a number of Daemonic trait points that act as additional Armour against all attacks, and its Toughness bonus is increased by the same amount for resisting damage.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Dark-Sight",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>This creature can see normally in areas of darkness, and never takes a penalty for fighting in areas of dim or no lighting.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Fear (2)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>This creature is so terrible that it causes Fear (2) in those who behold it.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "From Beyond",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>This creature is immune to Fear, Pinning, Insanity, and the effects of the Intimidate skill. It can never gain Mental Disorders or be stunned.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Hover",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>This creature can hover above the ground. It does not need to use any Movement actions in order to remain hovering.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Size (5)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>This creature is Enormous. It gains +10 to hit with melee attacks and +10 to be hit by ranged attacks.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Psyker",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>This creature is a psyker with Psy Rating 4. Psychic Powers: Haemorrhage, Smite, Spontaneous Combustion, Telekine Shield, Warp Speed.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Unnatural Strength (3)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>This creature's Strength bonus is increased by 3, for a total bonus of 8.</p>",
+                    "source": "core-rulebook"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Arch-Heretek Somnius Halbrel",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 40, "advances": 0 },
+                "bs": { "base": 45, "advances": 0 },
+                "s": { "base": 45, "advances": 0 },
+                "t": { "base": 55, "advances": 0 },
+                "ag": { "base": 35, "advances": 0 },
+                "int": { "base": 60, "advances": 0 },
+                "per": { "base": 40, "advances": 0 },
+                "wp": { "base": 55, "advances": 0 },
+                "fel": { "base": 20, "advances": 0 }
+            },
+            "wounds": { "value": 22, "max": 22 },
+            "fate": { "value": 3, "max": 3 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 43,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 4,
+                "leftArm": 4,
+                "body": 4,
+                "rightLeg": 4,
+                "leftLeg": 4
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Master",
+                "divination": "",
+                "description": "<p><strong>Arch-Heretek Somnius Halbrel</strong> is a heretek of the worst kind. Expelled from the Mechanicum for his unsanctioned research into xenos anatomy, his experiments have become even more terrible in the years since. His obsession is the hybridisation of human and xenos, which he believes offers a path to perfection that surpasses even the promise of the machine.</p><p>Though he is able to pass as an ordained Tech-Priest due to his knowledge of the Cult Mechanicus and his obvious cybernetics, closer inspection reveals the horrible truth. Halbrel is his own most promising test subject, having replaced much of his own remaining flesh with transplants from xenos or vat-grown genetic hybrids.</p><p><strong>Heretek Extremis:</strong> When attacking a character with extensive cybernetic parts (such as a servitor or Tech-Priest) or making a Called Shot to a bionic limb, Halbrel makes a Tech-Use (WS or BS) test in place of the standard Weapon Skill or Ballistic Skill test.</p><p><strong>Cybernetics:</strong> Bionic right arm, luminen capacitors implant, Mechanicus implants, medicae mechadendrite, utility mechadendrite.</p><p><strong>Gear:</strong> Mesh-lined robes, aetheroscope, combi-tool, various malefic tomes, portable vox, respirator.</p>",
+                "source": "core-rulebook"
+            }
+        },
+        "items": [
+            {
+                "name": "Plasma Pistol",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "<p>A devastating pistol that fires superheated bolts of plasma.</p>",
+                    "class": "pistol",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 2, "full": 0 },
+                    "damage": { "formula": "1d10+6", "type": "energy", "bonus": 0 },
+                    "penetration": 6,
+                    "magazine": { "value": 10, "max": 10 },
+                    "reload": "3 Full",
+                    "weight": 4,
+                    "qualities": ["Maximal", "Overheats"],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Power Maul",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "<p>A heavy bludgeon encased in a disruptive power field.</p>",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+5+SB", "type": "energy", "bonus": 0 },
+                    "penetration": 4,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 3.5,
+                    "qualities": ["Power Field", "Shocking"],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Awareness",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "per",
+                    "advances": 0,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Logic",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "int",
+                    "advances": 10,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Medicae",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "int",
+                    "advances": 20,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Forbidden Lore (Adeptus Mechanicus)",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "int",
+                    "advances": 20,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Forbidden Lore (Daemonology)",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "int",
+                    "advances": 20,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Tech-Use",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "int",
+                    "advances": 20,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Die Hard",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character always counts as lightly wounded for Blood Loss purposes.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Luminen Shock",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character may channel bio-electric energy as a melee attack.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Technical Knock",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character may unjam a weapon as a Half Action.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "True Grit",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character halves all Critical damage taken (rounding up).</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Dark-Sight",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>This creature can see normally in areas of darkness, and never takes a penalty for fighting in areas of dim or no lighting.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Machine (1)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>This creature is partly mechanical. It does not breathe, is immune to vacuum and cold, and its Toughness bonus is increased by 1.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Regeneration (1)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>At the start of each round, this creature heals 1 wound. Cannot regenerate wounds from Holy, fire, or psychic attacks.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Touched by the Fates (3)",
+                "type": "trait",
+                "img": "systems/dh2e/icons/items/trait.svg",
+                "system": {
+                    "description": "<p>This creature has 3 Fate points. It can burn a Fate point to survive lethal injury as an Acolyte would.</p>",
+                    "source": "core-rulebook"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Zax Holthane, Sable Trader",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 41, "advances": 0 },
+                "bs": { "base": 50, "advances": 0 },
+                "s": { "base": 37, "advances": 0 },
+                "t": { "base": 43, "advances": 0 },
+                "ag": { "base": 40, "advances": 0 },
+                "int": { "base": 38, "advances": 0 },
+                "per": { "base": 41, "advances": 0 },
+                "wp": { "base": 40, "advances": 0 },
+                "fel": { "base": 37, "advances": 0 }
+            },
+            "wounds": { "value": 18, "max": 18 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 3,
+                "leftArm": 3,
+                "body": 3,
+                "rightLeg": 3,
+                "leftLeg": 3
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "description": "<p><strong>Zax Holthane</strong> is a ruthless and ambitious Sable Trader who has polluted a dozen worlds with the unholy contraband of the Trade Sable. His business in Hive Desoleum has thus far been quite lucrative, and with the Babyfaces acting as intermediaries, he has sold to numerous wealthy nobles. Although Holthane deals in a variety of goods, his specialty is weaponry of xenos origin. Curiously, Holthane never uses xenos weapons himself.</p><p><strong>Expert Pistolier:</strong> When attacking with two pistols, Holthane may swap the results of the Ballistic Skill tests before applying the attack results.</p><p><strong>Gear:</strong> Flak armour under leather tunic, 2 extra clips for bolt pistol, 2 extra clips of expander shells, injector and 3 doses of stimm, multi-key, photo-contacts, portable vox, red-dot sight (attached to bolt pistol).</p>",
+                "source": "core-rulebook"
+            }
+        },
+        "items": [
+            {
+                "name": "Bolt Pistol",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "<p>A compact pistol firing mass-reactive bolts. Equipped with a red-dot sight (+10 BS at single shot).</p>",
+                    "class": "pistol",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 2, "full": 0 },
+                    "damage": { "formula": "1d10+5", "type": "explosive", "bonus": 0 },
+                    "penetration": 4,
+                    "magazine": { "value": 8, "max": 8 },
+                    "reload": "1 Full",
+                    "weight": 3.5,
+                    "qualities": ["Tearing"],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Autopistol",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "<p>A compact automatic pistol. Loaded with expander shells.</p>",
+                    "class": "pistol",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 0, "full": 6 },
+                    "damage": { "formula": "1d10+2", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 18, "max": 18 },
+                    "reload": "1 Full",
+                    "weight": 1.5,
+                    "qualities": [],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Awareness",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "per",
+                    "advances": 0,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Dodge",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "ag",
+                    "advances": 10,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Independent Targeting",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character may fire at different targets when wielding two ranged weapons.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Quick Draw",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character can draw a weapon as a Free Action.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Rapid Reload",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character halves all reload times, rounded down.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Two-Weapon Wielder",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character may fight with a weapon in each hand, making attacks with both in a single turn.</p>",
+                    "source": "core-rulebook"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Eldric \"Skinner\" Havofast, Babyface Gang Leader",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 42, "advances": 0 },
+                "bs": { "base": 41, "advances": 0 },
+                "s": { "base": 34, "advances": 0 },
+                "t": { "base": 36, "advances": 0 },
+                "ag": { "base": 41, "advances": 0 },
+                "int": { "base": 37, "advances": 0 },
+                "per": { "base": 38, "advances": 0 },
+                "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 41, "advances": 0 }
+            },
+            "wounds": { "value": 15, "max": 15 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 4,
+                "leftArm": 4,
+                "body": 4,
+                "rightLeg": 4,
+                "leftLeg": 4
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Elite",
+                "divination": "",
+                "description": "<p><strong>Eldric \"Skinner\" Havofast</strong> is the youngest son of the ancient and respected House Havofast. He resented his siblings from a young age. After fatally stabbing his elder brother in a duel, he fled to the lower hive, where he joined up with the Babyfaces. Now, going by the name \"Skinner,\" Eldric freely indulges his violent and sadistic impulses. Even amongst the cruel Babyfaces, Skinner has a reputation for viciousness.</p><p><strong>Sadist:</strong> Once per turn, when Skinner inflicts Critical damage, he gains an additional Half Action which must be used before his turn ends.</p><p><strong>Gear:</strong> Concealed mesh armour, expensive and stylish clothing, 2 extra clips of man-stopper bullets.</p>",
+                "source": "core-rulebook"
+            }
+        },
+        "items": [
+            {
+                "name": "Autopistol",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "<p>A compact automatic pistol. Loaded with man-stopper bullets.</p>",
+                    "class": "pistol",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 0, "full": 6 },
+                    "damage": { "formula": "1d10+2", "type": "impact", "bonus": 0 },
+                    "penetration": 3,
+                    "magazine": { "value": 18, "max": 18 },
+                    "reload": "1 Full",
+                    "weight": 1.5,
+                    "qualities": [],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Power Blade",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "<p>A slender blade encased in a disruptive power field.</p>",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+2+SB", "type": "rending", "bonus": 0 },
+                    "penetration": 4,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 1,
+                    "qualities": ["Power Field"],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Charm",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "fel",
+                    "advances": 10,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Dodge",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "ag",
+                    "advances": 10,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Blademaster",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>When attacking with a bladed melee weapon, the character may re-roll one missed attack per round.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Jaded",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character is immune to mundane horrors and does not need to test against Fear caused by non-Warp phenomena.</p>",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Quick Draw",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character can draw a weapon as a Free Action.</p>",
+                    "source": "core-rulebook"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Babyfaces Ganger",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 },
+                "bs": { "base": 35, "advances": 0 },
+                "s": { "base": 30, "advances": 0 },
+                "t": { "base": 35, "advances": 0 },
+                "ag": { "base": 30, "advances": 0 },
+                "int": { "base": 32, "advances": 0 },
+                "per": { "base": 37, "advances": 0 },
+                "wp": { "base": 32, "advances": 0 },
+                "fel": { "base": 38, "advances": 0 }
+            },
+            "wounds": { "value": 10, "max": 10 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 3,
+                "leftArm": 3,
+                "body": 3,
+                "rightLeg": 3,
+                "leftLeg": 3
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "description": "<p><strong>Babyfaces Gangers</strong> are Cloudboys who have actually seen the sky, and of course think themselves superior to the masses of hive rabble. The Babyfaces take this sense of superiority to extremes, becoming predatory in their behaviour as they hunt and torture commoners for their amusement. They take extreme pride in their appearance, and in particular they value their unblemished, youthful faces. To attack a Babyface's visage is to invite the full wrath he and his compatriots can muster.</p><p><strong>Gear:</strong> Concealed mesh armour, expensive and stylish clothing.</p>",
+                "source": "core-rulebook"
+            }
+        },
+        "items": [
+            {
+                "name": "Autopistol",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "pistol",
+                    "range": 30,
+                    "rof": { "single": true, "semi": 0, "full": 6 },
+                    "damage": { "formula": "1d10+2", "type": "impact", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 18, "max": 18 },
+                    "reload": "1 Full",
+                    "weight": 1.5,
+                    "qualities": [],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Sword",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d10+SB", "type": "rending", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 3,
+                    "qualities": ["Balanced"],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Charm",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "fel",
+                    "advances": 0,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Jaded",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character is immune to mundane horrors and does not need to test against Fear caused by non-Warp phenomena.</p>",
+                    "source": "core-rulebook"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Hired Lasgun",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 35, "advances": 0 },
+                "bs": { "base": 37, "advances": 0 },
+                "s": { "base": 35, "advances": 0 },
+                "t": { "base": 41, "advances": 0 },
+                "ag": { "base": 32, "advances": 0 },
+                "int": { "base": 28, "advances": 0 },
+                "per": { "base": 35, "advances": 0 },
+                "wp": { "base": 32, "advances": 0 },
+                "fel": { "base": 25, "advances": 0 }
+            },
+            "wounds": { "value": 10, "max": 10 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 4,
+                "rightArm": 4,
+                "leftArm": 4,
+                "body": 4,
+                "rightLeg": 4,
+                "leftLeg": 4
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "description": "<p><strong>Hired Lasguns</strong> are mercenaries and sell-swords who fight for another's cause, so long as the pay is right. Though a hired lasgun typically has no stake in the cause for which he is hired, accepting a heretic's pay damns him just as surely.</p><p><strong>Gear:</strong> 2 extra lasgun charge packs, flak armour.</p>",
+                "source": "core-rulebook"
+            }
+        },
+        "items": [
+            {
+                "name": "Lasgun",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "basic",
+                    "range": 100,
+                    "rof": { "single": true, "semi": 3, "full": 0 },
+                    "damage": { "formula": "1d10+3", "type": "energy", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 60, "max": 60 },
+                    "reload": "1 Full",
+                    "weight": 4,
+                    "qualities": ["Reliable"],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Athletics",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "s",
+                    "advances": 0,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Dodge",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "ag",
+                    "advances": 0,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Nowhere to Hide",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>When making a ranged attack, the character may reduce the cover bonus of the target by a value equal to his degrees of success on the attack roll.</p>",
+                    "source": "core-rulebook"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Scribe",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 20, "advances": 0 },
+                "bs": { "base": 20, "advances": 0 },
+                "s": { "base": 25, "advances": 0 },
+                "t": { "base": 25, "advances": 0 },
+                "ag": { "base": 20, "advances": 0 },
+                "int": { "base": 35, "advances": 0 },
+                "per": { "base": 30, "advances": 0 },
+                "wp": { "base": 30, "advances": 0 },
+                "fel": { "base": 25, "advances": 0 }
+            },
+            "wounds": { "value": 8, "max": 8 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 0,
+                "rightArm": 1,
+                "leftArm": 1,
+                "body": 1,
+                "rightLeg": 1,
+                "leftLeg": 1
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "description": "<p><strong>Scribes</strong> hunch over slab-desks made of reclaimed deck plating in the flickering arc-candle light, recording the traffic and business of Port Gyre in exacting detail. Also used to represent Prefect Gaius Anteshern (with Disposition 30, Submissive personality).</p><p><strong>Gear:</strong> Ink-stained heavy robes, autoquill, writing kit, dataslates.</p>",
+                "source": "core-rulebook"
+            }
+        },
+        "items": [
+            {
+                "name": "Knife",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "1d5+SB", "type": "rending", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 1,
+                    "qualities": [],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Scholastic Lore (any one)",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "int",
+                    "advances": 0,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Desoleum Cult Mechanicus Adept",
+        "type": "npc",
+        "img": "systems/dh2e/icons/items/npc.svg",
+        "system": {
+            "characteristics": {
+                "ws": { "base": 30, "advances": 0 },
+                "bs": { "base": 30, "advances": 0 },
+                "s": { "base": 30, "advances": 0 },
+                "t": { "base": 35, "advances": 0 },
+                "ag": { "base": 25, "advances": 0 },
+                "int": { "base": 35, "advances": 0 },
+                "per": { "base": 30, "advances": 0 },
+                "wp": { "base": 35, "advances": 0 },
+                "fel": { "base": 20, "advances": 0 }
+            },
+            "wounds": { "value": 9, "max": 9 },
+            "fate": { "value": 0, "max": 0 },
+            "corruption": 0,
+            "insanity": 0,
+            "influence": 0,
+            "xp": { "total": 0, "spent": 0 },
+            "aptitudes": [],
+            "armour": {
+                "head": 1,
+                "rightArm": 1,
+                "leftArm": 1,
+                "body": 1,
+                "rightLeg": 1,
+                "leftLeg": 1
+            },
+            "details": {
+                "homeworld": "",
+                "background": "",
+                "role": "Troop",
+                "divination": "",
+                "description": "<p><strong>Desoleum Cult Mechanicus Adepts</strong> are young adepts corrupted away from the Martian Priesthood by Halbrel with promises of secret knowledge and arcane lore.</p><p><strong>Gear:</strong> Technoweave robes, combi-tool.</p><p><strong>Cybernetics:</strong> Mechanicus implants.</p>",
+                "source": "core-rulebook"
+            }
+        },
+        "items": [
+            {
+                "name": "Lasgun",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "",
+                    "class": "basic",
+                    "range": 100,
+                    "rof": { "single": true, "semi": 3, "full": 0 },
+                    "damage": { "formula": "1d10+3", "type": "energy", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 60, "max": 60 },
+                    "reload": "1 Full",
+                    "weight": 4,
+                    "qualities": ["Reliable"],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Great Weapon",
+                "type": "weapon",
+                "img": "systems/dh2e/icons/items/weapon.svg",
+                "system": {
+                    "description": "<p>A heavy two-handed melee weapon.</p>",
+                    "class": "melee",
+                    "range": 0,
+                    "rof": { "single": false, "semi": 0, "full": 0 },
+                    "damage": { "formula": "2d10+SB", "type": "rending", "bonus": 0 },
+                    "penetration": 0,
+                    "magazine": { "value": 0, "max": 0 },
+                    "reload": "",
+                    "weight": 7,
+                    "qualities": ["Unbalanced"],
+                    "equipped": true,
+                    "craftsmanship": "common",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Tech-Use",
+                "type": "skill",
+                "img": "systems/dh2e/icons/items/skill.svg",
+                "system": {
+                    "characteristic": "int",
+                    "advances": 0,
+                    "description": "",
+                    "source": "core-rulebook"
+                }
+            },
+            {
+                "name": "Technical Knock",
+                "type": "talent",
+                "img": "systems/dh2e/icons/items/talent.svg",
+                "system": {
+                    "description": "<p>The character may unjam a weapon as a Half Action.</p>",
+                    "source": "core-rulebook"
+                }
+            }
+        ]
+    }
+]
