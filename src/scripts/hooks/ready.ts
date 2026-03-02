@@ -557,13 +557,11 @@ export class Ready {
         );
     }
 
-    /** Handle approved requisition (player side) — create item on actor */
+    /** Handle approved requisition (player side) — create items on actor (batch) */
     static async #handleRequisitionApproved(payload: {
         userId: string;
-        itemData: object;
-        itemName: string;
+        items: { itemData: object; itemName: string }[];
         actorUuid: string;
-        craftsmanship: string;
         modifications: string;
     }): Promise<void> {
         const g = game as any;
@@ -571,45 +569,54 @@ export class Ready {
 
         try {
             const actor = await fromUuid(payload.actorUuid) as any;
-            if (actor && payload.itemData && Object.keys(payload.itemData).length > 0) {
-                await actor.createEmbeddedDocuments("Item", [payload.itemData]);
+            if (actor) {
+                const validItems = payload.items
+                    .map(i => i.itemData)
+                    .filter(d => d && Object.keys(d).length > 0);
+                if (validItems.length > 0) {
+                    await actor.createEmbeddedDocuments("Item", validItems);
+                }
             }
         } catch (e) {
-            console.warn("DH2E | Failed to create requisitioned item:", e);
+            console.warn("DH2E | Failed to create requisitioned items:", e);
         }
 
+        const names = payload.items.map(i => i.itemName).join(", ");
         ui.notifications.info(
-            game.i18n.format("DH2E.Requisition.Approved", { name: payload.itemName }),
+            game.i18n.format("DH2E.Requisition.Approved", { name: names }),
         );
     }
 
-    /** Handle delayed requisition approval (player side) — notification only */
+    /** Handle delayed requisition approval (player side) — notification only (batch) */
     static #handleRequisitionApprovedDelayed(payload: {
         userId: string;
-        itemName: string;
+        itemNames: string[];
+        count: number;
         time: string;
     }): void {
         const g = game as any;
         if (g.user?.id !== payload.userId) return;
 
+        const names = payload.itemNames.join(", ");
         ui.notifications.info(
             game.i18n.format("DH2E.Requisition.ApprovedDelayed", {
-                name: payload.itemName,
+                name: names,
                 time: payload.time,
             }),
         );
     }
 
-    /** Handle denied requisition (player side) — notification */
+    /** Handle denied requisition (player side) — notification (batch) */
     static #handleRequisitionDenied(payload: {
         userId: string;
-        itemName: string;
+        itemNames: string[];
     }): void {
         const g = game as any;
         if (g.user?.id !== payload.userId) return;
 
+        const names = payload.itemNames.join(", ");
         ui.notifications.warn(
-            game.i18n.format("DH2E.Requisition.Denied", { name: payload.itemName }),
+            game.i18n.format("DH2E.Requisition.Denied", { name: names }),
         );
     }
 

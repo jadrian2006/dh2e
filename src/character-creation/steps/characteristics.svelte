@@ -2,6 +2,7 @@
     import type { CharacteristicAbbrev } from "../../actor/types.ts";
     import type { HomeworldOption, DivinationResult } from "../types.ts";
     import { DIVINATION_EFFECTS } from "../wizard.ts";
+    import { getCharBonuses, getFateConfig, getWoundsFormula, getCorruptionFormula } from "../creation-helpers.ts";
     import { getSetting } from "../../ui/settings/settings.ts";
     import { onMount, onDestroy } from "svelte";
 
@@ -70,13 +71,15 @@
     );
     const pointsRemaining = $derived(totalPoints - pointsSpent);
 
-    // --- Homeworld helpers ---
+    // --- Homeworld helpers (derived from rules) ---
+
+    const hwCharBonuses = $derived(homeworld ? getCharBonuses(homeworld.rules ?? []) : []);
 
     function isPositive(key: CharacteristicAbbrev): boolean {
-        return homeworld?.characteristicBonuses?.positive?.includes(key) ?? false;
+        return hwCharBonuses.some(b => b.characteristic === key && b.value > 0);
     }
     function isNegative(key: CharacteristicAbbrev): boolean {
-        return homeworld?.characteristicBonuses?.negative?.includes(key) ?? false;
+        return hwCharBonuses.some(b => b.characteristic === key && b.value < 0);
     }
 
     /** Show instant tooltip via Foundry API */
@@ -226,8 +229,9 @@
 
     // --- Fate (Emperor's Blessing) rolling ---
 
-    const blessingTarget = $derived(homeworld?.fate?.blessing ?? 10);
-    const fateThreshold = $derived(homeworld?.fate?.threshold ?? 2);
+    const hwFateConfig = $derived(homeworld ? getFateConfig(homeworld.rules ?? []) : null);
+    const blessingTarget = $derived(hwFateConfig?.blessing ?? 10);
+    const fateThreshold = $derived(hwFateConfig?.threshold ?? 2);
     const fateBlessed = $derived(fateRoll !== null && fateRoll >= blessingTarget);
     const totalFate = $derived(fateThreshold + (fateBlessed ? 1 : 0));
     let fateRolling = $state(false);
@@ -247,7 +251,7 @@
     // --- Wounds rolling ---
 
     let woundsRolling = $state(false);
-    const woundsFormula = $derived(homeworld?.woundsFormula ?? null);
+    const woundsFormula = $derived(homeworld ? getWoundsFormula(homeworld.rules ?? []) : null);
     const canRerollWounds = $derived(woundsRollCount > 0 && woundsRollCount <= maxWoundsRerolls);
 
     async function rollWounds() {
@@ -265,14 +269,15 @@
 
     // --- Starting Corruption rolling (Daemon World: 1d10+5) ---
 
-    const hasCorruptionRoll = $derived(!!homeworld?.startingCorruption);
+    const hwCorruptionFormula = $derived(homeworld ? getCorruptionFormula(homeworld.rules ?? []) : null);
+    const hasCorruptionRoll = $derived(!!hwCorruptionFormula);
     let corruptionRolling = $state(false);
 
     async function rollCorruption() {
-        if (corruptionRoll !== null || !homeworld?.startingCorruption) return;
+        if (corruptionRoll !== null || !hwCorruptionFormula) return;
         corruptionRolling = true;
         try {
-            const roll = new Roll(homeworld.startingCorruption);
+            const roll = new Roll(hwCorruptionFormula);
             await roll.evaluate();
             corruptionRoll = roll.total ?? 0;
         } finally {
@@ -438,8 +443,8 @@
                         <span class="vital-detail">No re-rolls remaining</span>
                     {/if}
                 {:else if homeworld}
-                    <span class="vital-value">{homeworld.wounds ?? "—"}</span>
-                    <span class="vital-sub">Fixed</span>
+                    <span class="vital-value">—</span>
+                    <span class="vital-sub">No formula</span>
                 {/if}
             </div>
         </div>
@@ -451,11 +456,11 @@
                 <div class="vital-body">
                     {#if corruptionRoll !== null}
                         <span class="vital-value corruption-val">{corruptionRoll}</span>
-                        <span class="vital-sub">{homeworld?.startingCorruption}</span>
+                        <span class="vital-sub">{hwCorruptionFormula}</span>
                         <span class="vital-detail">Corruption Points</span>
                     {:else}
                         <span class="vital-value dim">?</span>
-                        <span class="vital-sub">{homeworld?.startingCorruption}</span>
+                        <span class="vital-sub">{hwCorruptionFormula}</span>
                         <button class="btn roll-vital-btn corruption-btn" type="button"
                             onclick={rollCorruption} disabled={corruptionRolling}>
                             Roll Corruption
@@ -961,7 +966,7 @@
         align-items: center;
         justify-content: center;
         gap: 2px;
-        min-height: 5.5rem;
+        min-height: 7rem;
         padding: var(--dh2e-space-sm, 0.5rem) var(--dh2e-space-xs, 0.25rem);
         background: var(--dh2e-bg-mid, #2e2e35);
         border: 1px solid var(--dh2e-border, #4a4a55);

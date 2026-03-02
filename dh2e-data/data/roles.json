@@ -5,10 +5,17 @@
         "img": "systems/dh2e/icons/default-icons/role.svg",
         "system": {
             "description": "Talented murderers dedicated to the art of taking life; death merchants of the highest calibre, they are trained to kill and adept at slaying their targets in a variety of gruesome and grisly ways.",
-            "aptitudes": ["Agility", "Ballistic Skill or Weapon Skill", "Fieldcraft", "Finesse", "Perception"],
-            "talent": "Jaded or Leap Up",
             "bonus": "Sure Kill",
-            "bonusDescription": "In addition to the normal uses of Fate points, when an Assassin successfully hits with an attack, he may spend a Fate point to inflict additional damage equal to his degrees of success on the attack roll on the first hit the attack inflicts."
+            "bonusDescription": "In addition to the normal uses of Fate points, when an Assassin successfully hits with an attack, he may spend a Fate point to inflict additional damage equal to his degrees of success on the attack roll on the first hit the attack inflicts.",
+            "rules": [
+                { "key": "GrantAptitude", "aptitude": "Agility" },
+                { "key": "GrantAptitude", "options": ["Ballistic Skill", "Weapon Skill"] },
+                { "key": "GrantAptitude", "aptitude": "Fieldcraft" },
+                { "key": "GrantAptitude", "aptitude": "Finesse" },
+                { "key": "GrantAptitude", "aptitude": "Perception" },
+                { "key": "Grant", "type": "talent", "options": ["Jaded", "Leap Up"] },
+                { "key": "FateOption", "slug": "sure-kill", "label": "Sure Kill", "description": "Add bonus damage equal to attack DoS on first hit", "effectType": "bonusDamage" }
+            ]
         }
     },
     {
@@ -17,10 +24,17 @@
         "img": "systems/dh2e/icons/default-icons/role.svg",
         "system": {
             "description": "Masters of the flesh with a knowledge of sacred anatomy that lends itself to both the arts of healing as well as torture; they are devoted to the study of biological forms and the limits of mortal bodies.",
-            "aptitudes": ["Fieldcraft", "Intelligence", "Knowledge", "Strength", "Toughness"],
-            "talent": "Resistance (pick one) or Takedown",
             "bonus": "Dedicated Healer",
-            "bonusDescription": "In addition to the normal uses of Fate points, when a Chirurgeon character fails a test to provide First Aid, he can spend a Fate point to automatically succeed instead with the degrees of success equal to his Intelligence bonus."
+            "bonusDescription": "In addition to the normal uses of Fate points, when a Chirurgeon character fails a test to provide First Aid, he can spend a Fate point to automatically succeed instead with the degrees of success equal to his Intelligence bonus.",
+            "rules": [
+                { "key": "GrantAptitude", "aptitude": "Fieldcraft" },
+                { "key": "GrantAptitude", "aptitude": "Intelligence" },
+                { "key": "GrantAptitude", "aptitude": "Knowledge" },
+                { "key": "GrantAptitude", "aptitude": "Strength" },
+                { "key": "GrantAptitude", "aptitude": "Toughness" },
+                { "key": "Grant", "type": "talent", "options": ["Resistance (pick one)", "Takedown"] },
+                { "key": "FateOption", "slug": "dedicated-healer", "label": "Dedicated Healer", "description": "Auto-succeed a failed First Aid test (DoS = Int Bonus)", "effectType": "autoSucceed", "dosCharacteristic": "int" }
+            ]
         }
     },
     {
@@ -29,10 +43,16 @@
         "img": "systems/dh2e/icons/default-icons/role.svg",
         "system": {
             "description": "Rogues and mercenaries that live by their wits and the gun on their hip; talented thieves, outlaws, and criminals, they sell their services to the highest bidder to line their pockets with coin.",
-            "aptitudes": ["Agility", "Ballistic Skill", "Defence", "Fellowship", "Finesse"],
-            "talent": "Catfall or Quick Draw",
             "bonus": "Move and Shoot",
-            "bonusDescription": "Once per round, after performing a Move action, a Desperado character may perform a single Standard Attack with a Pistol weapon he is currently wielding as a Free Action."
+            "bonusDescription": "Once per round, after performing a Move action, a Desperado character may perform a single Standard Attack with a Pistol weapon he is currently wielding as a Free Action.",
+            "rules": [
+                { "key": "GrantAptitude", "aptitude": "Agility" },
+                { "key": "GrantAptitude", "aptitude": "Ballistic Skill" },
+                { "key": "GrantAptitude", "aptitude": "Defence" },
+                { "key": "GrantAptitude", "aptitude": "Fellowship" },
+                { "key": "GrantAptitude", "aptitude": "Finesse" },
+                { "key": "Grant", "type": "talent", "options": ["Catfall", "Quick Draw"] }
+            ]
         }
     },
     {
@@ -41,10 +61,17 @@
         "img": "systems/dh2e/icons/default-icons/role.svg",
         "system": {
             "description": "Zealous followers of the Emperor with an unwavering devotion to the faith; they are missionaries and priests whose sole purpose is to spread the word of the Emperor and bring righteous death to His foes.",
-            "aptitudes": ["Fellowship", "Offence", "Social", "Toughness", "Willpower"],
-            "talent": "Double Team or Hatred (pick one)",
             "bonus": "Sway the Masses",
-            "bonusDescription": "In addition to the normal uses of Fate points, a Hierophant character may spend a Fate point to automatically succeed at a Charm, Command, or Intimidate skill test with a number of degrees of success equal to his Willpower bonus."
+            "bonusDescription": "In addition to the normal uses of Fate points, a Hierophant character may spend a Fate point to automatically succeed at a Charm, Command, or Intimidate skill test with a number of degrees of success equal to his Willpower bonus.",
+            "rules": [
+                { "key": "GrantAptitude", "aptitude": "Fellowship" },
+                { "key": "GrantAptitude", "aptitude": "Offence" },
+                { "key": "GrantAptitude", "aptitude": "Social" },
+                { "key": "GrantAptitude", "aptitude": "Toughness" },
+                { "key": "GrantAptitude", "aptitude": "Willpower" },
+                { "key": "Grant", "type": "talent", "options": ["Double Team", "Hatred (pick one)"] },
+                { "key": "FateOption", "slug": "sway-the-masses", "label": "Sway the Masses", "description": "Auto-succeed Charm, Command, or Intimidate (DoS = WP Bonus)", "effectType": "autoSucceed", "dosCharacteristic": "wp" }
+            ]
         }
     },
     {
@@ -53,11 +80,17 @@
         "img": "systems/dh2e/icons/default-icons/role.svg",
         "system": {
             "description": "Souls touched by the Warp and filled with its eldritch power; psykers, Warp-seers, and shamans both cursed and blessed with the power to manipulate the arcane energies of the Immaterium and turn them against their enemies.",
-            "aptitudes": ["Defence", "Intelligence", "Knowledge", "Perception", "Willpower"],
-            "talent": "Resistance (Psychic Powers) or Warp Sense",
-            "eliteAdvances": ["psyker"],
             "bonus": "Stare into the Warp",
-            "bonusDescription": "A Mystic character starts the game with the Psyker elite advance. It is recommended that a character who wishes to be a Mystic have a Willpower of at least 35."
+            "bonusDescription": "A Mystic character starts the game with the Psyker elite advance. It is recommended that a character who wishes to be a Mystic have a Willpower of at least 35.",
+            "rules": [
+                { "key": "GrantAptitude", "aptitude": "Defence" },
+                { "key": "GrantAptitude", "aptitude": "Intelligence" },
+                { "key": "GrantAptitude", "aptitude": "Knowledge" },
+                { "key": "GrantAptitude", "aptitude": "Perception" },
+                { "key": "GrantAptitude", "aptitude": "Willpower" },
+                { "key": "Grant", "type": "talent", "options": ["Resistance (Psychic Powers)", "Warp Sense"] },
+                { "key": "Grant", "type": "eliteAdvance", "name": "psyker" }
+            ]
         }
     },
     {
@@ -66,10 +99,17 @@
         "img": "systems/dh2e/icons/default-icons/role.svg",
         "system": {
             "description": "Brilliant minds with a talent for numbers, logic, and cyphers; dedicated scholars and savants brimming with knowledge and lore, they are keepers of truths, and possess an unrivalled understanding of the galaxy.",
-            "aptitudes": ["Intelligence", "Knowledge", "Perception", "Tech", "Willpower"],
-            "talent": "Ambidextrous or Clues from the Crowds",
             "bonus": "Quest for Knowledge",
-            "bonusDescription": "In addition to the normal uses of Fate points, a Sage character may spend a Fate point to automatically succeed at a Logic or any Lore skill test with a number of degrees of success equal to his Intelligence bonus."
+            "bonusDescription": "In addition to the normal uses of Fate points, a Sage character may spend a Fate point to automatically succeed at a Logic or any Lore skill test with a number of degrees of success equal to his Intelligence bonus.",
+            "rules": [
+                { "key": "GrantAptitude", "aptitude": "Intelligence" },
+                { "key": "GrantAptitude", "aptitude": "Knowledge" },
+                { "key": "GrantAptitude", "aptitude": "Perception" },
+                { "key": "GrantAptitude", "aptitude": "Tech" },
+                { "key": "GrantAptitude", "aptitude": "Willpower" },
+                { "key": "Grant", "type": "talent", "options": ["Ambidextrous", "Clues from the Crowds"] },
+                { "key": "FateOption", "slug": "quest-for-knowledge", "label": "Quest for Knowledge", "description": "Auto-succeed Logic or any Lore test (DoS = Int Bonus)", "effectType": "autoSucceed", "dosCharacteristic": "int" }
+            ]
         }
     },
     {
@@ -78,10 +118,17 @@
         "img": "systems/dh2e/icons/default-icons/role.svg",
         "system": {
             "description": "Skilled hunters and investigators obsessed with the pursuit of their prey; they sift through the secrets of the Imperium, seeing what others do not, and using it to flush out their quarry before closing in for the kill.",
-            "aptitudes": ["Fellowship", "Intelligence", "Perception", "Social", "Tech"],
-            "talent": "Keen Intuition or Disarm",
             "bonus": "Nothing Escapes My Sight",
-            "bonusDescription": "In addition to the normal uses of Fate points, a Seeker character may spend a Fate point to automatically succeed at an Awareness or Inquiry skill test with a number of degrees of success equal to his Perception bonus."
+            "bonusDescription": "In addition to the normal uses of Fate points, a Seeker character may spend a Fate point to automatically succeed at an Awareness or Inquiry skill test with a number of degrees of success equal to his Perception bonus.",
+            "rules": [
+                { "key": "GrantAptitude", "aptitude": "Fellowship" },
+                { "key": "GrantAptitude", "aptitude": "Intelligence" },
+                { "key": "GrantAptitude", "aptitude": "Perception" },
+                { "key": "GrantAptitude", "aptitude": "Social" },
+                { "key": "GrantAptitude", "aptitude": "Tech" },
+                { "key": "Grant", "type": "talent", "options": ["Keen Intuition", "Disarm"] },
+                { "key": "FateOption", "slug": "nothing-escapes-my-sight", "label": "Nothing Escapes My Sight", "description": "Auto-succeed Awareness or Inquiry (DoS = Per Bonus)", "effectType": "autoSucceed", "dosCharacteristic": "per" }
+            ]
         }
     },
     {
@@ -90,10 +137,17 @@
         "img": "systems/dh2e/icons/default-icons/role.svg",
         "system": {
             "description": "Hardened fighters and veterans skilled in all forms of combat; they are adept at both starting and ending conflicts as well as the brutal application of violence to get the job done, no matter the cost.",
-            "aptitudes": ["Ballistic Skill", "Defence", "Offence", "Strength", "Weapon Skill"],
-            "talent": "Iron Jaw or Rapid Reload",
             "bonus": "Expert at Violence",
-            "bonusDescription": "In addition to the normal uses of Fate points, after making a successful attack test, but before determining hits, a Warrior character may spend a Fate point to substitute his Weapon Skill (for melee) or Ballistic Skill (for ranged) bonus for the degrees of success scored on the attack test."
+            "bonusDescription": "In addition to the normal uses of Fate points, after making a successful attack test, but before determining hits, a Warrior character may spend a Fate point to substitute his Weapon Skill (for melee) or Ballistic Skill (for ranged) bonus for the degrees of success scored on the attack test.",
+            "rules": [
+                { "key": "GrantAptitude", "aptitude": "Ballistic Skill" },
+                { "key": "GrantAptitude", "aptitude": "Defence" },
+                { "key": "GrantAptitude", "aptitude": "Offence" },
+                { "key": "GrantAptitude", "aptitude": "Strength" },
+                { "key": "GrantAptitude", "aptitude": "Weapon Skill" },
+                { "key": "Grant", "type": "talent", "options": ["Iron Jaw", "Rapid Reload"] },
+                { "key": "FateOption", "slug": "expert-at-violence", "label": "Expert at Violence", "description": "Replace attack DoS with WS Bonus (melee) or BS Bonus (ranged)", "effectType": "substituteDos" }
+            ]
         }
     }
 ]

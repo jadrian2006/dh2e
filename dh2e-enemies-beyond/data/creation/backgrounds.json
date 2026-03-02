@@ -1,31 +1,29 @@
 [
     {
         "name": "Exorcised",
-        "skills": [
-            "Awareness",
-            "Deceive or Inquiry",
-            "Dodge",
-            "Forbidden Lore (Daemonology)",
-            "Intimidate or Scrutiny"
-        ],
-        "talents": [
-            "Hatred (Daemons)",
-            "Weapon Training (Solid Projectile)",
-            "Weapon Training (Chain)"
-        ],
-        "equipment": [
-            "Autopistol or Stub Revolver",
-            "Shotgun",
-            "Chainblade",
-            "Imperial Robes",
-            "3 doses of Obscura or Tranq",
-            "Disguise Kit or Excruciator Kit",
-            "Rebreather",
-            "Glow-globe/Stab-light"
-        ],
-        "aptitude": "Defence or Knowledge",
+        "description": "Forever tainted in body and soul by their unholy experience; possessing unique knowledge of the Enemy Beyond, they make for excellent—if never fully trusted—servants of the Inquisition. A mortal possessed by a Daemon is torment made flesh. Freed from the shackles of subservience to a Daemonic master, the Exorcised often finds himself bound by lifelong service to a new cause.",
         "bonus": "Touched by a Daemon",
         "bonusDescription": "An Exorcised character counts his Insanity bonus as 2 higher for purposes of avoiding Fear tests. Additionally, he can never again become possessed by the same Daemon that once possessed him.",
-        "description": "Forever tainted in body and soul by their unholy experience; possessing unique knowledge of the Enemy Beyond, they make for excellent—if never fully trusted—servants of the Inquisition. A mortal possessed by a Daemon is torment made flesh. Freed from the shackles of subservience to a Daemonic master, the Exorcised often finds himself bound by lifelong service to a new cause."
+        "source": "enemies-beyond",
+        "rules": [
+            { "key": "GrantAptitude", "options": ["Defence", "Knowledge"] },
+            { "key": "Grant", "type": "skill", "name": "Awareness" },
+            { "key": "Grant", "type": "skill", "options": ["Deceive", "Inquiry"] },
+            { "key": "Grant", "type": "skill", "name": "Dodge" },
+            { "key": "Grant", "type": "skill", "name": "Forbidden Lore (Daemonology)" },
+            { "key": "Grant", "type": "skill", "options": ["Intimidate", "Scrutiny"] },
+            { "key": "Grant", "type": "talent", "name": "Hatred (Daemons)" },
+            { "key": "Grant", "type": "talent", "name": "Weapon Training (Solid Projectile)" },
+            { "key": "Grant", "type": "talent", "name": "Weapon Training (Chain)" },
+            { "key": "Grant", "type": "weapon", "options": ["Autopistol", "Stub Revolver"] },
+            { "key": "Grant", "type": "weapon", "name": "Shotgun" },
+            { "key": "Grant", "type": "weapon", "name": "Chainblade", "equipped": true },
+            { "key": "Grant", "type": "gear", "name": "Imperial Robes" },
+            { "key": "Grant", "type": "gear", "options": ["Obscura", "Tranq"], "quantity": 3 },
+            { "key": "Grant", "type": "gear", "options": ["Disguise Kit", "Excruciator Kit"] },
+            { "key": "Grant", "type": "gear", "name": "Rebreather" },
+            { "key": "Grant", "type": "gear", "options": ["Glow-Globe", "Stab-Light"] },
+            { "key": "RollOption", "option": "self:background:touched-by-a-daemon" }
+        ]
     }
 ]

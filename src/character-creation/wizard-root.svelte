@@ -15,6 +15,7 @@
     } from "./types.ts";
     import type { CharacteristicAbbrev } from "../actor/types.ts";
     import { getSetting } from "../ui/settings/settings.ts";
+    import { getCharBonuses, getFateConfig, getWoundsFormula, getAptitudes } from "./creation-helpers.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
@@ -42,14 +43,10 @@
     let divinationRollCount = $state(0);
     let divinationRollValue = $state<number | null>(null);
 
-    // Gear choices state (for background "or" equipment)
-    let gearChoices = $state<Record<number, string>>({});
-
-    // Homeworld talent choice state (for "or" talent choices, e.g., Forge World)
-    let homeworldTalentChoice = $state("");
-
-    // Role talent choice state (for "or" talent choices)
-    let talentChoice = $state("");
+    // Index-based choice maps for origin "or" selections (keyed by Grant RE index)
+    let homeworldChoices = $state<Record<number, string | number>>({});
+    let backgroundChoices = $state<Record<number, string | number>>({});
+    let roleChoices = $state<Record<number, string | number>>({});
 
     // Divination "or" characteristic choices — maps group index → selected option key
     let divinationChoices = $state<Record<number, string>>({});
@@ -58,22 +55,20 @@
     let purchases = $state<WizardPurchase[]>([]);
     let xpSpent = $state(0);
 
-    // Reset homeworld talent choice when homeworld changes
+    // Reset choices when origin selection changes
     $effect(() => {
         homeworld; // track dependency
-        homeworldTalentChoice = "";
+        homeworldChoices = {};
     });
 
-    // Reset gear choices when background changes
     $effect(() => {
         background; // track dependency
-        gearChoices = {};
+        backgroundChoices = {};
     });
 
-    // Reset talent choice when role changes
     $effect(() => {
         role; // track dependency
-        talentChoice = "";
+        roleChoices = {};
     });
 
     // Reset divination choices when divination changes
@@ -108,6 +103,13 @@
         Object.fromEntries(charOrder.map(k => [k, null])) as Record<string, { die1: number; die2: number; base: number } | null>,
     );
 
+    // Derived review data (from creation helpers, used in the Review step)
+    const reviewCharBonuses = $derived(getCharBonuses(homeworld?.rules ?? []));
+    const reviewFateConfig = $derived(getFateConfig(homeworld?.rules ?? []));
+    const reviewWoundsFormula = $derived(getWoundsFormula(homeworld?.rules ?? []));
+    const reviewBgApts = $derived(getAptitudes(background?.rules ?? []));
+    const reviewRoleApts = $derived(getAptitudes(role?.rules ?? []));
+
     // Dynamic step labels — insert Advancement step if startingXP > 0
     const showAdvancement = $derived(startingXP > 0);
     const stepLabels = $derived([
@@ -135,9 +137,9 @@
             woundsRoll,
             fateRoll,
             corruptionRoll,
-            gearChoices: { ...gearChoices },
-            homeworldTalentChoice,
-            talentChoice,
+            homeworldChoices: { ...homeworldChoices },
+            backgroundChoices: { ...backgroundChoices },
+            roleChoices: { ...roleChoices },
             divinationChoices: { ...divinationChoices },
             purchases: [...purchases],
             xpSpent,
@@ -160,11 +162,11 @@
 
     <div class="wizard-body">
         {#if step === 0}
-            <Homeworld {data} bind:selected={homeworld} bind:talentChoice={homeworldTalentChoice} />
+            <Homeworld {data} bind:selected={homeworld} bind:homeworldChoices />
         {:else if step === 1}
-            <Background {data} bind:selected={background} bind:gearChoices />
+            <Background {data} bind:selected={background} bind:backgroundChoices />
         {:else if step === 2}
-            <Role {data} bind:selected={role} bind:talentChoice />
+            <Role {data} bind:selected={role} bind:roleChoices />
         {:else if step === 3}
             <Divination {data} bind:selected={divination} maxRerolls={divinationRerolls}
                 bind:rolled={divinationRolled} bind:rollCount={divinationRollCount} bind:rollValue={divinationRollValue}
@@ -203,8 +205,9 @@
 
                 <div class="char-review">
                     {#each charOrder as key}
-                        {@const isPositive = homeworld?.characteristicBonuses?.positive?.includes(key)}
-                        {@const isNegative = homeworld?.characteristicBonuses?.negative?.includes(key)}
+                        {@const bonus = reviewCharBonuses.find(b => b.characteristic === key)}
+                        {@const isPositive = bonus != null && bonus.value > 0}
+                        {@const isNegative = bonus != null && bonus.value < 0}
                         <div class="char-field" class:has-bonus={isPositive} class:has-penalty={isNegative}>
                             <span class="char-label">{charNames[key]}</span>
                             <span class="char-value">{characteristics[key]}</span>
@@ -221,28 +224,34 @@
                     <div class="review-item">
                         <span class="review-label">Homeworld</span>
                         <span class="review-value">{homeworld?.name || "—"}</span>
-                        {#if homeworld?.characteristicBonuses}
-                            <span class="review-detail bonus">
-                                +5 {homeworld.characteristicBonuses.positive.map((k: string) => k.toUpperCase()).join(", ")}
-                            </span>
-                            <span class="review-detail penalty">
-                                -5 {homeworld.characteristicBonuses.negative.map((k: string) => k.toUpperCase()).join(", ")}
-                            </span>
+                        {#if reviewCharBonuses.length > 0}
+                            {@const positive = reviewCharBonuses.filter(b => b.value > 0)}
+                            {@const negative = reviewCharBonuses.filter(b => b.value < 0)}
+                            {#if positive.length > 0}
+                                <span class="review-detail bonus">
+                                    +5 {positive.map(b => b.characteristic.toUpperCase()).join(", ")}
+                                </span>
+                            {/if}
+                            {#if negative.length > 0}
+                                <span class="review-detail penalty">
+                                    -5 {negative.map(b => b.characteristic.toUpperCase()).join(", ")}
+                                </span>
+                            {/if}
                         {/if}
                     </div>
                     <div class="review-item">
                         <span class="review-label">Background</span>
                         <span class="review-value">{background?.name || "—"}</span>
-                        {#if background?.aptitude}
-                            <span class="review-detail">Aptitude: {background.aptitude}</span>
+                        {#if reviewBgApts.length > 0}
+                            <span class="review-detail">Aptitude: {reviewBgApts.map(a => typeof a === "string" ? a : a.join(" or ")).join(", ")}</span>
                         {/if}
                     </div>
                     <div class="review-item">
                         <span class="review-label">Role</span>
                         <span class="review-value">{role?.name || "—"}</span>
-                        {#if role?.aptitudes}
+                        {#if reviewRoleApts.length > 0}
                             <span class="review-detail">
-                                {role.aptitudes.join(", ")}
+                                {reviewRoleApts.map(a => typeof a === "string" ? a : a.join(" or ")).join(", ")}
                             </span>
                         {/if}
                     </div>
@@ -257,15 +266,13 @@
 
                 <!-- Fate & Wounds -->
                 <div class="review-vitals">
-                    {#if homeworld}
-                        {@const baseFate = homeworld.fate?.threshold ?? 2}
-                        {@const blessingTarget = homeworld.fate?.blessing ?? 10}
-                        {@const blessed = fateRoll !== null && fateRoll >= blessingTarget}
+                    {#if reviewFateConfig}
+                        {@const blessed = fateRoll !== null && fateRoll >= reviewFateConfig.blessing}
                         <div class="review-vital">
                             <span class="review-label">Fate</span>
-                            <span class="review-value" class:wounds-rolled={blessed}>{baseFate + (blessed ? 1 : 0)}</span>
+                            <span class="review-value" class:wounds-rolled={blessed}>{reviewFateConfig.threshold + (blessed ? 1 : 0)}</span>
                             {#if fateRoll !== null}
-                                <span class="review-detail">{blessed ? "Blessed!" : "No blessing"} (rolled {fateRoll}, needed {blessingTarget}+)</span>
+                                <span class="review-detail">{blessed ? "Blessed!" : "No blessing"} (rolled {fateRoll}, needed {reviewFateConfig.blessing}+)</span>
                             {:else}
                                 <span class="review-detail warning">Not rolled — using base threshold</span>
                             {/if}
@@ -280,10 +287,10 @@
                         <span class="review-label">Wounds</span>
                         {#if woundsRoll !== null}
                             <span class="review-value wounds-rolled">{woundsRoll}</span>
-                            <span class="review-detail">rolled from {homeworld?.woundsFormula ?? "?"}</span>
+                            <span class="review-detail">rolled from {reviewWoundsFormula ?? "?"}</span>
                         {:else}
-                            <span class="review-value">{homeworld?.wounds ?? "—"}</span>
-                            <span class="review-detail warning">Not rolled — using flat value</span>
+                            <span class="review-value">—</span>
+                            <span class="review-detail warning">Not rolled</span>
                         {/if}
                     </div>
                 </div>

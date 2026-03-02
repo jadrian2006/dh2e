@@ -1,72 +1,54 @@
 [
     {
         "name": "Daemon World",
-        "characteristicBonuses": {
-            "positive": [
-                "wp",
-                "per"
-            ],
-            "negative": [
-                "fel"
-            ]
-        },
-        "fate": {
-            "threshold": 3,
-            "blessing": 4
-        },
-        "wounds": 7,
-        "aptitude": "Willpower",
-        "homeSkill": "",
-        "skills": ["Psyniscience"],
-        "startingCorruption": "1d10+5",
+        "description": "Citizens of the Imperium hail from all manner of dangerous planets and locations, but none rival the horrors of Daemon worlds. Chaos rules in these locations, and creatures of the Warp roam twisted landscapes made of nightmare and insanity. Those who live there are often reduced to amusing prey or tortured slaves for the Ruinous Powers, and survival is more than just staying alive—it is also a struggle to stay human.",
         "bonus": "Touched by the Warp",
         "bonusDescription": "A Daemon world native begins with one Rank in the Psyniscience skill. Should he gain this skill again in a later step of character creation, he instead gains one additional Rank in the skill. Note that he cannot purchase more Ranks of this skill unless he acquires the Psyker aptitude. This character also begins with 1d10+5 Corruption points.",
-        "description": "Citizens of the Imperium hail from all manner of dangerous planets and locations, but none rival the horrors of Daemon worlds. Chaos rules in these locations, and creatures of the Warp roam twisted landscapes made of nightmare and insanity. Those who live there are often reduced to amusing prey or tortured slaves for the Ruinous Powers, and survival is more than just staying alive—it is also a struggle to stay human."
+        "source": "enemies-beyond",
+        "rules": [
+            { "key": "CreationBonus", "characteristic": "wp", "value": 5 },
+            { "key": "CreationBonus", "characteristic": "per", "value": 5 },
+            { "key": "CreationBonus", "characteristic": "fel", "value": -5 },
+            { "key": "CreationFate", "threshold": 3, "blessing": 4 },
+            { "key": "CreationWounds", "formula": "7+1d5" },
+            { "key": "GrantAptitude", "aptitude": "Willpower" },
+            { "key": "Grant", "type": "skill", "name": "Psyniscience" },
+            { "key": "CreationCorruption", "formula": "1d10+5" },
+            { "key": "RollOption", "option": "self:homeworld:touched-by-the-warp" }
+        ]
     },
     {
         "name": "Penal Colony",
-        "characteristicBonuses": {
-            "positive": [
-                "t",
-                "per"
-            ],
-            "negative": [
-                "inf"
-            ]
-        },
-        "fate": {
-            "threshold": 3,
-            "blessing": 8
-        },
-        "wounds": 10,
-        "aptitude": "Toughness",
-        "homeSkill": "",
-        "skills": ["Common Lore (Underworld)", "Scrutiny"],
-        "talents": ["Peer (Criminal Cartels)"],
+        "description": "Holding the dregs of society and the most dangerous of criminals, these planets serve as little more than holding pens for bitterness, hatred, and violence, but stand ready as future tools for the Imperium's hands. Life on many penal colonies is extremely regimented and heavily monitored. Those who survive and emerge from this environment stronger and more defined are often the kind needed by both Inquisitors and the Imperial Guard.",
         "bonus": "Finger on the Pulse",
         "bonusDescription": "One survives a penal colony by instinctively knowing who is in charge and who is a threat. A penal colony character begins with one Rank in the Common Lore (Underworld) and Scrutiny skills, and starts with the Peer (Criminal Cartels) talent.",
-        "description": "Holding the dregs of society and the most dangerous of criminals, these planets serve as little more than holding pens for bitterness, hatred, and violence, but stand ready as future tools for the Imperium's hands. Life on many penal colonies is extremely regimented and heavily monitored. Those who survive and emerge from this environment stronger and more defined are often the kind needed by both Inquisitors and the Imperial Guard."
+        "source": "enemies-beyond",
+        "rules": [
+            { "key": "CreationBonus", "characteristic": "t", "value": 5 },
+            { "key": "CreationBonus", "characteristic": "per", "value": 5 },
+            { "key": "CreationBonus", "characteristic": "inf", "value": -5 },
+            { "key": "CreationFate", "threshold": 3, "blessing": 8 },
+            { "key": "CreationWounds", "formula": "10+1d5" },
+            { "key": "GrantAptitude", "aptitude": "Toughness" },
+            { "key": "Grant", "type": "skill", "name": "Common Lore (Underworld)" },
+            { "key": "Grant", "type": "skill", "name": "Scrutiny" },
+            { "key": "Grant", "type": "talent", "name": "Peer (Criminal Cartels)" }
+        ]
     },
     {
         "name": "Quarantine World",
-        "characteristicBonuses": {
-            "positive": [
-                "bs",
-                "int"
-            ],
-            "negative": [
-                "s"
-            ]
-        },
-        "fate": {
-            "threshold": 3,
-            "blessing": 9
-        },
-        "wounds": 8,
-        "aptitude": "Fieldcraft",
-        "homeSkill": "",
+        "description": "Condemned by Holy Imperial Writ and blockaded by the Imperial Navy, though possibly resource rich and habitable; any foot that has trod these mysterious surfaces is one marked for execution. Quarantine worlds are marked as forbidden for visitation, settlement, or contact of any kind. Those who survive and escape are some of the most versatile and resourceful people in the galaxy.",
         "bonus": "Secretive by Nature",
         "bonusDescription": "Those who manage to leave a quarantine world learn how to keep secrets. Whenever the warband's Subtlety would decrease, it decreases by 2 less (to a minimum reduction of 1).",
-        "description": "Condemned by Holy Imperial Writ and blockaded by the Imperial Navy, though possibly resource rich and habitable; any foot that has trod these mysterious surfaces is one marked for execution. Quarantine worlds are marked as forbidden for visitation, settlement, or contact of any kind. Those who survive and escape are some of the most versatile and resourceful people in the galaxy."
+        "source": "enemies-beyond",
+        "rules": [
+            { "key": "CreationBonus", "characteristic": "bs", "value": 5 },
+            { "key": "CreationBonus", "characteristic": "int", "value": 5 },
+            { "key": "CreationBonus", "characteristic": "s", "value": -5 },
+            { "key": "CreationFate", "threshold": 3, "blessing": 9 },
+            { "key": "CreationWounds", "formula": "8+1d5" },
+            { "key": "GrantAptitude", "aptitude": "Fieldcraft" },
+            { "key": "RollOption", "option": "self:homeworld:secretive-by-nature" }
+        ]
     }
 ]

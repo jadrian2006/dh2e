@@ -292,32 +292,23 @@
         "homeworld": {
             "description": "",
             "source": "",
-            "characteristicBonuses": { "positive": [], "negative": [] },
-            "fate": { "threshold": 2, "blessing": 1 },
-            "woundsFormula": "8+1d5",
-            "aptitude": "",
-            "homeSkill": "",
             "bonus": "",
-            "bonusDescription": ""
+            "bonusDescription": "",
+            "rules": []
         },
         "background": {
             "description": "",
             "source": "",
-            "skills": [],
-            "talents": [],
-            "equipment": [],
-            "aptitude": "",
             "bonus": "",
-            "bonusDescription": ""
+            "bonusDescription": "",
+            "rules": []
         },
         "role": {
             "description": "",
             "source": "",
-            "aptitudes": [],
-            "talent": "",
-            "eliteAdvances": [],
             "bonus": "",
-            "bonusDescription": ""
+            "bonusDescription": "",
+            "rules": []
         },
         "treasure": {
             "description": "",

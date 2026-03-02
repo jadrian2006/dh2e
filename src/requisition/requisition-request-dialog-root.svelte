@@ -1,24 +1,33 @@
 <script lang="ts">
-    import type { RequisitionRequestPayload } from "./requisition-request-dialog.ts";
+    import type { RequisitionRequestPayload, RequisitionRequestItem } from "./requisition-request-dialog.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
-    // Mode: compendium search or custom item
-    let mode: "compendium" | "custom" = $state("compendium");
+    // --- Cart state ---
+    interface CartItem {
+        id: string;
+        name: string;
+        uuid?: string;
+        type?: string;
+        availability: string;
+        craftsmanship: string;
+        img?: string;
+    }
 
-    // Compendium search
+    let cartItems: CartItem[] = $state([]);
+
+    // --- Staging area for next item to add ---
+    let mode: "compendium" | "custom" = $state("compendium");
     let searchQuery = $state("");
     let selectedItem: { name: string; uuid: string; type: string; availability: string; img: string } | null = $state(null);
-
-    // Custom item fields
     let customItemName = $state("");
-
-    // Shared fields
     let availability = $state("common");
     let craftsmanship = $state("common");
+
+    // --- Shared fields ---
     let modifications = $state("");
 
-    // Roll state
+    // --- Roll state ---
     let rollResult: {
         rollResult: number;
         targetNumber: number;
@@ -28,7 +37,7 @@
     } | null = $state(null);
     let rolling = $state(false);
 
-    // Derived: filtered compendium items (searches name and type)
+    // --- Derived: filtered compendium items ---
     const filteredItems = $derived(() => {
         const items = ctx.compendiumItems ?? [];
         if (!searchQuery.trim()) return items.slice(0, 50);
@@ -38,35 +47,73 @@
         ).slice(0, 50);
     });
 
-    // Derived: current item name
-    const itemName = $derived(mode === "compendium" ? (selectedItem?.name ?? "") : customItemName);
+    // --- Derived: staging item name ---
+    const stagingName = $derived(mode === "compendium" ? (selectedItem?.name ?? "") : customItemName);
+    const canAdd = $derived(stagingName.length > 0);
 
-    // Derived: availability tier info
-    const availTier = $derived(
-        (ctx.availOptions ?? []).find((t: any) => t.key === availability),
-    );
-    const craftTier = $derived(
-        (ctx.craftOptions ?? []).find((t: any) => t.key === craftsmanship),
-    );
+    // --- Derived: per-item penalty helper ---
+    function getItemMod(item: CartItem): number {
+        const availConfig = (ctx.availOptions ?? []).find((t: any) => t.key === item.availability);
+        const craftConfig = (ctx.craftOptions ?? []).find((t: any) => t.key === item.craftsmanship);
+        return (availConfig?.modifier ?? 0) + (craftConfig?.modifier ?? 0);
+    }
 
-    // Derived: cost breakdown
-    const availMod = $derived(availTier?.modifier ?? 0);
-    const craftMod = $derived(craftTier?.modifier ?? 0);
-    const totalMod = $derived(availMod + craftMod);
+    function getAvailLabel(key: string): string {
+        return (ctx.availOptions ?? []).find((t: any) => t.key === key)?.label ?? key;
+    }
+
+    function getCraftLabel(key: string): string {
+        return (ctx.craftOptions ?? []).find((t: any) => t.key === key)?.label ?? key;
+    }
+
+    // --- Derived: batch cost breakdown ---
+    const worstMod = $derived(
+        cartItems.length > 0
+            ? Math.min(...cartItems.map(i => getItemMod(i)))
+            : 0,
+    );
     const influence = $derived(ctx.influence ?? 25);
-    const targetNumber = $derived(Math.max(1, Math.min(100, influence + totalMod)));
+    const targetNumber = $derived(Math.max(1, Math.min(100, influence + worstMod)));
 
-    // Can roll?
-    const canRoll = $derived(itemName.length > 0 && !rolling);
-    // Can send?
+    // --- Derived: can roll / can send ---
+    const canRoll = $derived(cartItems.length > 0 && !rolling && rollResult === null);
     const canSend = $derived(rollResult !== null);
 
+    // --- Actions ---
     function selectCompendiumItem(item: any) {
         selectedItem = item;
-        // Auto-set availability from item data
         const availKey = (item.availability ?? "common").toLowerCase();
         const match = (ctx.availOptions ?? []).find((t: any) => t.key === availKey);
         if (match) availability = match.key;
+    }
+
+    function addToCart() {
+        if (!canAdd) return;
+        const item: CartItem = {
+            id: fu.randomID(),
+            name: stagingName,
+            uuid: selectedItem?.uuid,
+            type: selectedItem?.type,
+            availability,
+            craftsmanship,
+            img: selectedItem?.img,
+        };
+        cartItems = [...cartItems, item];
+
+        // Reset staging
+        selectedItem = null;
+        customItemName = "";
+        searchQuery = "";
+        availability = "common";
+        craftsmanship = "common";
+
+        // Clear roll result since cart changed
+        rollResult = null;
+    }
+
+    function removeFromCart(id: string) {
+        cartItems = cartItems.filter(i => i.id !== id);
+        rollResult = null;
     }
 
     async function doRoll() {
@@ -75,11 +122,15 @@
         rollResult = null;
         try {
             const result = await ctx.onRoll?.({
-                itemName,
-                availability,
-                craftsmanship,
+                items: cartItems.map(i => ({
+                    name: i.name,
+                    uuid: i.uuid,
+                    type: i.type,
+                    availability: i.availability,
+                    craftsmanship: i.craftsmanship,
+                    img: i.img,
+                })),
                 modifications,
-                itemData: selectedItem ? { name: selectedItem.name, type: selectedItem.type, uuid: selectedItem.uuid } : null,
             });
             if (result) rollResult = result;
         } finally {
@@ -90,25 +141,31 @@
     async function sendToGM() {
         if (!rollResult || !ctx.actor) return;
 
-        // Resolve full item data if from compendium
-        let itemData: object = {};
-        if (selectedItem?.uuid) {
-            try {
-                const doc = await fromUuid(selectedItem.uuid);
-                if (doc) itemData = (doc as any).toObject();
-            } catch { /* use empty */ }
+        // Resolve full item data for each cart item
+        const items: RequisitionRequestItem[] = [];
+        for (const ci of cartItems) {
+            let itemData: object = {};
+            if (ci.uuid) {
+                try {
+                    const doc = await fromUuid(ci.uuid);
+                    if (doc) itemData = (doc as any).toObject();
+                } catch { /* use empty */ }
+            }
+            items.push({
+                itemData,
+                itemName: ci.name,
+                craftsmanship: ci.craftsmanship,
+                availability: ci.availability,
+            });
         }
 
         const g = game as any;
         const payload: RequisitionRequestPayload = {
-            itemData,
-            itemName,
-            craftsmanship,
+            items,
             modifications,
             requestedBy: g.user?.name ?? "Unknown",
             requestedFor: ctx.actor?.uuid ?? "",
             actorName: ctx.actor?.name ?? "Unknown",
-            availability,
             rollResult: rollResult.rollResult,
             targetNumber: rollResult.targetNumber,
             success: rollResult.success,
@@ -136,7 +193,7 @@
         </button>
     </div>
 
-    <!-- Item selection -->
+    <!-- Item selection (staging area) -->
     {#if mode === "compendium"}
         <div class="item-search">
             <input
@@ -173,7 +230,7 @@
         </div>
     {/if}
 
-    <!-- Options -->
+    <!-- Per-item options (staging) -->
     <div class="options-section">
         <div class="field-row">
             <label for="avail-select">{game.i18n?.localize("DH2E.Requisition.Availability") ?? "Availability"}</label>
@@ -192,42 +249,68 @@
                 {/each}
             </select>
         </div>
-
-        <div class="field-row">
-            <label for="modifications">{game.i18n?.localize("DH2E.Requisition.Modifications") ?? "Modifications"}</label>
-            <textarea
-                id="modifications"
-                bind:value={modifications}
-                placeholder={game.i18n?.localize("DH2E.Requisition.ModificationsHint") ?? "Free-text notes..."}
-                rows="2"
-            ></textarea>
-        </div>
     </div>
+
+    <!-- Add to Cart button -->
+    <button class="btn-add-cart" onclick={addToCart} disabled={!canAdd}>
+        <i class="fa-solid fa-cart-plus"></i>
+        {game.i18n?.localize("DH2E.Requisition.AddToCart") ?? "Add to Cart"}
+    </button>
+
+    <!-- Cart list -->
+    {#if cartItems.length > 0}
+        <div class="cart-section">
+            <h4 class="cart-header">
+                <i class="fa-solid fa-cart-shopping"></i>
+                {game.i18n?.localize("DH2E.Requisition.Cart") ?? "Cart"} ({cartItems.length})
+            </h4>
+            <div class="cart-list">
+                {#each cartItems as item (item.id)}
+                    <div class="cart-row">
+                        <span class="cart-item-name">{item.name}</span>
+                        <span class="avail-tag avail-{item.availability}">{getAvailLabel(item.availability)}</span>
+                        <span class="craft-badge craft-{item.craftsmanship}">{getCraftLabel(item.craftsmanship)}</span>
+                        <span class="cart-item-mod">{formatMod(getItemMod(item))}</span>
+                        <button class="cart-remove" onclick={() => removeFromCart(item.id)}>&times;</button>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    {/if}
+
+    <!-- Modifications (batch-level) -->
+    {#if cartItems.length > 0}
+        <div class="options-section">
+            <div class="field-row">
+                <label for="modifications">{game.i18n?.localize("DH2E.Requisition.Modifications") ?? "Notes"}</label>
+                <textarea
+                    id="modifications"
+                    bind:value={modifications}
+                    placeholder={game.i18n?.localize("DH2E.Requisition.ModificationsHint") ?? "Free-text notes..."}
+                    rows="2"
+                ></textarea>
+            </div>
+        </div>
+    {/if}
 
     <!-- Cost Breakdown -->
-    <div class="cost-breakdown">
-        <h4>{game.i18n?.localize("DH2E.Requisition.CostBreakdown") ?? "Cost Breakdown"}</h4>
-        <div class="cost-row">
-            <span>{game.i18n?.localize("DH2E.Requisition.BaseAvailability") ?? "Base Availability"}</span>
-            <span class="cost-value">{availTier?.label ?? "—"}</span>
+    {#if cartItems.length > 0}
+        <div class="cost-breakdown">
+            <h4>{game.i18n?.localize("DH2E.Requisition.CostBreakdown") ?? "Cost Breakdown"}</h4>
+            <div class="cost-row">
+                <span>{game.i18n?.localize("DH2E.Requisition.WorstPenalty") ?? "Worst Item Penalty"}</span>
+                <span class="cost-value total-mod">{formatMod(worstMod)}</span>
+            </div>
+            <div class="cost-row">
+                <span>{game.i18n?.localize("DH2E.Requisition.CharacterInfluence") ?? "Character Influence"}</span>
+                <span class="cost-value">{influence}</span>
+            </div>
+            <div class="cost-row target-row">
+                <span>{game.i18n?.localize("DH2E.Requisition.TargetNumber") ?? "Target Number"}</span>
+                <span class="cost-value target-number">{targetNumber}</span>
+            </div>
         </div>
-        <div class="cost-row">
-            <span>{game.i18n?.localize("DH2E.Requisition.Craftsmanship") ?? "Craftsmanship"}</span>
-            <span class="cost-value">{craftTier?.label ?? "—"}</span>
-        </div>
-        <div class="cost-row">
-            <span>{game.i18n?.localize("DH2E.Requisition.TotalModifier") ?? "Total Modifier"}</span>
-            <span class="cost-value total-mod">{formatMod(totalMod)}</span>
-        </div>
-        <div class="cost-row">
-            <span>{game.i18n?.localize("DH2E.Requisition.CharacterInfluence") ?? "Character Influence"}</span>
-            <span class="cost-value">{influence}</span>
-        </div>
-        <div class="cost-row target-row">
-            <span>{game.i18n?.localize("DH2E.Requisition.TargetNumber") ?? "Target Number"}</span>
-            <span class="cost-value target-number">{targetNumber}</span>
-        </div>
-    </div>
+    {/if}
 
     <!-- Roll result -->
     {#if rollResult}
@@ -428,6 +511,109 @@
             font-family: inherit;
             font-size: var(--dh2e-text-sm, 0.8rem);
         }
+    }
+
+    .btn-add-cart {
+        padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-sm, 0.5rem);
+        background: var(--dh2e-bg-mid, #2e2e35);
+        border: 1px dashed var(--dh2e-gold-dark, #9c7a28);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        color: var(--dh2e-gold, #c8a84e);
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        cursor: pointer;
+        font-weight: 600;
+
+        &:hover { background: rgba(200, 168, 78, 0.15); }
+        &:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        i { margin-right: var(--dh2e-space-xs, 0.25rem); }
+    }
+
+    .cart-section {
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        background: var(--dh2e-bg-darkest, #111114);
+    }
+
+    .cart-header {
+        margin: 0;
+        padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-sm, 0.5rem);
+        font-family: var(--dh2e-font-header, serif);
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        color: var(--dh2e-gold, #c8a84e);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 1px solid var(--dh2e-border, #4a4a55);
+
+        i { margin-right: 4px; }
+    }
+
+    .cart-list {
+        max-height: 10rem;
+        overflow-y: auto;
+    }
+
+    .cart-row {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-xs, 0.25rem);
+        padding: var(--dh2e-space-xxs, 0.125rem) var(--dh2e-space-sm, 0.5rem);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        font-size: var(--dh2e-text-sm, 0.8rem);
+
+        &:last-child { border-bottom: none; }
+    }
+
+    .cart-item-name {
+        flex: 1;
+        color: var(--dh2e-text-primary, #d0cfc8);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .avail-tag {
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        padding: 1px 4px;
+        border-radius: 2px;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        background: var(--dh2e-bg-mid, #2e2e35);
+    }
+
+    .craft-badge {
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 1px 6px;
+        border-radius: 2px;
+        font-weight: 700;
+
+        &.craft-poor { background: #4a3020; color: #c88050; }
+        &.craft-common { background: #303040; color: #a0a0b0; }
+        &.craft-good { background: #203040; color: #60a0c0; }
+        &.craft-best { background: #3a3020; color: var(--dh2e-gold, #c8a84e); }
+    }
+
+    .cart-item-mod {
+        font-size: 0.7rem;
+        color: var(--dh2e-gold-muted, #7a6a3e);
+        font-weight: 600;
+        min-width: 2rem;
+        text-align: right;
+    }
+
+    .cart-remove {
+        background: none;
+        border: none;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        font-size: 0.9rem;
+        padding: 0 2px;
+        line-height: 1;
+
+        &:hover { color: #d66; }
     }
 
     .cost-breakdown {

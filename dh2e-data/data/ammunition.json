@@ -2,7 +2,7 @@
     {
         "name": "Solid Rounds",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/solid-rounds.png",
         "system": {
             "description": "Standard-issue solid projectile ammunition. Used in stub weapons, autoguns, and other SP firearms.",
             "damageModifier": 0,
@@ -22,7 +22,7 @@
     {
         "name": "Charge Pack",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/charge-pack.png",
         "system": {
             "description": "A standard power cell for las weapons. Can be recharged from most power sources or even an open flame.",
             "damageModifier": 0,
@@ -42,7 +42,7 @@
     {
         "name": "Bolt Shells",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/default-icons/ammunition.svg",
         "system": {
             "description": "Standard mass-reactive bolt rounds. Self-propelled and designed to detonate within the target.",
             "damageModifier": 0,
@@ -62,7 +62,7 @@
     {
         "name": "Promethium Canister",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/promethium-canister.png",
         "system": {
             "description": "A sealed tank of refined promethium fuel for flame weapons.",
             "damageModifier": 0,
@@ -82,7 +82,7 @@
     {
         "name": "Melta Canister",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/melta-canister.png",
         "system": {
             "description": "A pressurised fuel canister for melta weapons containing a pyrum-petrol mix.",
             "damageModifier": 0,
@@ -102,7 +102,7 @@
     {
         "name": "Plasma Flask",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/plasma-flask.png",
         "system": {
             "description": "A containment flask of hydrogen fuel for plasma weapons. Extremely volatile.",
             "damageModifier": 0,
@@ -122,7 +122,7 @@
     {
         "name": "Shotgun Shells",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/shotgun-shells.png",
         "system": {
             "description": "Standard solid-slug or buckshot shells for combat shotguns.",
             "damageModifier": 0,
@@ -142,7 +142,7 @@
     {
         "name": "Frag Grenades (Launcher)",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/frag-grenades-launcher.png",
         "system": {
             "description": "Standard fragmentation grenades sized for grenade launchers and missile launchers.",
             "damageModifier": 0,
@@ -162,7 +162,7 @@
     {
         "name": "Man-Stopper Rounds",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/man-stopper-rounds.png",
         "system": {
             "description": "Armour-piercing rounds with a hardened penetrator core. Increases penetration by 3.",
             "damageModifier": 0,
@@ -182,7 +182,7 @@
     {
         "name": "Dumdum Rounds",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/dumdum-rounds.png",
         "system": {
             "description": "Expanding rounds that cause horrific wounds. +2 damage, but -1 penetration and adds Tearing.",
             "damageModifier": 2,
@@ -204,7 +204,7 @@
     {
         "name": "Hot-Shot Charge Pack",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/hot-shot-charge-pack.png",
         "system": {
             "description": "Overcharged power cell that boosts las weapon output. +1 damage, +2 penetration. Single shot then spent.",
             "damageModifier": 1,
@@ -224,7 +224,7 @@
     {
         "name": "Inferno Shells",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/default-icons/ammunition.svg",
         "system": {
             "description": "Shotgun shells loaded with a volatile incendiary mix. Changes damage type to Energy.",
             "damageModifier": 0,
@@ -246,7 +246,7 @@
     {
         "name": "Expander Rounds",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/expander-rounds.png",
         "system": {
             "description": "Hollow rounds with an expanding core. +1 damage on hit.",
             "damageModifier": 1,
@@ -266,7 +266,7 @@
     {
         "name": "Blessed Ammunition",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/blessed-ammunition.png",
         "system": {
             "description": "Rounds consecrated by the Ecclesiarchy. Adds Sanctified quality. Compatible with all weapon types.",
             "damageModifier": 0,
@@ -288,7 +288,7 @@
     {
         "name": "Tempest Bolt Shells",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/tempest-bolt-shells.png",
         "system": {
             "description": "Bolt shells containing a potent electrical discharge. +2 damage, adds Haywire quality.",
             "damageModifier": 2,
@@ -310,7 +310,7 @@
     {
         "name": "Toxic Rounds",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/toxic-rounds.png",
         "system": {
             "description": "Rounds laced with a potent toxin. Adds Toxic(1) quality.",
             "damageModifier": 0,
@@ -332,13 +332,15 @@
     {
         "name": "Silver Rounds",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/silver-rounds.png",
         "system": {
             "description": "Solid projectile rounds cast or coated in consecrated silver. Effective against Warp-touched entities and Daemons. Compatible with all SP weapons.",
             "damageModifier": 0,
             "damageType": "",
             "penetrationModifier": 0,
-            "qualities": ["Sanctified"],
+            "qualities": [
+                "Sanctified"
+            ],
             "quantity": 1,
             "weight": 0.5,
             "weaponGroup": "sp",
@@ -352,7 +354,7 @@
     {
         "name": "Overcharge Pack",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/overcharge-pack.png",
         "system": {
             "description": "A modified power cell for plasma weapons. +1 damage, adds Overheats quality.",
             "damageModifier": 1,
@@ -374,7 +376,7 @@
     {
         "name": "Stub Automatic Magazine",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/stub-automatic-magazine.png",
         "system": {
             "description": "A detachable magazine for the Stub Automatic. Capacity: 9 rounds.",
             "damageModifier": 0,
@@ -394,7 +396,7 @@
     {
         "name": "Autopistol Magazine",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/autopistol-magazine.png",
         "system": {
             "description": "A detachable magazine for the Autopistol. Capacity: 18 rounds.",
             "damageModifier": 0,
@@ -414,7 +416,7 @@
     {
         "name": "Autogun Magazine",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/autogun-magazine.png",
         "system": {
             "description": "A detachable magazine for the Autogun. Capacity: 30 rounds.",
             "damageModifier": 0,
@@ -434,7 +436,7 @@
     {
         "name": "Hunting Rifle Magazine",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/hunting-rifle-magazine.png",
         "system": {
             "description": "A detachable magazine for the Hunting Rifle. Capacity: 5 rounds.",
             "damageModifier": 0,
@@ -454,7 +456,7 @@
     {
         "name": "Sniper Rifle Magazine",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/sniper-rifle-magazine.png",
         "system": {
             "description": "A detachable magazine for the Sniper Rifle. Capacity: 20 rounds.",
             "damageModifier": 0,
@@ -474,7 +476,7 @@
     {
         "name": "Autocannon Drum",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/default-icons/ammunition.svg",
         "system": {
             "description": "A detachable magazine for the Autocannon. Capacity: 20 rounds.",
             "damageModifier": 0,
@@ -494,7 +496,7 @@
     {
         "name": "Laspistol Power Pack",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/laspistol-power-pack.png",
         "system": {
             "description": "A detachable power pack for the Laspistol. Capacity: 30 rounds.",
             "damageModifier": 0,
@@ -514,7 +516,7 @@
     {
         "name": "Lasgun Power Pack",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/lasgun-power-pack.png",
         "system": {
             "description": "A detachable power pack for the Lasgun. Capacity: 60 rounds.",
             "damageModifier": 0,
@@ -534,7 +536,7 @@
     {
         "name": "Long Las Power Pack",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/long-las-power-pack.png",
         "system": {
             "description": "A detachable power pack for the Long Las. Capacity: 40 rounds.",
             "damageModifier": 0,
@@ -554,7 +556,7 @@
     {
         "name": "Lascannon Power Cell",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/lascannon-power-cell.png",
         "system": {
             "description": "A detachable power pack for the Lascannon. Capacity: 5 rounds.",
             "damageModifier": 0,
@@ -574,7 +576,7 @@
     {
         "name": "Multi-Laser Power Cell",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/multi-laser-power-cell.png",
         "system": {
             "description": "A detachable power pack for the Multi-Laser. Capacity: 100 rounds.",
             "damageModifier": 0,
@@ -594,7 +596,7 @@
     {
         "name": "Bolt Pistol Magazine",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/bolt-pistol-magazine.png",
         "system": {
             "description": "A detachable magazine for the Bolt Pistol. Capacity: 8 rounds.",
             "damageModifier": 0,
@@ -614,7 +616,7 @@
     {
         "name": "Boltgun Magazine",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/default-icons/ammunition.svg",
         "system": {
             "description": "A detachable magazine for the Boltgun. Capacity: 24 rounds.",
             "damageModifier": 0,
@@ -634,7 +636,7 @@
     {
         "name": "Storm Bolter Drum",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/storm-bolter-drum.png",
         "system": {
             "description": "A detachable magazine for the Storm Bolter. Capacity: 60 rounds.",
             "damageModifier": 0,
@@ -654,7 +656,7 @@
     {
         "name": "Heavy Bolter Belt Box",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/heavy-bolter-belt-box.png",
         "system": {
             "description": "A detachable magazine for the Heavy Bolter. Capacity: 60 rounds.",
             "damageModifier": 0,
@@ -674,7 +676,7 @@
     {
         "name": "Hand Flamer Canister",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/hand-flamer-canister.png",
         "system": {
             "description": "A detachable fuel canister for the Hand Flamer. Capacity: 2 rounds.",
             "damageModifier": 0,
@@ -694,7 +696,7 @@
     {
         "name": "Flamer Canister",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/flamer-canister.png",
         "system": {
             "description": "A detachable fuel canister for the Flamer. Capacity: 6 rounds.",
             "damageModifier": 0,
@@ -714,7 +716,7 @@
     {
         "name": "Heavy Flamer Canister",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/heavy-flamer-canister.png",
         "system": {
             "description": "A detachable fuel canister for the Heavy Flamer. Capacity: 10 rounds.",
             "damageModifier": 0,
@@ -734,7 +736,7 @@
     {
         "name": "Inferno Pistol Canister",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/inferno-pistol-canister.png",
         "system": {
             "description": "A detachable fuel canister for the Inferno Pistol. Capacity: 3 rounds.",
             "damageModifier": 0,
@@ -754,7 +756,7 @@
     {
         "name": "Meltagun Canister",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/default-icons/ammunition.svg",
         "system": {
             "description": "A detachable fuel canister for the Meltagun. Capacity: 5 rounds.",
             "damageModifier": 0,
@@ -774,7 +776,7 @@
     {
         "name": "Plasma Pistol Flask",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/plasma-pistol-flask.png",
         "system": {
             "description": "A detachable containment flask for the Plasma Pistol. Capacity: 10 rounds.",
             "damageModifier": 0,
@@ -794,7 +796,7 @@
     {
         "name": "Plasma Gun Flask",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/plasma-gun-flask.png",
         "system": {
             "description": "A detachable containment flask for the Plasma Gun. Capacity: 20 rounds.",
             "damageModifier": 0,
@@ -814,7 +816,7 @@
     {
         "name": "Plasma Cannon Flask",
         "type": "ammunition",
-        "img": "icons/svg/item-bag.svg",
+        "img": "systems/dh2e/icons/items/ammunition/plasma-cannon-flask.png",
         "system": {
             "description": "A detachable containment flask for the Plasma Cannon. Capacity: 16 rounds.",
             "damageModifier": 0,

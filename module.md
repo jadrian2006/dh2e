@@ -132,6 +132,8 @@ Each content type has two formats:
 
 #### Homeworld (Compendium)
 
+All mechanical data lives in the `rules[]` array as Rule Elements. The only non-RE fields are `description`, `source`, `bonus`, and `bonusDescription`.
+
 ```json
 {
     "name": "World Name",
@@ -139,47 +141,58 @@ Each content type has two formats:
     "img": "systems/dh2e/icons/default-icons/homeworld.svg",
     "system": {
         "description": "Lore text...",
-        "characteristicBonuses": {
-            "positive": ["stat1", "stat2"],
-            "negative": ["stat3"]
-        },
-        "fate": { "threshold": 2, "blessing": 4 },
-        "woundsFormula": "8+1d5",
-        "aptitude": "Aptitude Name",
-        "homeSkill": "",
         "bonus": "Bonus Name",
         "bonusDescription": "What the bonus does...",
-        "recommendedBackgrounds": ["Bg1", "Bg2", "Bg3", "Bg4"],
-        "source": "<module-source>"
+        "source": "<module-source>",
+        "rules": [
+            { "key": "CreationBonus", "characteristic": "stat1", "value": 5 },
+            { "key": "CreationBonus", "characteristic": "stat2", "value": 5 },
+            { "key": "CreationBonus", "characteristic": "stat3", "value": -5 },
+            { "key": "CreationFate", "threshold": 2, "blessing": 4 },
+            { "key": "CreationWounds", "formula": "8+1d5" },
+            { "key": "GrantAptitude", "aptitude": "Aptitude Name" },
+            { "key": "RollOption", "option": "self:homeworld:bonus-slug" }
+        ]
     }
 }
 ```
 
 Characteristic abbreviations: `ws`, `bs`, `s`, `t`, `ag`, `int`, `per`, `wp`, `fel`, `inf`
 
-Note: `inf` (Influence) is special — not a standard CharacteristicAbbrev but valid for homeworld bonuses.
+Note: `inf` (Influence) is special — not a standard CharacteristicAbbrev but valid for `CreationBonus`.
 
-#### Homeworld (Creation)
+**Optional REs:**
+- `{ "key": "Grant", "type": "talent", "options": ["Talent A", "Talent B"] }` — homeworld talent choice (e.g., Forge World)
+- `{ "key": "Grant", "type": "trait", "name": "Trait Name" }` — homeworld trait (e.g., Agri-World Brutal Charge)
+- `{ "key": "Grant", "type": "skill", "name": "Psyniscience" }` — homeworld skill (e.g., Daemon World)
+- `{ "key": "CreationCorruption", "formula": "1d10+5" }` — starting corruption (e.g., Daemon World)
+- `{ "key": "FlatModifier", ... }` — runtime modifiers from homeworld bonus
+
+#### Homeworld (Creation Fallback)
+
+Same fields without `type`/`img`/`system` wrapper — flat OriginOption format:
 
 ```json
 {
     "name": "World Name",
-    "characteristicBonuses": { "positive": ["stat1", "stat2"], "negative": ["stat3"] },
-    "fate": { "threshold": 2, "blessing": 4 },
-    "wounds": 8,
-    "aptitude": "Aptitude Name",
-    "homeSkill": "",
+    "description": "...",
     "bonus": "Bonus Name",
     "bonusDescription": "...",
-    "description": "..."
+    "source": "<module-source>",
+    "rules": [
+        { "key": "CreationBonus", "characteristic": "stat1", "value": 5 },
+        { "key": "CreationFate", "threshold": 2, "blessing": 4 },
+        { "key": "CreationWounds", "formula": "8+1d5" },
+        { "key": "GrantAptitude", "aptitude": "Aptitude Name" }
+    ]
 }
 ```
-
-Optional fields: `"skills": [...]`, `"talents": [...]`, `"startingCorruption": "1d10+5"`
 
 ---
 
 #### Background (Compendium)
+
+Skills, talents, and equipment are all `Grant` REs. "X or Y" choices use `options[]`. Multi-item choices (e.g., "Hand flamer, or warhammer and stub revolver") use `optionSets[]`.
 
 ```json
 {
@@ -188,24 +201,44 @@ Optional fields: `"skills": [...]`, `"talents": [...]`, `"startingCorruption": "
     "img": "systems/dh2e/icons/default-icons/background.svg",
     "system": {
         "description": "...",
-        "skills": ["Skill1", "Skill2 or Skill3", ...],
-        "talents": ["Talent1", ...],
-        "equipment": ["Item1 or Item2", ...],
-        "aptitude": "Apt1 or Apt2",
         "bonus": "Bonus Name",
         "bonusDescription": "...",
-        "source": "<module-source>"
+        "source": "<module-source>",
+        "rules": [
+            { "key": "GrantAptitude", "options": ["Apt1", "Apt2"] },
+            { "key": "Grant", "type": "skill", "name": "Skill Name" },
+            { "key": "Grant", "type": "skill", "options": ["Skill A", "Skill B"] },
+            { "key": "Grant", "type": "skill", "name": "Scholastic Lore", "pick": true },
+            { "key": "Grant", "type": "talent", "options": ["Weapon Training (Las)", "Weapon Training (Solid Projectile)"] },
+            { "key": "Grant", "type": "weapon", "options": ["Laspistol", "Stub Automatic"] },
+            { "key": "Grant", "type": "weapon", "optionSets": [
+                { "label": "Hand Flamer", "items": [{ "type": "weapon", "name": "Hand Flamer" }] },
+                { "label": "Warhammer + Stub Revolver", "items": [
+                    { "type": "weapon", "name": "Warhammer" },
+                    { "type": "weapon", "name": "Stub Revolver" }
+                ]}
+            ], "equipped": true },
+            { "key": "Grant", "type": "armour", "name": "Flak Vest", "equipped": true },
+            { "key": "Grant", "type": "gear", "name": "Stimm", "quantity": 3 },
+            { "key": "Grant", "type": "cybernetic", "name": "Mechanicus Implants", "installed": true },
+            { "key": "Grant", "type": "companion", "name": "Servo-skull (Utility)" },
+            { "key": "RollOption", "option": "self:background:bonus-slug" }
+        ]
     }
 }
 ```
 
-#### Background (Creation)
+**Grant modifiers:** `equipped` (auto-equip), `installed` (cybernetics), `quantity` (multiples), `pick` (player picks specialization), `advancement` (skill rank), `rating` (trait rating).
+
+#### Background (Creation Fallback)
 
 Same fields without `type`/`img`/`system` wrapper.
 
 ---
 
 #### Role (Compendium)
+
+Each aptitude is a separate `GrantAptitude` RE. Talent choice uses a `Grant` with `options[]`. Fate-point abilities use `FateOption` REs.
 
 ```json
 {
@@ -214,16 +247,27 @@ Same fields without `type`/`img`/`system` wrapper.
     "img": "systems/dh2e/icons/default-icons/role.svg",
     "system": {
         "description": "...",
-        "aptitudes": ["Apt1", "Apt2", "Apt3", "Apt4", "Apt5"],
-        "talent": "Talent1 or Talent2",
         "bonus": "Bonus Name",
         "bonusDescription": "...",
-        "source": "<module-source>"
+        "source": "<module-source>",
+        "rules": [
+            { "key": "GrantAptitude", "aptitude": "Apt1" },
+            { "key": "GrantAptitude", "aptitude": "Apt2" },
+            { "key": "GrantAptitude", "aptitude": "Apt3" },
+            { "key": "GrantAptitude", "aptitude": "Apt4" },
+            { "key": "GrantAptitude", "aptitude": "Apt5" },
+            { "key": "Grant", "type": "talent", "options": ["Talent A", "Talent B"] },
+            { "key": "FateOption", "slug": "bonus-slug", "label": "Bonus Name", "description": "...", "effectType": "reroll" }
+        ]
     }
 }
 ```
 
-#### Role (Creation)
+**Optional REs:**
+- `{ "key": "Grant", "type": "eliteAdvance", "name": "psyker" }` — for Mystic role
+- `{ "key": "GrantAptitude", "options": ["Apt A", "Apt B"] }` — choice aptitude
+
+#### Role (Creation Fallback)
 
 Same fields without `type`/`img`/`system` wrapper.
 

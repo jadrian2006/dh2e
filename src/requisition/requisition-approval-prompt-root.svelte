@@ -2,6 +2,20 @@
     let { ctx }: { ctx: Record<string, any> } = $props();
 
     const payload = $derived(ctx.payload);
+    const itemDisplayData: {
+        itemName: string;
+        availability: string;
+        craftsmanship: string;
+        availLabel: string;
+        availMod: number;
+        craftLabel: string;
+        craftMod: number;
+    }[] = $derived(ctx.itemDisplayData ?? []);
+
+    // Per-item checkbox state (all checked by default)
+    let checkedItems: boolean[] = $state(
+        Array.from({ length: (ctx.itemDisplayData ?? []).length }, () => true),
+    );
 
     let delivery: "immediate" | "delayed" = $state("immediate");
     let delayAmount = $state(1);
@@ -12,12 +26,22 @@
         return delayAmount * multipliers[delayUnit];
     });
 
+    const approvedCount = $derived(checkedItems.filter(Boolean).length);
+    const allChecked = $derived(approvedCount === itemDisplayData.length);
+    const noneChecked = $derived(approvedCount === 0);
+
+    function toggleAll() {
+        const newVal = !allChecked;
+        checkedItems = checkedItems.map(() => newVal);
+    }
+
     function formatMod(val: number): string {
         return val >= 0 ? `+${val}` : `${val}`;
     }
 
     function approve() {
-        ctx.onApprove?.(delivery, delivery === "delayed" ? delayMs() : 0);
+        const indices = checkedItems.map((checked, i) => checked ? i : -1).filter(i => i >= 0);
+        ctx.onApprove?.(indices, delivery, delivery === "delayed" ? delayMs() : 0);
     }
 
     function deny() {
@@ -36,33 +60,41 @@
         <p class="info-line"><strong>{payload.requestedBy}</strong> requests for <strong>{payload.actorName}</strong></p>
     </div>
 
-    <!-- Item details -->
-    <div class="item-details">
-        <div class="item-name-row">
-            <span class="item-name">{payload.itemName}</span>
-            <span class="craft-badge craft-{payload.craftsmanship}">{ctx.craftLabel}</span>
+    <!-- Item list with checkboxes -->
+    <div class="items-section">
+        <div class="items-header">
+            <label class="select-all-label">
+                <input type="checkbox" checked={allChecked} onchange={toggleAll} />
+                <span>{game.i18n?.localize("DH2E.Requisition.SelectAll") ?? "Select All"}</span>
+            </label>
+            <span class="items-count">{approvedCount}/{itemDisplayData.length}</span>
         </div>
-        {#if payload.modifications}
-            <p class="modifications">
-                <i class="fa-solid fa-wrench fa-xs"></i>
-                {payload.modifications}
-            </p>
-        {/if}
+        <div class="items-list">
+            {#each itemDisplayData as item, i (i)}
+                <label class="item-row" class:unchecked={!checkedItems[i]}>
+                    <input type="checkbox" bind:checked={checkedItems[i]} />
+                    <span class="item-name">{item.itemName}</span>
+                    <span class="avail-tag">{item.availLabel}</span>
+                    <span class="craft-badge craft-{item.craftsmanship}">{item.craftLabel}</span>
+                    <span class="item-mod">{formatMod(item.availMod + item.craftMod)}</span>
+                </label>
+            {/each}
+        </div>
     </div>
+
+    <!-- Modifications -->
+    {#if payload.modifications}
+        <div class="modifications">
+            <i class="fa-solid fa-wrench fa-xs"></i>
+            {payload.modifications}
+        </div>
+    {/if}
 
     <!-- Cost breakdown -->
     <div class="cost-breakdown">
         <div class="cost-row">
-            <span>Availability</span>
-            <span class="cost-value">{ctx.availLabel}</span>
-        </div>
-        <div class="cost-row">
-            <span>Craftsmanship</span>
-            <span class="cost-value">{ctx.craftLabel}</span>
-        </div>
-        <div class="cost-row">
             <span>Character Influence</span>
-            <span class="cost-value">{payload.targetNumber - ctx.availMod - ctx.craftMod}</span>
+            <span class="cost-value">{payload.targetNumber - Math.min(...itemDisplayData.map((d: any) => d.availMod + d.craftMod))}</span>
         </div>
         <div class="cost-row target-row">
             <span>Target Number</span>
@@ -111,13 +143,17 @@
 
     <!-- Action buttons -->
     <div class="button-row">
-        <button class="approve-btn" onclick={approve}>
+        <button class="approve-btn" onclick={approve} disabled={noneChecked}>
             <i class="fa-solid fa-check"></i>
-            {game.i18n?.localize("DH2E.Requisition.Approve") ?? "Approve"}
+            {#if approvedCount < itemDisplayData.length && approvedCount > 0}
+                {game.i18n?.localize("DH2E.Requisition.ApproveSelected") ?? "Approve"} ({approvedCount})
+            {:else}
+                {game.i18n?.localize("DH2E.Requisition.Approve") ?? "Approve"}
+            {/if}
         </button>
         <button class="deny-btn" onclick={deny}>
             <i class="fa-solid fa-xmark"></i>
-            {game.i18n?.localize("DH2E.Requisition.Deny") ?? "Deny"}
+            {game.i18n?.localize("DH2E.Requisition.Deny") ?? "Deny All"}
         </button>
     </div>
 </div>
@@ -153,26 +189,75 @@
         }
     }
 
-    .item-details {
-        padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-sm, 0.5rem);
-        background: var(--dh2e-bg-mid, #2e2e35);
+    .items-section {
+        border: 1px solid var(--dh2e-border, #4a4a55);
         border-radius: var(--dh2e-radius-sm, 3px);
+        background: var(--dh2e-bg-darkest, #111114);
     }
 
-    .item-name-row {
+    .items-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-sm, 0.5rem);
+        border-bottom: 1px solid var(--dh2e-border, #4a4a55);
+        font-size: var(--dh2e-text-sm, 0.8rem);
+    }
+
+    .select-all-label {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-xs, 0.25rem);
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        font-size: var(--dh2e-text-sm, 0.8rem);
+    }
+
+    .items-count {
+        font-size: 0.7rem;
+        color: var(--dh2e-gold-muted, #7a6a3e);
+        font-weight: 600;
+    }
+
+    .items-list {
+        max-height: 12rem;
+        overflow-y: auto;
+    }
+
+    .item-row {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-xs, 0.25rem);
+        padding: var(--dh2e-space-xxs, 0.125rem) var(--dh2e-space-sm, 0.5rem);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        cursor: pointer;
+        font-size: var(--dh2e-text-sm, 0.8rem);
+
+        &:last-child { border-bottom: none; }
+        &:hover { background: var(--dh2e-bg-mid, #2e2e35); }
+        &.unchecked { opacity: 0.45; }
     }
 
     .item-name {
-        font-family: var(--dh2e-font-header, serif);
-        font-size: 1rem;
+        flex: 1;
         color: var(--dh2e-text-primary, #d0cfc8);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .avail-tag {
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        padding: 1px 4px;
+        border-radius: 2px;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        background: var(--dh2e-bg-mid, #2e2e35);
     }
 
     .craft-badge {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
         padding: 1px 6px;
@@ -185,8 +270,18 @@
         &.craft-best { background: #3a3020; color: var(--dh2e-gold, #c8a84e); }
     }
 
+    .item-mod {
+        font-size: 0.7rem;
+        color: var(--dh2e-gold-muted, #7a6a3e);
+        font-weight: 600;
+        min-width: 2rem;
+        text-align: right;
+    }
+
     .modifications {
-        margin: var(--dh2e-space-xs, 0.25rem) 0 0;
+        padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-sm, 0.5rem);
+        background: var(--dh2e-bg-mid, #2e2e35);
+        border-radius: var(--dh2e-radius-sm, 3px);
         font-size: 0.75rem;
         color: var(--dh2e-text-secondary, #a0a0a8);
         font-style: italic;
@@ -310,6 +405,7 @@
 
         i { margin-right: 4px; }
         &:hover { background: var(--dh2e-gold, #c8a84e); }
+        &:disabled { opacity: 0.4; cursor: not-allowed; }
     }
 
     .deny-btn {

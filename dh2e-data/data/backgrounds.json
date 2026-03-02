@@ -5,25 +5,24 @@
         "img": "systems/dh2e/icons/default-icons/background.svg",
         "system": {
             "description": "The great bureaucracy of tithes and tallies that holds the Imperium together and keeps it running; they keep the lore, histories, and secrets of a million worlds so that the Imperium might prosper.",
-            "skills": [
-                "Commerce or Medicae",
-                "Common Lore (Administratum)",
-                "Linguistics (High Gothic)",
-                "Logic",
-                "Scholastic Lore (pick one)"
-            ],
-            "talents": ["Weapon Training (Las or Solid Projectile)"],
-            "equipment": [
-                "Laspistol or stub automatic",
-                "Imperial robes",
-                "autoquill",
-                "chrono",
-                "dataslate",
-                "medi-kit"
-            ],
-            "aptitude": "Knowledge or Social",
             "bonus": "Master of Paperwork",
-            "bonusDescription": "An Adeptus Administratum character counts the Availability of all items as one level more available (Very Rare items count as Rare, Average items count as Common, etc.)."
+            "bonusDescription": "An Adeptus Administratum character counts the Availability of all items as one level more available (Very Rare items count as Rare, Average items count as Common, etc.).",
+            "rules": [
+                { "key": "GrantAptitude", "options": ["Knowledge", "Social"] },
+                { "key": "Grant", "type": "skill", "options": ["Commerce", "Medicae"] },
+                { "key": "Grant", "type": "skill", "name": "Common Lore (Administratum)" },
+                { "key": "Grant", "type": "skill", "name": "Linguistics (High Gothic)" },
+                { "key": "Grant", "type": "skill", "name": "Logic" },
+                { "key": "Grant", "type": "skill", "name": "Scholastic Lore", "pick": true },
+                { "key": "Grant", "type": "talent", "name": "Weapon Training (Las)", "options": ["Weapon Training (Las)", "Weapon Training (Solid Projectile)"] },
+                { "key": "Grant", "type": "weapon", "options": ["Laspistol", "Stub Automatic"] },
+                { "key": "Grant", "type": "gear", "name": "Imperial Robes" },
+                { "key": "Grant", "type": "gear", "name": "Autoquill" },
+                { "key": "Grant", "type": "gear", "name": "Chrono" },
+                { "key": "Grant", "type": "gear", "name": "Data-Slate" },
+                { "key": "Grant", "type": "gear", "name": "Medikit" },
+                { "key": "RollOption", "option": "self:background:master-of-paperwork" }
+            ]
         }
     },
     {
@@ -32,25 +31,24 @@
         "img": "systems/dh2e/icons/default-icons/background.svg",
         "system": {
             "description": "Keepers of the Imperium's laws, who see that the rule of the Emperor is brought to His worlds; they are judge, jury, and executioner against any who would break the Imperial rule of law.",
-            "skills": [
-                "Awareness",
-                "Common Lore (Adeptus Arbites)",
-                "Common Lore (Underworld)",
-                "Inquiry or Interrogation",
-                "Intimidate",
-                "Scrutiny"
-            ],
-            "talents": ["Weapon Training (Shock or Solid Projectile)"],
-            "equipment": [
-                "Shotgun or shock maul",
-                "Enforcer light carapace armour or carapace chestplate",
-                "3 doses of stimm",
-                "manacles",
-                "12 lho sticks"
-            ],
-            "aptitude": "Offence or Defence",
             "bonus": "The Face of the Law",
-            "bonusDescription": "An Arbitrator can re-roll any failed Intimidation and Interrogation test, and can substitute his Willpower bonus for his degrees of success on these tests."
+            "bonusDescription": "An Arbitrator can re-roll any failed Intimidation and Interrogation test, and can substitute his Willpower bonus for his degrees of success on these tests.",
+            "rules": [
+                { "key": "GrantAptitude", "options": ["Offence", "Defence"] },
+                { "key": "Grant", "type": "skill", "name": "Awareness" },
+                { "key": "Grant", "type": "skill", "name": "Common Lore (Adeptus Arbites)" },
+                { "key": "Grant", "type": "skill", "name": "Common Lore (Underworld)" },
+                { "key": "Grant", "type": "skill", "options": ["Inquiry", "Interrogation"] },
+                { "key": "Grant", "type": "skill", "name": "Intimidate" },
+                { "key": "Grant", "type": "skill", "name": "Scrutiny" },
+                { "key": "Grant", "type": "talent", "name": "Weapon Training (Shock)", "options": ["Weapon Training (Shock)", "Weapon Training (Solid Projectile)"] },
+                { "key": "Grant", "type": "weapon", "options": ["Shotgun", "Shock Maul"] },
+                { "key": "Grant", "type": "armour", "options": ["Enforcer Light Carapace Armour", "Carapace Chestplate"], "equipped": true },
+                { "key": "Grant", "type": "gear", "name": "Stimm", "quantity": 3 },
+                { "key": "Grant", "type": "gear", "name": "Manacles" },
+                { "key": "Grant", "type": "gear", "name": "Lho-Sticks", "quantity": 12 },
+                { "key": "RollOption", "option": "self:background:face-of-the-law" }
+            ]
         }
     },
     {
@@ -59,26 +57,23 @@
         "img": "systems/dh2e/icons/default-icons/background.svg",
         "system": {
             "description": "The ancient and sacred organisation vital to the survival of the Imperium and Mankind; guiding ships and transmitting information across millions of scattered worlds, they bind the Imperium with their web of minds.",
-            "skills": [
-                "Awareness",
-                "Common Lore (Adeptus Astra Telepathica)",
-                "Deceive or Interrogation",
-                "Forbidden Lore (The Warp)",
-                "Psyniscience or Scrutiny"
-            ],
-            "talents": [
-                "Weapon Training (Las)",
-                "Weapon Training (Low-Tech)"
-            ],
-            "equipment": [
-                "Laspistol",
-                "staff or whip",
-                "Flak Cloak or Flak Vest",
-                "micro-bead or psy focus"
-            ],
-            "aptitude": "Defence or Psyker",
             "bonus": "The Constant Threat / Tested on Terra",
-            "bonusDescription": "The Constant Threat: When the character or an ally within 10 metres triggers a roll on the Psychic Phenomena table, the character can increase or decrease the result by an amount equal to his Willpower bonus.\nTested on Terra: If the character takes the Psyker elite advance during character creation, he also gains the Sanctioned trait."
+            "bonusDescription": "The Constant Threat: When the character or an ally within 10 metres triggers a roll on the Psychic Phenomena table, the character can increase or decrease the result by an amount equal to his Willpower bonus.\nTested on Terra: If the character takes the Psyker elite advance during character creation, he also gains the Sanctioned trait.",
+            "rules": [
+                { "key": "GrantAptitude", "options": ["Defence", "Psyker"] },
+                { "key": "Grant", "type": "skill", "name": "Awareness" },
+                { "key": "Grant", "type": "skill", "name": "Common Lore (Adeptus Astra Telepathica)" },
+                { "key": "Grant", "type": "skill", "options": ["Deceive", "Interrogation"] },
+                { "key": "Grant", "type": "skill", "name": "Forbidden Lore (The Warp)" },
+                { "key": "Grant", "type": "skill", "options": ["Psyniscience", "Scrutiny"] },
+                { "key": "Grant", "type": "talent", "name": "Weapon Training (Las)" },
+                { "key": "Grant", "type": "talent", "name": "Weapon Training (Low-Tech)" },
+                { "key": "Grant", "type": "weapon", "name": "Laspistol" },
+                { "key": "Grant", "type": "weapon", "options": ["Staff", "Whip"] },
+                { "key": "Grant", "type": "armour", "options": ["Flak Cloak", "Flak Vest"], "equipped": true },
+                { "key": "Grant", "type": "gear", "options": ["Micro-Bead", "Psy-Focus"] },
+                { "key": "RollOption", "option": "self:background:constant-threat" }
+            ]
         }
     },
     {
@@ -87,26 +82,27 @@
         "img": "systems/dh2e/icons/default-icons/background.svg",
         "system": {
             "description": "Keepers of the ancient secrets of technology and the Imperium's most venerable and treasured artefacts; they serve the Machine God in the quest for lost knowledge.",
-            "skills": [
-                "Awareness or Operate (pick one)",
-                "Common Lore (Adeptus Mechanicus)",
-                "Logic",
-                "Security",
-                "Tech-Use"
-            ],
-            "talents": [
-                "Mechadendrite Use (Utility)",
-                "Weapon Training (Solid Projectile)"
-            ],
-            "equipment": [
-                "Autogun or hand cannon",
-                "monotask servo-skull (utility) or optical mechadendrite",
-                "Imperial robes",
-                "2 vials of sacred unguents"
-            ],
-            "aptitude": "Knowledge or Tech",
             "bonus": "Replace the Weak Flesh",
-            "bonusDescription": "An Adeptus Mechanicus character counts the Availability of all cybernetics as two levels more available (Rare items count as Average, Very Rare items count as Scarce, etc.).\nStarting Trait: Mechanicus Implants."
+            "bonusDescription": "An Adeptus Mechanicus character counts the Availability of all cybernetics as two levels more available (Rare items count as Average, Very Rare items count as Scarce, etc.).\nStarting Trait: Mechanicus Implants.",
+            "rules": [
+                { "key": "GrantAptitude", "options": ["Knowledge", "Tech"] },
+                { "key": "Grant", "type": "skill", "options": ["Awareness", "Operate"], "pick": true },
+                { "key": "Grant", "type": "skill", "name": "Common Lore (Adeptus Mechanicus)" },
+                { "key": "Grant", "type": "skill", "name": "Logic" },
+                { "key": "Grant", "type": "skill", "name": "Security" },
+                { "key": "Grant", "type": "skill", "name": "Tech-Use" },
+                { "key": "Grant", "type": "talent", "name": "Mechadendrite Use (Utility)" },
+                { "key": "Grant", "type": "talent", "name": "Weapon Training (Solid Projectile)" },
+                { "key": "Grant", "type": "weapon", "options": ["Autogun", "Hand Cannon"] },
+                { "key": "Grant", "type": "gear", "optionSets": [
+                    { "label": "Monotask Servo-skull (Utility)", "items": [{ "type": "companion", "name": "Monotask Servo-skull (Utility)" }] },
+                    { "label": "Optical Mechadendrite", "items": [{ "type": "cybernetic", "name": "Optical Mechadendrite" }] }
+                ]},
+                { "key": "Grant", "type": "gear", "name": "Imperial Robes" },
+                { "key": "Grant", "type": "gear", "name": "Sacred Unguents", "quantity": 2 },
+                { "key": "Grant", "type": "cybernetic", "name": "Mechanicus Implants", "installed": true },
+                { "key": "RollOption", "option": "self:background:replace-the-weak-flesh" }
+            ]
         }
     },
     {
@@ -115,24 +111,29 @@
         "img": "systems/dh2e/icons/default-icons/background.svg",
         "system": {
             "description": "The great religious agency of the Emperor of Mankind; with shrines and cathedrals on a million worlds, they are dedicated to spreading and teaching the word of the Emperor so all might bask within His light and fear His wrath.",
-            "skills": [
-                "Charm",
-                "Command",
-                "Common Lore (Ecclesiarchy)",
-                "Inquiry or Scrutiny",
-                "Linguistics (High Gothic)"
-            ],
-            "talents": ["Weapon Training (Flame) or Weapon Training (Low-Tech, Solid Projectile)"],
-            "equipment": [
-                "Hand flamer, or warhammer and stub revolver",
-                "Imperial robes or flak vest",
-                "backpack",
-                "glow-globe",
-                "monotask servo-skull (laud hailer)"
-            ],
-            "aptitude": "Leadership or Social",
             "bonus": "Faith is All",
-            "bonusDescription": "When spending a Fate point to gain a +10 bonus to any one test, an Adeptus Ministorum character gains a +20 bonus instead."
+            "bonusDescription": "When spending a Fate point to gain a +10 bonus to any one test, an Adeptus Ministorum character gains a +20 bonus instead.",
+            "rules": [
+                { "key": "GrantAptitude", "options": ["Leadership", "Social"] },
+                { "key": "Grant", "type": "skill", "name": "Charm" },
+                { "key": "Grant", "type": "skill", "name": "Command" },
+                { "key": "Grant", "type": "skill", "name": "Common Lore (Ecclesiarchy)" },
+                { "key": "Grant", "type": "skill", "options": ["Inquiry", "Scrutiny"] },
+                { "key": "Grant", "type": "skill", "name": "Linguistics (High Gothic)" },
+                { "key": "Grant", "type": "talent", "options": ["Weapon Training (Flame)", "Weapon Training (Low-Tech, Solid Projectile)"] },
+                { "key": "Grant", "type": "weapon", "optionSets": [
+                    { "label": "Hand Flamer", "items": [{ "type": "weapon", "name": "Hand Flamer" }] },
+                    { "label": "Warhammer + Stub Revolver", "items": [
+                        { "type": "weapon", "name": "Warhammer" },
+                        { "type": "weapon", "name": "Stub Revolver" }
+                    ]}
+                ], "equipped": true },
+                { "key": "Grant", "type": "gear", "options": ["Imperial Robes", "Flak Vest"] },
+                { "key": "Grant", "type": "gear", "name": "Backpack" },
+                { "key": "Grant", "type": "gear", "name": "Glow-Globe" },
+                { "key": "Grant", "type": "companion", "name": "Monotask Servo-skull (Laud Hailer)" },
+                { "key": "RollOption", "option": "self:background:faith-is-all" }
+            ]
         }
     },
     {
@@ -141,28 +142,31 @@
         "img": "systems/dh2e/icons/default-icons/background.svg",
         "system": {
             "description": "Vast armies drawn from countless worlds; skilled warriors and hardened veterans of mankind's many brutal and bloody wars, they are all that stands between the Imperium and its innumerable foes.",
-            "skills": [
-                "Athletics",
-                "Command",
-                "Common Lore (Imperial Guard)",
-                "Medicae or Operate (Surface)",
-                "Navigate (Surface)"
-            ],
-            "talents": [
-                "Weapon Training (Las)",
-                "Weapon Training (Low-Tech)"
-            ],
-            "equipment": [
-                "Lasgun, or laspistol and sword",
-                "combat vest",
-                "Guard Flak Armour",
-                "grapnel and line",
-                "12 lho sticks",
-                "magnoculars"
-            ],
-            "aptitude": "Fieldcraft or Leadership",
             "bonus": "Hammer of the Emperor",
-            "bonusDescription": "When attacking a target that an ally attacked since the end of the Guardsman's last turn, the Guardsman can re-roll any results of 1 or 2 on damage rolls."
+            "bonusDescription": "When attacking a target that an ally attacked since the end of the Guardsman's last turn, the Guardsman can re-roll any results of 1 or 2 on damage rolls.",
+            "rules": [
+                { "key": "GrantAptitude", "options": ["Fieldcraft", "Leadership"] },
+                { "key": "Grant", "type": "skill", "name": "Athletics" },
+                { "key": "Grant", "type": "skill", "name": "Command" },
+                { "key": "Grant", "type": "skill", "name": "Common Lore (Imperial Guard)" },
+                { "key": "Grant", "type": "skill", "options": ["Medicae", "Operate (Surface)"] },
+                { "key": "Grant", "type": "skill", "name": "Navigate (Surface)" },
+                { "key": "Grant", "type": "talent", "name": "Weapon Training (Las)" },
+                { "key": "Grant", "type": "talent", "name": "Weapon Training (Low-Tech)" },
+                { "key": "Grant", "type": "weapon", "optionSets": [
+                    { "label": "Lasgun", "items": [{ "type": "weapon", "name": "Lasgun" }] },
+                    { "label": "Laspistol + Sword", "items": [
+                        { "type": "weapon", "name": "Laspistol" },
+                        { "type": "weapon", "name": "Sword" }
+                    ]}
+                ], "equipped": true },
+                { "key": "Grant", "type": "armour", "name": "Flak Vest", "equipped": true },
+                { "key": "Grant", "type": "armour", "name": "Guard Flak Armour", "equipped": true },
+                { "key": "Grant", "type": "gear", "name": "Grapnel and Line" },
+                { "key": "Grant", "type": "gear", "name": "Lho-Sticks", "quantity": 12 },
+                { "key": "Grant", "type": "gear", "name": "Magnoculars" },
+                { "key": "RollOption", "option": "self:background:hammer-of-the-emperor" }
+            ]
         }
     },
     {
@@ -171,27 +175,24 @@
         "img": "systems/dh2e/icons/default-icons/background.svg",
         "system": {
             "description": "Living in the shadow of the might of the Imperium, gangers, criminals, and dregs prosper and thrive; cunning survivors and experienced outlaws, they exist only for themselves and those who have bought their loyalties.",
-            "skills": [
-                "Acrobatics or Sleight of Hand",
-                "Common Lore (Underworld)",
-                "Deceive",
-                "Dodge",
-                "Stealth"
-            ],
-            "talents": [
-                "Weapon Training (Chain)",
-                "Weapon Training (Las or Solid Projectile)"
-            ],
-            "equipment": [
-                "Autopistol or laspistol",
-                "chainsword",
-                "armoured bodyglove or flak vest",
-                "injector",
-                "2 doses of obscura or slaught"
-            ],
-            "aptitude": "Fieldcraft or Social",
             "bonus": "Never Quit",
-            "bonusDescription": "An Outcast character counts his Toughness bonus as two higher for purposes of determining Fatigue."
+            "bonusDescription": "An Outcast character counts his Toughness bonus as two higher for purposes of determining Fatigue.",
+            "rules": [
+                { "key": "GrantAptitude", "options": ["Fieldcraft", "Social"] },
+                { "key": "Grant", "type": "skill", "options": ["Acrobatics", "Sleight of Hand"] },
+                { "key": "Grant", "type": "skill", "name": "Common Lore (Underworld)" },
+                { "key": "Grant", "type": "skill", "name": "Deceive" },
+                { "key": "Grant", "type": "skill", "name": "Dodge" },
+                { "key": "Grant", "type": "skill", "name": "Stealth" },
+                { "key": "Grant", "type": "talent", "name": "Weapon Training (Chain)" },
+                { "key": "Grant", "type": "talent", "name": "Weapon Training (Las)", "options": ["Weapon Training (Las)", "Weapon Training (Solid Projectile)"] },
+                { "key": "Grant", "type": "weapon", "options": ["Autopistol", "Laspistol"] },
+                { "key": "Grant", "type": "weapon", "name": "Chainsword", "equipped": true },
+                { "key": "Grant", "type": "armour", "options": ["Bodyglove", "Flak Vest"], "equipped": true },
+                { "key": "Grant", "type": "gear", "name": "Injector" },
+                { "key": "Grant", "type": "gear", "options": ["Obscura", "Slaught"], "quantity": 2 },
+                { "key": "RollOption", "option": "self:background:never-quit" }
+            ]
         }
     }
 ]

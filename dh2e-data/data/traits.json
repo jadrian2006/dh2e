@@ -307,6 +307,30 @@
         }
     },
     {
+        "name": "Size (Puny)",
+        "type": "trait",
+        "img": "systems/dh2e/icons/default-icons/trait.svg",
+        "system": {
+            "description": "The creature is tiny (Size -2). -20 to hit, +20 to Stealth.",
+            "rules": [
+                {
+                    "key": "FlatModifier",
+                    "domain": "evasion:self",
+                    "value": 20,
+                    "label": "Size (Puny)",
+                    "source": "trait"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "size:puny"
+                }
+            ],
+            "hasRating": true,
+            "rating": -2,
+            "category": "physical"
+        }
+    },
+    {
         "name": "Size (Scrawny)",
         "type": "trait",
         "img": "systems/dh2e/icons/default-icons/trait.svg",
@@ -399,6 +423,30 @@
             ],
             "hasRating": true,
             "rating": 3,
+            "category": "physical"
+        }
+    },
+    {
+        "name": "Size (Immense)",
+        "type": "trait",
+        "img": "systems/dh2e/icons/default-icons/trait.svg",
+        "system": {
+            "description": "The creature is of titanic proportions (Size +4). +40 to hit, -40 to Stealth. Cannot hide.",
+            "rules": [
+                {
+                    "key": "FlatModifier",
+                    "domain": "evasion:self",
+                    "value": -40,
+                    "label": "Size (Immense)",
+                    "source": "trait"
+                },
+                {
+                    "key": "RollOption",
+                    "option": "size:immense"
+                }
+            ],
+            "hasRating": true,
+            "rating": 4,
             "category": "physical"
         }
     },

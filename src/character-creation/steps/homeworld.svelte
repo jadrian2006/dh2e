@@ -1,11 +1,11 @@
 <script lang="ts">
     import type { CreationData, HomeworldOption } from "../types.ts";
-    import { splitOrChoices } from "../wizard.ts";
+    import { getCharBonuses, getFateConfig, getWoundsFormula, getAptitudes, getGrantsOfType, type GrantSource } from "../creation-helpers.ts";
 
-    let { data, selected = $bindable<HomeworldOption | null>(null), talentChoice = $bindable("") }: {
+    let { data, selected = $bindable<HomeworldOption | null>(null), homeworldChoices = $bindable<Record<number, string | number>>({}) }: {
         data: CreationData;
         selected: HomeworldOption | null;
-        talentChoice: string;
+        homeworldChoices: Record<number, string | number>;
     } = $props();
 
     const homeworlds = $derived(data?.homeworlds ?? []);
@@ -13,33 +13,50 @@
 
     const charLabels: Record<string, string> = {
         ws: "WS", bs: "BS", s: "S", t: "T", ag: "Ag",
-        int: "Int", per: "Per", wp: "WP", fel: "Fel",
+        int: "Int", per: "Per", wp: "WP", fel: "Fel", inf: "Inf",
     };
 
-    /** Parse talent "or" options from selected homeworld's talent strings */
-    const talentOptions = $derived(() => {
-        const talents = selected?.talents ?? [];
-        // Find the first talent string with an "or" choice
-        for (const t of talents) {
-            const opts = splitOrChoices(t);
-            if (opts.length > 1) return opts;
-        }
-        return [];
-    });
-    const hasTalentChoice = $derived(talentOptions().length > 1);
+    // Derive data from rules
+    const charBonuses = $derived(selected ? getCharBonuses(selected.rules ?? []) : []);
+    const positiveBonuses = $derived(charBonuses.filter(b => b.value > 0));
+    const negativeBonuses = $derived(charBonuses.filter(b => b.value < 0));
+    const fateConfig = $derived(selected ? getFateConfig(selected.rules ?? []) : null);
+    const woundsFormula = $derived(selected ? getWoundsFormula(selected.rules ?? []) : null);
+    const aptitudes = $derived(selected ? getAptitudes(selected.rules ?? []) : []);
+    const talentGrants = $derived(selected ? getGrantsOfType(selected.rules ?? [], "talent") : []);
+    const traitGrants = $derived(selected ? getGrantsOfType(selected.rules ?? [], "trait") : []);
+    const skillGrants = $derived(selected ? getGrantsOfType(selected.rules ?? [], "skill") : []);
 
-    /** All granted talents (non-choice) for display */
-    const grantedTalents = $derived(() => {
-        const talents = selected?.talents ?? [];
-        return talents.filter(t => splitOrChoices(t).length === 1);
+    /** Find Grant REs with choices (talent "or" choices) */
+    const talentChoiceGrant = $derived(() => {
+        return talentGrants.find(g => g.options && g.options.length > 1) ?? null;
     });
+    const hasTalentChoice = $derived(talentChoiceGrant() !== null);
+
+    /** Index of the choice grant in the full grants list (for choices map) */
+    const talentChoiceIndex = $derived(() => {
+        const grants = selected ? getGrantsOfType(selected.rules ?? [], "talent").concat(
+            getGrantsOfType(selected.rules ?? [], "trait"),
+            getGrantsOfType(selected.rules ?? [], "skill"),
+        ) : [];
+        // Find overall index among all Grant REs
+        const allGrants = (selected?.rules ?? []).filter(r => r.key === "Grant");
+        const g = talentChoiceGrant();
+        if (!g) return -1;
+        return allGrants.indexOf(g as any);
+    });
+
+    /** Fixed talents (no choice) for display */
+    const fixedTalents = $derived(talentGrants.filter(g => !g.options || g.options.length <= 1));
 
     /** Cached talent descriptions for tooltips */
     let talentDescs: Record<string, string> = $state({});
 
     /** Load talent descriptions from compendium when options change */
     $effect(() => {
-        const opts = talentOptions();
+        const g = talentChoiceGrant();
+        if (!g) { talentDescs = {}; return; }
+        const opts = g.options ?? [];
         if (opts.length <= 1) { talentDescs = {}; return; }
         (async () => {
             const { findInAllPacks } = await import("@util/pack-discovery.ts");
@@ -54,9 +71,9 @@
         })();
     });
 
-    /** Show rich tooltip for a talent choice */
+    /** Show rich tooltip for a talent */
     function showTalentTooltip(event: MouseEvent, name: string) {
-        const desc = talentDescs[name];
+        const desc = talentDescs[name] || grantedTalentDescs[name];
         if (!desc) return;
         const el = event.currentTarget as HTMLElement;
         if (typeof game !== "undefined" && (game as any).tooltip) {
@@ -67,13 +84,107 @@
 
     /** Open the talent's full item sheet from compendium */
     async function openTalentSheet(name: string) {
-        const { findInAllPacks } = await import("@util/pack-discovery.ts");
-        const doc = await findInAllPacks("talents", name);
-        if (doc) {
-            (doc as any)?.sheet?.render(true);
-        } else {
-            ui.notifications?.info(`No compendium entry found for "${name}".`);
+        try {
+            const { findInAllPacks } = await import("@util/pack-discovery.ts");
+            const doc = await findInAllPacks("talents", name);
+            if (doc) {
+                doc.sheet.render({ force: true });
+            } else {
+                ui.notifications?.info(`No compendium entry found for "${name}".`);
+            }
+        } catch (err) {
+            console.error("dh2e | Failed to open talent sheet:", err);
+            ui.notifications?.error("Failed to open talent sheet.");
         }
+    }
+
+    /** Cached granted talent descriptions */
+    let grantedTalentDescs: Record<string, string> = $state({});
+
+    /** Load granted talent descriptions from compendium */
+    $effect(() => {
+        const talents = fixedTalents;
+        if (talents.length === 0) { grantedTalentDescs = {}; return; }
+        (async () => {
+            try {
+                const { findInAllPacks } = await import("@util/pack-discovery.ts");
+                const descs: Record<string, string> = {};
+                for (const g of talents) {
+                    const name = g.name ?? "";
+                    if (!name) continue;
+                    const baseName = name.replace(/\s*\(.*\)$/, "");
+                    const doc = await findInAllPacks("talents", baseName);
+                    if (doc) {
+                        descs[name] = (doc as any)?.system?.description ?? "";
+                    }
+                }
+                grantedTalentDescs = descs;
+            } catch (err) {
+                console.warn("dh2e | Failed to load granted talent descriptions:", err);
+            }
+        })();
+    });
+
+    /** Cached trait descriptions for tooltips */
+    let traitDescs: Record<string, string> = $state({});
+
+    /** Load trait descriptions from compendium when selected homeworld changes */
+    $effect(() => {
+        const traits = traitGrants;
+        if (traits.length === 0) { traitDescs = {}; return; }
+        (async () => {
+            try {
+                const { findInAllPacks } = await import("@util/pack-discovery.ts");
+                const descs: Record<string, string> = {};
+                for (const g of traits) {
+                    const name = g.name ?? "";
+                    if (!name) continue;
+                    const baseName = name.replace(/\s*\(\d+\)$/, "");
+                    const doc = await findInAllPacks("traits", baseName);
+                    if (doc) {
+                        descs[name] = (doc as any)?.system?.description ?? "";
+                    }
+                }
+                traitDescs = descs;
+            } catch (err) {
+                console.warn("dh2e | Failed to load trait descriptions:", err);
+            }
+        })();
+    });
+
+    /** Show rich tooltip for a trait */
+    function showTraitTooltip(event: MouseEvent, name: string) {
+        const desc = traitDescs[name];
+        if (!desc) return;
+        const el = event.currentTarget as HTMLElement;
+        if (typeof game !== "undefined" && (game as any).tooltip) {
+            const ratingNote = "";
+            const html = `<div style="max-width:320px"><strong>${name}</strong>${ratingNote}<br/>${desc}</div>`;
+            (game as any).tooltip.activate(el, { html, direction: "DOWN" });
+        }
+    }
+
+    /** Open the trait's full item sheet from compendium */
+    async function openTraitSheet(name: string) {
+        try {
+            const { findInAllPacks } = await import("@util/pack-discovery.ts");
+            const baseName = name.replace(/\s*\(\d+\)$/, "");
+            const doc = await findInAllPacks("traits", baseName);
+            if (doc) {
+                doc.sheet.render({ force: true });
+            } else {
+                ui.notifications?.info(`No compendium entry found for "${baseName}".`);
+            }
+        } catch (err) {
+            console.error("dh2e | Failed to open trait sheet:", err);
+            ui.notifications?.error("Failed to open trait sheet.");
+        }
+    }
+
+    /** Format trait display name with rating */
+    function traitDisplayName(g: GrantSource): string {
+        const name = g.name ?? "";
+        return g.rating ? `${name} (${g.rating})` : name;
     }
 
 </script>
@@ -89,11 +200,14 @@
         <div class="card-grid">
             {#each homeworlds as hw}
                 {@const isSelected = selected?.name === hw.name}
+                {@const hwBonuses = getCharBonuses(hw.rules ?? [])}
+                {@const hwPos = hwBonuses.filter(b => b.value > 0)}
+                {@const hwNeg = hwBonuses.filter(b => b.value < 0)}
                 <button
                     class="option-card"
                     class:selected={isSelected}
                     type="button"
-                    onclick={() => { selected = hw; }}
+                    onclick={() => { selected = hw; homeworldChoices = {}; }}
                 >
                     <div class="card-header">
                         {hw.name}
@@ -102,8 +216,12 @@
                         {/if}
                     </div>
                     <div class="card-row stats-row">
-                        <span class="stat bonus">+5 {hw.characteristicBonuses.positive.map((k: string) => charLabels[k] ?? k.toUpperCase()).join(", ")}</span>
-                        <span class="stat penalty">-5 {hw.characteristicBonuses.negative.map((k: string) => charLabels[k] ?? k.toUpperCase()).join(", ")}</span>
+                        {#if hwPos.length > 0}
+                            <span class="stat bonus">+5 {hwPos.map(b => charLabels[b.characteristic] ?? b.characteristic.toUpperCase()).join(", ")}</span>
+                        {/if}
+                        {#if hwNeg.length > 0}
+                            <span class="stat penalty">-5 {hwNeg.map(b => charLabels[b.characteristic] ?? b.characteristic.toUpperCase()).join(", ")}</span>
+                        {/if}
                     </div>
                 </button>
             {/each}
@@ -113,43 +231,85 @@
             <div class="detail-panel">
                 <h4 class="detail-name">{selected.name}</h4>
                 <div class="detail-info">
-                    <span class="detail-tag">{selected.aptitude}</span>
-                    <span class="detail-stat" title="Base Fate Threshold. Roll for Emperor's Blessing on the Characteristics step.">Fate {selected.fate.threshold}</span>
-                    <span class="detail-stat">Wounds {selected.woundsFormula ?? selected.wounds}</span>
+                    {#each aptitudes as apt}
+                        <span class="detail-tag">{typeof apt === "string" ? apt : apt.join(" or ")}</span>
+                    {/each}
+                    {#if fateConfig}
+                        <span class="detail-stat" title="Base Fate Threshold. Roll for Emperor's Blessing on the Characteristics step.">Fate {fateConfig.threshold}</span>
+                    {/if}
+                    {#if woundsFormula}
+                        <span class="detail-stat">Wounds {woundsFormula}</span>
+                    {/if}
                 </div>
-                {#if selected.homeSkill}
-                    <p class="detail-skill"><strong>Home Skill:</strong> {selected.homeSkill}</p>
-                {/if}
 
                 {#if hasTalentChoice}
-                    <div class="talent-choices">
-                        <h5 class="talent-choices-title">Choose Talent</h5>
-                        <fieldset class="talent-choice-group">
-                            {#each talentOptions() as opt, oi}
-                                <label class="talent-choice-label" onmouseenter={(e) => showTalentTooltip(e, opt)}>
-                                    <input
-                                        type="radio"
-                                        name="hw-talent-choice"
-                                        value={opt}
-                                        checked={oi === 0 ? talentChoice === "" || talentChoice === opt : talentChoice === opt}
-                                        onchange={() => { talentChoice = opt; }}
-                                    />
-                                    {opt}
-                                    <button class="info-btn" type="button" onclick={(e) => { e.preventDefault(); openTalentSheet(opt); }} title="View details">
-                                        <i class="fa-solid fa-circle-info"></i>
-                                    </button>
-                                </label>
-                            {/each}
-                        </fieldset>
-                    </div>
+                    {@const g = talentChoiceGrant()}
+                    {@const choiceIdx = talentChoiceIndex()}
+                    {#if g && g.options}
+                        <div class="talent-choices">
+                            <h5 class="talent-choices-title">Choose Talent</h5>
+                            <fieldset class="talent-choice-group">
+                                {#each g.options as opt, oi}
+                                    <label class="talent-choice-label" onmouseenter={(e) => showTalentTooltip(e, opt)}>
+                                        <input
+                                            type="radio"
+                                            name="hw-talent-choice"
+                                            value={opt}
+                                            checked={oi === 0 ? !(choiceIdx in homeworldChoices) : homeworldChoices[choiceIdx] === opt}
+                                            onchange={() => {
+                                                if (oi === 0) {
+                                                    const { [choiceIdx]: _, ...rest } = homeworldChoices;
+                                                    homeworldChoices = rest;
+                                                } else {
+                                                    homeworldChoices = { ...homeworldChoices, [choiceIdx]: opt };
+                                                }
+                                            }}
+                                        />
+                                        {opt}
+                                        <button class="info-btn" type="button" onclick={(e) => { e.preventDefault(); openTalentSheet(opt); }} title="View details">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                        </button>
+                                    </label>
+                                {/each}
+                            </fieldset>
+                        </div>
+                    {/if}
                 {/if}
 
-                {#if grantedTalents().length > 0}
-                    <p class="detail-skill"><strong>Talent{grantedTalents().length > 1 ? "s" : ""}:</strong> {grantedTalents().join(", ")}</p>
+                {#if fixedTalents.length > 0}
+                    <p class="detail-skill">
+                        <strong>Talent{fixedTalents.length > 1 ? "s" : ""}:</strong>
+                        {#each fixedTalents as t, i}
+                            {@const name = t.name ?? ""}
+                            <span class="item-link" onmouseenter={(e) => showTalentTooltip(e, name)} onclick={() => openTalentSheet(name)} role="button" tabindex="0" onkeydown={(e) => { if (e.key === "Enter") openTalentSheet(name); }}>{name}</span>{#if i < fixedTalents.length - 1}, {/if}
+                        {/each}
+                    </p>
+                    {#each fixedTalents as t}
+                        {@const name = t.name ?? ""}
+                        {#if grantedTalentDescs[name]}
+                            <p class="detail-trait-desc"><strong>{name}:</strong> {grantedTalentDescs[name]}</p>
+                        {/if}
+                    {/each}
                 {/if}
 
-                {#if (selected.skills ?? []).length > 0}
-                    <p class="detail-skill"><strong>Skill{(selected.skills ?? []).length > 1 ? "s" : ""}:</strong> {(selected.skills ?? []).join(", ")}</p>
+                {#if traitGrants.length > 0}
+                    <p class="detail-skill">
+                        <strong>Trait{traitGrants.length > 1 ? "s" : ""}:</strong>
+                        {#each traitGrants as t, i}
+                            {@const displayName = traitDisplayName(t)}
+                            <span class="item-link" onmouseenter={(e) => showTraitTooltip(e, t.name ?? "")} onclick={() => openTraitSheet(t.name ?? "")} role="button" tabindex="0" onkeydown={(e) => { if (e.key === "Enter") openTraitSheet(t.name ?? ""); }}>{displayName}</span>{#if i < traitGrants.length - 1}, {/if}
+                        {/each}
+                    </p>
+                    {#each traitGrants as t}
+                        {@const displayName = traitDisplayName(t)}
+                        {#if traitDescs[t.name ?? ""]}
+                            <p class="detail-trait-desc"><strong>{displayName}:</strong> {traitDescs[t.name ?? ""]}</p>
+                        {/if}
+                    {/each}
+                {/if}
+
+                {#if skillGrants.length > 0}
+                    <p class="detail-skill"><strong>Skill{skillGrants.length > 1 ? "s" : ""}:</strong> {skillGrants.map(g => g.name ?? "").filter(Boolean).join(", ")}</p>
                 {/if}
 
                 {#if selected.description}
@@ -172,13 +332,9 @@
                         selected = {
                             name: (e.target as HTMLInputElement).value,
                             description: "",
-                            characteristicBonuses: { positive: [], negative: [] },
-                            fate: { threshold: 2, blessing: 1 },
-                            wounds: 8,
-                            aptitude: "",
-                            homeSkill: "",
                             bonus: "",
                             bonusDescription: "",
+                            rules: [],
                         } as HomeworldOption;
                     }}
                     placeholder="e.g., Hive World"
@@ -215,7 +371,6 @@
     }
 
     .option-card {
-        /* Explicit layout — override Foundry button defaults */
         display: flex !important;
         flex-direction: column !important;
         align-items: stretch !important;
@@ -268,31 +423,16 @@
         white-space: nowrap;
     }
 
-    .card-row {
-        font-size: 0.75rem;
-        line-height: 1.4;
-        color: var(--dh2e-text-primary, #d0cfc8);
-    }
-
-    .stats-row {
-        display: flex;
-        gap: 0.4rem;
-    }
+    .card-row { font-size: 0.75rem; line-height: 1.4; color: var(--dh2e-text-primary, #d0cfc8); }
+    .stats-row { display: flex; gap: 0.4rem; }
 
     .stat {
         font-weight: 700;
         padding: 1px 4px;
         border-radius: 2px;
         font-size: 0.6rem;
-
-        &.bonus {
-            color: #6c6;
-            background: rgba(102, 204, 102, 0.12);
-        }
-        &.penalty {
-            color: #c66;
-            background: rgba(204, 102, 102, 0.12);
-        }
+        &.bonus { color: #6c6; background: rgba(102, 204, 102, 0.12); }
+        &.penalty { color: #c66; background: rgba(204, 102, 102, 0.12); }
     }
 
     .detail-panel {
@@ -340,6 +480,15 @@
         margin: 0 0 4px;
     }
 
+    .detail-trait-desc {
+        font-size: 0.8rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        line-height: 1.4;
+        margin: 0 0 4px;
+        padding-left: 0.5rem;
+        border-left: 2px solid var(--dh2e-border, #4a4a55);
+    }
+
     .detail-desc, .detail-bonus {
         font-size: 0.85rem;
         color: var(--dh2e-text-secondary, #a0a0a8);
@@ -347,9 +496,7 @@
         margin: 0 0 4px;
     }
 
-    .detail-bonus {
-        color: var(--dh2e-text-primary, #d0cfc8);
-    }
+    .detail-bonus { color: var(--dh2e-text-primary, #d0cfc8); }
 
     .talent-choices {
         margin-bottom: 0.4rem;
@@ -382,11 +529,16 @@
         font-size: 0.8rem;
         color: var(--dh2e-text-primary, #d0cfc8);
         cursor: pointer;
+        input[type="radio"] { accent-color: var(--dh2e-gold, #c8a84e); margin: 0; }
+    }
 
-        input[type="radio"] {
-            accent-color: var(--dh2e-gold, #c8a84e);
-            margin: 0;
-        }
+    .item-link {
+        color: var(--dh2e-gold, #c8a84e);
+        cursor: pointer;
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-underline-offset: 2px;
+        &:hover { color: var(--dh2e-gold-bright, #e0c060); text-decoration-style: solid; }
     }
 
     .info-btn {
@@ -397,26 +549,10 @@
         font-size: 0.7rem;
         padding: 0 2px;
         opacity: 0.6;
-
-        &:hover {
-            color: var(--dh2e-gold, #c8a84e);
-            opacity: 1;
-        }
+        &:hover { color: var(--dh2e-gold, #c8a84e); opacity: 1; }
     }
 
-    .hint {
-        font-style: italic;
-        font-size: 0.75rem;
-        color: var(--dh2e-text-secondary, #a0a0a8);
-    }
-    .input-field {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-    .field-label {
-        font-size: 0.65rem;
-        color: var(--dh2e-text-secondary, #a0a0a8);
-        text-transform: uppercase;
-    }
+    .hint { font-style: italic; font-size: 0.75rem; color: var(--dh2e-text-secondary, #a0a0a8); }
+    .input-field { display: flex; flex-direction: column; gap: 2px; }
+    .field-label { font-size: 0.65rem; color: var(--dh2e-text-secondary, #a0a0a8); text-transform: uppercase; }
 </style>

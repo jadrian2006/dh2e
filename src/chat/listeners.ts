@@ -245,10 +245,12 @@ class ChatListenersDH2e {
             }
 
             case "plus10": {
-                // Add +10, recalculate and update existing card
+                // Ministorum's "Faith is All" — +10 becomes +20
+                const faithIsAll = (actor as any).synthetics?.rollOptions?.has("self:background:faith-is-all") ?? false;
+                const bonus = faithIsAll ? 20 : 10;
                 const target = (result?.target as number) ?? 50;
                 const roll = (result?.roll as number) ?? 50;
-                const newTarget = target + 10;
+                const newTarget = target + bonus;
                 const success = roll <= newTarget;
                 const dos = success ? Math.floor(newTarget / 10) - Math.floor(roll / 10) + 1 : 0;
                 const dof = success ? 0 : Math.floor(roll / 10) - Math.floor(newTarget / 10) + 1;
@@ -261,8 +263,9 @@ class ChatListenersDH2e {
                     [`flags.${SYSTEM_ID}.fatePlus10`]: true,
                 });
 
+                const bonusLabel = faithIsAll ? "+20 (Faith is All)" : "+10";
                 await fd.ChatMessage.create({
-                    content: `<div class="dh2e chat-card system-note"><em>${actor.name} spent a Fate Point for +10 (target now ${newTarget}).</em></div>`,
+                    content: `<div class="dh2e chat-card system-note"><em>${actor.name} spent a Fate Point for ${bonusLabel} (target now ${newTarget}).</em></div>`,
                     speaker,
                 });
                 break;
@@ -294,6 +297,112 @@ class ChatListenersDH2e {
                     speaker,
                 });
                 break;
+            }
+
+            default: {
+                // Handle custom fate options (custom:slug)
+                if (fateResult.action?.startsWith("custom:") && fateResult.fateOptionEntry) {
+                    const entry = fateResult.fateOptionEntry;
+                    await ChatListenersDH2e.#handleCustomFateAction(actor, entry, result, message, speaker);
+                }
+                break;
+            }
+        }
+    }
+
+    /** Handle dynamic role-ability fate actions */
+    static async #handleCustomFateAction(
+        actor: Actor,
+        entry: { slug: string; label: string; description: string; effectType: string; dosCharacteristic?: string; source: string },
+        result: Record<string, unknown> | undefined,
+        message: StoredDocument<ChatMessage>,
+        speaker: Record<string, unknown>,
+    ): Promise<void> {
+        const sys = (actor as any).system;
+
+        switch (entry.effectType) {
+            case "autoSucceed": {
+                // Calculate DoS from characteristic bonus
+                const charKey = entry.dosCharacteristic ?? "int";
+                const charValue = sys?.characteristics?.[charKey]?.value
+                    ?? sys?.characteristics?.[charKey]?.base ?? 0;
+                const charBonus = Math.floor(charValue / 10);
+
+                await fd.ChatMessage.create({
+                    content: `<div class="dh2e chat-card system-note fate-role">
+                        <em>${actor.name} spent a Fate Point — <strong>${entry.label}</strong>: automatic success with ${charBonus} DoS!</em>
+                    </div>`,
+                    speaker,
+                });
+                break;
+            }
+
+            case "bonusDamage": {
+                // Assassin's Sure Kill: bonus damage = attack DoS
+                const attackDos = (result?.dos as number) ?? (result?.degrees as number) ?? 0;
+
+                await fd.ChatMessage.create({
+                    content: `<div class="dh2e chat-card system-note fate-role">
+                        <em>${actor.name} spent a Fate Point — <strong>${entry.label}</strong>: +${attackDos} bonus damage on first hit!</em>
+                    </div>`,
+                    speaker,
+                    flags: {
+                        [SYSTEM_ID]: {
+                            fateBonusDamage: attackDos,
+                            fateAction: entry.slug,
+                        },
+                    },
+                });
+                break;
+            }
+
+            case "substituteDos": {
+                // Warrior's Expert at Violence: replace DoS with WS/BS bonus
+                const fireMode = result?.fireMode as string;
+                const isMelee = fireMode === "melee" || fireMode === "single" && !result?.isRanged;
+                const charKey = (result?.isRanged || !isMelee) ? "bs" : "ws";
+                const charValue = sys?.characteristics?.[charKey]?.value
+                    ?? sys?.characteristics?.[charKey]?.base ?? 0;
+                const charBonus = Math.floor(charValue / 10);
+                const charLabel = charKey.toUpperCase();
+
+                // Update the attack card's DoS
+                if (result) {
+                    await (message as any).update({
+                        [`flags.${SYSTEM_ID}.result.dos`]: charBonus,
+                        [`flags.${SYSTEM_ID}.result.degrees`]: charBonus,
+                        [`flags.${SYSTEM_ID}.fateSubstituteDos`]: true,
+                    });
+                }
+
+                await fd.ChatMessage.create({
+                    content: `<div class="dh2e chat-card system-note fate-role">
+                        <em>${actor.name} spent a Fate Point — <strong>${entry.label}</strong>: DoS replaced with ${charLabel} Bonus (${charBonus})!</em>
+                    </div>`,
+                    speaker,
+                });
+                break;
+            }
+
+            case "gainHatred": {
+                // Fanatic's Death to All Who Oppose Me!
+                await fd.ChatMessage.create({
+                    content: `<div class="dh2e chat-card system-note fate-role">
+                        <em>${actor.name} spent a Fate Point — <strong>${entry.label}</strong>: gains Hatred against current foe for this encounter!</em>
+                    </div>`,
+                    speaker,
+                });
+                break;
+            }
+
+            default: {
+                // Unknown effect type — post generic message
+                await fd.ChatMessage.create({
+                    content: `<div class="dh2e chat-card system-note fate-role">
+                        <em>${actor.name} spent a Fate Point — <strong>${entry.label}</strong>!</em>
+                    </div>`,
+                    speaker,
+                });
             }
         }
     }

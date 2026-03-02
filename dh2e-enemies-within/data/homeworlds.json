@@ -5,26 +5,18 @@
         "img": "systems/dh2e/icons/default-icons/homeworld.svg",
         "system": {
             "description": "Those who toil on agri-worlds provide the Imperium's countless billions of subjects one of their essential resources: food. The Adeptus Administratum classifies planets to this task often based on the desirable climates, native livestock, or other natural factors. On other agri-worlds, artificial aspects dominate, such as sheltered hydroponic lakes, floating fields suspended in hollowed-out planetoids, or algae vats buried deep within irradiated mountains. In all cases, their populations are devoted to a single cause: feeding the Imperium. Even the slightest crop failure or livestock plague can doom other worlds to horrific starvation or collapse an Imperial warfront, thus making their often-overlooked efforts vital for humanity's survival.",
-            "characteristicBonuses": {
-                "positive": ["fel", "s"],
-                "negative": ["ag"]
-            },
-            "fate": {
-                "threshold": 2,
-                "blessing": 7
-            },
-            "woundsFormula": "8+1d5",
-            "aptitude": "Strength",
-            "homeSkill": "",
             "bonus": "Strength from the Land",
             "bonusDescription": "An agri-world character starts with the Brutal Charge (2) trait.",
-            "recommendedBackgrounds": [
-                "Adeptus Mechanicus",
-                "Adeptus Ministorum",
-                "Imperial Guard",
-                "Mutant"
-            ],
-            "source": "enemies-within"
+            "source": "enemies-within",
+            "rules": [
+                { "key": "CreationBonus", "characteristic": "fel", "value": 5 },
+                { "key": "CreationBonus", "characteristic": "s", "value": 5 },
+                { "key": "CreationBonus", "characteristic": "ag", "value": -5 },
+                { "key": "CreationFate", "threshold": 2, "blessing": 7 },
+                { "key": "CreationWounds", "formula": "8+1d5" },
+                { "key": "GrantAptitude", "aptitude": "Strength" },
+                { "key": "Grant", "type": "trait", "name": "Brutal Charge", "rating": 2 }
+            ]
         }
     },
     {
@@ -33,26 +25,18 @@
         "img": "systems/dh2e/icons/default-icons/homeworld.svg",
         "system": {
             "description": "Feudal worlders live on planets defined by two pronounced aspects, the first and most dominant being a technological level suspended far below many other Imperial societies. On many of these worlds, gunpowder-based devices represent the extent of advancement. The other defining aspect of feudal worlds is how their natives live, all part of networks of obligations and allegiances throughout a tribe or other societal grouping. These ties remain throughout generations, all members born, raised, and dying within their fixed stations. Like their technology, feudal worlders exist in a stagnated state. In many ways their society is similar to the Imperium itself, a welcome familiarity after the shock many natives of such worlds face as they become aware of the wider society of Mankind.",
-            "characteristicBonuses": {
-                "positive": ["per", "ws"],
-                "negative": ["int"]
-            },
-            "fate": {
-                "threshold": 3,
-                "blessing": 6
-            },
-            "woundsFormula": "9+1d5",
-            "aptitude": "Weapon Skill",
-            "homeSkill": "",
             "bonus": "At Home in Armour",
             "bonusDescription": "A feudal world character ignores the maximum Agility value imposed by any armour he is wearing.",
-            "recommendedBackgrounds": [
-                "Adepta Sororitas",
-                "Adeptus Administratum",
-                "Adeptus Ministorum",
-                "Imperial Guard"
-            ],
-            "source": "enemies-within"
+            "source": "enemies-within",
+            "rules": [
+                { "key": "CreationBonus", "characteristic": "per", "value": 5 },
+                { "key": "CreationBonus", "characteristic": "ws", "value": 5 },
+                { "key": "CreationBonus", "characteristic": "int", "value": -5 },
+                { "key": "CreationFate", "threshold": 3, "blessing": 6 },
+                { "key": "CreationWounds", "formula": "9+1d5" },
+                { "key": "GrantAptitude", "aptitude": "Weapon Skill" },
+                { "key": "RollOption", "option": "self:homeworld:at-home-in-armour" }
+            ]
         }
     },
     {
@@ -61,26 +45,18 @@
         "img": "systems/dh2e/icons/default-icons/homeworld.svg",
         "system": {
             "description": "Frontier worlds occupy the desperate, lawless fringes of the Imperium. Inhabitants quickly learn self-reliance by necessity, knowing that they cannot expect outside aid against marauding humans or ravenous aliens. As always, where there is little Imperial attention, heresy and mutation festers unchecked. Frontier worlds swarm with the violent dregs of humanity, with pirates, bandits, outlaws, and worse ruling many areas. These planets easily become breeding grounds for rogue psykers, misguided heresies, and vile cults, and can threaten Mankind across the wider Imperium should their contagion spread.",
-            "characteristicBonuses": {
-                "positive": ["bs", "per"],
-                "negative": ["fel"]
-            },
-            "fate": {
-                "threshold": 3,
-                "blessing": 7
-            },
-            "woundsFormula": "7+1d5",
-            "aptitude": "Ballistic Skill",
-            "homeSkill": "",
             "bonus": "Rely on None but Yourself",
             "bonusDescription": "A frontier world character gains a +20 bonus to Tech-Use tests when applying personal weapon modifications, and a +10 bonus when repairing damaged items.",
-            "recommendedBackgrounds": [
-                "Adeptus Arbites",
-                "Adeptus Astra Telepathica",
-                "Mutant",
-                "Outcast"
-            ],
-            "source": "enemies-within"
+            "source": "enemies-within",
+            "rules": [
+                { "key": "CreationBonus", "characteristic": "bs", "value": 5 },
+                { "key": "CreationBonus", "characteristic": "per", "value": 5 },
+                { "key": "CreationBonus", "characteristic": "fel", "value": -5 },
+                { "key": "CreationFate", "threshold": 3, "blessing": 7 },
+                { "key": "CreationWounds", "formula": "7+1d5" },
+                { "key": "GrantAptitude", "aptitude": "Ballistic Skill" },
+                { "key": "RollOption", "option": "self:homeworld:rely-on-none" }
+            ]
         }
     }
 ]

@@ -7,6 +7,18 @@
         if (ctx.actor) FateDialog.execute(ctx.actor);
     }
 
+    function openPortraitPicker() {
+        if (!ctx.editable) return;
+        const fp = new FilePicker({
+            type: "image",
+            current: ctx.img,
+            callback: (path: string) => {
+                ctx.actor?.update({ img: path, "prototypeToken.texture.src": path });
+            },
+        });
+        fp.browse();
+    }
+
     const woundPercent = $derived(() => {
         const max = ctx.system?.wounds?.max ?? 1;
         const val = ctx.system?.wounds?.value ?? 0;
@@ -31,7 +43,11 @@
 </script>
 
 <header class="acolyte-header">
-    <img src={ctx.img} alt={ctx.name} class="portrait" />
+    <img src={ctx.img} alt={ctx.name} class="portrait" class:editable={ctx.editable}
+        onclick={openPortraitPicker} role={ctx.editable ? "button" : undefined}
+        tabindex={ctx.editable ? 0 : undefined}
+        onkeydown={(e) => { if (e.key === "Enter") openPortraitPicker(); }}
+        title={ctx.editable ? "Change portrait" : undefined} />
 
     <div class="identity">
         <h1 class="name">{ctx.name}</h1>
@@ -106,8 +122,15 @@
         border: 2px solid var(--dh2e-gold);
         border-radius: var(--dh2e-radius-md);
         object-fit: cover;
-        cursor: pointer;
         flex-shrink: 0;
+
+        &.editable {
+            cursor: pointer;
+            &:hover {
+                border-color: var(--dh2e-gold-bright, #e0c060);
+                box-shadow: 0 0 6px var(--dh2e-gold-dark);
+            }
+        }
     }
 
     .identity {

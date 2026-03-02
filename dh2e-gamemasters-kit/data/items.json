@@ -2,9 +2,9 @@
     {
         "name": "Investigate the Deaths in Gallowsway",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Proceed to Charnel House 17 in the Gallowsway district and investigate the mass murder scene. Examine the bodies, the xenos artefact fragment, and the body of Darnis Fayne. Determine the nature and origin of the killings, and why so many of the corpses appear to have been dead far longer than the murders suggest.</p>",
+            "description": "<p>Mass murder in the Gallowsway district. The dead bear marks that defy easy explanation, and the circumstances suggest something far worse than common violence.</p><ul><li>Proceed to <strong>Charnel House 17</strong> and examine the murder scene.</li><li>Inspect the bodies&mdash;many appear to have been dead far longer than the killings would suggest.</li><li>Recover and examine the <strong>xenos artefact fragment</strong> found at the scene.</li><li>Identify the body of <strong>Darnis Fayne</strong> and determine his connection to the killings.</li></ul>",
             "source": "gamemasters-kit",
             "status": "active",
             "assignedBy": "",
@@ -17,9 +17,9 @@
     {
         "name": "Navigate Red Walk Territory",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Follow the body trade trail from the Fayne Mortuarius downhive through the Purity Gate into Gantry. Navigate the dangerous territory of the Red Walk gang and their leader Vornas Crimson. Gain information about the Blessed Flesh cult's hideout location, either through alliance, coercion, or the blood sports of the Knife Lock arena.</p>",
+            "description": "<p>The trail of the body trade leads downhive, through territory claimed by one of Desoleum's most brutal gangs.</p><ul><li>Follow the trail from the <strong>Fayne Mortuarius</strong> through the <strong>Purity Gate</strong> into Gantry.</li><li>Navigate the territory of the <strong>Red Walk</strong> gang and their leader, <strong>Vornas Crimson</strong>.</li><li>Obtain the location of the <strong>Blessed Flesh</strong> cult's hideout&mdash;through alliance, coercion, or the blood sport of the <strong>Knife Lock</strong> arena.</li></ul>",
             "source": "gamemasters-kit",
             "status": "active",
             "assignedBy": "",
@@ -32,9 +32,9 @@
     {
         "name": "Infiltrate the Blessed Flesh Cult",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Locate and infiltrate the Blessed Flesh cult's hidden lair in the Underhive&mdash;a massive archeotech construction platform rising from the toxic sump-river. Approach through stealth, force, or guile to reach Ferrue Fayne before he can complete his summoning ritual.</p>",
+            "description": "<p>The Blessed Flesh cult operates from a hidden stronghold deep in the Underhive&mdash;a massive archeotech construction platform rising from the toxic sump-river.</p><ul><li>Locate the cult's hidden lair using intelligence gathered from the Red Walk.</li><li>Approach through <strong>stealth, force, or guile</strong>&mdash;the path is treacherous and well-guarded.</li><li>Reach <strong>Ferrue Fayne</strong> before he can complete his summoning ritual.</li></ul>",
             "source": "gamemasters-kit",
             "status": "active",
             "assignedBy": "",
@@ -47,9 +47,9 @@
     {
         "name": "Confront Ferrue Fayne",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Confront and defeat the heretic psyker Ferrue Fayne, leader of the Blessed Flesh cult. Recover or destroy the xenos artefact that amplifies his psychic powers. If the artefact is removed, his Psy Rating drops from 4 to 3 and the summoning ritual fails.</p>",
+            "description": "<p>The heretic psyker Ferrue Fayne stands at the centre of the Blessed Flesh cult, wielding a xenos artefact that amplifies his already formidable psychic powers.</p><ul><li>Confront and defeat <strong>Ferrue Fayne</strong>, leader of the Blessed Flesh cult.</li><li>Recover or destroy the <strong>xenos artefact</strong> that amplifies his abilities&mdash;without it, his Psy Rating drops from 4 to 3 and the ritual collapses.</li><li>Neutralise any remaining cult leadership to prevent reorganisation.</li></ul>",
             "source": "gamemasters-kit",
             "status": "active",
             "assignedBy": "",
@@ -62,9 +62,9 @@
     {
         "name": "Banish the Herald of Nurgle",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>If the summoning ritual succeeds, the Herald of Nurgle Aynthrexes tears through the veil. Banish or destroy the daemon before it can fully anchor itself in reality and lead Ferrue's army of animated dead across Hive Desoleum.</p>",
+            "description": "<p>The veil has been torn. If the summoning ritual succeeds, the Herald of Nurgle <strong>Aynthrexes</strong> manifests in the material world, surrounded by an army of animated dead.</p><ul><li>Banish or destroy the daemon before it can fully anchor itself in reality.</li><li>Prevent <strong>Aynthrexes</strong> from leading Ferrue's army of reanimated corpses across Hive Desoleum.</li><li>Survive. The Emperor protects.</li></ul>",
             "source": "gamemasters-kit",
             "status": "active",
             "assignedBy": "",

@@ -2,9 +2,9 @@
     {
         "name": "Investigate the Crime Scene",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Proceed to the Gallowsway District in Hive Desoleum and investigate the crime scene where three bodies were found bearing strange xenos markings. Make contact with Oath-Captain Nils and determine the nature and origin of the marks.</p>",
+            "description": "<p>Three bodies bearing strange xenos markings have been discovered in the Gallowsway District. Local Sanctionaries are overwhelmed&mdash;this demands Inquisitorial attention.</p><ul><li>Proceed to the crime scene in <strong>Gallowsway</strong> and examine the bodies.</li><li>Make contact with <strong>Oath-Captain Nils</strong> of the Sanctionaries for local intelligence.</li><li>Determine the nature and origin of the xenos markings on the victims.</li></ul>",
             "source": "forgotten-gods",
             "status": "active",
             "assignedBy": "",
@@ -17,9 +17,9 @@
     {
         "name": "Track the Smugglers Through the Underhive",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Follow the trail of the xenos artefacts through the underhive. Navigate Red Walk gang territory and trace the smuggling network to its source. The trail leads through dangerous territory controlled by Vornas Crimson.</p>",
+            "description": "<p>The xenos artefacts are moving through Desoleum's underhive via established smuggling networks. The trail must be followed to its source.</p><ul><li>Follow the artefact trail into the <strong>underhive</strong>.</li><li>Navigate territory controlled by <strong>Vornas Crimson</strong> and the Red Walk gang.</li><li>Trace the smuggling network to identify the source of the artefacts.</li></ul>",
             "source": "forgotten-gods",
             "status": "active",
             "assignedBy": "",
@@ -32,9 +32,9 @@
     {
         "name": "Cross the Desoleum Wastes",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Traverse the hostile Desoleum Wastes beyond the hive walls to reach the Trade Sable smuggler camp. Survive encounters with Gwydrae nomads, waste predators, and the unforgiving desert environment.</p>",
+            "description": "<p>The trail leads beyond the hive walls into the hostile wasteland surrounding Desoleum. The Trade Sable operates a smuggler camp in the deep desert.</p><ul><li>Traverse the <strong>Desoleum Wastes</strong>&mdash;a hostile and unforgiving environment.</li><li>Survive encounters with <strong>Gwydrae nomads</strong>, waste predators, and the desert itself.</li><li>Locate and infiltrate the <strong>Trade Sable smuggler camp</strong>.</li></ul>",
             "source": "forgotten-gods",
             "status": "active",
             "assignedBy": "",
@@ -47,9 +47,9 @@
     {
         "name": "Board the Oath Unspoken",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Secure passage aboard the Rogue Trader vessel Oath Unspoken, commanded by Lord-Captain Aristide Anzaforr. The ship carries thousands of pilgrims to the shrine world of Thaur, and evidence suggests the smuggling conspiracy extends aboard.</p>",
+            "description": "<p>Evidence points to the shrine world of Thaur as the ultimate destination of the smuggling conspiracy. Passage must be secured aboard a vessel bound for that world.</p><ul><li>Secure passage aboard the <strong>Oath Unspoken</strong>, a Rogue Trader vessel commanded by <strong>Lord-Captain Aristide Anzaforr</strong>.</li><li>The ship carries thousands of pilgrims to Thaur&mdash;blend in or negotiate openly.</li><li>Investigate evidence that the conspiracy extends aboard the vessel itself.</li></ul>",
             "source": "forgotten-gods",
             "status": "active",
             "assignedBy": "",
@@ -62,9 +62,9 @@
     {
         "name": "Uncover the Cult Aboard the Oath Unspoken",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Investigate the Children of the Inheritance cult's presence among the pilgrims. Identify their leader, Praesul Parathas Hayne, and determine their plan before the ship reaches Thaur. Look for bone-chip tokens, whispered prayers to the Remembered God, and secret rituals in the corpse-holds.</p>",
+            "description": "<p>A cult calling itself the <strong>Children of the Inheritance</strong> has embedded agents among the pilgrims. Their purpose aboard the Oath Unspoken must be exposed before landfall.</p><ul><li>Identify cultist operatives among the pilgrim population.</li><li>Look for signs: <strong>bone-chip tokens</strong>, whispered prayers to the <em>Remembered God</em>, secret rituals in the corpse-holds.</li><li>Locate their leader, <strong>Praesul Parathas Hayne</strong>, and determine the cult's plan.</li></ul>",
             "source": "forgotten-gods",
             "status": "active",
             "assignedBy": "",
@@ -77,9 +77,9 @@
     {
         "name": "Defend the Oath Unspoken",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>The Children of the Inheritance launch their attack aboard the Oath Unspoken. Defend the ship alongside the Anzaforr Armsmen, rally allies, and repel the cultist assault across multiple decks.</p>",
+            "description": "<p>The Children of the Inheritance have launched their assault. The ship is under attack from within.</p><ul><li>Defend the <strong>Oath Unspoken</strong> alongside the <strong>Anzaforr Armsmen</strong>.</li><li>Rally allies among crew and pilgrims to repel the cultist assault.</li><li>Secure critical decks and prevent the cultists from seizing control of the vessel.</li></ul>",
             "source": "forgotten-gods",
             "status": "active",
             "assignedBy": "",
@@ -92,9 +92,9 @@
     {
         "name": "Escape Lord Pyre's Custody",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Jeronius Pyre, Lord of the Wake and ruler of Thaur, has detained the warband. Outsiders are unwelcome during the Festival of Bones. Negotiate release, intimidate the Lord Governor, or escape captivity to continue the mission.</p>",
+            "description": "<p><strong>Jeronius Pyre</strong>, Lord of the Wake and ruler of Thaur, has detained the warband. Outsiders are unwelcome during the sacred <strong>Festival of Bones</strong>.</p><ul><li>Negotiate your release through diplomacy or Inquisitorial authority.</li><li>Intimidate the Lord Governor into compliance.</li><li>If all else fails&mdash;escape captivity by any means necessary.</li></ul>",
             "source": "forgotten-gods",
             "status": "active",
             "assignedBy": "",
@@ -107,9 +107,9 @@
     {
         "name": "Navigate the Catacombs of Thaur",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Descend through the Great Ossuaria into the alien tunnels beneath Thaur's surface. Navigate the shifting architecture from Imperial Gothic crypts to disturbing organic passages. Find the path to the Chamber of Izumat before the Children of the Inheritance complete their ritual.</p>",
+            "description": "<p>The path to the enemy leads deep beneath Thaur's surface, through ossuaries that give way to something far older and far worse than Imperial crypts.</p><ul><li>Descend through the <strong>Great Ossuaria</strong> into the alien tunnels below.</li><li>Navigate shifting architecture&mdash;from Imperial Gothic crypts to disturbing organic passages.</li><li>Find the path to the <strong>Chamber of Izumat</strong> before the Children of the Inheritance complete their ritual.</li></ul>",
             "source": "forgotten-gods",
             "status": "active",
             "assignedBy": "",
@@ -122,9 +122,9 @@
     {
         "name": "Stop the Resurrection Ritual",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Carolus Renthear leads the Children of the Inheritance in a ritual to resurrect the Daemon Prince Suvfaeras using accumulated xenos artefacts. Disrupt the ritual circle, destroy the artefacts, or eliminate Renthear before the entity known as Izumat can be restored to the material world.</p>",
+            "description": "<p><strong>Carolus Renthear</strong> leads the Children of the Inheritance in a blasphemous rite to resurrect a Daemon Prince using the accumulated xenos artefacts. The ritual must not succeed.</p><ul><li>Disrupt the <strong>ritual circle</strong> before it reaches completion.</li><li>Destroy the xenos artefacts fuelling the summoning.</li><li>Eliminate <strong>Renthear</strong> before the entity known as <strong>Izumat</strong> can be restored to the material world.</li></ul>",
             "source": "forgotten-gods",
             "status": "active",
             "assignedBy": "",
@@ -137,9 +137,9 @@
     {
         "name": "Banish Daemon Prince Suvfaeras",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>If the ritual succeeds, the Daemon Prince Suvfaeras manifests in the Chamber of Izumat. This ancient Warp entity is devastatingly powerful. Destroy the remaining xenos artefacts to weaken it, coordinate attacks with allies, and banish the Daemon Prince back to the Immaterium before it can escape the catacombs.</p>",
+            "description": "<p>The ritual has succeeded. The Daemon Prince <strong>Suvfaeras</strong> manifests in the Chamber of Izumat&mdash;an ancient Warp entity of devastating power.</p><ul><li>Destroy the remaining <strong>xenos artefacts</strong> to weaken the daemon's anchor to reality.</li><li>Coordinate attacks with surviving allies.</li><li>Banish <strong>Suvfaeras</strong> back to the Immaterium before it can escape the catacombs and unleash itself upon Thaur.</li></ul>",
             "source": "forgotten-gods",
             "status": "active",
             "assignedBy": "",

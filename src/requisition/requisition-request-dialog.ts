@@ -2,15 +2,19 @@ import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@sh
 import type { WarbandDH2e } from "@actor/warband/document.ts";
 import DialogRoot from "./requisition-request-dialog-root.svelte";
 
-export interface RequisitionRequestPayload {
+export interface RequisitionRequestItem {
     itemData: object;
     itemName: string;
     craftsmanship: string;
+    availability: string;
+}
+
+export interface RequisitionRequestPayload {
+    items: RequisitionRequestItem[];
     modifications: string;
     requestedBy: string;
     requestedFor: string;
     actorName: string;
-    availability: string;
     rollResult: number;
     targetNumber: number;
     success: boolean;
@@ -77,11 +81,8 @@ class RequisitionRequestDialog extends SvelteApplicationMixin(fa.api.Application
                 craftOptions,
                 compendiumItems,
                 onRoll: (params: {
-                    itemName: string;
-                    availability: string;
-                    craftsmanship: string;
+                    items: { name: string; uuid?: string; type?: string; availability: string; craftsmanship: string; img?: string }[];
                     modifications: string;
-                    itemData: object | null;
                 }) => this.#handleRoll(params),
                 onSendToGM: (payload: RequisitionRequestPayload) => this.#sendToGM(payload),
                 close: () => this.close(),
@@ -116,13 +117,10 @@ class RequisitionRequestDialog extends SvelteApplicationMixin(fa.api.Application
         return items.sort((a, b) => a.name.localeCompare(b.name));
     }
 
-    /** Roll a requisition test and return the result */
+    /** Roll a requisition test using worst-penalty-in-batch logic */
     async #handleRoll(params: {
-        itemName: string;
-        availability: string;
-        craftsmanship: string;
+        items: { name: string; uuid?: string; type?: string; availability: string; craftsmanship: string; img?: string }[];
         modifications: string;
-        itemData: object | null;
     }): Promise<{
         rollResult: number;
         targetNumber: number;
@@ -130,21 +128,23 @@ class RequisitionRequestDialog extends SvelteApplicationMixin(fa.api.Application
         degrees: number;
         influenceLost: boolean;
     } | null> {
-        if (!this.#actor) return null;
+        if (!this.#actor || params.items.length === 0) return null;
 
         const actorSys = (this.#actor as any).system;
         const influence = actorSys?.influence ?? 25;
 
-        const availConfig = CONFIG.DH2E?.availabilityTiers?.[params.availability] as
-            | { modifier: number } | undefined;
-        const availMod = availConfig?.modifier ?? 0;
+        // Compute per-item penalty, use the worst (most negative) as the batch penalty
+        let worstMod = 0;
+        for (const item of params.items) {
+            const availConfig = CONFIG.DH2E?.availabilityTiers?.[item.availability] as
+                | { modifier: number } | undefined;
+            const craftConfig = CONFIG.DH2E?.craftsmanshipTiers?.[item.craftsmanship] as
+                | { modifier: number } | undefined;
+            const itemMod = (availConfig?.modifier ?? 0) + (craftConfig?.modifier ?? 0);
+            if (itemMod < worstMod) worstMod = itemMod;
+        }
 
-        const craftConfig = CONFIG.DH2E?.craftsmanshipTiers?.[params.craftsmanship] as
-            | { modifier: number } | undefined;
-        const craftMod = craftConfig?.modifier ?? 0;
-
-        const totalMod = availMod + craftMod;
-        const targetNumber = Math.max(1, Math.min(100, influence + totalMod));
+        const targetNumber = Math.max(1, Math.min(100, influence + worstMod));
 
         // Roll d100
         const roll = new Roll("1d100");
@@ -178,8 +178,9 @@ class RequisitionRequestDialog extends SvelteApplicationMixin(fa.api.Application
             type: "requisitionRequest",
             payload,
         });
+        const names = payload.items.map(i => i.itemName).join(", ");
         ui.notifications.info(
-            game.i18n.format("DH2E.Requisition.SendRequest", { name: payload.itemName }),
+            game.i18n.format("DH2E.Requisition.SendRequest", { name: names }),
         );
         this.close();
     }

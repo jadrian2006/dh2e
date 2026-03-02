@@ -4,9 +4,26 @@
     let confirmBurn = $state(false);
     let burnAction = $state("");
 
+    const fateOptions: Array<{
+        slug: string;
+        label: string;
+        description: string;
+        effectType: string;
+        dosCharacteristic?: string;
+        source: string;
+    }> = $derived(ctx.fateOptions ?? []);
+
+    /** Check if the +10 becomes +20 via Ministorum's Faith is All */
+    const faithIsAll: boolean = $derived(ctx.rollOptions?.has?.("self:background:faith-is-all") ?? false);
+
     function spend(action: string) {
         if (ctx.fateValue <= 0) return;
         ctx.onAction?.(action, false);
+    }
+
+    function spendCustom(entry: typeof fateOptions[number]) {
+        if (ctx.fateValue <= 0) return;
+        ctx.onAction?.(`custom:${entry.slug}`, false, entry);
     }
 
     function initBurn(action: string) {
@@ -38,14 +55,26 @@
                 <span class="btn-desc">Re-roll a failed test</span>
             </button>
             <button class="fate-btn spend" onclick={() => spend("plus10")} disabled={ctx.fateValue <= 0}>
-                <span class="btn-label">+10 Bonus</span>
-                <span class="btn-desc">Add +10 to your next test</span>
+                <span class="btn-label">{faithIsAll ? "+20" : "+10"} Bonus</span>
+                <span class="btn-desc">Add {faithIsAll ? "+20" : "+10"} to your next test{faithIsAll ? " (Faith is All)" : ""}</span>
             </button>
             <button class="fate-btn spend" onclick={() => spend("halfWounds")} disabled={ctx.fateValue <= 0}>
                 <span class="btn-label">Halve Damage</span>
                 <span class="btn-desc">Halve wounds from a single hit</span>
             </button>
         </div>
+
+        {#if fateOptions.length > 0}
+            <div class="fate-section role-section">
+                <h4 class="section-label role-label">Role Abilities (costs 1 Fate)</h4>
+                {#each fateOptions as entry}
+                    <button class="fate-btn role" onclick={() => spendCustom(entry)} disabled={ctx.fateValue <= 0}>
+                        <span class="btn-label">{entry.label}</span>
+                        <span class="btn-desc">{entry.description}</span>
+                    </button>
+                {/each}
+            </div>
+        {/if}
 
         <div class="fate-section burn-section">
             <h4 class="section-label burn-label">Burn (permanent!)</h4>
@@ -111,6 +140,7 @@
         letter-spacing: 0.1em;
         margin-bottom: var(--dh2e-space-xs, 0.25rem);
 
+        &.role-label { color: var(--dh2e-gold, #c8a84e); }
         &.burn-label { color: var(--dh2e-red-bright, #d44); }
     }
 
@@ -134,6 +164,15 @@
 
         &.spend {
             background: var(--dh2e-bg-mid, #2e2e35);
+            &:hover:not(:disabled) {
+                border-color: var(--dh2e-gold, #c8a84e);
+                background: rgba(200, 168, 78, 0.1);
+            }
+        }
+
+        &.role {
+            background: var(--dh2e-bg-mid, #2e2e35);
+            border-left: 3px solid var(--dh2e-gold, #c8a84e);
             &:hover:not(:disabled) {
                 border-color: var(--dh2e-gold, #c8a84e);
                 background: rgba(200, 168, 78, 0.1);

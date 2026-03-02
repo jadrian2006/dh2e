@@ -1,6 +1,6 @@
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@sheet/mixin.ts";
 import WizardRoot from "./wizard-root.svelte";
-import type { CreationData, HomeworldOption, BackgroundOption, RoleOption, DivinationResult, WizardPurchase } from "./types.ts";
+import type { CreationData, OriginOption, HomeworldOption, BackgroundOption, RoleOption, DivinationResult, WizardPurchase } from "./types.ts";
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 import { recordTransaction } from "../advancement/xp-ledger.ts";
 import { appendLog } from "@actor/log.ts";
@@ -14,6 +14,17 @@ import {
     getCreationDataPaths,
     type PackType,
 } from "@util/pack-discovery.ts";
+import {
+    getCharBonuses,
+    getFateConfig,
+    getWoundsFormula,
+    getCorruptionFormula,
+    getAptitudes,
+    getGrants,
+    getGrantsOfType,
+    getEliteAdvances,
+    type GrantSource,
+} from "./creation-helpers.ts";
 
 const CHAR_KEYS = new Set<string>(["ws", "bs", "s", "t", "ag", "int", "per", "wp", "fel"]);
 const EQUIPMENT_TYPES: PackType[] = ["weapons", "armour", "gear", "cybernetics", "ammunition"];
@@ -308,59 +319,30 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const bgDocs = await getAllDocumentsOfType("backgrounds");
         const rlDocs = await getAllDocumentsOfType("roles");
 
+        /** Map a compendium document to a unified OriginOption */
+        function toOriginOption(doc: any): OriginOption {
+            const sys = doc.system ?? {};
+            return {
+                name: doc.name,
+                description: sys.description ?? "",
+                bonus: sys.bonus ?? "",
+                bonusDescription: sys.bonusDescription ?? "",
+                source: sys.source ?? "",
+                rules: sys.rules ?? [],
+                _itemData: doc.toObject(),
+            };
+        }
+
         if (hwDocs.length > 0) {
-            homeworlds = hwDocs.map((doc: any) => {
-                const sys = doc.system ?? {};
-                return {
-                    name: doc.name,
-                    description: sys.description ?? "",
-                    characteristicBonuses: sys.characteristicBonuses ?? { positive: [], negative: [] },
-                    fate: sys.fate ?? { threshold: 2, blessing: 1 },
-                    wounds: parseInt(sys.woundsFormula) || 8,
-                    woundsFormula: sys.woundsFormula ?? "8+1d5",
-                    aptitude: sys.aptitude ?? "",
-                    homeSkill: sys.homeSkill ?? "",
-                    bonus: sys.bonus ?? "",
-                    bonusDescription: sys.bonusDescription ?? "",
-                    source: sys.source ?? "",
-                    _itemData: doc.toObject(),
-                } as HomeworldOption;
-            });
+            homeworlds = hwDocs.map(toOriginOption);
         }
 
         if (bgDocs.length > 0) {
-            backgrounds = bgDocs.map((doc: any) => {
-                const sys = doc.system ?? {};
-                return {
-                    name: doc.name,
-                    description: sys.description ?? "",
-                    skills: sys.skills ?? [],
-                    talents: sys.talents ?? [],
-                    equipment: sys.equipment ?? [],
-                    aptitude: sys.aptitude ?? "",
-                    bonus: sys.bonus ?? "",
-                    bonusDescription: sys.bonusDescription ?? "",
-                    source: sys.source ?? "",
-                    _itemData: doc.toObject(),
-                } as BackgroundOption;
-            });
+            backgrounds = bgDocs.map(toOriginOption);
         }
 
         if (rlDocs.length > 0) {
-            roles = rlDocs.map((doc: any) => {
-                const sys = doc.system ?? {};
-                return {
-                    name: doc.name,
-                    description: sys.description ?? "",
-                    aptitudes: sys.aptitudes ?? [],
-                    talent: sys.talent ?? "",
-                    eliteAdvances: sys.eliteAdvances ?? undefined,
-                    bonus: sys.bonus ?? "",
-                    bonusDescription: sys.bonusDescription ?? "",
-                    source: sys.source ?? "",
-                    _itemData: doc.toObject(),
-                } as RoleOption;
-            });
+            roles = rlDocs.map(toOriginOption);
         }
 
         // Fall back to JSON files if compendiums not available — scan all dh2e module paths
@@ -440,9 +422,9 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const itemsToCreate: Record<string, unknown>[] = [];
 
         const characteristics = state.characteristics as Record<CharacteristicAbbrev, number>;
-        const homeworld = state.homeworld as HomeworldOption | null;
-        const background = state.background as BackgroundOption | null;
-        const role = state.role as RoleOption | null;
+        const homeworld = state.homeworld as OriginOption | null;
+        const background = state.background as OriginOption | null;
+        const role = state.role as OriginOption | null;
         const divination = state.divination as DivinationResult | null;
         const woundsRoll = state.woundsRoll as number | null;
         const fateRoll = state.fateRoll as number | null;
@@ -462,29 +444,43 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
         // 2. Homeworld
         if (homeworld) {
+            const hwRules = homeworld.rules ?? [];
+
             // Influence: handle "inf" bonus/penalty (not a characteristic)
             let influence = 25;
-            for (const key of homeworld.characteristicBonuses.positive) {
-                if (!CHAR_KEYS.has(key)) { if (key === "inf") influence += 5; }
-            }
-            for (const key of homeworld.characteristicBonuses.negative) {
-                if (!CHAR_KEYS.has(key)) { if (key === "inf") influence -= 5; }
+            for (const b of getCharBonuses(hwRules)) {
+                if (b.characteristic === "inf") influence += b.value;
             }
             updates["system.influence"] = influence;
 
             // Fate: base threshold + Emperor's Blessing (+1 if d10 roll met target)
-            const blessed = fateRoll !== null && fateRoll >= homeworld.fate.blessing;
-            const totalFate = homeworld.fate.threshold + (blessed ? 1 : 0);
-            updates["system.fate.max"] = totalFate;
-            updates["system.fate.value"] = totalFate;
+            const fateConfig = getFateConfig(hwRules);
+            if (fateConfig) {
+                const blessed = fateRoll !== null && fateRoll >= fateConfig.blessing;
+                const totalFate = fateConfig.threshold + (blessed ? 1 : 0);
+                updates["system.fate.max"] = totalFate;
+                updates["system.fate.value"] = totalFate;
+            }
 
-            // Use rolled wounds if available, otherwise fall back to flat value
-            const woundsValue = woundsRoll ?? homeworld.wounds;
-            updates["system.wounds.max"] = woundsValue;
-            updates["system.wounds.value"] = woundsValue;
+            // Wounds from formula
+            const woundsFormula = getWoundsFormula(hwRules);
+            if (woundsRoll !== null) {
+                updates["system.wounds.max"] = woundsRoll;
+                updates["system.wounds.value"] = woundsRoll;
+            } else if (woundsFormula) {
+                // Fallback: parse base value from formula (e.g., "9+1d5" → 9)
+                const flat = parseInt(woundsFormula) || 8;
+                updates["system.wounds.max"] = flat;
+                updates["system.wounds.value"] = flat;
+            }
 
             updates["system.details.homeworld"] = homeworld.name;
-            if (homeworld.aptitude) aptitudes.push(homeworld.aptitude);
+
+            // Aptitudes from homeworld
+            for (const apt of getAptitudes(hwRules)) {
+                if (typeof apt === "string") aptitudes.push(apt);
+                else aptitudes.push(resolveOr(apt.join(" or ")));
+            }
 
             // Embed origin item
             if (homeworld._itemData) {
@@ -493,41 +489,13 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 itemsToCreate.push(itemData);
             }
 
-            // Homeworld bonus skills — grant at advancement 1 (Known)
-            for (const skillName of homeworld.skills ?? []) {
-                if (isPickOne(skillName)) continue;
-                const doc = await findInPackType("skills", skillName);
-                if (doc) {
-                    const obj = doc.toObject();
-                    obj.system.advancement = 1; // Known rank
-                    itemsToCreate.push(obj);
-                } else {
-                    console.warn(`dh2e | Homeworld skill "${skillName}" not found in compendium`);
-                }
-            }
-
-            // Homeworld bonus talents (e.g., Forge World: Technical Knock or Weapon-Tech)
-            const hwTalentChoice = (state.homeworldTalentChoice as string) || "";
-            for (const raw of homeworld.talents ?? []) {
-                const options = splitOrChoices(raw);
-                let talentName: string;
-                if (options.length > 1 && hwTalentChoice) {
-                    talentName = hwTalentChoice;
-                } else {
-                    // Single talent or no choice made — use first option
-                    talentName = resolveOr(options[0].trim());
-                }
-                if (isPickOne(talentName)) continue;
-                const doc = await findInPackType("talents", talentName);
-                if (doc) {
-                    itemsToCreate.push(doc.toObject());
-                } else {
-                    console.warn(`dh2e | Homeworld talent "${talentName}" not found in compendium`);
-                }
-            }
+            // Process Grant REs from homeworld
+            const hwChoices = (state.homeworldChoices ?? {}) as Record<number, string | number>;
+            await this.#processGrants(hwRules, hwChoices, itemsToCreate, state);
 
             // Homeworld corruption (e.g., Daemon World: 1d10+5)
-            if (homeworld.startingCorruption) {
+            const corruptionFormula = getCorruptionFormula(hwRules);
+            if (corruptionFormula) {
                 const corruptionRoll = state.corruptionRoll as number | null;
                 if (corruptionRoll !== null) {
                     updates["system.corruption"] = corruptionRoll;
@@ -535,10 +503,16 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             }
         }
 
-        // 3. Background — skills, talents, equipment
+        // 3. Background — skills, talents, equipment (all via Grant REs)
         if (background) {
+            const bgRules = background.rules ?? [];
             updates["system.details.background"] = background.name;
-            if (background.aptitude) aptitudes.push(resolveOr(background.aptitude));
+
+            // Aptitudes from background
+            for (const apt of getAptitudes(bgRules)) {
+                if (typeof apt === "string") aptitudes.push(apt);
+                else aptitudes.push(resolveOr(apt.join(" or ")));
+            }
 
             // Embed origin item
             if (background._itemData) {
@@ -547,134 +521,21 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 itemsToCreate.push(itemData);
             }
 
-            // Skills — grant at advancement 1 (Known)
-            for (const raw of background.skills) {
-                if (isPickOne(raw)) continue;
-                const name = resolveOr(raw);
-                if (isPickOne(name)) continue;
-                const doc = await findInPackType("skills", name);
-                if (doc) {
-                    const obj = doc.toObject();
-                    obj.system.advancement = 1; // Known rank
-                    itemsToCreate.push(obj);
-                } else {
-                    console.warn(`dh2e | Skill "${name}" not found in compendium`);
-                }
-            }
-
-            // Talents
-            for (const raw of background.talents) {
-                const name = resolveOr(raw);
-                if (isPickOne(name)) continue;
-                const doc = await findInPackType("talents", name);
-                if (doc) {
-                    itemsToCreate.push(doc.toObject());
-                } else {
-                    console.warn(`dh2e | Talent "${name}" not found in compendium`);
-                }
-            }
-
-            // Equipment — with servo-skull companion detection
-            const gearChoices = (state.gearChoices ?? {}) as Record<number, string>;
-            const skipEquipmentIndices = new Set<number>();
-
-            // Pre-scan for servo-skull choices → create NPC companion instead
-            for (let i = 0; i < background.equipment.length; i++) {
-                const raw = background.equipment[i];
-                const resolved = gearChoices[i] ?? resolveOr(raw);
-                const { name } = parseEquipment(resolved);
-                if (/servo[- ]?skull/i.test(name)) {
-                    skipEquipmentIndices.add(i);
-
-                    // Determine variant from the resolved name
-                    const isLaudHailer = /laud\s*hailer/i.test(name);
-                    const variant = isLaudHailer ? "laud hailer" : "utility";
-
-                    // Create NPC companion from compendium (scan all dh2e modules)
-                    try {
-                        const npcPackIds = getPacksOfType("npcs");
-                        if (npcPackIds.length === 0) {
-                            console.warn("dh2e | NPC compendium pack not found — cannot create servo-skull companion");
-                            continue;
-                        }
-                        // Search across all NPC packs
-                        let skullEntry: any = null;
-                        let npcPack: any = null;
-                        for (const pid of npcPackIds) {
-                            npcPack = game.packs.get(pid);
-                            if (!npcPack) continue;
-                            const npcIndex = await npcPack.getIndex();
-                            skullEntry = npcIndex.find((e: any) =>
-                                e.name.toLowerCase().includes("servo-skull") && e.name.toLowerCase().includes(variant),
-                            );
-                            if (skullEntry) break;
-                        }
-                        if (!skullEntry || !npcPack) {
-                            console.warn(`dh2e | Servo-skull (${variant}) not found in NPC compendium`);
-                            continue;
-                        }
-                        const skullDoc = await npcPack.getDocument(skullEntry._id);
-                        if (!skullDoc) {
-                            console.warn(`dh2e | Failed to load servo-skull document from compendium`);
-                            continue;
-                        }
-                        const skullData = (skullDoc as any).toObject();
-                        delete skullData._id;
-                        const variantLabel = isLaudHailer ? "Laud Hailer" : "Utility";
-                        skullData.name = `${this.#actor.name}'s Monotask Servo-skull (${variantLabel})`;
-                        const createdActors = await (Actor as any).createDocuments([skullData]);
-                        if (createdActors?.[0]) {
-                            (state as any)._pendingCompanionId = createdActors[0].id;
-                            console.log(`dh2e | Created servo-skull companion: ${skullData.name}`);
-                        }
-                    } catch (e) {
-                        console.warn("dh2e | Failed to create servo-skull companion from chargen:", e);
-                    }
-                }
-            }
-
-            for (let i = 0; i < background.equipment.length; i++) {
-                if (skipEquipmentIndices.has(i)) continue;
-                const raw = background.equipment[i];
-                const resolved = gearChoices[i] ?? resolveOr(raw);
-                const { name, quantity } = parseEquipment(resolved);
-                const doc = await findInPacks(EQUIPMENT_TYPES, name);
-                if (doc) {
-                    const obj = doc.toObject();
-                    if (quantity > 1 && obj.system?.quantity !== undefined) {
-                        obj.system.quantity = quantity;
-                    }
-                    // Auto-equip weapons and armour from chargen
-                    if (obj.type === "weapon" || obj.type === "armour") {
-                        obj.system.equipped = true;
-                    }
-                    itemsToCreate.push(obj);
-                } else {
-                    console.warn(`dh2e | Equipment "${name}" not found in compendium`);
-                }
-            }
+            // Process Grant REs from background
+            const bgChoices = (state.backgroundChoices ?? state.gearChoices ?? {}) as Record<number, string | number>;
+            await this.#processGrants(bgRules, bgChoices, itemsToCreate, state);
         }
 
-        // 3b. Background bonuses — special trait grants
-        if (background?.name === "Adeptus Mechanicus") {
-            const mechImplants = await findInPackType("cybernetics", "Mechanicus Implants");
-            if (mechImplants) {
-                const obj = mechImplants.toObject();
-                obj.system.installed = true;
-                // Set maintenance date so it doesn't start in total failure
-                const warband = (game as any).dh2e?.warband;
-                const warbandDate = warband?.system?.chronicle?.currentDate ?? null;
-                if (warbandDate) {
-                    obj.system.lastMaintenanceDate = warbandDate;
-                }
-                itemsToCreate.push(obj);
-            }
-        }
-
-        // 4. Role — aptitudes + talent
+        // 4. Role — aptitudes + talent + elite advances (all via REs)
         if (role) {
+            const rlRules = role.rules ?? [];
             updates["system.details.role"] = role.name;
-            for (const apt of role.aptitudes) aptitudes.push(resolveOr(apt));
+
+            // Aptitudes from role
+            for (const apt of getAptitudes(rlRules)) {
+                if (typeof apt === "string") aptitudes.push(apt);
+                else aptitudes.push(resolveOr(apt.join(" or ")));
+            }
 
             // Embed origin item
             if (role._itemData) {
@@ -683,66 +544,45 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 itemsToCreate.push(itemData);
             }
 
-            if (role.talent) {
-                const talentChoice = (state.talentChoice as string) || "";
-                let talentName: string;
-                if (talentChoice) {
-                    talentName = resolveOr(talentChoice);
-                } else {
-                    // Default to first non-pick-one option
-                    const options = role.talent.split(/,?\s+or\s+/);
-                    talentName = resolveOr(options.find(o => !isPickOne(o.trim()))?.trim() ?? options[0].trim());
-                }
-                if (!isPickOne(talentName)) {
-                    const doc = await findInPackType("talents", talentName);
-                    if (doc) {
-                        itemsToCreate.push(doc.toObject());
-                    } else {
-                        console.warn(`dh2e | Role talent "${talentName}" not found in compendium`);
-                    }
-                }
-            }
-        }
+            // Process Grant REs from role (talents + elite advances)
+            const rlChoices = (state.roleChoices ?? {}) as Record<number, string | number>;
+            await this.#processGrants(rlRules, rlChoices, itemsToCreate, state);
 
-        // 4b. Elite Advances from role
-        if (role?.eliteAdvances?.length) {
-            const eliteAdvanceIds: string[] = [];
-            for (const advId of role.eliteAdvances) {
-                if (advId === "psyker") {
-                    // Grant Psyker aptitude
-                    aptitudes.push("Psyker");
-                    // Grant Psy Rating talent (tier 1)
-                    const prDoc = await findInPackType("talents", "Psy Rating");
-                    if (prDoc) {
-                        const prData = prDoc.toObject();
-                        prData.system.tier = 1;
-                        itemsToCreate.push(prData);
-                    } else {
-                        console.warn("dh2e | Psy Rating talent not found in compendium");
-                    }
-                    eliteAdvanceIds.push("psyker");
-
-                    // Unsanctioned psyker corruption — if background is NOT Adeptus Astra Telepathica
-                    const bgName = background?.name ?? "";
-                    const isSanctioned = bgName === "Adeptus Astra Telepathica";
-                    if (!isSanctioned) {
-                        // Roll 1d10+3 corruption and apply during creation
-                        const corruptionRoll = new foundry.dice.Roll("1d10+3");
-                        await corruptionRoll.evaluate();
-                        const corruptionGain = corruptionRoll.total ?? 6;
-                        const currentCorruption = (updates["system.corruption"] as number) ?? 0;
-                        updates["system.corruption"] = currentCorruption + corruptionGain;
-
-                        // Post a chat message about unsanctioned corruption
-                        const speaker = fd.ChatMessage.getSpeaker?.({ actor: this.#actor }) ?? { alias: this.#actor.name };
-                        await fd.ChatMessage.create({
-                            content: `<div class="dh2e chat-card system-note"><em>${game.i18n?.format("DH2E.EliteAdvance.UnsanctionedCorruption", { amount: String(corruptionGain) }) ?? `Unsanctioned psyker — gained ${corruptionGain} Corruption Points!`}</em></div>`,
-                            speaker,
-                        });
-                    }
-                }
-            }
+            // Elite Advances from Grant REs
+            const eliteAdvanceIds = getEliteAdvances(rlRules);
             if (eliteAdvanceIds.length > 0) {
+                for (const advId of eliteAdvanceIds) {
+                    if (advId === "psyker") {
+                        // Grant Psyker aptitude
+                        aptitudes.push("Psyker");
+                        // Grant Psy Rating talent (tier 1)
+                        const prDoc = await findInPackType("talents", "Psy Rating");
+                        if (prDoc) {
+                            const prData = prDoc.toObject();
+                            prData.system.tier = 1;
+                            itemsToCreate.push(prData);
+                        } else {
+                            console.warn("dh2e | Psy Rating talent not found in compendium");
+                        }
+
+                        // Unsanctioned psyker corruption — if background is NOT Adeptus Astra Telepathica
+                        const bgName = background?.name ?? "";
+                        const isSanctioned = bgName === "Adeptus Astra Telepathica";
+                        if (!isSanctioned) {
+                            const corruptionRoll = new foundry.dice.Roll("1d10+3");
+                            await corruptionRoll.evaluate();
+                            const corruptionGain = corruptionRoll.total ?? 6;
+                            const currentCorruption = (updates["system.corruption"] as number) ?? 0;
+                            updates["system.corruption"] = currentCorruption + corruptionGain;
+
+                            const speaker = fd.ChatMessage.getSpeaker?.({ actor: this.#actor }) ?? { alias: this.#actor.name };
+                            await fd.ChatMessage.create({
+                                content: `<div class="dh2e chat-card system-note"><em>${game.i18n?.format("DH2E.EliteAdvance.UnsanctionedCorruption", { amount: String(corruptionGain) }) ?? `Unsanctioned psyker — gained ${corruptionGain} Corruption Points!`}</em></div>`,
+                                speaker,
+                            });
+                        }
+                    }
+                }
                 updates["system.eliteAdvances"] = eliteAdvanceIds;
             }
         }
@@ -976,6 +816,190 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
         ui.notifications.info(`${this.#actor.name} creation complete!`);
         this.close();
+    }
+
+    /**
+     * Process Grant REs from an origin item's rules array.
+     * Looks up items in compendiums and adds them to itemsToCreate.
+     */
+    async #processGrants(
+        rules: Record<string, unknown>[],
+        choices: Record<number, string | number>,
+        itemsToCreate: Record<string, unknown>[],
+        state: Record<string, unknown>,
+    ): Promise<void> {
+        const grants = getGrants(rules as any) as GrantSource[];
+        // Build index for choices — keyed by position of Grant REs with options
+        let choiceIdx = 0;
+        for (const grant of grants) {
+            const idx = choiceIdx++;
+            const hasOpts = (grant.options && grant.options.length > 1) ||
+                            (grant.optionSets && grant.optionSets.length > 1);
+
+            // Skip elite advances — handled separately
+            if (grant.type === "eliteAdvance") continue;
+
+            // Companion grants — create NPC actor
+            if (grant.type === "companion") {
+                const companionName = grant.name ?? "";
+                if (!companionName) continue;
+                try {
+                    const npcPackIds = getPacksOfType("npcs");
+                    let skullEntry: any = null;
+                    let npcPack: any = null;
+                    for (const pid of npcPackIds) {
+                        npcPack = game.packs.get(pid);
+                        if (!npcPack) continue;
+                        const npcIndex = await npcPack.getIndex();
+                        skullEntry = npcIndex.find((e: any) =>
+                            e.name.toLowerCase().includes(companionName.toLowerCase().replace(/monotask\s+/i, "")),
+                        );
+                        if (skullEntry) break;
+                    }
+                    if (skullEntry && npcPack) {
+                        const skullDoc = await npcPack.getDocument(skullEntry._id);
+                        if (skullDoc) {
+                            const skullData = (skullDoc as any).toObject();
+                            delete skullData._id;
+                            skullData.name = `${this.#actor.name}'s ${companionName}`;
+                            const createdActors = await (Actor as any).createDocuments([skullData]);
+                            if (createdActors?.[0]) {
+                                (state as any)._pendingCompanionId = createdActors[0].id;
+                                console.log(`dh2e | Created companion: ${skullData.name}`);
+                            }
+                        }
+                    } else {
+                        console.warn(`dh2e | Companion "${companionName}" not found in NPC compendium`);
+                    }
+                } catch (e) {
+                    console.warn("dh2e | Failed to create companion from chargen:", e);
+                }
+                continue;
+            }
+
+            // Determine the resolved item name(s) to grant
+            let itemsToGrant: Array<{ name: string; type: string }> = [];
+
+            if (grant.optionSets && grant.optionSets.length > 0) {
+                // Multi-item choice — pick a set
+                const setIdx = hasOpts ? (choices[idx] as number ?? 0) : 0;
+                const chosen = grant.optionSets[setIdx] ?? grant.optionSets[0];
+                // If the chosen set is a companion, handle it
+                for (const item of chosen.items) {
+                    if (item.type === "companion") {
+                        // Recursively handle companion from optionSet
+                        const companionName = item.name;
+                        try {
+                            const npcPackIds = getPacksOfType("npcs");
+                            let entry: any = null;
+                            let pack: any = null;
+                            for (const pid of npcPackIds) {
+                                pack = game.packs.get(pid);
+                                if (!pack) continue;
+                                const index = await pack.getIndex();
+                                entry = index.find((e: any) =>
+                                    e.name.toLowerCase().includes(companionName.toLowerCase().replace(/monotask\s+/i, "")),
+                                );
+                                if (entry) break;
+                            }
+                            if (entry && pack) {
+                                const doc = await pack.getDocument(entry._id);
+                                if (doc) {
+                                    const data = (doc as any).toObject();
+                                    delete data._id;
+                                    data.name = `${this.#actor.name}'s ${companionName}`;
+                                    const created = await (Actor as any).createDocuments([data]);
+                                    if (created?.[0]) {
+                                        (state as any)._pendingCompanionId = created[0].id;
+                                    }
+                                }
+                            }
+                        } catch (e) {
+                            console.warn("dh2e | Failed to create companion from optionSet:", e);
+                        }
+                    } else {
+                        itemsToGrant.push({ name: item.name, type: item.type });
+                    }
+                }
+            } else if (grant.options && grant.options.length > 1) {
+                // Simple choice — pick one
+                const chosenName = hasOpts ? (choices[idx] as string ?? grant.options[0]) : grant.options[0];
+                itemsToGrant.push({ name: chosenName, type: grant.type });
+            } else if (grant.name) {
+                // Fixed single item
+                if (grant.pick && isPickOne(grant.name)) continue;
+                itemsToGrant.push({ name: grant.name, type: grant.type });
+            }
+
+            // Look up and add each item
+            for (const { name, type } of itemsToGrant) {
+                if (isPickOne(name)) continue;
+
+                // Map grant type to pack type for lookup
+                const packType = type === "talent" ? "talents"
+                    : type === "skill" ? "skills"
+                    : type === "trait" ? "traits"
+                    : type === "weapon" ? "weapons"
+                    : type === "armour" ? "armour"
+                    : type === "gear" ? "gear"
+                    : type === "cybernetic" ? "cybernetics"
+                    : null;
+
+                if (!packType) {
+                    console.warn(`dh2e | Unknown grant type "${type}" for "${name}"`);
+                    continue;
+                }
+
+                const doc = await findInPackType(packType as PackType, name);
+                if (!doc) {
+                    // Try across all equipment types as fallback
+                    const fallback = await findInPacks(EQUIPMENT_TYPES, name);
+                    if (fallback) {
+                        const obj = fallback.toObject();
+                        this.#applyGrantModifiers(obj, grant);
+                        itemsToCreate.push(obj);
+                    } else {
+                        console.warn(`dh2e | Grant item "${name}" (${type}) not found in compendium`);
+                    }
+                    continue;
+                }
+
+                const obj = doc.toObject();
+                this.#applyGrantModifiers(obj, grant);
+                itemsToCreate.push(obj);
+            }
+        }
+    }
+
+    /** Apply modifiers from a Grant RE to a compendium item object */
+    #applyGrantModifiers(obj: any, grant: GrantSource): void {
+        // Skill advancement
+        if (grant.type === "skill") {
+            obj.system.advancement = grant.advancement ?? 1;
+        }
+        // Trait rating
+        if (grant.type === "trait" && grant.rating) {
+            obj.system.rating = grant.rating;
+            obj.system.hasRating = true;
+        }
+        // Quantity
+        if (grant.quantity && grant.quantity > 1 && obj.system?.quantity !== undefined) {
+            obj.system.quantity = grant.quantity;
+        }
+        // Equipped flag
+        if (grant.equipped && (obj.type === "weapon" || obj.type === "armour")) {
+            obj.system.equipped = true;
+        }
+        // Cybernetic installed flag
+        if (grant.type === "cybernetic" && grant.installed) {
+            obj.system.installed = true;
+            // Set maintenance date so it doesn't start in total failure
+            const warband = (game as any).dh2e?.warband;
+            const warbandDate = warband?.system?.chronicle?.currentDate ?? null;
+            if (warbandDate) {
+                obj.system.lastMaintenanceDate = warbandDate;
+            }
+        }
     }
 
     /** Open the wizard for an actor */

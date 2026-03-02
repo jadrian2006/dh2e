@@ -60,6 +60,22 @@ interface ResistanceEntry {
     source: string;
 }
 
+/** Dynamic fate spend option injected by FateOption rule elements */
+interface FateOptionEntry {
+    /** Unique slug, e.g. "sure-kill", "quest-for-knowledge" */
+    slug: string;
+    /** Display name in the fate dialog */
+    label: string;
+    /** Explanation text shown below the button */
+    description: string;
+    /** What this fate spend does */
+    effectType: "autoSucceed" | "bonusDamage" | "substituteDos" | "gainHatred";
+    /** Characteristic whose bonus determines DoS (for autoSucceed/substituteDos) */
+    dosCharacteristic?: string;
+    /** Source item name */
+    source: string;
+}
+
 /** Attribute override entry — swaps the characteristic used for a test domain */
 interface AttributeOverrideEntry {
     /** Target domain, e.g. "initiative", "skill:dodge", "requisition" */
@@ -88,6 +104,8 @@ interface DH2eSynthetics {
     vfxOverrides: Record<string, VFXOverrideEntry>;
     /** Attribute overrides that swap characteristics for test domains */
     attributeOverrides: AttributeOverrideEntry[];
+    /** Dynamic fate spend options from role abilities */
+    fateOptions: FateOptionEntry[];
 }
 
 function createSynthetics(): DH2eSynthetics {
@@ -100,6 +118,7 @@ function createSynthetics(): DH2eSynthetics {
         resistances: [],
         vfxOverrides: {},
         attributeOverrides: [],
+        fateOptions: [],
     };
 }
 
@@ -122,4 +141,5 @@ export type {
     ResistanceEntry,
     VFXOverrideEntry,
     AttributeOverrideEntry,
+    FateOptionEntry,
 };

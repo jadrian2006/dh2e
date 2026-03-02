@@ -2,6 +2,7 @@
     import CharCell from "../../acolyte/components/char-grid.svelte";
     import TabGroup from "../../../sheet/components/tab-group.svelte";
     import WeaponRow from "../../acolyte/components/weapon-row.svelte";
+    import SkillRow from "../../acolyte/components/skill-row.svelte";
     import { CheckDH2e } from "../../../check/check.ts";
     import type { CharacteristicAbbrev } from "../../../actor/types.ts";
 
@@ -20,7 +21,6 @@
         { id: "combat", label: "Combat", icon: "fa-solid fa-crosshairs" },
         { id: "skills", label: "Skills", icon: "fa-solid fa-book" },
         { id: "talents", label: "Talents", icon: "fa-solid fa-star" },
-        { id: "traits", label: "Traits", icon: "fa-solid fa-paw" },
         { id: "powers", label: "Powers", icon: "fa-solid fa-hat-wizard" },
         { id: "notes", label: "Notes", icon: "fa-solid fa-pen-fancy" },
     ];
@@ -88,6 +88,20 @@
 
     function isFavorite(item: any): boolean {
         return !!item.getFlag?.("dh2e", "favorite");
+    }
+
+    function onSkillRoll(skill: any, shiftKey = false) {
+        const actor = ctx.actor;
+        if (!actor) return;
+        CheckDH2e.roll({
+            actor,
+            characteristic: skill.linkedCharacteristic,
+            baseTarget: skill.totalTarget,
+            label: `${skill.displayName ?? skill.name} Test`,
+            domain: `skill:${skill.name.toLowerCase().replace(/\s+/g, "-")}`,
+            skillDescription: skill.system?.description ?? "",
+            skipDialog: CheckDH2e.shouldSkipDialog(shiftKey),
+        });
     }
 
     /** All favorited items for the summary tab */
@@ -161,6 +175,19 @@
         </div>
     {/if}
 
+    {#if (ctx.items?.traits ?? []).length > 0}
+        <div class="trait-pills persistent-traits">
+            {#each ctx.items.traits as trait}
+                <button class="trait-pill cat-{trait.system?.category ?? 'physical'}" type="button" onclick={() => editItem(trait)} onmouseenter={(e) => showDescription(e, trait)}>
+                    {trait.name}{#if trait.system?.hasRating} ({trait.system.rating}){/if}
+                    {#if ctx.editable}
+                        <span class="pill-delete" onclick={(e) => { e.stopPropagation(); deleteItem(trait); }} role="button" tabindex="0" onkeydown={(e) => { if (e.key === "Enter") { e.stopPropagation(); deleteItem(trait); } }} title="Remove"><i class="fa-solid fa-xmark"></i></span>
+                    {/if}
+                </button>
+            {/each}
+        </div>
+    {/if}
+
     <TabGroup {tabs} bind:activeTab>
         {#if activeTab === "summary"}
             <div class="tab-content summary-tab">
@@ -177,17 +204,6 @@
                     {/each}
                 {:else}
                     <p class="empty-msg fav-hint"><i class="fa-regular fa-star"></i> Star items on other tabs to pin them here.</p>
-                {/if}
-
-                {#if (ctx.items?.traits ?? []).length > 0}
-                    <h4><i class="fa-solid fa-paw"></i> Traits</h4>
-                    <div class="trait-pills">
-                        {#each ctx.items.traits as trait}
-                            <button class="trait-pill" type="button" onclick={() => editItem(trait)} onmouseenter={(e) => showDescription(e, trait)}>
-                                {trait.name}{#if trait.system?.hasRating}({trait.system.rating}){/if}
-                            </button>
-                        {/each}
-                    </div>
                 {/if}
 
                 {#if (ctx.items?.talents ?? []).length > 0}
@@ -234,14 +250,11 @@
         {:else if activeTab === "skills"}
             <div class="tab-content">
                 {#each ctx.items?.skills ?? [] as skill}
-                    <div class="item-row clickable" onmouseenter={(e) => showDescription(e, skill)} role="button" tabindex="0" onclick={() => editItem(skill)} onkeydown={(e) => { if (e.key === "Enter") editItem(skill); }}>
-                        <span class="item-name">{skill.name}</span>
-                        <span class="item-detail">+{(skill.system?.advancement ?? 0) * 10}</span>
-                        {#if ctx.editable}
-                            <button class="fav-btn" onclick={(e) => { e.stopPropagation(); toggleFavorite(skill); }} title="Favorite"><i class={isFavorite(skill) ? "fa-solid fa-star" : "fa-regular fa-star"}></i></button>
-                            <button class="icon-btn" onclick={(e) => { e.stopPropagation(); editItem(skill); }} title="Edit"><i class="fa-solid fa-pen"></i></button>
-                        {/if}
-                    </div>
+                    <SkillRow
+                        skill={skill}
+                        item={skill}
+                        onRoll={(e) => onSkillRoll(skill, e?.shiftKey)}
+                    />
                 {:else}
                     <p class="empty-msg">No skills.</p>
                 {/each}
@@ -260,23 +273,6 @@
                 {:else}
                     <p class="empty-msg">No talents.</p>
                 {/each}
-            </div>
-        {:else if activeTab === "traits"}
-            <div class="tab-content traits-tab">
-                {#if (ctx.items?.traits ?? []).length > 0}
-                    <div class="trait-pills">
-                        {#each ctx.items.traits as trait}
-                            <button class="trait-pill" type="button" onclick={() => editItem(trait)} onmouseenter={(e) => showDescription(e, trait)}>
-                                {trait.name}{#if trait.system?.hasRating} ({trait.system.rating}){/if}
-                                {#if ctx.editable}
-                                    <span class="pill-delete" onclick={(e) => { e.stopPropagation(); deleteItem(trait); }} role="button" tabindex="0" onkeydown={(e) => { if (e.key === "Enter") { e.stopPropagation(); deleteItem(trait); } }} title="Remove"><i class="fa-solid fa-xmark"></i></span>
-                                {/if}
-                            </button>
-                        {/each}
-                    </div>
-                {:else}
-                    <p class="empty-msg">No traits. Drag traits from the compendium to add.</p>
-                {/if}
             </div>
         {:else if activeTab === "powers"}
             <div class="tab-content">
@@ -532,6 +528,11 @@
         font-style: italic;
     }
 
+    /* Persistent trait pills (above tabs) */
+    .persistent-traits {
+        padding: 0 var(--dh2e-space-xs, 0.25rem);
+    }
+
     /* Trait pills */
     .trait-pills {
         display: flex;
@@ -556,6 +557,28 @@
         &:hover {
             border-color: var(--dh2e-gold, #c8a84e);
             background: var(--dh2e-bg-mid, #2e2e35);
+        }
+
+        /* Category color coding */
+        &.cat-warp {
+            border-color: rgba(160, 100, 200, 0.45);
+            color: #c8a0e0;
+            background: rgba(120, 70, 160, 0.12);
+            &:hover { border-color: #b080d0; }
+        }
+
+        &.cat-movement {
+            border-color: rgba(80, 160, 180, 0.45);
+            color: #80c8d0;
+            background: rgba(60, 130, 150, 0.12);
+            &:hover { border-color: #70b8c8; }
+        }
+
+        &.cat-mental {
+            border-color: rgba(200, 150, 60, 0.45);
+            color: #d0b870;
+            background: rgba(180, 130, 40, 0.12);
+            &:hover { border-color: #c8a850; }
         }
     }
 

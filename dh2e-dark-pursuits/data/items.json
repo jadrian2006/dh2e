@@ -2,9 +2,9 @@
     {
         "name": "Investigate Lans Guljian",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Investigate the erratic behaviour of the lesser noble Lans Guljian. Visit Hesentanz Manor in the Apex, examine the circumstances of his madness, and determine the source of the xenos artefact&mdash;the black orb&mdash;that has driven him insane. Recover the orb and follow any leads to its supplier.</p>",
+            "description": "<p>A lesser noble of Hive Desoleum has been struck by sudden and violent madness. Your Inquisitor suspects the hand of the archenemy.</p><ul><li>Travel to <strong>Hesentanz Manor</strong> in the Apex and gain entry to the Guljian estate.</li><li>Examine the circumstances of <strong>Lans Guljian's</strong> descent into insanity.</li><li>Locate and recover the <strong>black orb</strong>&mdash;a xenos artefact believed to be the source of his affliction.</li><li>Identify the supplier who delivered the artefact to the Guljian household and follow any leads.</li></ul>",
             "source": "core-rulebook",
             "status": "active",
             "assignedBy": "",
@@ -17,9 +17,9 @@
     {
         "name": "Find Zax Holthane",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Trace the xenos artefact trade from the Babyfaces gang at the Screaming Wheel cantina to their supplier, the Sable Trader <strong>Zax Holthane</strong>, operating out of Three Stakes' Rest. Capture or interrogate Holthane to discover the source of the smuggled goods and the details of incoming shipments.</p>",
+            "description": "<p>The trail of proscribed xenos artefacts leads from the Apex down into the underhive. A network of smugglers and criminals must be unravelled.</p><ul><li>Make contact with the <strong>Babyfaces gang</strong> at the <strong>Screaming Wheel</strong> cantina to trace the supply chain.</li><li>Follow the trail to the Sable Trader <strong>Zax Holthane</strong>, operating from <strong>Three Stakes' Rest</strong>.</li><li>Capture or interrogate Holthane to learn the source of the smuggled goods and the details of incoming shipments.</li></ul>",
             "source": "core-rulebook",
             "status": "active",
             "assignedBy": "",
@@ -32,9 +32,9 @@
     {
         "name": "Investigate Port Gyre",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Proceed to Port Gyre and investigate the corruption within the port authority. Identify the official responsible for doctoring shuttle landing records&mdash;Prefect Gaius Anteshern&mdash;and determine the time and location of the next incoming smuggler's shuttle.</p>",
+            "description": "<p>Corruption has taken root within the port authority of Hive Desoleum. Shuttle landing records have been doctored to conceal incoming smuggler vessels.</p><ul><li>Proceed to <strong>Port Gyre</strong> and investigate irregularities in the docking manifests.</li><li>Identify the official responsible for falsifying records&mdash;suspected to be <strong>Prefect Gaius Anteshern</strong>.</li><li>Determine the time and location of the next incoming smuggler's shuttle.</li></ul>",
             "source": "core-rulebook",
             "status": "active",
             "assignedBy": "",
@@ -47,9 +47,9 @@
     {
         "name": "Intercept the Shipment",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>Intercept Arvus Lighter 341 Beta-Sky at Landing Platform Tertius-9. Whether by shooting it down, boarding it on arrival, or observing covertly, prevent the delivery of proscribed cargo to the arch-heretek Somnius Halbrel. Recover or destroy all xenos artefacts aboard.</p>",
+            "description": "<p>A smuggler's lighter carrying proscribed cargo is inbound. This shipment must not reach its intended recipient.</p><ul><li>Intercept <strong>Arvus Lighter 341 Beta-Sky</strong> at <strong>Landing Platform Tertius-9</strong>.</li><li>Prevent delivery of the cargo to the arch-heretek <strong>Somnius Halbrel</strong>&mdash;by force, boarding, or covert observation.</li><li>Recover or destroy all xenos artefacts aboard the vessel.</li></ul>",
             "source": "core-rulebook",
             "status": "active",
             "assignedBy": "",
@@ -62,9 +62,9 @@
     {
         "name": "Hunt the Daemonhost",
         "type": "objective",
-        "img": "systems/dh2e/icons/items/objective.svg",
+        "img": "systems/dh2e/icons/default-icons/objective.svg",
         "system": {
-            "description": "<p>The Daemonhost Suvfaeras has escaped into the deep tunnels beneath Port Gyre. Track it through the Underport before it regains full strength, while contending with the arch-heretek Halbrel's forces who pursue it for their own vile purposes. Destroy or banish the Daemonhost at all costs.</p>",
+            "description": "<p>The Daemonhost <strong>Suvfaeras</strong> has broken free of its bindings and fled into the tunnels beneath Port Gyre. Every moment it remains at large, it grows stronger.</p><ul><li>Track the Daemonhost through the <strong>Underport</strong> before it regains full strength.</li><li>Contend with the arch-heretek <strong>Halbrel's</strong> forces, who pursue the entity for their own vile purposes.</li><li>Destroy or banish the Daemonhost at all costs. Failure is not an option.</li></ul>",
             "source": "core-rulebook",
             "status": "active",
             "assignedBy": "",

@@ -256,7 +256,7 @@
         {#if sys.description}
             <div class="description">
                 <h3 class="section-title">Description</h3>
-                <div class="description-text">{sys.description}</div>
+                <div class="description-text">{@html sys.description}</div>
             </div>
         {/if}
 

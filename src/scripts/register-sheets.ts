@@ -23,6 +23,7 @@ import { TreasureSheetDH2e } from "@item/treasure/sheet.ts";
 import { NoteSheetDH2e } from "@item/note/sheet.ts";
 import { WarbandSheetDH2e } from "@actor/warband/sheet.ts";
 import { LootSheetDH2e } from "@actor/loot/sheet.ts";
+import { AdventureImporterDH2e } from "../adventure/importer-sheet.ts";
 
 /** Register all actor and item sheets with Foundry */
 export function registerSheets(): void {
@@ -177,4 +178,15 @@ export function registerSheets(): void {
         makeDefault: true,
         label: "DH2E.Sheet.Note",
     });
+
+    // Adventure importer sheet (V2 replacement for Foundry's built-in V1 AdventureImporter)
+    fa.apps.DocumentSheetConfig.registerSheet(
+        fd.Adventure as any,
+        SYSTEM_ID,
+        AdventureImporterDH2e as any,
+        {
+            makeDefault: true,
+            label: "DH2E.Sheet.AdventureImporter",
+        },
+    );
 }

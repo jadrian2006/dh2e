@@ -1,6 +1,6 @@
 {
     "id": "dh2e-forgotten-gods",
-    "title": "DH2E - Forgotten Gods Adventure",
+    "title": "DH2E - Desoleum Trilogy \u2014 Act III: Forgotten Gods",
     "description": "Complete adventure module for DH2E: Forgotten Gods. Contains NPCs, journal entries, objectives, scenes, and an Adventure compendium for one-click import. FOR PERSONAL USE ONLY.",
     "version": "0.1.0",
     "compatibility": {
@@ -22,20 +22,25 @@
     },
     "packFolders": [
         {
-            "name": "FG Adventure",
-            "color": "#8b2500",
-            "packs": ["adventure"]
-        },
-        {
-            "name": "FG Reference",
-            "color": "#8b2500",
-            "packs": ["npcs", "journals", "items", "scenes"]
+            "name": "Desoleum Trilogy",
+            "color": "#c8a84e",
+            "folders": [
+                {
+                    "name": "Act III: Forgotten Gods",
+                    "color": "#8b2500",
+                    "packs": ["npcs", "journals", "items", "scenes"]
+                },
+                {
+                    "name": "Reference",
+                    "packs": ["adventure"]
+                }
+            ]
         }
     ],
     "packs": [
         {
             "name": "npcs",
-            "label": "FG NPCs",
+            "label": "DT-III NPCs",
             "path": "packs/npcs",
             "type": "Actor",
             "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" },
@@ -43,7 +48,7 @@
         },
         {
             "name": "journals",
-            "label": "FG Journals",
+            "label": "DT-III Journals",
             "path": "packs/journals",
             "type": "JournalEntry",
             "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
@@ -51,7 +56,7 @@
         },
         {
             "name": "items",
-            "label": "FG Items",
+            "label": "DT-III Items",
             "path": "packs/items",
             "type": "Item",
             "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
@@ -59,7 +64,7 @@
         },
         {
             "name": "scenes",
-            "label": "FG Scenes",
+            "label": "DT-III Scenes",
             "path": "packs/scenes",
             "type": "Scene",
             "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" },
@@ -67,7 +72,7 @@
         },
         {
             "name": "adventure",
-            "label": "Forgotten Gods",
+            "label": "Desoleum Trilogy \u2014 Act III: Forgotten Gods",
             "path": "packs/adventure",
             "type": "Adventure",
             "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" },

@@ -1,6 +1,6 @@
 {
     "id": "dh2e-dark-pursuits",
-    "title": "DH2E - Dark Pursuits Adventure",
+    "title": "DH2E - Desoleum Trilogy \u2014 Act I: Dark Pursuits",
     "description": "Complete adventure module for DH2E: Dark Pursuits (Core Rulebook Chapter XIII). Contains NPCs, journal entries, objectives, scenes, and an Adventure compendium for one-click import. FOR PERSONAL USE ONLY.",
     "version": "0.1.0",
     "compatibility": {
@@ -22,20 +22,25 @@
     },
     "packFolders": [
         {
-            "name": "DP Adventure",
-            "color": "#5c4033",
-            "packs": ["adventure"]
-        },
-        {
-            "name": "DP Reference",
-            "color": "#5c4033",
-            "packs": ["npcs", "journals", "items", "scenes"]
+            "name": "Desoleum Trilogy",
+            "color": "#c8a84e",
+            "folders": [
+                {
+                    "name": "Act I: Dark Pursuits",
+                    "color": "#5c4033",
+                    "packs": ["npcs", "journals", "items", "scenes"]
+                },
+                {
+                    "name": "Reference",
+                    "packs": ["adventure"]
+                }
+            ]
         }
     ],
     "packs": [
         {
             "name": "npcs",
-            "label": "DP NPCs",
+            "label": "DT-I NPCs",
             "path": "packs/npcs",
             "type": "Actor",
             "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" },
@@ -43,7 +48,7 @@
         },
         {
             "name": "journals",
-            "label": "DP Journals",
+            "label": "DT-I Journals",
             "path": "packs/journals",
             "type": "JournalEntry",
             "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
@@ -51,7 +56,7 @@
         },
         {
             "name": "items",
-            "label": "DP Items",
+            "label": "DT-I Items",
             "path": "packs/items",
             "type": "Item",
             "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" },
@@ -59,7 +64,7 @@
         },
         {
             "name": "scenes",
-            "label": "DP Scenes",
+            "label": "DT-I Scenes",
             "path": "packs/scenes",
             "type": "Scene",
             "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" },
@@ -67,7 +72,7 @@
         },
         {
             "name": "adventure",
-            "label": "Dark Pursuits",
+            "label": "Desoleum Trilogy \u2014 Act I: Dark Pursuits",
             "path": "packs/adventure",
             "type": "Adventure",
             "ownership": { "PLAYER": "NONE", "ASSISTANT": "OWNER" },

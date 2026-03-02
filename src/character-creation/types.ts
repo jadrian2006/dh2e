@@ -1,81 +1,25 @@
 import type { CharacteristicAbbrev } from "@actor/types.ts";
+import type { RuleElementSource } from "../rules/rule-element/base.ts";
 
-/** A selectable homeworld option (matches dh2e-data JSON) */
-interface HomeworldOption {
+/** Common interface for all origin items (homeworld, background, role) */
+interface OriginOption {
     name: string;
     description: string;
-    /** Characteristic bonuses: positive keys get +5, negative keys get -5 */
-    characteristicBonuses: {
-        positive: CharacteristicAbbrev[];
-        negative: CharacteristicAbbrev[];
-    };
-    /** Fate points */
-    fate: { threshold: number; blessing: number };
-    /** Starting wounds (legacy flat value) */
-    wounds: number;
-    /** Wounds formula (e.g., "9+1d5") — used for rolling */
-    woundsFormula?: string;
-    /** Aptitude granted */
-    aptitude: string;
-    /** Home skill granted */
-    homeSkill: string;
-    /** Talent names granted by homeworld bonus (may contain "or" choices) */
-    talents?: string[];
-    /** Skill names granted by homeworld bonus */
-    skills?: string[];
-    /** Starting corruption formula (e.g., "1d10+5" for Daemon World) */
-    startingCorruption?: string;
     /** Bonus ability name */
     bonus: string;
     /** Bonus ability description */
     bonusDescription: string;
     /** Source book identifier (e.g., "core-rulebook", "enemies-beyond") */
     source?: string;
+    /** Rule elements — all mechanical data lives here */
+    rules: RuleElementSource[];
     /** Carries the full compendium item data for embedding on actor */
     _itemData?: Record<string, unknown>;
 }
 
-/** A selectable background option (matches dh2e-data JSON) */
-interface BackgroundOption {
-    name: string;
-    description: string;
-    /** Skill names granted */
-    skills: string[];
-    /** Talent names granted */
-    talents: string[];
-    /** Starting equipment names */
-    equipment: string[];
-    /** Aptitude granted */
-    aptitude: string;
-    /** Bonus ability name */
-    bonus: string;
-    /** Bonus ability description */
-    bonusDescription: string;
-    /** Source book identifier (e.g., "core-rulebook", "enemies-beyond") */
-    source?: string;
-    /** Carries the full compendium item data for embedding on actor */
-    _itemData?: Record<string, unknown>;
-}
-
-/** A selectable role option (matches dh2e-data JSON) */
-interface RoleOption {
-    name: string;
-    description: string;
-    /** Aptitudes granted */
-    aptitudes: string[];
-    /** Talent name granted */
-    talent: string;
-    /** Elite advances granted immediately (e.g., Mystic grants "psyker") */
-    eliteAdvances?: string[];
-    /** Bonus ability name */
-    bonus: string;
-    /** Bonus ability description */
-    bonusDescription: string;
-    /** Source book identifier (e.g., "core-rulebook", "enemies-beyond") */
-    source?: string;
-    /** Carries the full compendium item data for embedding on actor */
-    _itemData?: Record<string, unknown>;
-}
+type HomeworldOption = OriginOption;
+type BackgroundOption = OriginOption;
+type RoleOption = OriginOption;
 
 /** A divination result (matches dh2e-data JSON) */
 interface DivinationResult {
@@ -122,6 +66,7 @@ interface CreationState {
 }
 
 export type {
+    OriginOption,
     HomeworldOption,
     BackgroundOption,
     RoleOption,

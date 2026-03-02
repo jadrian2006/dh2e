@@ -278,7 +278,8 @@
                     "specialist": true
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "PDF Conscript",
@@ -531,7 +532,8 @@
                     "specialist": true
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Underhive Scum",
@@ -792,7 +794,8 @@
                     "specialist": true
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Cultist",
@@ -1030,7 +1033,8 @@
                     "specialist": true
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Imperial Guardsman",
@@ -1324,7 +1328,8 @@
                     "specialist": false
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Pilgrim Fanatic",
@@ -1536,7 +1541,8 @@
                     "specialist": true
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Hive Gang Leader",
@@ -1863,7 +1869,8 @@
                     "specialist": true
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Enforcer",
@@ -2148,7 +2155,8 @@
                     "specialist": false
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Rogue Psyker",
@@ -2402,7 +2410,8 @@
                     "opposed": false
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Chaos Cult Magus",
@@ -2711,7 +2720,8 @@
                     "specialist": false
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Bounty Hunter",
@@ -3039,7 +3049,8 @@
                     "specialist": true
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Tech-Heretek",
@@ -3378,7 +3389,8 @@
                     "specialist": true
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Adepta Sororitas Battle Sister",
@@ -3759,7 +3771,8 @@
                     "specialist": false
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Commissar",
@@ -4140,7 +4153,8 @@
                     "specialist": false
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Chaos Space Marine",
@@ -4711,7 +4725,11 @@
                     "category": "mental"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 2,
+            "height": 2
+        }
     },
     {
         "name": "Daemon Prince (Lesser)",
@@ -5248,7 +5266,11 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 3,
+            "height": 3
+        }
     },
     {
         "name": "Inquisitor",
@@ -5768,7 +5790,8 @@
                     "specialist": false
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Ork Boy",
@@ -6153,7 +6176,11 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 2,
+            "height": 2
+        }
     },
     {
         "name": "Ork Nob",
@@ -6606,7 +6633,11 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 2,
+            "height": 2
+        }
     },
     {
         "name": "Ork Warboss",
@@ -7179,7 +7210,11 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 3,
+            "height": 3
+        }
     },
     {
         "name": "Eldar Guardian",
@@ -7489,7 +7524,8 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Eldar Ranger",
@@ -7828,7 +7864,8 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Dark Eldar Kabalite Warrior",
@@ -8165,7 +8202,8 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Hormagaunt",
@@ -8481,7 +8519,11 @@
                     ]
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 0.5,
+            "height": 0.5
+        }
     },
     {
         "name": "Termagant",
@@ -8705,7 +8747,11 @@
                     ]
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 0.5,
+            "height": 0.5
+        }
     },
     {
         "name": "Tyranid Warrior",
@@ -9104,7 +9150,11 @@
                     ]
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 2,
+            "height": 2
+        }
     },
     {
         "name": "Genestealer",
@@ -9457,7 +9507,11 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 2,
+            "height": 2
+        }
     },
     {
         "name": "Carnifex",
@@ -9865,7 +9919,11 @@
                     ]
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 4,
+            "height": 4
+        }
     },
     {
         "name": "Kroot Carnivore",
@@ -10108,7 +10166,8 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Bloodletter",
@@ -10429,7 +10488,8 @@
                     ]
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Plaguebearer",
@@ -10798,7 +10858,8 @@
                     ]
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Pink Horror",
@@ -11084,7 +11145,8 @@
                     ]
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Daemonette",
@@ -11418,7 +11480,8 @@
                     ]
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Nurgling Swarm",
@@ -11636,7 +11699,11 @@
                     ]
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 0.5,
+            "height": 0.5
+        }
     },
     {
         "name": "Flesh Hound",
@@ -11983,7 +12050,8 @@
                     ]
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Plague Zombie",
@@ -12183,7 +12251,8 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Warp Ghost",
@@ -12452,7 +12521,8 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Cyber-Mastiff",
@@ -12720,7 +12790,11 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 0.5,
+            "height": 0.5
+        }
     },
     {
         "name": "Ambull",
@@ -13089,7 +13163,11 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 3,
+            "height": 3
+        }
     },
     {
         "name": "Psychneuein",
@@ -13352,7 +13430,11 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 0.5,
+            "height": 0.5
+        }
     },
     {
         "name": "Combat Servitor",
@@ -13543,7 +13625,8 @@
                     "category": "mechanical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Gun Servitor",
@@ -13692,7 +13775,8 @@
                     "category": "mechanical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {}
     },
     {
         "name": "Monotask Servo-skull (Utility)",
@@ -13818,7 +13902,11 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 0.5,
+            "height": 0.5
+        }
     },
     {
         "name": "Monotask Servo-skull (Laud Hailer)",
@@ -13944,6 +14032,10 @@
                     "category": "physical"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "width": 0.5,
+            "height": 0.5
+        }
     }
 ]

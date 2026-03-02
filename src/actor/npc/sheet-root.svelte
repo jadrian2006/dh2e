@@ -21,12 +21,28 @@
         const val = Math.max(0, Math.min(max, parseInt(input.value) || 0));
         ctx.actor?.update({ "system.wounds.value": val });
     }
+
+    function openPortraitPicker() {
+        if (!ctx.editable) return;
+        const fp = new FilePicker({
+            type: "image",
+            current: ctx.img,
+            callback: (path: string) => {
+                ctx.actor?.update({ img: path, "prototypeToken.texture.src": path });
+            },
+        });
+        fp.browse();
+    }
 </script>
 
 <div class="npc-sheet" class:loot-mode={lootMode}>
     <header class="sheet-header">
         <div class="profile-wrapper">
-            <img src={ctx.img} alt={ctx.name} class="profile-img" />
+            <img src={ctx.img} alt={ctx.name} class="profile-img" class:editable={ctx.editable}
+                onclick={openPortraitPicker} role={ctx.editable ? "button" : undefined}
+                tabindex={ctx.editable ? 0 : undefined}
+                onkeydown={(e) => { if (e.key === "Enter") openPortraitPicker(); }}
+                title={ctx.editable ? "Change portrait" : undefined} />
             {#if lootMode}
                 <i class="fa-solid fa-skull skull-badge"></i>
             {/if}
@@ -105,6 +121,14 @@
         border-radius: var(--dh2e-radius-sm, 3px);
         object-fit: cover;
         border: 1px solid var(--dh2e-border, #4a4a55);
+
+        &.editable {
+            cursor: pointer;
+            &:hover {
+                border-color: var(--dh2e-gold, #c8a84e);
+                box-shadow: 0 0 4px var(--dh2e-gold-dark, #5a4a20);
+            }
+        }
     }
 
     .skull-badge {

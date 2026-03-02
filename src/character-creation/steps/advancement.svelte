@@ -11,6 +11,7 @@
         getCharacteristicAptitudes,
         getSkillAptitudes,
     } from "../../advancement/aptitudes.ts";
+    import { getAptitudes } from "../creation-helpers.ts";
 
     let {
         startingXP,
@@ -42,19 +43,14 @@
     let expandedTalent = $state<string | null>(null);
     let costs = $state<XPCostData | null>(null);
 
-    // Compute aptitudes from selections (same logic as wizard finish)
+    // Compute aptitudes from selections via creation helpers
     const aptitudes = $derived(() => {
         const apts: string[] = [];
-        if (homeworld?.aptitude) apts.push(homeworld.aptitude);
-        if (background?.aptitude) {
-            // Resolve "X or Y" → first
-            const resolved = background.aptitude.split(/,?\s+or\s+/)[0].trim();
-            apts.push(resolved);
-        }
-        if (role?.aptitudes) {
-            for (const apt of role.aptitudes) {
-                const resolved = apt.split(/,?\s+or\s+/)[0].trim();
-                apts.push(resolved);
+        for (const origin of [homeworld, background, role]) {
+            if (!origin) continue;
+            for (const apt of getAptitudes(origin.rules ?? [])) {
+                // For choice aptitudes, resolve to first option
+                apts.push(typeof apt === "string" ? apt : apt[0]);
             }
         }
         return [...new Set(apts)];

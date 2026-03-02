@@ -10,6 +10,8 @@ import { ChoiceSetRE } from "./choice-set.ts";
 import { VFXOverrideRE } from "./vfx-override.ts";
 import { ActorValueRE } from "./actor-value.ts";
 import { AttributeOverrideRE } from "./attribute-override.ts";
+import { FateOptionRE } from "./fate-option.ts";
+import { CreationDataRE } from "./creation-data.ts";
 
 /** Map of RE key strings to their constructor classes */
 const RE_REGISTRY: Record<string, typeof RuleElementDH2e> = {
@@ -24,6 +26,13 @@ const RE_REGISTRY: Record<string, typeof RuleElementDH2e> = {
     VFXOverride: VFXOverrideRE,
     ActorValue: ActorValueRE,
     AttributeOverride: AttributeOverrideRE,
+    FateOption: FateOptionRE,
+    CreationBonus: CreationDataRE,
+    CreationFate: CreationDataRE,
+    CreationWounds: CreationDataRE,
+    CreationCorruption: CreationDataRE,
+    GrantAptitude: CreationDataRE,
+    Grant: CreationDataRE,
 };
 
 /**

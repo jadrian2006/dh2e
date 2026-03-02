@@ -1,12 +1,15 @@
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@sheet/mixin.ts";
 import FateDialogRoot from "./fate-dialog-root.svelte";
+import type { FateOptionEntry } from "@rules/synthetics.ts";
 
-type FateAction = "reroll" | "plus10" | "halfWounds" | "survive" | "autoPass";
+type FateAction = "reroll" | "plus10" | "halfWounds" | "survive" | "autoPass" | `custom:${string}`;
 
 interface FateDialogResult {
     cancelled: boolean;
     action?: FateAction;
     burn?: boolean;
+    /** The FateOptionEntry for custom actions */
+    fateOptionEntry?: FateOptionEntry;
 }
 
 /**
@@ -45,19 +48,22 @@ class FateDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     protected override async _prepareContext(): Promise<SvelteApplicationRenderContext> {
         const sys = (this.#actor as any).system;
+        const synthetics = (this.#actor as any).synthetics;
         return {
             ctx: {
                 actorName: this.#actor.name,
                 fateValue: sys?.fate?.value ?? 0,
                 fateMax: sys?.fate?.max ?? 0,
-                onAction: (action: FateAction, burn: boolean) => this.#select(action, burn),
+                fateOptions: synthetics?.fateOptions ?? [],
+                rollOptions: synthetics?.rollOptions ?? new Set<string>(),
+                onAction: (action: FateAction, burn: boolean, entry?: FateOptionEntry) => this.#select(action, burn, entry),
                 onCancel: () => this.#cancel(),
             },
         };
     }
 
-    #select(action: FateAction, burn: boolean): void {
-        this.#resolve?.({ cancelled: false, action, burn });
+    #select(action: FateAction, burn: boolean, entry?: FateOptionEntry): void {
+        this.#resolve?.({ cancelled: false, action, burn, fateOptionEntry: entry });
         this.close();
     }
 

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#c8a84e">
+  <!-- Parchment body with torn bottom edge -->
+  <path d="M152 148 h208 v240
+    l-26-10 -24 14 -30-12 -22 10 -28-14 -26 12 -24-10 -28 14
+    V148z" opacity="0.5"/>
+
+  <!-- Text lines on parchment -->
+  <rect x="184" y="200" width="144" height="8" rx="2" opacity="0.7"/>
+  <rect x="184" y="226" width="128" height="8" rx="2" opacity="0.6"/>
+  <rect x="184" y="252" width="140" height="8" rx="2" opacity="0.6"/>
+  <rect x="184" y="278" width="108" height="8" rx="2" opacity="0.5"/>
+  <rect x="184" y="304" width="132" height="8" rx="2" opacity="0.5"/>
+  <rect x="184" y="330" width="92" height="8" rx="2" opacity="0.4"/>
+
+  <!-- Wax seal — outer disc -->
+  <circle cx="256" cy="148" r="56" opacity="0.9"/>
+  <!-- Seal rim rings -->
+  <circle cx="256" cy="148" r="56" fill="none" stroke="#c8a84e" stroke-width="3" opacity="0.35"/>
+  <circle cx="256" cy="148" r="46" fill="none" stroke="#c8a84e" stroke-width="1.5" opacity="0.25"/>
+
+  <!-- Inquisitorial "I" carved into seal -->
+  <rect x="249" y="118" width="14" height="60" rx="2" fill="#1a1a20"/>
+  <!-- Top serif -->
+  <rect x="237" y="116" width="38" height="9" rx="2" fill="#1a1a20"/>
+  <!-- Bottom serif -->
+  <rect x="237" y="169" width="38" height="9" rx="2" fill="#1a1a20"/>
+  <!-- Skull hub -->
+  <circle cx="256" cy="148" r="8" fill="#1a1a20"/>
+  <circle cx="253" cy="147" r="1.8" fill="#c8a84e" opacity="0.65"/>
+  <circle cx="259" cy="147" r="1.8" fill="#c8a84e" opacity="0.65"/>
+
+  <!-- Ribbon / parchment tails from seal -->
+  <path d="M224 180 q-6 24-16 54 l10-5 8 8 q2-26 6-50z" opacity="0.55"/>
+  <path d="M288 180 q6 24 16 54 l-10-5-8 8 q-2-26-6-50z" opacity="0.55"/>
+</svg>
