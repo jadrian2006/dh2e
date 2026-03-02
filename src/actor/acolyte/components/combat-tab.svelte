@@ -2,6 +2,7 @@
     import WeaponRow from "./weapon-row.svelte";
     import ArmourDisplay from "./armour-display.svelte";
     import MovementDisplay from "./movement-display.svelte";
+    import TraitPills from "./trait-pills.svelte";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
@@ -36,6 +37,13 @@
                 <p class="empty-msg">No weapons equipped. Drag weapons from the Items sidebar.</p>
             {/if}
         </section>
+
+        {#if (ctx.items?.traits ?? []).length > 0}
+            <section class="traits-section">
+                <h3 class="section-title">Traits</h3>
+                <TraitPills {ctx} />
+            </section>
+        {/if}
     </div>
 </div>
 

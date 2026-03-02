@@ -1,6 +1,7 @@
 <script lang="ts">
     import CharGrid from "./char-grid.svelte";
     import MovementDisplay from "./movement-display.svelte";
+    import TraitPills from "./trait-pills.svelte";
     import { CheckDH2e } from "../../../check/check.ts";
     import { FateDialog } from "../../../ui/fate-dialog.ts";
     import { executeSkillUseRoll } from "../../../item/skill/roll-skill-use.ts";
@@ -290,6 +291,14 @@
             <span class="section-label">Movement</span>
             <MovementDisplay movement={ctx.system?.movement ?? { half: 0, full: 0, charge: 0, run: 0 }} />
         </div>
+
+        <!-- Traits -->
+        {#if (ctx.items?.traits ?? []).length > 0}
+            <div class="traits-section">
+                <span class="section-label">Traits</span>
+                <TraitPills {ctx} />
+            </div>
+        {/if}
 
         <!-- Quick Actions (Favorites) -->
         {#if favorites().length > 0}

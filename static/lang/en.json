@@ -210,6 +210,9 @@
     "DH2E.Attack.Hits": "{count} hit(s)",
     "DH2E.Attack.RollDamage": "Roll Damage",
     "DH2E.Attack.Location": "Location",
+    "DH2E.Attack.Charge": "Charge",
+    "DH2E.Attack.ChargeBonus": "Charge (+20 WS)",
+    "DH2E.Attack.ChargeLabel": "{weapon} Charge Attack",
 
     "DH2E.CalledShot.Title": "Called Shot",
     "DH2E.CalledShot.Toggle": "Called Shot",

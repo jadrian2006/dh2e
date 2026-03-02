@@ -30,6 +30,10 @@
         AttackResolver.resolve({ actor, weapon, fireMode: mode });
     }
 
+    function charge() {
+        AttackResolver.resolve({ actor, weapon, fireMode: "single", isCharge: true });
+    }
+
     function ammoColor(val: number, max: number): string {
         if (val <= 0) return "var(--dh2e-danger, #c0392b)";
         const pct = val / max;
@@ -68,6 +72,7 @@
     <div class="weapon-actions">
         {#if !hasRanged}
             <button class="attack-btn melee" onclick={() => attack("single")} title="Melee Attack">Melee</button>
+            <button class="attack-btn charge" onclick={() => charge()} title="Charge (+20 WS, Full Action)">Charge</button>
         {:else}
             {#if hasSingle}
                 <button class="attack-btn" onclick={() => attack("single")} title="Single Shot">S</button>
@@ -198,6 +203,17 @@
 
             &:hover {
                 background: var(--dh2e-gold, #c8a84e);
+            }
+        }
+
+        &.charge {
+            background: var(--dh2e-bg-mid, #2e2e35);
+            color: var(--dh2e-charge-orange, #d4771e);
+            border-color: var(--dh2e-charge-orange, #d4771e);
+
+            &:hover {
+                background: var(--dh2e-charge-orange, #d4771e);
+                color: var(--dh2e-bg-darkest, #111114);
             }
         }
     }

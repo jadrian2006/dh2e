@@ -1,5 +1,6 @@
 <script lang="ts">
     import { sendItemToChat } from "../../../chat/send-to-chat.ts";
+    import TraitPills from "./trait-pills.svelte";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
@@ -41,6 +42,13 @@
 </script>
 
 <div class="talents-tab">
+    {#if (ctx.items?.traits ?? []).length > 0}
+        <section class="traits-section">
+            <h3 class="tier-header">Traits</h3>
+            <TraitPills {ctx} />
+        </section>
+    {/if}
+
     {#each [1, 2, 3] as tier}
         {@const talents = groupedTalents()[tier]}
         {#if talents.length > 0}
@@ -186,6 +194,10 @@
         &:hover { color: var(--dh2e-text-primary, #d0cfc8); }
     }
     .delete-btn:hover { color: var(--dh2e-red-bright, #d44); }
+
+    .traits-section {
+        margin-bottom: var(--dh2e-space-sm, 0.5rem);
+    }
 
     .empty-msg {
         color: var(--dh2e-text-secondary, #a0a0a8);

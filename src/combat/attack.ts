@@ -31,8 +31,9 @@ class AttackResolver {
         actor: Actor;
         weapon: any;
         fireMode: FireMode;
+        isCharge?: boolean;
     }): Promise<AttackResult | null> {
-        const { actor, weapon, fireMode } = options;
+        const { actor, weapon, fireMode, isCharge } = options;
         const sys = weapon.system ?? weapon.skillSystem ?? {};
 
         // Check ammo availability for ranged weapons before proceeding
@@ -105,6 +106,21 @@ class AttackResolver {
             targetIsHelpless = rollOptions.has("target:helpless");
         }
 
+        // Charge: add roll option and +20 WS modifier (melee only)
+        if (isCharge && isMelee) {
+            rollOptions.add("action:charge");
+            const chargeModRE: RuleElementSource = {
+                key: "FlatModifier",
+                domain: `attack:melee`,
+                value: 20,
+                label: game.i18n?.localize("DH2E.Attack.ChargeBonus") ?? "Charge (+20 WS)",
+                source: "charge",
+                toggleable: false,
+            };
+            const re = instantiateRuleElement(chargeModRE, weapon);
+            if (re) re.onPrepareData(weaponSynthetics);
+        }
+
         // Helpless melee: auto-hit with DoS = attacker's WS bonus (skip roll)
         if (targetIsHelpless && isMelee) {
             const wsBonus = actorSys?.characteristics?.ws?.bonus ?? 0;
@@ -122,6 +138,7 @@ class AttackResolver {
                 hits,
                 fireMode,
                 weaponName: weapon.name,
+                attackRollOptions: [...rollOptions],
             };
 
             // Consume ammunition for ranged weapons
@@ -137,11 +154,15 @@ class AttackResolver {
 
         // Roll the attack check — pass isAttack and fireMode so the dialog
         // can offer Called Shot (only available on Standard Attack / single fire)
+        const attackLabel = isCharge
+            ? (game.i18n?.format("DH2E.Attack.ChargeLabel", { weapon: weapon.name }) ?? `${weapon.name} Charge Attack`)
+            : `${weapon.name} Attack (${fireMode === "single" ? "Single" : fireMode === "semi" ? "Semi-Auto" : "Full-Auto"})`;
+
         const result = await CheckDH2e.roll({
             actor,
             characteristic,
             baseTarget: charValue,
-            label: `${weapon.name} Attack (${fireMode === "single" ? "Single" : fireMode === "semi" ? "Semi-Auto" : "Full-Auto"})`,
+            label: attackLabel,
             domain: `attack:${isMelee ? "melee" : "ranged"}`,
             rollOptions,
             isAttack: true,
@@ -166,6 +187,7 @@ class AttackResolver {
                 hits: [],
                 fireMode,
                 weaponName: weapon.name,
+                attackRollOptions: [...rollOptions],
             };
         } else {
             // Calculate hits
@@ -191,6 +213,7 @@ class AttackResolver {
                 hits,
                 fireMode,
                 weaponName: weapon.name,
+                attackRollOptions: [...rollOptions],
             };
         }
 
@@ -261,6 +284,7 @@ class AttackResolver {
         attackResult: AttackResult,
         weapon: any,
         target: Actor,
+        attackRollOptions?: string[],
     ): Promise<DamageResult[]> {
         const sys = weapon.system ?? {};
 
@@ -333,7 +357,12 @@ class AttackResolver {
                     ...(attackerSynthetics.modifiers[damageDomain] ?? []),
                     ...(attackerSynthetics.modifiers["damage:*"] ?? []),
                 ];
-                const { total: damageBonusTotal } = resolveModifiers(damageMods, attackerSynthetics.rollOptions);
+                // Merge attack-time rollOptions so predicated damage modifiers (e.g. Brutal Charge) resolve correctly
+                const damageRollOptions = new Set(attackerSynthetics.rollOptions);
+                if (attackRollOptions) {
+                    for (const opt of attackRollOptions) damageRollOptions.add(opt);
+                }
+                const { total: damageBonusTotal } = resolveModifiers(damageMods, damageRollOptions);
                 rawDamage += damageBonusTotal;
             }
 
@@ -470,6 +499,7 @@ class AttackResolver {
             hasAmmo: roundsConsumed > 0,
             roundsConsumed,
             clipRemaining: sys.magazine?.value ?? 0,
+            attackRollOptions: result.attackRollOptions ?? [],
         };
 
         const content = await fa.handlebars.renderTemplate(templatePath, templateData);

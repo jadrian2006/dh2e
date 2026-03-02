@@ -165,9 +165,12 @@ class ChatListenersDH2e {
             weaponName: result.weaponName as string ?? weapon.name,
         };
 
+        // Extract attack-time rollOptions so predicated damage modifiers (e.g. Brutal Charge) resolve
+        const attackRollOptions = (result.attackRollOptions as string[]) ?? [];
+
         // Delegate to AttackResolver.rollDamage which handles armour, TB, pen, synthetics
         const { AttackResolver } = await import("@combat/attack.ts");
-        await AttackResolver.rollDamage(attackResult, weapon, target);
+        await AttackResolver.rollDamage(attackResult, weapon, target, attackRollOptions);
     }
 
     static async #onSpendFate(event: MouseEvent): Promise<void> {

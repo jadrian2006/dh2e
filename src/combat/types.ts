@@ -29,6 +29,8 @@ interface AttackResult {
     fireMode: FireMode;
     /** Weapon name */
     weaponName: string;
+    /** Roll options active during the attack (for damage modifier predicates) */
+    attackRollOptions?: string[];
 }
 
 /** Result of damage calculation for a single hit */
