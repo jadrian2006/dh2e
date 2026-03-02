@@ -27,6 +27,30 @@
     const traitGrants = $derived(selected ? getGrantsOfType(selected.rules ?? [], "trait") : []);
     const skillGrants = $derived(selected ? getGrantsOfType(selected.rules ?? [], "skill") : []);
 
+    /** Extract FlatModifier REs that target skills (bonus abilities) */
+    interface SkillModifier { skillName: string; value: number; label: string; }
+    const skillModifiers = $derived<SkillModifier[]>(() => {
+        if (!selected) return [];
+        return (selected.rules ?? [])
+            .filter((r: any) => r.key === "FlatModifier" && typeof r.domain === "string" && r.domain.startsWith("skill:"))
+            .map((r: any) => {
+                // Parse domain "skill:tech-use-(weapon-modification)" → "Tech-Use (Weapon Modification)"
+                const slug = (r.domain as string).slice(6); // strip "skill:"
+                const specIdx = slug.indexOf("-(");
+                let name: string;
+                if (specIdx >= 0) {
+                    // Has specialization: base keeps hyphens, spec uses spaces
+                    const base = slug.slice(0, specIdx).split("-").map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join("-");
+                    const spec = slug.slice(specIdx + 2, -1).split("-").map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+                    name = `${base} (${spec})`;
+                } else {
+                    // No specialization: capitalize each segment, keep hyphens
+                    name = slug.split("-").map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join("-");
+                }
+                return { skillName: name, value: r.value ?? 0, label: r.label ?? "" };
+            });
+    });
+
     /** Find Grant REs with choices (talent "or" choices) */
     const talentChoiceGrant = $derived(() => {
         return talentGrants.find(g => g.options && g.options.length > 1) ?? null;
@@ -152,6 +176,61 @@
         })();
     });
 
+    /** Cached skill descriptions for tooltips */
+    let skillDescs: Record<string, string> = $state({});
+
+    /** Load skill descriptions from compendium when selected homeworld changes */
+    $effect(() => {
+        const skills = skillGrants;
+        if (skills.length === 0) { skillDescs = {}; return; }
+        (async () => {
+            try {
+                const { findInAllPacks } = await import("@util/pack-discovery.ts");
+                const descs: Record<string, string> = {};
+                for (const g of skills) {
+                    const name = g.name ?? "";
+                    if (!name) continue;
+                    const baseName = name.replace(/\s*\(.*\)$/, "");
+                    const doc = await findInAllPacks("skills", baseName);
+                    if (doc) {
+                        descs[name] = (doc as any)?.system?.description ?? "";
+                    }
+                }
+                skillDescs = descs;
+            } catch (err) {
+                console.warn("dh2e | Failed to load skill descriptions:", err);
+            }
+        })();
+    });
+
+    /** Show rich tooltip for a skill */
+    function showSkillTooltip(event: MouseEvent, name: string) {
+        const desc = skillDescs[name];
+        if (!desc) return;
+        const el = event.currentTarget as HTMLElement;
+        if (typeof game !== "undefined" && (game as any).tooltip) {
+            const html = `<div style="max-width:320px"><strong>${name}</strong><br/>${desc}</div>`;
+            (game as any).tooltip.activate(el, { html, direction: "DOWN" });
+        }
+    }
+
+    /** Open the skill's full item sheet from compendium */
+    async function openSkillSheet(name: string) {
+        try {
+            const { findInAllPacks } = await import("@util/pack-discovery.ts");
+            const baseName = name.replace(/\s*\(.*\)$/, "");
+            const doc = await findInAllPacks("skills", baseName);
+            if (doc) {
+                doc.sheet.render({ force: true });
+            } else {
+                ui.notifications?.info(`No compendium entry found for "${baseName}".`);
+            }
+        } catch (err) {
+            console.error("dh2e | Failed to open skill sheet:", err);
+            ui.notifications?.error("Failed to open skill sheet.");
+        }
+    }
+
     /** Show rich tooltip for a trait */
     function showTraitTooltip(event: MouseEvent, name: string) {
         const desc = traitDescs[name];
@@ -242,6 +321,27 @@
                     {/if}
                 </div>
 
+                {#if selected.description}
+                    <p class="detail-desc">{selected.description}</p>
+                {/if}
+                {#if selected.bonusDescription}
+                    <p class="detail-bonus"><strong>{selected.bonus}:</strong> {selected.bonusDescription}</p>
+                {/if}
+
+                {#if skillModifiers().length > 0}
+                    <div class="skill-modifiers">
+                        {#each skillModifiers() as mod}
+                            <span class="skill-mod-tag">
+                                <span class="skill-mod-name">{mod.skillName}</span>
+                                <span class="skill-mod-value">+{mod.value}</span>
+                                {#if mod.label}
+                                    <span class="skill-mod-label">({mod.label})</span>
+                                {/if}
+                            </span>
+                        {/each}
+                    </div>
+                {/if}
+
                 {#if hasTalentChoice}
                     {@const g = talentChoiceGrant()}
                     {@const choiceIdx = talentChoiceIndex()}
@@ -309,14 +409,19 @@
                 {/if}
 
                 {#if skillGrants.length > 0}
-                    <p class="detail-skill"><strong>Skill{skillGrants.length > 1 ? "s" : ""}:</strong> {skillGrants.map(g => g.name ?? "").filter(Boolean).join(", ")}</p>
-                {/if}
-
-                {#if selected.description}
-                    <p class="detail-desc">{selected.description}</p>
-                {/if}
-                {#if selected.bonusDescription}
-                    <p class="detail-bonus"><strong>{selected.bonus}:</strong> {selected.bonusDescription}</p>
+                    <p class="detail-skill">
+                        <strong>Skill{skillGrants.length > 1 ? "s" : ""}:</strong>
+                        {#each skillGrants as g, i}
+                            {@const name = g.name ?? ""}
+                            <span class="item-link" onmouseenter={(e) => showSkillTooltip(e, name)} onclick={() => openSkillSheet(name)} role="button" tabindex="0" onkeydown={(e) => { if (e.key === "Enter") openSkillSheet(name); }}>{name}</span>{#if i < skillGrants.length - 1}, {/if}
+                        {/each}
+                    </p>
+                    {#each skillGrants as g}
+                        {@const name = g.name ?? ""}
+                        {#if skillDescs[name]}
+                            <p class="detail-trait-desc"><strong>{name}:</strong> {skillDescs[name]}</p>
+                        {/if}
+                    {/each}
                 {/if}
             </div>
         {/if}
@@ -471,6 +576,40 @@
     .detail-stat {
         font-size: 0.75rem;
         color: var(--dh2e-text-secondary, #a0a0a8);
+    }
+
+    .skill-modifiers {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin: 0.3rem 0 0.4rem;
+    }
+
+    .skill-mod-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 0.75rem;
+        padding: 0.15rem 0.5rem;
+        border-radius: 2px;
+        background: rgba(102, 204, 102, 0.08);
+        border: 1px solid rgba(102, 204, 102, 0.2);
+    }
+
+    .skill-mod-name {
+        color: var(--dh2e-text-primary, #d0cfc8);
+        font-weight: 600;
+    }
+
+    .skill-mod-value {
+        color: #6c6;
+        font-weight: 700;
+    }
+
+    .skill-mod-label {
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-size: 0.65rem;
+        font-style: italic;
     }
 
     .detail-skill {

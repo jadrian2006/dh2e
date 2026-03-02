@@ -71,7 +71,8 @@
                 { "key": "CreationFate", "threshold": 2, "blessing": 6 },
                 { "key": "CreationWounds", "formula": "8+1d5" },
                 { "key": "GrantAptitude", "aptitude": "Perception" },
-                { "key": "FlatModifier", "domain": "skill:navigate-(surface)", "value": 20, "label": "Teeming Masses (Enclosed)", "source": "homeworld" },
+                { "key": "FlatModifier", "domain": "skill:navigate-(crowds)", "value": 20, "label": "Ignore as Open Terrain", "source": "homeworld" },
+                { "key": "FlatModifier", "domain": "skill:navigate-(surface)", "value": 20, "label": "Enclosed Spaces", "source": "homeworld" },
                 { "key": "RollOption", "option": "self:homeworld:teeming-masses" }
             ]
         }
@@ -111,7 +112,7 @@
                 { "key": "CreationWounds", "formula": "7+1d5" },
                 { "key": "GrantAptitude", "aptitude": "Intelligence" },
                 { "key": "Grant", "type": "talent", "name": "Strong Minded" },
-                { "key": "FlatModifier", "domain": "skill:athletics", "value": 30, "label": "Child of the Dark (Zero-G)", "source": "homeworld" },
+                { "key": "FlatModifier", "domain": "skill:athletics-(zero-g)", "value": 30, "label": "Zero Gravity Movement", "source": "homeworld" },
                 { "key": "RollOption", "option": "self:homeworld:child-of-the-dark" }
             ]
         }

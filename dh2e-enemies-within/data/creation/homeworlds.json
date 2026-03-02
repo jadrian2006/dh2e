@@ -44,6 +44,8 @@
             { "key": "CreationFate", "threshold": 3, "blessing": 7 },
             { "key": "CreationWounds", "formula": "7+1d5" },
             { "key": "GrantAptitude", "aptitude": "Ballistic Skill" },
+            { "key": "FlatModifier", "domain": "skill:tech-use-(weapon-modification)", "value": 20, "label": "Personal Weapons", "source": "homeworld" },
+            { "key": "FlatModifier", "domain": "skill:tech-use-(repair)", "value": 10, "label": "Damaged Items", "source": "homeworld" },
             { "key": "RollOption", "option": "self:homeworld:rely-on-none" }
         ]
     }
