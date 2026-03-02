@@ -16,7 +16,7 @@ import { VFXResolver } from "../vfx/resolver.ts";
 import { consumeAmmo, canFire } from "./ammo.ts";
 import { getTargetConditionBonuses } from "./target-condition-modifiers.ts";
 import { getCraftsmanshipRuleElements } from "./craftsmanship.ts";
-import { isInCombat } from "./combat-state.ts";
+import { isInCombat, consumeCombatAction } from "./combat-state.ts";
 
 /**
  * Resolves a full attack sequence:
@@ -141,6 +141,10 @@ class AttackResolver {
                 attackRollOptions: [...rollOptions],
             };
 
+            // Consume combat action (charge = full, standard = half)
+            const helplessActionType = isCharge ? "full" : "half";
+            await consumeCombatAction(actor.id!, helplessActionType);
+
             // Consume ammunition for ranged weapons
             let roundsConsumed = 0;
             if (magMax > 0) {
@@ -170,6 +174,10 @@ class AttackResolver {
         });
 
         if (!result) return null; // User cancelled
+
+        // Consume combat action (charge = full, standard = half)
+        const actionType = isCharge ? "full" : "half";
+        await consumeCombatAction(actor.id!, actionType);
 
         // Read called shot from the check context (set by dialog)
         const calledShot = result.context.calledShot;

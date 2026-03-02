@@ -67,15 +67,14 @@
             } else {
                 const { reloadIndividual } = await import("@combat/ammo.ts");
                 const result = await reloadIndividual(actor, weapon, compatible[0]);
-                if (result) {
-                    ui.notifications.info(game.i18n?.format(result.partial ? "DH2E.Ammo.ReloadPartial" : "DH2E.Ammo.ReloadComplete", {
-                        actor: actor.name,
-                        weapon: weapon.name,
-                        loaded: String(result.loaded),
-                        needed: String((sys.magazine?.max ?? 0) - result.newMagValue + result.loaded),
-                        ammo: result.ammoName,
-                    }) ?? `${actor.name} reloads ${weapon.name} (${result.loaded} rounds of ${result.ammoName})`);
-                }
+                if (!result) return;
+                ui.notifications.info(game.i18n?.format(result.partial ? "DH2E.Ammo.ReloadPartial" : "DH2E.Ammo.ReloadComplete", {
+                    actor: actor.name,
+                    weapon: weapon.name,
+                    loaded: String(result.loaded),
+                    needed: String((sys.magazine?.max ?? 0) - result.newMagValue + result.loaded),
+                    ammo: result.ammoName,
+                }) ?? `${actor.name} reloads ${weapon.name} (${result.loaded} rounds of ${result.ammoName})`);
             }
         } else {
             // Magazine swap
@@ -89,6 +88,20 @@
 
             const { showAmmoPicker } = await import("@combat/ammo-picker.ts");
             await showAmmoPicker(actor, weapon, looseAmmo);
+        }
+
+        // Consume combat action after successful reload
+        const cost = parseReloadCost(sys.reload ?? "");
+        const { consumeCombatAction } = await import("@combat/combat-state.ts");
+        await consumeCombatAction(actor.id!, cost.actionType);
+
+        // Warn about multi-turn reloads
+        if (cost.count > 1) {
+            ui.notifications.info(game.i18n?.format("DH2E.Reload.MultiTurn", {
+                weapon: weapon.name,
+                count: String(cost.count),
+                remaining: String(cost.count - 1),
+            }) ?? `${weapon.name} requires ${cost.count} turns to fully reload (${cost.count - 1} remaining).`);
         }
     }
 

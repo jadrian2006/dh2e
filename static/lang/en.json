@@ -1387,5 +1387,8 @@
     "DH2E.Source.forgotten-gods": "Forgotten Gods",
     "DH2E.Source.gm-kit": "GM Kit",
     "DH2E.Source.homebrew": "Homebrew",
-    "DH2E.Source.unknown": "Unknown"
+    "DH2E.Source.unknown": "Unknown",
+
+    "DH2E.Action.Unavailable": "No {action} available this turn.",
+    "DH2E.Reload.MultiTurn": "{weapon} requires {count} turns to fully reload ({remaining} remaining)."
 }

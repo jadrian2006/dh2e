@@ -3,6 +3,8 @@
     import type { FireMode } from "../../../combat/types.ts";
     import type { WeaponDragData } from "../../../macros/types.ts";
     import { sendItemToChat } from "../../../chat/send-to-chat.ts";
+    import { parseReloadCost, getCompatibleAmmo, getCompatibleMagazines } from "@combat/ammo.ts";
+    import { consumeCombatAction } from "@combat/combat-state.ts";
 
     let { weapon, actor }: {
         weapon: any;
@@ -25,6 +27,72 @@
     const hasFull = $derived((sys.rof?.full ?? 0) > 0);
     const magMax = $derived(sys.magazine?.max ?? 0);
     const magValue = $derived(sys.magazine?.value ?? 0);
+
+    const showReload = $derived.by(() => {
+        if (magMax === 0) return false;
+        if (magValue >= magMax) return false;
+        const loadType = sys.loadType ?? "magazine";
+        if (loadType === "individual") {
+            return getCompatibleAmmo(actor, weapon).length > 0;
+        }
+        return getCompatibleMagazines(actor, weapon).length > 0 || getCompatibleAmmo(actor, weapon).length > 0;
+    });
+
+    const reloadTooltip = $derived.by(() => {
+        const cost = parseReloadCost(sys.reload ?? "");
+        const actionLabel = cost.actionType === "half" ? "Half Action" : "Full Action";
+        const countLabel = cost.count > 1 ? ` \u00d7 ${cost.count}` : "";
+        return `Reload: ${actionLabel}${countLabel}`;
+    });
+
+    async function onReload() {
+        const cost = parseReloadCost(sys.reload ?? "");
+        const loadType = sys.loadType ?? "magazine";
+
+        if (loadType === "individual") {
+            const compatible = getCompatibleAmmo(actor, weapon);
+            if (compatible.length === 0) {
+                ui.notifications.warn(game.i18n?.localize("DH2E.Ammo.NoAmmo") ?? "No compatible ammunition in inventory.");
+                return;
+            }
+            if (compatible.length > 1) {
+                const { showAmmoPicker } = await import("@combat/ammo-picker.ts");
+                await showAmmoPicker(actor, weapon, compatible);
+            } else {
+                const { reloadIndividual } = await import("@combat/ammo.ts");
+                const result = await reloadIndividual(actor, weapon, compatible[0]);
+                if (!result) return;
+                ui.notifications.info(game.i18n?.format(result.partial ? "DH2E.Ammo.ReloadPartial" : "DH2E.Ammo.ReloadComplete", {
+                    actor: actor.name,
+                    weapon: weapon.name,
+                    loaded: String(result.loaded),
+                    needed: String((sys.magazine?.max ?? 0) - result.newMagValue + result.loaded),
+                    ammo: result.ammoName,
+                }) ?? `${actor.name} reloads ${weapon.name} (${result.loaded} rounds of ${result.ammoName})`);
+            }
+        } else {
+            const magazines = getCompatibleMagazines(actor, weapon);
+            const looseAmmo = getCompatibleAmmo(actor, weapon);
+            if (magazines.length === 0 && looseAmmo.length === 0) {
+                ui.notifications.warn(game.i18n?.localize("DH2E.Ammo.NoMagazines") ?? "No loaded magazines available.");
+                return;
+            }
+            const { showAmmoPicker } = await import("@combat/ammo-picker.ts");
+            await showAmmoPicker(actor, weapon, looseAmmo);
+        }
+
+        // Consume combat action after successful reload
+        await consumeCombatAction(actor.id!, cost.actionType);
+
+        // Warn about multi-turn reloads
+        if (cost.count > 1) {
+            ui.notifications.info(game.i18n?.format("DH2E.Reload.MultiTurn", {
+                weapon: weapon.name,
+                count: String(cost.count),
+                remaining: String(cost.count - 1),
+            }) ?? `${weapon.name} requires ${cost.count} turns to fully reload (${cost.count - 1} remaining).`);
+        }
+    }
 
     function attack(mode: FireMode) {
         AttackResolver.resolve({ actor, weapon, fireMode: mode });
@@ -69,6 +137,11 @@
     <button class="chat-btn" onclick={(e) => { e.stopPropagation(); sendItemToChat(weapon); }} title="Send to Chat">
         <i class="fa-solid fa-comment"></i>
     </button>
+    {#if showReload}
+        <button class="attack-btn reload" onclick={() => onReload()} title={reloadTooltip}>
+            <i class="fa-solid fa-arrows-rotate"></i>
+        </button>
+    {/if}
     <div class="weapon-actions">
         {#if !hasRanged}
             <button class="attack-btn melee" onclick={() => attack("single")} title="Melee Attack">Melee</button>
@@ -214,6 +287,16 @@
             &:hover {
                 background: var(--dh2e-charge-orange, #d4771e);
                 color: var(--dh2e-bg-darkest, #111114);
+            }
+        }
+
+        &.reload {
+            color: var(--dh2e-text-secondary, #a0a0a8);
+            border-color: var(--dh2e-border, #4a4a55);
+
+            &:hover {
+                border-color: var(--dh2e-gold-muted, #8a7a3e);
+                color: var(--dh2e-gold, #c8a84e);
             }
         }
     }
