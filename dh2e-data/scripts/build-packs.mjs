@@ -97,6 +97,7 @@ const PACKS = [
     { name: "cybernetics", file: "data/cybernetics.json", collection: "items" },
     { name: "conditions", file: "data/conditions.json", collection: "items" },
     { name: "traits", file: "data/traits.json", collection: "items" },
+    { name: "modifications", file: "data/modifications.json", collection: "items" },
     { name: "npcs", file: "data/npcs.json", collection: "actors" },
     { name: "macros", file: "data/macros.json", collection: "macros" },
     { name: "guides", file: "data/guides.json", collection: "journal" },

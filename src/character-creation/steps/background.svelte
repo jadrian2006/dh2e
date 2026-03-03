@@ -2,6 +2,7 @@
     import type { BackgroundOption, CreationData } from "../types.ts";
     import { getAptitudes, getGrantsOfType, getGrants, hasChoices, type GrantSource } from "../creation-helpers.ts";
     import { findInPacks, parseEquipment } from "../wizard.ts";
+    import { loadMutationTable, type MutationEntry } from "@corruption/mutation-table.ts";
 
     async function previewGear(name: string) {
         const doc = await findInPacks(["weapons", "armour", "gear", "cybernetics", "ammunition"], name);
@@ -9,6 +10,32 @@
             doc.sheet?.render(true);
         } else {
             ui.notifications?.info(`No compendium entry found for "${name}".`);
+        }
+    }
+
+    /** Open a skill or talent compendium item by name */
+    async function openGrantItem(name: string, type: string) {
+        const packMap: Record<string, string[]> = {
+            skill: ["skills"],
+            talent: ["talents"],
+        };
+        const types = packMap[type] ?? ["skills", "talents"];
+        const doc = await findInPacks(types as any, name);
+        if (doc) {
+            doc.sheet?.render(true);
+        } else {
+            ui.notifications?.info(`${name} — not found in compendium packs.`);
+        }
+    }
+
+    /** Show tooltip for a skill/talent grant */
+    function showGrantTooltip(event: MouseEvent, name: string, type: string, isChoice = false) {
+        const el = event.currentTarget as HTMLElement;
+        if (typeof game !== "undefined" && (game as any).tooltip) {
+            const typeLabel = type.charAt(0).toUpperCase() + type.slice(1);
+            const hint = isChoice ? "Click to select · Shift-click to preview" : "Click to preview";
+            const html = `<div><strong>${name}</strong><br/><em>${typeLabel}</em><br/><small>${hint}</small></div>`;
+            (game as any).tooltip.activate(el, { html, direction: "UP" });
         }
     }
 
@@ -23,10 +50,22 @@
         }
     }
 
-    let { data, selected = $bindable<BackgroundOption | null>(null), backgroundChoices = $bindable<Record<number, string | number>>({}) }: {
+    let {
+        data,
+        selected = $bindable<BackgroundOption | null>(null),
+        backgroundChoices = $bindable<Record<number, string | number>>({}),
+        mutationRoll = $bindable<number | null>(null),
+        mutationResult = $bindable<{ title: string; description: string; effect: string } | null>(null),
+        mutationRollCount = $bindable(0),
+        maxMutationRerolls = 0,
+    }: {
         data: CreationData;
         selected: BackgroundOption | null;
         backgroundChoices: Record<number, string | number>;
+        mutationRoll: number | null;
+        mutationResult: { title: string; description: string; effect: string } | null;
+        mutationRollCount: number;
+        maxMutationRerolls: number;
     } = $props();
 
     const backgrounds = $derived(data?.backgrounds ?? []);
@@ -92,6 +131,30 @@
             gearDescs = descs;
         })();
     });
+
+    // --- Mutation roll for Mutant background (Twisted Flesh) ---
+    const isMutant = $derived(
+        selected?.rules?.some(r => r.key === "RollOption" && r.option === "self:background:twisted-flesh") ?? false
+    );
+
+    let cachedMutationTable: MutationEntry[] = $state([]);
+
+    $effect(() => {
+        if (isMutant && cachedMutationTable.length === 0) {
+            loadMutationTable().then(t => { cachedMutationTable = t; });
+        }
+    });
+
+    const canRerollMutation = $derived(mutationRollCount > 0 && mutationRollCount <= maxMutationRerolls);
+
+    async function rollStartingMutation() {
+        const roll = new foundry.dice.Roll("5d10");
+        await roll.evaluate();
+        mutationRoll = roll.total ?? 25;
+        mutationRollCount++;
+        const entry = cachedMutationTable.find(e => mutationRoll! >= e.min && mutationRoll! <= e.max);
+        if (entry) mutationResult = { title: entry.title, description: entry.description, effect: entry.effect };
+    }
 </script>
 
 <div class="step-content">
@@ -104,7 +167,7 @@
     {#if hasData}
         <div class="card-grid">
             {#each backgrounds as bg}
-                {@const isSelected = selected?.name === bg.name}
+                {@const isSelected = selected === bg}
                 {@const apts = getAptitudes(bg.rules ?? [])}
                 <button
                     class="option-card"
@@ -132,17 +195,74 @@
                 <h4 class="detail-name">{selected.name}</h4>
                 <div class="detail-lists">
                     {#if skillGrants.length > 0}
-                        <p class="detail-list"><strong>Skills:</strong> {skillGrants.map(g => {
-                            if (g.options && g.options.length > 1) return g.options.join(" or ");
-                            if (g.pick) return `${g.name ?? ""} (pick one)`;
-                            return g.name ?? "";
-                        }).join(", ")}</p>
+                        <div class="detail-list">
+                            <strong>Skills:</strong>
+                            {#each skillGrants as g, i}
+                                {@const grantIdx = allGrants.indexOf(g)}
+                                {@const isChoice = g.options && g.options.length > 1}
+                                {@const selectedOpt = isChoice ? (backgroundChoices[grantIdx] ?? g.options[0]) : null}
+                                {#if i > 0}<span class="grant-sep">,</span>{/if}
+                                {#if isChoice}
+                                    <span class="grant-choice">
+                                        {#each g.options as opt, j}
+                                            {#if j > 0}<span class="grant-or">or</span>{/if}
+                                            <button class="grant-link" type="button"
+                                                class:chosen={selectedOpt === opt}
+                                                class:unchosen={selectedOpt !== opt}
+                                                onmouseenter={(e) => showGrantTooltip(e, opt, "skill", true)}
+                                                onclick={(e) => {
+                                                    if (e.shiftKey || e.ctrlKey) { openGrantItem(opt, "skill"); return; }
+                                                    if (j === 0) {
+                                                        const { [grantIdx]: _, ...rest } = backgroundChoices;
+                                                        backgroundChoices = rest;
+                                                    } else {
+                                                        backgroundChoices = { ...backgroundChoices, [grantIdx]: opt };
+                                                    }
+                                                }}>{opt}</button>
+                                        {/each}
+                                    </span>
+                                {:else}
+                                    <button class="grant-link" type="button"
+                                        onmouseenter={(e) => showGrantTooltip(e, g.name ?? "", "skill")}
+                                        onclick={() => openGrantItem(g.name ?? "", "skill")}>{g.name ?? ""}</button>
+                                {/if}
+                            {/each}
+                        </div>
                     {/if}
                     {#if talentGrants.length > 0}
-                        <p class="detail-list"><strong>Talents:</strong> {talentGrants.map(g => {
-                            if (g.options && g.options.length > 1) return g.options.join(" or ");
-                            return g.name ?? "";
-                        }).join(", ")}</p>
+                        <div class="detail-list">
+                            <strong>Talents:</strong>
+                            {#each talentGrants as g, i}
+                                {@const grantIdx = allGrants.indexOf(g)}
+                                {@const isChoice = g.options && g.options.length > 1}
+                                {@const selectedOpt = isChoice ? (backgroundChoices[grantIdx] ?? g.options[0]) : null}
+                                {#if i > 0}<span class="grant-sep">,</span>{/if}
+                                {#if isChoice}
+                                    <span class="grant-choice">
+                                        {#each g.options as opt, j}
+                                            {#if j > 0}<span class="grant-or">or</span>{/if}
+                                            <button class="grant-link" type="button"
+                                                class:chosen={selectedOpt === opt}
+                                                class:unchosen={selectedOpt !== opt}
+                                                onmouseenter={(e) => showGrantTooltip(e, opt, "talent", true)}
+                                                onclick={(e) => {
+                                                    if (e.shiftKey || e.ctrlKey) { openGrantItem(opt, "talent"); return; }
+                                                    if (j === 0) {
+                                                        const { [grantIdx]: _, ...rest } = backgroundChoices;
+                                                        backgroundChoices = rest;
+                                                    } else {
+                                                        backgroundChoices = { ...backgroundChoices, [grantIdx]: opt };
+                                                    }
+                                                }}>{opt}</button>
+                                        {/each}
+                                    </span>
+                                {:else}
+                                    <button class="grant-link" type="button"
+                                        onmouseenter={(e) => showGrantTooltip(e, g.name ?? "", "talent")}
+                                        onclick={() => openGrantItem(g.name ?? "", "talent")}>{g.name ?? ""}</button>
+                                {/if}
+                            {/each}
+                        </div>
                     {/if}
                 </div>
                 {#if selected.description}
@@ -150,6 +270,30 @@
                 {/if}
                 {#if selected.bonusDescription}
                     <p class="detail-bonus"><strong>{selected.bonus}:</strong> {selected.bonusDescription}</p>
+                {/if}
+
+                {#if isMutant}
+                    <div class="mutation-section">
+                        <h5 class="mutation-section-title">Starting Mutation</h5>
+                        {#if mutationRoll === null}
+                            <button class="btn mutation-roll-btn" type="button" onclick={rollStartingMutation}>
+                                <i class="fa-solid fa-dice"></i> Roll Starting Mutation (5d10)
+                            </button>
+                        {:else}
+                            <div class="mutation-result">
+                                <span class="mutation-roll-badge">{mutationRoll}</span>
+                                {#if mutationResult}
+                                    <span class="mutation-title">{mutationResult.title}</span>
+                                    <p class="mutation-effect">{mutationResult.effect}</p>
+                                {/if}
+                                {#if canRerollMutation}
+                                    <button class="btn mutation-reroll-btn" type="button" onclick={rollStartingMutation}>
+                                        <i class="fa-solid fa-rotate"></i> Re-roll ({maxMutationRerolls - mutationRollCount + 1} left)
+                                    </button>
+                                {/if}
+                            </div>
+                        {/if}
+                    </div>
                 {/if}
 
                 <div class="gear-section">
@@ -296,6 +440,53 @@
         background: none; border: none; padding: 0 0.2rem; cursor: pointer;
         color: var(--dh2e-text-secondary, #a0a0a8); font-size: 0.7rem; flex-shrink: 0; margin-left: auto;
         &:hover { color: var(--dh2e-gold, #c8a84e); }
+    }
+
+    /* Clickable skill/talent grant links */
+    .grant-link {
+        background: none; border: none; padding: 0; margin: 0; font: inherit; font-size: inherit;
+        color: var(--dh2e-gold, #c8a84e); cursor: pointer;
+        border-bottom: 1px dotted var(--dh2e-gold-muted, #8a7a3e);
+        transition: color 0.15s, border-color 0.15s, opacity 0.15s;
+        &:hover { color: var(--dh2e-gold-light, #e8d07e); border-bottom-style: solid; }
+        /* Selected choice option */
+        &.chosen { color: var(--dh2e-gold-light, #e8d07e); border-bottom-style: solid; font-weight: 700; }
+        /* Unselected choice option */
+        &.unchosen { opacity: 0.45; border-bottom-style: dotted; font-weight: normal; }
+        &.unchosen:hover { opacity: 0.8; }
+    }
+    .grant-sep { color: var(--dh2e-text-secondary, #a0a0a8); margin-right: 0.15em; }
+    .grant-or { color: var(--dh2e-text-secondary, #a0a0a8); font-style: italic; font-size: 0.85em; margin: 0 0.2em; }
+    .grant-choice {
+        display: inline-flex; align-items: baseline;
+        background: rgba(200, 168, 78, 0.06); border: 1px solid rgba(200, 168, 78, 0.15);
+        border-radius: 3px; padding: 0 0.3em;
+    }
+
+    .mutation-section { margin-top: 0.5rem; border-top: 1px solid var(--dh2e-border, #4a4a55); padding-top: 0.5rem; }
+    .mutation-section-title { font-size: 0.75rem; font-weight: 700; color: var(--dh2e-gold, #c8a84e); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 0.4rem; }
+    .mutation-roll-btn {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.3rem 0.7rem; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+        background: var(--dh2e-gold-dark, #9c7a28); color: var(--dh2e-bg-darkest, #111114);
+        border: 1px solid var(--dh2e-gold, #c8a84e); border-radius: 3px;
+        &:hover { background: var(--dh2e-gold, #c8a84e); }
+    }
+    .mutation-result { display: flex; flex-direction: column; gap: 0.25rem; }
+    .mutation-roll-badge {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 2rem; height: 1.4rem; font-size: 0.75rem; font-weight: 700;
+        background: rgba(200, 168, 78, 0.2); border: 1px solid var(--dh2e-gold-dark, #9c7a28);
+        border-radius: 3px; color: var(--dh2e-gold, #c8a84e);
+    }
+    .mutation-title { font-weight: 700; color: var(--dh2e-gold, #c8a84e); font-size: 0.9rem; }
+    .mutation-effect { font-size: 0.8rem; color: var(--dh2e-text-primary, #d0cfc8); line-height: 1.4; margin: 0; }
+    .mutation-reroll-btn {
+        display: inline-flex; align-items: center; gap: 0.3rem; align-self: flex-start;
+        padding: 0.15rem 0.5rem; font-size: 0.65rem; font-weight: 600; cursor: pointer;
+        background: var(--dh2e-bg-mid, #2e2e35); color: var(--dh2e-text-secondary, #a0a0a8);
+        border: 1px solid var(--dh2e-border, #4a4a55); border-radius: 3px;
+        &:hover { color: var(--dh2e-gold, #c8a84e); border-color: var(--dh2e-gold-dark, #9c7a28); }
     }
 
     .hint { font-style: italic; font-size: 0.75rem; color: var(--dh2e-text-secondary, #a0a0a8); }

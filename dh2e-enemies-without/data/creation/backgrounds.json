@@ -70,5 +70,51 @@
             { "key": "Grant", "type": "gear", "name": "Chrono" },
             { "key": "RollOption", "option": "self:background:inured-to-the-xenos" }
         ]
+    },
+    {
+        "name": "Mutant",
+        "description": "Throughout the Imperium, millions of humans bear the mark of mutation — twisted by radiation, warp exposure, or tainted bloodlines. Most mutants are despised and persecuted, forced to live on the fringes of Imperial society.",
+        "bonus": "Twisted Flesh",
+        "bonusDescription": "A Mutant character can always choose to fail any test to resist malignancy or mutation. Whenever the character would gain a malignancy, he may roll on the Mutations table instead. A Mutant begins play with 10 Corruption Points and one starting mutation (roll 5d10 on the Mutations table).",
+        "source": "enemies-without",
+        "rules": [
+            { "key": "GrantAptitude", "options": ["Fieldcraft", "Offence"] },
+            { "key": "Grant", "type": "skill", "options": ["Acrobatics", "Athletics"] },
+            { "key": "Grant", "type": "skill", "name": "Awareness" },
+            { "key": "Grant", "type": "skill", "options": ["Deceive", "Intimidate"] },
+            { "key": "Grant", "type": "skill", "name": "Forbidden Lore (Mutants)" },
+            { "key": "Grant", "type": "skill", "name": "Survival" },
+            { "key": "Grant", "type": "talent", "options": ["Weapon Training (Low-Tech)", "Weapon Training (Solid Projectile)"] },
+            { "key": "Grant", "type": "weapon", "options": ["Stub Revolver", "Autopistol"] },
+            { "key": "Grant", "type": "weapon", "options": ["Axe", "Hammer"], "equipped": true },
+            { "key": "Grant", "type": "armour", "name": "Heavy Leathers", "equipped": true },
+            { "key": "Grant", "type": "gear", "name": "Charm" },
+            { "key": "Grant", "type": "gear", "name": "Disguise Kit" },
+            { "key": "CreationBonus", "characteristic": "corruption", "value": 10 },
+            { "key": "RollOption", "option": "self:background:twisted-flesh" }
+        ]
+    },
+    {
+        "name": "Outcast",
+        "description": "The Imperium's outcasts are those who have fallen through the cracks of Imperial society — underhive scum, deserters, criminals, and refugees who survive by wit, will, and sheer endurance.",
+        "bonus": "Survival Instinct",
+        "bonusDescription": "An Outcast character counts his Toughness Bonus as 2 higher for the purposes of determining Fatigue threshold.",
+        "source": "enemies-without",
+        "rules": [
+            { "key": "GrantAptitude", "options": ["Fieldcraft", "Social"] },
+            { "key": "Grant", "type": "skill", "options": ["Acrobatics", "Athletics"] },
+            { "key": "Grant", "type": "skill", "name": "Common Lore (Underworld)" },
+            { "key": "Grant", "type": "skill", "options": ["Deceive", "Stealth"] },
+            { "key": "Grant", "type": "skill", "name": "Dodge" },
+            { "key": "Grant", "type": "skill", "name": "Survival" },
+            { "key": "Grant", "type": "talent", "options": ["Weapon Training (Chain)", "Weapon Training (Solid Projectile)"] },
+            { "key": "Grant", "type": "talent", "name": "Weapon Training (Low-Tech)" },
+            { "key": "Grant", "type": "weapon", "options": ["Autopistol", "Stub Revolver"] },
+            { "key": "Grant", "type": "weapon", "options": ["Knife", "Axe"], "equipped": true },
+            { "key": "Grant", "type": "armour", "name": "Flak Vest", "equipped": true },
+            { "key": "Grant", "type": "gear", "name": "Rebreather" },
+            { "key": "Grant", "type": "gear", "name": "Charm" },
+            { "key": "RollOption", "option": "self:background:survival-instinct" }
+        ]
     }
 ]

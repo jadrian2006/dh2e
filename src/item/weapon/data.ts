@@ -2,7 +2,11 @@ import type { WeaponClass, FireMode, DamageType } from "./types.ts";
 import type { RuleElementSource } from "@rules/rule-element/base.ts";
 
 /** Valid weapon groups for ammunition compatibility */
-const WEAPON_GROUPS = ["bolt", "las", "sp", "flame", "melta", "plasma", "shotgun", "launcher", "crossbow", "bow", "needler"] as const;
+const WEAPON_GROUPS = [
+    "bolt", "las", "sp", "flame", "melta", "plasma", "shotgun", "launcher",
+    "crossbow", "bow", "needler", "thrown",
+    "low-tech", "chain", "power", "force", "shock", "exotic",
+] as const;
 type WeaponGroup = typeof WEAPON_GROUPS[number];
 
 /** A stack of rounds loaded in a weapon or magazine */
@@ -55,6 +59,8 @@ export interface WeaponSystemSource {
     availability: string;
     /** Craftsmanship quality: poor, common, good, best */
     craftsmanship: string;
+    /** UUIDs of attached modification items */
+    modifications: string[];
 }
 
 export { WEAPON_GROUPS };

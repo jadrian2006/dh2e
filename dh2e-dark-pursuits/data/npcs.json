@@ -5,22 +5,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 52, "advances": 0 },
-                "bs": { "base": 35, "advances": 0 },
-                "s": { "base": 55, "advances": 0 },
-                "t": { "base": 45, "advances": 0 },
-                "ag": { "base": 18, "advances": 0 },
-                "int": { "base": 53, "advances": 0 },
-                "per": { "base": 45, "advances": 0 },
-                "wp": { "base": 55, "advances": 0 },
-                "fel": { "base": 15, "advances": 0 }
+                "ws": {
+                    "base": 52,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 55,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 45,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 18,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 53,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 45,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 55,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 15,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 33, "max": 33 },
-            "fate": { "value": 0, "max": 0 },
+            "wounds": {
+                "value": 33,
+                "max": 33
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 7,
@@ -48,16 +84,30 @@
                     "description": "<p>Long talons that seem to rip into reality with each grasp.</p>",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d10+2+SB", "type": "impact", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+2+SB",
+                        "type": "impact",
+                        "bonus": 0
+                    },
                     "penetration": 2,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 0,
-                    "qualities": ["Crippling (3)"],
+                    "qualities": [
+                        "Crippling (3)"
+                    ],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -187,22 +237,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 40, "advances": 0 },
-                "bs": { "base": 45, "advances": 0 },
-                "s": { "base": 45, "advances": 0 },
-                "t": { "base": 55, "advances": 0 },
-                "ag": { "base": 35, "advances": 0 },
-                "int": { "base": 60, "advances": 0 },
-                "per": { "base": 40, "advances": 0 },
-                "wp": { "base": 55, "advances": 0 },
-                "fel": { "base": 20, "advances": 0 }
+                "ws": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 45,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 45,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 55,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 60,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 55,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 20,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 22, "max": 22 },
-            "fate": { "value": 3, "max": 3 },
+            "wounds": {
+                "value": 22,
+                "max": 22
+            },
+            "fate": {
+                "value": 3,
+                "max": 3
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 43,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 0,
@@ -230,16 +316,31 @@
                     "description": "<p>A devastating pistol that fires superheated bolts of plasma.</p>",
                     "class": "pistol",
                     "range": 30,
-                    "rof": { "single": true, "semi": 2, "full": 0 },
-                    "damage": { "formula": "1d10+6", "type": "energy", "bonus": 0 },
+                    "rof": {
+                        "single": true,
+                        "semi": 2,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+6",
+                        "type": "energy",
+                        "bonus": 0
+                    },
                     "penetration": 6,
-                    "magazine": { "value": 10, "max": 10 },
+                    "magazine": {
+                        "value": 10,
+                        "max": 10
+                    },
                     "reload": "3 Full",
                     "weight": 4,
-                    "qualities": ["Maximal", "Overheats"],
+                    "qualities": [
+                        "Maximal",
+                        "Overheats"
+                    ],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "plasma"
                 }
             },
             {
@@ -250,16 +351,31 @@
                     "description": "<p>A heavy bludgeon encased in a disruptive power field.</p>",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d10+5+SB", "type": "energy", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+5+SB",
+                        "type": "energy",
+                        "bonus": 0
+                    },
                     "penetration": 4,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 3.5,
-                    "qualities": ["Power Field", "Shocking"],
+                    "qualities": [
+                        "Power Field",
+                        "Shocking"
+                    ],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "power"
                 }
             },
             {
@@ -408,22 +524,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 41, "advances": 0 },
-                "bs": { "base": 50, "advances": 0 },
-                "s": { "base": 37, "advances": 0 },
-                "t": { "base": 43, "advances": 0 },
-                "ag": { "base": 40, "advances": 0 },
-                "int": { "base": 38, "advances": 0 },
-                "per": { "base": 41, "advances": 0 },
-                "wp": { "base": 40, "advances": 0 },
-                "fel": { "base": 37, "advances": 0 }
+                "ws": {
+                    "base": 41,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 50,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 37,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 43,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 38,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 41,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 40,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 37,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 18, "max": 18 },
-            "fate": { "value": 0, "max": 0 },
+            "wounds": {
+                "value": 18,
+                "max": 18
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 0,
@@ -451,16 +603,30 @@
                     "description": "<p>A compact pistol firing mass-reactive bolts. Equipped with a red-dot sight (+10 BS at single shot).</p>",
                     "class": "pistol",
                     "range": 30,
-                    "rof": { "single": true, "semi": 2, "full": 0 },
-                    "damage": { "formula": "1d10+5", "type": "explosive", "bonus": 0 },
+                    "rof": {
+                        "single": true,
+                        "semi": 2,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+5",
+                        "type": "explosive",
+                        "bonus": 0
+                    },
                     "penetration": 4,
-                    "magazine": { "value": 8, "max": 8 },
+                    "magazine": {
+                        "value": 8,
+                        "max": 8
+                    },
                     "reload": "1 Full",
                     "weight": 3.5,
-                    "qualities": ["Tearing"],
+                    "qualities": [
+                        "Tearing"
+                    ],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "bolt"
                 }
             },
             {
@@ -471,16 +637,28 @@
                     "description": "<p>A compact automatic pistol. Loaded with expander shells.</p>",
                     "class": "pistol",
                     "range": 30,
-                    "rof": { "single": true, "semi": 0, "full": 6 },
-                    "damage": { "formula": "1d10+2", "type": "impact", "bonus": 0 },
+                    "rof": {
+                        "single": true,
+                        "semi": 0,
+                        "full": 6
+                    },
+                    "damage": {
+                        "formula": "1d10+2",
+                        "type": "impact",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 18, "max": 18 },
+                    "magazine": {
+                        "value": 18,
+                        "max": 18
+                    },
                     "reload": "1 Full",
                     "weight": 1.5,
                     "qualities": [],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "sp"
                 }
             },
             {
@@ -549,22 +727,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 42, "advances": 0 },
-                "bs": { "base": 41, "advances": 0 },
-                "s": { "base": 34, "advances": 0 },
-                "t": { "base": 36, "advances": 0 },
-                "ag": { "base": 41, "advances": 0 },
-                "int": { "base": 37, "advances": 0 },
-                "per": { "base": 38, "advances": 0 },
-                "wp": { "base": 35, "advances": 0 },
-                "fel": { "base": 41, "advances": 0 }
+                "ws": {
+                    "base": 42,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 41,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 34,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 36,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 41,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 37,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 38,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 41,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 15, "max": 15 },
-            "fate": { "value": 0, "max": 0 },
+            "wounds": {
+                "value": 15,
+                "max": 15
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 0,
@@ -592,16 +806,28 @@
                     "description": "<p>A compact automatic pistol. Loaded with man-stopper bullets.</p>",
                     "class": "pistol",
                     "range": 30,
-                    "rof": { "single": true, "semi": 0, "full": 6 },
-                    "damage": { "formula": "1d10+2", "type": "impact", "bonus": 0 },
+                    "rof": {
+                        "single": true,
+                        "semi": 0,
+                        "full": 6
+                    },
+                    "damage": {
+                        "formula": "1d10+2",
+                        "type": "impact",
+                        "bonus": 0
+                    },
                     "penetration": 3,
-                    "magazine": { "value": 18, "max": 18 },
+                    "magazine": {
+                        "value": 18,
+                        "max": 18
+                    },
                     "reload": "1 Full",
                     "weight": 1.5,
                     "qualities": [],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "sp"
                 }
             },
             {
@@ -612,16 +838,30 @@
                     "description": "<p>A slender blade encased in a disruptive power field.</p>",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d10+2+SB", "type": "rending", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+2+SB",
+                        "type": "rending",
+                        "bonus": 0
+                    },
                     "penetration": 4,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 1,
-                    "qualities": ["Power Field"],
+                    "qualities": [
+                        "Power Field"
+                    ],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "power"
                 }
             },
             {
@@ -681,22 +921,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 35, "advances": 0 },
-                "bs": { "base": 35, "advances": 0 },
-                "s": { "base": 30, "advances": 0 },
-                "t": { "base": 35, "advances": 0 },
-                "ag": { "base": 30, "advances": 0 },
-                "int": { "base": 32, "advances": 0 },
-                "per": { "base": 37, "advances": 0 },
-                "wp": { "base": 32, "advances": 0 },
-                "fel": { "base": 38, "advances": 0 }
+                "ws": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 32,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 37,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 32,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 38,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 10, "max": 10 },
-            "fate": { "value": 0, "max": 0 },
+            "wounds": {
+                "value": 10,
+                "max": 10
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 0,
@@ -724,16 +1000,28 @@
                     "description": "",
                     "class": "pistol",
                     "range": 30,
-                    "rof": { "single": true, "semi": 0, "full": 6 },
-                    "damage": { "formula": "1d10+2", "type": "impact", "bonus": 0 },
+                    "rof": {
+                        "single": true,
+                        "semi": 0,
+                        "full": 6
+                    },
+                    "damage": {
+                        "formula": "1d10+2",
+                        "type": "impact",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 18, "max": 18 },
+                    "magazine": {
+                        "value": 18,
+                        "max": 18
+                    },
                     "reload": "1 Full",
                     "weight": 1.5,
                     "qualities": [],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "sp"
                 }
             },
             {
@@ -744,16 +1032,30 @@
                     "description": "",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d10+SB", "type": "rending", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+SB",
+                        "type": "rending",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 3,
-                    "qualities": ["Balanced"],
+                    "qualities": [
+                        "Balanced"
+                    ],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -784,22 +1086,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 35, "advances": 0 },
-                "bs": { "base": 37, "advances": 0 },
-                "s": { "base": 35, "advances": 0 },
-                "t": { "base": 41, "advances": 0 },
-                "ag": { "base": 32, "advances": 0 },
-                "int": { "base": 28, "advances": 0 },
-                "per": { "base": 35, "advances": 0 },
-                "wp": { "base": 32, "advances": 0 },
-                "fel": { "base": 25, "advances": 0 }
+                "ws": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 37,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 41,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 32,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 28,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 32,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 25,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 10, "max": 10 },
-            "fate": { "value": 0, "max": 0 },
+            "wounds": {
+                "value": 10,
+                "max": 10
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 4,
@@ -827,16 +1165,30 @@
                     "description": "",
                     "class": "basic",
                     "range": 100,
-                    "rof": { "single": true, "semi": 3, "full": 0 },
-                    "damage": { "formula": "1d10+3", "type": "energy", "bonus": 0 },
+                    "rof": {
+                        "single": true,
+                        "semi": 3,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+3",
+                        "type": "energy",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 60, "max": 60 },
+                    "magazine": {
+                        "value": 60,
+                        "max": 60
+                    },
                     "reload": "1 Full",
                     "weight": 4,
-                    "qualities": ["Reliable"],
+                    "qualities": [
+                        "Reliable"
+                    ],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "las"
                 }
             },
             {
@@ -878,22 +1230,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 20, "advances": 0 },
-                "bs": { "base": 20, "advances": 0 },
-                "s": { "base": 25, "advances": 0 },
-                "t": { "base": 25, "advances": 0 },
-                "ag": { "base": 20, "advances": 0 },
-                "int": { "base": 35, "advances": 0 },
-                "per": { "base": 30, "advances": 0 },
-                "wp": { "base": 30, "advances": 0 },
-                "fel": { "base": 25, "advances": 0 }
+                "ws": {
+                    "base": 20,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 20,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 25,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 25,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 20,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 25,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 8, "max": 8 },
-            "fate": { "value": 0, "max": 0 },
+            "wounds": {
+                "value": 8,
+                "max": 8
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 0,
@@ -921,16 +1309,28 @@
                     "description": "",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d5+SB", "type": "rending", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d5+SB",
+                        "type": "rending",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 1,
                     "qualities": [],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -952,22 +1352,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 30, "advances": 0 },
-                "bs": { "base": 30, "advances": 0 },
-                "s": { "base": 30, "advances": 0 },
-                "t": { "base": 35, "advances": 0 },
-                "ag": { "base": 25, "advances": 0 },
-                "int": { "base": 35, "advances": 0 },
-                "per": { "base": 30, "advances": 0 },
-                "wp": { "base": 35, "advances": 0 },
-                "fel": { "base": 20, "advances": 0 }
+                "ws": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 25,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 20,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 9, "max": 9 },
-            "fate": { "value": 0, "max": 0 },
+            "wounds": {
+                "value": 9,
+                "max": 9
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 1,
@@ -995,16 +1431,30 @@
                     "description": "",
                     "class": "basic",
                     "range": 100,
-                    "rof": { "single": true, "semi": 3, "full": 0 },
-                    "damage": { "formula": "1d10+3", "type": "energy", "bonus": 0 },
+                    "rof": {
+                        "single": true,
+                        "semi": 3,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+3",
+                        "type": "energy",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 60, "max": 60 },
+                    "magazine": {
+                        "value": 60,
+                        "max": 60
+                    },
                     "reload": "1 Full",
                     "weight": 4,
-                    "qualities": ["Reliable"],
+                    "qualities": [
+                        "Reliable"
+                    ],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "las"
                 }
             },
             {
@@ -1015,16 +1465,30 @@
                     "description": "<p>A heavy two-handed melee weapon.</p>",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "2d10+SB", "type": "rending", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "2d10+SB",
+                        "type": "rending",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 7,
-                    "qualities": ["Unbalanced"],
+                    "qualities": [
+                        "Unbalanced"
+                    ],
                     "equipped": true,
                     "craftsmanship": "common",
-                    "source": "core-rulebook"
+                    "source": "core-rulebook",
+                    "weaponGroup": "low-tech"
                 }
             },
             {

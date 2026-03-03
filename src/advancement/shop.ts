@@ -98,7 +98,7 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const costs = await loadXPCostData();
         this.#cachedCosts = costs;
         await AdvancementShop.#loadEliteAdvances();
-        const options = this.#buildOptions(costs);
+        const options = await this.#buildOptions(costs);
         const system = this.#actor.system;
 
         return {
@@ -122,7 +122,7 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         };
     }
 
-    #buildOptions(costs: XPCostData): AdvanceOption[] {
+    async #buildOptions(costs: XPCostData): Promise<AdvanceOption[]> {
         const actor = this.#actor;
         const system = actor.system;
         const charApts = system.aptitudes ?? [];
@@ -237,7 +237,8 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         for (const packId of getPacksOfType("skills")) {
             const skillPack = game.packs?.get(packId);
             if (!skillPack) continue;
-            for (const entry of skillPack.index) {
+            const skillIndex = await skillPack.getIndex({ fields: ["system.linkedCharacteristic", "system.aptitude", "system.specialization"] });
+            for (const entry of skillIndex) {
                 const meta = entry as any;
                 const sys = meta.system ?? {};
                 const spec: string = sys.specialization ?? "";
@@ -280,7 +281,8 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         for (const packId of getPacksOfType("talents")) {
             const talentPack = game.packs?.get(packId);
             if (!talentPack) continue;
-            for (const entry of talentPack.index) {
+            const talentIndex = await talentPack.getIndex({ fields: ["system.tier", "system.aptitudes", "system.prerequisites"] });
+            for (const entry of talentIndex) {
                 const meta = entry as any;
                 if (ownedTalentNames.has(meta.name)) continue;
 
@@ -379,7 +381,8 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             for (const packId of getPacksOfType("powers")) {
                 const powerPack = game.packs?.get(packId);
                 if (!powerPack) continue;
-                for (const entry of powerPack.index) {
+                const powerIndex = await powerPack.getIndex({ fields: ["system.cost", "system.discipline"] });
+                for (const entry of powerIndex) {
                     const meta = entry as any;
                     if (ownedPowerNames.has(meta.name)) continue;
 

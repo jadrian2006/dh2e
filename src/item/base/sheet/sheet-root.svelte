@@ -1,11 +1,51 @@
 <script lang="ts">
     import RuleElementEditor from "@rules/rule-element/rule-element-editor.svelte";
     import { WEAPON_GROUPS } from "@item/weapon/data.ts";
+    import { findInAllPacks, findInMultipleTypes } from "@util/pack-discovery.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
     const sys = $derived(ctx.system ?? {});
     const type = $derived(ctx.type ?? "gear");
     const hasRules = $derived(Array.isArray(sys.rules));
+
+    /** Open a compendium item by type and name (async pack search) */
+    async function openCompendiumItem(event: MouseEvent, itemType: string, itemName: string) {
+        event.preventDefault();
+        const typeMap: Record<string, string> = {
+            skill: "skills", talent: "talents", weapon: "weapons",
+            gear: "gear", armour: "armour", ammunition: "ammunition",
+            cybernetic: "cybernetics",
+        };
+        const packType = typeMap[itemType];
+        if (packType) {
+            const doc = await findInAllPacks(packType as any, itemName);
+            if (doc) {
+                (doc as any).sheet?.render(true);
+                return;
+            }
+        }
+        // Equipment could be in multiple pack types
+        if (!packType) {
+            const doc = await findInMultipleTypes(["weapons", "armour", "gear", "ammunition", "cybernetics"], itemName);
+            if (doc) {
+                (doc as any).sheet?.render(true);
+                return;
+            }
+        }
+        ui.notifications?.info(`${itemName} — not found in compendium packs.`);
+    }
+
+    /** Show a tooltip on hover for grant links */
+    function showItemTooltip(event: MouseEvent, itemType: string, itemName: string) {
+        const el = event.currentTarget as HTMLElement;
+        if ((game as any).tooltip) {
+            const typeLabel = itemType.charAt(0).toUpperCase() + itemType.slice(1);
+            (game as any).tooltip.activate(el, {
+                html: `<div><strong>${itemName}</strong><br/><em>${typeLabel}</em></div>`,
+                direction: "UP",
+            });
+        }
+    }
 </script>
 
 <div class="item-sheet">
@@ -203,19 +243,61 @@
                 {#if sys.skills?.length}
                     <div class="meta-item" style="flex-basis: 100%">
                         <span class="meta-label">Skills</span>
-                        <span class="meta-value">{sys.skills.join(", ")}</span>
+                        <div class="grant-list">
+                            {#each sys.skills as entry, i}
+                                {#if i > 0}<span class="grant-sep">,</span>{/if}
+                                {#if entry.isChoice}
+                                    <span class="grant-choice">
+                                        {#each entry.names as name, j}
+                                            {#if j > 0}<span class="grant-or">or</span>{/if}
+                                            <button class="grant-link" type="button" onmouseenter={(e) => showItemTooltip(e, entry.type, name)} onclick={(e) => openCompendiumItem(e, entry.type, name)}>{name}</button>
+                                        {/each}
+                                    </span>
+                                {:else}
+                                    <button class="grant-link" type="button" onmouseenter={(e) => showItemTooltip(e, entry.type, entry.names[0])} onclick={(e) => openCompendiumItem(e, entry.type, entry.names[0])}>{entry.label}</button>
+                                {/if}
+                            {/each}
+                        </div>
                     </div>
                 {/if}
                 {#if sys.talents?.length}
                     <div class="meta-item" style="flex-basis: 100%">
                         <span class="meta-label">Talents</span>
-                        <span class="meta-value">{sys.talents.join(", ")}</span>
+                        <div class="grant-list">
+                            {#each sys.talents as entry, i}
+                                {#if i > 0}<span class="grant-sep">,</span>{/if}
+                                {#if entry.isChoice}
+                                    <span class="grant-choice">
+                                        {#each entry.names as name, j}
+                                            {#if j > 0}<span class="grant-or">or</span>{/if}
+                                            <button class="grant-link" type="button" onmouseenter={(e) => showItemTooltip(e, entry.type, name)} onclick={(e) => openCompendiumItem(e, entry.type, name)}>{name}</button>
+                                        {/each}
+                                    </span>
+                                {:else}
+                                    <button class="grant-link" type="button" onmouseenter={(e) => showItemTooltip(e, entry.type, entry.names[0])} onclick={(e) => openCompendiumItem(e, entry.type, entry.names[0])}>{entry.label}</button>
+                                {/if}
+                            {/each}
+                        </div>
                     </div>
                 {/if}
                 {#if sys.equipment?.length}
                     <div class="meta-item" style="flex-basis: 100%">
-                        <span class="meta-label">Equipment</span>
-                        <span class="meta-value">{sys.equipment.join(", ")}</span>
+                        <span class="meta-label">Starting Equipment</span>
+                        <div class="grant-list">
+                            {#each sys.equipment as entry, i}
+                                {#if i > 0}<span class="grant-sep">,</span>{/if}
+                                {#if entry.isChoice}
+                                    <span class="grant-choice">
+                                        {#each entry.names as name, j}
+                                            {#if j > 0}<span class="grant-or">or</span>{/if}
+                                            <button class="grant-link" type="button" onmouseenter={(e) => showItemTooltip(e, entry.type, name)} onclick={(e) => openCompendiumItem(e, entry.type, name)}>{name}</button>
+                                        {/each}
+                                    </span>
+                                {:else}
+                                    <button class="grant-link" type="button" onmouseenter={(e) => showItemTooltip(e, entry.type, entry.names[0])} onclick={(e) => openCompendiumItem(e, entry.type, entry.names[0])}>{entry.label}</button>
+                                {/if}
+                            {/each}
+                        </div>
                     </div>
                 {/if}
                 <div class="meta-item">
@@ -250,6 +332,26 @@
                         <span class="meta-value">{sys.bonus}</span>
                     </div>
                 {/if}
+            </div>
+
+        {:else if type === "modification"}
+            <div class="gear-meta">
+                <div class="meta-item">
+                    <span class="meta-label">{game.i18n?.localize("DH2E.Modification.Slot") ?? "Slot"}</span>
+                    <span class="meta-value">{game.i18n?.localize(`DH2E.ModSlot.${sys.slot ?? "general"}`) ?? sys.slot ?? "General"}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Type</span>
+                    <span class="meta-value" style="text-transform: capitalize">{sys.modType ?? "weapon"}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Weight</span>
+                    <span class="meta-value">{sys.weight ?? 0} kg</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">{game.i18n?.localize("DH2E.Modification.Install") ?? "Installation"}</span>
+                    <span class="meta-value">{sys.installTest ?? "Tech-Use"} ({sys.installDifficulty > 0 ? "+" : ""}{sys.installDifficulty ?? 0}), {sys.installTime ?? "1d5 hours"}</span>
+                </div>
             </div>
         {/if}
 
@@ -403,5 +505,55 @@
         color: var(--dh2e-text-primary, #d0cfc8);
         line-height: 1.5;
         white-space: pre-wrap;
+    }
+
+    .grant-list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.15em;
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        line-height: 1.6;
+    }
+
+    .grant-link {
+        /* Button reset */
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        font: inherit;
+        /* Link styling */
+        color: var(--dh2e-gold, #c8a84e);
+        cursor: pointer;
+        text-decoration: none;
+        border-bottom: 1px dotted var(--dh2e-gold-muted, #8a7a3e);
+        transition: color 0.15s, border-color 0.15s;
+
+        &:hover {
+            color: var(--dh2e-gold-light, #e8d07e);
+            border-bottom-style: solid;
+        }
+    }
+
+    .grant-sep {
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        margin-right: 0.15em;
+    }
+
+    .grant-or {
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-style: italic;
+        font-size: 0.85em;
+        margin: 0 0.2em;
+    }
+
+    .grant-choice {
+        display: inline-flex;
+        align-items: baseline;
+        background: rgba(200, 168, 78, 0.06);
+        border: 1px solid rgba(200, 168, 78, 0.15);
+        border-radius: 3px;
+        padding: 0 0.3em;
     }
 </style>

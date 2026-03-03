@@ -57,6 +57,7 @@
                 { "key": "Grant", "type": "armour", "name": "Heavy Leathers", "equipped": true },
                 { "key": "Grant", "type": "armour", "name": "Combat Vest", "equipped": true },
                 { "key": "Grant", "type": "gear", "name": "Stimm", "quantity": 2 },
+                { "key": "CreationBonus", "characteristic": "corruption", "value": 10 },
                 { "key": "RollOption", "option": "self:background:twisted-flesh" }
             ]
         }

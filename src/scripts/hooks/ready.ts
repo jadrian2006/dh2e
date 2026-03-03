@@ -117,6 +117,28 @@ export class Ready {
             // Periodically check for ready requisitions during play
             Hooks.on("updateWorldTime", () => Ready.#checkReadyRequisitions());
 
+            // Fanatic: Hatred insanity penalty — when combat ends, check for hatredActive flags
+            Hooks.on("deleteCombat", (combat: any) => {
+                if (!(game as any).user?.isGM) return;
+                const combatId = combat.id;
+                const g = game as any;
+                for (const actor of g.actors ?? []) {
+                    const hatredId = actor.getFlag?.(SYSTEM_ID, "hatredActive");
+                    if (hatredId === combatId) {
+                        // Clear the flag
+                        actor.unsetFlag(SYSTEM_ID, "hatredActive");
+                        // Apply 1 insanity
+                        const insanity = (actor.system?.insanity ?? 0) + 1;
+                        actor.update({ "system.insanity": insanity });
+                        ui.notifications.info(
+                            g.i18n?.format("DH2E.Hatred.InsanityPenalty", {
+                                actor: actor.name ?? "",
+                            }) ?? `${actor.name} gains 1 Insanity for using Hatred in combat.`,
+                        );
+                    }
+                }
+            });
+
             // Block deletion of the active warband
             Hooks.on("preDeleteActor", (actor: any) => {
                 const g = game as any;
@@ -562,7 +584,7 @@ export class Ready {
         userId: string;
         items: { itemData: object; itemName: string }[];
         actorUuid: string;
-        modifications: string;
+        notes: string;
     }): Promise<void> {
         const g = game as any;
         if (g.user?.id !== payload.userId) return;

@@ -11,17 +11,17 @@
     let sortCol: SortColumn | null = $state(null);
     let sortDir: "asc" | "desc" = $state("desc");
 
-    const hasEliteOptions = $derived(() => {
+    const hasEliteOptions = $derived.by(() => {
         const opts: AdvanceOption[] = ctx.options ?? [];
         return opts.some((o) => o.category === "elite");
     });
 
-    const hasPowerOptions = $derived(() => {
+    const hasPowerOptions = $derived.by(() => {
         const opts: AdvanceOption[] = ctx.options ?? [];
         return opts.some((o) => o.category === "power");
     });
 
-    const filtered = $derived(() => {
+    const filtered = $derived.by(() => {
         const opts: AdvanceOption[] = ctx.options ?? [];
         const term = searchText.toLowerCase().trim();
         const result = opts.filter((opt) => {
@@ -109,10 +109,10 @@
             <button class="tab" class:active={filterCategory === "characteristic"} onclick={() => filterCategory = "characteristic"}>Characteristics</button>
             <button class="tab" class:active={filterCategory === "skill"} onclick={() => filterCategory = "skill"}>Skills</button>
             <button class="tab" class:active={filterCategory === "talent"} onclick={() => filterCategory = "talent"}>Talents</button>
-            {#if hasPowerOptions()}
+            {#if hasPowerOptions}
                 <button class="tab power-tab" class:active={filterCategory === "power"} onclick={() => filterCategory = "power"}>Powers</button>
             {/if}
-            {#if hasEliteOptions()}
+            {#if hasEliteOptions}
                 <button class="tab elite-tab" class:active={filterCategory === "elite"} onclick={() => filterCategory = "elite"}>Elite</button>
             {/if}
         </div>
@@ -150,7 +150,7 @@
             <span class="hdr-cost">Cost</span>
             <span class="hdr-action"></span>
         </div>
-        {#each filtered() as opt (opt.key + opt.category + opt.sublabel)}
+        {#each filtered as opt (opt.key + opt.category + opt.sublabel)}
             <div class="advance-row" class:maxed={opt.alreadyMaxed} class:unaffordable={!opt.affordable && !opt.alreadyMaxed}>
                 <span class="row-icon"><i class={categoryIcon(opt.category)}></i></span>
                 <div class="row-info">
@@ -162,7 +162,12 @@
                     </span>
                     <span class="row-sublabel">{opt.sublabel}</span>
                     {#if opt.aptitudes?.length}
-                        <span class="row-apts">{opt.aptitudes.join(", ")}</span>
+                        <span class="row-apts">
+                            {#each opt.aptitudes as apt, idx}
+                                {#if idx > 0}<span class="apt-sep">, </span>{/if}
+                                <span class="apt-name" class:apt-match={(ctx.aptitudes ?? []).includes(apt)} class:apt-miss={!(ctx.aptitudes ?? []).includes(apt)}>{apt}</span>
+                            {/each}
+                        </span>
                     {/if}
                     {#if opt.prerequisites}
                         <span class="row-prereqs" class:prereqs-unmet={!opt.prereqsMet}>
@@ -209,7 +214,7 @@
                 </div>
             </div>
         {/each}
-        {#if filtered().length === 0}
+        {#if filtered.length === 0}
             <div class="empty-state">No advances match your filters.</div>
         {/if}
     </div>
@@ -447,7 +452,14 @@
     }
     .row-apts {
         font-size: 0.6rem;
-        color: var(--dh2e-gold-muted);
+    }
+    .apt-name {
+        &.apt-match { color: var(--dh2e-success, #6c6); font-weight: 600; }
+        &.apt-miss { color: var(--dh2e-text-secondary, #a0a0a8); opacity: 0.7; }
+    }
+    .apt-sep {
+        color: var(--dh2e-text-secondary);
+        opacity: 0.4;
     }
     .row-prereqs {
         font-size: 0.6rem;

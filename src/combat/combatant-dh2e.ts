@@ -35,7 +35,26 @@ class CombatantDH2e extends Combatant {
         await (this as any).setFlag(SYSTEM_ID, "actionsUsed", used);
     }
 
-    /** Reset all actions for a new turn */
+    /** Get turn effects (e.g. "running") — cleared each turn */
+    get turnEffects(): string[] {
+        return (this as any).getFlag(SYSTEM_ID, "turnEffects") ?? [];
+    }
+
+    /** Check if a turn effect is active */
+    hasTurnEffect(effect: string): boolean {
+        return this.turnEffects.includes(effect);
+    }
+
+    /** Add a turn effect (persists until next turn reset) */
+    async addTurnEffect(effect: string): Promise<void> {
+        const current = [...this.turnEffects];
+        if (!current.includes(effect)) {
+            current.push(effect);
+            await (this as any).setFlag(SYSTEM_ID, "turnEffects", current);
+        }
+    }
+
+    /** Reset all actions and turn effects for a new turn */
     async resetActions(): Promise<void> {
         await (this as any).setFlag(SYSTEM_ID, "actionsUsed", {
             half: false,
@@ -43,6 +62,7 @@ class CombatantDH2e extends Combatant {
             free: false,
             reaction: false,
         });
+        await (this as any).setFlag(SYSTEM_ID, "turnEffects", []);
     }
 }
 

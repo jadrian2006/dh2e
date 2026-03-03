@@ -375,6 +375,54 @@ class WarbandDH2e extends ActorDH2e {
         if ("folder" in changed) {
             (changed as any).folder = null;
         }
+
+        // Secretive by Nature: reduce subtlety loss by 2 if any member has the roll option
+        const sys = changed.system as Record<string, unknown> | undefined;
+        if (sys && "subtlety" in sys) {
+            const newVal = sys.subtlety as number;
+            const oldVal = this.system.subtlety ?? 50;
+            const loss = oldVal - newVal;
+
+            if (loss > 0) {
+                const hasSecretive = this.members.some(
+                    m => m.synthetics?.rollOptions?.has("self:homeworld:secretive-by-nature"),
+                );
+                if (hasSecretive) {
+                    const reducedLoss = Math.max(1, loss - 2);
+                    if (reducedLoss !== loss) {
+                        sys.subtlety = oldVal - reducedLoss;
+                        ui.notifications?.info(
+                            game.i18n?.localize("DH2E.Warband.SecretiveByNature")
+                                ?? "Secretive by Nature: Subtlety loss reduced by 2.",
+                        );
+                    }
+                }
+            }
+
+            // Clamp 0–100
+            sys.subtlety = Math.max(0, Math.min(100, sys.subtlety as number));
+        }
+    }
+
+    /** Adjust warband Subtlety by a delta and post a chat message with reason */
+    async adjustSubtlety(delta: number, reason?: string): Promise<void> {
+        const current = this.system.subtlety ?? 50;
+        const newVal = Math.max(0, Math.min(100, current + delta));
+        if (newVal === current) return;
+
+        await this.update({ "system.subtlety": newVal });
+
+        // Post chat message
+        const direction = delta > 0 ? "increased" : "decreased";
+        const msg = game.i18n?.format("DH2E.Warband.SubtletyAdjust", {
+            name: this.name ?? "Warband",
+            direction,
+            amount: Math.abs(newVal - current).toString(),
+            reason: reason ?? "",
+            value: newVal.toString(),
+        }) ?? `${this.name} Subtlety ${direction} by ${Math.abs(newVal - current)}. Now: ${newVal}.`;
+
+        ChatMessage.create({ content: msg, speaker: { alias: this.name ?? "Warband" } });
     }
 }
 

@@ -1,4 +1,5 @@
 import type { RuleElementSource } from "@rules/rule-element/base.ts";
+import { getCombatantForActor } from "./combat-state.ts";
 
 /**
  * Attacker bonuses derived from target conditions.
@@ -72,11 +73,15 @@ function getTargetConditionBonuses(targetActor: Actor, isMelee: boolean): Target
     }
 
     // Surprised: +30 WS, +30 BS (+3 DoS equivalent)
+    // Negated by Death World "Survivor's Paranoia" (self:homeworld:survivors-paranoia)
     if (conditions.has("surprised")) {
-        modifiers.push(
-            { key: "FlatModifier", domain: "attack:melee", value: 30, label: "Target Surprised (+3 DoS)", source: "situational" },
-            { key: "FlatModifier", domain: "attack:ranged", value: 30, label: "Target Surprised (+3 DoS)", source: "situational" },
-        );
+        const immuneSurprise = targetSynthetics?.rollOptions?.has("self:homeworld:survivors-paranoia");
+        if (!immuneSurprise) {
+            modifiers.push(
+                { key: "FlatModifier", domain: "attack:melee", value: 30, label: "Target Surprised (+3 DoS)", source: "situational" },
+                { key: "FlatModifier", domain: "attack:ranged", value: 30, label: "Target Surprised (+3 DoS)", source: "situational" },
+            );
+        }
     }
 
     // Grappled: +20 WS, +20 BS (from third parties attacking into grapple)
@@ -85,6 +90,17 @@ function getTargetConditionBonuses(targetActor: Actor, isMelee: boolean): Target
             { key: "FlatModifier", domain: "attack:melee", value: 20, label: "Target Grappled", source: "situational" },
             { key: "FlatModifier", domain: "attack:ranged", value: 20, label: "Target Grappled", source: "situational" },
         );
+    }
+
+    // Running: -20 BS to ranged attacks against runner (persists until their next turn)
+    const targetCombatant = getCombatantForActor(targetActor.id!);
+    if (targetCombatant?.hasTurnEffect?.("running")) {
+        if (!isMelee) {
+            modifiers.push(
+                { key: "FlatModifier", domain: "attack:ranged", value: -20, label: "Target Running", source: "situational" },
+            );
+        }
+        rollOptions.push("target:running");
     }
 
     return { modifiers, rollOptions };

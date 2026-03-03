@@ -2,7 +2,7 @@ import type { FocusPowerContext, FocusPowerResult, PsykerMode } from "./types.ts
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 import { CheckDH2e } from "@check/check.ts";
 import { ModifierDH2e } from "@rules/modifier.ts";
-import { rollPhenomena, rollPerils } from "./tables.ts";
+import { rollPhenomena, rollPerils, lookupPhenomenaByRoll } from "./tables.ts";
 import { ChatCardDH2e } from "@chat/cards.ts";
 import { VFXResolver } from "../vfx/resolver.ts";
 
@@ -118,6 +118,39 @@ class FocusPowerResolver {
             const automate = (game as any).settings?.get?.(SYSTEM_ID, "automatePhenomena") ?? true;
             if (automate) {
                 const phResult = await rollPhenomena(mode === "pushed");
+                let phenomenaRoll = phResult.roll;
+
+                // The Constant Threat: Telepathica character can adjust the roll by ±WP bonus
+                const ctChar = FocusPowerResolver.#findConstantThreatAlly(actor);
+                if (ctChar) {
+                    const wpBonus = ctChar.system?.characteristics?.wp?.bonus ?? 0;
+                    if (wpBonus > 0) {
+                        const adjustment = await FocusPowerResolver.#promptConstantThreatAdjustment(
+                            ctChar.name ?? "Unknown",
+                            wpBonus,
+                            phenomenaRoll,
+                        );
+                        if (adjustment !== 0) {
+                            const oldRoll = phenomenaRoll;
+                            phenomenaRoll = Math.max(1, Math.min(100, phenomenaRoll + adjustment));
+                            phResult.entry = await lookupPhenomenaByRoll(phenomenaRoll);
+                            phResult.roll = phenomenaRoll;
+
+                            // Post system note
+                            const speaker = fd.ChatMessage.getSpeaker?.({ actor: ctChar }) ?? { alias: ctChar.name };
+                            await fd.ChatMessage.create({
+                                content: `<div class="dh2e chat-card system-note"><em>${game.i18n?.format("DH2E.ConstantThreat.Adjusted", {
+                                    character: ctChar.name!,
+                                    oldRoll: String(oldRoll),
+                                    adjustment: (adjustment > 0 ? "+" : "") + String(adjustment),
+                                    newRoll: String(phenomenaRoll),
+                                }) ?? `The Constant Threat: ${ctChar.name} adjusted phenomena roll from ${oldRoll} to ${phenomenaRoll} (${adjustment > 0 ? "+" : ""}${adjustment}).`}</em></div>`,
+                                speaker,
+                            });
+                        }
+                    }
+                }
+
                 result.phenomenaEntry = phResult.entry;
 
                 // Check if it escalates to Perils
@@ -126,7 +159,7 @@ class FocusPowerResolver {
                     result.perilsEntry = perilResult.entry;
                 }
 
-                await FocusPowerResolver.#postPhenomenaCard(result, actor);
+                await FocusPowerResolver.#postPhenomenaCard(result, actor, phenomenaRoll);
             }
         }
 
@@ -135,10 +168,26 @@ class FocusPowerResolver {
 
     static async #postFocusPowerCard(result: FocusPowerResult, power: any): Promise<void> {
         const templatePath = `systems/${SYSTEM_ID}/templates/chat/focus-power-card.hbs`;
+        const sys = power.system ?? {};
+        const isSuccess = result.checkResult.dos.success;
+
+        // Combat integration: determine if attack/healing buttons should appear
+        const hasAttack = !!sys.attack?.formula && isSuccess;
+        const hasHealing = !!sys.healing && isSuccess;
+        const opposedCharacteristic = sys.opposedCharacteristic ?? "";
+
+        // Characteristic label map for opposed display
+        const opposedLabels: Record<string, string> = {
+            t: game.i18n?.localize("DH2E.Characteristic.Toughness") ?? "Toughness",
+            wp: game.i18n?.localize("DH2E.Characteristic.Willpower") ?? "Willpower",
+            s: game.i18n?.localize("DH2E.Characteristic.Strength") ?? "Strength",
+            ag: game.i18n?.localize("DH2E.Characteristic.Agility") ?? "Agility",
+        };
+
         const templateData = {
             powerName: power.name,
-            discipline: power.system?.discipline ?? "",
-            success: result.checkResult.dos.success,
+            discipline: sys.discipline ?? "",
+            success: isSuccess,
             degrees: result.checkResult.dos.degrees,
             roll: result.checkResult.roll,
             target: result.checkResult.target,
@@ -149,7 +198,14 @@ class FocusPowerResolver {
             psyRating: result.psyRating,
             effectivePR: result.effectivePR,
             phenomenaTriggered: result.phenomenaTriggered,
-            description: power.system?.description ?? "",
+            description: sys.description ?? "",
+            hasAttack,
+            hasHealing,
+            opposedCharacteristic,
+            opposedLabel: opposedLabels[opposedCharacteristic] ?? opposedCharacteristic.toUpperCase(),
+            damageType: sys.attack?.damageType ?? "",
+            ignoreTB: sys.attack?.ignoreTB ?? false,
+            ignoreAP: sys.attack?.ignoreAP ?? false,
         };
 
         const content = await fa.handlebars.renderTemplate(templatePath, templateData);
@@ -165,17 +221,22 @@ class FocusPowerResolver {
                     type: "focus-power",
                     result: {
                         powerName: power.name,
-                        success: result.checkResult.dos.success,
+                        success: isSuccess,
                         degrees: result.checkResult.dos.degrees,
                         mode: result.mode,
                         phenomenaTriggered: result.phenomenaTriggered,
                     },
+                    actorId: result.checkResult.context.actor.id,
+                    powerId: power.id,
+                    psyRating: result.psyRating,
+                    focusRoll: result.checkResult.roll,
+                    psykerMode: result.mode,
                 },
             },
         });
     }
 
-    static async #postPhenomenaCard(result: FocusPowerResult, actor: any): Promise<void> {
+    static async #postPhenomenaCard(result: FocusPowerResult, actor: any, phenomenaRoll?: number): Promise<void> {
         const templatePath = `systems/${SYSTEM_ID}/templates/chat/phenomena-card.hbs`;
 
         const isPerils = !!result.perilsEntry;
@@ -187,6 +248,7 @@ class FocusPowerResolver {
             description: entry?.description ?? "",
             effect: entry?.effect ?? "",
             damage: isPerils ? result.perilsEntry?.damage ?? "" : "",
+            phenomenaRoll: phenomenaRoll ?? 0,
             isGM: (game as any).user?.isGM ?? false,
         };
 
@@ -203,9 +265,114 @@ class FocusPowerResolver {
                         isPerils,
                         title: entry?.title,
                         effect: entry?.effect,
+                        roll: phenomenaRoll,
                     },
                 },
             },
+        });
+    }
+    /**
+     * Find a character with The Constant Threat ability within 10m of the psyker.
+     * Returns the psyker themselves if they have it, or the nearest ally with highest WP bonus.
+     */
+    static #findConstantThreatAlly(psykerActor: any): any | null {
+        // Check if the psyker themselves has the ability
+        if (psykerActor.synthetics?.rollOptions?.has("self:background:constant-threat")) {
+            return psykerActor;
+        }
+
+        const scene = (game as any).scenes?.active;
+        if (!scene) return null;
+
+        // Find psyker's token on the scene
+        const psykerTokenDoc = scene.tokens?.find((t: any) => t.actorId === psykerActor.id);
+        if (!psykerTokenDoc) return null;
+
+        const gridSize = scene.grid?.size ?? 1;
+        const gridDistance = scene.grid?.distance ?? 1;
+        const radiusPixels = (10 / gridDistance) * gridSize;
+
+        const px = psykerTokenDoc.x + (psykerTokenDoc.width * gridSize) / 2;
+        const py = psykerTokenDoc.y + (psykerTokenDoc.height * gridSize) / 2;
+
+        let bestCandidate: any = null;
+        let bestWpBonus = 0;
+
+        for (const token of scene.tokens ?? []) {
+            if (token.id === psykerTokenDoc.id) continue;
+            const tokenActor = token.actor;
+            if (!tokenActor?.synthetics?.rollOptions?.has("self:background:constant-threat")) continue;
+
+            const ox = token.x + (token.width * gridSize) / 2;
+            const oy = token.y + (token.height * gridSize) / 2;
+            const dist = Math.hypot(ox - px, oy - py);
+
+            if (dist <= radiusPixels) {
+                const wpBonus = tokenActor.system?.characteristics?.wp?.bonus ?? 0;
+                if (wpBonus > bestWpBonus) {
+                    bestCandidate = tokenActor;
+                    bestWpBonus = wpBonus;
+                }
+            }
+        }
+
+        return bestCandidate;
+    }
+
+    /** Show a dialog for the Constant Threat adjustment. Returns the adjustment value (0 = no change). */
+    static async #promptConstantThreatAdjustment(
+        characterName: string,
+        wpBonus: number,
+        rawRoll: number,
+    ): Promise<number> {
+        const DialogClass = (globalThis as any).Dialog;
+        if (!DialogClass) return 0;
+
+        const promptText = game.i18n?.format("DH2E.ConstantThreat.Prompt", {
+            character: characterName,
+            roll: String(rawRoll),
+            wpBonus: String(wpBonus),
+        }) ?? `${characterName} can adjust the Phenomena roll (${rawRoll}) by up to ±${wpBonus} (WP Bonus).`;
+
+        return new Promise<number>((resolve) => {
+            new DialogClass({
+                title: game.i18n?.localize("DH2E.ConstantThreat.Title") ?? "The Constant Threat",
+                content: `
+                    <form class="dh2e constant-threat-form">
+                        <p>${promptText}</p>
+                        <div class="form-group">
+                            <label>${game.i18n?.localize("DH2E.ConstantThreat.Adjustment") ?? "Adjustment"}</label>
+                            <div style="display:flex;align-items:center;gap:8px">
+                                <input type="range" name="adjustment" value="0" min="${-wpBonus}" max="${wpBonus}" step="1"
+                                    style="flex:1" oninput="this.nextElementSibling.textContent=this.value>0?'+'+this.value:this.value" />
+                                <span style="min-width:32px;text-align:center;font-weight:bold">0</span>
+                            </div>
+                            <p class="notes" style="margin-top:4px">${game.i18n?.format("DH2E.ConstantThreat.Range", {
+                                min: String(Math.max(1, rawRoll - wpBonus)),
+                                max: String(Math.min(100, rawRoll + wpBonus)),
+                            }) ?? `Result range: ${Math.max(1, rawRoll - wpBonus)}–${Math.min(100, rawRoll + wpBonus)}`}</p>
+                        </div>
+                    </form>
+                `,
+                buttons: {
+                    adjust: {
+                        icon: '<i class="fas fa-sliders-h"></i>',
+                        label: game.i18n?.localize("DH2E.ConstantThreat.Apply") ?? "Adjust Roll",
+                        callback: (html: any) => {
+                            const input = html.find ? html.find("[name=adjustment]") : html.querySelector("[name=adjustment]");
+                            const val = parseInt(input?.val?.() ?? input?.value ?? "0", 10) || 0;
+                            resolve(Math.max(-wpBonus, Math.min(wpBonus, val)));
+                        },
+                    },
+                    skip: {
+                        icon: '<i class="fas fa-forward"></i>',
+                        label: game.i18n?.localize("DH2E.ConstantThreat.Skip") ?? "No Adjustment",
+                        callback: () => resolve(0),
+                    },
+                },
+                default: "skip",
+                close: () => resolve(0),
+            }).render(true);
         });
     }
 }

@@ -46,7 +46,9 @@ class SkillDH2e extends ItemDH2e {
     /** Display name including specialization if applicable */
     get displayName(): string {
         if (this.skillSystem.isSpecialist && this.skillSystem.specialization) {
-            return `${this.name} (${this.skillSystem.specialization})`;
+            if (!this.name.includes(`(${this.skillSystem.specialization})`)) {
+                return `${this.name} (${this.skillSystem.specialization})`;
+            }
         }
         return this.name;
     }
@@ -66,6 +68,45 @@ class SkillDH2e extends ItemDH2e {
     /** Get a specific use by slug */
     getUse(slug: string): SkillUse | undefined {
         return this.uses.find((u) => u.slug === slug);
+    }
+
+    /** Capture advancement before update so we can detect threshold crossings in _onUpdate */
+    override _preUpdate(
+        changed: Record<string, unknown>,
+        options: Record<string, unknown>,
+        userId: string,
+    ): void {
+        super._preUpdate(changed, options, userId);
+        const sys = changed.system as Record<string, unknown> | undefined;
+        if (sys && "advancement" in sys) {
+            options.dh2ePreviousAdvancement = this.skillSystem.advancement;
+        }
+    }
+
+    /** Detect Scholastic Lore reaching Rank 2 for Pursuit of Data (Research Station homeworld) */
+    override _onUpdate(
+        changed: Record<string, unknown>,
+        options: Record<string, unknown>,
+        userId: string,
+    ): void {
+        super._onUpdate(changed, options, userId);
+        if (!(game as any).user?.isGM) return;
+
+        const sys = changed.system as Record<string, unknown> | undefined;
+        if (!sys || !("advancement" in sys)) return;
+
+        const oldAdv = (options.dh2ePreviousAdvancement as number) ?? 0;
+        const newAdv = this.skillSystem.advancement;
+        if (oldAdv >= 2 || newAdv < 2) return;
+        if (!this.name.startsWith("Scholastic Lore")) return;
+
+        const actor = this.parent as any;
+        if (actor?.type !== "acolyte") return;
+        if (!actor.synthetics?.rollOptions?.has("self:homeworld:pursuit-of-data")) return;
+
+        void import("./pursuit-of-data.ts").then(({ PursuitOfDataHandler }) => {
+            PursuitOfDataHandler.onScholasticLoreTrained(actor, this.name);
+        });
     }
 }
 

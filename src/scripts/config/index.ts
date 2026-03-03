@@ -172,5 +172,18 @@ export const DH2ECONFIG: DH2EConfig = {
         best:   { label: "DH2E.Craftsmanship.Best",   modifier: -30 },
     },
 
+    modificationSlots: {
+        sight: "DH2E.ModSlot.sight",
+        grip: "DH2E.ModSlot.grip",
+        edge: "DH2E.ModSlot.edge",
+        barrel: "DH2E.ModSlot.barrel",
+        general: "DH2E.ModSlot.general",
+    },
+
+    modificationTypes: {
+        weapon: "DH2E.WeaponClass.Melee",
+        armour: "DH2E.Armour",
+    },
+
     modifierCap: 60,
 };

@@ -4,6 +4,7 @@
     import TraitPills from "./trait-pills.svelte";
     import { CheckDH2e } from "../../../check/check.ts";
     import { FateDialog } from "../../../ui/fate-dialog.ts";
+    import { MentalRecoveryDialog } from "../../../ui/mental-recovery-dialog.ts";
     import { executeSkillUseRoll } from "../../../item/skill/roll-skill-use.ts";
     import { CANONICAL_SKILL_USES, CANONICAL_SKILL_CHARS } from "../../../item/skill/uses.ts";
     import type { CharacteristicAbbrev } from "../../../actor/types.ts";
@@ -182,6 +183,10 @@
         if (ctx.actor) FateDialog.execute(ctx.actor);
     }
 
+    function openRecoveryDialog() {
+        if (ctx.actor) MentalRecoveryDialog.execute(ctx.actor);
+    }
+
     const woundPercent = $derived(() => {
         const max = ctx.system?.wounds?.max ?? 1;
         const val = ctx.system?.wounds?.value ?? 0;
@@ -284,6 +289,11 @@
                 <span class="triple-label">Influence</span>
                 <span class="triple-value">{ctx.system?.influence ?? 0}</span>
             </div>
+            {#if ctx.editable}
+                <button class="recovery-btn" onclick={openRecoveryDialog} title="Mental Recovery — spend XP to remove insanity/corruption">
+                    <i class="fa-solid fa-brain"></i>
+                </button>
+            {/if}
         </div>
 
         <!-- Movement -->
@@ -507,6 +517,30 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: var(--dh2e-space-sm);
+        position: relative;
+    }
+    .recovery-btn {
+        position: absolute;
+        top: -0.25rem;
+        right: -0.25rem;
+        width: 1.25rem;
+        height: 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.6rem;
+        background: var(--dh2e-bg-mid, #2e2e35);
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: 50%;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        transition: all var(--dh2e-transition-fast, 0.15s);
+        padding: 0;
+
+        &:hover {
+            border-color: var(--dh2e-gold, #c8a84e);
+            color: var(--dh2e-gold, #c8a84e);
+        }
     }
     .triple-item {
         display: flex;

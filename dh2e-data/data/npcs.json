@@ -2,7 +2,7 @@
     {
         "name": "Hive Ganger",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Hive Ganger.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -103,7 +103,8 @@
                     "qualities": [
                         "Reliable"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "sp"
                 }
             },
             {
@@ -132,7 +133,8 @@
                     "reload": "",
                     "weight": 0.5,
                     "qualities": [],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -279,12 +281,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Hive Ganger.webp"
+            }
+        }
     },
     {
         "name": "PDF Conscript",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/PDF Conscript.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -385,7 +391,8 @@
                     "qualities": [
                         "Reliable"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "las"
                 }
             },
             {
@@ -414,7 +421,8 @@
                     "reload": "",
                     "weight": 1,
                     "qualities": [],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -533,7 +541,11 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/PDF Conscript.webp"
+            }
+        }
     },
     {
         "name": "Underhive Scum",
@@ -637,7 +649,8 @@
                     "reload": "Full",
                     "weight": 1.5,
                     "qualities": [],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "sp"
                 }
             },
             {
@@ -668,7 +681,8 @@
                     "qualities": [
                         "Primitive (7)"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -800,7 +814,7 @@
     {
         "name": "Cultist",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Cultist.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -899,7 +913,8 @@
                     "reload": "Full",
                     "weight": 5,
                     "qualities": [],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "sp"
                 }
             },
             {
@@ -928,7 +943,8 @@
                     "reload": "",
                     "weight": 0.5,
                     "qualities": [],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -1034,12 +1050,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Cultist.webp"
+            }
+        }
     },
     {
         "name": "Imperial Guardsman",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Imperial Guardsman.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -1140,7 +1160,8 @@
                     "qualities": [
                         "Reliable"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "las"
                 }
             },
             {
@@ -1169,7 +1190,8 @@
                     "reload": "",
                     "weight": 0.5,
                     "qualities": [],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -1329,12 +1351,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Imperial Guardsman.webp"
+            }
+        }
     },
     {
         "name": "Pilgrim Fanatic",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Pilgrim Fanatic.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -1436,7 +1462,8 @@
                         "Flexible",
                         "Primitive (7)"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -1542,12 +1569,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Pilgrim Fanatic.webp"
+            }
+        }
     },
     {
         "name": "Hive Gang Leader",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Hive Gang Leader.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -1648,7 +1679,8 @@
                     "qualities": [
                         "Tearing"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "bolt"
                 }
             },
             {
@@ -1680,7 +1712,8 @@
                         "Tearing",
                         "Balanced"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "chain"
                 }
             },
             {
@@ -1870,12 +1903,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Hive Gang Leader.webp"
+            }
+        }
     },
     {
         "name": "Enforcer",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Enforcer.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -1976,7 +2013,8 @@
                     "qualities": [
                         "Scatter"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "shotgun"
                 }
             },
             {
@@ -2007,7 +2045,8 @@
                     "qualities": [
                         "Shocking"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "shock"
                 }
             },
             {
@@ -2156,7 +2195,11 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Enforcer.webp"
+            }
+        }
     },
     {
         "name": "Rogue Psyker",
@@ -2263,7 +2306,8 @@
                         "Force",
                         "Two-Handed"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "force"
                 }
             },
             {
@@ -2416,7 +2460,7 @@
     {
         "name": "Chaos Cult Magus",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Chaos Cult Magus.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -2517,7 +2561,8 @@
                     "qualities": [
                         "Reliable"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "las"
                 }
             },
             {
@@ -2548,7 +2593,8 @@
                     "qualities": [
                         "Warp Weapon"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -2721,12 +2767,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Chaos Cult Magus.webp"
+            }
+        }
     },
     {
         "name": "Bounty Hunter",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Bounty Hunter.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -2827,7 +2877,8 @@
                     "qualities": [
                         "Accurate"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "sp"
                 }
             },
             {
@@ -2858,7 +2909,8 @@
                     "qualities": [
                         "Balanced"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -3050,7 +3102,11 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Bounty Hunter.webp"
+            }
+        }
     },
     {
         "name": "Tech-Heretek",
@@ -3156,7 +3212,8 @@
                     "qualities": [
                         "Flexible"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -3187,7 +3244,8 @@
                     "qualities": [
                         "Reliable"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "las"
                 }
             },
             {
@@ -3395,7 +3453,7 @@
     {
         "name": "Adepta Sororitas Battle Sister",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Adepta Sororitas Battle Sister.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -3496,7 +3554,8 @@
                     "qualities": [
                         "Tearing"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "bolt"
                 }
             },
             {
@@ -3528,7 +3587,8 @@
                         "Tearing",
                         "Balanced"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "chain"
                 }
             },
             {
@@ -3772,12 +3832,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Adepta Sororitas Battle Sister.webp"
+            }
+        }
     },
     {
         "name": "Commissar",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Commissar.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -3878,7 +3942,8 @@
                     "qualities": [
                         "Tearing"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "bolt"
                 }
             },
             {
@@ -3910,7 +3975,8 @@
                         "Power Field",
                         "Balanced"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "power"
                 }
             },
             {
@@ -4154,12 +4220,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Commissar.webp"
+            }
+        }
     },
     {
         "name": "Chaos Space Marine",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Chaos Space Marine.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -4260,7 +4330,8 @@
                     "qualities": [
                         "Tearing"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "bolt"
                 }
             },
             {
@@ -4292,7 +4363,8 @@
                         "Tearing",
                         "Balanced"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "chain"
                 }
             },
             {
@@ -4728,13 +4800,16 @@
         ],
         "prototypeToken": {
             "width": 2,
-            "height": 2
+            "height": 2,
+            "texture": {
+                "src": "systems/dh2e/tokens/Chaos Space Marine.webp"
+            }
         }
     },
     {
         "name": "Daemon Prince (Lesser)",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Daemon Prince (Lesser).webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -4836,7 +4911,8 @@
                         "Warp Weapon",
                         "Tearing"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -4867,7 +4943,8 @@
                     "qualities": [
                         "Warp Weapon"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -5269,13 +5346,16 @@
         ],
         "prototypeToken": {
             "width": 3,
-            "height": 3
+            "height": 3,
+            "texture": {
+                "src": "systems/dh2e/tokens/Daemon Prince (Lesser).webp"
+            }
         }
     },
     {
         "name": "Inquisitor",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Inquisitor.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -5377,7 +5457,8 @@
                         "Maximal",
                         "Overheats"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "plasma"
                 }
             },
             {
@@ -5409,7 +5490,8 @@
                         "Power Field",
                         "Balanced"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "power"
                 }
             },
             {
@@ -5791,12 +5873,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Inquisitor.webp"
+            }
+        }
     },
     {
         "name": "Ork Boy",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Ork Boy.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -5898,7 +5984,8 @@
                         "Inaccurate",
                         "Unreliable"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "sp"
                 }
             },
             {
@@ -5929,7 +6016,8 @@
                     "qualities": [
                         "Unbalanced"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -6179,13 +6267,16 @@
         ],
         "prototypeToken": {
             "width": 2,
-            "height": 2
+            "height": 2,
+            "texture": {
+                "src": "systems/dh2e/tokens/Ork Boy.webp"
+            }
         }
     },
     {
         "name": "Ork Nob",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Ork Nob.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -6287,7 +6378,8 @@
                         "Unbalanced",
                         "Two-Handed"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -6319,7 +6411,8 @@
                         "Inaccurate",
                         "Unreliable"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "sp"
                 }
             },
             {
@@ -6636,13 +6729,16 @@
         ],
         "prototypeToken": {
             "width": 2,
-            "height": 2
+            "height": 2,
+            "texture": {
+                "src": "systems/dh2e/tokens/Ork Nob.webp"
+            }
         }
     },
     {
         "name": "Ork Warboss",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Ork Warboss.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -6744,7 +6840,8 @@
                         "Power Field",
                         "Unwieldy"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "power"
                 }
             },
             {
@@ -6776,7 +6873,8 @@
                         "Inaccurate",
                         "Unreliable"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "sp"
                 }
             },
             {
@@ -7213,13 +7311,16 @@
         ],
         "prototypeToken": {
             "width": 3,
-            "height": 3
+            "height": 3,
+            "texture": {
+                "src": "systems/dh2e/tokens/Ork Warboss.webp"
+            }
         }
     },
     {
         "name": "Eldar Guardian",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Eldar Guardian.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -7320,7 +7421,8 @@
                     "qualities": [
                         "Reliable"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -7352,7 +7454,8 @@
                         "Power Field",
                         "Balanced"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "power"
                 }
             },
             {
@@ -7525,12 +7628,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Eldar Guardian.webp"
+            }
+        }
     },
     {
         "name": "Eldar Ranger",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Eldar Ranger.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -7633,7 +7740,8 @@
                         "Reliable",
                         "Felling (2)"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -7662,7 +7770,8 @@
                     "reload": "",
                     "weight": 0.5,
                     "qualities": [],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "low-tech"
                 }
             },
             {
@@ -7865,12 +7974,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Eldar Ranger.webp"
+            }
+        }
     },
     {
         "name": "Dark Eldar Kabalite Warrior",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Dark Eldar Kabalite Warrior.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -7971,7 +8084,8 @@
                     "qualities": [
                         "Toxic (3)"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -8002,7 +8116,8 @@
                     "qualities": [
                         "Power Field"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "power"
                 }
             },
             {
@@ -8203,12 +8318,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Dark Eldar Kabalite Warrior.webp"
+            }
+        }
     },
     {
         "name": "Hormagaunt",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Hormagaunt.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -8307,7 +8426,8 @@
                     "reload": "",
                     "weight": 0,
                     "qualities": [],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -8522,7 +8642,10 @@
         ],
         "prototypeToken": {
             "width": 0.5,
-            "height": 0.5
+            "height": 0.5,
+            "texture": {
+                "src": "systems/dh2e/tokens/Hormagaunt.webp"
+            }
         }
     },
     {
@@ -8629,7 +8752,8 @@
                     "qualities": [
                         "Living Ammunition"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -8857,7 +8981,8 @@
                     "qualities": [
                         "Tearing"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -8889,7 +9014,8 @@
                         "Living Ammunition",
                         "Storm"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -9159,7 +9285,7 @@
     {
         "name": "Genestealer",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Genestealer.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -9260,7 +9386,8 @@
                     "qualities": [
                         "Tearing"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -9510,13 +9637,16 @@
         ],
         "prototypeToken": {
             "width": 2,
-            "height": 2
+            "height": 2,
+            "texture": {
+                "src": "systems/dh2e/tokens/Genestealer.webp"
+            }
         }
     },
     {
         "name": "Carnifex",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Carnifex.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -9617,7 +9747,8 @@
                     "qualities": [
                         "Concussive (2)"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -9648,7 +9779,8 @@
                     "qualities": [
                         "Blast (3)"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -9922,13 +10054,16 @@
         ],
         "prototypeToken": {
             "width": 4,
-            "height": 4
+            "height": 4,
+            "texture": {
+                "src": "systems/dh2e/tokens/Carnifex.webp"
+            }
         }
     },
     {
         "name": "Kroot Carnivore",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Kroot Carnivore.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -10027,7 +10162,8 @@
                     "reload": "Full",
                     "weight": 4,
                     "qualities": [],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -10056,7 +10192,8 @@
                     "reload": "",
                     "weight": 0,
                     "qualities": [],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -10167,12 +10304,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Kroot Carnivore.webp"
+            }
+        }
     },
     {
         "name": "Bloodletter",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Bloodletter.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -10274,7 +10415,8 @@
                         "Tearing",
                         "Warp Weapon"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -10489,7 +10631,11 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Bloodletter.webp"
+            }
+        }
     },
     {
         "name": "Plaguebearer",
@@ -10596,7 +10742,8 @@
                         "Toxic (3)",
                         "Warp Weapon"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -10864,7 +11011,7 @@
     {
         "name": "Pink Horror",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Pink Horror.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -10965,7 +11112,8 @@
                     "qualities": [
                         "Warp Weapon"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -11146,12 +11294,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Pink Horror.webp"
+            }
+        }
     },
     {
         "name": "Daemonette",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Daemonette.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -11253,7 +11405,8 @@
                         "Tearing",
                         "Warp Weapon"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -11481,12 +11634,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Daemonette.webp"
+            }
+        }
     },
     {
         "name": "Nurgling Swarm",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Nurgling Swarm.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -11587,7 +11744,8 @@
                     "qualities": [
                         "Toxic (1)"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -11702,13 +11860,16 @@
         ],
         "prototypeToken": {
             "width": 0.5,
-            "height": 0.5
+            "height": 0.5,
+            "texture": {
+                "src": "systems/dh2e/tokens/Nurgling Swarm.webp"
+            }
         }
     },
     {
         "name": "Flesh Hound",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Flesh Hound.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -11809,7 +11970,8 @@
                     "qualities": [
                         "Tearing"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -12051,12 +12213,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Flesh Hound.webp"
+            }
+        }
     },
     {
         "name": "Plague Zombie",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Plague Zombie.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -12157,7 +12323,8 @@
                     "qualities": [
                         "Toxic (2)"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -12252,7 +12419,11 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Plague Zombie.webp"
+            }
+        }
     },
     {
         "name": "Warp Ghost",
@@ -12358,7 +12529,8 @@
                     "qualities": [
                         "Warp Weapon"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -12527,7 +12699,7 @@
     {
         "name": "Cyber-Mastiff",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Cyber-Mastiff.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -12626,7 +12798,8 @@
                     "reload": "",
                     "weight": 0,
                     "qualities": [],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -12793,13 +12966,16 @@
         ],
         "prototypeToken": {
             "width": 0.5,
-            "height": 0.5
+            "height": 0.5,
+            "texture": {
+                "src": "systems/dh2e/tokens/Cyber-Mastiff.webp"
+            }
         }
     },
     {
         "name": "Ambull",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Ambull.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -12900,7 +13076,8 @@
                     "qualities": [
                         "Concussive (1)"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -13166,7 +13343,10 @@
         ],
         "prototypeToken": {
             "width": 3,
-            "height": 3
+            "height": 3,
+            "texture": {
+                "src": "systems/dh2e/tokens/Ambull.webp"
+            }
         }
     },
     {
@@ -13273,7 +13453,8 @@
                     "qualities": [
                         "Toxic (2)"
                     ],
-                    "equipped": true
+                    "equipped": true,
+                    "weaponGroup": "exotic"
                 }
             },
             {
@@ -13439,7 +13620,7 @@
     {
         "name": "Combat Servitor",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Combat Servitor.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -13626,12 +13807,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Combat Servitor.webp"
+            }
+        }
     },
     {
         "name": "Gun Servitor",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Gun Servitor.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -13776,12 +13961,16 @@
                 }
             }
         ],
-        "prototypeToken": {}
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Gun Servitor.webp"
+            }
+        }
     },
     {
         "name": "Monotask Servo-skull (Utility)",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Monotask Servo-skull (Utility).webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -13905,13 +14094,16 @@
         ],
         "prototypeToken": {
             "width": 0.5,
-            "height": 0.5
+            "height": 0.5,
+            "texture": {
+                "src": "systems/dh2e/tokens/Monotask Servo-skull (Utility).webp"
+            }
         }
     },
     {
         "name": "Monotask Servo-skull (Laud Hailer)",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Monotask Servo-skull (Laud Hailer).webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -14035,7 +14227,10 @@
         ],
         "prototypeToken": {
             "width": 0.5,
-            "height": 0.5
+            "height": 0.5,
+            "texture": {
+                "src": "systems/dh2e/tokens/Monotask Servo-skull (Laud Hailer).webp"
+            }
         }
     }
 ]

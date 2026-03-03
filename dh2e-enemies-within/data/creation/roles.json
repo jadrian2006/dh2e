@@ -27,7 +27,8 @@
             { "key": "GrantAptitude", "aptitude": "Intelligence" },
             { "key": "GrantAptitude", "aptitude": "Offence" },
             { "key": "GrantAptitude", "aptitude": "Toughness" },
-            { "key": "Grant", "type": "talent", "options": ["Die Hard", "Flagellant"] }
+            { "key": "Grant", "type": "talent", "options": ["Die Hard", "Flagellant"] },
+            { "key": "RollOption", "option": "self:role:cleansing-pain" }
         ]
     }
 ]

@@ -40,6 +40,27 @@ function d100Lookup<T extends { min: number; max: number }>(table: T[], roll: nu
     return table.find((e) => roll >= e.min && roll <= e.max);
 }
 
+/** Look up a phenomena entry by roll value (compendium → JSON fallback) */
+async function lookupPhenomenaByRoll(roll: number): Promise<PhenomenaEntry | undefined> {
+    if (!phenomenaRT) phenomenaRT = await getCompendiumTable("psychic-phenomena");
+    if (phenomenaRT) {
+        const result = lookupTableResult(phenomenaRT, roll);
+        if (result) {
+            const flags = result.flags?.dh2e ?? {};
+            return {
+                min: result.range[0],
+                max: result.range[1],
+                title: result.text,
+                description: flags.description ?? "",
+                effect: flags.effect ?? result.text,
+                escalate: flags.escalate ?? false,
+            };
+        }
+    }
+    const table = await loadPhenomenaTable();
+    return d100Lookup(table, roll);
+}
+
 /** Roll on the Psychic Phenomena table. If pushed, add +25 to the roll. */
 async function rollPhenomena(pushed: boolean): Promise<{ roll: number; entry: PhenomenaEntry | undefined }> {
     const baseRoll = new foundry.dice.Roll("1d100");
@@ -47,29 +68,8 @@ async function rollPhenomena(pushed: boolean): Promise<{ roll: number; entry: Ph
     let roll = baseRoll.total ?? 1;
     if (pushed) roll = Math.min(100, roll + 25);
 
-    // Try compendium RollTable first
-    if (!phenomenaRT) phenomenaRT = await getCompendiumTable("psychic-phenomena");
-    if (phenomenaRT) {
-        const result = lookupTableResult(phenomenaRT, roll);
-        if (result) {
-            const flags = result.flags?.dh2e ?? {};
-            return {
-                roll,
-                entry: {
-                    min: result.range[0],
-                    max: result.range[1],
-                    title: result.text,
-                    description: flags.description ?? "",
-                    effect: flags.effect ?? result.text,
-                    escalate: flags.escalate ?? false,
-                },
-            };
-        }
-    }
-
-    // Fallback to JSON
-    const table = await loadPhenomenaTable();
-    return { roll, entry: d100Lookup(table, roll) };
+    const entry = await lookupPhenomenaByRoll(roll);
+    return { roll, entry };
 }
 
 /** Roll on the Perils of the Warp table */
@@ -108,6 +108,7 @@ export {
     loadPhenomenaTable,
     loadPerilsTable,
     d100Lookup,
+    lookupPhenomenaByRoll,
     rollPhenomena,
     rollPerils,
 };

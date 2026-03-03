@@ -41,6 +41,16 @@ class ChatListenersDH2e {
             btn.addEventListener("click", () => ChatListenersDH2e.#onApplyPhenomena(message));
         });
 
+        // Psychic power: Roll Damage
+        html.querySelectorAll<HTMLButtonElement>("[data-action='roll-power-damage']").forEach((btn) => {
+            btn.addEventListener("click", () => ChatListenersDH2e.#onRollPowerDamage(message));
+        });
+
+        // Psychic power: Apply Healing
+        html.querySelectorAll<HTMLButtonElement>("[data-action='apply-power-healing']").forEach((btn) => {
+            btn.addEventListener("click", () => ChatListenersDH2e.#onApplyPowerHealing(message));
+        });
+
         // GM Override gear button
         html.querySelectorAll<HTMLButtonElement>("[data-action='gm-override']").forEach((btn) => {
             btn.addEventListener("click", () => GMOverrideHandler.showOverrideDialog(message));
@@ -74,6 +84,16 @@ class ChatListenersDH2e {
         // Revert damage button
         html.querySelectorAll<HTMLButtonElement>("[data-action='revert-damage']").forEach((btn) => {
             btn.addEventListener("click", () => ChatApplyHandler.revertDamage(message));
+        });
+
+        // Face of the Law: free reroll on failed Intimidate/Interrogation
+        html.querySelectorAll<HTMLButtonElement>("[data-action='face-of-law-reroll']").forEach((btn) => {
+            btn.addEventListener("click", () => ChatListenersDH2e.#onFaceOfLawReroll(message, btn));
+        });
+
+        // Face of the Law: substitute DoS with WP bonus
+        html.querySelectorAll<HTMLButtonElement>("[data-action='face-of-law-substitute']").forEach((btn) => {
+            btn.addEventListener("click", () => ChatListenersDH2e.#onFaceOfLawSubstitute(message, btn));
         });
 
         // Right-click reroll on check/attack cards
@@ -389,6 +409,12 @@ class ChatListenersDH2e {
 
             case "gainHatred": {
                 // Fanatic's Death to All Who Oppose Me!
+                // Set hatred flag on the actor, tied to current combat ID
+                const g2 = game as any;
+                const currentCombat = g2.combat;
+                if (currentCombat) {
+                    await (actor as any).setFlag(SYSTEM_ID, "hatredActive", currentCombat.id);
+                }
                 await fd.ChatMessage.create({
                     content: `<div class="dh2e chat-card system-note fate-role">
                         <em>${actor.name} spent a Fate Point — <strong>${entry.label}</strong>: gains Hatred against current foe for this encounter!</em>
@@ -729,6 +755,209 @@ class ChatListenersDH2e {
             console.error("DH2E | Inline damage roll failed:", e);
             ui.notifications?.error(`Invalid damage formula: ${formula}`);
         }
+    }
+
+    /** Face of the Law: free reroll on failed Intimidate/Interrogation */
+    static async #onFaceOfLawReroll(message: StoredDocument<ChatMessage>, btn: HTMLButtonElement): Promise<void> {
+        const flags = (message as any).flags?.[SYSTEM_ID] as Record<string, unknown> | undefined;
+        if (!flags) return;
+
+        if (flags.faceOfLawRerolled) {
+            ui.notifications?.info(game.i18n?.localize("DH2E.FaceOfTheLaw.AlreadyRerolled") ?? "Already re-rolled.");
+            return;
+        }
+
+        const result = flags.result as Record<string, unknown>;
+        if (!result) return;
+
+        const actorId = result.actorId as string;
+        const actor = (game as any).actors?.get(actorId) as Actor | undefined;
+        if (!actor) return;
+
+        const target = result.target as number ?? 50;
+        const roll = new foundry.dice.Roll("1d100");
+        await roll.evaluate();
+        const newRoll = roll.total ?? 50;
+        const success = newRoll <= target;
+        const degrees = success
+            ? Math.floor(target / 10) - Math.floor(newRoll / 10) + 1
+            : Math.floor(newRoll / 10) - Math.floor(target / 10) + 1;
+        const label = (result.label as string) ?? "Test";
+
+        // Mark original as rerolled
+        await (message as any).update({
+            [`flags.${SYSTEM_ID}.faceOfLawRerolled`]: true,
+        });
+        btn.disabled = true;
+        btn.style.opacity = "0.4";
+
+        const speaker = fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
+        const faceOfLawLabel = game.i18n?.localize("DH2E.FaceOfTheLaw.Label") ?? "Face of the Law";
+
+        // Build substitute button if reroll succeeds
+        const wpBonus = (actor as any).system?.characteristics?.wp?.bonus ?? 0;
+        const substituteBtn = success
+            ? `<button class="background-ability-btn" data-action="face-of-law-substitute" data-wp-bonus="${wpBonus}">
+                <i class="fas fa-exchange-alt"></i> ${game.i18n?.format("DH2E.FaceOfTheLaw.Substitute", { wpBonus: String(wpBonus) }) ?? `Use WP Bonus (${wpBonus}) as DoS`}
+               </button>`
+            : "";
+
+        await fd.ChatMessage.create({
+            content: `<div class="dh2e chat-card check-card face-of-law-reroll">
+                <header class="card-header ${success ? "success" : "failure"}">
+                    <h3>${label} <span class="fate-tag">[${faceOfLawLabel}]</span></h3>
+                </header>
+                <div class="card-body">
+                    <div class="roll-result ${success ? "success" : "failure"}">
+                        <span class="roll-value">${newRoll}</span>
+                        <span class="roll-target">vs ${target}</span>
+                    </div>
+                    <div class="dos-display">${success ? `${degrees} DoS` : `${degrees} DoF`}</div>
+                    <div class="card-actions">${substituteBtn}</div>
+                </div>
+            </div>`,
+            speaker,
+            flags: {
+                [SYSTEM_ID]: {
+                    type: "check",
+                    faceOfLawReroll: true,
+                    result: {
+                        ...result,
+                        roll: newRoll,
+                        success,
+                        degrees,
+                    },
+                },
+            },
+        });
+    }
+
+    /** Face of the Law: substitute DoS with WP bonus on Intimidate/Interrogation */
+    static async #onFaceOfLawSubstitute(message: StoredDocument<ChatMessage>, btn: HTMLButtonElement): Promise<void> {
+        const flags = (message as any).flags?.[SYSTEM_ID] as Record<string, unknown> | undefined;
+        if (!flags) return;
+
+        if (flags.faceOfLawSubstituted) {
+            ui.notifications?.info(game.i18n?.localize("DH2E.FaceOfTheLaw.AlreadySubstituted") ?? "Already substituted.");
+            return;
+        }
+
+        const result = flags.result as Record<string, unknown>;
+        if (!result) return;
+
+        const actorId = result.actorId as string;
+        const actor = (game as any).actors?.get(actorId) as Actor | undefined;
+        if (!actor) return;
+
+        const sys = (actor as any).system;
+        const wpBonus = sys?.characteristics?.wp?.bonus
+            ?? Math.floor((sys?.characteristics?.wp?.value ?? 0) / 10);
+        const oldDegrees = result.degrees as number ?? 0;
+
+        // Update message flags with substituted DoS
+        await (message as any).update({
+            [`flags.${SYSTEM_ID}.result.degrees`]: wpBonus,
+            [`flags.${SYSTEM_ID}.faceOfLawSubstituted`]: true,
+        });
+
+        btn.disabled = true;
+        btn.style.opacity = "0.4";
+
+        // Post system note
+        const speaker = fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
+        await fd.ChatMessage.create({
+            content: `<div class="dh2e chat-card system-note"><em>${game.i18n?.format("DH2E.FaceOfTheLaw.Substituted", {
+                actor: actor.name!,
+                oldDos: String(oldDegrees),
+                wpBonus: String(wpBonus),
+            }) ?? `${actor.name} substitutes WP Bonus (${wpBonus}) for DoS (was ${oldDegrees}).`}</em></div>`,
+            speaker,
+        });
+    }
+
+    /** Roll damage for a psychic attack power */
+    static async #onRollPowerDamage(message: StoredDocument<ChatMessage>): Promise<void> {
+        const flags = (message as any).flags?.[SYSTEM_ID] as Record<string, unknown> | undefined;
+        if (!flags || flags.type !== "focus-power") return;
+
+        const actorId = flags.actorId as string;
+        const powerId = flags.powerId as string;
+        const psyRating = flags.psyRating as number;
+        const focusRoll = flags.focusRoll as number;
+        const psykerMode = (flags.psykerMode as string) ?? "unfettered";
+
+        const g = game as any;
+        const actor = g.actors?.get(actorId) as Actor | undefined;
+        if (!actor) {
+            ui.notifications?.warn("Could not find the casting actor.");
+            return;
+        }
+
+        const power = actor.items.get(powerId) as Item | undefined;
+        if (!power) {
+            ui.notifications?.warn("Could not find the psychic power.");
+            return;
+        }
+
+        // Get target from user selection
+        const target = g.user?.targets?.first()?.actor as Actor | undefined;
+        if (!target) {
+            ui.notifications?.warn(
+                game.i18n?.localize("DH2E.Psychic.NoTarget") ??
+                    "No target selected. Select a target token before rolling damage.",
+            );
+            return;
+        }
+
+        const result = (flags.result as Record<string, unknown>) ?? {};
+        const dos = (result.degrees as number) ?? 0;
+
+        const { PowerDamageResolver } = await import("@psychic/power-damage.ts");
+        await PowerDamageResolver.rollDamage(
+            actor,
+            power,
+            target,
+            psyRating,
+            dos,
+            focusRoll,
+            psykerMode as any,
+        );
+    }
+
+    /** Apply healing from a psychic power */
+    static async #onApplyPowerHealing(message: StoredDocument<ChatMessage>): Promise<void> {
+        const flags = (message as any).flags?.[SYSTEM_ID] as Record<string, unknown> | undefined;
+        if (!flags || flags.type !== "focus-power") return;
+
+        const actorId = flags.actorId as string;
+        const powerId = flags.powerId as string;
+        const psyRating = flags.psyRating as number;
+
+        const g = game as any;
+        const actor = g.actors?.get(actorId) as Actor | undefined;
+        if (!actor) {
+            ui.notifications?.warn("Could not find the casting actor.");
+            return;
+        }
+
+        const power = actor.items.get(powerId) as Item | undefined;
+        if (!power) {
+            ui.notifications?.warn("Could not find the psychic power.");
+            return;
+        }
+
+        // Get target from user selection
+        const target = g.user?.targets?.first()?.actor as Actor | undefined;
+        if (!target) {
+            ui.notifications?.warn(
+                game.i18n?.localize("DH2E.Psychic.NoTarget") ??
+                    "No target selected. Select a target token to apply healing.",
+            );
+            return;
+        }
+
+        const { PowerDamageResolver } = await import("@psychic/power-damage.ts");
+        await PowerDamageResolver.rollHealing(actor, power, target, psyRating);
     }
 
     /** Handle grapple action button clicks */

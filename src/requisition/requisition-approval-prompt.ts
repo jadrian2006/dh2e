@@ -41,6 +41,14 @@ class RequisitionApprovalPrompt extends SvelteApplicationMixin(fa.api.Applicatio
                 availMod: availConfig?.modifier ?? 0,
                 craftLabel: craftConfig ? game.i18n?.localize(craftConfig.label) ?? item.craftsmanship : item.craftsmanship,
                 craftMod: craftConfig?.modifier ?? 0,
+                // Per-item roll data from new payload format
+                targetNumber: item.targetNumber ?? 0,
+                success: item.success ?? false,
+                degrees: item.degrees ?? 0,
+                itemInfluenceLost: item.influenceLost ?? false,
+                itemRollResult: item.rollResult ?? 0,
+                // Pass through attached modifications
+                modifications: item.modifications ?? [],
             };
         });
 
@@ -77,7 +85,7 @@ class RequisitionApprovalPrompt extends SvelteApplicationMixin(fa.api.Applicatio
                         itemName: item.itemName,
                     })),
                     actorUuid: this.#payload.requestedFor,
-                    modifications: this.#payload.modifications,
+                    notes: this.#payload.notes,
                 },
             });
         } else {
@@ -90,16 +98,16 @@ class RequisitionApprovalPrompt extends SvelteApplicationMixin(fa.api.Applicatio
                         itemData: item.itemData,
                         itemName: item.itemName,
                         craftsmanship: item.craftsmanship,
-                        modifications: this.#payload.modifications,
+                        notes: this.#payload.notes,
                         requestedBy: this.#payload.requestedBy,
                         requestedFor: this.#payload.requestedFor,
                         actorName: this.#payload.actorName,
                         availability: item.availability,
-                        rollResult: this.#payload.rollResult,
-                        targetNumber: this.#payload.targetNumber,
-                        success: this.#payload.success,
-                        degrees: this.#payload.degrees,
-                        influenceLost: this.#payload.influenceLost,
+                        rollResult: item.rollResult,
+                        targetNumber: item.targetNumber,
+                        success: item.success,
+                        degrees: item.degrees,
+                        influenceLost: item.influenceLost,
                         readyAt: Date.now() + delayMs,
                         status: "pending",
                         approvedAt: Date.now(),

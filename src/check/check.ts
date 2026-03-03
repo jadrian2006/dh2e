@@ -103,6 +103,16 @@ class CheckDH2e {
         // Post chat card
         await ChatCardDH2e.createCheckCard(result, roll);
 
+        // Penitent: Cleansing Pain — consume the condition after the first test
+        if (actor?.synthetics?.rollOptions?.has("self:condition:cleansing-pain")) {
+            const painCondition = actor.items?.find(
+                (i: Item) => i.type === "condition" && (i.system as any)?.slug === "cleansing-pain",
+            );
+            if (painCondition) {
+                await actor.deleteEmbeddedDocuments("Item", [painCondition.id!]);
+            }
+        }
+
         return result;
     }
 
@@ -137,6 +147,15 @@ class CheckDH2e {
                     modifiers.push(mod.clone());
                 }
             }
+        }
+
+        // Penitent: Cleansing Pain — +10 to first test, then consumed
+        if (actor?.synthetics?.rollOptions?.has("self:condition:cleansing-pain")) {
+            modifiers.push(new ModifierDH2e({
+                label: game.i18n?.localize("DH2E.CleansingPain.Label") ?? "Cleansing Pain",
+                value: 10,
+                source: game.i18n?.localize("DH2E.RoleLabel") ?? "Role",
+            }));
         }
 
         // Add directly provided modifiers

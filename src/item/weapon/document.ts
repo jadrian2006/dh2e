@@ -37,9 +37,9 @@ class WeaponDH2e extends ItemDH2e {
         };
     }
 
-    /** Get combined qualities from weapon + ammo */
+    /** Get combined qualities from weapon + ammo, with actor-based overrides */
     get effectiveQualities(): string[] {
-        const quals = [...this.system.qualities];
+        let quals = [...this.system.qualities];
         const ammo = this.loadedAmmunition;
         if (ammo) {
             const ammoSys = ammo.system as unknown as AmmunitionSystemSource;
@@ -49,6 +49,18 @@ class WeaponDH2e extends ItemDH2e {
                 }
             }
         }
+
+        // Feral World — The Old Ways: Low-Tech weapons lose Primitive, gain Proven(3)
+        if (this.system.weaponGroup === "low-tech") {
+            const actorSynthetics = (this.parent as any)?.synthetics;
+            if (actorSynthetics?.rollOptions?.has("self:homeworld:the-old-ways")) {
+                quals = quals.filter(q => !q.toLowerCase().startsWith("primitive"));
+                if (!quals.some(q => q.toLowerCase().startsWith("proven"))) {
+                    quals.push("Proven(3)");
+                }
+            }
+        }
+
         return quals;
     }
 }

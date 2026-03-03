@@ -19,6 +19,7 @@ import { CyberneticDH2e } from "@item/cybernetic/document.ts";
 import { ObjectiveDH2e } from "@item/objective/document.ts";
 import { TreasureDH2e } from "@item/treasure/document.ts";
 import { NoteDH2e } from "@item/note/document.ts";
+import { ModificationDH2e } from "@item/modification/document.ts";
 import { HordeDH2e } from "@actor/horde/document.ts";
 import { VehicleDH2e } from "@actor/vehicle/document.ts";
 import { WarbandDH2e } from "@actor/warband/document.ts";
@@ -67,6 +68,7 @@ export class Init {
                 objective: ObjectiveDH2e as unknown as typeof Item,
                 treasure: TreasureDH2e as unknown as typeof Item,
                 note: NoteDH2e as unknown as typeof Item,
+                modification: ModificationDH2e as unknown as typeof Item,
             };
 
             // Set initiative formula
@@ -98,6 +100,27 @@ export class Init {
                 const actorType = token.actor?.type;
                 if (actorType && actorType !== "vehicle") {
                     token.updateSource({ lockRotation: true });
+                }
+
+                // Auto-scale token dimensions from Size traits
+                const SIZE_TOKEN_MAP: Record<string, number> = {
+                    "Size (Puny)": 0.5,
+                    "Size (Scrawny)": 0.5,
+                    "Size (Hulking)": 2,
+                    "Size (Enormous)": 3,
+                    "Size (Massive)": 4,
+                    "Size (Immense)": 5,
+                };
+                const actor = token.actor;
+                if (actor?.items) {
+                    for (const item of actor.items) {
+                        if (item.type !== "trait") continue;
+                        const dim = SIZE_TOKEN_MAP[item.name];
+                        if (dim !== undefined) {
+                            token.updateSource({ width: dim, height: dim });
+                            break;
+                        }
+                    }
                 }
 
                 // Companion / Reinforcement uniqueness enforcement

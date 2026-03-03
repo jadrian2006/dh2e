@@ -24,6 +24,34 @@
         </div>
         {{/if}}
 
+        {{#if opposedCharacteristic}}
+        <div class="opposed-info">
+            <i class="fas fa-exchange-alt"></i>
+            <span>{{localize "DH2E.Psychic.OpposedTest"}}: {{opposedLabel}}</span>
+        </div>
+        {{/if}}
+
+        {{#if ignoreTB}}
+        <div class="power-note"><i class="fas fa-shield-alt"></i> {{localize "DH2E.Psychic.IgnoresTB"}}</div>
+        {{/if}}
+        {{#if ignoreAP}}
+        <div class="power-note"><i class="fas fa-shield-alt"></i> {{localize "DH2E.Psychic.IgnoresAP"}}</div>
+        {{/if}}
+
+        <div class="card-actions">
+            {{#if hasAttack}}
+            <button class="btn roll-damage" data-action="roll-power-damage">
+                <i class="fas fa-dice-d10"></i> {{localize "DH2E.Psychic.RollDamage"}}
+            </button>
+            {{/if}}
+
+            {{#if hasHealing}}
+            <button class="btn apply-healing" data-action="apply-power-healing">
+                <i class="fas fa-heart"></i> {{localize "DH2E.Psychic.ApplyHealing"}}
+            </button>
+            {{/if}}
+        </div>
+
         {{#if isGM}}
         <button class="gm-override-btn" data-action="gm-override" title="GM Override"><i class="fas fa-cog"></i></button>
         {{/if}}

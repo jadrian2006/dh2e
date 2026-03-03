@@ -88,10 +88,16 @@ class AcolyteDH2e extends ActorDH2e {
             leftArm: { name: "", value: 0 }, body: { name: "", value: 0 },
             rightLeg: { name: "", value: 0 }, leftLeg: { name: "", value: 0 },
         };
+        let armourMaxAg = 0; // lowest maxAgility from equipped armour (0 = no cap)
         for (const item of this.items) {
             if (item.type !== "armour") continue;
             const sys = item.system as any;
             if (sys.equipped === false) continue;
+            // Track lowest Max Agility cap from equipped armour
+            const maxAg = sys.maxAgility ?? 0;
+            if (maxAg > 0) {
+                armourMaxAg = armourMaxAg === 0 ? maxAg : Math.min(armourMaxAg, maxAg);
+            }
             const craftBonus = getArmourCraftsmanshipBonus(sys.craftsmanship ?? "common");
             for (const loc of Object.keys(armour)) {
                 const baseAP = sys.locations?.[loc] ?? 0;
@@ -167,11 +173,74 @@ class AcolyteDH2e extends ActorDH2e {
             }
 
             // Check fatigue threshold: TB + WPB — if exceeded, auto-apply unconscious
-            const tBonus = this.system.characteristics.t.bonus;
+            // Outcast: Survival Instinct — TB counts as 2 higher for fatigue threshold
+            let tBonusFatigue = this.system.characteristics.t.bonus;
+            if (this.synthetics.rollOptions.has("self:background:survival-instinct")) {
+                tBonusFatigue += 2;
+            }
             const wpBonus = this.system.characteristics.wp.bonus;
-            const threshold = tBonus + wpBonus;
+            const threshold = tBonusFatigue + wpBonus;
             if (fatigue > threshold) {
                 this.synthetics.rollOptions.add("self:fatigued:unconscious");
+            }
+        }
+
+        // Insanity bonus: adds to WP for fear tests (Core p.286)
+        const insanityVal = (this.system as any).insanity ?? 0;
+        const insanityBonus = Math.floor(insanityVal / 10);
+        if (insanityBonus > 0) {
+            if (!this.synthetics.modifiers["characteristic:wp"]) this.synthetics.modifiers["characteristic:wp"] = [];
+            this.synthetics.modifiers["characteristic:wp"].push(new ModifierDH2e({
+                label: game.i18n?.localize("DH2E.InsanityBonus") ?? "Insanity Bonus",
+                value: insanityBonus,
+                source: "insanity",
+                predicate: ["check:fear"],
+            }));
+        }
+
+        // Exorcised: Touched by a Daemon — insanity bonus counts as 2 higher for fear tests
+        if (this.synthetics.rollOptions.has("self:background:touched-by-a-daemon")) {
+            if (!this.synthetics.modifiers["characteristic:wp"]) this.synthetics.modifiers["characteristic:wp"] = [];
+            this.synthetics.modifiers["characteristic:wp"].push(new ModifierDH2e({
+                label: game.i18n?.localize("DH2E.TouchedByADaemon.Label") ?? "Touched by a Daemon",
+                value: 2,
+                source: game.i18n?.localize("DH2E.Background") ?? "Background",
+                predicate: ["check:fear"],
+            }));
+        }
+
+        // Heretek: Master of Hidden Lores — +20 to Tech-Use (Alien Devices) if has any Forbidden Lore
+        if (this.synthetics.rollOptions.has("self:background:master-of-hidden-lores")) {
+            const hasForbiddenLore = this.items.some((i: Item) =>
+                i.type === "skill" && (i.name?.startsWith("Forbidden Lore") ?? false),
+            );
+            if (hasForbiddenLore) {
+                if (!this.synthetics.modifiers["skill:tech-use:alien-devices"]) {
+                    this.synthetics.modifiers["skill:tech-use:alien-devices"] = [];
+                }
+                this.synthetics.modifiers["skill:tech-use:alien-devices"].push(new ModifierDH2e({
+                    label: game.i18n?.localize("DH2E.MasterOfHiddenLores.Label") ?? "Master of Hidden Lores",
+                    value: 20,
+                    source: game.i18n?.localize("DH2E.Background") ?? "Background",
+                }));
+            }
+        }
+
+        // Apply armour Max Agility cap to movement (after RE processing so homeworld RollOptions are set)
+        // maxAgility is stored as the characteristic value (e.g. 35); convert to bonus via floor(value/10)
+        if (armourMaxAg > 0) {
+            const cappedAB = Math.floor(armourMaxAg / 10);
+            if (agBonus > cappedAB) {
+                const immune = this.synthetics.rollOptions.has("self:homeworld:at-home-in-armour");
+                if (!immune) {
+                    (this.system as any).movement = {
+                        half: cappedAB,
+                        full: cappedAB * 2,
+                        charge: cappedAB * 3,
+                        run: cappedAB * 6,
+                    };
+                    (this.system as any).armourAgPenalty = true;
+                }
             }
         }
 
@@ -211,6 +280,8 @@ class AcolyteDH2e extends ActorDH2e {
             if (item.type === "cybernetic") {
                 if (!(item as any).isFunctional) continue;
             }
+            // Skip unequipped gear (psy-focus, etc.)
+            if (item.type === "gear" && (item.system as any)?.equipped === false) continue;
 
             const rules = (item.system as any)?.rules as RuleElementSource[] | undefined;
             if (!rules || !Array.isArray(rules)) continue;
@@ -311,6 +382,28 @@ class AcolyteDH2e extends ActorDH2e {
         } else {
             await this.update({ "system.wounds.value": newValue });
         }
+
+        // Penitent: Cleansing Pain — +10 to first test after taking damage
+        if (wounds > 0 && this.synthetics?.rollOptions?.has("self:role:cleansing-pain")) {
+            // Check if condition already exists (don't stack)
+            const existing = this.items.find(
+                (i: Item) => i.type === "condition" && (i.system as any)?.slug === "cleansing-pain",
+            );
+            if (!existing) {
+                try {
+                    const { getConditionFromCompendium } = await import("@combat/critical.ts");
+                    const condData = await getConditionFromCompendium("cleansing-pain");
+                    await this.createEmbeddedDocuments("Item", [condData]);
+                    ui.notifications.info(
+                        game.i18n?.format("DH2E.CleansingPain.Applied", {
+                            actor: this.name ?? "",
+                        }) ?? `${this.name} gains Cleansing Pain (+10 to next test).`,
+                    );
+                } catch (e) {
+                    console.warn("DH2E | Failed to apply Cleansing Pain condition", e);
+                }
+            }
+        }
     }
 
     /** Heal wounds on this actor */
@@ -319,6 +412,56 @@ class AcolyteDH2e extends ActorDH2e {
         const max = this.system.wounds.max;
         const newValue = Math.min(max, current + wounds);
         await this.update({ "system.wounds.value": newValue });
+    }
+
+    /**
+     * Highborn: Breeding Counts — any time influence would be reduced,
+     * reduce the loss by 1 (to a minimum reduction of 1).
+     */
+    override _preUpdate(
+        changed: Record<string, unknown>,
+        options: Record<string, unknown>,
+        userId: string,
+    ): void {
+        super._preUpdate(changed, options, userId);
+
+        const sys = changed.system as Record<string, unknown> | undefined;
+        if (!sys) return;
+
+        // Highborn: Breeding Counts — reduce influence loss by 1 (min reduction 1)
+        if ("influence" in sys) {
+            const newVal = sys.influence as number;
+            const oldVal = this.system.influence as number;
+            const loss = oldVal - newVal;
+
+            if (loss > 0 && this.synthetics?.rollOptions?.has("self:homeworld:breeding-counts")) {
+                const reducedLoss = Math.max(1, loss - 1);
+                if (reducedLoss !== loss) {
+                    sys.influence = oldVal - reducedLoss;
+                }
+            }
+        }
+
+        // Adepta Sororitas: Incorruptible Devotion — corruption → insanity instead
+        if ("corruption" in sys) {
+            const newCorruption = sys.corruption as number;
+            const oldCorruption = this.system.corruption as number;
+            const gain = newCorruption - oldCorruption;
+            if (gain > 0 && this.synthetics?.rollOptions?.has("self:background:incorruptible-devotion")) {
+                const insanityGain = Math.max(0, gain - 1);
+                sys.corruption = oldCorruption; // Block corruption
+                if (insanityGain > 0) {
+                    sys.insanity = (this.system.insanity as number) + insanityGain;
+                }
+                ui.notifications.info(
+                    game.i18n.format("DH2E.IncorruptibleDevotion.Converted", {
+                        actor: this.name,
+                        corruption: String(gain),
+                        insanity: String(insanityGain),
+                    })
+                );
+            }
+        }
     }
 
     /** Detect corruption/insanity changes and trigger threshold checks */

@@ -34,7 +34,30 @@
 
 <div class="warband-sheet">
     <header class="warband-header">
-        <h1 class="warband-name">{ctx.name}</h1>
+        <div class="warband-header-row">
+            <h1 class="warband-name">{ctx.name}</h1>
+            <div class="subtlety-display">
+                <span class="subtlety-label">Subtlety</span>
+                {#if ctx.editable}
+                    <button class="subtlety-btn" onclick={() => ctx.adjustSubtlety?.(-5)}>
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <input
+                        type="number"
+                        class="subtlety-input"
+                        value={ctx.subtlety}
+                        min="0"
+                        max="100"
+                        onchange={(e) => ctx.onSubtletyChange?.(parseInt(e.currentTarget.value) || 0)}
+                    />
+                    <button class="subtlety-btn" onclick={() => ctx.adjustSubtlety?.(5)}>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                {:else}
+                    <span class="subtlety-value">{ctx.subtlety}</span>
+                {/if}
+            </div>
+        </div>
         {#if isEmpty}
             <p class="drag-hint">
                 <i class="fa-solid fa-hand-pointer"></i>
@@ -115,11 +138,62 @@
         padding: var(--dh2e-space-md);
         border-bottom: 2px solid var(--dh2e-gold-dark);
     }
+    .warband-header-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--dh2e-space-md);
+    }
     .warband-name {
         font-family: var(--dh2e-font-header);
         font-size: var(--dh2e-text-xxl);
         color: var(--dh2e-gold);
         margin: 0;
+    }
+    .subtlety-display {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-xs);
+    }
+    .subtlety-label {
+        font-family: var(--dh2e-font-header);
+        font-size: var(--dh2e-text-sm);
+        color: var(--dh2e-text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-right: var(--dh2e-space-xs);
+    }
+    .subtlety-input {
+        width: 48px;
+        text-align: center;
+        font-size: var(--dh2e-text-lg);
+        font-weight: bold;
+        color: var(--dh2e-gold);
+        background: var(--dh2e-bg-darkest);
+        border: 1px solid var(--dh2e-border);
+        border-radius: 3px;
+        padding: 2px 4px;
+    }
+    .subtlety-value {
+        font-size: var(--dh2e-text-lg);
+        font-weight: bold;
+        color: var(--dh2e-gold);
+    }
+    .subtlety-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        background: var(--dh2e-bg-darkest);
+        border: 1px solid var(--dh2e-border);
+        border-radius: 3px;
+        color: var(--dh2e-text-secondary);
+        cursor: pointer;
+        &:hover {
+            color: var(--dh2e-gold);
+            border-color: var(--dh2e-gold-dark);
+        }
     }
     .drag-hint {
         color: var(--dh2e-text-secondary);

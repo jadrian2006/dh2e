@@ -10,6 +10,9 @@
         <span class="phenomena-title">{{title}}</span>
     </header>
     <div class="card-body">
+        {{#if phenomenaRoll}}
+        <p class="phenomena-roll">{{localize "DH2E.Psychic.Roll"}}: <strong>{{phenomenaRoll}}</strong></p>
+        {{/if}}
         <p class="phenomena-description">{{description}}</p>
         <div class="phenomena-effect">
             <span class="effect-label">{{localize "DH2E.Psychic.Effect"}}:</span>

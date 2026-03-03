@@ -115,10 +115,15 @@ class NpcDH2e extends ActorDH2e {
             leftArm: { name: "", value: 0 }, body: { name: "", value: 0 },
             rightLeg: { name: "", value: 0 }, leftLeg: { name: "", value: 0 },
         };
+        let armourMaxAg = 0; // lowest maxAgility from equipped armour (0 = no cap)
         for (const item of this.items) {
             if (item.type !== "armour") continue;
             const sys = item.system as any;
             if (sys.equipped === false) continue;
+            const maxAg = sys.maxAgility ?? 0;
+            if (maxAg > 0) {
+                armourMaxAg = armourMaxAg === 0 ? maxAg : Math.min(armourMaxAg, maxAg);
+            }
             const craftBonus = getArmourCraftsmanshipBonus(sys.craftsmanship ?? "common");
             for (const loc of Object.keys(armour)) {
                 const baseAP = sys.locations?.[loc] ?? 0;
@@ -174,6 +179,23 @@ class NpcDH2e extends ActorDH2e {
             const threshold = tBonus + wpBonus;
             if (fatigue > threshold) {
                 this.synthetics.rollOptions.add("self:fatigued:unconscious");
+            }
+        }
+
+        // Apply armour Max Agility cap to movement (after RE processing so RollOptions are set)
+        if (armourMaxAg > 0) {
+            const cappedAB = Math.floor(armourMaxAg / 10);
+            if (agBonus > cappedAB) {
+                const immune = this.synthetics.rollOptions.has("self:homeworld:at-home-in-armour");
+                if (!immune) {
+                    (this.system as any).movement = {
+                        half: cappedAB,
+                        full: cappedAB * 2,
+                        charge: cappedAB * 3,
+                        run: cappedAB * 6,
+                    };
+                    (this.system as any).armourAgPenalty = true;
+                }
             }
         }
 
@@ -263,6 +285,8 @@ class NpcDH2e extends ActorDH2e {
             if (item.type === "cybernetic") {
                 if (!(item as any).isFunctional) continue;
             }
+            // Skip unequipped gear
+            if (item.type === "gear" && (item.system as any)?.equipped === false) continue;
 
             const rules = (item.system as any)?.rules as RuleElementSource[] | undefined;
             if (!rules || !Array.isArray(rules)) continue;

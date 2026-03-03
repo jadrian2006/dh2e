@@ -109,6 +109,7 @@
         },
         "warband": {
             "members": [],
+            "subtlety": 50,
             "reinforcements": [],
             "inquisitor": { "uuid": "" },
             "pendingRequisitions": [],
@@ -128,7 +129,7 @@
         }
     },
     "Item": {
-        "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic", "objective", "homeworld", "background", "role", "treasure", "note"],
+        "types": ["weapon", "armour", "gear", "skill", "talent", "condition", "power", "trait", "critical-injury", "malignancy", "mental-disorder", "ammunition", "cybernetic", "objective", "homeworld", "background", "role", "treasure", "note", "modification"],
         "weapon": {
             "description": "",
             "source": "",
@@ -150,7 +151,8 @@
             "reloadProgress": 0,
             "rules": [],
             "availability": "Common",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "modifications": []
         },
         "armour": {
             "description": "",
@@ -168,7 +170,8 @@
             "weight": 0,
             "equipped": false,
             "availability": "Common",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "modifications": []
         },
         "gear": {
             "description": "",
@@ -176,7 +179,9 @@
             "weight": 0,
             "quantity": 1,
             "availability": "Common",
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "equipped": false,
+            "rules": []
         },
         "skill": {
             "description": "",
@@ -214,7 +219,18 @@
             "range": "",
             "sustained": false,
             "action": "Half Action",
-            "rules": []
+            "rules": [],
+            "attack": {
+                "formula": "",
+                "damageType": "energy",
+                "penetration": "",
+                "qualities": [],
+                "ignoreTB": false,
+                "ignoreAP": false
+            },
+            "effects": [],
+            "healing": "",
+            "opposedCharacteristic": ""
         },
         "trait": {
             "description": "",
@@ -324,6 +340,19 @@
             "content": "",
             "timestamp": 0,
             "gameDate": ""
+        },
+        "modification": {
+            "description": "",
+            "source": "",
+            "availability": "common",
+            "craftsmanship": "common",
+            "weight": 0,
+            "modType": "weapon",
+            "slot": "general",
+            "installTest": "tech-use",
+            "installDifficulty": 10,
+            "installTime": "1d5 hours",
+            "rules": []
         }
     }
 }

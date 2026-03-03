@@ -10,7 +10,18 @@
         availMod: number;
         craftLabel: string;
         craftMod: number;
+        targetNumber: number;
+        success: boolean;
+        degrees: number;
+        itemInfluenceLost: boolean;
+        itemRollResult: number;
+        modifications: { uuid: string; name: string; availability: string; modifier: number }[];
     }[] = $derived(ctx.itemDisplayData ?? []);
+
+    /** Strip modifier suffix like " (+0)" or " (-30)" from availability labels */
+    function cleanAvailLabel(label: string): string {
+        return label.replace(/\s*\([+-]?\d+\)\s*$/, '').trim();
+    }
 
     // Per-item checkbox state (all checked by default)
     let checkedItems: boolean[] = $state(
@@ -21,7 +32,7 @@
     let delayAmount = $state(1);
     let delayUnit: "minutes" | "hours" | "days" = $state("hours");
 
-    const delayMs = $derived(() => {
+    const delayMs = $derived.by(() => {
         const multipliers = { minutes: 60000, hours: 3600000, days: 86400000 };
         return delayAmount * multipliers[delayUnit];
     });
@@ -39,9 +50,15 @@
         return val >= 0 ? `+${val}` : `${val}`;
     }
 
+    /** Resolve availability label for a modification from config */
+    function getModAvailLabel(key: string): string {
+        const availConfig = CONFIG.DH2E?.availabilityTiers?.[key] as { label: string } | undefined;
+        return availConfig ? (game.i18n?.localize(availConfig.label) ?? key) : key;
+    }
+
     function approve() {
         const indices = checkedItems.map((checked, i) => checked ? i : -1).filter(i => i >= 0);
-        ctx.onApprove?.(indices, delivery, delivery === "delayed" ? delayMs() : 0);
+        ctx.onApprove?.(indices, delivery, delivery === "delayed" ? delayMs : 0);
     }
 
     function deny() {
@@ -71,43 +88,57 @@
         </div>
         <div class="items-list">
             {#each itemDisplayData as item, i (i)}
-                <label class="item-row" class:unchecked={!checkedItems[i]}>
+                <label class="item-row" class:unchecked={!checkedItems[i]} class:success={item.success} class:failure={!item.success}>
                     <input type="checkbox" bind:checked={checkedItems[i]} />
                     <span class="item-name">{item.itemName}</span>
-                    <span class="avail-tag">{item.availLabel}</span>
-                    <span class="craft-badge craft-{item.craftsmanship}">{item.craftLabel}</span>
-                    <span class="item-mod">{formatMod(item.availMod + item.craftMod)}</span>
+                    <span class="avail-tag">{cleanAvailLabel(item.availLabel)}</span>
+                    <span class="craft-badge craft-{item.craftsmanship}">{cleanAvailLabel(item.craftLabel)}</span>
+                    <span class="item-tn">TN:{item.targetNumber}</span>
+                    {#if payload.rollMode === "individual" && item.itemRollResult}
+                        <span class="item-roll">{item.itemRollResult}</span>
+                    {/if}
+                    <span class="item-result" class:pass={item.success} class:fail={!item.success}>
+                        {item.success ? "+" : "-"}{item.degrees}
+                    </span>
+                    {#if item.itemInfluenceLost}
+                        <i class="fa-solid fa-arrow-down item-inf-loss" title="Influence Lost"></i>
+                    {/if}
                 </label>
+                {#if (item.modifications ?? []).length > 0}
+                    {#each item.modifications as mod (mod.uuid)}
+                        <div class="item-mod-row" class:unchecked={!checkedItems[i]}>
+                            <span class="item-mod-indent">+</span>
+                            <span class="item-mod-name">{mod.name}</span>
+                            <span class="avail-tag sm">{cleanAvailLabel(getModAvailLabel(mod.availability))}</span>
+                            <span class="item-mod-mod">{formatMod(mod.modifier)}</span>
+                        </div>
+                    {/each}
+                {/if}
             {/each}
         </div>
     </div>
 
-    <!-- Modifications -->
-    {#if payload.modifications}
+    <!-- Notes -->
+    {#if payload.notes}
         <div class="modifications">
-            <i class="fa-solid fa-wrench fa-xs"></i>
-            {payload.modifications}
+            <i class="fa-solid fa-pen fa-xs"></i>
+            {payload.notes}
         </div>
     {/if}
 
-    <!-- Cost breakdown -->
+    <!-- Roll summary -->
     <div class="cost-breakdown">
-        <div class="cost-row">
-            <span>Character Influence</span>
-            <span class="cost-value">{payload.targetNumber - Math.min(...itemDisplayData.map((d: any) => d.availMod + d.craftMod))}</span>
-        </div>
-        <div class="cost-row target-row">
-            <span>Target Number</span>
-            <span class="cost-value target-number">{payload.targetNumber}</span>
-        </div>
-        <div class="cost-row roll-row" class:success={payload.success} class:failure={!payload.success}>
-            <span>Roll</span>
-            <span class="cost-value">
-                <strong>{payload.rollResult}</strong> —
-                {payload.success ? "Success" : "Failure"}
-                ({payload.degrees} {payload.success ? "DoS" : "DoF"})
-            </span>
-        </div>
+        {#if payload.rollMode === "bulk" || !payload.rollMode}
+            <div class="cost-row roll-row">
+                <span>{game.i18n?.localize("DH2E.Requisition.RawRoll") ?? "Raw Roll"}</span>
+                <span class="cost-value roll-d100">{payload.rollResult}</span>
+            </div>
+        {:else}
+            <div class="cost-row">
+                <span>{game.i18n?.localize("DH2E.Requisition.RollMode") ?? "Roll Mode"}</span>
+                <span class="cost-value">{game.i18n?.localize("DH2E.Requisition.IndividualRoll") ?? "Individual"}</span>
+            </div>
+        {/if}
         {#if payload.influenceLost}
             <div class="cost-row influence-lost">
                 <span>Influence Lost</span>
@@ -254,6 +285,48 @@
         border-radius: 2px;
         color: var(--dh2e-text-secondary, #a0a0a8);
         background: var(--dh2e-bg-mid, #2e2e35);
+
+        &.sm {
+            font-size: 0.5rem;
+            padding: 0 3px;
+        }
+    }
+
+    .item-roll {
+        font-size: 0.6rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        min-width: 1.5rem;
+        text-align: center;
+    }
+
+    .item-mod-row {
+        display: flex;
+        align-items: center;
+        gap: var(--dh2e-space-xs, 0.25rem);
+        padding: 0 var(--dh2e-space-sm, 0.5rem) 0 calc(var(--dh2e-space-sm, 0.5rem) + 1.25rem);
+        font-size: 0.7rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+
+        &.unchecked { opacity: 0.45; }
+    }
+
+    .item-mod-indent {
+        color: var(--dh2e-gold-muted, #7a6a3e);
+        font-weight: 600;
+    }
+
+    .item-mod-name {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .item-mod-mod {
+        font-weight: 600;
+        min-width: 2rem;
+        text-align: right;
+        color: var(--dh2e-text-secondary, #a0a0a8);
     }
 
     .craft-badge {
@@ -270,12 +343,41 @@
         &.craft-best { background: #3a3020; color: var(--dh2e-gold, #c8a84e); }
     }
 
-    .item-mod {
-        font-size: 0.7rem;
+    .item-tn {
+        font-size: 0.6rem;
         color: var(--dh2e-gold-muted, #7a6a3e);
         font-weight: 600;
         min-width: 2rem;
         text-align: right;
+    }
+
+    .item-result {
+        font-size: 0.7rem;
+        font-weight: 700;
+        min-width: 1.5rem;
+        text-align: right;
+
+        &.pass { color: #6c6; }
+        &.fail { color: #d66; }
+    }
+
+    .item-inf-loss {
+        color: #d66;
+        font-size: 0.55rem;
+    }
+
+    .item-row.success {
+        border-left: 2px solid rgba(80, 180, 80, 0.4);
+    }
+
+    .item-row.failure {
+        border-left: 2px solid rgba(200, 60, 60, 0.4);
+    }
+
+    .roll-d100 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--dh2e-gold, #c8a84e);
     }
 
     .modifications {

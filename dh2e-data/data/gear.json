@@ -426,7 +426,15 @@
             "description": "A personal focus item attuned to a psyker's mind, such as a crystal, staff, or talisman. Grants +10 to Focus Power tests.",
             "weight": 0.5,
             "quantity": 1,
-            "craftsmanship": "common"
+            "craftsmanship": "common",
+            "rules": [
+                {
+                    "key": "FlatModifier",
+                    "domain": "power",
+                    "value": 10,
+                    "label": "Psy-Focus"
+                }
+            ]
         }
     },
     {

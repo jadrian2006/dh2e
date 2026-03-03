@@ -88,6 +88,7 @@ export interface ChronicleData {
 /** Warband system source data (stored in DB) */
 export interface WarbandSystemSource {
     members: WarbandMemberSource[];
+    subtlety: number;
     reinforcements: ReinforcementEntry[];
     inquisitor: InquisitorSource;
     pendingRequisitions: PendingRequisition[];

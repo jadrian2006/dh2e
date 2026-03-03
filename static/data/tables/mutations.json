@@ -1,0 +1,22 @@
+[
+    { "min": 1, "max": 5, "title": "Bestial Hide", "description": "The character's skin thickens into a tough, leathery or chitinous covering.", "effect": "Gains Natural Armour (2) to all locations." },
+    { "min": 6, "max": 10, "title": "Brute", "description": "The character's muscles swell and harden grotesquely.", "effect": "+10 Strength, -10 Agility." },
+    { "min": 11, "max": 15, "title": "Corrupted Flesh", "description": "The character's flesh becomes unnaturally resilient to harm.", "effect": "Gains the Regeneration (1) trait." },
+    { "min": 16, "max": 20, "title": "Deformed", "description": "Limbs twist, bones distort, and the body becomes visibly warped.", "effect": "-20 Fellowship. Movement reduced by 1." },
+    { "min": 21, "max": 25, "title": "Disturbing Voice", "description": "The character's voice becomes eerie, multilayered, or inhuman.", "effect": "+10 Intimidate, -10 Fellowship for all other social tests." },
+    { "min": 26, "max": 30, "title": "Extra Appendage", "description": "A vestigial limb, tail, or tentacle sprouts from the body.", "effect": "Gains an additional limb. May be used for a Basic melee attack (1d5+SB Impact)." },
+    { "min": 31, "max": 35, "title": "Grotesque", "description": "The character becomes hideously ugly beyond normal human variation.", "effect": "-20 Fellowship. Causes Fear (1) in NPCs." },
+    { "min": 36, "max": 40, "title": "Horns", "description": "Bony protrusions or horns emerge from the skull.", "effect": "Gains a natural melee weapon (1d10+SB Impact). May headbutt in melee." },
+    { "min": 41, "max": 45, "title": "Malformed Hands", "description": "Fingers fuse, split, or warp into claws.", "effect": "-10 to tests requiring fine manipulation. Natural weapon: 1d5+SB Rending." },
+    { "min": 46, "max": 50, "title": "Misshapen", "description": "The character's body is asymmetrical and distorted, but tough.", "effect": "+5 Toughness. Does not fit standard armour (must be custom-made)." },
+    { "min": 51, "max": 55, "title": "Nightsider", "description": "The character's eyes adapt to darkness but become photosensitive.", "effect": "Gains Dark Sight trait. -10 to Perception tests in bright light." },
+    { "min": 56, "max": 60, "title": "Razor Claws", "description": "Nails harden and extend into wicked natural weapons.", "effect": "Natural weapon: 1d10+SB Rending. Cannot wear standard gloves." },
+    { "min": 61, "max": 65, "title": "Scales", "description": "Reptilian or fishlike scales cover portions of the body.", "effect": "Gains Natural Armour (1) to all locations. -5 Fellowship." },
+    { "min": 66, "max": 70, "title": "Tail", "description": "A muscular or prehensile tail grows from the base of the spine.", "effect": "+10 to Acrobatics (Balance). May hold (but not wield) light items." },
+    { "min": 71, "max": 75, "title": "Toxic Blood", "description": "The character's blood becomes corrosive or poisonous.", "effect": "Anyone wounding the character in melee must pass Toughness test or take 1d5 Toxic damage." },
+    { "min": 76, "max": 80, "title": "Unnatural Eyes", "description": "Eyes change colour, glow, or become entirely alien.", "effect": "+10 to Awareness (Sight). Causes unease — -5 Fellowship." },
+    { "min": 81, "max": 85, "title": "Warped Frame", "description": "The skeleton warps, making the character taller, hunched, or bent.", "effect": "+5 Toughness, -5 Agility. Size may change by one step." },
+    { "min": 86, "max": 90, "title": "Warp Sense", "description": "The character gains an innate sense for warp disturbances.", "effect": "Gains the Psyniscience skill at Known (+0). May detect psychic phenomena within 20m." },
+    { "min": 91, "max": 95, "title": "Withered", "description": "Part of the body withers and desiccates, yet remains functional.", "effect": "-10 Strength. Gains Unnatural Toughness (+1)." },
+    { "min": 96, "max": 100, "title": "Warp Instability", "description": "The character's connection to the warp deepens dangerously.", "effect": "Gains Psy Rating 1 (or +1 if already a psyker). Roll on Psychic Phenomena table once per session." }
+]

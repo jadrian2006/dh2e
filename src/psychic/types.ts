@@ -52,10 +52,30 @@ interface PerilsEntry {
     conditions?: string[];
 }
 
+/** Structured attack data for combat powers */
+interface PowerAttackData {
+    formula: string;
+    damageType: string;
+    penetration: string;
+    qualities: string[];
+    ignoreTB: boolean;
+    ignoreAP: boolean;
+}
+
+/** Condition effect triggered by a power */
+interface PowerEffect {
+    conditionSlug: string;
+    trigger: "onSuccess" | "onDoS";
+    dosThreshold?: number;
+    duration?: number;
+}
+
 export type {
     PsykerMode,
     FocusPowerContext,
     FocusPowerResult,
     PhenomenaEntry,
     PerilsEntry,
+    PowerAttackData,
+    PowerEffect,
 };

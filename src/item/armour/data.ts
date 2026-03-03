@@ -10,4 +10,6 @@ export interface ArmourSystemSource {
     availability: string;
     /** Craftsmanship quality: poor, common, good, best */
     craftsmanship: string;
+    /** UUIDs of attached modification items */
+    modifications: string[];
 }

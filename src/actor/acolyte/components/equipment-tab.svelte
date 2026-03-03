@@ -363,7 +363,7 @@
                                             <i class="fa-solid fa-layer-group"></i>
                                         </button>
                                     {/if}
-                                    {#if item.type === "weapon" || item.type === "armour"}
+                                    {#if item.type === "weapon" || item.type === "armour" || item.type === "gear"}
                                         <button
                                             class="equip-btn"
                                             class:equipped={item.system?.equipped}
@@ -482,7 +482,7 @@
                                 <i class="fa-solid fa-layer-group"></i>
                             </button>
                         {/if}
-                        {#if item.type === "weapon" || item.type === "armour"}
+                        {#if item.type === "weapon" || item.type === "armour" || item.type === "gear"}
                             <button
                                 class="equip-btn"
                                 class:equipped={item.system?.equipped}

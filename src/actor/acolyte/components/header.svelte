@@ -9,11 +9,16 @@
 
     function openPortraitPicker() {
         if (!ctx.editable) return;
-        const fp = new FilePicker({
+        // Capture actor reference before async FilePicker — Svelte 5 $props()
+        // bindings can go stale if the sheet re-renders and unmounts this component
+        // while the picker dialog is open.
+        const actor = ctx.actor;
+        const FP = (fa as any).apps.FilePicker.implementation;
+        const fp = new FP({
             type: "image",
             current: ctx.img,
             callback: (path: string) => {
-                ctx.actor?.update({ img: path, "prototypeToken.texture.src": path });
+                actor?.update({ img: path, "prototypeToken.texture.src": path });
             },
         });
         fp.browse();

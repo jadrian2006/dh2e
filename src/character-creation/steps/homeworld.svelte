@@ -278,7 +278,7 @@
     {#if hasData}
         <div class="card-grid">
             {#each homeworlds as hw}
-                {@const isSelected = selected?.name === hw.name}
+                {@const isSelected = selected === hw}
                 {@const hwBonuses = getCharBonuses(hw.rules ?? [])}
                 {@const hwPos = hwBonuses.filter(b => b.value > 0)}
                 {@const hwNeg = hwBonuses.filter(b => b.value < 0)}

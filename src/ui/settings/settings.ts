@@ -7,7 +7,7 @@
 
 interface SettingDefinition {
     key: string;
-    category: "automation" | "combat" | "display" | "loot";
+    category: "automation" | "combat" | "display" | "loot" | "requisition";
     name: string;
     hint: string;
     scope: "world" | "client";
@@ -119,6 +119,17 @@ const SETTINGS: SettingDefinition[] = [
         default: 0,
         range: { min: 0, max: 5, step: 1 },
     },
+    {
+        key: "mutationRerolls",
+        category: "automation",
+        name: "DH2E.Settings.MutationRerolls.Name",
+        hint: "DH2E.Settings.MutationRerolls.Hint",
+        scope: "world",
+        config: true,
+        type: Number,
+        default: 0,
+        range: { min: 0, max: 5, step: 1 },
+    },
 
     {
         key: "charGenRerollThreshold",
@@ -160,6 +171,38 @@ const SETTINGS: SettingDefinition[] = [
         config: true,
         type: Boolean,
         default: true,
+    },
+    {
+        key: "insanityRemovalCost",
+        category: "automation",
+        name: "DH2E.Settings.InsanityRemovalCost.Name",
+        hint: "DH2E.Settings.InsanityRemovalCost.Hint",
+        scope: "world",
+        config: true,
+        type: Number,
+        default: 100,
+        range: { min: 10, max: 500, step: 10 },
+    },
+    {
+        key: "corruptionRemovalEnabled",
+        category: "automation",
+        name: "DH2E.Settings.CorruptionRemovalEnabled.Name",
+        hint: "DH2E.Settings.CorruptionRemovalEnabled.Hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+    },
+    {
+        key: "corruptionRemovalCost",
+        category: "automation",
+        name: "DH2E.Settings.CorruptionRemovalCost.Name",
+        hint: "DH2E.Settings.CorruptionRemovalCost.Hint",
+        scope: "world",
+        config: true,
+        type: Number,
+        default: 100,
+        range: { min: 10, max: 500, step: 10 },
     },
     {
         key: "warbandInventoryAccess",
@@ -503,6 +546,22 @@ const SETTINGS: SettingDefinition[] = [
         config: true,
         type: Boolean,
         default: true,
+    },
+
+    // Requisition
+    {
+        key: "requisitionRollMode",
+        category: "requisition",
+        name: "DH2E.Settings.RequisitionRollMode.Name",
+        hint: "DH2E.Settings.RequisitionRollMode.Hint",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "bulk",
+        choices: {
+            bulk: "DH2E.Settings.RequisitionRollMode.Bulk",
+            individual: "DH2E.Settings.RequisitionRollMode.Individual",
+        },
     },
 
     // Internal (hidden)

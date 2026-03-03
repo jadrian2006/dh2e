@@ -524,6 +524,30 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             // Process Grant REs from background
             const bgChoices = (state.backgroundChoices ?? state.gearChoices ?? {}) as Record<number, string | number>;
             await this.#processGrants(bgRules, bgChoices, itemsToCreate, state);
+
+            // Twisted Flesh (Mutant) — starting corruption + mutation item
+            const isTwistedFlesh = bgRules.some(
+                (r: any) => r.key === "RollOption" && r.option === "self:background:twisted-flesh"
+            );
+            if (isTwistedFlesh) {
+                const cur = (updates["system.corruption"] as number) ?? 0;
+                if (cur < 10) updates["system.corruption"] = 10;
+
+                const mResult = state.mutationResult as { title: string; description: string; effect: string } | null;
+                if (mResult) {
+                    itemsToCreate.push({
+                        name: `Mutation: ${mResult.title}`,
+                        type: "malignancy",
+                        img: `systems/${SYSTEM_ID}/icons/default-icons/malignancy.svg`,
+                        system: {
+                            description: `${mResult.description}\n\n${mResult.effect}`,
+                            threshold: 10,
+                            rules: [],
+                            visible: true,
+                        },
+                    });
+                }
+            }
         }
 
         // 4. Role — aptitudes + talent + elite advances (all via REs)

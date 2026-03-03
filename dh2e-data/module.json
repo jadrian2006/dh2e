@@ -28,7 +28,7 @@
         {
             "name": "DH2E Equipment",
             "color": "#8a7a3e",
-            "packs": ["weapons", "armour", "gear", "ammunition", "cybernetics"]
+            "packs": ["weapons", "armour", "gear", "ammunition", "cybernetics", "modifications"]
         },
         {
             "name": "DH2E Character",
@@ -140,6 +140,13 @@
             "name": "traits",
             "label": "DH2E Traits",
             "path": "packs/traits",
+            "type": "Item",
+            "system": "dh2e"
+        },
+        {
+            "name": "modifications",
+            "label": "DH2E Modifications",
+            "path": "packs/modifications",
             "type": "Item",
             "system": "dh2e"
         },

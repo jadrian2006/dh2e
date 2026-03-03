@@ -16,6 +16,16 @@ class ChatCardDH2e {
         const rollTens = Math.floor(result.roll / 10);
         const dosThreshold = result.context.dosThreshold;
 
+        // Face of the Law: Adeptus Arbites free reroll + WP bonus substitution
+        const actor = result.context.actor as any;
+        const domain = result.context.domain;
+        const faceOfTheLawDomains = ["skill:intimidate", "skill:interrogation"];
+        const faceOfTheLaw = !!(actor?.synthetics?.rollOptions?.has("self:background:face-of-the-law"))
+            && faceOfTheLawDomains.some(d => domain.startsWith(d));
+        const wpBonus = faceOfTheLaw
+            ? (actor?.system?.characteristics?.wp?.bonus ?? 0)
+            : 0;
+
         const templateData = {
             title: result.context.label,
             untrained: result.context.untrained ?? false,
@@ -35,6 +45,8 @@ class ChatCardDH2e {
                 source: m.source,
             })),
             isGM: (game as any).user?.isGM ?? false,
+            faceOfTheLaw,
+            wpBonus,
         };
 
         const content = await fa.handlebars.renderTemplate(templatePath, templateData);
@@ -52,6 +64,7 @@ class ChatCardDH2e {
                     type: "check",
                     result: {
                         actorId: result.context.actor.id,
+                        label: result.context.label,
                         roll: result.roll,
                         target: result.target,
                         success: result.dos.success,
@@ -59,6 +72,7 @@ class ChatCardDH2e {
                         characteristic: result.context.characteristic,
                         domain: result.context.domain,
                         dosThreshold,
+                        faceOfTheLaw,
                     },
                 },
             },

@@ -308,30 +308,65 @@
                     {#if sys.skills?.length}
                         <div class="origin-badges">
                             <span class="badge-label">Skills:</span>
-                            {#each sys.skills as skillName}
-                                <button class="badge skill-badge" type="button" onclick={() => openNamedItem(skillName, "skill")} title="Open {skillName}">
-                                    {skillName}
-                                </button>
+                            {#each sys.skills as entry}
+                                {#if entry.isChoice}
+                                    {#each entry.names as name, j}
+                                        {#if j > 0}<span class="badge-or">or</span>{/if}
+                                        <button class="badge skill-badge" type="button"
+                                            onclick={() => openNamedItem(name, "skill")}
+                                            title="Open {name}">
+                                            {name}
+                                        </button>
+                                    {/each}
+                                {:else}
+                                    <button class="badge skill-badge" type="button"
+                                        onclick={() => openNamedItem(entry.names[0], "skill")}
+                                        title="Open {entry.names[0]}">
+                                        {entry.names[0]}
+                                    </button>
+                                {/if}
                             {/each}
                         </div>
                     {/if}
                     {#if sys.talents?.length}
                         <div class="origin-badges">
                             <span class="badge-label">Talents:</span>
-                            {#each sys.talents as talentName}
-                                <button class="badge talent-badge" type="button" onclick={() => openNamedItem(talentName, "talent")} title="Open {talentName}">
-                                    {talentName}
-                                </button>
+                            {#each sys.talents as entry}
+                                {#if entry.isChoice}
+                                    {#each entry.names as name, j}
+                                        {#if j > 0}<span class="badge-or">or</span>{/if}
+                                        <button class="badge talent-badge" type="button"
+                                            onclick={() => openNamedItem(name, "talent")}
+                                            title="Open {name}">
+                                            {name}
+                                        </button>
+                                    {/each}
+                                {:else}
+                                    <button class="badge talent-badge" type="button"
+                                        onclick={() => openNamedItem(entry.names[0], "talent")}
+                                        title="Open {entry.names[0]}">
+                                        {entry.names[0]}
+                                    </button>
+                                {/if}
                             {/each}
                         </div>
                     {/if}
                     {#if sys.equipment?.length}
                         <div class="origin-badges">
                             <span class="badge-label">Equipment:</span>
-                            {#each sys.equipment as eqName}
-                                <span class="badge equip-badge" title={eqName}>
-                                    {eqName}
-                                </span>
+                            {#each sys.equipment as entry}
+                                {#if entry.isChoice}
+                                    {#each entry.names as name, j}
+                                        {#if j > 0}<span class="badge-or">or</span>{/if}
+                                        <span class="badge equip-badge" title={name}>
+                                            {name}
+                                        </span>
+                                    {/each}
+                                {:else}
+                                    <span class="badge equip-badge" title={entry.names[0]}>
+                                        {entry.names[0]}
+                                    </span>
+                                {/if}
                             {/each}
                         </div>
                     {/if}
@@ -485,6 +520,11 @@
     .talent-badge { color: #c8a84e; background: rgba(200, 168, 78, 0.1); }
     button.talent-badge:hover { color: #e0c060; border-color: rgba(200, 168, 78, 0.4); }
     .equip-badge { color: var(--dh2e-text-secondary, #a0a0a8); }
+    .badge-or {
+        font-size: 0.55rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-style: italic;
+    }
     .elite-badge { color: #c080e0; background: rgba(168, 78, 200, 0.1); }
 
     .origin-bonus {

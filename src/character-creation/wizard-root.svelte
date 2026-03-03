@@ -38,6 +38,11 @@
     let fateRoll = $state<number | null>(null);
     let corruptionRoll = $state<number | null>(null);
 
+    // Mutation roll state for Mutant background (Twisted Flesh)
+    let mutationRoll = $state<number | null>(null);
+    let mutationResult = $state<{ title: string; description: string; effect: string } | null>(null);
+    let mutationRollCount = $state(0);
+
     // Divination roll persistence — survives step navigation
     let divinationRolled = $state(false);
     let divinationRollCount = $state(0);
@@ -64,6 +69,9 @@
     $effect(() => {
         background; // track dependency
         backgroundChoices = {};
+        mutationRoll = null;
+        mutationResult = null;
+        mutationRollCount = 0;
     });
 
     $effect(() => {
@@ -139,6 +147,8 @@
             corruptionRoll,
             homeworldChoices: { ...homeworldChoices },
             backgroundChoices: { ...backgroundChoices },
+            mutationRoll,
+            mutationResult,
             roleChoices: { ...roleChoices },
             divinationChoices: { ...divinationChoices },
             purchases: [...purchases],
@@ -164,7 +174,10 @@
         {#if step === 0}
             <Homeworld {data} bind:selected={homeworld} bind:homeworldChoices />
         {:else if step === 1}
-            <Background {data} bind:selected={background} bind:backgroundChoices />
+            <Background {data} bind:selected={background} bind:backgroundChoices
+                bind:mutationRoll bind:mutationResult bind:mutationRollCount
+                maxMutationRerolls={getSetting<number>("mutationRerolls")}
+            />
         {:else if step === 2}
             <Role {data} bind:selected={role} bind:roleChoices />
         {:else if step === 3}

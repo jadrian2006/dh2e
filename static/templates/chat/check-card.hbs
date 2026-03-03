@@ -55,6 +55,18 @@
         {{/if}}
 
         <div class="card-actions">
+            {{#if faceOfTheLaw}}
+                {{#unless success}}
+                <button class="background-ability-btn" data-action="face-of-law-reroll" title="{{localize "DH2E.FaceOfTheLaw.RerollTitle"}}">
+                    <i class="fas fa-redo"></i> {{localize "DH2E.FaceOfTheLaw.Reroll"}}
+                </button>
+                {{/unless}}
+                {{#if success}}
+                <button class="background-ability-btn" data-action="face-of-law-substitute" data-wp-bonus="{{wpBonus}}" title="{{localize "DH2E.FaceOfTheLaw.SubstituteTitle"}}">
+                    <i class="fas fa-exchange-alt"></i> {{format "DH2E.FaceOfTheLaw.Substitute" wpBonus=wpBonus}}
+                </button>
+                {{/if}}
+            {{/if}}
             <button class="fate-btn" data-action="spend-fate" title="{{localize "DH2E.Fate.InvokeFate"}}">
                 <i class="fas fa-star"></i>
             </button>

@@ -2,7 +2,7 @@
     {
         "name": "Bloodletter",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Bloodletter.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -264,12 +264,17 @@
                     "source": "enemies-beyond"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Bloodletter.webp"
+            }
+        }
     },
     {
         "name": "Daemonette",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Daemonette.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -376,7 +381,12 @@
                     "source": "enemies-beyond"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Daemonette.webp"
+            }
+        }
     },
     {
         "name": "Plaguebearer",
@@ -493,7 +503,7 @@
     {
         "name": "Horror of Tzeentch",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Pink Horror.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -600,12 +610,17 @@
                     "source": "enemies-beyond"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Pink Horror.webp"
+            }
+        }
     },
     {
         "name": "Flesh Hound of Khorne",
         "type": "npc",
-        "img": "systems/dh2e/icons/items/npc.svg",
+        "img": "systems/dh2e/tokens/Flesh Hound.webp",
         "system": {
             "characteristics": {
                 "ws": {
@@ -712,6 +727,11 @@
                     "source": "enemies-beyond"
                 }
             }
-        ]
+        ],
+        "prototypeToken": {
+            "texture": {
+                "src": "systems/dh2e/tokens/Flesh Hound.webp"
+            }
+        }
     }
 ]

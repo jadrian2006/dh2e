@@ -90,7 +90,7 @@
     {#if hasData}
         <div class="card-grid">
             {#each roles as role}
-                {@const isSelected = selected?.name === role.name}
+                {@const isSelected = selected === role}
                 {@const apts = getAptitudes(role.rules ?? [])}
                 <button
                     class="option-card"

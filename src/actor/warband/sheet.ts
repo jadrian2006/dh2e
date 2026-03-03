@@ -201,12 +201,18 @@ class WarbandSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
             })),
         };
 
+        // Subtlety
+        const subtlety = actor.system.subtlety ?? 50;
+
         return {
             ctx: {
                 actor,
                 name: actor.name,
                 img: actor.img,
                 editable: this.isEditable,
+                subtlety,
+                onSubtletyChange: (value: number) => actor.update({ "system.subtlety": value }),
+                adjustSubtlety: (delta: number, reason?: string) => actor.adjustSubtlety(delta, reason),
                 memberCards,
                 charKeys: CHAR_KEYS,
                 charComparison,

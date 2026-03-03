@@ -472,5 +472,26 @@
             "equipped": false,
             "craftsmanship": "common"
         }
+    },
+    {
+        "name": "Heavy Leathers",
+        "type": "armour",
+        "img": "systems/dh2e/icons/items/armour.svg",
+        "system": {
+            "description": "Thick cured hide layered into a crude but functional covering. Popular among underhive scum and mutants who lack access to proper armour.",
+            "locations": {
+                "head": 0,
+                "rightArm": 1,
+                "leftArm": 1,
+                "body": 1,
+                "rightLeg": 1,
+                "leftLeg": 1
+            },
+            "maxAgility": 0,
+            "qualities": [],
+            "weight": 3,
+            "equipped": false,
+            "craftsmanship": "common"
+        }
     }
 ]

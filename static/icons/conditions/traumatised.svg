@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <g fill="#ffffff" stroke="none">
+    <!-- Head silhouette (circle) -->
+    <circle cx="256" cy="200" r="100" fill="none" stroke="#ffffff" stroke-width="20"/>
+    <!-- Crack/fracture lines through the head -->
+    <polyline points="256,100 240,170 270,200 245,250 260,300" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="240,170 210,190" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+    <polyline points="270,200 300,215" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+    <!-- Spiral below (lingering effect) -->
+    <path d="M256,360 Q290,360 290,390 Q290,420 256,420 Q222,420 222,390 Q222,370 240,370" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -132,6 +132,7 @@ export const CANONICAL_SKILL_USES: Record<string, SkillUse[]> = {
     ],
     "Tech-Use": [
         { slug: "operate-device", label: "Operate Device", description: "Use an unfamiliar or complex piece of Imperial technology (cogitator, auspex, vox-caster).", actionTime: "Half Action", tags: [] },
+        { slug: "alien-devices", label: "Alien Devices", description: "Work with unfamiliar or alien devices, xenos technology, or heretical mechanisms. Heretek characters with Forbidden Lore gain +20.", actionTime: "Full Action", tags: [] },
         { slug: "repair", label: "Repair", description: "Fix a damaged or malfunctioning piece of technology. Time and difficulty depend on the damage severity.", actionTime: "Extended", tags: [] },
         { slug: "maintain", label: "Maintain", description: "Perform the rites of maintenance to keep technology functioning. Prevents malfunctions and degradation.", actionTime: "Extended", tags: [] },
     ],

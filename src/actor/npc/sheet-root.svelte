@@ -24,11 +24,13 @@
 
     function openPortraitPicker() {
         if (!ctx.editable) return;
-        const fp = new FilePicker({
+        const actor = ctx.actor;
+        const FP = (fa as any).apps.FilePicker.implementation;
+        const fp = new FP({
             type: "image",
             current: ctx.img,
             callback: (path: string) => {
-                ctx.actor?.update({ img: path, "prototypeToken.texture.src": path });
+                actor?.update({ img: path, "prototypeToken.texture.src": path });
             },
         });
         fp.browse();
