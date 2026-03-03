@@ -1,6 +1,7 @@
 import { GMOverrideHandler } from "./gm-override.ts";
 import { ChatApplyHandler } from "./apply-handler.ts";
 import { FateDialog } from "@ui/fate-dialog.ts";
+import { setPendingReaction, clearPendingReaction } from "@combat/reaction-state.svelte.ts";
 
 /**
  * Delegated event handlers for chat card interactions.
@@ -95,6 +96,9 @@ class ChatListenersDH2e {
         html.querySelectorAll<HTMLButtonElement>("[data-action='face-of-law-substitute']").forEach((btn) => {
             btn.addEventListener("click", () => ChatListenersDH2e.#onFaceOfLawSubstitute(message, btn));
         });
+
+        // Defensive reaction buttons (Dodge / Parry)
+        ChatListenersDH2e.#bindReactionButtons(html, message);
 
         // Right-click reroll on check/attack cards
         html.querySelectorAll<HTMLElement>(".check-card, .attack-card").forEach((el) => {
@@ -608,7 +612,7 @@ class ChatListenersDH2e {
                     const charKey = sys.focusTest || "wp";
                     const talents = actor.items.filter((i: any) => i.type === "talent");
                     const prTalent = talents.find((t: any) => t.name === "Psy Rating");
-                    const psyRating = prTalent?.system?.tier ?? 0;
+                    const psyRating = prTalent?.system?.rating || (prTalent?.system?.tier ?? 0);
                     if (psyRating <= 0) {
                         ui.notifications?.warn(game.i18n?.localize("DH2E.Psychic.NoPsyRating") ?? "No Psy Rating.");
                         return;
@@ -624,7 +628,8 @@ class ChatListenersDH2e {
                     await FocusPowerResolver.resolve({
                         actor, power, focusCharacteristic: charKey,
                         focusModifier: sys.focusModifier ?? 0,
-                        psyRating, mode: result.mode, skipDialog: false,
+                        psyRating, selectedPR: result.selectedPR,
+                        mode: result.mode, skipDialog: false,
                     });
                 }
             }
@@ -981,6 +986,91 @@ class ChatListenersDH2e {
 
         const { GrappleHandler } = await import("@combat/grapple.ts");
         await GrappleHandler.executeAction(action as any, attacker, defender);
+    }
+
+    /**
+     * Bind defensive reaction buttons on attack cards.
+     *
+     * Shows Dodge/Parry buttons to the target actor's owner when:
+     * - The attack was successful
+     * - A reaction hasn't already been resolved
+     * - The viewer owns the target actor
+     *
+     * Also hides Roll Damage button when reaction fully negated all hits.
+     */
+    static #bindReactionButtons(html: HTMLElement, message: StoredDocument<ChatMessage>): void {
+        const flags = (message as any).flags?.[SYSTEM_ID] as Record<string, any> | undefined;
+        if (!flags || flags.type !== "attack") return;
+
+        const result = flags.result as Record<string, any>;
+        if (!result?.success || !result?.targetActorId) return;
+
+        const g = game as any;
+        const targetActor = g.actors?.get(result.targetActorId) as Actor | undefined;
+        if (!targetActor) return;
+
+        const reactionSection = html.querySelector<HTMLElement>(".reaction-section");
+        if (!reactionSection) return;
+
+        // If reaction already resolved, hide reaction buttons
+        if (result.reactionResolved) {
+            reactionSection.style.display = "none";
+
+            // If all hits negated, hide/disable Roll Damage
+            if ((result.hitCount ?? 0) === 0) {
+                html.querySelectorAll<HTMLButtonElement>("[data-action='roll-damage']").forEach((btn) => {
+                    btn.disabled = true;
+                    btn.style.opacity = "0.3";
+                    btn.title = game.i18n?.localize("DH2E.Reaction.AllNegated") ?? "All hits negated!";
+                });
+            }
+            return;
+        }
+
+        // Only show to the target actor's owner
+        if (!targetActor.isOwner) return;
+
+        // Show the reaction section
+        reactionSection.style.display = "";
+
+        // Set pending reaction highlight on HUD
+        const isRanged = result.isRanged ?? false;
+        setPendingReaction({ messageId: message.id!, isMelee: !isRanged });
+
+        // Bind click handlers
+        reactionSection.querySelectorAll<HTMLButtonElement>("[data-action='reaction-dodge']").forEach((btn) => {
+            btn.addEventListener("click", () => ChatListenersDH2e.#onDefensiveReaction(message, "dodge"));
+        });
+        reactionSection.querySelectorAll<HTMLButtonElement>("[data-action='reaction-parry']").forEach((btn) => {
+            btn.addEventListener("click", () => ChatListenersDH2e.#onDefensiveReaction(message, "parry"));
+        });
+    }
+
+    /** Handle a Dodge or Parry reaction button click */
+    static async #onDefensiveReaction(
+        message: StoredDocument<ChatMessage>,
+        reactionType: "dodge" | "parry",
+    ): Promise<void> {
+        const g = game as any;
+        const flags = (message as any).flags?.[SYSTEM_ID] as Record<string, any> | undefined;
+        if (!flags) return;
+
+        const result = flags.result as Record<string, any>;
+        const targetActorId = result?.targetActorId as string;
+        if (!targetActorId) return;
+
+        const defender = g.actors?.get(targetActorId) as Actor | undefined;
+        if (!defender) {
+            ui.notifications?.warn("Could not find the defending actor.");
+            return;
+        }
+
+        const { executeDefensiveReaction } = await import("@combat/defensive-reaction.ts");
+        await executeDefensiveReaction({
+            defender,
+            attackMessage: message,
+            reactionType,
+        });
     }
 }
 

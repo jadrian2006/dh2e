@@ -184,7 +184,7 @@
     function getAvailColorClass(key: string): string {
         const k = (key ?? "common").toLowerCase();
         if (k === "ubiquitous" || k === "abundant" || k === "plentiful" || k === "common") return "avail-green";
-        if (k === "average" || k === "scarce") return "avail-yellow";
+        if (k === "scarce") return "avail-yellow";
         if (k === "rare" || k === "veryRare" || k === "extremelyRare") return "avail-red";
         if (k === "nearUnique" || k === "unique") return "avail-purple";
         return "avail-green";

@@ -26,6 +26,15 @@ class ChatCardDH2e {
             ? (actor?.system?.characteristics?.wp?.bonus ?? 0)
             : 0;
 
+        // Characteristic label for display
+        const charKey = result.context.characteristic;
+        const charAbbrevMap: Record<string, string> = {
+            ws: "WS", bs: "BS", s: "S", t: "T", ag: "Ag",
+            int: "Int", per: "Per", wp: "WP", fel: "Fel",
+        };
+        const charAbbrev = charKey ? (charAbbrevMap[charKey] ?? charKey.toUpperCase()) : null;
+        const baseTarget = result.context.baseTarget;
+
         const templateData = {
             title: result.context.label,
             untrained: result.context.untrained ?? false,
@@ -33,6 +42,8 @@ class ChatCardDH2e {
             degrees: result.dos.degrees,
             roll: result.roll,
             target: result.target,
+            baseTarget,
+            charAbbrev,
             targetTens,
             rollTens,
             dosThreshold,

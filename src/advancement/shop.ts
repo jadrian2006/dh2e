@@ -182,6 +182,8 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             const skillApt: string = sys.aptitude ?? "General";
             const spec: string = sys.specialization ?? "";
             const skillName = spec ? `${item.name} (${spec})` : item.name;
+            const prereqStr: string = sys.prerequisites ?? "";
+            const prereqResult = prereqStr ? checkPrerequisites(actor, prereqStr) : { met: true, unmet: [] as string[] };
 
             if (advancement >= 4) {
                 options.push({
@@ -197,8 +199,9 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     maxLevel: 4,
                     affordable: false,
                     alreadyMaxed: true,
-                    prereqsMet: true,
-                    prereqsUnmet: [],
+                    prerequisites: prereqStr || undefined,
+                    prereqsMet: prereqResult.met,
+                    prereqsUnmet: prereqResult.unmet,
                     sourceItemId: item.id,
                 });
                 continue;
@@ -219,8 +222,9 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 maxLevel: 4,
                 affordable: xpAvailable >= cost,
                 alreadyMaxed: false,
-                prereqsMet: true,
-                prereqsUnmet: [],
+                prerequisites: prereqStr || undefined,
+                prereqsMet: prereqResult.met,
+                prereqsUnmet: prereqResult.unmet,
                 sourceItemId: item.id,
             });
         }
@@ -237,7 +241,7 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         for (const packId of getPacksOfType("skills")) {
             const skillPack = game.packs?.get(packId);
             if (!skillPack) continue;
-            const skillIndex = await skillPack.getIndex({ fields: ["system.linkedCharacteristic", "system.aptitude", "system.specialization"] });
+            const skillIndex = await skillPack.getIndex({ fields: ["system.linkedCharacteristic", "system.aptitude", "system.specialization", "system.prerequisites"] });
             for (const entry of skillIndex) {
                 const meta = entry as any;
                 const sys = meta.system ?? {};
@@ -251,6 +255,8 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 const aptPair = getSkillAptitudes(costs, skillApt, linkedChar);
                 const matchCount = countAptitudeMatches(charApts, aptPair);
                 const cost = getSkillCost(costs, 0, matchCount);
+                const prereqStr: string = sys.prerequisites ?? "";
+                const prereqResult = prereqStr ? checkPrerequisites(actor, prereqStr) : { met: true, unmet: [] as string[] };
 
                 options.push({
                     category: "skill",
@@ -265,8 +271,9 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     maxLevel: 4,
                     affordable: xpAvailable >= cost,
                     alreadyMaxed: false,
-                    prereqsMet: true,
-                    prereqsUnmet: [],
+                    prerequisites: prereqStr || undefined,
+                    prereqsMet: prereqResult.met,
+                    prereqsUnmet: prereqResult.unmet,
                     compendiumUuid: buildCompendiumUuid(packId, meta._id),
                 });
             }
@@ -418,19 +425,23 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             const psyTalent = actor.items.find(
                 (i: Item) => i.type === "talent" && i.name.toLowerCase() === "psy rating",
             );
-            const currentPR = (psyTalent as any)?.system?.tier ?? 1;
+            // PR level stored in system.rating (1 = PR1, etc.). Fallback: rating 0 means talent exists but not initialized.
+            const currentPR = Math.max(1, (psyTalent as any)?.system?.rating ?? 1);
             const maxPR = 10;
             if (currentPR < maxPR) {
                 const nextPR = currentPR + 1;
-                const prCost = 200 * nextPR;
+                // Per RAW: Psy Rating is a Tier 3 talent. Cost based on aptitude matching.
+                const prAptitudes: [string, string] = ["Willpower", "Psyker"];
+                const prMatchCount = countAptitudeMatches(charApts, prAptitudes);
+                const prCost = getTalentCost(costs, 3, prMatchCount);
                 options.push({
                     category: "elite",
                     label: `Psy Rating ${nextPR}`,
-                    sublabel: `${prCost} XP`,
+                    sublabel: `Tier 3 — ${prCost} XP`,
                     key: `psy-rating-${nextPR}`,
                     cost: prCost,
-                    matchCount: 0,
-                    aptitudes: [],
+                    matchCount: prMatchCount,
+                    aptitudes: prAptitudes,
                     currentLevel: currentPR,
                     nextLevel: nextPR,
                     maxLevel: maxPR,
@@ -523,7 +534,7 @@ class AdvancementShop extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             if (!opt.sourceItemId) return;
             const psyTalent = actor.items.get(opt.sourceItemId);
             if (!psyTalent) return;
-            await psyTalent.update({ "system.tier": opt.nextLevel });
+            await psyTalent.update({ "system.rating": opt.nextLevel });
             await actor.update({ "system.xp.spent": system.xp.spent + opt.cost });
         }
 

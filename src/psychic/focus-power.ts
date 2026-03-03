@@ -25,13 +25,14 @@ class FocusPowerResolver {
         const mode: PsykerMode = context.mode ?? "unfettered";
 
         // Effective PR for power effects (damage, range, etc.)
-        // Unfettered: PR as chosen. Pushed: PR + extras (phenomena always triggered).
-        const effectivePR = psyRating;
+        // Unfettered: chosen PR (1 to max). Pushed: full max PR.
+        const selectedPR = mode === "pushed"
+            ? psyRating
+            : Math.max(1, Math.min(context.selectedPR ?? psyRating, psyRating));
+        const effectivePR = selectedPR;
 
-        // Per RAW: +10 to Focus Power test for each PR level below your max you manifest at.
-        // Currently casts at full PR, so the bonus is (maxPR - castingPR) * 10 = 0.
-        // TODO: Add PR level selector when casting below max PR.
-        const prBonus = 0;
+        // Per RAW: +10 to Focus Power test for each PR level below max (Unfettered only)
+        const prBonus = mode === "unfettered" ? (psyRating - selectedPR) * 10 : 0;
 
         // Base target = characteristic value
         const charData = actor.system?.characteristics?.[charKey];
@@ -332,54 +333,52 @@ class FocusPowerResolver {
         wpBonus: number,
         rawRoll: number,
     ): Promise<number> {
-        const DialogClass = (globalThis as any).Dialog;
-        if (!DialogClass) return 0;
-
         const promptText = game.i18n?.format("DH2E.ConstantThreat.Prompt", {
             character: characterName,
             roll: String(rawRoll),
             wpBonus: String(wpBonus),
         }) ?? `${characterName} can adjust the Phenomena roll (${rawRoll}) by up to ±${wpBonus} (WP Bonus).`;
 
+        const content = `
+            <form class="dh2e constant-threat-form">
+                <p>${promptText}</p>
+                <div class="form-group">
+                    <label>${game.i18n?.localize("DH2E.ConstantThreat.Adjustment") ?? "Adjustment"}</label>
+                    <div style="display:flex;align-items:center;gap:8px">
+                        <input type="range" name="adjustment" value="0" min="${-wpBonus}" max="${wpBonus}" step="1"
+                            style="flex:1" oninput="this.nextElementSibling.textContent=this.value>0?'+'+this.value:this.value" />
+                        <span style="min-width:32px;text-align:center;font-weight:bold">0</span>
+                    </div>
+                    <p class="notes" style="margin-top:4px">${game.i18n?.format("DH2E.ConstantThreat.Range", {
+                        min: String(Math.max(1, rawRoll - wpBonus)),
+                        max: String(Math.min(100, rawRoll + wpBonus)),
+                    }) ?? `Result range: ${Math.max(1, rawRoll - wpBonus)}–${Math.min(100, rawRoll + wpBonus)}`}</p>
+                </div>
+            </form>
+        `;
+
         return new Promise<number>((resolve) => {
-            new DialogClass({
-                title: game.i18n?.localize("DH2E.ConstantThreat.Title") ?? "The Constant Threat",
-                content: `
-                    <form class="dh2e constant-threat-form">
-                        <p>${promptText}</p>
-                        <div class="form-group">
-                            <label>${game.i18n?.localize("DH2E.ConstantThreat.Adjustment") ?? "Adjustment"}</label>
-                            <div style="display:flex;align-items:center;gap:8px">
-                                <input type="range" name="adjustment" value="0" min="${-wpBonus}" max="${wpBonus}" step="1"
-                                    style="flex:1" oninput="this.nextElementSibling.textContent=this.value>0?'+'+this.value:this.value" />
-                                <span style="min-width:32px;text-align:center;font-weight:bold">0</span>
-                            </div>
-                            <p class="notes" style="margin-top:4px">${game.i18n?.format("DH2E.ConstantThreat.Range", {
-                                min: String(Math.max(1, rawRoll - wpBonus)),
-                                max: String(Math.min(100, rawRoll + wpBonus)),
-                            }) ?? `Result range: ${Math.max(1, rawRoll - wpBonus)}–${Math.min(100, rawRoll + wpBonus)}`}</p>
-                        </div>
-                    </form>
-                `,
-                buttons: {
-                    adjust: {
-                        icon: '<i class="fas fa-sliders-h"></i>',
-                        label: game.i18n?.localize("DH2E.ConstantThreat.Apply") ?? "Adjust Roll",
-                        callback: (html: any) => {
-                            const input = html.find ? html.find("[name=adjustment]") : html.querySelector("[name=adjustment]");
-                            const val = parseInt(input?.val?.() ?? input?.value ?? "0", 10) || 0;
-                            resolve(Math.max(-wpBonus, Math.min(wpBonus, val)));
-                        },
+            const dialog = new fd.DialogV2({
+                window: { title: game.i18n?.localize("DH2E.ConstantThreat.Title") ?? "The Constant Threat" },
+                content,
+                buttons: [{
+                    action: "adjust",
+                    icon: "fas fa-sliders-h",
+                    label: game.i18n?.localize("DH2E.ConstantThreat.Apply") ?? "Adjust Roll",
+                    callback: (_event: Event, _button: HTMLElement, dialogEl: HTMLElement) => {
+                        const input = dialogEl.querySelector<HTMLInputElement>("[name=adjustment]");
+                        const val = parseInt(input?.value ?? "0", 10) || 0;
+                        resolve(Math.max(-wpBonus, Math.min(wpBonus, val)));
                     },
-                    skip: {
-                        icon: '<i class="fas fa-forward"></i>',
-                        label: game.i18n?.localize("DH2E.ConstantThreat.Skip") ?? "No Adjustment",
-                        callback: () => resolve(0),
-                    },
-                },
-                default: "skip",
+                }, {
+                    action: "skip",
+                    icon: "fas fa-forward",
+                    label: game.i18n?.localize("DH2E.ConstantThreat.Skip") ?? "No Adjustment",
+                    callback: () => resolve(0),
+                }],
                 close: () => resolve(0),
-            }).render(true);
+            });
+            dialog.render({ force: true });
         });
     }
 }

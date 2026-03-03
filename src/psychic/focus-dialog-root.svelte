@@ -2,16 +2,29 @@
     let { ctx }: { ctx: Record<string, any> } = $props();
 
     let mode = $state<"unfettered" | "pushed">("unfettered");
+    let selectedPR = $state<number>(ctx.psyRating);
     let showDescription = $state(false);
 
-    const prDisplay = $derived(
-        mode === "pushed"
-            ? `PR ${ctx.psyRating} x10 = +${ctx.psyRating * 10}`
-            : `PR ${ctx.psyRating} x5 = +${ctx.psyRating * 5}`,
+    const maxPR: number = ctx.psyRating;
+
+    // Bonus for casting below max PR: +10 per level below max (Unfettered only)
+    const prBonus = $derived(
+        mode === "unfettered" ? (maxPR - selectedPR) * 10 : 0,
     );
 
+    const prBonusDisplay = $derived(
+        prBonus > 0 ? `+${prBonus}` : "+0",
+    );
+
+    // When switching to Pushed, lock PR at max
+    $effect(() => {
+        if (mode === "pushed") {
+            selectedPR = maxPR;
+        }
+    });
+
     function confirm() {
-        ctx.onConfirm?.(mode);
+        ctx.onConfirm?.(mode, selectedPR);
     }
 
     function cancel() {
@@ -28,18 +41,41 @@
         <label class="mode-option" class:selected={mode === "unfettered"}>
             <input type="radio" name="mode" value="unfettered" bind:group={mode} />
             <span class="mode-label">Unfettered</span>
-            <span class="mode-desc">PR x5 bonus. Phenomena on doubles.</span>
+            <span class="mode-desc">Choose PR 1–{maxPR}. +10 per PR below max. Phenomena on doubles.</span>
         </label>
         <label class="mode-option" class:selected={mode === "pushed"}>
             <input type="radio" name="mode" value="pushed" bind:group={mode} />
             <span class="mode-label">Pushed</span>
-            <span class="mode-desc">PR x10 bonus. Always triggers Phenomena (+25).</span>
+            <span class="mode-desc">Cast at full PR {maxPR}. Always triggers Phenomena.</span>
         </label>
     </div>
 
+    {#if mode === "unfettered" && maxPR > 1}
+        <div class="pr-selector">
+            <span class="pr-selector-label">Manifest at PR</span>
+            <div class="pr-buttons">
+                {#each Array.from({ length: maxPR }, (_, i) => i + 1) as pr}
+                    <button
+                        class="pr-btn"
+                        class:active={selectedPR === pr}
+                        onclick={() => selectedPR = pr}
+                    >
+                        {pr}
+                    </button>
+                {/each}
+            </div>
+        </div>
+    {/if}
+
     <div class="pr-display">
-        <span class="pr-label">Effective Bonus</span>
-        <span class="pr-value">{prDisplay}</span>
+        <div class="pr-row">
+            <span class="pr-label">Effective PR</span>
+            <span class="pr-value">{selectedPR}</span>
+        </div>
+        <div class="pr-row">
+            <span class="pr-label">Reduced PR Bonus</span>
+            <span class="pr-value" class:bonus={prBonus > 0}>{prBonusDisplay}</span>
+        </div>
     </div>
 
     {#if ctx.description}
@@ -112,13 +148,59 @@
         padding-left: 1.5rem;
     }
 
+    .pr-selector {
+        display: flex;
+        flex-direction: column;
+        gap: var(--dh2e-space-xs, 0.25rem);
+    }
+
+    .pr-selector-label {
+        font-size: var(--dh2e-text-sm, 0.8rem);
+        color: var(--dh2e-text-secondary, #a0a0a8);
+    }
+
+    .pr-buttons {
+        display: flex;
+        gap: 4px;
+    }
+
+    .pr-btn {
+        flex: 1;
+        padding: var(--dh2e-space-xs, 0.25rem) var(--dh2e-space-sm, 0.5rem);
+        background: var(--dh2e-bg-mid, #2e2e35);
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        color: var(--dh2e-text-primary, #d0cfc8);
+        cursor: pointer;
+        font-weight: 700;
+        font-size: var(--dh2e-text-base, 0.85rem);
+        text-align: center;
+        transition: all var(--dh2e-transition-fast, 0.15s);
+
+        &:hover {
+            border-color: var(--dh2e-gold-muted, #7a6a3e);
+        }
+
+        &.active {
+            background: var(--dh2e-gold-muted, #7a6a3e);
+            border-color: var(--dh2e-gold, #b49545);
+            color: #1e1e22;
+        }
+    }
+
     .pr-display {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        gap: 2px;
         padding: var(--dh2e-space-sm, 0.5rem);
         background: var(--dh2e-bg-mid, #2e2e35);
         border-radius: var(--dh2e-radius-sm, 3px);
+    }
+
+    .pr-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .pr-label {
@@ -129,6 +211,10 @@
     .pr-value {
         font-weight: 700;
         color: var(--dh2e-gold-bright, #c8a84e);
+
+        &.bonus {
+            color: var(--dh2e-success, #5ab45a);
+        }
     }
 
     .desc-toggle {

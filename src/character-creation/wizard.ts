@@ -484,10 +484,10 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
             updates["system.details.homeworld"] = homeworld.name;
 
-            // Aptitudes from homeworld
+            // Aptitudes from homeworld (no choices exist in current data, but handle for consistency)
             for (const apt of getAptitudes(hwRules)) {
                 if (typeof apt === "string") aptitudes.push(apt);
-                else aptitudes.push(resolveOr(apt.join(" or ")));
+                else aptitudes.push(apt[0]);
             }
 
             // Embed origin item
@@ -516,10 +516,13 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             const bgRules = background.rules ?? [];
             updates["system.details.background"] = background.name;
 
-            // Aptitudes from background
-            for (const apt of getAptitudes(bgRules)) {
+            // Aptitudes from background (use player's aptitude choice)
+            const bgAptChoices = (state.bgAptitudeChoices ?? {}) as Record<number, string>;
+            const bgApts = getAptitudes(bgRules);
+            for (let i = 0; i < bgApts.length; i++) {
+                const apt = bgApts[i];
                 if (typeof apt === "string") aptitudes.push(apt);
-                else aptitudes.push(resolveOr(apt.join(" or ")));
+                else aptitudes.push(bgAptChoices[i] ?? apt[0]);
             }
 
             // Embed origin item
@@ -563,10 +566,13 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             const rlRules = role.rules ?? [];
             updates["system.details.role"] = role.name;
 
-            // Aptitudes from role
-            for (const apt of getAptitudes(rlRules)) {
+            // Aptitudes from role (use player's aptitude choice)
+            const rlAptChoices = (state.roleAptitudeChoices ?? {}) as Record<number, string>;
+            const rlApts = getAptitudes(rlRules);
+            for (let i = 0; i < rlApts.length; i++) {
+                const apt = rlApts[i];
                 if (typeof apt === "string") aptitudes.push(apt);
-                else aptitudes.push(resolveOr(apt.join(" or ")));
+                else aptitudes.push(rlAptChoices[i] ?? apt[0]);
             }
 
             // Embed origin item
@@ -587,11 +593,11 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                     if (advId === "psyker") {
                         // Grant Psyker aptitude
                         aptitudes.push("Psyker");
-                        // Grant Psy Rating talent (tier 1)
+                        // Grant Psy Rating talent (rating 1 = PR1)
                         const prDoc = await findInPackType("talents", "Psy Rating");
                         if (prDoc) {
                             const prData = prDoc.toObject();
-                            prData.system.tier = 1;
+                            prData.system.rating = 1;
                             itemsToCreate.push(prData);
                         } else {
                             console.warn("dh2e | Psy Rating talent not found in compendium");

@@ -50,9 +50,9 @@ async function lookupPhenomenaByRoll(roll: number): Promise<PhenomenaEntry | und
             return {
                 min: result.range[0],
                 max: result.range[1],
-                title: result.text,
+                title: result.name ?? result.text,
                 description: flags.description ?? "",
-                effect: flags.effect ?? result.text,
+                effect: flags.effect ?? result.name ?? result.text,
                 escalate: flags.escalate ?? false,
             };
         }
@@ -89,9 +89,9 @@ async function rollPerils(): Promise<{ roll: number; entry: PerilsEntry | undefi
                 entry: {
                     min: result.range[0],
                     max: result.range[1],
-                    title: result.text,
+                    title: result.name ?? result.text,
                     description: flags.description ?? "",
-                    effect: flags.effect ?? result.text,
+                    effect: flags.effect ?? result.name ?? result.text,
                     damage: flags.damage ?? "",
                     conditions: flags.conditions ?? [],
                 },

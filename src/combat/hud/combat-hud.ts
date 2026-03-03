@@ -4,20 +4,21 @@ import { getSetting } from "../../ui/settings/settings.ts";
 import { autoPopulateSlots, validateSlots } from "./hud-slots.ts";
 
 /**
- * Compact Combat HUD — fixed bottom-left panel.
+ * Compact Combat HUD — draggable panel.
  *
  * Shows portrait, stats grid, configurable hotbar, and pop-out panels
  * for weapons, skill actions, and quick actions.
  * Only visible during active combat. Auto show/hide with combat lifecycle.
+ * Position is persisted to a client setting.
  */
 class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     static override DEFAULT_OPTIONS = fu.mergeObject(super.DEFAULT_OPTIONS, {
         id: "dh2e-combat-hud",
         classes: ["dh2e", "combat-hud"],
-        position: { width: 0, height: 0 },
+        position: { width: 380, height: "auto" as any },
         window: {
             frame: false,
-            positioned: false,
+            positioned: true,
             resizable: false,
             minimizable: false,
         },
@@ -73,7 +74,31 @@ class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     async show(): Promise<void> {
         if (!getSetting<boolean>("enableCombatHUD")) return;
+
+        // Restore saved position (or default to bottom-left)
+        const savedPos = getSetting<string>("combatHUDDragPosition");
+        if (savedPos) {
+            try {
+                const pos = JSON.parse(savedPos);
+                if (typeof pos.left === "number" && typeof pos.top === "number") {
+                    this.position.left = pos.left;
+                    this.position.top = pos.top;
+                }
+            } catch { /* ignore invalid JSON */ }
+        } else {
+            // Default position: bottom-left
+            this.position.left = 16;
+            this.position.top = Math.max(100, (window.innerHeight ?? 800) - 500);
+        }
+
         await this.render(true);
+    }
+
+    /** Save the current position to client settings */
+    savePosition(): void {
+        const pos = { left: this.position.left, top: this.position.top };
+        const g = game as any;
+        g.settings?.set?.(SYSTEM_ID, "combatHUDDragPosition", JSON.stringify(pos));
     }
 
     async hide(): Promise<void> {
@@ -111,7 +136,7 @@ class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
         // Action economy
         const actions = combatant?.actionsUsed ?? {
-            half: false, full: false, free: false, reaction: false,
+            half: false, full: false, free: false, reactionsUsed: 0,
         };
 
         // Characteristics

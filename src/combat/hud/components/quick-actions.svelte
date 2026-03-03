@@ -1,14 +1,15 @@
 <script lang="ts">
     import { consumeCombatAction, getCombatantForActor } from "@combat/combat-state.ts";
     import { AttackResolver } from "@combat/attack.ts";
+    import { reactionState } from "@combat/reaction-state.svelte.ts";
 
     let {
         actor,
-        actions = { half: false, full: false, free: false, reaction: false },
+        actions = { half: false, full: false, free: false, reactionsUsed: 0 },
         combatant,
     }: {
         actor: any;
-        actions: Record<string, boolean>;
+        actions: Record<string, any>;
         combatant: any;
     } = $props();
 
@@ -66,10 +67,23 @@
         return btns;
     });
 
+    const maxReactions = $derived(combatant?.maxReactions ?? 1);
+    const reactionsUsed = $derived(actions.reactionsUsed ?? 0);
+
     function isUsed(actionType: string): boolean {
         if (actionType === "half") return actions.half || actions.full;
         if (actionType === "full") return actions.full || actions.half;
-        if (actionType === "reaction") return actions.reaction;
+        if (actionType === "reaction") return reactionsUsed >= maxReactions;
+        return false;
+    }
+
+    /** Check if the pending reaction highlight should apply to a button */
+    function isHighlighted(btn: QuickButton): boolean {
+        const pr = reactionState.current;
+        if (!pr) return false;
+        if (btn.group !== "reaction") return false;
+        if (btn.label === "Dodge") return true;
+        if (btn.label === "Parry") return pr.isMelee;
         return false;
     }
 
@@ -84,8 +98,9 @@
     async function doQuickAction(btn: QuickButton) {
         if (!combatant?.useAction) return;
 
-        // Consume the action
-        await consumeCombatAction(actor?.id, btn.actionType);
+        // Consume the action — abort if blocked
+        const consumed = await consumeCombatAction(actor?.id, btn.actionType);
+        if (!consumed) return;
 
         // Apply turn effects (e.g. "running", "all-out-attack")
         if (btn.effect) {
@@ -142,7 +157,8 @@
             });
         } else {
             // Consume Full Action to enter frenzy
-            await consumeCombatAction(actor.id, "full");
+            const frenzyConsumed = await consumeCombatAction(actor.id, "full");
+            if (!frenzyConsumed) return;
             // Create frenzied condition from static data
             const conditionData = (game as any).dh2e?.conditions?.find?.((c: any) => c.system?.slug === "frenzied")
                 ?? {
@@ -248,6 +264,7 @@
                 <button
                     class="quick-btn"
                     class:used={isUsed(btn.actionType)}
+                    class:highlight={isHighlighted(btn)}
                     onclick={() => doQuickAction(btn)}
                     title={btn.label}
                 >
@@ -308,6 +325,12 @@
             border-color: var(--dh2e-danger, #c44040);
             i { color: var(--dh2e-danger, #c44040); }
         }
+
+        &.highlight {
+            border-color: var(--dh2e-gold, #c8a84e);
+            animation: dh2e-pulse-gold 1.2s ease-in-out infinite;
+            i { color: var(--dh2e-gold, #c8a84e); }
+        }
     }
     .qa-label { white-space: nowrap; }
     .qa-dist {
@@ -315,5 +338,10 @@
         font-weight: 700;
         color: var(--dh2e-gold-muted, #8a7a3e);
         font-family: monospace;
+    }
+
+    @keyframes dh2e-pulse-gold {
+        0%, 100% { box-shadow: 0 0 4px rgba(200, 168, 78, 0.3); }
+        50% { box-shadow: 0 0 10px rgba(200, 168, 78, 0.7); }
     }
 </style>

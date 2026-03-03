@@ -89,8 +89,8 @@ function checkAtom(actor: AcolyteDH2e, clause: string): boolean {
             (i: Item) => i.type === "talent" && i.name.toLowerCase() === "psy rating",
         );
         if (psyTalent) {
-            const rank = (psyTalent.system as any).rank ?? 1;
-            return rank >= targetLevel;
+            const rating = (psyTalent.system as any).rating || ((psyTalent.system as any).tier ?? 1);
+            return rating >= targetLevel;
         }
         // Also check system.psyRating if it exists
         const sysRating = (actor.system as any).psyRating ?? 0;

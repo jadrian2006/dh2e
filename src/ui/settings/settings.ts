@@ -452,6 +452,16 @@ const SETTINGS: SettingDefinition[] = [
             bottomCenter: "DH2E.Settings.CombatHUDPosition.BottomCenter",
         },
     },
+    {
+        key: "combatHUDDragPosition",
+        category: "display",
+        name: "Combat HUD Drag Position",
+        hint: "Saved drag position for the combat HUD (set automatically).",
+        scope: "client",
+        config: false,
+        type: String,
+        default: "",
+    },
 
     // Module Integrations
     {

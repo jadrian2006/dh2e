@@ -1,23 +1,45 @@
 <script lang="ts">
     let {
-        actions = { half: false, full: false, free: false, reaction: false },
+        actions = { half: false, full: false, free: false, reactionsUsed: 0 },
         combatant,
         round = 0,
     }: {
-        actions: Record<string, boolean>;
+        actions: Record<string, any>;
         combatant: any;
         round: number;
     } = $props();
+
+    const maxReactions = $derived(combatant?.maxReactions ?? 1);
+    const reactionsUsed = $derived(actions.reactionsUsed ?? 0);
+    const reactionsRemaining = $derived(Math.max(0, maxReactions - reactionsUsed));
 
     const actionTypes = [
         { key: "half", label: "H", title: "Half Action" },
         { key: "full", label: "F", title: "Full Action" },
         { key: "free", label: "Fr", title: "Free Action" },
-        { key: "reaction", label: "Re", title: "Reaction" },
     ];
+
+    function isReactionFullyUsed(): boolean {
+        return reactionsUsed >= maxReactions;
+    }
+
+    function isReactionPartial(): boolean {
+        return reactionsUsed > 0 && reactionsUsed < maxReactions;
+    }
+
+    /** Reaction label: "Re" for 1 max, "Re 1/2" format for Step Aside */
+    const reactionLabel = $derived(
+        maxReactions > 1 ? `Re ${reactionsRemaining}/${maxReactions}` : "Re",
+    );
 
     async function toggleAction(key: string) {
         if (!combatant?.useAction) return;
+        if (key === "reaction") {
+            if (!isReactionFullyUsed()) {
+                await combatant.useAction("reaction");
+            }
+            return;
+        }
         if (!actions[key]) {
             await combatant.useAction(key);
         }
@@ -38,6 +60,18 @@
             {at.label}
         </button>
     {/each}
+    <!-- Reaction button with count support -->
+    <button
+        class="action-btn"
+        class:used={isReactionFullyUsed()}
+        class:partial={isReactionPartial()}
+        class:available={!isReactionFullyUsed() && !isReactionPartial()}
+        disabled={isReactionFullyUsed()}
+        onclick={() => toggleAction("reaction")}
+        title="Reaction ({reactionsRemaining}/{maxReactions})"
+    >
+        {reactionLabel}
+    </button>
 </div>
 
 <style lang="scss">
@@ -63,6 +97,12 @@
             color: var(--dh2e-text-secondary, #555);
             border-color: var(--dh2e-bg-mid, #2e2e35);
             opacity: 0.5;
+        }
+        &.partial {
+            background: var(--dh2e-bg-mid, #2e2e35);
+            color: var(--dh2e-gold-muted, #8a7a3e);
+            border-color: var(--dh2e-gold-muted, #8a7a3e);
+            opacity: 0.75;
         }
     }
 </style>

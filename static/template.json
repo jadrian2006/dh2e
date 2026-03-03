@@ -190,6 +190,8 @@
             "advancement": 0,
             "isSpecialist": false,
             "specialization": "",
+            "aptitude": "General",
+            "prerequisites": "",
             "uses": []
         },
         "talent": {
@@ -198,6 +200,8 @@
             "tier": 1,
             "aptitudes": [],
             "prerequisites": "",
+            "stackable": false,
+            "rating": 0,
             "rules": []
         },
         "condition": {

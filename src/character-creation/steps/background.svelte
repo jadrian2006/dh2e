@@ -54,6 +54,7 @@
         data,
         selected = $bindable<BackgroundOption | null>(null),
         backgroundChoices = $bindable<Record<number, string | number>>({}),
+        aptitudeChoices = $bindable<Record<number, string>>({}),
         mutationRoll = $bindable<number | null>(null),
         mutationResult = $bindable<{ title: string; description: string; effect: string } | null>(null),
         mutationRollCount = $bindable(0),
@@ -62,6 +63,7 @@
         data: CreationData;
         selected: BackgroundOption | null;
         backgroundChoices: Record<number, string | number>;
+        aptitudeChoices: Record<number, string>;
         mutationRoll: number | null;
         mutationResult: { title: string; description: string; effect: string } | null;
         mutationRollCount: number;
@@ -173,7 +175,7 @@
                     class="option-card"
                     class:selected={isSelected}
                     type="button"
-                    onclick={() => { selected = bg; backgroundChoices = {}; }}
+                    onclick={() => { selected = bg; backgroundChoices = {}; aptitudeChoices = {}; }}
                 >
                     <div class="card-header">
                         {bg.name}
@@ -193,6 +195,37 @@
         {#if selected}
             <div class="detail-panel">
                 <h4 class="detail-name">{selected.name}</h4>
+
+                {#if bgAptitudes.length > 0}
+                    <div class="detail-list aptitude-choices">
+                        <strong>Aptitude:</strong>
+                        {#each bgAptitudes as apt, ai}
+                            {#if ai > 0}<span class="grant-sep">,</span>{/if}
+                            {#if typeof apt === "string"}
+                                <span class="aptitude-fixed">{apt}</span>
+                            {:else}
+                                {@const selectedApt = aptitudeChoices[ai] ?? apt[0]}
+                                <span class="grant-choice">
+                                    {#each apt as option, oi}
+                                        {#if oi > 0}<span class="grant-or">or</span>{/if}
+                                        <button class="grant-link" type="button"
+                                            class:chosen={selectedApt === option}
+                                            class:unchosen={selectedApt !== option}
+                                            onclick={() => {
+                                                if (option === apt[0]) {
+                                                    const { [ai]: _, ...rest } = aptitudeChoices;
+                                                    aptitudeChoices = rest;
+                                                } else {
+                                                    aptitudeChoices = { ...aptitudeChoices, [ai]: option };
+                                                }
+                                            }}>{option}</button>
+                                    {/each}
+                                </span>
+                            {/if}
+                        {/each}
+                    </div>
+                {/if}
+
                 <div class="detail-lists">
                     {#if skillGrants.length > 0}
                         <div class="detail-list">
@@ -455,6 +488,8 @@
         &.unchosen { opacity: 0.45; border-bottom-style: dotted; font-weight: normal; }
         &.unchosen:hover { opacity: 0.8; }
     }
+    .aptitude-choices { margin-bottom: 0.3rem; }
+    .aptitude-fixed { font-weight: 600; color: var(--dh2e-gold, #c8a84e); }
     .grant-sep { color: var(--dh2e-text-secondary, #a0a0a8); margin-right: 0.15em; }
     .grant-or { color: var(--dh2e-text-secondary, #a0a0a8); font-style: italic; font-size: 0.85em; margin: 0 0.2em; }
     .grant-choice {

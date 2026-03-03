@@ -12,6 +12,11 @@
     <div class="card-body">
         <p class="roll-summary">{{format "DH2E.Check.Roll" roll=roll target=target}}</p>
 
+        {{!-- Base characteristic --}}
+        {{#if charAbbrev}}
+        <p class="base-characteristic">Base {{charAbbrev}}: {{baseTarget}}</p>
+        {{/if}}
+
         {{!-- DoS threshold result --}}
         {{#if dosThreshold}}
         <p class="dos-threshold {{#if thresholdMet}}met{{else}}not-met{{/if}}">

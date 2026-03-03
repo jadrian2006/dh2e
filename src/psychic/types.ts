@@ -12,8 +12,10 @@ interface FocusPowerContext {
     focusCharacteristic: CharacteristicAbbrev;
     /** Base modifier from the power itself */
     focusModifier: number;
-    /** Psy Rating value */
+    /** Maximum Psy Rating (from Psy Rating talent tier) */
     psyRating: number;
+    /** Chosen effective PR for this manifestation (1 to psyRating). Defaults to psyRating. */
+    selectedPR?: number;
     /** Psyker mode chosen by user */
     mode?: PsykerMode;
     /** Skip dialog */

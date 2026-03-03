@@ -12,6 +12,18 @@
             <li>{{this.locationLabel}}</li>
             {{/each}}
         </ul>
+        {{#if targetActorId}}
+        <div class="reaction-section" data-target-actor-id="{{targetActorId}}" style="display:none">
+            <button class="btn reaction-btn" data-action="reaction-dodge">
+                <i class="fa-solid fa-person-running"></i> {{localize "DH2E.Reaction.Dodge"}}
+            </button>
+            {{#unless isRanged}}
+            <button class="btn reaction-btn" data-action="reaction-parry">
+                <i class="fa-solid fa-shield-halved"></i> {{localize "DH2E.Reaction.Parry"}}
+            </button>
+            {{/unless}}
+        </div>
+        {{/if}}
         <button class="btn roll-damage" data-action="roll-damage">
             {{localize "DH2E.Attack.RollDamage"}}
         </button>

@@ -22,7 +22,7 @@
     const psyRating = $derived(() => {
         const talents: any[] = ctx.items?.talents ?? [];
         const pr = talents.find((t: any) => t.name === "Psy Rating");
-        return pr?.system?.tier ?? 0;
+        return pr?.system?.rating || (pr?.system?.tier ?? 0);
     });
 
     /** Whether the character has the Psyker elite advance */

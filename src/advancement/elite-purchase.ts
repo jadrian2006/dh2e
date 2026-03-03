@@ -69,7 +69,10 @@ export async function executeElitePurchase(
 
             const doc = await findInAllPacks("talents", talentName);
             if (doc) {
-                await actor.createEmbeddedDocuments("Item", [(doc as any).toObject()]);
+                const data = (doc as any).toObject();
+                // For stackable talents like Psy Rating, initialize rating to 1
+                if (data.system?.stackable) data.system.rating = 1;
+                await actor.createEmbeddedDocuments("Item", [data]);
             }
         }
     }

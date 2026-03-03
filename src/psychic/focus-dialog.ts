@@ -5,6 +5,8 @@ import DialogRoot from "./focus-dialog-root.svelte";
 interface FocusDialogResult {
     cancelled: boolean;
     mode: PsykerMode;
+    /** Chosen PR level (1 to max). Only meaningful for Unfettered. */
+    selectedPR: number;
 }
 
 /**
@@ -50,24 +52,24 @@ class FocusPowerDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 powerName: this.#powerName,
                 psyRating: this.#psyRating,
                 description: this.#description,
-                onConfirm: (mode: PsykerMode) => this.#confirm(mode),
+                onConfirm: (mode: PsykerMode, selectedPR: number) => this.#confirm(mode, selectedPR),
                 onCancel: () => this.#cancel(),
             },
         };
     }
 
-    #confirm(mode: PsykerMode): void {
-        this.#resolve?.({ cancelled: false, mode });
+    #confirm(mode: PsykerMode, selectedPR: number): void {
+        this.#resolve?.({ cancelled: false, mode, selectedPR });
         this.close();
     }
 
     #cancel(): void {
-        this.#resolve?.({ cancelled: true, mode: "unfettered" });
+        this.#resolve?.({ cancelled: true, mode: "unfettered", selectedPR: this.#psyRating });
         this.close();
     }
 
     protected override _onClose(): void {
-        this.#resolve?.({ cancelled: true, mode: "unfettered" });
+        this.#resolve?.({ cancelled: true, mode: "unfettered", selectedPR: this.#psyRating });
         this.#resolve = null;
     }
 

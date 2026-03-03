@@ -6,7 +6,7 @@
         "system": {
             "description": "Modifies a ranged weapon's receiver to accept extended-capacity magazines in addition to standard ones. The weapon can use both normal and extended magazines interchangeably.\n\nInstallation requires a successful Ordinary (+10) Tech-Use test and takes 1d5 hours. Only one Extended Magazine modification can be fitted to a weapon.\n\n<strong>Solid Projectile:</strong> A widened magazine well with a dual-slot receiver, accommodating the longer extended box magazines.\n<strong>Las:</strong> An auxiliary power coupling spliced into the weapon's charge circuit, drawing from higher-capacity power packs.\n<strong>Bolt:</strong> A reinforced feed mechanism and expanded canister housing to handle the heavier extended bolt drums.\n<strong>Flame/Melta:</strong> An additional fuel line connection with a secondary valve, supporting the larger extended fuel canisters.\n<strong>Plasma:</strong> An enhanced capacitor bank wired into the weapon's containment field, interfacing with extended plasma flasks.",
             "source": "core",
-            "availability": "average",
+            "availability": "scarce",
             "craftsmanship": "common",
             "weight": 0.5,
             "modType": "weapon",
@@ -59,7 +59,7 @@
         "system": {
             "description": "A suppressor fitted to a solid projectile weapon. Tests to hear shots are made at -20. Only fits SP weapons. Ineffective on weapons with the Scatter quality.",
             "source": "core",
-            "availability": "average",
+            "availability": "scarce",
             "craftsmanship": "common",
             "weight": 0.5,
             "modType": "weapon",
@@ -164,7 +164,7 @@
         "system": {
             "description": "A bayonet or chain-blade fitted to a Basic ranged weapon. The weapon can be used in melee as a spear (1d10+1 R, Pen 0, Primitive). Attaching or detaching takes a Full Action.",
             "source": "core",
-            "availability": "average",
+            "availability": "scarce",
             "craftsmanship": "common",
             "weight": 1,
             "modType": "weapon",

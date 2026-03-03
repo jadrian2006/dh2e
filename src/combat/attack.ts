@@ -380,7 +380,8 @@ class AttackResolver {
 
             // Consume combat action (charge = full, standard = half)
             const helplessActionType = isCharge ? "full" : "half";
-            await consumeCombatAction(actor.id!, helplessActionType);
+            const consumed = await consumeCombatAction(actor.id!, helplessActionType);
+            if (!consumed) return null;
 
             // Consume ammunition for ranged weapons
             let roundsConsumed = 0;
@@ -422,7 +423,8 @@ class AttackResolver {
         // Consume combat action
         const isFullAction = isCharge || meleeMode === "swift" || meleeMode === "lightning";
         const actionType = isFullAction ? "full" : "half";
-        await consumeCombatAction(actor.id!, actionType);
+        const actionConsumed = await consumeCombatAction(actor.id!, actionType);
+        if (!actionConsumed) return null;
 
         // Read called shot from the check context (set by dialog)
         const calledShot = result.context.calledShot;
@@ -824,6 +826,7 @@ class AttackResolver {
     ): Promise<void> {
         const templatePath = `systems/${SYSTEM_ID}/templates/chat/attack-card.hbs`;
         const sys = weapon.system ?? {};
+        const isMelee = sys.class === "melee";
         const templateData = {
             success: result.success,
             degrees: result.degrees,
@@ -837,6 +840,7 @@ class AttackResolver {
             weaponId: weapon.id,
             actorId: actor.id,
             targetActorId: targetActorId ?? undefined,
+            isRanged: !isMelee,
             hasAmmo: roundsConsumed > 0,
             roundsConsumed,
             clipRemaining: sys.magazine?.value ?? 0,

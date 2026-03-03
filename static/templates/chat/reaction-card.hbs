@@ -1,0 +1,25 @@
+<div class="dh2e chat-card reaction-card">
+    <header class="card-header {{#if success}}success{{else}}failure{{/if}}">
+        <h3>{{defenderName}} — {{reactionLabel}}</h3>
+    </header>
+    <div class="card-body">
+        <p class="roll-summary">{{format "DH2E.Check.Roll" roll=roll target=target}}</p>
+        {{#if success}}
+        <p class="dos-display">{{format "DH2E.Check.DegreesOfSuccess" count=degrees}}</p>
+        <p class="hits-negated">{{format "DH2E.Reaction.HitsNegated" count=hitsNegated}}</p>
+        {{#if allNegated}}
+        <p class="all-negated"><strong>{{localize "DH2E.Reaction.AllNegated"}}</strong></p>
+        {{else}}
+        <p class="remaining-hits">{{format "DH2E.Reaction.RemainingHits" count=remainingHits}}</p>
+        {{/if}}
+        {{#if canCounterAttack}}
+        <button class="btn counter-attack-btn" data-action="counter-attack">
+            <i class="fa-solid fa-sword"></i> {{localize "DH2E.Reaction.CounterAttack"}}
+        </button>
+        {{/if}}
+        {{else}}
+        <p class="dos-display failure">{{format "DH2E.Check.DegreesOfFailure" count=degrees}}</p>
+        <p class="reaction-failed">{{format "DH2E.Reaction.Failure" name=defenderName type=reactionLabel}}</p>
+        {{/if}}
+    </div>
+</div>

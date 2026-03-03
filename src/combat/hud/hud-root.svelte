@@ -12,6 +12,7 @@
     import type { SkillUse } from "../../item/skill/data.ts";
     import { executeSkillUseRoll } from "../../item/skill/roll-skill-use.ts";
     import { CheckDH2e } from "../../check/check.ts";
+    import { CombatHUD } from "./combat-hud.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
 
@@ -28,7 +29,7 @@
 
     function onClickOutsidePanel(e: MouseEvent) {
         const target = e.target as HTMLElement;
-        if (target.closest(".popout-panel") || target.closest(".panel-trigger")) return;
+        if (target.closest(".popout-panel") || target.closest(".panel-trigger") || target.closest(".hud-drag-handle")) return;
         openPanel = null;
         ctx._openPanel = null;
     }
@@ -37,6 +38,41 @@
         const actor = ctx.actor;
         if (!actor) return;
         executeSkillUseRoll(actor, skill, use, CheckDH2e.shouldSkipDialog(shiftKey));
+    }
+
+    // Drag handling
+    let isDragging = $state(false);
+    let dragOffset = { x: 0, y: 0 };
+
+    function onDragStart(e: MouseEvent) {
+        // Only drag on the handle itself
+        if ((e.target as HTMLElement).closest(".panel-trigger, .popout-panel, button, input")) return;
+        isDragging = true;
+        const el = (e.currentTarget as HTMLElement).closest(".combat-hud-panel") as HTMLElement | null;
+        const appEl = el?.closest(".application") as HTMLElement | null;
+        const rect = (appEl ?? el)?.getBoundingClientRect();
+        if (rect) {
+            dragOffset.x = e.clientX - rect.left;
+            dragOffset.y = e.clientY - rect.top;
+        }
+        e.preventDefault();
+
+        const onMove = (me: MouseEvent) => {
+            if (!isDragging) return;
+            const hud = CombatHUD.instance;
+            hud.position.left = Math.max(0, me.clientX - dragOffset.x);
+            hud.position.top = Math.max(0, me.clientY - dragOffset.y);
+        };
+
+        const onUp = () => {
+            isDragging = false;
+            document.removeEventListener("mousemove", onMove);
+            document.removeEventListener("mouseup", onUp);
+            CombatHUD.instance.savePosition();
+        };
+
+        document.addEventListener("mousemove", onMove);
+        document.addEventListener("mouseup", onUp);
     }
 </script>
 
@@ -49,6 +85,12 @@
     aria-label="Combat HUD"
 >
     {#if ctx.actor}
+        <!-- Drag handle -->
+        <!-- svelte-ignore a11y_no_static_element_interactions -->
+        <div class="hud-drag-handle" onmousedown={onDragStart}>
+            <i class="fa-solid fa-grip-lines"></i>
+        </div>
+
         <!-- Row 1: Portrait + Wounds + Fate -->
         <div class="hud-row portrait-row">
             <ErrorBoundary label="Portrait">
@@ -157,9 +199,6 @@
 
 <style lang="scss">
     .combat-hud-panel {
-        position: fixed;
-        bottom: 16px;
-        left: 16px;
         width: 380px;
         display: flex;
         flex-direction: column;
@@ -173,7 +212,6 @@
         border: 1px solid var(--dh2e-gold-dark, #9c7a28);
         border-radius: var(--dh2e-radius-sm, 3px);
         backdrop-filter: blur(6px);
-        z-index: 100;
         pointer-events: auto;
         animation: dh2e-slide-up 0.3s ease-out;
 
@@ -181,6 +219,22 @@
             border-color: var(--dh2e-gold, #c8a84e);
             box-shadow: 0 0 12px rgba(200, 168, 78, 0.2);
         }
+    }
+
+    .hud-drag-handle {
+        display: flex;
+        justify-content: center;
+        padding: 2px 0;
+        cursor: grab;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        opacity: 0.4;
+        transition: opacity 0.15s;
+        user-select: none;
+
+        &:hover { opacity: 0.8; }
+        &:active { cursor: grabbing; }
+
+        i { font-size: 0.5rem; }
     }
 
     .hud-row {

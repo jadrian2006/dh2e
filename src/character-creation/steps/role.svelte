@@ -2,10 +2,16 @@
     import type { CreationData, RoleOption } from "../types.ts";
     import { getAptitudes, getGrantsOfType } from "../creation-helpers.ts";
 
-    let { data, selected = $bindable<RoleOption | null>(null), roleChoices = $bindable<Record<number, string | number>>({}) }: {
+    let {
+        data,
+        selected = $bindable<RoleOption | null>(null),
+        roleChoices = $bindable<Record<number, string | number>>({}),
+        aptitudeChoices = $bindable<Record<number, string>>({}),
+    }: {
         data: CreationData;
         selected: RoleOption | null;
         roleChoices: Record<number, string | number>;
+        aptitudeChoices: Record<number, string>;
     } = $props();
 
     const roles = $derived(data?.roles ?? []);
@@ -96,7 +102,7 @@
                     class="option-card"
                     class:selected={isSelected}
                     type="button"
-                    onclick={() => { selected = role; roleChoices = {}; }}
+                    onclick={() => { selected = role; roleChoices = {}; aptitudeChoices = {}; }}
                 >
                     <div class="card-header">
                         {role.name}
@@ -116,6 +122,36 @@
         {#if selected}
             <div class="detail-panel">
                 <h4 class="detail-name">{selected.name}</h4>
+
+                {#if roleAptitudes.some(a => Array.isArray(a))}
+                    <div class="aptitude-choices">
+                        <strong>Aptitude:</strong>
+                        {#each roleAptitudes as apt, ai}
+                            {#if ai > 0}<span class="grant-sep">,</span>{/if}
+                            {#if typeof apt === "string"}
+                                <span class="aptitude-fixed">{apt}</span>
+                            {:else}
+                                {@const selectedApt = aptitudeChoices[ai] ?? apt[0]}
+                                <span class="aptitude-choice-group">
+                                    {#each apt as option, oi}
+                                        {#if oi > 0}<span class="aptitude-or">or</span>{/if}
+                                        <button class="aptitude-btn" type="button"
+                                            class:chosen={selectedApt === option}
+                                            class:unchosen={selectedApt !== option}
+                                            onclick={() => {
+                                                if (option === apt[0]) {
+                                                    const { [ai]: _, ...rest } = aptitudeChoices;
+                                                    aptitudeChoices = rest;
+                                                } else {
+                                                    aptitudeChoices = { ...aptitudeChoices, [ai]: option };
+                                                }
+                                            }}>{option}</button>
+                                    {/each}
+                                </span>
+                            {/if}
+                        {/each}
+                    </div>
+                {/if}
 
                 {#if hasTalentChoice}
                     {@const g = talentChoiceGrant()}
@@ -226,6 +262,26 @@
     .detail-panel { background: var(--dh2e-bg-mid, #2e2e35); border: 1px solid var(--dh2e-gold-dark, #9c7a28); border-radius: 3px; padding: 0.6rem 0.8rem; }
     .detail-name { font-family: var(--dh2e-font-header, serif); color: var(--dh2e-gold, #c8a84e); font-size: 1rem; text-transform: uppercase; margin: 0 0 0.3rem; }
     .detail-talent { font-size: 0.85rem; color: var(--dh2e-text-primary, #d0cfc8); line-height: 1.4; margin: 0 0 0.3rem; }
+
+    .aptitude-choices { font-size: 0.8rem; color: var(--dh2e-text-primary, #d0cfc8); line-height: 1.4; margin: 0 0 0.3rem; }
+    .aptitude-fixed { font-weight: 600; color: var(--dh2e-gold, #c8a84e); }
+    .grant-sep { color: var(--dh2e-text-secondary, #a0a0a8); margin-right: 0.15em; }
+    .aptitude-or { color: var(--dh2e-text-secondary, #a0a0a8); font-style: italic; font-size: 0.85em; margin: 0 0.2em; }
+    .aptitude-choice-group {
+        display: inline-flex; align-items: baseline;
+        background: rgba(200, 168, 78, 0.06); border: 1px solid rgba(200, 168, 78, 0.15);
+        border-radius: 3px; padding: 0 0.3em;
+    }
+    .aptitude-btn {
+        background: none; border: none; padding: 0; margin: 0; font: inherit; font-size: inherit;
+        color: var(--dh2e-gold, #c8a84e); cursor: pointer;
+        border-bottom: 1px dotted var(--dh2e-gold-muted, #8a7a3e);
+        transition: color 0.15s, border-color 0.15s, opacity 0.15s;
+        &:hover { color: var(--dh2e-gold-light, #e8d07e); border-bottom-style: solid; }
+        &.chosen { color: var(--dh2e-gold-light, #e8d07e); border-bottom-style: solid; font-weight: 700; }
+        &.unchosen { opacity: 0.45; border-bottom-style: dotted; font-weight: normal; }
+        &.unchosen:hover { opacity: 0.8; }
+    }
     .detail-desc { font-size: 0.85rem; color: var(--dh2e-text-secondary, #a0a0a8); line-height: 1.4; margin: 0 0 0.3rem; }
     .detail-bonus { font-size: 0.85rem; color: var(--dh2e-text-primary, #d0cfc8); line-height: 1.4; margin: 0; }
 

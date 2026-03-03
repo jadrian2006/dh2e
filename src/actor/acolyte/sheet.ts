@@ -180,7 +180,7 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
         // Derive Psy Rating from "Psy Rating" talent
         const talents = actor.items.filter((i: Item) => i.type === "talent");
         const prTalent = talents.find((t: Item) => t.name === "Psy Rating");
-        const psyRating = (prTalent as any)?.system?.tier ?? 0;
+        const psyRating = (prTalent as any)?.system?.rating || ((prTalent as any)?.system?.tier ?? 0);
 
         if (psyRating <= 0) {
             ui.notifications?.warn(game.i18n?.localize("DH2E.Psychic.NoPsyRating") ?? "No Psy Rating — cannot use powers.");
@@ -201,6 +201,7 @@ class AcolyteSheetDH2e extends SvelteApplicationMixin(fa.api.DocumentSheetV2) {
             focusCharacteristic: charKey,
             focusModifier: sys.focusModifier ?? 0,
             psyRating,
+            selectedPR: dialogResult.selectedPR,
             mode: dialogResult.mode,
             skipDialog: false,
         });

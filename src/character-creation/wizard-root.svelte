@@ -53,6 +53,10 @@
     let backgroundChoices = $state<Record<number, string | number>>({});
     let roleChoices = $state<Record<number, string | number>>({});
 
+    // Aptitude choice maps (keyed by index of the choice aptitude in getAptitudes() array)
+    let bgAptitudeChoices = $state<Record<number, string>>({});
+    let roleAptitudeChoices = $state<Record<number, string>>({});
+
     // Divination "or" characteristic choices — maps group index → selected option key
     let divinationChoices = $state<Record<number, string>>({});
 
@@ -69,6 +73,7 @@
     $effect(() => {
         background; // track dependency
         backgroundChoices = {};
+        bgAptitudeChoices = {};
         mutationRoll = null;
         mutationResult = null;
         mutationRollCount = 0;
@@ -77,6 +82,7 @@
     $effect(() => {
         role; // track dependency
         roleChoices = {};
+        roleAptitudeChoices = {};
     });
 
     // Reset divination choices when divination changes
@@ -147,9 +153,11 @@
             corruptionRoll,
             homeworldChoices: { ...homeworldChoices },
             backgroundChoices: { ...backgroundChoices },
+            bgAptitudeChoices: { ...bgAptitudeChoices },
             mutationRoll,
             mutationResult,
             roleChoices: { ...roleChoices },
+            roleAptitudeChoices: { ...roleAptitudeChoices },
             divinationChoices: { ...divinationChoices },
             purchases: [...purchases],
             xpSpent,
@@ -175,11 +183,12 @@
             <Homeworld {data} bind:selected={homeworld} bind:homeworldChoices />
         {:else if step === 1}
             <Background {data} bind:selected={background} bind:backgroundChoices
+                bind:aptitudeChoices={bgAptitudeChoices}
                 bind:mutationRoll bind:mutationResult bind:mutationRollCount
                 maxMutationRerolls={getSetting<number>("mutationRerolls")}
             />
         {:else if step === 2}
-            <Role {data} bind:selected={role} bind:roleChoices />
+            <Role {data} bind:selected={role} bind:roleChoices bind:aptitudeChoices={roleAptitudeChoices} />
         {:else if step === 3}
             <Divination {data} bind:selected={divination} maxRerolls={divinationRerolls}
                 bind:rolled={divinationRolled} bind:rollCount={divinationRollCount} bind:rollValue={divinationRollValue}
@@ -256,7 +265,7 @@
                         <span class="review-label">Background</span>
                         <span class="review-value">{background?.name || "—"}</span>
                         {#if reviewBgApts.length > 0}
-                            <span class="review-detail">Aptitude: {reviewBgApts.map(a => typeof a === "string" ? a : a.join(" or ")).join(", ")}</span>
+                            <span class="review-detail">Aptitude: {reviewBgApts.map((a, i) => typeof a === "string" ? a : (bgAptitudeChoices[i] ?? a[0])).join(", ")}</span>
                         {/if}
                     </div>
                     <div class="review-item">
@@ -264,7 +273,7 @@
                         <span class="review-value">{role?.name || "—"}</span>
                         {#if reviewRoleApts.length > 0}
                             <span class="review-detail">
-                                {reviewRoleApts.map(a => typeof a === "string" ? a : a.join(" or ")).join(", ")}
+                                {reviewRoleApts.map((a, i) => typeof a === "string" ? a : (roleAptitudeChoices[i] ?? a[0])).join(", ")}
                             </span>
                         {/if}
                     </div>
