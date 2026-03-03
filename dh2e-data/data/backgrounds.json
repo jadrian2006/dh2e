@@ -86,7 +86,7 @@
             "bonusDescription": "An Adeptus Mechanicus character counts the Availability of all cybernetics as two levels more available (Rare items count as Average, Very Rare items count as Scarce, etc.).\nStarting Trait: Mechanicus Implants.",
             "rules": [
                 { "key": "GrantAptitude", "options": ["Knowledge", "Tech"] },
-                { "key": "Grant", "type": "skill", "options": ["Awareness", "Operate"], "pick": true },
+                { "key": "Grant", "type": "skill", "options": ["Awareness", "Operate (Surface)"], "pick": true },
                 { "key": "Grant", "type": "skill", "name": "Common Lore (Adeptus Mechanicus)" },
                 { "key": "Grant", "type": "skill", "name": "Logic" },
                 { "key": "Grant", "type": "skill", "name": "Security" },

@@ -241,11 +241,19 @@ async function findInPackType(type: PackType, name: string): Promise<any | null>
         const pack = game.packs.get(packId);
         if (!pack) continue;
         const index = await pack.getIndex();
+        // Exact match (or alias match)
         const entry = index.find((e: any) => {
             const n = e.name.toLowerCase();
             return n === lc || (alias && n === alias);
         });
         if (entry) return pack.getDocument(entry._id);
+
+        // Prefix match for specialist skills: "Operate" matches "Operate (Surface)", etc.
+        // Returns the first specialization found as a default grant
+        const prefixEntry = index.find((e: any) =>
+            e.name.toLowerCase().startsWith(lc + " ("),
+        );
+        if (prefixEntry) return pack.getDocument(prefixEntry._id);
     }
     return null;
 }
