@@ -130,7 +130,7 @@ class CheckDH2e {
     static #collectModifiers(context: CheckContext): ModifierDH2e[] {
         const modifiers: ModifierDH2e[] = [];
 
-        // Get modifiers from actor synthetics
+        // Get modifiers from actor synthetics for the check's domain
         const actor = context.actor as any;
         if (actor?.synthetics?.modifiers?.[context.domain]) {
             for (const mod of actor.synthetics.modifiers[context.domain]) {
@@ -138,13 +138,29 @@ class CheckDH2e {
             }
         }
 
-        // Inherit modifiers from parent domain (e.g. skill:stealth applies to skill:stealth:sneak)
+        // Inherit modifiers from parent domains (e.g. power:smite inherits from power,
+        // skill:stealth:sneak inherits from skill:stealth)
         const parts = context.domain.split(":");
-        if (parts.length === 3) {
-            const parentDomain = `${parts[0]}:${parts[1]}`;
+        for (let i = parts.length - 1; i >= 1; i--) {
+            const parentDomain = parts.slice(0, i).join(":");
             if (actor?.synthetics?.modifiers?.[parentDomain]) {
                 for (const mod of actor.synthetics.modifiers[parentDomain]) {
                     modifiers.push(mod.clone());
+                }
+            }
+        }
+
+        // Inherit characteristic-level modifiers (fatigue, conditions, etc.)
+        // Any check based on a characteristic should include modifiers registered on
+        // that characteristic's domain (e.g. Frenzied +10 WP applies to Focus Power tests)
+        if (context.characteristic) {
+            const charDomain = `characteristic:${context.characteristic}`;
+            // Only collect if it's not already the primary or parent domain
+            if (context.domain !== charDomain && !context.domain.startsWith(charDomain + ":")) {
+                if (actor?.synthetics?.modifiers?.[charDomain]) {
+                    for (const mod of actor.synthetics.modifiers[charDomain]) {
+                        modifiers.push(mod.clone());
+                    }
                 }
             }
         }

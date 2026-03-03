@@ -9,7 +9,9 @@
             "aptitudes": ["Perception", "Social"],
             "prerequisites": "Fel 35, Int 35",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:ambassador-imperialis" }
+            ],
             "source": "enemies-without"
         }
     },
@@ -23,7 +25,9 @@
             "aptitudes": ["Knowledge", "Perception"],
             "prerequisites": "Int 40",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:archivaor" }
+            ],
             "source": "enemies-without"
         }
     },
@@ -37,7 +41,9 @@
             "aptitudes": ["Ballistic Skill", "Knowledge"],
             "prerequisites": "BS 40 or WS 40, Forbidden Lore (Xenos), Medicae Rank 2",
             "specialist": true,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:field-vivisection" }
+            ],
             "source": "enemies-without"
         }
     },
@@ -51,7 +57,9 @@
             "aptitudes": ["Ballistic Skill", "Finesse"],
             "prerequisites": "BS 35",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:grenadier" }
+            ],
             "source": "enemies-without"
         }
     },
@@ -65,7 +73,9 @@
             "aptitudes": ["Agility", "Tech"],
             "prerequisites": "Operate Rank 2 or Survival Rank 2, Ag 35",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:hotshot-pilot" }
+            ],
             "source": "enemies-without"
         }
     },
@@ -79,7 +89,9 @@
             "aptitudes": ["Agility", "Fieldcraft"],
             "prerequisites": "Operate Rank 2 or Survival Rank 2",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:hull-down" }
+            ],
             "source": "enemies-without"
         }
     },
@@ -93,7 +105,9 @@
             "aptitudes": ["Agility", "Defence"],
             "prerequisites": "Ag 35, Dodge Rank 2",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:leaping-dodge" }
+            ],
             "source": "enemies-without"
         }
     },
@@ -107,7 +121,9 @@
             "aptitudes": ["Intelligence", "Knowledge"],
             "prerequisites": "Linguistics Rank 3",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:lexographer" }
+            ],
             "source": "enemies-without"
         }
     },
@@ -121,7 +137,9 @@
             "aptitudes": ["Perception", "Tech"],
             "prerequisites": "Operate Rank 2 or Survival Rank 2, Tech-Use",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:push-the-limit" }
+            ],
             "source": "enemies-without"
         }
     },
@@ -135,7 +153,9 @@
             "aptitudes": ["Agility", "Fieldcraft"],
             "prerequisites": "Operate Rank 2",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:skilled-rider" }
+            ],
             "source": "enemies-without"
         }
     },
@@ -149,7 +169,9 @@
             "aptitudes": ["Intelligence", "Finesse"],
             "prerequisites": "Exotic Weapon Training (any)",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:weapon-intuition" }
+            ],
             "source": "enemies-without"
         }
     },
@@ -163,7 +185,9 @@
             "aptitudes": ["Intelligence", "Knowledge"],
             "prerequisites": "Forbidden Lore (Xenos) Rank 3",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:xenosavant" }
+            ],
             "source": "enemies-without"
         }
     }

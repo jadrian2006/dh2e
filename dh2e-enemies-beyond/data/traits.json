@@ -5,7 +5,10 @@
         "img": "systems/dh2e/icons/default-icons/trait.svg",
         "system": {
             "description": "Daemons of Khorne gain a +10 bonus to their Weapon Skill when making a Charge action.",
-            "rules": [],
+            "rules": [
+                { "key": "FlatModifier", "domain": "attack:melee", "value": 10, "label": "Berserk Charge", "source": "trait", "predicate": ["action:charge"] },
+                { "key": "RollOption", "option": "trait:berserk-charge" }
+            ],
             "hasRating": false,
             "rating": 0,
             "category": "physical",
@@ -18,7 +21,9 @@
         "img": "systems/dh2e/icons/default-icons/trait.svg",
         "system": {
             "description": "Daemons of Khorne suffer no penalties from gore and blood (such as when a Critical Effect covers an area in gore and would require an Agility test to avoid falling).",
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "trait:blood-for-the-blood-god" }
+            ],
             "hasRating": false,
             "rating": 0,
             "category": "physical",
@@ -31,7 +36,10 @@
         "img": "systems/dh2e/icons/default-icons/trait.svg",
         "system": {
             "description": "A Daemon of Tzeentch is perpetually surrounded by a cloud of shifting energy. All attacks against the Daemon suffer a -10 penalty to hit.",
-            "rules": [],
+            "rules": [
+                { "key": "FlatModifier", "domain": "evasion:self", "value": 10, "label": "Warp Flicker", "source": "trait" },
+                { "key": "RollOption", "option": "trait:warp-flicker" }
+            ],
             "hasRating": false,
             "rating": 0,
             "category": "warp",
@@ -44,7 +52,10 @@
         "img": "systems/dh2e/icons/default-icons/trait.svg",
         "system": {
             "description": "Daemons of Tzeentch gain a +10 bonus to all Focus Power tests. In addition, when a Daemon of Tzeentch Pushes a psychic power, it adds +3 to its psy rating instead of the usual amount.",
-            "rules": [],
+            "rules": [
+                { "key": "FlatModifier", "domain": "check:focus-power", "value": 10, "label": "Master of Sorcery", "source": "trait" },
+                { "key": "RollOption", "option": "trait:master-of-sorcery" }
+            ],
             "hasRating": false,
             "rating": 0,
             "category": "warp",
@@ -57,7 +68,9 @@
         "img": "systems/dh2e/icons/default-icons/trait.svg",
         "system": {
             "description": "All of Nurgle's Daemons are covered in weeping sores, pus-filled boils, and a variety of disgusting and terrible infections. All characters within 3 metres of a Daemon of Nurgle must make a Challenging (+0) Toughness test at the start of each turn or gain 1 level of Fatigue. In addition, the effects of any poison, toxin, or disease used on a Daemon of Nurgle are halved.",
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "trait:plague-ridden" }
+            ],
             "hasRating": false,
             "rating": 0,
             "category": "physical",
@@ -70,7 +83,9 @@
         "img": "systems/dh2e/icons/default-icons/trait.svg",
         "system": {
             "description": "Daemons of Nurgle are constantly surrounded by clouds of buzzing, biting flies that attack and harass their enemies. All characters within 2 metres of the Daemon suffer a -10 penalty to Weapon Skill and Ballistic Skill tests.",
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "trait:shrouded-in-flies" }
+            ],
             "hasRating": false,
             "rating": 0,
             "category": "physical",
@@ -83,7 +98,9 @@
         "img": "systems/dh2e/icons/default-icons/trait.svg",
         "system": {
             "description": "Daemons of Slaanesh emit an aura of desire and compulsion. All characters within 10 metres of the Daemon must make a Challenging (+0) Willpower test at the beginning of each of their turns. Those who fail cannot make attacks against the Daemon until the beginning of their next turn.",
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "trait:sirens-call" }
+            ],
             "hasRating": false,
             "rating": 0,
             "category": "warp",
@@ -96,7 +113,10 @@
         "img": "systems/dh2e/icons/default-icons/trait.svg",
         "system": {
             "description": "Daemons of Slaanesh are unnaturally agile and elegant in combat. They gain +10 to Dodge tests and +10 to Weapon Skill tests made to Feint.",
-            "rules": [],
+            "rules": [
+                { "key": "FlatModifier", "domain": "evasion:dodge", "value": 10, "label": "Graceful Killer", "source": "trait" },
+                { "key": "RollOption", "option": "trait:graceful-killer" }
+            ],
             "hasRating": false,
             "rating": 0,
             "category": "physical",

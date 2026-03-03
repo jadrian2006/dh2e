@@ -9,7 +9,9 @@
             "aptitudes": ["Defence", "Leadership"],
             "prerequisites": "Shared Destiny, Shield of Contempt, Hatred (any)",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:aegis-of-contempt" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -23,7 +25,9 @@
             "aptitudes": ["Ballistic Skill", "Finesse"],
             "prerequisites": "BS 45, WP 35",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:divine-protection" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -37,7 +41,9 @@
             "aptitudes": ["Offence", "Toughness"],
             "prerequisites": "WP 30",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:flagellant" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -51,7 +57,9 @@
             "aptitudes": ["Leadership", "Willpower"],
             "prerequisites": "Adamantium Faith, Halo of Command, Will of the Inquisitor",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:into-the-jaws-of-hell" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -65,7 +73,9 @@
             "aptitudes": ["Leadership", "Willpower"],
             "prerequisites": "Shared Destiny, Strength through Conviction, Resistance (Fear), Jaded",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:indomitable-conviction" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -79,7 +89,9 @@
             "aptitudes": ["Weapon Skill or Ballistic Skill", "Offence"],
             "prerequisites": "Rank 2 (Trained) in any Operate skill or Rank 2 (Trained) in Survival skill, BS 30 or WS 30",
             "specialist": true,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:mounted-warrior" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -93,7 +105,9 @@
             "aptitudes": ["Psyker", "Defence"],
             "prerequisites": "Psy rating, Strong Minded, WP 40",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:penitent-psyker" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -107,7 +121,9 @@
             "aptitudes": ["Offence", "Willpower"],
             "prerequisites": "Hatred (Any)",
             "specialist": true,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:purity-of-hatred" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -121,7 +137,9 @@
             "aptitudes": ["Knowledge", "Psyker"],
             "prerequisites": "Psy rating, Psyniscience Rank 2 (Trained), 10 Corruption points",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:tainted-psyker" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -135,7 +153,9 @@
             "aptitudes": ["Knowledge", "Perception"],
             "prerequisites": "Forbidden Lore (Psykers) Rank 2 (Trained), WP 45",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:witch-finder" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -149,7 +169,9 @@
             "aptitudes": ["Leadership", "Willpower"],
             "prerequisites": "Ceaseless Crusader, Shielding Faith, Sister of Battle elite advance",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:blessed-martyrdom" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -163,7 +185,9 @@
             "aptitudes": ["Leadership", "Willpower"],
             "prerequisites": "WP 45, Sister of Battle elite advance",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:ceaseless-crusader" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -177,7 +201,9 @@
             "aptitudes": ["Willpower", "Offence"],
             "prerequisites": "BS 40, Sister of Battle elite advance",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:cleanse-with-fire" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -191,7 +217,9 @@
             "aptitudes": ["Ballistic Skill", "Offence"],
             "prerequisites": "Cleanse with Fire, BS 45, Sister of Battle elite advance",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:divine-vengeance" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -205,7 +233,9 @@
             "aptitudes": ["Willpower", "Offence"],
             "prerequisites": "Insanity 25, Furious Zeal, Sister of Battle elite advance",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:emperors-guidance" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -219,7 +249,9 @@
             "aptitudes": ["Weapon Skill", "Offence"],
             "prerequisites": "Insanity 10, Hatred (Any One), Sister of Battle elite advance",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:furious-zeal" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -233,7 +265,9 @@
             "aptitudes": ["Willpower", "Defence"],
             "prerequisites": "Deny the Witch, Sister of Battle elite advance",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:shielding-faith" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -242,12 +276,14 @@
         "type": "talent",
         "img": "systems/dh2e/icons/items/talent.svg",
         "system": {
-            "description": "The Battle Sister asks for the protection of the Emperor, that she might shrug off hideous strikes long enough to bring down justice on His foes. As a free action, this character may spend a Fate point to gain additional Armour points on all locations equal to her Insanity bonus until the end of her next turn. Sister of Battle elite advance only.",
+            "description": "The Battle Sister asks for the protection of the Emperor, that she might shrug off hideous strikes long enough to bring justice on His foes. As a free action, this character may spend a Fate point to gain additional Armour points on all locations equal to her Insanity bonus until the end of her next turn. Sister of Battle elite advance only.",
             "tier": 2,
             "aptitudes": ["Willpower", "Defence"],
             "prerequisites": "Insanity 20, Furious Zeal, Sister of Battle elite advance",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:spirit-of-the-martyr" }
+            ],
             "source": "enemies-within"
         }
     },
@@ -261,7 +297,9 @@
             "aptitudes": ["Fellowship", "Offence"],
             "prerequisites": "Fel 35, Spirit of the Martyr, Sister of Battle elite advance",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:zealots-passion" }
+            ],
             "source": "enemies-within"
         }
     }

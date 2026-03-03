@@ -47,12 +47,17 @@ class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
         Hooks.on("combatStart", () => CombatHUD.instance.show());
         Hooks.on("deleteCombat", () => CombatHUD.instance.hide());
-        Hooks.on("updateCombat", () => CombatHUD.#debouncedRender());
+        Hooks.on("updateCombat", () => CombatHUD.instance.show());
         Hooks.on("updateActor", () => CombatHUD.#debouncedRender());
         Hooks.on("updateItem", () => CombatHUD.#debouncedRender());
         Hooks.on("createItem", () => CombatHUD.#debouncedRender());
         Hooks.on("deleteItem", () => CombatHUD.#debouncedRender());
         Hooks.on("targetToken", () => CombatHUD.#debouncedRender());
+
+        // Show immediately if combat is already active (page reload / mid-combat join)
+        if ((game as any).combat?.started) {
+            CombatHUD.instance.show();
+        }
     }
 
     /** Debounced re-render — 100ms delay to prevent mid-drag interruptions */

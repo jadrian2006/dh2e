@@ -24,9 +24,14 @@ class FocusPowerResolver {
         // Default mode to unfettered if not set (dialog will let user choose)
         const mode: PsykerMode = context.mode ?? "unfettered";
 
-        // PR multiplier: unfettered = x5, pushed = x10
-        const prMultiplier = mode === "pushed" ? 10 : 5;
-        const effectivePR = psyRating * prMultiplier;
+        // Effective PR for power effects (damage, range, etc.)
+        // Unfettered: PR as chosen. Pushed: PR + extras (phenomena always triggered).
+        const effectivePR = psyRating;
+
+        // Per RAW: +10 to Focus Power test for each PR level below your max you manifest at.
+        // Currently casts at full PR, so the bonus is (maxPR - castingPR) * 10 = 0.
+        // TODO: Add PR level selector when casting below max PR.
+        const prBonus = 0;
 
         // Base target = characteristic value
         const charData = actor.system?.characteristics?.[charKey];
@@ -41,11 +46,13 @@ class FocusPowerResolver {
                 source: power.name ?? "Power",
             }));
         }
-        modifiers.push(new ModifierDH2e({
-            label: `PR ${psyRating} (${mode === "pushed" ? "x10" : "x5"})`,
-            value: effectivePR,
-            source: "Psy Rating",
-        }));
+        if (prBonus !== 0) {
+            modifiers.push(new ModifierDH2e({
+                label: game.i18n?.localize("DH2E.Psychic.PRBonus") ?? "Reduced PR",
+                value: prBonus,
+                source: "Psy Rating",
+            }));
+        }
 
         // Build roll options
         const rollOptions = new Set<string>();

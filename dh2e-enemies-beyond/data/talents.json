@@ -12,7 +12,9 @@
             ],
             "prerequisites": "Ag 35",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:bodyguard" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -29,7 +31,9 @@
             ],
             "prerequisites": "WP 45, Iron Faith",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:bulwark-of-faith" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -46,7 +50,9 @@
             ],
             "prerequisites": "Forbidden Lore (Daemonology), WP 40",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:daemonhunter" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -62,7 +68,9 @@
             ],
             "prerequisites": "Bane of the Daemon, WP 50, Untouchable elite advance",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:daemonic-disruption" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -79,7 +87,9 @@
             ],
             "prerequisites": "Psy rating 3, WP 45, Forbidden Lore (Daemonology)",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:daemonologist" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -96,7 +106,9 @@
             ],
             "prerequisites": "Hardened Soul, 20 Corruption points",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:dark-soul" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -113,7 +125,9 @@
             ],
             "prerequisites": "WP 35, 10 Corruption points",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:hardened-soul" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -130,7 +144,9 @@
             ],
             "prerequisites": "Halo of Command",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:inspiring-aura" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -147,7 +163,9 @@
             ],
             "prerequisites": "WP 50",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:instrument-of-his-will" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -164,7 +182,9 @@
             ],
             "prerequisites": "Iron Resolve",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:iron-faith" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -181,7 +201,9 @@
             ],
             "prerequisites": "Resistance (Fear), Jaded",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:iron-resolve" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -198,7 +220,9 @@
             ],
             "prerequisites": "WS 40",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:one-on-one" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -216,6 +240,7 @@
             "prerequisites": "",
             "specialist": true,
             "rules": [
+                { "key": "RollOption", "option": "talent:peer-criminal-cartels" },
                 { "key": "FlatModifier", "domain": "skill:charm", "value": 10, "label": "Peer (Criminal Cartels)", "source": "talent" },
                 { "key": "FlatModifier", "domain": "skill:command", "value": 10, "label": "Peer (Criminal Cartels)", "source": "talent" },
                 { "key": "FlatModifier", "domain": "skill:commerce", "value": 10, "label": "Peer (Criminal Cartels)", "source": "talent" },
@@ -237,7 +262,9 @@
             ],
             "prerequisites": "Common Lore (Imperial Creed) +10 or Forbidden Lore (Daemonology)",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:rites-of-banishment" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -254,7 +281,9 @@
             ],
             "prerequisites": "Daemonologist, Favoured by the Warp, WP 50",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:sanctic-purity" }
+            ],
             "source": "enemies-beyond"
         }
     },
@@ -271,7 +300,9 @@
             ],
             "prerequisites": "Ambidextrous, WS 40",
             "specialist": false,
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "talent:shield-wall" }
+            ],
             "source": "enemies-beyond"
         }
     }
