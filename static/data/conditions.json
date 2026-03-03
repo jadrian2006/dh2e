@@ -247,7 +247,10 @@
                 { "key": "FlatModifier", "domain": "characteristic:ws", "value": 10, "label": "Frenzied", "source": "condition" },
                 { "key": "FlatModifier", "domain": "characteristic:s", "value": 10, "label": "Frenzied", "source": "condition" },
                 { "key": "FlatModifier", "domain": "characteristic:t", "value": 10, "label": "Frenzied", "source": "condition" },
-                { "key": "FlatModifier", "domain": "characteristic:wp", "value": 10, "label": "Frenzied", "source": "condition" }
+                { "key": "FlatModifier", "domain": "characteristic:wp", "value": 10, "label": "Frenzied", "source": "condition" },
+                { "key": "FlatModifier", "domain": "characteristic:bs", "value": -20, "label": "Frenzied", "source": "condition" },
+                { "key": "FlatModifier", "domain": "characteristic:int", "value": -20, "label": "Frenzied", "source": "condition" },
+                { "key": "FlatModifier", "domain": "characteristic:fel", "value": -20, "label": "Frenzied", "source": "condition" }
             ],
             "remainingRounds": 0
         }
@@ -265,6 +268,55 @@
                 { "key": "RollOption", "option": "self:surprised", "label": "Surprised" }
             ],
             "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Shocked",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/shocked.svg",
+        "system": {
+            "description": "Acute shock from a failed Fear or Trauma test. The character cannot act coherently — they may cower, babble, or flee. Duration depends on Degrees of Failure. While Shocked, the character suffers -10 to Weapon Skill, Ballistic Skill, and Willpower tests.",
+            "slug": "shocked",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:shocked", "label": "Shocked" },
+                { "key": "FlatModifier", "domain": "characteristic:ws", "value": -10, "label": "Shocked", "source": "condition" },
+                { "key": "FlatModifier", "domain": "characteristic:bs", "value": -10, "label": "Shocked", "source": "condition" },
+                { "key": "FlatModifier", "domain": "characteristic:wp", "value": -10, "label": "Shocked", "source": "condition" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Traumatised",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/traumatised.svg",
+        "system": {
+            "description": "Lingering psychological trauma from exposure to horrors beyond mortal comprehension. The character suffers -10 to Willpower tests. Trauma may persist across sessions and require extended downtime or narrative resolution to overcome.",
+            "slug": "traumatised",
+            "duration": "",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:traumatised", "label": "Traumatised" },
+                { "key": "FlatModifier", "domain": "characteristic:wp", "value": -10, "label": "Traumatised", "source": "condition" }
+            ],
+            "remainingRounds": 0
+        }
+    },
+    {
+        "name": "Cleansing Pain",
+        "type": "condition",
+        "img": "systems/dh2e/icons/conditions/stunned.svg",
+        "system": {
+            "description": "The Penitent draws strength from suffering. Gains +10 to the first test made before the end of next turn.",
+            "slug": "cleansing-pain",
+            "duration": "Until first test or end of next turn",
+            "stackable": false,
+            "rules": [
+                { "key": "RollOption", "option": "self:condition:cleansing-pain", "label": "Cleansing Pain" }
+            ],
+            "remainingRounds": 2
         }
     }
 ]

@@ -1,0 +1,185 @@
+[
+    {
+        "name": "Extended Magazine",
+        "type": "modification",
+        "img": "systems/dh2e/icons/items/modification.svg",
+        "system": {
+            "description": "Modifies a ranged weapon's receiver to accept extended-capacity magazines in addition to standard ones. The weapon can use both normal and extended magazines interchangeably.\n\nInstallation requires a successful Ordinary (+10) Tech-Use test and takes 1d5 hours. Only one Extended Magazine modification can be fitted to a weapon.\n\n<strong>Solid Projectile:</strong> A widened magazine well with a dual-slot receiver, accommodating the longer extended box magazines.\n<strong>Las:</strong> An auxiliary power coupling spliced into the weapon's charge circuit, drawing from higher-capacity power packs.\n<strong>Bolt:</strong> A reinforced feed mechanism and expanded canister housing to handle the heavier extended bolt drums.\n<strong>Flame/Melta:</strong> An additional fuel line connection with a secondary valve, supporting the larger extended fuel canisters.\n<strong>Plasma:</strong> An enhanced capacitor bank wired into the weapon's containment field, interfacing with extended plasma flasks.",
+            "source": "core",
+            "availability": "average",
+            "craftsmanship": "common",
+            "weight": 0.5,
+            "modType": "weapon",
+            "slot": "general",
+            "installTest": "tech-use",
+            "installDifficulty": 10,
+            "installTime": "1d5 hours",
+            "rules": [
+                {
+                    "key": "FlatModifier",
+                    "label": "Extended Magazine",
+                    "domain": "magazine-capacity",
+                    "value": "ceil(@item.system.magazine.max * 0.5)",
+                    "source": "Extended Magazine"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Red-Dot Laser Sight",
+        "type": "modification",
+        "img": "systems/dh2e/icons/items/modification.svg",
+        "system": {
+            "description": "A compact laser sight mounted on a ranged weapon. Grants +10 to BS tests when firing a single shot. Only one sight upgrade may be fitted to a weapon at a time.",
+            "source": "core",
+            "availability": "scarce",
+            "craftsmanship": "common",
+            "weight": 0.5,
+            "modType": "weapon",
+            "slot": "sight",
+            "installTest": "tech-use",
+            "installDifficulty": 10,
+            "installTime": "1d5 hours",
+            "rules": [
+                {
+                    "key": "FlatModifier",
+                    "label": "Red-Dot Laser Sight",
+                    "domain": "attack:ranged",
+                    "value": 10,
+                    "predicate": ["not:weapon:firemode:semi", "not:weapon:firemode:full"],
+                    "source": "Red-Dot Laser Sight"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Silencer",
+        "type": "modification",
+        "img": "systems/dh2e/icons/items/modification.svg",
+        "system": {
+            "description": "A suppressor fitted to a solid projectile weapon. Tests to hear shots are made at -20. Only fits SP weapons. Ineffective on weapons with the Scatter quality.",
+            "source": "core",
+            "availability": "average",
+            "craftsmanship": "common",
+            "weight": 0.5,
+            "modType": "weapon",
+            "slot": "barrel",
+            "installTest": "tech-use",
+            "installDifficulty": 10,
+            "installTime": "1d5 hours",
+            "rules": [
+                {
+                    "key": "FlatModifier",
+                    "label": "Silencer",
+                    "domain": "awareness-to-hear",
+                    "value": -20,
+                    "source": "Silencer"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Telescopic Sight",
+        "type": "modification",
+        "img": "systems/dh2e/icons/items/modification.svg",
+        "system": {
+            "description": "An optical scope for accurate long-range fire. Grants an additional +10 to BS tests when using the Aim action. Only one sight upgrade may be fitted to a weapon at a time.",
+            "source": "core",
+            "availability": "scarce",
+            "craftsmanship": "common",
+            "weight": 0.5,
+            "modType": "weapon",
+            "slot": "sight",
+            "installTest": "tech-use",
+            "installDifficulty": 10,
+            "installTime": "1d5 hours",
+            "rules": [
+                {
+                    "key": "FlatModifier",
+                    "label": "Telescopic Sight",
+                    "domain": "attack:ranged",
+                    "value": 10,
+                    "predicate": ["action:aim"],
+                    "source": "Telescopic Sight"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Fire Selector",
+        "type": "modification",
+        "img": "systems/dh2e/icons/items/modification.svg",
+        "system": {
+            "description": "Allows a weapon's magazine to carry up to three different ammunition types simultaneously. The wielder may switch between types as a Free Action at the start of their turn.",
+            "source": "core",
+            "availability": "veryRare",
+            "craftsmanship": "common",
+            "weight": 0.5,
+            "modType": "weapon",
+            "slot": "general",
+            "installTest": "tech-use",
+            "installDifficulty": 0,
+            "installTime": "1d5 hours",
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "domain": "ammunition",
+                    "option": "fire-selector",
+                    "source": "Fire Selector"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Mono Upgrade",
+        "type": "modification",
+        "img": "systems/dh2e/icons/items/modification.svg",
+        "system": {
+            "description": "Re-edges a bladed melee weapon at the molecular level, granting it exceptional sharpness. Adds +2 Penetration to a Low-Tech melee weapon's attacks.",
+            "source": "core",
+            "availability": "scarce",
+            "craftsmanship": "common",
+            "weight": 0,
+            "modType": "weapon",
+            "slot": "edge",
+            "installTest": "tech-use",
+            "installDifficulty": 0,
+            "installTime": "1d5 hours",
+            "rules": [
+                {
+                    "key": "FlatModifier",
+                    "label": "Mono Upgrade",
+                    "domain": "penetration",
+                    "value": 2,
+                    "predicate": ["weapon-group:low-tech"],
+                    "source": "Mono Upgrade"
+                }
+            ]
+        }
+    },
+    {
+        "name": "Melee Attachment",
+        "type": "modification",
+        "img": "systems/dh2e/icons/items/modification.svg",
+        "system": {
+            "description": "A bayonet or chain-blade fitted to a Basic ranged weapon. The weapon can be used in melee as a spear (1d10+1 R, Pen 0, Primitive). Attaching or detaching takes a Full Action.",
+            "source": "core",
+            "availability": "average",
+            "craftsmanship": "common",
+            "weight": 1,
+            "modType": "weapon",
+            "slot": "general",
+            "installTest": "tech-use",
+            "installDifficulty": 10,
+            "installTime": "1 hour",
+            "rules": [
+                {
+                    "key": "RollOption",
+                    "domain": "melee",
+                    "option": "melee-attachment",
+                    "source": "Melee Attachment"
+                }
+            ]
+        }
+    }
+]

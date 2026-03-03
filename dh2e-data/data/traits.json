@@ -127,10 +127,9 @@
         "system": {
             "description": "The creature's natural weapons (claws, teeth, etc.) are Pen 0 and count as having the Razor Sharp quality. It adds SB to melee damage with natural weapons.",
             "rules": [
-                {
-                    "key": "RollOption",
-                    "option": "trait:deadly-natural-weapons"
-                }
+                { "key": "RollOption", "option": "trait:deadly-natural-weapons" },
+                { "key": "RollOption", "option": "trait:deadly-natural-weapons:razor-sharp" },
+                { "key": "FlatModifier", "domain": "damage:melee", "value": "actor:system.characteristics.s.bonus", "label": "Deadly Natural Weapons (SB)", "source": "trait", "predicate": ["weapon:natural"] }
             ],
             "hasRating": false,
             "rating": 0,
@@ -242,7 +241,10 @@
         "img": "systems/dh2e/icons/default-icons/trait.svg",
         "system": {
             "description": "The creature has natural melee weapons (claws, teeth, tentacles) and can make melee attacks without penalty even when unarmed. It adds SB to its melee damage.",
-            "rules": [],
+            "rules": [
+                { "key": "RollOption", "option": "trait:natural-weapons" },
+                { "key": "FlatModifier", "domain": "damage:melee", "value": "actor:system.characteristics.s.bonus", "label": "Natural Weapons (SB)", "source": "trait", "predicate": ["weapon:natural"] }
+            ],
             "hasRating": false,
             "rating": 0,
             "category": "physical"

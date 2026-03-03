@@ -8,6 +8,8 @@ interface RequisitionContext {
     itemName: string;
     /** Availability tier key from config (e.g., "scarce") */
     availability: string;
+    /** Item type for background ability checks (e.g., "cybernetic") */
+    itemType?: string;
     /** Extra situational modifiers */
     extraModifier?: number;
     skipDialog?: boolean;
@@ -51,6 +53,28 @@ class RequisitionResolver {
                 source: game.i18n?.localize("DH2E.Requisition.Availability") ?? "Availability",
             }));
         }
+        // Master of Paperwork: items count as one level more available (+10)
+        if (synthetics?.rollOptions?.has("self:background:master-of-paperwork")) {
+            modifiers.push(new ModifierDH2e({
+                label: game.i18n?.localize("DH2E.MasterOfPaperwork.Label") ?? "Master of Paperwork",
+                value: 10,
+                source: game.i18n?.localize("DH2E.Background") ?? "Background",
+            }));
+        }
+        // Replace the Weak Flesh: cybernetics count as two levels more available (+20)
+        // Check synthetics first, fall back to background name for actors without embedded background item
+        const hasReplaceWeakFlesh = synthetics?.rollOptions?.has("self:background:replace-the-weak-flesh")
+            ?? synthetics?.rollOptions?.has("self:background:adeptus-mechanicus")
+            ?? false;
+        const backgroundName = actor.system?.details?.background ?? "";
+        const isMechanicus = !hasReplaceWeakFlesh && /mechanicus/i.test(backgroundName);
+        if (context.itemType === "cybernetic" && (hasReplaceWeakFlesh || isMechanicus)) {
+            modifiers.push(new ModifierDH2e({
+                label: game.i18n?.localize("DH2E.ReplaceTheWeakFlesh.Label") ?? "Replace the Weak Flesh",
+                value: 20,
+                source: game.i18n?.localize("DH2E.Background") ?? "Background",
+            }));
+        }
         if (context.extraModifier && context.extraModifier !== 0) {
             modifiers.push(new ModifierDH2e({
                 label: game.i18n?.localize("DH2E.Requisition.Situational") ?? "Situational",
@@ -72,13 +96,9 @@ class RequisitionResolver {
         if (!checkResult) return;
 
         // On failure with 3+ DoF, lose 1 Influence
+        // Breeding Counts (Highborn) is handled centrally in AcolyteDH2e._preUpdate
         if (!checkResult.dos.success && checkResult.dos.degrees >= 3) {
-            let loss = 1;
-            // Highborn: Breeding Counts — reduce influence loss by 1 (to a minimum reduction of 1)
-            if ((actor as any).synthetics?.rollOptions?.has("self:homeworld:breeding-counts")) {
-                loss = Math.max(1, loss - 1);
-            }
-            const newInfluence = Math.max(0, influence - loss);
+            const newInfluence = Math.max(0, influence - 1);
             await actor.update({ "system.influence": newInfluence });
         }
 

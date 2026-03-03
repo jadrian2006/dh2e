@@ -1762,7 +1762,8 @@
             "prerequisites": "Crushing Blow",
             "specialist": false,
             "rules": [
-                { "key": "RollOption", "option": "talent:hammer-blow" }
+                { "key": "RollOption", "option": "talent:hammer-blow" },
+                { "key": "FlatModifier", "domain": "penetration", "value": "half-ceil:system.characteristics.s.bonus", "label": "Hammer Blow", "source": "talent", "predicate": ["action:all-out-attack"] }
             ]
         }
     },

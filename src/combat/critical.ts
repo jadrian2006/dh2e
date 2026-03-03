@@ -1,5 +1,6 @@
 import type { HitLocationKey } from "@actor/types.ts";
 import { createConditionItemData } from "@item/condition/conditions-registry.ts";
+import type { DH2eSynthetics } from "@rules/synthetics.ts";
 
 /** A single entry from the critical damage table */
 interface CriticalEntry {
@@ -85,12 +86,47 @@ function normalizeLocation(location: HitLocationKey): string {
 /**
  * Apply a critical injury to an actor.
  * Creates a critical-injury item, applies condition effects, and posts a chat card.
+ *
+ * @param attacker Optional attacking actor — used for Deathdealer talent bonus
+ * @param isMeleeAttack Whether the triggering attack was melee
  */
 async function applyCriticalInjury(
     actor: Actor,
     entry: CriticalEntry,
     location: HitLocationKey,
+    attacker?: Actor,
+    isMeleeAttack?: boolean,
 ): Promise<void> {
+    // True Grit: reduce critical severity by Toughness Bonus (minimum 1)
+    const actorSynthetics = (actor as any).synthetics as DH2eSynthetics | undefined;
+    if (actorSynthetics?.rollOptions?.has("talent:true-grit")) {
+        const tb = (actor as any).system?.characteristics?.t?.bonus ?? 0;
+        if (tb > 0) {
+            const originalSeverity = entry.severity;
+            entry = { ...entry, severity: Math.max(1, entry.severity - tb) };
+            if (entry.severity < originalSeverity) {
+                ui.notifications.info(
+                    game.i18n?.format("DH2E.TrueGrit.Reduced", { tb: String(tb) })
+                        ?? `True Grit: critical severity reduced by ${tb}`,
+                );
+            }
+        }
+    }
+
+    // Deathdealer: add Perception bonus to critical severity
+    if (attacker) {
+        const attackerSynthetics = (attacker as any).synthetics as DH2eSynthetics | undefined;
+        const perBonus = (attacker as any).system?.characteristics?.per?.bonus ?? 0;
+        if (perBonus > 0) {
+            const hasDeathdealer = isMeleeAttack
+                ? attackerSynthetics?.rollOptions?.has("talent:deathdealer:melee")
+                : attackerSynthetics?.rollOptions?.has("talent:deathdealer:ranged");
+            if (hasDeathdealer) {
+                entry = { ...entry, severity: Math.min(10, entry.severity + perBonus) };
+            }
+        }
+    }
+
     // Check for divination critical immunity reminder
     try {
         const { DivinationSessionHandler } = await import("@divination/session-effects.ts");

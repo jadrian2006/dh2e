@@ -12,6 +12,25 @@
                     <td>{{localize "DH2E.Damage.Raw"}}</td>
                     <td class="value">{{this.rawDamage}}</td>
                 </tr>
+                {{#if this.modifiers.length}}
+                <tr class="modifier-header">
+                    <td colspan="2">
+                        <details class="modifier-breakdown">
+                            <summary>{{localize "DH2E.Damage.ModifierBreakdown"}}</summary>
+                            <table class="modifier-table">
+                                {{#each this.modifiers}}
+                                <tr>
+                                    <td class="mod-label">{{this.label}}</td>
+                                    <td class="mod-value {{#if (gt this.value 0)}}bonus{{else}}penalty{{/if}}">
+                                        {{#if (gt this.value 0)}}+{{/if}}{{this.value}}
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </table>
+                        </details>
+                    </td>
+                </tr>
+                {{/if}}
                 <tr>
                     <td>{{localize "DH2E.Damage.AP"}}</td>
                     <td class="value">-{{this.effectiveAP}}</td>

@@ -3,6 +3,9 @@ import type { HitLocationKey } from "@actor/types.ts";
 /** Fire mode for ranged weapons */
 type FireMode = "single" | "semi" | "full" | "suppressive";
 
+/** Melee attack mode: standard (single hit), swift, or lightning */
+type MeleeMode = "standard" | "swift" | "lightning";
+
 /** Result of a single hit within an attack */
 interface HitResult {
     location: HitLocationKey;
@@ -27,10 +30,25 @@ interface AttackResult {
     hits: HitResult[];
     /** Fire mode used */
     fireMode: FireMode;
+    /** Melee attack mode (standard/swift/lightning) */
+    meleeMode?: MeleeMode;
     /** Weapon name */
     weaponName: string;
     /** Roll options active during the attack (for damage modifier predicates) */
     attackRollOptions?: string[];
+    /** Extra penetration bonus from weapon modifications (passed to rollDamage) */
+    penetrationBonus?: number;
+    /** Whether this is a dual-wield attack */
+    isDualWield?: boolean;
+    /** Whether this is the off-hand weapon in a dual-wield */
+    isOffHand?: boolean;
+}
+
+/** A labelled modifier contribution shown in damage breakdown */
+interface DamageModifierEntry {
+    label: string;
+    value: number;
+    source: string;
 }
 
 /** Result of damage calculation for a single hit */
@@ -52,6 +70,8 @@ interface DamageResult {
     woundsDealt: number;
     /** Damage formula used */
     formula: string;
+    /** Modifier breakdown for GM damage card (optional) */
+    modifiers?: DamageModifierEntry[];
 }
 
-export type { FireMode, HitResult, AttackResult, DamageResult };
+export type { FireMode, MeleeMode, HitResult, AttackResult, DamageResult, DamageModifierEntry };
