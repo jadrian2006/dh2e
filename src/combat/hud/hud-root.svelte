@@ -40,39 +40,63 @@
         executeSkillUseRoll(actor, skill, use, CheckDH2e.shouldSkipDialog(shiftKey));
     }
 
-    // Drag handling
-    let isDragging = $state(false);
-    let dragOffset = { x: 0, y: 0 };
+    // Drag handling — moves the outer ApplicationV2 wrapper element
+    let hudLocked = $derived(ctx._hudLocked ?? false);
+
+    /** Get the ApplicationV2 outer wrapper element */
+    function getAppEl(): HTMLElement | null {
+        return (CombatHUD.instance.element as HTMLElement) ?? null;
+    }
 
     function onDragStart(e: MouseEvent) {
-        // Only drag on the handle itself
-        if ((e.target as HTMLElement).closest(".panel-trigger, .popout-panel, button, input")) return;
-        isDragging = true;
-        const el = (e.currentTarget as HTMLElement).closest(".combat-hud-panel") as HTMLElement | null;
-        const appEl = el?.closest(".application") as HTMLElement | null;
-        const rect = (appEl ?? el)?.getBoundingClientRect();
-        if (rect) {
-            dragOffset.x = e.clientX - rect.left;
-            dragOffset.y = e.clientY - rect.top;
-        }
+        if (hudLocked) return;
+        // Don't start drag from lock button
+        if ((e.target as HTMLElement).closest(".hud-lock-btn")) return;
+        const appEl = getAppEl();
+        if (!appEl) return;
         e.preventDefault();
 
+        const hud = CombatHUD.instance;
+        hud.dragging = true;
+
+        // Account for zoom: getBoundingClientRect returns zoomed coords,
+        // but style.left/top are in pre-zoom space
+        const zoom = parseFloat(appEl.style.zoom || "1") || 1;
+        const rect = appEl.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        const offsetY = e.clientY - rect.top;
+
         const onMove = (me: MouseEvent) => {
-            if (!isDragging) return;
-            const hud = CombatHUD.instance;
-            hud.position.left = Math.max(0, me.clientX - dragOffset.x);
-            hud.position.top = Math.max(0, me.clientY - dragOffset.y);
+            // Convert viewport coords to pre-zoom space
+            const newLeft = (me.clientX - offsetX) / zoom;
+            const newTop = (me.clientY - offsetY) / zoom;
+            // Clamp to viewport bounds (keep at least 100px visible)
+            const maxLeft = (window.innerWidth / zoom) - 100;
+            const maxTop = (window.innerHeight / zoom) - 100;
+            const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
+            const clampedTop = Math.max(0, Math.min(newTop, maxTop));
+            appEl.style.left = `${clampedLeft}px`;
+            appEl.style.top = `${clampedTop}px`;
+            appEl.style.bottom = "auto";
         };
 
         const onUp = () => {
-            isDragging = false;
+            hud.dragging = false;
             document.removeEventListener("mousemove", onMove);
             document.removeEventListener("mouseup", onUp);
-            CombatHUD.instance.savePosition();
+            // Read position from style (pre-zoom space), NOT getBoundingClientRect
+            const left = parseFloat(appEl.style.left) || 0;
+            const top = parseFloat(appEl.style.top) || 0;
+            hud.savePosition(left, top);
         };
 
         document.addEventListener("mousemove", onMove);
         document.addEventListener("mouseup", onUp);
+    }
+
+    function onToggleLock(e: MouseEvent) {
+        e.stopPropagation();
+        CombatHUD.instance.toggleLock();
     }
 </script>
 
@@ -85,10 +109,19 @@
     aria-label="Combat HUD"
 >
     {#if ctx.actor}
-        <!-- Drag handle -->
+        <!-- Drag handle + lock button -->
         <!-- svelte-ignore a11y_no_static_element_interactions -->
-        <div class="hud-drag-handle" onmousedown={onDragStart}>
+        <div class="hud-drag-handle" class:locked={hudLocked} onmousedown={onDragStart}>
             <i class="fa-solid fa-grip-lines"></i>
+            <button
+                class="hud-lock-btn"
+                class:active={hudLocked}
+                onmousedown={(e) => e.stopPropagation()}
+                onclick={onToggleLock}
+                title={hudLocked ? "Unlock HUD position" : "Lock HUD position"}
+            >
+                <i class={hudLocked ? "fa-solid fa-lock" : "fa-solid fa-lock-open"}></i>
+            </button>
         </div>
 
         <!-- Row 1: Portrait + Wounds + Fate -->
@@ -199,6 +232,8 @@
 
 <style lang="scss">
     .combat-hud-panel {
+        /* Positioning handled by CombatHUD.applyPosition() on outer wrapper */
+        position: relative;
         width: 380px;
         display: flex;
         flex-direction: column;
@@ -213,7 +248,6 @@
         border-radius: var(--dh2e-radius-sm, 3px);
         backdrop-filter: blur(6px);
         pointer-events: auto;
-        animation: dh2e-slide-up 0.3s ease-out;
 
         &.my-turn {
             border-color: var(--dh2e-gold, #c8a84e);
@@ -224,6 +258,8 @@
     .hud-drag-handle {
         display: flex;
         justify-content: center;
+        align-items: center;
+        gap: 6px;
         padding: 2px 0;
         cursor: grab;
         color: var(--dh2e-text-secondary, #a0a0a8);
@@ -233,8 +269,27 @@
 
         &:hover { opacity: 0.8; }
         &:active { cursor: grabbing; }
+        &.locked { cursor: default; }
+        &.locked:active { cursor: default; }
 
-        i { font-size: 0.5rem; }
+        > i { font-size: 0.5rem; }
+    }
+
+    .hud-lock-btn {
+        background: none;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        padding: 0 2px;
+        font-size: 0.45rem;
+        opacity: 0.6;
+        transition: opacity 0.15s;
+
+        &:hover { opacity: 1; }
+        &.active {
+            color: var(--dh2e-gold-muted, #8a7a3e);
+            opacity: 0.9;
+        }
     }
 
     .hud-row {

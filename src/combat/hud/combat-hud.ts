@@ -9,16 +9,16 @@ import { autoPopulateSlots, validateSlots } from "./hud-slots.ts";
  * Shows portrait, stats grid, configurable hotbar, and pop-out panels
  * for weapons, skill actions, and quick actions.
  * Only visible during active combat. Auto show/hide with combat lifecycle.
- * Position is persisted to a client setting.
+ * Position is persisted to a client setting; dragging handled via CSS in hud-root.svelte.
  */
 class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     static override DEFAULT_OPTIONS = fu.mergeObject(super.DEFAULT_OPTIONS, {
         id: "dh2e-combat-hud",
         classes: ["dh2e", "combat-hud"],
-        position: { width: 380, height: "auto" as any },
+        position: { width: 0, height: 0 },
         window: {
             frame: false,
-            positioned: true,
+            positioned: false,
             resizable: false,
             minimizable: false,
         },
@@ -34,6 +34,15 @@ class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     /** Debounce timer for re-renders */
     #renderTimer: ReturnType<typeof setTimeout> | null = null;
+
+    /** Module-level position state — survives Svelte re-mounts */
+    hudPosition: { left: number; top: number } | null = null;
+
+    /** Whether position is locked (disables dragging) */
+    hudLocked: boolean = false;
+
+    /** Whether a drag is currently in progress — suppresses re-renders */
+    dragging: boolean = false;
 
     static get instance(): CombatHUD {
         if (!CombatHUD.#instance) {
@@ -61,13 +70,15 @@ class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         }
     }
 
-    /** Debounced re-render — 100ms delay to prevent mid-drag interruptions */
+    /** Debounced re-render — 100ms delay, suppressed during drag */
     static #debouncedRender(): void {
         if (!CombatHUD.#instance?.rendered) return;
+        if (CombatHUD.#instance.dragging) return; // never re-render mid-drag
         if (CombatHUD.#instance.#renderTimer) {
             clearTimeout(CombatHUD.#instance.#renderTimer);
         }
         CombatHUD.#instance.#renderTimer = setTimeout(() => {
+            if (CombatHUD.#instance?.dragging) return;
             CombatHUD.#instance?.render(true);
         }, 100);
     }
@@ -75,30 +86,87 @@ class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     async show(): Promise<void> {
         if (!getSetting<boolean>("enableCombatHUD")) return;
 
-        // Restore saved position (or default to bottom-left)
-        const savedPos = getSetting<string>("combatHUDDragPosition");
-        if (savedPos) {
-            try {
-                const pos = JSON.parse(savedPos);
-                if (typeof pos.left === "number" && typeof pos.top === "number") {
-                    this.position.left = pos.left;
-                    this.position.top = pos.top;
-                }
-            } catch { /* ignore invalid JSON */ }
-        } else {
-            // Default position: bottom-left
-            this.position.left = 16;
-            this.position.top = Math.max(100, (window.innerHeight ?? 800) - 500);
-        }
+        // Always re-read position from setting (user may have cleared it via console)
+        this.#loadPositionFromSetting();
 
         await this.render(true);
+
+        // Apply position to the ApplicationV2 wrapper element AFTER render
+        // (can't use position:fixed on inner panel because zoom/transform creates containing block)
+        this.applyPosition();
     }
 
-    /** Save the current position to client settings */
-    savePosition(): void {
-        const pos = { left: this.position.left, top: this.position.top };
+    /** Load position + lock state from client setting into instance state */
+    #loadPositionFromSetting(): void {
+        const saved = getSetting<string>("combatHUDDragPosition");
+        if (saved) {
+            try {
+                const pos = JSON.parse(saved);
+                if (typeof pos.left === "number" && typeof pos.top === "number") {
+                    this.hudPosition = { left: pos.left, top: pos.top };
+                } else {
+                    this.hudPosition = null;
+                }
+                this.hudLocked = typeof pos.locked === "boolean" ? pos.locked : false;
+            } catch {
+                this.hudPosition = null;
+                this.hudLocked = false;
+            }
+        } else {
+            this.hudPosition = null;
+            this.hudLocked = false;
+        }
+    }
+
+    /** Apply hudPosition to the outer ApplicationV2 element */
+    applyPosition(): void {
+        const el = this.element as HTMLElement | undefined;
+        if (!el) return;
+
+        el.style.position = "fixed";
+        el.style.zIndex = "100";
+
+        if (this.hudPosition) {
+            // Positions are stored in pre-zoom space; clamp to viewport / zoom
+            const zoom = parseFloat(el.style.zoom || "1") || 1;
+            const maxLeft = Math.max(0, (window.innerWidth / zoom) - 100);
+            const maxTop = Math.max(0, (window.innerHeight / zoom) - 100);
+            el.style.left = `${Math.max(0, Math.min(this.hudPosition.left, maxLeft))}px`;
+            el.style.top = `${Math.max(0, Math.min(this.hudPosition.top, maxTop))}px`;
+            el.style.bottom = "auto";
+        } else {
+            // Default: bottom-left
+            el.style.left = "16px";
+            el.style.bottom = "16px";
+            el.style.top = "auto";
+        }
+    }
+
+    /** Save drag position + lock state to client setting */
+    savePosition(left: number, top: number): void {
+        this.hudPosition = { left, top };
         const g = game as any;
-        g.settings?.set?.(SYSTEM_ID, "combatHUDDragPosition", JSON.stringify(pos));
+        g.settings?.set?.(SYSTEM_ID, "combatHUDDragPosition", JSON.stringify({
+            left, top, locked: this.hudLocked,
+        }));
+    }
+
+    /** Toggle lock state and re-render to update UI */
+    async toggleLock(): Promise<void> {
+        this.hudLocked = !this.hudLocked;
+        // Save lock state with current position
+        const pos = this.hudPosition;
+        if (pos) {
+            this.savePosition(pos.left, pos.top);
+        } else {
+            const g = game as any;
+            g.settings?.set?.(SYSTEM_ID, "combatHUDDragPosition", JSON.stringify({
+                locked: this.hudLocked,
+            }));
+        }
+        // Re-render so Svelte picks up new _hudLocked
+        await this.render(true);
+        this.applyPosition();
     }
 
     async hide(): Promise<void> {
@@ -179,6 +247,7 @@ class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 tokenImg,
                 isMyTurn: combatant?.isOwner && combat?.combatant?.id === combatant?.id,
                 _openPanel: this.#openPanel,
+                _hudLocked: this.hudLocked,
             },
         };
     }
