@@ -17,7 +17,7 @@ import { RulerOverlay } from "../../integrations/ruler/ruler-overlay.ts";
 import { DeadlineNotifier } from "../../integrations/imperial-calendar/deadline-notifier.ts";
 import { CyberneticMaintenanceNotifier } from "../../integrations/imperial-calendar/maintenance-notifier.ts";
 import { registerHotbarDrop } from "../../macros/hotbar-drop.ts";
-import { rollSkillUse, rollWeapon, rollSkill, maintainCybernetics, checkSurprised } from "../../macros/api.ts";
+import { rollSkillUse, rollWeapon, rollSkill, maintainCybernetics, checkSurprised, rollMutationTable, rollMalignancyTable, focusPower } from "../../macros/api.ts";
 import { ActionsGrid } from "../../ui/actions-grid/actions-grid.ts";
 import { VoxComposeDialog } from "../../ui/vox-terminal/vox-compose-dialog.ts";
 import { VoxTerminalPopup } from "../../ui/vox-terminal/vox-terminal-popup.ts";
@@ -70,6 +70,9 @@ export class Ready {
             (game as any).dh2e.rollSkill = rollSkill;
             (game as any).dh2e.maintainCybernetics = maintainCybernetics;
             (game as any).dh2e.checkSurprised = checkSurprised;
+            (game as any).dh2e.rollMutation = rollMutationTable;
+            (game as any).dh2e.rollMalignancy = rollMalignancyTable;
+            (game as any).dh2e.focusPower = focusPower;
 
             (game as any).dh2e.actionsGrid = () => ActionsGrid.open();
             (game as any).dh2e.voxTerminal = () => VoxComposeDialog.open();
@@ -181,6 +184,31 @@ export class Ready {
                 }
             });
 
+            // Intercept ImagePopout to show animated portraits (webm/mp4)
+            Hooks.on("renderImagePopout", (app: any, html: HTMLElement) => {
+                // ImagePopout stores the source object — check if it's an actor with a video portrait
+                const actor = app.options?.uuid
+                    ? (game as any).actors?.find((a: any) => a.uuid === app.options.uuid || a.img === app.object)
+                    : null;
+                const videoSrc = actor?.getFlag?.(SYSTEM_ID, "portrait")
+                    || (actor?.img && /\.(webm|mp4|m4v)$/i.test(actor.img) ? actor.img : null)
+                    || (typeof app.object === "string" && /\.(webm|mp4|m4v)$/i.test(app.object) ? app.object : null);
+                if (!videoSrc) return;
+
+                // Replace the <img> with a <video>
+                const img = html.querySelector("img");
+                if (img) {
+                    const video = document.createElement("video");
+                    video.src = videoSrc;
+                    video.autoplay = true;
+                    video.loop = true;
+                    video.muted = true;
+                    video.playsInline = true;
+                    video.style.cssText = img.style.cssText || "width:100%;display:block;";
+                    img.replaceWith(video);
+                }
+            });
+
             // Module integrations
             Hooks.once("diceSoNiceReady", (dice3d: any) => DSNIntegration.registerThemes(dice3d));
             RulerOverlay.init();
@@ -261,6 +289,32 @@ export class Ready {
 
             // Token context menu for looting + searching
             Hooks.on("getActorDirectoryEntryContext", (_html: any, options: any[]) => {
+                // "Show Portrait" — animated video popout for actors with flags.dh2e.portrait or video img
+                options.unshift({
+                    name: "Show Portrait",
+                    icon: '<i class="fa-solid fa-film"></i>',
+                    condition: (li: any) => {
+                        const id = li.dataset?.entryId ?? li.dataset?.documentId;
+                        const actor = (game as any).actors?.get(id);
+                        if (!actor) return false;
+                        const portrait = actor.getFlag?.(SYSTEM_ID, "portrait");
+                        const videoSrc = portrait || actor.img;
+                        return !!videoSrc && /\.(webm|mp4|m4v)$/i.test(videoSrc);
+                    },
+                    callback: (li: any) => {
+                        const id = li.dataset?.entryId ?? li.dataset?.documentId;
+                        const actor = (game as any).actors?.get(id);
+                        if (!actor) return;
+                        const portrait = actor.getFlag(SYSTEM_ID, "portrait") || actor.img;
+                        new fa.api.DialogV2({
+                            window: { title: actor.name ?? "Portrait" },
+                            content: `<video src="${portrait}" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
+                            buttons: [],
+                            position: { width: 480, height: 540 },
+                        }).render(true);
+                    },
+                });
+
                 // "Loot Corpse" for defeated NPCs
                 options.push({
                     name: game.i18n.localize("DH2E.Loot.LootCorpse"),
