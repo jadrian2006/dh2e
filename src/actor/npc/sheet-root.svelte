@@ -22,15 +22,28 @@
         ctx.actor?.update({ "system.wounds.value": val });
     }
 
+    const portraitSrc = $derived(
+        ctx.actor?.getFlag("dh2e", "portrait") || ctx.img,
+    );
+
+    const isVideo = $derived(
+        /\.(webm|mp4|m4v)$/i.test(portraitSrc ?? ""),
+    );
+
     function openPortraitPicker() {
         if (!ctx.editable) return;
         const actor = ctx.actor;
         const FP = (fa as any).apps.FilePicker.implementation;
         const fp = new FP({
-            type: "image",
-            current: ctx.img,
+            type: "imagevideo",
+            current: portraitSrc,
             callback: (path: string) => {
-                actor?.update({ img: path, "prototypeToken.texture.src": path });
+                if (/\.(webm|mp4|m4v)$/i.test(path)) {
+                    actor?.setFlag("dh2e", "portrait", path);
+                } else {
+                    actor?.update({ img: path });
+                    actor?.unsetFlag("dh2e", "portrait");
+                }
             },
         });
         fp.browse();
@@ -40,11 +53,21 @@
 <div class="npc-sheet" class:loot-mode={lootMode}>
     <header class="sheet-header">
         <div class="profile-wrapper">
-            <img src={ctx.img} alt={ctx.name} class="profile-img" class:editable={ctx.editable}
-                onclick={openPortraitPicker} role={ctx.editable ? "button" : undefined}
-                tabindex={ctx.editable ? 0 : undefined}
-                onkeydown={(e) => { if (e.key === "Enter") openPortraitPicker(); }}
-                title={ctx.editable ? "Change portrait" : undefined} />
+            {#if isVideo}
+                <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+                <video src={portraitSrc} class="profile-img" class:editable={ctx.editable}
+                    autoplay loop muted playsinline
+                    onclick={openPortraitPicker} role={ctx.editable ? "button" : undefined}
+                    tabindex={ctx.editable ? 0 : undefined}
+                    onkeydown={(e) => { if (e.key === "Enter") openPortraitPicker(); }}
+                    title={ctx.editable ? "Change portrait" : undefined}></video>
+            {:else}
+                <img src={portraitSrc} alt={ctx.name} class="profile-img" class:editable={ctx.editable}
+                    onclick={openPortraitPicker} role={ctx.editable ? "button" : undefined}
+                    tabindex={ctx.editable ? 0 : undefined}
+                    onkeydown={(e) => { if (e.key === "Enter") openPortraitPicker(); }}
+                    title={ctx.editable ? "Change portrait" : undefined} />
+            {/if}
             {#if lootMode}
                 <i class="fa-solid fa-skull skull-badge"></i>
             {/if}

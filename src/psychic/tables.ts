@@ -61,12 +61,11 @@ async function lookupPhenomenaByRoll(roll: number): Promise<PhenomenaEntry | und
     return d100Lookup(table, roll);
 }
 
-/** Roll on the Psychic Phenomena table. If pushed, add +25 to the roll. */
-async function rollPhenomena(pushed: boolean): Promise<{ roll: number; entry: PhenomenaEntry | undefined }> {
+/** Roll on the Psychic Phenomena table (CRB Table 6-2). No modifier for Bound psykers. */
+async function rollPhenomena(_pushed: boolean): Promise<{ roll: number; entry: PhenomenaEntry | undefined }> {
     const baseRoll = new foundry.dice.Roll("1d100");
     await baseRoll.evaluate();
-    let roll = baseRoll.total ?? 1;
-    if (pushed) roll = Math.min(100, roll + 25);
+    const roll = baseRoll.total ?? 1;
 
     const entry = await lookupPhenomenaByRoll(roll);
     return { roll, entry };

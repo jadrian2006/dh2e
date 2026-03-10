@@ -1,4 +1,5 @@
 import { getCompendiumTable, lookupTableResult } from "@util/index.ts";
+import { rollMutation } from "./mutation-table.ts";
 
 interface MalignancyEntry {
     min: number;
@@ -6,6 +7,8 @@ interface MalignancyEntry {
     title: string;
     description: string;
     effect: string;
+    mutation?: boolean;
+    rules?: any[];
 }
 
 // Compendium table cache
@@ -47,6 +50,7 @@ async function rollMalignancy(actor: Actor): Promise<MalignancyEntry | undefined
                 title: tr.text,
                 description: flags.description ?? "",
                 effect: flags.effect ?? "",
+                rules: flags.rules,
             };
         }
     }
@@ -57,6 +61,23 @@ async function rollMalignancy(actor: Actor): Promise<MalignancyEntry | undefined
         entry = table.find((e) => result >= e.min && result <= e.max);
     }
 
+    // Malignancy result 96-100: "Mutation!" — chain to Mutations table (CRB Table 8-15)
+    if (entry?.mutation) {
+        const mutEntry = await rollMutation(actor);
+        // Return a synthetic entry so the caller knows it was a mutation
+        if (mutEntry) {
+            return {
+                min: entry.min,
+                max: entry.max,
+                title: `Mutation: ${mutEntry.title}`,
+                description: mutEntry.description,
+                effect: mutEntry.effect,
+                mutation: true,
+            };
+        }
+        return entry;
+    }
+
     if (entry) {
         await actor.createEmbeddedDocuments("Item", [{
             name: entry.title,
@@ -64,7 +85,7 @@ async function rollMalignancy(actor: Actor): Promise<MalignancyEntry | undefined
             system: {
                 description: `${entry.description}\n\n${entry.effect}`,
                 threshold: (actor as any).system?.corruption ?? 0,
-                rules: [],
+                rules: entry.rules ?? [],
                 visible: true,
             },
         }]);

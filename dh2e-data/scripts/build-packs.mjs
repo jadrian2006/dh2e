@@ -25,7 +25,7 @@ const TABLE_DEFS = [
     {
         name: "psychic-phenomena",
         label: "Psychic Phenomena",
-        file: "../static/data/tables/psychic-phenomena.json",
+        file: "data/tables/psychic-phenomena.json",
         formula: "1d100",
         description:
             "Rolled when a psyker triggers Psychic Phenomena.",
@@ -36,7 +36,7 @@ const TABLE_DEFS = [
     {
         name: "perils-of-the-warp",
         label: "Perils of the Warp",
-        file: "../static/data/tables/perils-of-the-warp.json",
+        file: "data/tables/perils-of-the-warp.json",
         formula: "1d100",
         description:
             "Rolled when Psychic Phenomena escalates to Perils of the Warp.",
@@ -48,7 +48,7 @@ const TABLE_DEFS = [
     {
         name: "malignancies",
         label: "Malignancies",
-        file: "../static/data/tables/malignancies.json",
+        file: "data/tables/malignancies.json",
         formula: "1d100",
         description:
             "Rolled when a character crosses a Corruption threshold.",
@@ -57,9 +57,20 @@ const TABLE_DEFS = [
         }),
     },
     {
+        name: "mutations",
+        label: "Mutations",
+        file: "data/tables/mutations.json",
+        formula: "1d100",
+        description:
+            "Rolled when a character gains a mutation (Table 8-16).",
+        flagMap: (entry) => ({
+            effect: entry.effect ?? "",
+        }),
+    },
+    {
         name: "mental-disorders",
         label: "Mental Disorders",
-        file: "../static/data/tables/mental-disorders.json",
+        file: "data/tables/mental-disorders.json",
         formula: "1d100",
         description:
             "Rolled when a character crosses an Insanity threshold.",

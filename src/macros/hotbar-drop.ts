@@ -7,7 +7,7 @@ import type { DH2eDragData } from "./types.ts";
 export function registerHotbarDrop(): void {
     Hooks.on("hotbarDrop", (_bar: any, data: any, slot: number) => {
         if (!data?.type) return;
-        if (data.type !== "Skill" && data.type !== "SkillUse" && data.type !== "Weapon") return;
+        if (data.type !== "Skill" && data.type !== "SkillUse" && data.type !== "Weapon" && data.type !== "Power") return;
 
         // Handle async creation
         createDH2eMacro(data as DH2eDragData, slot);
@@ -35,6 +35,11 @@ async function createDH2eMacro(data: DH2eDragData, slot: number): Promise<void> 
             command = `game.dh2e.rollWeapon("${data.weaponId}");`;
             name = data.weaponName;
             img = "icons/svg/sword.svg";
+            break;
+        case "Power":
+            command = `game.dh2e.focusPower("${data.powerName}", "${data.mode}", ${data.selectedPR}, true);`;
+            name = `${data.powerName} (${data.mode === "pushed" ? "Push" : "Unfet"} PR${data.selectedPR})`;
+            img = "icons/svg/lightning.svg";
             break;
     }
 

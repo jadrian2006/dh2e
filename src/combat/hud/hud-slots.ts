@@ -2,12 +2,14 @@ import { executeSkillUseRoll } from "@item/skill/roll-skill-use.ts";
 import { CANONICAL_SKILL_USES, CANONICAL_SKILL_CHARS } from "@item/skill/uses.ts";
 import { AttackResolver } from "@combat/attack.ts";
 import { CheckDH2e } from "@check/check.ts";
+import type { PsykerMode } from "@psychic/types.ts";
 
 /** A single HUD hotbar slot entry */
 export type HudSlotEntry =
     | { type: "skillUse"; skillName: string; useSlug: string; label: string; icon: string }
     | { type: "weapon"; weaponId: string; label: string; icon: string }
     | { type: "skill"; skillName: string; label: string; icon: string }
+    | { type: "power"; powerName: string; mode: PsykerMode; selectedPR: number; label: string; icon: string }
     | { type: "quickAction"; actionKey: string; label: string; icon: string };
 
 const NUM_SLOTS = 10;
@@ -53,6 +55,22 @@ export function autoPopulateSlots(actor: any): (HudSlotEntry | null)[] {
             useSlug,
             label: use.label,
             icon: "fa-solid fa-dice-d20",
+        };
+    }
+
+    // Favorited powers
+    const powers = actor?.items?.filter((i: Item) => {
+        return i.type === "power" && (i as any).getFlag?.("dh2e", "favorite");
+    }) ?? [];
+    for (const p of powers) {
+        if (idx >= NUM_SLOTS) break;
+        slots[idx++] = {
+            type: "power",
+            powerName: p.name,
+            mode: "unfettered",
+            selectedPR: 1,
+            label: p.name,
+            icon: "fa-solid fa-hat-wizard",
         };
     }
 
@@ -136,6 +154,11 @@ export async function executeSlot(actor: any, entry: HudSlotEntry): Promise<void
                     skillDescription: sys.description ?? "",
                 });
             }
+            break;
+        }
+        case "power": {
+            const { focusPower } = await import("@macros/api.ts");
+            await focusPower(entry.powerName, entry.mode, entry.selectedPR, true);
             break;
         }
         case "quickAction":

@@ -46,8 +46,8 @@ class DeadlineDialog {
                         label: game.i18n.localize("DH2E.Chronicle.SetDeadline"),
                         icon: "fa-solid fa-check",
                         default: true,
-                        callback: (_event: any, _button: any, dialog: HTMLElement) => {
-                            const form = dialog.querySelector("form");
+                        callback: (_event: any, _button: any, dialog: any) => {
+                            const form = dialog.element.querySelector("form");
                             if (!form) { resolve(null); return; }
                             const fd = new FormData(form);
                             const objectiveId = fd.get("objectiveId") as string;

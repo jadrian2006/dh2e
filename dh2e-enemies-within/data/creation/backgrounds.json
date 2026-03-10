@@ -39,6 +39,7 @@
             { "key": "Grant", "type": "skill", "name": "Survival" },
             { "key": "Grant", "type": "talent", "name": "Weapon Training (Low-Tech)" },
             { "key": "Grant", "type": "talent", "name": "Weapon Training (Solid Projectile)" },
+            { "key": "Grant", "type": "trait", "options": ["Amphibious", "Dark-sight", "Natural Weapons", "Sonar Sense", "Sturdy", "Toxic (1)", "Unnatural Agility (1)", "Unnatural Strength (1)", "Unnatural Toughness (1)"] },
             { "key": "Grant", "type": "weapon", "optionSets": [
                 { "label": "Shotgun", "items": [{ "type": "weapon", "name": "Shotgun" }] },
                 { "label": "Stub Revolver + Great Weapon", "items": [

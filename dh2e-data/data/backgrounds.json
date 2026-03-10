@@ -71,7 +71,7 @@
                 { "key": "Grant", "type": "weapon", "name": "Laspistol" },
                 { "key": "Grant", "type": "weapon", "options": ["Staff", "Whip"] },
                 { "key": "Grant", "type": "armour", "options": ["Flak Cloak", "Flak Vest"], "equipped": true },
-                { "key": "Grant", "type": "gear", "options": ["Micro-Bead", "Psy-Focus"] },
+                { "key": "Grant", "type": "gear", "options": ["Micro-Bead", "Psy-Focus"], "equipped": true },
                 { "key": "RollOption", "option": "self:background:constant-threat" }
             ]
         }

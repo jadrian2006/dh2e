@@ -90,8 +90,8 @@ class ChronicleEntryDialog {
                         label: game.i18n.localize("DH2E.Common.Save"),
                         icon: "fa-solid fa-check",
                         default: true,
-                        callback: (_event: any, _button: any, dialog: HTMLElement) => {
-                            const form = dialog.querySelector("form");
+                        callback: (_event: any, _button: any, dialog: any) => {
+                            const form = dialog.element.querySelector("form");
                             if (!form) { resolve(null); return; }
                             const fd = new FormData(form);
                             resolve({

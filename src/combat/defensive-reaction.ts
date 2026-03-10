@@ -201,7 +201,7 @@ async function executeDefensiveReaction(options: DefensiveReactionOptions): Prom
 /** Prompt the user to re-roll a failed Parry via Blademaster */
 async function promptBlademasterReroll(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
-        const d = new (fd.DialogV2 ?? fd.Dialog as any)({
+        const d = new fa.api.DialogV2({
             window: { title: game.i18n?.localize("DH2E.Reaction.Blademaster") ?? "Blademaster" },
             content: `<p>${game.i18n?.localize("DH2E.Reaction.Blademaster") ?? "Re-roll Parry (Blademaster)?"}</p>`,
             buttons: [{

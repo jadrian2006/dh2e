@@ -1,4 +1,4 @@
-import type { FocusPowerContext, FocusPowerResult, PsykerMode } from "./types.ts";
+import type { FocusPowerContext, FocusPowerResult, PsykerMode, PhenomenaEntry } from "./types.ts";
 import type { CharacteristicAbbrev } from "@actor/types.ts";
 import { CheckDH2e } from "@check/check.ts";
 import { ModifierDH2e } from "@rules/modifier.ts";
@@ -14,25 +14,36 @@ import { VFXResolver } from "../vfx/resolver.ts";
  * 4. Detect and roll on Phenomena/Perils tables
  * 5. Post chat cards
  */
+/** Map full characteristic names to abbreviations for defensive lookup */
+const CHAR_NAME_TO_ABBREV: Record<string, CharacteristicAbbrev> = {
+    willpower: "wp", perception: "per", agility: "ag", toughness: "t",
+    strength: "s", intelligence: "int", fellowship: "fel",
+    "weapon skill": "ws", "ballistic skill": "bs",
+    psyniscience: "per", // Psyniscience is Per-based
+};
+
 class FocusPowerResolver {
     static async resolve(context: FocusPowerContext): Promise<FocusPowerResult | null> {
         const actor = context.actor as any;
         const power = context.power as any;
-        const charKey = (context.focusCharacteristic || "wp") as CharacteristicAbbrev;
+        const rawKey = context.focusCharacteristic || "wp";
+        const charKey = (CHAR_NAME_TO_ABBREV[rawKey.toLowerCase()] ?? rawKey) as CharacteristicAbbrev;
         const psyRating = context.psyRating;
 
         // Default mode to unfettered if not set (dialog will let user choose)
         const mode: PsykerMode = context.mode ?? "unfettered";
 
         // Effective PR for power effects (damage, range, etc.)
-        // Unfettered: chosen PR (1 to max). Pushed: full max PR.
+        // Unfettered: chosen PR (1 to base). Pushed: base PR to base PR + 2.
+        const maxPushedPR = psyRating + 2;
         const selectedPR = mode === "pushed"
-            ? psyRating
+            ? Math.max(psyRating, Math.min(context.selectedPR ?? psyRating, maxPushedPR))
             : Math.max(1, Math.min(context.selectedPR ?? psyRating, psyRating));
         const effectivePR = selectedPR;
 
-        // Per RAW: +10 to Focus Power test for each PR level below max (Unfettered only)
-        const prBonus = mode === "unfettered" ? (psyRating - selectedPR) * 10 : 0;
+        // Unfettered: +10 bonus per PR level below max
+        // Pushed: -10 penalty per PR level above base (CRB p.194)
+        const prModifier = (psyRating - selectedPR) * 10;
 
         // Base target = characteristic value
         const charData = actor.system?.characteristics?.[charKey];
@@ -47,10 +58,13 @@ class FocusPowerResolver {
                 source: power.name ?? "Power",
             }));
         }
-        if (prBonus !== 0) {
+        if (prModifier !== 0) {
+            const label = prModifier > 0
+                ? (game.i18n?.localize("DH2E.Psychic.PRBonus") ?? "Reduced PR")
+                : (game.i18n?.localize("DH2E.Psychic.PushPenalty") ?? "Push Penalty");
             modifiers.push(new ModifierDH2e({
-                label: game.i18n?.localize("DH2E.Psychic.PRBonus") ?? "Reduced PR",
-                value: prBonus,
+                label,
+                value: prModifier,
                 source: "Psy Rating",
             }));
         }
@@ -79,16 +93,28 @@ class FocusPowerResolver {
 
         if (!checkResult) return null;
 
-        // Check for Psychic Phenomena
+        // Check for Psychic Phenomena / Perils of the Warp (CRB p.196)
         let phenomenaTriggered = false;
+        let perilsDirect = false;
+
+        // Check for doubles (tens digit == units digit)
+        const d100 = checkResult.roll;
+        const tens = Math.floor(d100 / 10) % 10;
+        const units = d100 % 10;
+        const isDoubles = tens === units;
+
         if (mode === "pushed") {
-            phenomenaTriggered = true;
+            if (isDoubles) {
+                // Push + doubles → Perils of the Warp directly (skip Phenomena)
+                perilsDirect = true;
+                phenomenaTriggered = true;
+            } else {
+                // Push + no doubles → Psychic Phenomena (+25)
+                phenomenaTriggered = true;
+            }
         } else {
-            // Unfettered: check for doubles (tens digit == units digit)
-            const d100 = checkResult.roll;
-            const tens = Math.floor(d100 / 10) % 10;
-            const units = d100 % 10;
-            if (tens === units) {
+            // Unfettered: doubles → Psychic Phenomena
+            if (isDoubles) {
                 phenomenaTriggered = true;
             }
         }
@@ -121,53 +147,100 @@ class FocusPowerResolver {
             }
         }
 
-        // Roll phenomena if triggered
+        // Roll phenomena/perils if triggered
         if (phenomenaTriggered) {
             const automate = (game as any).settings?.get?.(SYSTEM_ID, "automatePhenomena") ?? true;
             if (automate) {
-                const phResult = await rollPhenomena(mode === "pushed");
-                let phenomenaRoll = phResult.roll;
+                try {
+                    if (perilsDirect) {
+                        // Push + doubles: Perils of the Warp directly (skip Phenomena)
+                        const perilResult = await rollPerils();
+                        result.perilsEntry = perilResult.entry;
+                        await FocusPowerResolver.#postPhenomenaCard(result, actor, perilResult.roll);
+                    } else {
+                        let phResult = await rollPhenomena(mode === "pushed");
+                        let phenomenaRoll = phResult.roll;
 
-                // The Constant Threat: Telepathica character can adjust the roll by ±WP bonus
-                const ctChar = FocusPowerResolver.#findConstantThreatAlly(actor);
-                if (ctChar) {
-                    const wpBonus = ctChar.system?.characteristics?.wp?.bonus ?? 0;
-                    if (wpBonus > 0) {
-                        const adjustment = await FocusPowerResolver.#promptConstantThreatAdjustment(
-                            ctChar.name ?? "Unknown",
-                            wpBonus,
-                            phenomenaRoll,
+                        // Favoured by the Warp (CRB p.128): roll twice, choose result
+                        // Only applies if NOT escalating to Perils
+                        const hasFavoured = actor.items?.some(
+                            (i: Item) => i.type === "talent" && i.name === "Favoured by the Warp",
                         );
-                        if (adjustment !== 0) {
-                            const oldRoll = phenomenaRoll;
-                            phenomenaRoll = Math.max(1, Math.min(100, phenomenaRoll + adjustment));
-                            phResult.entry = await lookupPhenomenaByRoll(phenomenaRoll);
-                            phResult.roll = phenomenaRoll;
-
-                            // Post system note
-                            const speaker = fd.ChatMessage.getSpeaker?.({ actor: ctChar }) ?? { alias: ctChar.name };
-                            await fd.ChatMessage.create({
-                                content: `<div class="dh2e chat-card system-note"><em>${game.i18n?.format("DH2E.ConstantThreat.Adjusted", {
-                                    character: ctChar.name!,
-                                    oldRoll: String(oldRoll),
-                                    adjustment: (adjustment > 0 ? "+" : "") + String(adjustment),
-                                    newRoll: String(phenomenaRoll),
-                                }) ?? `The Constant Threat: ${ctChar.name} adjusted phenomena roll from ${oldRoll} to ${phenomenaRoll} (${adjustment > 0 ? "+" : ""}${adjustment}).`}</em></div>`,
-                                speaker,
-                            });
+                        if (hasFavoured && !phResult.entry?.escalate) {
+                            const secondResult = await rollPhenomena(mode === "pushed");
+                            // Only offer choice if both are non-Perils
+                            if (!secondResult.entry?.escalate) {
+                                const chosen = await FocusPowerResolver.#promptFavouredByTheWarp(
+                                    phResult.roll, phResult.entry,
+                                    secondResult.roll, secondResult.entry,
+                                );
+                                if (chosen === 2) {
+                                    phResult = secondResult;
+                                    phenomenaRoll = secondResult.roll;
+                                }
+                            }
+                            // If second roll escalates to Perils, keep the first (non-Perils) roll
                         }
+
+                        // The Constant Threat: Telepathica character can adjust the roll by ±WP bonus
+                        const ctChar = FocusPowerResolver.#findConstantThreatAlly(actor);
+                        if (ctChar) {
+                            const wpBonus = ctChar.system?.characteristics?.wp?.bonus ?? 0;
+                            if (wpBonus > 0) {
+                                const adjustment = await FocusPowerResolver.#promptConstantThreatAdjustment(
+                                    ctChar.name ?? "Unknown",
+                                    wpBonus,
+                                    phenomenaRoll,
+                                );
+                                if (adjustment !== 0) {
+                                    const oldRoll = phenomenaRoll;
+                                    phenomenaRoll = Math.max(1, Math.min(100, phenomenaRoll + adjustment));
+                                    phResult.entry = await lookupPhenomenaByRoll(phenomenaRoll);
+                                    phResult.roll = phenomenaRoll;
+
+                                    // Post system note
+                                    const speaker = fd.ChatMessage.getSpeaker?.({ actor: ctChar }) ?? { alias: ctChar.name };
+                                    await fd.ChatMessage.create({
+                                        content: `<div class="dh2e chat-card system-note"><em>${game.i18n?.format("DH2E.ConstantThreat.Adjusted", {
+                                            character: ctChar.name!,
+                                            oldRoll: String(oldRoll),
+                                            adjustment: (adjustment > 0 ? "+" : "") + String(adjustment),
+                                            newRoll: String(phenomenaRoll),
+                                        }) ?? `The Constant Threat: ${ctChar.name} adjusted phenomena roll from ${oldRoll} to ${phenomenaRoll} (${adjustment > 0 ? "+" : ""}${adjustment}).`}</em></div>`,
+                                        speaker,
+                                    });
+                                }
+                            }
+                        }
+
+                        result.phenomenaEntry = phResult.entry;
+
+                        // Check if it escalates to Perils
+                        if (phResult.entry?.escalate) {
+                            const perilResult = await rollPerils();
+                            result.perilsEntry = perilResult.entry;
+                        }
+
+                        await FocusPowerResolver.#postPhenomenaCard(result, actor, phenomenaRoll);
                     }
+                } catch (err) {
+                    console.error("DH2E | Error rolling psychic phenomena/perils:", err);
+                    ui.notifications?.error("Failed to roll Psychic Phenomena — check console for details.");
                 }
-
-                result.phenomenaEntry = phResult.entry;
-
-                // Check if it escalates to Perils
-                if (phResult.entry?.escalate) {
-                    const perilResult = await rollPerils();
-                    result.perilsEntry = perilResult.entry;
+            } else {
+                // Even if automation is off, notify
+                const speaker = fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
+                if (perilsDirect) {
+                    await fd.ChatMessage.create({
+                        content: `<div class="dh2e chat-card system-note"><em><i class="fas fa-skull"></i> ${game.i18n?.localize("DH2E.Psychic.PerilsTriggered") ?? "Perils of the Warp!"} Doubles rolled while Pushing — roll manually on the Perils of the Warp table.</em></div>`,
+                        speaker,
+                    });
+                } else {
+                    await fd.ChatMessage.create({
+                        content: `<div class="dh2e chat-card system-note"><em><i class="fas fa-bolt"></i> ${game.i18n?.localize("DH2E.Psychic.PhenomenaTriggered") ?? "Psychic Phenomena triggered!"} Roll manually on the Psychic Phenomena table.</em></div>`,
+                        speaker,
+                    });
                 }
-
-                await FocusPowerResolver.#postPhenomenaCard(result, actor, phenomenaRoll);
             }
         }
 
@@ -237,6 +310,7 @@ class FocusPowerResolver {
                     actorId: result.checkResult.context.actor.id,
                     powerId: power.id,
                     psyRating: result.psyRating,
+                    effectivePR: result.effectivePR,
                     focusRoll: result.checkResult.roll,
                     psykerMode: result.mode,
                 },
@@ -358,15 +432,15 @@ class FocusPowerResolver {
         `;
 
         return new Promise<number>((resolve) => {
-            const dialog = new fd.DialogV2({
+            const dialog = new fa.api.DialogV2({
                 window: { title: game.i18n?.localize("DH2E.ConstantThreat.Title") ?? "The Constant Threat" },
                 content,
                 buttons: [{
                     action: "adjust",
                     icon: "fas fa-sliders-h",
                     label: game.i18n?.localize("DH2E.ConstantThreat.Apply") ?? "Adjust Roll",
-                    callback: (_event: Event, _button: HTMLElement, dialogEl: HTMLElement) => {
-                        const input = dialogEl.querySelector<HTMLInputElement>("[name=adjustment]");
+                    callback: (_event: Event, _button: HTMLElement, dialog: any) => {
+                        const input = dialog.element.querySelector<HTMLInputElement>("[name=adjustment]");
                         const val = parseInt(input?.value ?? "0", 10) || 0;
                         resolve(Math.max(-wpBonus, Math.min(wpBonus, val)));
                     },
@@ -377,6 +451,65 @@ class FocusPowerResolver {
                     callback: () => resolve(0),
                 }],
                 close: () => resolve(0),
+            });
+            dialog.render({ force: true });
+        });
+    }
+
+    /**
+     * Favoured by the Warp (CRB p.128): show both Phenomena rolls and let the player choose.
+     * Returns 1 (first roll) or 2 (second roll).
+     */
+    static async #promptFavouredByTheWarp(
+        roll1: number,
+        entry1: PhenomenaEntry | undefined,
+        roll2: number,
+        entry2: PhenomenaEntry | undefined,
+    ): Promise<1 | 2> {
+        const title1 = entry1?.title ?? "Unknown";
+        const title2 = entry2?.title ?? "Unknown";
+        const effect1 = entry1?.effect ?? entry1?.description ?? "";
+        const effect2 = entry2?.effect ?? entry2?.description ?? "";
+
+        const content = `
+            <div class="dh2e favoured-warp-form" style="padding:0.5rem;">
+                <p style="margin:0 0 0.75rem;font-size:0.85rem;">
+                    <i class="fas fa-dice"></i>
+                    <strong>${game.i18n?.localize("DH2E.FavouredByTheWarp.Prompt") ?? "Favoured by the Warp — choose which Phenomena result to keep:"}</strong>
+                </p>
+                <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                    <div style="background:rgba(200,168,78,0.1);border:1px solid rgba(200,168,78,0.3);border-radius:4px;padding:0.4rem 0.6rem;">
+                        <div style="font-weight:700;font-size:0.85rem;">Roll ${roll1}: ${title1}</div>
+                        <div style="font-size:0.75rem;color:#a0a0a8;margin-top:2px;">${effect1}</div>
+                    </div>
+                    <div style="background:rgba(140,50,180,0.1);border:1px solid rgba(140,50,180,0.3);border-radius:4px;padding:0.4rem 0.6rem;">
+                        <div style="font-weight:700;font-size:0.85rem;">Roll ${roll2}: ${title2}</div>
+                        <div style="font-size:0.75rem;color:#a0a0a8;margin-top:2px;">${effect2}</div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        return new Promise<1 | 2>((resolve) => {
+            const dialog = new fa.api.DialogV2({
+                window: {
+                    title: game.i18n?.localize("DH2E.FavouredByTheWarp.Title") ?? "Favoured by the Warp",
+                    icon: "fa-solid fa-dice",
+                },
+                content,
+                buttons: [{
+                    action: "first",
+                    icon: "fas fa-dice-one",
+                    label: `${game.i18n?.localize("DH2E.FavouredByTheWarp.Keep") ?? "Keep"} #1: ${title1}`,
+                    callback: () => resolve(1),
+                }, {
+                    action: "second",
+                    icon: "fas fa-dice-two",
+                    label: `${game.i18n?.localize("DH2E.FavouredByTheWarp.Keep") ?? "Keep"} #2: ${title2}`,
+                    callback: () => resolve(2),
+                }],
+                close: () => resolve(1),
+                position: { width: 450 },
             });
             dialog.render({ force: true });
         });

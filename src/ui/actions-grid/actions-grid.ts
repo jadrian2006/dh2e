@@ -39,13 +39,16 @@ class ActionsGrid extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         }
     }
 
-    /** Re-render when actor updates (if open) */
+    /** Re-render when actor/combat updates (if open) */
     static {
-        Hooks.on("updateActor", () => {
+        const rerender = () => {
             if (ActionsGrid.#instance?.rendered) {
                 ActionsGrid.#instance.render(true);
             }
-        });
+        };
+        Hooks.on("updateActor", rerender);
+        Hooks.on("updateCombat", rerender);
+        Hooks.on("updateCombatant", rerender);
     }
 
     protected override async _prepareContext(

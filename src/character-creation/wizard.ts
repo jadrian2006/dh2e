@@ -852,6 +852,10 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             }
         }
 
+        // Force full re-preparation so all Rule Elements (including equipped gear like
+        // Psy-Focus) are processed with the final actor state
+        this.#actor.reset();
+
         ui.notifications.info(`${this.#actor.name} creation complete!`);
         this.close();
     }
@@ -1025,7 +1029,7 @@ class CreationWizard extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             obj.system.quantity = grant.quantity;
         }
         // Equipped flag
-        if (grant.equipped && (obj.type === "weapon" || obj.type === "armour")) {
+        if (grant.equipped && (obj.type === "weapon" || obj.type === "armour" || obj.type === "gear")) {
             obj.system.equipped = true;
         }
         // Cybernetic installed flag

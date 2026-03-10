@@ -60,6 +60,16 @@
                     icon: "fa-solid fa-dice-d20",
                 };
                 break;
+            case "Power":
+                entry = {
+                    type: "power",
+                    powerName: data.powerName,
+                    mode: data.mode,
+                    selectedPR: data.selectedPR,
+                    label: `${data.powerName} (${data.mode === "pushed" ? "Push" : "Unfet"} PR${data.selectedPR})`,
+                    icon: "fa-solid fa-hat-wizard",
+                };
+                break;
         }
 
         if (entry) {

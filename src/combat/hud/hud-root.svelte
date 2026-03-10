@@ -9,6 +9,8 @@
     import TargetInfo from "./components/target-info.svelte";
     import ErrorBoundary from "../../ui/error-boundary.svelte";
     import SkillActionsView from "../../actor/acolyte/components/skill-actions-view.svelte";
+    import CombatActionsView from "../../combat/actions/combat-actions-view.svelte";
+    import PowerTray from "./components/power-tray.svelte";
     import type { SkillUse } from "../../item/skill/data.ts";
     import { executeSkillUseRoll } from "../../item/skill/roll-skill-use.ts";
     import { CheckDH2e } from "../../check/check.ts";
@@ -20,6 +22,9 @@
     let openPanel: "weapons" | "actions" | "quick" | null = $state(
         ctx._openPanel ?? null,
     );
+
+    /** Sub-tab within the actions popout */
+    let actionsTab = $state<"skills" | "combat" | "powers">("skills");
 
     function togglePanel(panel: typeof openPanel) {
         openPanel = openPanel === panel ? null : panel;
@@ -194,13 +199,29 @@
         {#if openPanel === "actions"}
             <!-- svelte-ignore a11y_click_events_have_key_events -->
             <div class="popout-panel actions-popout" onclick={(e) => e.stopPropagation()}>
+                <div class="popout-tabs">
+                    <button class="popout-tab" class:active={actionsTab === "skills"} onclick={() => actionsTab = "skills"}>Skills</button>
+                    <button class="popout-tab" class:active={actionsTab === "combat"} onclick={() => actionsTab = "combat"}>Combat</button>
+                    <button class="popout-tab" class:active={actionsTab === "powers"} onclick={() => actionsTab = "powers"}>Powers</button>
+                </div>
                 <ErrorBoundary label="Actions Grid">
                     <div class="popout-scroll">
-                        <SkillActionsView
-                            skills={ctx.skills ?? []}
-                            actor={ctx.actor}
-                            onUseRoll={onActionsUseRoll}
-                        />
+                        {#if actionsTab === "skills"}
+                            <SkillActionsView
+                                skills={ctx.skills ?? []}
+                                actor={ctx.actor}
+                                onUseRoll={onActionsUseRoll}
+                            />
+                        {:else if actionsTab === "combat"}
+                            <CombatActionsView
+                                actor={ctx.actor}
+                            />
+                        {:else}
+                            <PowerTray
+                                powers={ctx.powers ?? []}
+                                actor={ctx.actor}
+                            />
+                        {/if}
                     </div>
                 </ErrorBoundary>
             </div>
@@ -368,6 +389,29 @@
         padding: var(--dh2e-space-sm, 0.5rem);
         animation: dh2e-fade-in 0.15s ease-out;
         z-index: 101;
+    }
+
+    .popout-tabs {
+        display: flex;
+        gap: 2px;
+        margin-bottom: var(--dh2e-space-xs, 0.25rem);
+    }
+    :global(.popout-tab) {
+        flex: 1;
+        padding: 2px 6px;
+        background: transparent;
+        border: 1px solid var(--dh2e-border, #4a4a55);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+    :global(.popout-tab.active) {
+        background: var(--dh2e-gold-muted, #8a7a3e);
+        border-color: var(--dh2e-gold, #c8a84e);
+        color: #1e1e22;
     }
 
     .popout-scroll {

@@ -2,12 +2,16 @@ import { GMOverrideHandler } from "./gm-override.ts";
 import { ChatApplyHandler } from "./apply-handler.ts";
 import { FateDialog } from "@ui/fate-dialog.ts";
 import { setPendingReaction, clearPendingReaction } from "@combat/reaction-state.svelte.ts";
+import { getCombatantForActor } from "@combat/combat-state.ts";
 
 /**
  * Delegated event handlers for chat card interactions.
  *
  * Handles button clicks within chat messages (Roll Damage, Spend Fate, etc.)
  */
+/** Track message IDs that have already been auto-prompted for reactions */
+const promptedReactions = new Set<string>();
+
 class ChatListenersDH2e {
     /** Register delegated listeners on the chat log */
     static listen(): void {
@@ -99,6 +103,20 @@ class ChatListenersDH2e {
 
         // Defensive reaction buttons (Dodge / Parry)
         ChatListenersDH2e.#bindReactionButtons(html, message);
+
+        // Focus Power macro drag — drag grip to hotbar
+        html.querySelectorAll<HTMLElement>("[data-action='drag-power-macro']").forEach((grip) => {
+            grip.addEventListener("dragstart", (e: DragEvent) => {
+                const flags = (message as any).flags?.[SYSTEM_ID];
+                if (!flags || flags.type !== "focus-power") return;
+                e.dataTransfer?.setData("text/plain", JSON.stringify({
+                    type: "Power",
+                    powerName: flags.result?.powerName ?? "",
+                    mode: flags.psykerMode ?? "unfettered",
+                    selectedPR: flags.effectivePR ?? 1,
+                }));
+            });
+        });
 
         // Right-click reroll on check/attack cards
         html.querySelectorAll<HTMLElement>(".check-card, .attack-card").forEach((el) => {
@@ -888,6 +906,7 @@ class ChatListenersDH2e {
         const actorId = flags.actorId as string;
         const powerId = flags.powerId as string;
         const psyRating = flags.psyRating as number;
+        const effectivePR = (flags.effectivePR as number) ?? psyRating;
         const focusRoll = flags.focusRoll as number;
         const psykerMode = (flags.psykerMode as string) ?? "unfettered";
 
@@ -922,7 +941,7 @@ class ChatListenersDH2e {
             actor,
             power,
             target,
-            psyRating,
+            effectivePR,
             dos,
             focusRoll,
             psykerMode as any,
@@ -1044,6 +1063,93 @@ class ChatListenersDH2e {
         reactionSection.querySelectorAll<HTMLButtonElement>("[data-action='reaction-parry']").forEach((btn) => {
             btn.addEventListener("click", () => ChatListenersDH2e.#onDefensiveReaction(message, "parry"));
         });
+
+        // Auto-prompt reaction dialog for recent attack cards
+        ChatListenersDH2e.#autoPromptReaction(message, targetActor, isRanged);
+    }
+
+    /**
+     * Auto-prompt the target's owner with a Dodge/Parry dialog when a successful
+     * attack card renders. Only fires once per message, for recent messages only.
+     */
+    static #autoPromptReaction(
+        message: StoredDocument<ChatMessage>,
+        targetActor: Actor,
+        isRanged: boolean,
+    ): void {
+        // Only prompt once per message
+        if (promptedReactions.has(message.id!)) return;
+
+        // Only auto-prompt for recent messages (< 5s old) to avoid re-prompting on reload/scroll
+        const age = Date.now() - (message as any).timestamp;
+        if (age > 5000) return;
+
+        promptedReactions.add(message.id!);
+
+        // Check if target has a reaction available
+        const combatant = getCombatantForActor(targetActor.id!);
+        if (combatant && !combatant.hasAction("reaction")) return;
+
+        // Check which defensive skills the target has
+        const hasDodge = (targetActor as any).items?.some(
+            (i: Item) => i.type === "skill" && i.name?.toLowerCase() === "dodge",
+        ) ?? false;
+        const hasParry = !isRanged && ((targetActor as any).items?.some(
+            (i: Item) => i.type === "skill" && i.name?.toLowerCase() === "parry",
+        ) ?? false);
+
+        if (!hasDodge && !hasParry) return;
+
+        // Build dialog buttons
+        const g = game as any;
+        const buttons: any[] = [];
+
+        if (hasDodge) {
+            buttons.push({
+                action: "dodge",
+                icon: "fa-solid fa-person-running",
+                label: g.i18n?.localize("DH2E.Reaction.Dodge") ?? "Dodge",
+                callback: () => {
+                    ChatListenersDH2e.#onDefensiveReaction(message, "dodge");
+                },
+            });
+        }
+        if (hasParry) {
+            buttons.push({
+                action: "parry",
+                icon: "fa-solid fa-shield-halved",
+                label: g.i18n?.localize("DH2E.Reaction.Parry") ?? "Parry",
+                callback: () => {
+                    ChatListenersDH2e.#onDefensiveReaction(message, "parry");
+                },
+            });
+        }
+        buttons.push({
+            action: "skip",
+            icon: "fa-solid fa-forward",
+            label: g.i18n?.localize("DH2E.Reaction.Skip") ?? "Skip",
+            callback: () => { /* do nothing */ },
+        });
+
+        const flags = (message as any).flags?.[SYSTEM_ID] as Record<string, any>;
+        const hitCount = flags?.result?.hitCount ?? 0;
+        const weaponName = flags?.result?.weaponName ?? "Attack";
+
+        const dialog = new fa.api.DialogV2({
+            window: {
+                title: g.i18n?.localize("DH2E.Reaction.Title") ?? "Defensive Reaction",
+                icon: "fa-solid fa-shield",
+            },
+            content: `<p style="text-align:center;margin:0.5rem 0;">
+                <strong>${weaponName}</strong> ${g.i18n?.format("DH2E.Reaction.AutoPrompt", {
+                    target: targetActor.name,
+                    hits: String(hitCount),
+                }) ?? `hits ${targetActor.name} (${hitCount} hit${hitCount !== 1 ? "s" : ""})!`}
+            </p>`,
+            buttons,
+            close: () => { /* dismissed without action */ },
+        });
+        dialog.render({ force: true });
     }
 
     /** Handle a Dodge or Parry reaction button click */

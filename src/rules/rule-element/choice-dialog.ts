@@ -21,15 +21,15 @@ class ChoiceDialog {
         </form>`;
 
         return new Promise<string | null>((resolve) => {
-            const dialog = new fd.DialogV2({
+            const dialog = new fa.api.DialogV2({
                 window: { title: "Choose Option" },
                 content,
                 buttons: [{
                     action: "confirm",
                     icon: "fas fa-check",
                     label: "Confirm",
-                    callback: (_event: Event, _button: HTMLElement, dialogEl: HTMLElement) => {
-                        const selected = dialogEl.querySelector<HTMLInputElement>(
+                    callback: (_event: Event, _button: HTMLElement, dialog: any) => {
+                        const selected = dialog.element.querySelector<HTMLInputElement>(
                             "input[name='choice']:checked",
                         );
                         resolve(selected?.value ?? null);

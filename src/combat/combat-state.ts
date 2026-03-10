@@ -63,7 +63,7 @@ async function consumeCombatAction(
         if (g.user?.isGM) {
             // GM gets a confirm dialog to override
             const override = await new Promise<boolean>((resolve) => {
-                const d = new (fd.DialogV2 ?? fd.Dialog as any)({
+                const d = new fa.api.DialogV2({
                     window: { title: "Action Override" },
                     content: `<p>${game.i18n?.format("DH2E.Action.Override", { action: label })
                         ?? `No ${label} available. Override?`}</p>`,

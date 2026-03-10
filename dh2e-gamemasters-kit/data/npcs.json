@@ -5,22 +5,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 38, "advances": 0 },
-                "bs": { "base": 30, "advances": 0 },
-                "s": { "base": 35, "advances": 0 },
-                "t": { "base": 41, "advances": 0 },
-                "ag": { "base": 31, "advances": 0 },
-                "int": { "base": 42, "advances": 0 },
-                "per": { "base": 47, "advances": 0 },
-                "wp": { "base": 52, "advances": 0 },
-                "fel": { "base": 39, "advances": 0 }
+                "ws": {
+                    "base": 38,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 41,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 31,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 42,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 47,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 52,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 39,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 23, "max": 23 },
-            "fate": { "value": 2, "max": 2 },
+            "wounds": {
+                "value": 23,
+                "max": 23
+            },
+            "fate": {
+                "value": 2,
+                "max": 2
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 41,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 0,
@@ -48,13 +84,26 @@
                     "description": "",
                     "class": "ranged",
                     "range": 30,
-                    "rof": { "single": true, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d10+3", "type": "impact", "bonus": 0 },
+                    "rof": {
+                        "single": true,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+3",
+                        "type": "impact",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 6, "max": 6 },
+                    "magazine": {
+                        "value": 6,
+                        "max": 6
+                    },
                     "reload": "2Full",
                     "weight": 1.5,
-                    "qualities": ["Reliable"],
+                    "qualities": [
+                        "Reliable"
+                    ],
                     "equipped": true,
                     "weaponGroup": "solid-projectile",
                     "craftsmanship": "common",
@@ -69,13 +118,26 @@
                     "description": "",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d10+PR+SB", "type": "energy", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+PR+SB",
+                        "type": "energy",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 2,
-                    "qualities": ["Force"],
+                    "qualities": [
+                        "Force"
+                    ],
                     "equipped": true,
                     "weaponGroup": "force",
                     "craftsmanship": "common",
@@ -259,22 +321,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 25, "advances": 0 },
-                "bs": { "base": 0, "advances": 0 },
-                "s": { "base": 33, "advances": 0 },
-                "t": { "base": 41, "advances": 0 },
-                "ag": { "base": 21, "advances": 0 },
-                "int": { "base": 4, "advances": 0 },
-                "per": { "base": 12, "advances": 0 },
-                "wp": { "base": 15, "advances": 0 },
-                "fel": { "base": 0, "advances": 0 }
+                "ws": {
+                    "base": 25,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 0,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 33,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 41,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 21,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 4,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 12,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 15,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 0,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 7, "max": 7 },
-            "fate": { "value": 0, "max": 0 },
+            "wounds": {
+                "value": 7,
+                "max": 7
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 0,
@@ -302,10 +400,21 @@
                     "description": "",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d5+SB", "type": "rending", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d5+SB",
+                        "type": "rending",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 1,
                     "qualities": [],
@@ -349,22 +458,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 41, "advances": 0 },
-                "bs": { "base": 44, "advances": 0 },
-                "s": { "base": 33, "advances": 0 },
-                "t": { "base": 39, "advances": 0 },
-                "ag": { "base": 32, "advances": 0 },
-                "int": { "base": 36, "advances": 0 },
-                "per": { "base": 38, "advances": 0 },
-                "wp": { "base": 36, "advances": 0 },
-                "fel": { "base": 28, "advances": 0 }
+                "ws": {
+                    "base": 41,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 44,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 33,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 39,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 32,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 36,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 38,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 36,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 28,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 12, "max": 12 },
-            "fate": { "value": 0, "max": 0 },
+            "wounds": {
+                "value": 12,
+                "max": 12
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 4,
@@ -392,13 +537,26 @@
                     "description": "",
                     "class": "ranged",
                     "range": 30,
-                    "rof": { "single": true, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d10+4", "type": "impact", "bonus": 0 },
+                    "rof": {
+                        "single": true,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+4",
+                        "type": "impact",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 8, "max": 8 },
+                    "magazine": {
+                        "value": 8,
+                        "max": 8
+                    },
                     "reload": "2Full",
                     "weight": 5,
-                    "qualities": ["Scatter"],
+                    "qualities": [
+                        "Scatter"
+                    ],
                     "equipped": true,
                     "weaponGroup": "solid-projectile",
                     "craftsmanship": "common",
@@ -413,15 +571,28 @@
                     "description": "",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d10+3+SB", "type": "impact", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+3+SB",
+                        "type": "impact",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 2.5,
-                    "qualities": ["Shocking"],
+                    "qualities": [
+                        "Shocking"
+                    ],
                     "equipped": true,
-                    "weaponGroup": "low-tech",
+                    "weaponGroup": "shock",
                     "craftsmanship": "common",
                     "source": "gamemasters-kit"
                 }
@@ -588,22 +759,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 49, "advances": 0 },
-                "bs": { "base": 33, "advances": 0 },
-                "s": { "base": 36, "advances": 0 },
-                "t": { "base": 41, "advances": 0 },
-                "ag": { "base": 33, "advances": 0 },
-                "int": { "base": 32, "advances": 0 },
-                "per": { "base": 38, "advances": 0 },
-                "wp": { "base": 30, "advances": 0 },
-                "fel": { "base": 33, "advances": 0 }
+                "ws": {
+                    "base": 49,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 33,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 36,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 41,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 33,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 32,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 38,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 33,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 13, "max": 13 },
-            "fate": { "value": 0, "max": 0 },
+            "wounds": {
+                "value": 13,
+                "max": 13
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 0,
@@ -631,13 +838,26 @@
                     "description": "",
                     "class": "ranged",
                     "range": 30,
-                    "rof": { "single": true, "semi": 2, "full": 0 },
-                    "damage": { "formula": "1d10+5", "type": "explosive", "bonus": 0 },
+                    "rof": {
+                        "single": true,
+                        "semi": 2,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+5",
+                        "type": "explosive",
+                        "bonus": 0
+                    },
                     "penetration": 4,
-                    "magazine": { "value": 8, "max": 8 },
+                    "magazine": {
+                        "value": 8,
+                        "max": 8
+                    },
                     "reload": "1Full",
                     "weight": 3.5,
-                    "qualities": ["Tearing"],
+                    "qualities": [
+                        "Tearing"
+                    ],
                     "equipped": true,
                     "weaponGroup": "bolt",
                     "craftsmanship": "common",
@@ -652,13 +872,27 @@
                     "description": "",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d10+5+SB", "type": "energy", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+5+SB",
+                        "type": "energy",
+                        "bonus": 0
+                    },
                     "penetration": 5,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 3,
-                    "qualities": ["Balanced", "Power Field"],
+                    "qualities": [
+                        "Balanced",
+                        "Power Field"
+                    ],
                     "equipped": true,
                     "weaponGroup": "power",
                     "craftsmanship": "common",
@@ -803,22 +1037,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 44, "advances": 0 },
-                "bs": { "base": 21, "advances": 0 },
-                "s": { "base": 33, "advances": 0 },
-                "t": { "base": 28, "advances": 0 },
-                "ag": { "base": 33, "advances": 0 },
-                "int": { "base": 26, "advances": 0 },
-                "per": { "base": 30, "advances": 0 },
-                "wp": { "base": 27, "advances": 0 },
-                "fel": { "base": 33, "advances": 0 }
+                "ws": {
+                    "base": 44,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 21,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 33,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 28,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 33,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 26,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 30,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 27,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 33,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 6, "max": 6 },
-            "fate": { "value": 0, "max": 0 },
+            "wounds": {
+                "value": 6,
+                "max": 6
+            },
+            "fate": {
+                "value": 0,
+                "max": 0
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 0,
@@ -846,13 +1116,26 @@
                     "description": "",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d10+SB", "type": "rending", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+SB",
+                        "type": "rending",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 3,
-                    "qualities": ["Balanced"],
+                    "qualities": [
+                        "Balanced"
+                    ],
                     "equipped": true,
                     "weaponGroup": "low-tech",
                     "craftsmanship": "common",
@@ -905,22 +1188,58 @@
         "img": "systems/dh2e/icons/items/npc.svg",
         "system": {
             "characteristics": {
-                "ws": { "base": 61, "advances": 0 },
-                "bs": { "base": 33, "advances": 0 },
-                "s": { "base": 58, "advances": 0 },
-                "t": { "base": 70, "advances": 0 },
-                "ag": { "base": 35, "advances": 0 },
-                "int": { "base": 51, "advances": 0 },
-                "per": { "base": 42, "advances": 0 },
-                "wp": { "base": 51, "advances": 0 },
-                "fel": { "base": 17, "advances": 0 }
+                "ws": {
+                    "base": 61,
+                    "advances": 0
+                },
+                "bs": {
+                    "base": 33,
+                    "advances": 0
+                },
+                "s": {
+                    "base": 58,
+                    "advances": 0
+                },
+                "t": {
+                    "base": 70,
+                    "advances": 0
+                },
+                "ag": {
+                    "base": 35,
+                    "advances": 0
+                },
+                "int": {
+                    "base": 51,
+                    "advances": 0
+                },
+                "per": {
+                    "base": 42,
+                    "advances": 0
+                },
+                "wp": {
+                    "base": 51,
+                    "advances": 0
+                },
+                "fel": {
+                    "base": 17,
+                    "advances": 0
+                }
             },
-            "wounds": { "value": 37, "max": 37 },
-            "fate": { "value": 2, "max": 2 },
+            "wounds": {
+                "value": 37,
+                "max": 37
+            },
+            "fate": {
+                "value": 2,
+                "max": 2
+            },
             "corruption": 0,
             "insanity": 0,
             "influence": 0,
-            "xp": { "total": 0, "spent": 0 },
+            "xp": {
+                "total": 0,
+                "spent": 0
+            },
             "aptitudes": [],
             "armour": {
                 "head": 0,
@@ -948,13 +1267,27 @@
                     "description": "A massive club formed from fused bone and corroded metal, dripping with foul ichor.",
                     "class": "melee",
                     "range": 0,
-                    "rof": { "single": false, "semi": 0, "full": 0 },
-                    "damage": { "formula": "1d10+17+SB", "type": "impact", "bonus": 0 },
+                    "rof": {
+                        "single": false,
+                        "semi": 0,
+                        "full": 0
+                    },
+                    "damage": {
+                        "formula": "1d10+17+SB",
+                        "type": "impact",
+                        "bonus": 0
+                    },
                     "penetration": 0,
-                    "magazine": { "value": 0, "max": 0 },
+                    "magazine": {
+                        "value": 0,
+                        "max": 0
+                    },
                     "reload": "",
                     "weight": 18,
-                    "qualities": ["Corrosive", "Toxic (3)"],
+                    "qualities": [
+                        "Corrosive",
+                        "Toxic (3)"
+                    ],
                     "equipped": true,
                     "weaponGroup": "low-tech",
                     "craftsmanship": "common",

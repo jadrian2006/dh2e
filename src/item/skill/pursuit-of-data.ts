@@ -82,8 +82,8 @@ class PursuitOfDataHandler {
                         label: i18n.localize("DH2E.PursuitOfData.Grant"),
                         icon: "fa-solid fa-check",
                         default: true,
-                        callback: (_event: any, _button: any, dialog: HTMLElement) => {
-                            const form = dialog.querySelector("form");
+                        callback: (_event: any, _button: any, dialog: any) => {
+                            const form = dialog.element.querySelector("form");
                             if (!form) { resolve(null); return; }
                             const formData = new FormData(form);
                             const custom = (formData.get("customLore") as string)?.trim();

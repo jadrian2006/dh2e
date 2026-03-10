@@ -1,5 +1,9 @@
 <div class="dh2e chat-card focus-power-card">
     <header class="card-header {{#if success}}success{{else}}failure{{/if}}">
+        <a class="card-macro-drag" draggable="true" data-action="drag-power-macro"
+           title="{{localize 'DH2E.Macro.DragToHotbar'}}">
+            <i class="fas fa-grip-vertical"></i>
+        </a>
         <h3><i class="fa-solid fa-hat-wizard"></i> {{powerName}}</h3>
         {{#if discipline}}<span class="discipline-badge">{{discipline}}</span>{{/if}}
         <span class="result-badge">
@@ -13,7 +17,7 @@
     <div class="card-body">
         <div class="power-meta">
             <span class="mode-tag {{mode}}">{{modeLabel}}</span>
-            <span class="pr-tag">PR {{psyRating}} (+{{effectivePR}})</span>
+            <span class="pr-tag">PR {{effectivePR}}{{#unless (eq effectivePR psyRating)}} / {{psyRating}}{{/unless}}</span>
         </div>
         <p class="roll-summary">{{format "DH2E.Check.Roll" roll=roll target=target}}</p>
 

@@ -137,7 +137,7 @@
                         "Shocking"
                     ],
                     "equipped": true,
-                    "weaponGroup": "low-tech",
+                    "weaponGroup": "shock",
                     "craftsmanship": "common",
                     "source": "forgotten-gods"
                 }
@@ -1951,7 +1951,7 @@
                         "Shocking"
                     ],
                     "equipped": true,
-                    "weaponGroup": "low-tech",
+                    "weaponGroup": "shock",
                     "craftsmanship": "common",
                     "source": "forgotten-gods"
                 }
@@ -4165,7 +4165,7 @@
                         "Shocking"
                     ],
                     "equipped": true,
-                    "weaponGroup": "low-tech",
+                    "weaponGroup": "shock",
                     "craftsmanship": "common",
                     "source": "forgotten-gods"
                 }
@@ -4571,7 +4571,7 @@
                         "Concussive (2)"
                     ],
                     "equipped": true,
-                    "weaponGroup": "low-tech",
+                    "weaponGroup": "shock",
                     "craftsmanship": "common",
                     "source": "forgotten-gods"
                 }
@@ -5976,7 +5976,7 @@
                         "Shocking"
                     ],
                     "equipped": true,
-                    "weaponGroup": "low-tech",
+                    "weaponGroup": "shock",
                     "craftsmanship": "common",
                     "source": "forgotten-gods"
                 }
@@ -6548,7 +6548,7 @@
                         "Force"
                     ],
                     "equipped": true,
-                    "weaponGroup": "power",
+                    "weaponGroup": "force",
                     "craftsmanship": "common",
                     "source": "forgotten-gods"
                 }
@@ -7187,7 +7187,7 @@
                         "Shocking"
                     ],
                     "equipped": true,
-                    "weaponGroup": "exotic",
+                    "weaponGroup": "shock",
                     "craftsmanship": "common",
                     "source": "forgotten-gods"
                 }
@@ -7222,7 +7222,7 @@
                         "Power Field"
                     ],
                     "equipped": true,
-                    "weaponGroup": "power",
+                    "weaponGroup": "shock",
                     "craftsmanship": "common",
                     "source": "forgotten-gods"
                 }
@@ -7436,7 +7436,7 @@
                         "Shocking"
                     ],
                     "equipped": true,
-                    "weaponGroup": "exotic",
+                    "weaponGroup": "shock",
                     "craftsmanship": "common",
                     "source": "forgotten-gods"
                 }
@@ -7905,7 +7905,7 @@
                         "Force"
                     ],
                     "equipped": true,
-                    "weaponGroup": "power",
+                    "weaponGroup": "force",
                     "craftsmanship": "common",
                     "source": "forgotten-gods"
                 }

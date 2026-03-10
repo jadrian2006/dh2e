@@ -5,21 +5,28 @@
     let selectedPR = $state<number>(ctx.psyRating);
     let showDescription = $state(false);
 
-    const maxPR: number = ctx.psyRating;
+    const basePR: number = ctx.psyRating;
+    const maxPushedPR: number = basePR + 2;
 
-    // Bonus for casting below max PR: +10 per level below max (Unfettered only)
-    const prBonus = $derived(
-        mode === "unfettered" ? (maxPR - selectedPR) * 10 : 0,
+    // Unfettered: +10 per level below base PR
+    // Pushed: -10 per level above base PR
+    const prModifier = $derived(
+        mode === "unfettered"
+            ? (basePR - selectedPR) * 10
+            : (basePR - selectedPR) * 10, // negative when selectedPR > basePR
     );
 
-    const prBonusDisplay = $derived(
-        prBonus > 0 ? `+${prBonus}` : "+0",
+    const prModDisplay = $derived(
+        prModifier > 0 ? `+${prModifier}` : prModifier === 0 ? "+0" : String(prModifier),
     );
 
-    // When switching to Pushed, lock PR at max
+    // When switching modes, reset PR to base
     $effect(() => {
-        if (mode === "pushed") {
-            selectedPR = maxPR;
+        if (mode === "unfettered" && selectedPR > basePR) {
+            selectedPR = basePR;
+        }
+        if (mode === "pushed" && selectedPR < basePR) {
+            selectedPR = basePR;
         }
     });
 
@@ -41,26 +48,42 @@
         <label class="mode-option" class:selected={mode === "unfettered"}>
             <input type="radio" name="mode" value="unfettered" bind:group={mode} />
             <span class="mode-label">Unfettered</span>
-            <span class="mode-desc">Choose PR 1–{maxPR}. +10 per PR below max. Phenomena on doubles.</span>
+            <span class="mode-desc">PR 1–{basePR}. +10 per PR below max. Phenomena on doubles.</span>
         </label>
         <label class="mode-option" class:selected={mode === "pushed"}>
             <input type="radio" name="mode" value="pushed" bind:group={mode} />
             <span class="mode-label">Pushed</span>
-            <span class="mode-desc">Cast at full PR {maxPR}. Always triggers Phenomena.</span>
+            <span class="mode-desc">PR {basePR}–{maxPushedPR}. −10 per PR above base. Always Phenomena; doubles → Perils.</span>
         </label>
     </div>
 
-    {#if mode === "unfettered" && maxPR > 1}
+    {#if mode === "unfettered" && basePR > 1}
         <div class="pr-selector">
             <span class="pr-selector-label">Manifest at PR</span>
             <div class="pr-buttons">
-                {#each Array.from({ length: maxPR }, (_, i) => i + 1) as pr}
+                {#each Array.from({ length: basePR }, (_, i) => i + 1) as pr}
                     <button
                         class="pr-btn"
                         class:active={selectedPR === pr}
                         onclick={() => selectedPR = pr}
                     >
                         {pr}
+                    </button>
+                {/each}
+            </div>
+        </div>
+    {:else if mode === "pushed"}
+        <div class="pr-selector">
+            <span class="pr-selector-label">Push to PR</span>
+            <div class="pr-buttons">
+                {#each Array.from({ length: 3 }, (_, i) => basePR + i) as pr}
+                    <button
+                        class="pr-btn"
+                        class:active={selectedPR === pr}
+                        class:push-over={pr > basePR}
+                        onclick={() => selectedPR = pr}
+                    >
+                        {pr}{#if pr > basePR}<span class="push-plus">+{pr - basePR}</span>{/if}
                     </button>
                 {/each}
             </div>
@@ -73,8 +96,8 @@
             <span class="pr-value">{selectedPR}</span>
         </div>
         <div class="pr-row">
-            <span class="pr-label">Reduced PR Bonus</span>
-            <span class="pr-value" class:bonus={prBonus > 0}>{prBonusDisplay}</span>
+            <span class="pr-label">{mode === "unfettered" ? "Reduced PR Bonus" : "Push Penalty"}</span>
+            <span class="pr-value" class:bonus={prModifier > 0} class:penalty={prModifier < 0}>{prModDisplay}</span>
         </div>
     </div>
 
@@ -214,6 +237,25 @@
 
         &.bonus {
             color: var(--dh2e-success, #5ab45a);
+        }
+
+        &.penalty {
+            color: var(--dh2e-danger, #c45a5a);
+        }
+    }
+
+    .push-plus {
+        font-size: 0.65em;
+        color: var(--dh2e-danger, #c45a5a);
+        margin-left: 2px;
+    }
+
+    .pr-btn.push-over {
+        border-color: var(--dh2e-danger-muted, #6a3a3a);
+
+        &.active {
+            background: var(--dh2e-danger-muted, #6a3a3a);
+            border-color: var(--dh2e-danger, #c45a5a);
         }
     }
 

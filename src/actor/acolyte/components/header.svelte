@@ -7,18 +7,28 @@
         if (ctx.actor) FateDialog.execute(ctx.actor);
     }
 
+    const portraitSrc = $derived(
+        ctx.actor?.getFlag("dh2e", "portrait") || ctx.img,
+    );
+
+    const isVideo = $derived(
+        /\.(webm|mp4|m4v)$/i.test(portraitSrc ?? ""),
+    );
+
     function openPortraitPicker() {
         if (!ctx.editable) return;
-        // Capture actor reference before async FilePicker — Svelte 5 $props()
-        // bindings can go stale if the sheet re-renders and unmounts this component
-        // while the picker dialog is open.
         const actor = ctx.actor;
         const FP = (fa as any).apps.FilePicker.implementation;
         const fp = new FP({
-            type: "image",
-            current: ctx.img,
+            type: "imagevideo",
+            current: portraitSrc,
             callback: (path: string) => {
-                actor?.update({ img: path, "prototypeToken.texture.src": path });
+                if (/\.(webm|mp4|m4v)$/i.test(path)) {
+                    actor?.setFlag("dh2e", "portrait", path);
+                } else {
+                    actor?.update({ img: path });
+                    actor?.unsetFlag("dh2e", "portrait");
+                }
             },
         });
         fp.browse();
@@ -29,6 +39,23 @@
         const val = ctx.system?.wounds?.value ?? 0;
         return Math.max(0, Math.min(100, (val / max) * 100));
     });
+
+    let editingName = $state(false);
+    let nameInput = $state("");
+
+    function startEditName() {
+        if (!ctx.editable) return;
+        nameInput = ctx.name ?? "";
+        editingName = true;
+    }
+
+    function commitName() {
+        editingName = false;
+        const trimmed = nameInput.trim();
+        if (trimmed && trimmed !== ctx.name) {
+            ctx.actor?.update({ name: trimmed });
+        }
+    }
 
     let editingWounds = $state(false);
     let woundInput = $state(0);
@@ -48,14 +75,37 @@
 </script>
 
 <header class="acolyte-header">
-    <img src={ctx.img} alt={ctx.name} class="portrait" class:editable={ctx.editable}
-        onclick={openPortraitPicker} role={ctx.editable ? "button" : undefined}
-        tabindex={ctx.editable ? 0 : undefined}
-        onkeydown={(e) => { if (e.key === "Enter") openPortraitPicker(); }}
-        title={ctx.editable ? "Change portrait" : undefined} />
+    {#if isVideo}
+        <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+        <video src={portraitSrc} class="portrait" class:editable={ctx.editable}
+            autoplay loop muted playsinline
+            onclick={openPortraitPicker} role={ctx.editable ? "button" : undefined}
+            tabindex={ctx.editable ? 0 : undefined}
+            onkeydown={(e) => { if (e.key === "Enter") openPortraitPicker(); }}
+            title={ctx.editable ? "Change portrait" : undefined}></video>
+    {:else}
+        <img src={portraitSrc} alt={ctx.name} class="portrait" class:editable={ctx.editable}
+            onclick={openPortraitPicker} role={ctx.editable ? "button" : undefined}
+            tabindex={ctx.editable ? 0 : undefined}
+            onkeydown={(e) => { if (e.key === "Enter") openPortraitPicker(); }}
+            title={ctx.editable ? "Change portrait" : undefined} />
+    {/if}
 
     <div class="identity">
-        <h1 class="name">{ctx.name}</h1>
+        {#if editingName}
+            <!-- svelte-ignore a11y_autofocus -->
+            <input type="text" class="name-edit" bind:value={nameInput}
+                autofocus
+                onblur={() => commitName()}
+                onkeydown={(e) => { if (e.key === "Enter") { e.stopPropagation(); commitName(); } if (e.key === "Escape") editingName = false; }}
+                onclick={(e) => e.stopPropagation()} />
+        {:else}
+            <h1 class="name" class:editable={ctx.editable}
+                role={ctx.editable ? "button" : undefined}
+                tabindex={ctx.editable ? 0 : undefined}
+                onclick={startEditName}
+                onkeydown={(e) => { if (e.key === "Enter") startEditName(); }}>{ctx.name}</h1>
+        {/if}
         <div class="details-line">
             {#if ctx.system?.details?.homeworld}
                 <span class="detail">{ctx.system.details.homeworld}</span>
@@ -148,6 +198,23 @@
         color: var(--dh2e-gold);
         line-height: 1;
         margin-bottom: var(--dh2e-space-xs);
+
+        &.editable {
+            cursor: pointer;
+            &:hover { text-decoration: underline; text-underline-offset: 3px; }
+        }
+    }
+    .name-edit {
+        font-family: var(--dh2e-font-header);
+        font-size: var(--dh2e-text-xxl);
+        color: var(--dh2e-gold);
+        line-height: 1;
+        margin-bottom: var(--dh2e-space-xs);
+        background: var(--dh2e-bg-darkest, #1a1a1f);
+        border: 1px solid var(--dh2e-gold, #c8a84e);
+        border-radius: var(--dh2e-radius-sm, 3px);
+        padding: 0 var(--dh2e-space-xs);
+        width: 100%;
     }
     .details-line {
         display: flex;

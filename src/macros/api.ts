@@ -4,6 +4,12 @@ import { CheckDH2e } from "@check/check.ts";
 import { AttackResolver } from "@combat/attack.ts";
 import { MaintenanceDialog } from "@item/cybernetic/maintenance-dialog.ts";
 import { getConditionFromCompendium } from "@combat/critical.ts";
+import { rollMutation } from "@corruption/mutation-table.ts";
+import { rollMalignancy } from "@corruption/malignancy-table.ts";
+import { FocusPowerResolver } from "@psychic/focus-power.ts";
+import { FocusPowerDialog } from "@psychic/focus-dialog.ts";
+import type { PsykerMode } from "@psychic/types.ts";
+import type { CharacteristicAbbrev } from "@actor/types.ts";
 
 /**
  * Resolve the current actor for macro execution.
@@ -311,6 +317,140 @@ export async function checkSurprised(): Promise<void> {
         whisper: [g.user.id],
         flags: { [SYSTEM_ID]: { type: "surprise-summary" } },
     });
+}
+
+/**
+ * Roll on the Mutations table (CRB Table 8-15) for the resolved actor.
+ * Creates a Mutation item on the actor and posts a chat card.
+ */
+export async function rollMutationTable(): Promise<void> {
+    const actor = resolveActor();
+    if (!actor) {
+        ui.notifications.warn(
+            (game as any).i18n?.localize?.("DH2E.Macro.NoActor")
+                ?? "No actor found. Assign a character or select a token.",
+        );
+        return;
+    }
+
+    const entry = await rollMutation(actor);
+    if (entry) {
+        const speaker = fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
+        await fd.ChatMessage.create({
+            content: `<div class="dh2e chat-card system-note">
+                <h4><i class="fas fa-dna"></i> Mutation: ${entry.title}</h4>
+                <p>${entry.description}</p>
+                <p><strong>Effect:</strong> ${entry.effect}</p>
+            </div>`,
+            speaker,
+        });
+    }
+}
+
+/**
+ * Roll on the Malignancies table (CRB Table 8-14) for the resolved actor.
+ * If result is 96-100, auto-chains to the Mutations table.
+ */
+export async function rollMalignancyTable(): Promise<void> {
+    const actor = resolveActor();
+    if (!actor) {
+        ui.notifications.warn(
+            (game as any).i18n?.localize?.("DH2E.Macro.NoActor")
+                ?? "No actor found. Assign a character or select a token.",
+        );
+        return;
+    }
+
+    const entry = await rollMalignancy(actor);
+    if (entry) {
+        const isMutation = !!entry.mutation;
+        const speaker = fd.ChatMessage.getSpeaker?.({ actor }) ?? { alias: actor.name };
+        await fd.ChatMessage.create({
+            content: `<div class="dh2e chat-card system-note">
+                <h4><i class="fas ${isMutation ? "fa-dna" : "fa-biohazard"}"></i> ${entry.title}</h4>
+                <p>${entry.description}</p>
+                <p><strong>Effect:</strong> ${entry.effect}</p>
+            </div>`,
+            speaker,
+        });
+    }
+}
+
+/**
+ * Focus a psychic power via macro.
+ * If mode + selectedPR are provided, skips the FocusPowerDialog (but still shows the check dialog).
+ * If omitted, shows the full FocusPowerDialog first.
+ */
+export async function focusPower(powerName: string, mode?: PsykerMode, selectedPR?: number, skipDialog?: boolean): Promise<void> {
+    const actor = resolveActor();
+    if (!actor) {
+        ui.notifications.warn(
+            (game as any).i18n?.localize?.("DH2E.Macro.NoActor")
+                ?? "No actor found. Assign a character or select a token.",
+        );
+        return;
+    }
+
+    // Find the power on the actor
+    const power = (actor as any).items?.find(
+        (i: Item) => i.type === "power" && i.name === powerName,
+    );
+    if (!power) {
+        ui.notifications.warn(
+            (game as any).i18n?.localize?.("DH2E.Macro.PowerNotFound")
+                ?? `Power "${powerName}" not found on the current actor.`,
+        );
+        return;
+    }
+
+    const sys = (power as any).system ?? {};
+    const charKey = (sys.focusTest || "wp") as CharacteristicAbbrev;
+
+    // Derive Psy Rating from "Psy Rating" talent
+    const talents = (actor as any).items.filter((i: Item) => i.type === "talent");
+    const prTalent = talents.find((t: Item) => t.name === "Psy Rating");
+    const psyRating = (prTalent as any)?.system?.rating || ((prTalent as any)?.system?.tier ?? 0);
+
+    if (psyRating <= 0) {
+        ui.notifications?.warn(
+            (game as any).i18n?.localize("DH2E.Psychic.NoPsyRating") ?? "No Psy Rating — cannot use powers.",
+        );
+        return;
+    }
+
+    if (mode && selectedPR != null) {
+        // Skip the FocusPowerDialog — go straight to resolve
+        // skipDialog: true = also skip the check dialog (one-click from hotbar/recast)
+        await FocusPowerResolver.resolve({
+            actor,
+            power,
+            focusCharacteristic: charKey,
+            focusModifier: sys.focusModifier ?? 0,
+            psyRating,
+            selectedPR,
+            mode,
+            skipDialog: skipDialog ?? false,
+        });
+    } else {
+        // Show full FocusPowerDialog first
+        const dialogResult = await FocusPowerDialog.prompt({
+            powerName: power.name ?? "Power",
+            psyRating,
+            description: sys.description ?? "",
+        });
+        if (dialogResult.cancelled) return;
+
+        await FocusPowerResolver.resolve({
+            actor,
+            power,
+            focusCharacteristic: charKey,
+            focusModifier: sys.focusModifier ?? 0,
+            psyRating,
+            selectedPR: dialogResult.selectedPR,
+            mode: dialogResult.mode,
+            skipDialog: false,
+        });
+    }
 }
 
 export async function rollSkill(skillName: string): Promise<void> {

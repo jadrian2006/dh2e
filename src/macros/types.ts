@@ -19,5 +19,13 @@ export interface WeaponDragData {
     weaponName: string;
 }
 
+/** Drag data for a psychic power (with pre-selected mode + PR) */
+export interface PowerDragData {
+    type: "Power";
+    powerName: string;
+    mode: "unfettered" | "pushed";
+    selectedPR: number;
+}
+
 /** Union of all DH2E drag data types */
-export type DH2eDragData = SkillDragData | SkillUseDragData | WeaponDragData;
+export type DH2eDragData = SkillDragData | SkillUseDragData | WeaponDragData | PowerDragData;

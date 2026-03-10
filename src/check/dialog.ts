@@ -31,6 +31,7 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     #label: string;
     #baseTarget: number;
     #modifiers: ModifierDH2e[];
+    #rollOptions: Set<string>;
     #skillDescription: string;
     #isAttack: boolean;
     #fireMode: string;
@@ -41,6 +42,7 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         label: string;
         baseTarget: number;
         modifiers: ModifierDH2e[];
+        rollOptions?: Set<string>;
         skillDescription?: string;
         isAttack?: boolean;
         fireMode?: string;
@@ -49,6 +51,7 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         this.#label = options.label;
         this.#baseTarget = options.baseTarget;
         this.#modifiers = options.modifiers;
+        this.#rollOptions = options.rollOptions ?? new Set();
         this.#skillDescription = options.skillDescription ?? "";
         this.#isAttack = options.isAttack ?? false;
         this.#fireMode = options.fireMode ?? "single";
@@ -67,6 +70,7 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 label: this.#label,
                 baseTarget: this.#baseTarget,
                 modifiers: this.#modifiers,
+                rollOptions: this.#rollOptions,
                 skillDescription: this.#skillDescription,
                 isAttack: this.#isAttack,
                 canCalledShot,
@@ -111,6 +115,7 @@ class CheckDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         label: string;
         baseTarget: number;
         modifiers: ModifierDH2e[];
+        rollOptions?: Set<string>;
         skillDescription?: string;
         isAttack?: boolean;
         fireMode?: string;

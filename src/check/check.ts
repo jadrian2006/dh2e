@@ -43,6 +43,7 @@ class CheckDH2e {
                 label: context.label,
                 baseTarget: context.baseTarget,
                 modifiers: allModifiers,
+                rollOptions,
                 skillDescription: context.skillDescription,
                 isAttack: context.isAttack,
                 fireMode: context.fireMode,

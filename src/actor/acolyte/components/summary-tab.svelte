@@ -7,6 +7,9 @@
     import { MentalRecoveryDialog } from "../../../ui/mental-recovery-dialog.ts";
     import { executeSkillUseRoll } from "../../../item/skill/roll-skill-use.ts";
     import { CANONICAL_SKILL_USES, CANONICAL_SKILL_CHARS } from "../../../item/skill/uses.ts";
+    import { COMBAT_ACTIONS_BY_SLUG } from "../../../combat/actions/combat-actions.ts";
+    import { executeCombatAction } from "../../../combat/actions/execute-combat-action.ts";
+    import { focusPower } from "../../../macros/api.ts";
     import type { CharacteristicAbbrev } from "../../../actor/types.ts";
 
     let { ctx }: { ctx: Record<string, any> } = $props();
@@ -71,13 +74,53 @@
             });
         }
 
-        return [...itemFavs, ...skillUseFavs.sort((a: any, b: any) => a.name.localeCompare(b.name))];
+        // Merge configured power favorites from actor flags (dropped from chat card drag)
+        const powerFavs = ctx.actor?.getFlag?.("dh2e", "favoritePowers") ?? {};
+        const powerFavEntries: any[] = [];
+        for (const [slug, config] of Object.entries(powerFavs)) {
+            if (!config) continue;
+            const cfg = config as { powerName: string; mode: string; selectedPR: number };
+            powerFavEntries.push({
+                _powerFav: true,
+                _powerSlug: slug,
+                type: "powerMacro",
+                name: `${cfg.powerName} (${cfg.mode === "pushed" ? "Push" : "Unfet"} PR${cfg.selectedPR})`,
+                powerName: cfg.powerName,
+                mode: cfg.mode,
+                selectedPR: cfg.selectedPR,
+            });
+        }
+
+        // Merge combat action favorites from actor flags
+        const combatActionFavs = ctx.actor?.getFlag?.("dh2e", "favoriteCombatActions") ?? {};
+        const combatFavEntries: any[] = [];
+        for (const [slug, val] of Object.entries(combatActionFavs)) {
+            if (!val) continue;
+            const action = COMBAT_ACTIONS_BY_SLUG[slug];
+            if (action) {
+                combatFavEntries.push({
+                    _combatActionFav: true,
+                    type: "combatAction",
+                    name: game.i18n?.localize(action.labelKey) ?? action.label,
+                    action,
+                });
+            }
+        }
+
+        return [
+            ...itemFavs,
+            ...powerFavEntries.sort((a: any, b: any) => a.name.localeCompare(b.name)),
+            ...skillUseFavs.sort((a: any, b: any) => a.name.localeCompare(b.name)),
+            ...combatFavEntries.sort((a: any, b: any) => a.name.localeCompare(b.name)),
+        ];
     });
 
-    function favIcon(type: string): string {
+    function favIcon(fav: any): string {
+        const type = fav.type;
+        if (type === "combatAction") return fav.action?.icon ?? "fa-solid fa-swords";
         if (type === "skill") return "fa-solid fa-graduation-cap";
         if (type === "skillUse") return "fa-solid fa-bolt";
-        if (type === "power") return "fa-solid fa-hat-wizard";
+        if (type === "power" || type === "powerMacro") return "fa-solid fa-hat-wizard";
         if (type === "weapon") return "fa-solid fa-crosshairs";
         if (type === "armour") return "fa-solid fa-shield-halved";
         if (type === "gear") return "fa-solid fa-box-open";
@@ -87,6 +130,18 @@
     function useFavorite(fav: any, shiftKey = false) {
         const actor = ctx.actor;
         if (!actor) return;
+
+        // Configured power macro — one-click (skip all dialogs)
+        if (fav._powerFav) {
+            focusPower(fav.powerName, fav.mode, fav.selectedPR, true);
+            return;
+        }
+
+        // Combat action favorite — execute the action
+        if (fav._combatActionFav && fav.action) {
+            executeCombatAction(actor, fav.action, { shiftKey });
+            return;
+        }
 
         // Skill use favorite — invoke the skill use roll
         if (fav._skillUseFav && fav.use) {
@@ -129,7 +184,7 @@
                 skipDialog: CheckDH2e.shouldSkipDialog(shiftKey),
             });
         } else if (fav.type === "power") {
-            // Invoke Focus Power flow instead of opening sheet
+            // Invoke Focus Power flow (shows FocusPowerDialog for mode/PR)
             ctx.usePower?.(fav);
         } else {
             fav.sheet?.render(true);
@@ -177,6 +232,44 @@
             value: char?.value ?? char?.base ?? 0,
             bonus: char?.bonus ?? Math.floor((char?.value ?? char?.base ?? 0) / 10),
         };
+    }
+
+    function powerSlug(name: string): string {
+        return name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+    }
+
+    /** Handle power macro drop onto favorites area */
+    function onFavoritesDrop(e: DragEvent) {
+        e.preventDefault();
+        const actor = ctx.actor;
+        if (!actor || !ctx.editable) return;
+
+        let data: any;
+        try {
+            data = JSON.parse(e.dataTransfer?.getData("text/plain") ?? "");
+        } catch { return; }
+
+        if (data.type !== "Power" || !data.powerName) return;
+
+        // Store as configured power favorite (slug key avoids dot-path issues)
+        const slug = powerSlug(data.powerName);
+        actor.setFlag("dh2e", `favoritePowers.${slug}`, {
+            powerName: data.powerName,
+            mode: data.mode ?? "unfettered",
+            selectedPR: data.selectedPR ?? 1,
+        });
+    }
+
+    function onFavoritesDragOver(e: DragEvent) {
+        e.preventDefault();
+    }
+
+    /** Remove a configured power favorite */
+    function removePowerFav(e: MouseEvent, slug: string) {
+        e.stopPropagation();
+        const actor = ctx.actor;
+        if (!actor) return;
+        actor.unsetFlag("dh2e", `favoritePowers.${slug}`);
     }
 
     function openFateDialog() {
@@ -296,6 +389,29 @@
             {/if}
         </div>
 
+        <!-- Malignancies & Mutations -->
+        {#if (ctx.items?.malignancies ?? []).length > 0}
+            <div class="afflictions-section">
+                <span class="section-label">Afflictions</span>
+                <div class="affliction-pills">
+                    {#each ctx.items.malignancies as mal}
+                        <button
+                            class="affliction-pill"
+                            class:mutation={mal.name?.startsWith("Mutation:")}
+                            type="button"
+                            onclick={() => mal.sheet?.render(true)}
+                            title={mal.system?.description ?? mal.name}
+                        >
+                            {mal.name}
+                            {#if ctx.editable}
+                                <span class="affliction-delete" onclick={(e) => { e.stopPropagation(); mal.delete(); }} role="button" tabindex="0" onkeydown={(e) => { if (e.key === "Enter") { e.stopPropagation(); mal.delete(); } }}>&times;</span>
+                            {/if}
+                        </button>
+                    {/each}
+                </div>
+            </div>
+        {/if}
+
         <!-- Movement -->
         <div class="movement-section">
             <span class="section-label">Movement</span>
@@ -310,14 +426,20 @@
             </div>
         {/if}
 
-        <!-- Quick Actions (Favorites) -->
-        {#if favorites().length > 0}
-            <div class="favorites-section">
-                <span class="section-label">Quick Actions</span>
+        <!-- Quick Actions (Favorites) — drop power macros from chat cards -->
+        <!-- svelte-ignore a11y_no_static_element_interactions -->
+        <div
+            class="favorites-section"
+            class:has-items={favorites().length > 0}
+            ondrop={onFavoritesDrop}
+            ondragover={onFavoritesDragOver}
+        >
+            <span class="section-label">Quick Actions</span>
+            {#if favorites().length > 0}
                 <div class="favorites-list">
                     {#each favorites() as fav}
                         <button class="fav-row" onclick={(e) => useFavorite(fav, e.shiftKey)}>
-                            <i class={favIcon(fav.type)}></i>
+                            <i class={favIcon(fav)}></i>
                             <span class="fav-name">{fav.name}</span>
                             {#if fav.type === "skill"}
                                 <span class="fav-target">{fav.totalTarget ?? "?"}</span>
@@ -325,11 +447,16 @@
                             {#if fav.type === "skillUse"}
                                 <span class="fav-skill-hint">{fav.skillName}</span>
                             {/if}
+                            {#if fav._powerFav && ctx.editable}
+                                <span class="fav-remove" onclick={(e) => removePowerFav(e, fav._powerSlug)} role="button" tabindex="0" onkeydown={(e) => { if (e.key === "Enter") removePowerFav(e, fav._powerSlug); }}>&times;</span>
+                            {/if}
                         </button>
                     {/each}
                 </div>
-            </div>
-        {/if}
+            {:else}
+                <p class="fav-drop-hint">Drag power macros from chat cards here</p>
+            {/if}
+        </div>
 
         <!-- Compact fluff -->
         <div class="details-grid">
@@ -564,6 +691,48 @@
 
 
 
+    /* Afflictions (Malignancies & Mutations) */
+    .afflictions-section {
+        background: var(--dh2e-bg-light);
+        border: 1px solid var(--dh2e-border);
+        border-radius: var(--dh2e-radius-sm);
+        padding: var(--dh2e-space-xs) var(--dh2e-space-sm);
+    }
+    .affliction-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--dh2e-space-xs, 0.25rem);
+    }
+    .affliction-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: var(--dh2e-radius-sm, 3px);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--dh2e-text-primary, #d0cfc8);
+        cursor: pointer;
+        background: rgba(180, 60, 60, 0.12);
+        border: 1px solid rgba(180, 60, 60, 0.25);
+        transition: border-color var(--dh2e-transition-fast, 0.15s);
+
+        &:hover { border-color: var(--dh2e-red-bright, #d44); }
+
+        &.mutation {
+            background: rgba(140, 50, 180, 0.12);
+            border-color: rgba(140, 50, 180, 0.25);
+            &:hover { border-color: rgba(180, 80, 220, 0.6); }
+        }
+    }
+    .affliction-delete {
+        font-size: 0.85rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        margin-left: 0.1rem;
+        &:hover { color: var(--dh2e-red-bright, #d44); }
+    }
+
     /* Movement */
     .movement-section {
         background: var(--dh2e-bg-light);
@@ -627,6 +796,21 @@
         font-size: 0.6rem;
         color: var(--dh2e-text-secondary);
         font-style: italic;
+    }
+    .fav-remove {
+        font-size: 0.85rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        cursor: pointer;
+        margin-left: 0.1rem;
+        &:hover { color: var(--dh2e-red-bright, #d44); }
+    }
+    .fav-drop-hint {
+        font-size: 0.65rem;
+        color: var(--dh2e-text-secondary, #a0a0a8);
+        font-style: italic;
+        text-align: center;
+        margin: 0;
+        padding: var(--dh2e-space-xs, 0.25rem);
     }
 
     /* Details */

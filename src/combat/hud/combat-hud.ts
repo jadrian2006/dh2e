@@ -199,6 +199,9 @@ class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         // Get skills (for actions popout)
         const skills = actor?.items?.filter((i: Item) => i.type === "skill") ?? [];
 
+        // Get psychic powers (for powers tab in actions popout)
+        const powers = actor?.items?.filter((i: Item) => i.type === "power") ?? [];
+
         // Get active conditions
         const conditions = actor?.items?.filter((i: Item) => i.type === "condition") ?? [];
 
@@ -236,6 +239,7 @@ class CombatHUD extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 system: actorSys,
                 weapons,
                 skills,
+                powers,
                 conditions,
                 actions,
                 combat,

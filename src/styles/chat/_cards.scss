@@ -6,6 +6,14 @@
     overflow: hidden;
     border: 1px solid var(--dh2e-gold-muted);
 
+    .card-macro-drag {
+        cursor: grab;
+        color: var(--dh2e-text-secondary);
+        opacity: 0.5;
+        padding: 0 0.2rem;
+        &:hover { opacity: 1; color: var(--dh2e-gold); }
+    }
+
     .card-header {
         display: flex;
         justify-content: space-between;
@@ -110,46 +118,61 @@
         }
     }
 
-    .modifier-breakdown {
-        margin-top: 0.3rem;
+    // Action buttons row (Roll Damage, Apply Healing)
+    .card-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        margin-top: 0.5rem;
 
-        summary {
+        .btn {
+            flex: 1;
+            min-width: 6rem;
+            padding: 0.3rem 0.5rem;
+            border: 1px solid var(--dh2e-border, #4a4a55);
+            border-radius: var(--dh2e-radius-sm, 3px);
+            background: var(--dh2e-bg-mid, #2e2e35);
+            color: var(--dh2e-text-primary, #d0cfc8);
             cursor: pointer;
-            font-size: 0.75rem;
-            color: #a0a0a8;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            user-select: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.15s;
 
             &:hover {
+                border-color: var(--dh2e-gold, #c8a84e);
+                background: var(--dh2e-gold-dark, #9c7a28);
+                color: #1e1e22;
+            }
+        }
+
+}
+
+    // Inline target breakdown with modifiers
+    .target-breakdown {
+        margin: 0 0 0.3rem;
+
+        .base-characteristic {
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        .applied-modifier {
+            margin: 0;
+            padding: 0.1rem 0 0.1rem 0.6rem;
+            font-size: 0.8rem;
+            color: #a0a0a8;
+            display: flex;
+            gap: 0.3rem;
+
+            .mod-sign {
+                font-weight: 700;
+                min-width: 2rem;
                 color: #c8a84e;
             }
-        }
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0.3rem 0 0;
-        }
-
-        li {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.15rem 0;
-            font-size: 0.8rem;
-            border-bottom: 1px dotted #333;
-
-            &:last-child {
-                border-bottom: none;
+            .mod-source {
+                color: #c0bfb8;
             }
-        }
-
-        .mod-label {
-            color: #c0bfb8;
-        }
-
-        .mod-value {
-            font-weight: 700;
         }
     }
 }

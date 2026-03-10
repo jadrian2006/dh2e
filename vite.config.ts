@@ -86,6 +86,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
                 "@requisition": path.resolve(srcDir, "requisition"),
                 "@migration": path.resolve(srcDir, "migration"),
                 "@divination": path.resolve(srcDir, "divination"),
+                "@macros": path.resolve(srcDir, "macros"),
                 "@character-creation": path.resolve(srcDir, "character-creation"),
             },
         },

@@ -79,10 +79,12 @@ class CorruptionHandler {
                     } else {
                         const entry = await rollMalignancy(actor);
                         malignancyName = entry?.title ?? null;
+                        isMutation = !!entry?.mutation;
                     }
                 } else {
                     const entry = await rollMalignancy(actor);
                     malignancyName = entry?.title ?? null;
+                    isMutation = !!entry?.mutation;
                 }
             }
         }
@@ -93,7 +95,7 @@ class CorruptionHandler {
     /** Prompt Twisted Flesh character: auto-fail the WP test? */
     static async #promptAutoFail(actor: Actor): Promise<boolean> {
         return new Promise<boolean>((resolve) => {
-            const d = new (fd.DialogV2 ?? fd.Dialog as any)({
+            const d = new fa.api.DialogV2({
                 window: {
                     title: game.i18n?.localize("DH2E.TwistedFlesh.Title") ?? "Twisted Flesh",
                 },
@@ -118,7 +120,7 @@ class CorruptionHandler {
     /** Prompt Twisted Flesh character: take mutation instead of malignancy? */
     static async #promptMutationChoice(actor: Actor): Promise<boolean> {
         return new Promise<boolean>((resolve) => {
-            const d = new (fd.DialogV2 ?? fd.Dialog as any)({
+            const d = new fa.api.DialogV2({
                 window: {
                     title: game.i18n?.localize("DH2E.TwistedFlesh.Title") ?? "Twisted Flesh",
                 },

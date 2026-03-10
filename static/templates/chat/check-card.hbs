@@ -12,9 +12,17 @@
     <div class="card-body">
         <p class="roll-summary">{{format "DH2E.Check.Roll" roll=roll target=target}}</p>
 
-        {{!-- Base characteristic --}}
+        {{!-- Base characteristic + modifier breakdown --}}
         {{#if charAbbrev}}
-        <p class="base-characteristic">Base {{charAbbrev}}: {{baseTarget}}</p>
+        <div class="target-breakdown">
+            <p class="base-characteristic">Base {{charAbbrev}}: {{baseTarget}}</p>
+            {{#each modifiers}}
+            <p class="applied-modifier">
+                <span class="mod-sign">{{#if (gt this.value 0)}}+{{/if}}{{this.value}}</span>
+                <span class="mod-source">{{this.label}}</span>
+            </p>
+            {{/each}}
+        </div>
         {{/if}}
 
         {{!-- DoS threshold result --}}
@@ -45,19 +53,6 @@
             </p>
         </details>
 
-        {{#if modifiers.length}}
-        <details class="modifier-breakdown">
-            <summary>Modifiers</summary>
-            <ul>
-                {{#each modifiers}}
-                <li>
-                    <span class="mod-label">{{this.label}}</span>
-                    <span class="mod-value">{{signedInteger this.value}}</span>
-                </li>
-                {{/each}}
-            </ul>
-        </details>
-        {{/if}}
 
         <div class="card-actions">
             {{#if faceOfTheLaw}}

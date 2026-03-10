@@ -9,11 +9,21 @@
     let calledShotLocation = $state("head");
 
     const modifiers: ModifierDH2e[] = $derived(ctx.modifiers ?? []);
+    const rollOptions: Set<string> = $derived(ctx.rollOptions ?? new Set<string>());
     const baseTarget: number = $derived(ctx.baseTarget ?? 0);
     const canCalledShot: boolean = $derived(ctx.canCalledShot ?? false);
     const calledShotPenalty: number = $derived(calledShotEnabled ? -20 : 0);
+
+    /** Check if a modifier's predicate passes the current roll options */
+    function modPassesPredicate(mod: ModifierDH2e): boolean {
+        if (!mod.predicate || mod.predicate.statements?.length === 0) return true;
+        return mod.predicate.test(rollOptions);
+    }
+
     const modTotal: number = $derived(
-        modifiers.filter((m: ModifierDH2e) => m.enabled).reduce((sum: number, m: ModifierDH2e) => sum + m.value, 0)
+        modifiers
+            .filter((m: ModifierDH2e) => m.enabled && modPassesPredicate(m))
+            .reduce((sum: number, m: ModifierDH2e) => sum + m.value, 0)
         + calledShotPenalty,
     );
     const finalTarget: number = $derived(Math.max(1, baseTarget + modTotal));
@@ -95,6 +105,8 @@
         <div class="modifiers-list">
             <h4 class="section-label">Modifiers</h4>
             {#each modifiers as mod}
+                {@const predicateFails = !modPassesPredicate(mod)}
+                {#if !predicateFails}
                 <label class="modifier-row" class:disabled={!mod.enabled}>
                     {#if mod.toggleable}
                         <input type="checkbox" checked={mod.enabled} onchange={() => toggleModifier(mod)} />
@@ -106,6 +118,7 @@
                         {mod.value > 0 ? "+" : ""}{mod.value}
                     </span>
                 </label>
+                {/if}
             {/each}
         </div>
     {/if}

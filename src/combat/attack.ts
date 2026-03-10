@@ -116,7 +116,8 @@ class AttackResolver {
         // Weapon Training: untrained penalty (-20)
         const actorSynthetics = (actor as any).synthetics as DH2eSynthetics | undefined;
         if (weaponGroup && actorSynthetics) {
-            if (!actorSynthetics.rollOptions.has(`weapon-training:${weaponGroup}`)) {
+            const trained = AttackResolver.#hasWeaponTraining(actorSynthetics, weaponGroup, weapon.name ?? "");
+            if (!trained) {
                 const untrainedRE: RuleElementSource = {
                     key: "FlatModifier",
                     domain: `attack:${isMelee ? "melee" : "ranged"}`,
@@ -506,7 +507,7 @@ class AttackResolver {
             if (!isInCombat()) {
                 // Out of combat — prompt for confirmation
                 shouldConsume = await new Promise<boolean>((resolve) => {
-                    const d = new (fd.DialogV2 ?? fd.Dialog as any)({
+                    const d = new fa.api.DialogV2({
                         window: { title: game.i18n?.localize("DH2E.Ammo.OutOfCombatTitle") ?? "Out of Combat" },
                         content: `<p>${game.i18n?.format("DH2E.Ammo.OutOfCombatPrompt", {
                             rounds: String(roundsNeeded),
@@ -797,6 +798,42 @@ class AttackResolver {
             if (edgeDist <= gridDistance) count++;
         }
         return count;
+    }
+
+    /**
+     * Check if the actor has weapon training for the given weapon group.
+     * Handles CRB group aliases: sp/shotgun → solid-projectile, thrown → low-tech, etc.
+     * Natural weapons never require training. Exotic weapons check per-weapon training.
+     */
+    static #hasWeaponTraining(synthetics: DH2eSynthetics, weaponGroup: string, weaponName: string): boolean {
+        // Natural weapons never require training
+        if (weaponGroup === "natural") return true;
+
+        const opts = synthetics.rollOptions;
+
+        // Exotic weapons: check per-weapon exotic training (e.g. weapon-training:needle-pistol)
+        if (weaponGroup === "exotic") {
+            const slug = weaponName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+            return opts.has(`weapon-training:${slug}`);
+        }
+
+        // Direct match first
+        if (opts.has(`weapon-training:${weaponGroup}`)) return true;
+
+        // Alias map: weaponGroup slug → training slug(s) to check
+        const aliases: Record<string, string[]> = {
+            "sp":       ["solid-projectile"],
+            "shotgun":  ["solid-projectile"],
+            "thrown":   ["low-tech"],
+            "force":    ["force", "power", "low-tech"],
+        };
+        const alt = aliases[weaponGroup];
+        if (alt) {
+            for (const slug of alt) {
+                if (opts.has(`weapon-training:${slug}`)) return true;
+            }
+        }
+        return false;
     }
 
     static #checkAllyAttacked(attackerId: string, targetId: string): boolean {
